@@ -9,6 +9,22 @@
     <SolidColorBrush Color="White" x:Key="ResourceColorNormal"/>
     <SolidColorBrush Color="White" x:Key="ResourceColorAfterUse"/>
     <SolidColorBrush Color="#8C000000" x:Key="EquipmentSlotBg"/>
+    <Style x:Key="VendorAttitudeImageStyle" TargetType="Image" >
+        <Setter Property="DockPanel.Dock" Value="Left"/>
+        <Setter Property="Stretch" Value="None"/>
+        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/vendorAttitude_02.png" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Attitude, Converter={StaticResource LessThanConverter}, ConverterParameter=-29}" Value="True">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/vendorAttitude_01.png" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Attitude, Converter={StaticResource LessThanConverter}, ConverterParameter=25}" Value="False">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/vendorAttitude_03.png" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Attitude, Converter={StaticResource GreaterThanConverter}, ConverterParameter=69}" Value="True">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/vendorAttitude_04.png" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
     <ControlTemplate x:Key="CharacterClassList">
         <ItemsControl AlternationCount="{Binding Stats.ClassList.Count}" HorizontalAlignment="Center" ItemsSource="{Binding Stats.ClassList}">
             <ItemsControl.ItemsPanel>
@@ -99,11 +115,14 @@
             <DataTrigger Binding="{Binding IDString}" Value="Cleric">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric.png"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding IDString}" Value="Ranger">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/ranger.png"/>
+            <DataTrigger Binding="{Binding IDString}" Value="Druid">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid.png"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding IDString}" Value="Fighter">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/fighter.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="Ranger">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/ranger.png"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding IDString}" Value="Rogue">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/rogue.png"/>
@@ -168,6 +187,12 @@
             <DataTrigger Binding="{Binding SubclassIDString}" Value="EldritchKnight">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/fighter_eldritchKnight.png"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheLand">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid_circleOfLand.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheMoon">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid_circleOfMoon.png"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
     <ControlTemplate TargetType="ContentControl" x:Key="ClassIcon">
@@ -216,6 +241,12 @@
             </Image>
         </Grid>
     </ControlTemplate>
+    <ControlTemplate x:Key="OtherPlayerPanelWithLock">
+        <Grid>
+            <Control Template="{StaticResource OtherPlayerPanelWithoutLock}"/>
+            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_lockMultiplayerCharacter.dds" Stretch="None" IsHitTestVisible="False" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,-14,-10"/>
+        </Grid>
+    </ControlTemplate>  
     <ControlTemplate x:Key="OnFrameCharacterType">
         <TextBlock FontSize="{DynamicResource TinyFontSize}" Foreground="{DynamicResource LS_LabelColor1}" Text="{Binding Source='hf9de073cgfc9bg498cg97c5ga20d486d9e3a',Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}" x:Name="text"/>
         <ControlTemplate.Triggers>
@@ -275,6 +306,9 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Item.Rarity}" Value="Legendary">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/rarityFrame_legendary_front.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RitualCastEnabled}" Value="True">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/frame_ritual_h.dds"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -455,6 +489,8 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
+        <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling"/>
+        <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -542,6 +578,7 @@
         <Setter Property="BoundEvent" Value="{Binding BoundEvent}"/>
         <Setter Property="Command" Value="{Binding DataContext.UseSlotCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
         <Setter Property="CommandParameter" Value="{Binding}"/>
+        <Setter Property="SoundID" Value="UI_HUD_HotbarSlot"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ls:LSButton">
