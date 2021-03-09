@@ -1,4 +1,4 @@
-BetterUI for Baldur's Gate 3
+ImprovedUI for Baldur's Gate 3
 =======
 
 # DISCLAIMER
