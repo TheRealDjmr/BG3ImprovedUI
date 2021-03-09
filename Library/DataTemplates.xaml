@@ -370,8 +370,8 @@
                                 <i:InvokeCommandAction Command="{Binding DataContext.TakeItemCommand.ActionCommand,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <Grid>
-                            <Image Height="{DynamicResource InvSlotSize}" Source="../Assets/Inventory/inventorySlot_filledOverlay.png" Width="{DynamicResource InvSlotSize}"/>
+                        <Grid  Width="{DynamicResource ContInvSlotSize}" Height="{DynamicResource ContInvSlotSize}">
+                            <Image Source="../Assets/Inventory/inventorySlot_filledOverlay.png"/>
                             <ContentPresenter/>
                             <Image IsHitTestVisible="False" Opacity="1.0" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Inventory/selector_slot_inv.png" Stretch="None" Visibility="Hidden" x:Name="SelectedImg"/>
                         </Grid>
@@ -885,8 +885,8 @@
                     </ls:LSButton.Style>
                 </ls:LSButton>
                 <Label Content="{Binding CurrentIndex}" FontSize="{DynamicResource SmallFontSize}" Foreground="White" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalContentAlignment="Center"/>
-                <ls:LSButton Command="{Binding DownCommand}" IsEnabled="{Binding CanGoToPrevPage}" Margin="-2,0,0,-8" SoundID="UI_HUD_Hotbar_PrevPage" Template="{DynamicResource UpButton}"/>
-                <ls:LSButton Command="{Binding UpCommand}" IsEnabled="{Binding CanGoToNextPage}" Margin="-2,0,0,0" SoundID="UI_HUD_Hotbar_NextPage" Template="{DynamicResource DownButton}"/>
+                <ls:LSButton Template="{DynamicResource UpButton}" IsEnabled="{Binding CanGoToPrevPage}" Command="{Binding DownCommand}" SoundID="UI_HUD_Hotbar_PrevPage" Margin="-2,0,0,-8"/>
+                <ls:LSButton Template="{DynamicResource DownButton}" IsEnabled="{Binding CanGoToNextPage}" Command="{Binding UpCommand}" SoundID="UI_HUD_Hotbar_NextPage" Margin="-2,0,0,0"/>
                 <StackPanel.Style>
                     <Style TargetType="StackPanel">
                         <Setter Property="Visibility" Value="Visible"/>
