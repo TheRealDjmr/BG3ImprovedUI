@@ -557,11 +557,13 @@
                                 </Style>
                             </ContentControl.Style>
                         </ContentControl>
+                        <!-- MOD START - Gender section original location -->
                         <!--<ContentControl HorizontalAlignment="Right" Margin="0,-108,108,0" Template="{StaticResource GenderTemplate}"/>-->
+                        <!-- MOD END -->
                         <StackPanel Margin="0,32,0,0" Visibility="{Binding Subraces.ComboItems.Count, Converter={StaticResource CountToVisibleConverter}}">
                             <TextBlock Style="{StaticResource PanelHeaderText}" Text="{Binding Source='h29d1d637g94bbg4f11g9bdfgbe0042b60e40', Converter={StaticResource TranslatedStringConverter}}"/>
                             <ContentControl DataContext="{Binding Subraces}" Margin="0,20,0,0" Template="{DynamicResource Carousel}"/>
-                            </StackPanel>
+                        </StackPanel>
                         <TextBlock Margin="0,32,0,0" Style="{StaticResource PanelTitleInfoText}" Text="{Binding DummyCharacter.Stats.RaceDescription}"/>
                         <ContentControl DataContext="{Binding RaceProgressionDetails}" Template="{StaticResource SpellBoxesTemplate}"/>
                         <ContentControl Margin="0,30,0,30" Tag="{Binding RacePassiveInvalid}" Template="{StaticResource ValidationFailedHighlighter}" Visibility="{Binding RacePassives.Count, Converter={StaticResource CountToVisibleConverter}}">
