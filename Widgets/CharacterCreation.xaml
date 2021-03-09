@@ -505,7 +505,17 @@
                     <StackPanel>
                         <TextBlock Margin="0,0,0,0" Style="{DynamicResource PanelTitleText}" Text="{Binding Source='h4e22c88bg6071g4c6dg81fdg68133ee0804d', Converter={StaticResource TranslatedStringConverter}}"/>
                         <ContentControl HorizontalAlignment="Center" Template="{StaticResource GenderTemplate}"/>
-                        <ContentControl DataContext="{Binding OriginCharacters}" Margin="0,32,0,0" Resources="{StaticResource SideBoxesTripleResources}" Template="{StaticResource BoxedItemSelection}"/>
+                        
+                        <ContentControl Template="{StaticResource BoxedItemSelection}" DataContext="{Binding OriginCharacters}" Margin="0,32,0,0" Resources="{StaticResource SideBoxesTripleResources}">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Resources>
+                                        <System:String x:Key="SoundEventHover">UI_HUD_CC_SelectOrigin_Hover</System:String>
+                                        <System:String x:Key="SoundEventPress">UI_HUD_CC_SelectOrigin_Press</System:String>
+                                    </Style.Resources>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>                        
                         <StackPanel HorizontalAlignment="Center" Visibility="{Binding CanEditName, Converter={StaticResource BoolToVisibleConverter}}">
                             <TextBlock Margin="0,32,0,0" Style="{DynamicResource PanelTitleText}" Text="{Binding Source='h3492f9f8g2946g40a5g8cc1g0af620c2a6bb', Converter={StaticResource TranslatedStringConverter}}"/>
                             <TextBlock Margin="0,8,0,0" Style="{StaticResource PanelTitleInfoText}" Text="{Binding DummyCharacter.Stats.OriginDescription}"/>
@@ -518,12 +528,15 @@
                             <ContentControl DataContext="{Binding Backgrounds}" Margin="0,20,0,0" Template="{DynamicResource Carousel}"/>
                             <TextBlock Margin="0,32,0,0" Style="{StaticResource PanelInfoText}" Text="{Binding DummyCharacter.Stats.BackgroundDescription}"/>
                         </StackPanel>
-                        <StackPanel HorizontalAlignment="Center" Visibility="{Binding CanEditName, Converter={StaticResource BoolToCollapsedConverter}}">
-                            <TextBlock FontSize="{DynamicResource GiganticFontSize}" Margin="0,32,0,0" Style="{DynamicResource PanelTitleText}" Text="{Binding OriginCharacters.SelectedItem.Name}"/>
-                            <TextBlock Margin="0,8,0,0" Style="{StaticResource PanelTitleInfoText}" Text="{Binding DummyCharacter.Stats.OriginDescription}"/>
-                            <ContentControl Margin="0,20,0,0" Template="{StaticResource OriginStoryTemplate}"/>
                         </StackPanel>
-                        <Control Template="{StaticResource CharacterBackgroundFeatures}" Visibility="{Binding BackgroundFeatures.Count, Converter={StaticResource CountToVisibleConverter}}"/>
+
+                            <StackPanel HorizontalAlignment="Center" Visibility="{Binding CanEditName, Converter={StaticResource BoolToCollapsedConverter}}">
+                                <TextBlock Text="{Binding OriginCharacters.SelectedItem.Name}" Style="{DynamicResource PanelTitleText}" FontSize="{DynamicResource GiganticFontSize}" Margin="0,32,0,0"/>
+                                <TextBlock Text="{Binding DummyCharacter.Stats.OriginDescription}" Style="{StaticResource PanelTitleInfoText}" Margin="0,8,0,0"/>
+                                <ContentControl Template="{StaticResource OriginStoryTemplate}" Margin="0,20,0,0"/>
+                            </StackPanel>
+                            
+                            <Control Template="{StaticResource CharacterBackgroundFeatures}" Visibility="{Binding BackgroundFeatures.Count, Converter={StaticResource CountToVisibleConverter}}"/>
                     </StackPanel>
                 </ContentControl>
             </ControlTemplate>
@@ -531,15 +544,25 @@
                 <ContentControl Padding="34,0,0,0" Template="{StaticResource CommonCharacterCreationPanel}">
                     <StackPanel Margin="0,0,0,100">
                         <TextBlock Style="{DynamicResource PanelTitleText}" Text="{Binding Source='h6020727bge0e3g4de7gaf3ag469c3b32b3d2', Converter={StaticResource TranslatedStringConverter}}"/>
-                        <!-- MOD START -->
+                        <!-- MOD START - Gender section moved -->
                         <ContentControl HorizontalAlignment="Center" Margin="0,0,0,32" Template="{StaticResource GenderTemplate}"/>
                         <!-- MOD END -->
-                        <ContentControl DataContext="{Binding Races}" Resources="{StaticResource SideBoxesTripleResources}" Template="{StaticResource BoxedItemSelection}"/>
+                        <ContentControl Template="{StaticResource BoxedItemSelection}" DataContext="{Binding Races}" Resources="{StaticResource SideBoxesTripleResources}">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Resources>
+                                        <System:String x:Key="SoundEventHover">UI_HUD_CC_SelectRace_Hover</System:String>
+                                        <System:String x:Key="SoundEventPress">UI_HUD_CC_SelectRace_Press</System:String>
+                                    </Style.Resources>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                        <ContentControl Template
                         <!--<ContentControl HorizontalAlignment="Right" Margin="0,-108,108,0" Template="{StaticResource GenderTemplate}"/>-->
                         <StackPanel Margin="0,32,0,0" Visibility="{Binding Subraces.ComboItems.Count, Converter={StaticResource CountToVisibleConverter}}">
                             <TextBlock Style="{StaticResource PanelHeaderText}" Text="{Binding Source='h29d1d637g94bbg4f11g9bdfgbe0042b60e40', Converter={StaticResource TranslatedStringConverter}}"/>
                             <ContentControl DataContext="{Binding Subraces}" Margin="0,20,0,0" Template="{DynamicResource Carousel}"/>
-                        </StackPanel>
+                            </StackPanel>
                         <TextBlock Margin="0,32,0,0" Style="{StaticResource PanelTitleInfoText}" Text="{Binding DummyCharacter.Stats.RaceDescription}"/>
                         <ContentControl DataContext="{Binding RaceProgressionDetails}" Template="{StaticResource SpellBoxesTemplate}"/>
                         <ContentControl Margin="0,30,0,30" Tag="{Binding RacePassiveInvalid}" Template="{StaticResource ValidationFailedHighlighter}" Visibility="{Binding RacePassives.Count, Converter={StaticResource CountToVisibleConverter}}">
@@ -579,7 +602,7 @@
                         </Style>
                     </StackPanel.Resources>
                     <TextBlock Style="{StaticResource PanelTitleText}" Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}"/>
-                    <!-- MOD START -->
+                    <!-- MOD START - Margin change -->
                     <ContentControl HorizontalAlignment="Center" Margin="-12,0,0,0" Template="{StaticResource GenderTemplate}"/>
                     <!-- MOD END -->
                     <!-- Voice -->
@@ -700,9 +723,19 @@
                     <StackPanel Margin="0,0,0,100">
                         <TextBlock Style="{StaticResource PanelTitleText}" Text="{Binding Source='h32d1c528g0dfbg4751ga413g275e6d7ba4c3', Converter={StaticResource TranslatedStringConverter}}"/>
                         <StackPanel Margin="0,32,0,0">
-                            <ContentControl DataContext="{Binding Classes}" Resources="{StaticResource SideBoxesTripleResources}" Template="{StaticResource BoxedItemSelection}"/>
-                            <Grid HorizontalAlignment="Center" Margin="0,32,0,0" Width="1000">
-                                <Grid.ColumnDefinitions>
+                            <ContentControl Template="{StaticResource BoxedItemSelection}" DataContext="{Binding Classes}" Resources="{StaticResource SideBoxesTripleResources}">
+                                <ContentControl.Style>
+                                    <Style TargetType="ContentControl">
+                                        <Style.Resources>
+                                            <System:String x:Key="SoundEventHover">UI_HUD_CC_SelectClass_Hover</System:String>
+                                            <System:String x:Key="SoundEventPress">UI_HUD_CC_SelectClass_Press</System:String>
+                                        </Style.Resources>
+                                    </Style>
+                                </ContentControl.Style>
+                            </ContentControl>
+
+                            <Grid Width="1000" HorizontalAlignment="Center" Margin="0,32,0,0">
+                            <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
@@ -714,7 +747,7 @@
                                 <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,-80" Style="{StaticResource PanelTitleText}" Text="{Binding DummyCharacter.Stats.ClassList[0].ClassDisplayName}"/>
                                 <TextBlock Grid.Column="1" Grid.Row="1" Margin="0,80,0,0" Style="{StaticResource PanelTitleInfoText}" Text="{Binding DummyCharacter.Stats.ClassList[0].ClassDescription}" TextAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="700"/>
                             </Grid>
-                            <!-- MODS START -->
+                            <!-- MOD START - God changes -->
                             <StackPanel Visibility="{Binding Gods.ComboItems.Count, Converter={StaticResource CountToVisibleConverter}}">
                                 <TextBlock Style="{StaticResource PanelHeaderText}" Text="{Binding Source='hd146e00aga3a6g4e42g8068g9271c358dc5b', Converter={StaticResource TranslatedStringConverter}}"/>
                                 <ContentControl Margin="0,20,0,0" Tag="{Binding GodInvalid}" Template="{StaticResource ValidationFailedHighlighter}">
@@ -946,7 +979,16 @@
                     <StackPanel>
                         <TextBlock Style="{DynamicResource PanelTitleText}" Text="{Binding Source='h0606bec2g5227g499ag8f4bg9ab2589ccded', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Bottom"/>
                         <TextBlock Style="{StaticResource PanelHeaderText}" Text="{Binding Source='h6020727bge0e3g4de7gaf3ag469c3b32b3d2', Converter={StaticResource TranslatedStringConverter}}"/>
-                        <ContentControl DataContext="{Binding Races}" Margin="0,32,0,0" Resources="{StaticResource SideBoxesTripleResources}" Template="{StaticResource BoxedItemSelection}"/>
+                        <ContentControl Template="{StaticResource BoxedItemSelection}" DataContext="{Binding Races}" Margin="0,32,0,0" Resources="{StaticResource SideBoxesTripleResources}">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Resources>
+                                        <System:String x:Key="SoundEventHover">UI_HUD_CC_SelectRace_Hover</System:String>
+                                        <System:String x:Key="SoundEventPress">UI_HUD_CC_SelectRace_Press</System:String>
+                                    </Style.Resources>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
                         <StackPanel Margin="0,32,0,0" Visibility="{Binding Subraces.ComboItems.Count, Converter={StaticResource CountToVisibleConverter}}">
                             <TextBlock Style="{StaticResource PanelHeaderText}" Text="{Binding Source='h29d1d637g94bbg4f11g9bdfgbe0042b60e40', Converter={StaticResource TranslatedStringConverter}}"/>
                             <ContentControl DataContext="{Binding Subraces}" Margin="0,20,0,0" Template="{DynamicResource Carousel}"/>
@@ -1046,7 +1088,7 @@
                             <Setter Property="IsEnabled" Value="{Binding IsCharacterComplete}"/>
                             <Setter Property="Content" Value="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}"/>
                             <Setter Property="Command" Value="{Binding FinishCreating}"/>
-                            <Setter Property="SoundID" Value="UI_HUD_CC_VentureForth"/>
+                            <Setter Property="SoundID" Value="UI_HUD_CC_VentureForth_MC"/>
                             <Style.Triggers>
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
