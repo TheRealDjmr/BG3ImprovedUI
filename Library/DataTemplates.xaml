@@ -902,7 +902,7 @@
                 <ItemsControl ItemTemplate="{TemplateBinding ItemTemplate}" ItemsSource="{Binding SlotList}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <ls:LSGrid Background="Transparent" CellHeight="92" CellWidth="92" Columns="{Binding CellColumns}" ContainerData="{Binding}" Rows="{Binding NumberOfBars}">
+                            <ls:LSGrid Columns="{Binding CellColumns}" Rows="{Binding NumberOfBars}" Background="Transparent" CellWidth="92" CellHeight="92" ContainerData="{Binding}" IndexParam="SlotIndex">
                                 <i:Interaction.Behaviors>
                                     <ls:DropOnInventoryGridBehavior AllowDrop="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=AllowDrop}" DropCommand="{Binding DataContext.DropOnHotBarCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
                                     <ls:DragGameObjectGridBehavior AllowDrag="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=AllowDrop}" StartDragCommand="{Binding DataContext.DragSlotCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
