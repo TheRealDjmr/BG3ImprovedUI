@@ -9,22 +9,6 @@
     <SolidColorBrush Color="White" x:Key="ResourceColorNormal"/>
     <SolidColorBrush Color="White" x:Key="ResourceColorAfterUse"/>
     <SolidColorBrush Color="#8C000000" x:Key="EquipmentSlotBg"/>
-    <Style x:Key="VendorAttitudeImageStyle" TargetType="Image" >
-        <Setter Property="DockPanel.Dock" Value="Left"/>
-        <Setter Property="Stretch" Value="None"/>
-        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/vendorAttitude_02.png" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding Attitude, Converter={StaticResource LessThanConverter}, ConverterParameter=-29}" Value="True">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/vendorAttitude_01.png" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Attitude, Converter={StaticResource LessThanConverter}, ConverterParameter=25}" Value="False">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/vendorAttitude_03.png" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Attitude, Converter={StaticResource GreaterThanConverter}, ConverterParameter=69}" Value="True">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/vendorAttitude_04.png" />
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
     <ControlTemplate x:Key="CharacterClassList">
         <ItemsControl AlternationCount="{Binding Stats.ClassList.Count}" HorizontalAlignment="Center" ItemsSource="{Binding Stats.ClassList}">
             <ItemsControl.ItemsPanel>
@@ -115,14 +99,11 @@
             <DataTrigger Binding="{Binding IDString}" Value="Cleric">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric.png"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding IDString}" Value="Druid">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid.png"/>
+            <DataTrigger Binding="{Binding IDString}" Value="Ranger">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/ranger.png"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding IDString}" Value="Fighter">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/fighter.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IDString}" Value="Ranger">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/ranger.png"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding IDString}" Value="Rogue">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/rogue.png"/>
@@ -187,12 +168,6 @@
             <DataTrigger Binding="{Binding SubclassIDString}" Value="EldritchKnight">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/fighter_eldritchKnight.png"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheLand">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid_circleOfLand.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheMoon">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid_circleOfMoon.png"/>
-            </DataTrigger>
         </Style.Triggers>
     </Style>
     <ControlTemplate TargetType="ContentControl" x:Key="ClassIcon">
@@ -241,12 +216,6 @@
             </Image>
         </Grid>
     </ControlTemplate>
-    <ControlTemplate x:Key="OtherPlayerPanelWithLock">
-        <Grid>
-            <Control Template="{StaticResource OtherPlayerPanelWithoutLock}"/>
-            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_lockMultiplayerCharacter.dds" Stretch="None" IsHitTestVisible="False" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,-14,-10"/>
-        </Grid>
-    </ControlTemplate>  
     <ControlTemplate x:Key="OnFrameCharacterType">
         <TextBlock FontSize="{DynamicResource TinyFontSize}" Foreground="{DynamicResource LS_LabelColor1}" Text="{Binding Source='hf9de073cgfc9bg498cg97c5ga20d486d9e3a',Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}" x:Name="text"/>
         <ControlTemplate.Triggers>
@@ -306,9 +275,6 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Item.Rarity}" Value="Legendary">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/rarityFrame_legendary_front.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding RitualCastEnabled}" Value="True">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/frame_ritual_h.dds"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -460,7 +426,7 @@
     </DataTemplate>
     <ControlTemplate x:Key="InventoryCellTemplate">
         <!-- This is a ContentControl to facilitate the interaction eventtriggers -->
-        <ContentControl ToolTipService.Placement="Right" Tag="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ToolTip="{StaticResource ManagedTooltip}">
+        <ContentControl ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonUp">
                     <i:InvokeCommandAction Command="{Binding DataContext.ToggleWare, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}"/>
@@ -489,8 +455,6 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
-        <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling"/>
-        <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -578,7 +542,6 @@
         <Setter Property="BoundEvent" Value="{Binding BoundEvent}"/>
         <Setter Property="Command" Value="{Binding DataContext.UseSlotCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
         <Setter Property="CommandParameter" Value="{Binding}"/>
-        <Setter Property="SoundID" Value="UI_HUD_HotbarSlot"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ls:LSButton">
@@ -645,25 +608,8 @@
                                 </Style>
                             </Label.Style>
                         </Label>
-                        
-						<Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_spellSubSelectIndicator.png" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0">
-							<Image.Style>
-								<Style TargetType="{x:Type Image}" >
-									<Setter Property="Visibility" Value="Collapsed"/>
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding Spell.IsContainer}" Value="True">
-											<Setter Property="Visibility" Value="Visible" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding DataContext.PanelContentType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Spell">
-											<Setter Property="Visibility" Value="Collapsed" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</Image.Style>							
-						</Image>
-
-						<Grid x:Name="hover" Visibility="Hidden" Margin="-2,-2,0,0">
-                            <Rectangle x:Name="hoverRect" Fill="#55FFFFFF">
+                        <Grid Margin="-2,-2,0,0" Visibility="Hidden" x:Name="hover">
+                            <Rectangle Fill="#55FFFFFF" x:Name="hoverRect">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
                                         <Setter Property="Visibility" Value="Visible"/>
@@ -702,32 +648,12 @@
                         </Trigger>
                         <DataTrigger Binding="{Binding CanUse}" Value="False">
                             <Setter Property="Visibility" TargetName="disCover" Value="Visible"/>
+                            <Setter Property="Command" Value="{x:Null}"/>
                         </DataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding CanUse}" Value="False"/>
-                                <Condition Binding="{Binding Spell.IsContainer}" Value="False"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Command" Value="{x:Null}"/>                            
-			</MultiDataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding CanUse}" Value="False"/>
-                                <Condition Binding="{Binding Spell.IsContainer}" Value="True"/>
-                                <Condition Binding="{Binding DataContext.PanelContentType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Spell"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
-                            <Setter Property="Command" Value="{x:Null}"/>                            
-                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding SlotType}" Value="Passive">
-                <Setter Property="SoundID" Value="UI_HUD_Passive_Toggle"/>
-            </DataTrigger>
-        </Style.Triggers>
     </Style>
     <ControlTemplate x:Key="HotBarActiveSlotIndicator">
         <Rectangle Fill="White" Name="active" Visibility="{Binding IsActive, Converter={StaticResource BoolToVisibleConverter}}">
@@ -912,10 +838,16 @@
                                 <i:Interaction.Behaviors>
                                     <ls:DropOnInventoryGridBehavior AllowDrop="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=AllowDrop}" DropCommand="{Binding DataContext.DropOnHotBarCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
                                     <ls:DragGameObjectGridBehavior AllowDrag="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=AllowDrop}" StartDragCommand="{Binding DataContext.DragSlotCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                                    <!--<ls:DragGameObjectGridBehavior/>-->
                                 </i:Interaction.Behaviors>
                             </ls:LSGrid>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="ls:LSGrid.Index" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content.SlotIndex}"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
                 </ItemsControl>
             </ls:LSScrollViewer>
         </Grid>
@@ -1434,35 +1366,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-
-    <ControlTemplate x:Key="ActionResources.ActionGroup.RitualPointActionGroup" TargetType="ls:LSActionPoint">
-      <ControlTemplate.Resources>
-        <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rituals_h.dds</ImageSource>
-        <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rituals_d.dds</ImageSource>
-        <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rituals_spent.dds</ImageSource>
-      </ControlTemplate.Resources>
-      <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
-
-    <ControlTemplate x:Key="ActionResources.ActionGroup.NaturalRecoveryPointActionGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery_spent.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
-
-    <ControlTemplate x:Key="ActionResources.ActionGroup.WildShapeActionGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_wildshape_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_wildshape.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_wildshape_spent.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
-
-    <Style x:Key="ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources">
+    <Style TargetType="ls:LSActionPointResources" x:Key="ActionResourcesTemplateSelector">
         <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.DefaultActionPointGroup}"/>
         <Setter Property="MaxGroupActionPoints" Value="4"/>
         <Setter Property="ActionPointSize" Value="44"/>
@@ -1592,51 +1496,6 @@
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,0,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="RitualPoint">
-              <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.RitualPointActionGroup}"/>
-              <Setter Property="MaxGroupActionPoints" Value="1"/>
-              <Setter Property="ActionPointSize" Value="48" />
-              <Setter Property="LabelForeground" Value="{DynamicResource ActionResource.RitualPoint}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-              <MultiDataTrigger.Conditions>
-                <Condition Binding="{Binding ActionResource.TypeId}" Value="RitualPoint"/>
-                <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-              </MultiDataTrigger.Conditions>
-              <MultiDataTrigger.Setters>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
-              </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="NaturalRecoveryPoint">
-                <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.NaturalRecoveryPointActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="48" />
-                <Setter Property="LabelForeground" Value="{DynamicResource ActionResource.NaturalRecovery}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="NaturalRecoveryPoint"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-18,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="WildShape">
-                <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.WildShapeActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="48" />
-                <Setter Property="LabelForeground" Value="{DynamicResource ActionResource.WildShape}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="WildShape"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-18,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
         </Style.Triggers>
@@ -1946,39 +1805,37 @@
         </Style.Triggers>
     </Style>
     <ControlTemplate TargetType="ContentControl" x:Key="SelectorTemplate">
-       <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" >
-            <Grid noesis:Element.PPAAMode="Disabled" Margin="{TemplateBinding Padding}">
-                <Grid.Resources>
-                    <ImageBrush x:Key="TL" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_01.png" Stretch="None"/>
-                    <ImageBrush x:Key="CL" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_04.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="BL" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_07.png" Stretch="None"/>
-                    <ImageBrush x:Key="TC" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_02.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="CC" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_05.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="BC" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_08.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="TR" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_03.png" Stretch="None"/>
-                    <ImageBrush x:Key="CR" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_06.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="BR" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_09.png" Stretch="None"/>
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="16"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="16"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="16"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="16"/>
-                </Grid.ColumnDefinitions>
-                <Rectangle Grid.Row ="0" Grid.Column ="0" Fill="{DynamicResource TL}"/>
-                <Rectangle Grid.Row ="1" Grid.Column ="0" Fill="{DynamicResource CL}"/>
-                <Rectangle Grid.Row ="2" Grid.Column ="0" Fill="{DynamicResource BL}"/>
-                <Rectangle Grid.Row ="0" Grid.Column ="1" Fill="{DynamicResource TC}"/>
-                <Rectangle Grid.Row ="1" Grid.Column ="1" Fill="{DynamicResource CC}"/>
-                <Rectangle Grid.Row ="2" Grid.Column ="1" Fill="{DynamicResource BC}"/>
-                <Rectangle Grid.Row ="0" Grid.Column ="2" Fill="{DynamicResource TR}"/>
-                <Rectangle Grid.Row ="1" Grid.Column ="2" Fill="{DynamicResource CR}"/>
-                <Rectangle Grid.Row ="2" Grid.Column ="2" Fill="{DynamicResource BR}"/>
-            </Grid>
+        <Grid Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" noesis:Element.PPAAMode="Disabled">
+            <Grid.Resources>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_01.png" Stretch="None" x:Key="TL"/>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_04.png" Stretch="Fill" x:Key="CL"/>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_07.png" Stretch="None" x:Key="BL"/>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_02.png" Stretch="Fill" x:Key="TC"/>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_05.png" Stretch="Fill" x:Key="CC"/>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_08.png" Stretch="Fill" x:Key="BC"/>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_03.png" Stretch="None" x:Key="TR"/>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_06.png" Stretch="Fill" x:Key="CR"/>
+                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_09.png" Stretch="None" x:Key="BR"/>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="16"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Fill="{DynamicResource TL}" Grid.Column="0" Grid.Row="0"/>
+            <Rectangle Fill="{DynamicResource CL}" Grid.Column="0" Grid.Row="1"/>
+            <Rectangle Fill="{DynamicResource BL}" Grid.Column="0" Grid.Row="2"/>
+            <Rectangle Fill="{DynamicResource TC}" Grid.Column="1" Grid.Row="0"/>
+            <Rectangle Fill="{DynamicResource CC}" Grid.Column="1" Grid.Row="1"/>
+            <Rectangle Fill="{DynamicResource BC}" Grid.Column="1" Grid.Row="2"/>
+            <Rectangle Fill="{DynamicResource TR}" Grid.Column="2" Grid.Row="0"/>
+            <Rectangle Fill="{DynamicResource CR}" Grid.Column="2" Grid.Row="1"/>
+            <Rectangle Fill="{DynamicResource BR}" Grid.Column="2" Grid.Row="2"/>
         </Grid>
     </ControlTemplate>
     <ControlTemplate TargetType="Control" x:Key="HeaderInspirationPointsGold">
@@ -2013,52 +1870,4 @@
             </Image>
         </Grid>
     </ControlTemplate>
-
-    <Style x:Key="StatusDurationTextStyle" TargetType="TextBlock">
-        <Setter Property="Text" Value="-" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding DurationType}" Value="Permanent">
-                <Setter Property="Text" Value="{Binding Source='hd66a6a7dg38bcg4d92g9f55g080c1b215e6a',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DurationType}" Value="Timer">
-                <Setter Property="Text">
-                    <Setter.Value>
-                        <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
-                            <Binding Source="h2dc60835g9000g440fga70fg330291eda7eb"/>
-                            <Binding Path="DataContext.Duration" RelativeSource="{RelativeSource Mode=Self}"/>
-                        </MultiBinding>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Duration}" Value="1" />
-                    <Condition Binding="{Binding DurationType}" Value="Timer" />
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Text">
-                        <Setter.Value>
-                            <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
-                                <Binding Source="h134a812fgc09eg43d7gbaadg9cb153532707"/>
-                                <Binding Path="DataContext.Duration" RelativeSource="{RelativeSource Mode=Self}"/>
-                            </MultiBinding>
-                        </Setter.Value>
-                    </Setter>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding DurationType}" Value="FromSurface">
-                <Setter Property="Text" Value="{Binding Source='hccd39823g9eb7g4854g99d5g8d106b3a8d80',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DurationType}" Value="Aura">
-                <Setter Property="Text" Value="{Binding Source='h70c7fe6agaf87g4d00ga78age516108f3aa1',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DurationType}" Value="UntilRest">
-                <Setter Property="Text" Value="{Binding Source='h89f4e7f5gcd9ag449aga50ag64fe766c675d',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DurationType}" Value="Environment">
-                <Setter Property="Text" Value="{Binding Source='h616e456bg93f5g4a9dg98ebgde1f059e0f68',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-
-        </Style.Triggers>
-    </Style>
 </ResourceDictionary>
