@@ -359,7 +359,6 @@
         </Style.Triggers>
     </Style>
     <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem" x:Key="InvContainerListBoxItemStyle">
-        <Setter Property="ls:LSGrid.Index" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content.Index}"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
@@ -378,10 +377,6 @@
                         </Grid>
                     </ContentControl>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Visibility" TargetName="SelectedImg" Value="Visible"/>
-                            <Setter Property="Opacity" TargetName="SelectedImg" Value="0.8"/>
-                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Visibility" TargetName="SelectedImg" Value="Visible"/>
                             <Setter Property="Opacity" TargetName="SelectedImg" Value="1.0"/>
@@ -521,7 +516,6 @@
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="ListBoxItem">
-                    <Setter Property="ls:LSGrid.Index" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content.Index}"/>
                     <Setter Property="Template" Value="{StaticResource InventoryCellTemplate}"/>
                     <Setter Property="BorderBrush" Value="Transparent"/>
                     <Setter Property="Background" Value="Transparent"/>
