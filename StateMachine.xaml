@@ -440,11 +440,6 @@
                         <PushState Name="RewardPanel"/>
                     </Event.Actions>
                 </Event>
-                <Event Name = "OpenLongRest">
-                    <Event.Actions>
-                        <PushState Name="LongRest"/>
-                    </Event.Actions>
-                </Event>
             </State.Events>
         </State>
         <!--STATE: PlayerUIs-->
@@ -460,7 +455,7 @@
                 <StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
                 <StateWidget Filename="OverheadInfo.xaml" IgnoreHitTest="True" Layer="HUD"/>
                 <StateWidget Filename="WorldTooltips.xaml" Layer="HUD"/>
-                <StateWidget Filename="HotBar.xaml" Layer="HUDHotbar"/>
+                <StateWidget Filename="HotBar.xaml" Layer="HUDTop"/>
                 <StateWidget Filename="CharacterResources.xaml" Layer="HUDTop"/>
                 <StateWidget Filename="Minimap.xaml" Layer="HUD"/>
                 <StateWidget Filename="TargetInfo.xaml" IgnoreHitTest="True" Layer="HUD"/>
@@ -487,7 +482,7 @@
                 <StateWidget Filename="SelectionFlyOut.xaml" Layer="HUDTop"/>
             </State.Widgets>
             <State.Events>
-                <Event Name="CloseSelectionFlyOut">
+                <Event Name="SelectionFlyOut">
                     <Event.Actions>
                         <RemoveState/>
                     </Event.Actions>
@@ -847,6 +842,11 @@
                     </Event.Actions>
                 </Event>
                 <Event Name="IE.ToggleJournal">
+                    <Event.Actions>
+                        <RemoveState/>
+                    </Event.Actions>
+                </Event>
+                <Event Name="ToggleJournalQuests">
                     <Event.Actions>
                         <RemoveState/>
                     </Event.Actions>
@@ -1232,12 +1232,7 @@
                         <PushState Name="GameOverMessageBox"/>
                     </Event.Actions>
                 </Event>
-                <Event Name = "OpenLongRest">
-	                <Event.Actions>
-		                <PushState Name="LongRest"/>
-	                </Event.Actions>
-                </Event>
-			</State.Events>
+            </State.Events>
         </State>
         <!-- STATE: DialogueHistory -->
         <State DisableStatesBelow="True" Layout="Player" Name="DialogueHistory" Owner="Player">
@@ -1431,9 +1426,6 @@
                         <RemoveState/>
                     </Event.Actions>
                 </Event>
-                <Event Name = "OpenContainerInventory">
-
-                </Event>
             </State.Events>
         </State>
         <!--STATE: Pickpocket -->
@@ -1495,9 +1487,6 @@
             <State.InitialSubstates>
                 <InitialSubstate Name="GameOptions"/>
             </State.InitialSubstates>
-            <State.Widgets>
-                <StateWidget Filename="OptionsBackground.xaml" Layer="Pause"/>
-            </State.Widgets>
             <State.Events>
                 <Event Name="OpenAudioOptions">
                     <Event.Actions>
@@ -1754,21 +1743,7 @@
                 <StateWidget Filename="Saving.xaml" Layer="Notifications"/>
             </State.Widgets>
             <State.Events>
-                <Event Name = "GE.OnSaveHide">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-
-        <State Name = "LongRest" Layout = "Player" Owner = "Player" DisableStatesBelow = "True" HideStatesBelow = "True" IsModal="True">
-            <State.Widgets>
-                <StateWidget Filename="LongRest.xaml" Layer="HUD"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name = "HideLongRest">
-                <!--<Event Name="GE.OnSaveHide">-->
+                <Event Name="GE.OnSaveHide">
                     <Event.Actions>
                         <RemoveState/>
                     </Event.Actions>
