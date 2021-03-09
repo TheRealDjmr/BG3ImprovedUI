@@ -25,3 +25,6 @@ ImprovedUI for Baldur's Gate 3
 # Attribution
 - [Baldur's Gate 3](https://store.steampowered.com/app/1086940/Baldurs_Gate_3/), a game by [Larian Studios](http://larian.com/)
 - Read Me file was generously given to me by Zerd check out his project here, [DnD Rebalancing](https://github.com/ZerdBG3/DnD-Rebalancing/)
+
+# Notes for Paking:
+- Using LSLib 1.15.6+, set Priority to 21
