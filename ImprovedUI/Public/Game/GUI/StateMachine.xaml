@@ -152,6 +152,7 @@
         <!--STATE: CharacterCreation -->
         <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="CharacterCreation" Owner="Player">
             <State.Widgets>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
                 <StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
                 <StateWidget Filename="Notification.xaml" Layer="Notifications"/>
                 <StateWidget Filename="CharacterCreation.xaml" Layer="Pause"/>
@@ -185,28 +186,30 @@
             </State.Events>
         </State>
         <!--STATE: CharacterLevelUp -->
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="CharacterLevelUp" Owner="Player">
+        <State Name = "CharacterLevelUp" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
             <State.Widgets>
                 <StateWidget Filename="Notification.xaml" Layer="Notifications"/>
                 <StateWidget Filename="CharacterLevelUp.xaml" Layer="Pause"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
             </State.Widgets>
+
             <State.Events>
-                <Event Name="CloseWidget">
+                <Event Name = "CloseWidget">
                     <Event.Actions>
                         <RemoveState/>
                     </Event.Actions>
                 </Event>
-                <Event Name="IE.UICancel">
+                <Event Name = "IE.UICancel">
                     <Event.Actions>
                         <RemoveState/>
                     </Event.Actions>
                 </Event>
-                <Event Name="OpenSpellSelecting">
+                <Event Name = "OpenSpellSelecting">
                     <Event.Actions>
                         <AddSubstate Name="SpellSelecting"/>
                     </Event.Actions>
                 </Event>
-                <Event Name="OpenFeatSelecting">
+                <Event Name = "OpenFeatSelecting">
                     <Event.Actions>
                         <AddSubstate Name="FeatSelecting"/>
                     </Event.Actions>
@@ -217,6 +220,7 @@
         <State DisableStatesBelow="True" IsModal="True" Layout="Common" Name="SpellSelecting" Owner="Player">
             <State.Widgets>
                 <StateWidget Filename="SpellSelecting.xaml" Layer="MessageBox"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="CloseWidget">
@@ -445,13 +449,18 @@
                         <PushState Name="LongRest"/>
                     </Event.Actions>
                 </Event>
+                <Event Name="OpenMakeCamp">
+                    <Event.Actions>
+                        <PushState Name="MakeCamp"/>
+                    </Event.Actions>
+                </Event>
             </State.Events>
         </State>
         <!--STATE: PlayerUIs-->
         <State Layout="Player" Name="PlayerUIs" Owner="Player">
             <State.InitialSubstates>
+                <InitialSubstate Name="PlayerUIsHolder" />
                 <InitialSubstate Name="PlayerNotifications"/>
-                <InitialSubstate Name="PlayerUIsHolder"/>
             </State.InitialSubstates>
         </State>
         <!--STATE: PlayerHUD-->
@@ -609,7 +618,17 @@
                         <SetSubstate Name="JournalQuests"/>
                     </Event.Actions>
                 </Event>
-                <Event Name="ToggleJournalMap">
+                <Event Name = "IE.ToggleInspiration">
+                    <Event.Actions>
+                        <SetSubstate Name="JournalInspiration"/>
+                    </Event.Actions>
+                </Event>
+                <Event Name = "ToggleJournalInspiration">
+                    <Event.Actions>
+                        <SetSubstate Name="JournalInspiration"/>
+                    </Event.Actions>
+                </Event>
+                <Event Name = "ToggleJournalMap">
                     <Event.Actions>
                         <SetSubstate Name="JournalMap"/>
                     </Event.Actions>
@@ -834,6 +853,7 @@
         <State HideStatesBelow="True" Layout="Player" Name="JournalQuests" Owner="Player">
             <State.Widgets>
                 <StateWidget Filename="JournalQuests.xaml" Layer="HUDTop"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="CloseWidget">
@@ -858,10 +878,41 @@
                 </Event>
             </State.Events>
         </State>
+        
+        <State Name = "JournalInspiration" Layout = "Player" Owner = "Player" HideStatesBelow="True">
+            <State.Widgets>
+                <StateWidget Filename="JournalInspiration.xaml" Layer="HUDTop"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+            </State.Widgets>
+
+            <State.Events>
+                <Event Name = "CloseWidget">
+                    <Event.Actions>
+                        <RemoveState/>
+                    </Event.Actions>
+                </Event>
+                <Event Name = "CloseAllFullscreen">
+                    <Event.Actions>
+                        <RemoveState/>
+                    </Event.Actions>
+                </Event>
+                <Event Name = "IE.ToggleInGameMenu">
+                    <Event.Actions>
+                        <RemoveState/>
+                    </Event.Actions>
+                </Event>
+                <Event Name = "IE.ToggleInspiration">
+                    <Event.Actions>
+                        <RemoveState/>
+                    </Event.Actions>
+                </Event>
+            </State.Events>
+        </State>
         <!--STATE: JournalMap-->
         <State Layout="Player" Name="JournalMap" Owner="Player">
             <State.Widgets>
                 <StateWidget Filename="JournalMap.xaml" Layer="HUDTop"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="CloseWidget">
@@ -895,6 +946,7 @@
         <State HideStatesBelow="True" Layout="Player" Name="JournalDialogues" Owner="Player">
             <State.Widgets>
                 <StateWidget Filename="JournalDialogues.xaml" Layer="HUDTop"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="CloseWidget">
@@ -931,6 +983,7 @@
         <State HideStatesBelow="True" Layout="Player" Name="JournalTutorial" Owner="Player">
             <State.Widgets>
                 <StateWidget Filename="JournalTutorials.xaml" Layer="HUDTop"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="CloseWidget">
@@ -969,6 +1022,7 @@
                 <StateWidget Filename="Trade.xaml" Layer="Panels"/>
                 <StateWidget Filename="PlayerPortraits.xaml" Layer="HUDTop"/>
                 <StateWidget Filename="DragAndDropPreview.xaml" IgnoreHitTest="True" Layer="DragAndDrop"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="OpenMessageBox">
@@ -1063,6 +1117,7 @@
         <State DisableStatesBelow="True" IsModal="True" Layout="Common" Name="MessageBox" Owner="Player">
             <State.Widgets>
                 <StateWidget BlockedLoading="True" Filename="MessageBox.xaml" Layer="MessageBox"/>
+                <StateWidget Filename="Overlay.xaml" Layer="MessageBox" BlockedLoading="True"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="TestAction">
@@ -1179,6 +1234,7 @@
         <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Player" Name="Dialogue" Owner="Player">
             <State.Widgets>
                 <StateWidget Filename="Dialogue.xaml" Layer="HUD"/>
+                <StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="GE.OnDialogueShow"/>
@@ -1495,9 +1551,6 @@
             <State.InitialSubstates>
                 <InitialSubstate Name="GameOptions"/>
             </State.InitialSubstates>
-            <State.Widgets>
-                <StateWidget Filename="OptionsBackground.xaml" Layer="Pause"/>
-            </State.Widgets>
             <State.Events>
                 <Event Name="OpenAudioOptions">
                     <Event.Actions>
@@ -1577,9 +1630,10 @@
             </State.Widgets>
         </State>
         <!--STATE: Active Roll -->
-        <State DisableStatesBelow="True" IsModal="True" Layout="Player" Name="ActiveRoll" Owner="Player">
+        <State DisableStatesBelow="True" HideStatesBelow="True" IsModal="True" Layout="Player" Name="ActiveRoll" Owner="Player">
             <State.Widgets>
                 <StateWidget Filename="ActiveRoll.xaml" Layer="HUDTop"/>
+                <StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
             </State.Widgets>
             <State.Events>
                 <Event Name="CloseWidget">
@@ -1768,12 +1822,44 @@
             </State.Widgets>
             <State.Events>
                 <Event Name = "HideLongRest">
-                <!--<Event Name="GE.OnSaveHide">-->
                     <Event.Actions>
                         <RemoveState/>
                     </Event.Actions>
                 </Event>
             </State.Events>
         </State>
+        
+        <State Name="MakeCamp" Layout="Player" Owner="Player" DisableStatesBelow="True" HideStatesBelow="True" IsModal="True">
+            <State.Widgets>
+                <StateWidget Filename="MakeCamp.xaml" Layer="HUDTop"/>
+                <StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
+                <StateWidget Filename="DragAndDropPreview.xaml" Layer="DragAndDrop" IgnoreHitTest="True"/>
+            </State.Widgets>
+
+            <State.Events>
+                <Event Name = "CloseWidget">
+                    <Event.Actions>
+                        <RemoveState/>
+                    </Event.Actions>
+                </Event>
+                
+                <Event Name = "OpenMessageBox">
+                    <Event.Actions>
+                        <AddSubstate Name="MessageBox"/>
+                    </Event.Actions>
+                </Event>
+
+                <Event Name = "SplitItemToggle">
+                    <Event.Actions>
+                        <PushState Name="SplitItem"/>
+                    </Event.Actions>
+                </Event>
+                <Event Name = "IE.SplitItemToggle">
+                    <Event.Actions>
+                        <PushState Name="SplitItem"/>
+                    </Event.Actions>
+                </Event>
+            </State.Events>
+        </State> 
     </StateMachine.States>
 </StateMachine>
