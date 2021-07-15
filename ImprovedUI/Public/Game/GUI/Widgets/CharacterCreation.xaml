@@ -522,7 +522,7 @@
                             <TextBlock Margin="0,32,0,0" Style="{StaticResource PanelHeaderText}" Text="{Binding Source='heb7ccc73g0dcfg4a78g95efgd76c4bdb4c03', Converter={StaticResource TranslatedStringConverter}}"/>
                             <Grid HorizontalAlignment="Center" Margin="0,16,0,0">
                                 <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/frame_textInput.png" Stretch="None"/>
-                                <ls:LSTextBox FontSize="{DynamicResource MediumFontSize}" Foreground="{DynamicResource LS_PrimaryColor}" HorizontalContentAlignment="Center" IsEnabled="{Binding CanEditName}" Margin="70,18,70,18" MaxLength="20" Text="{Binding CharacterName}" TextAlignment="Center" TextImmediateSourceUpdate="True"/>
+                                <ls:LSTextBox Text="{Binding CharacterName}" IsEnabled="{Binding CanEditName}" MaxLength="20" TextImmediateSourceUpdate="True" Foreground="{DynamicResource LS_PrimaryColor}" FontSize="{DynamicResource DefaultFontSize}" TextAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Margin="70,0,50,0"/>
                             </Grid>
                             <TextBlock Margin="0,100,0,0" Style="{StaticResource PanelHeaderText}" Text="{Binding Source='h1d2631e2g78fdg4de2gadceg1a724c2f7d9b', Converter={StaticResource TranslatedStringConverter}}"/>
                             <ContentControl DataContext="{Binding Backgrounds}" Margin="0,20,0,0" Template="{DynamicResource Carousel}"/>
@@ -796,21 +796,15 @@
                         <Grid DataContext="{Binding DummyCharacter.Stats.ClassList[0].MaxHpIncrease}" HorizontalAlignment="Center" Margin="0,16,0,0" ToolTipService.Placement="Left">
                             <TextBlock Foreground="{DynamicResource LS_PrimaryColor}" Margin="0,20,0,0" Text="{Binding DisplayName}" TextWrapping="Wrap"/>
                             <Grid.ToolTip>
-                                <ls:LSTooltip>
-                                    <ls:LSTooltip.Template>
-                                        <ControlTemplate>
-                                            <ContentControl Template="{StaticResource BaseTooltipTemplate}">
-                                                <StackPanel>
-                                                    <TextBlock Style="{StaticResource TooltipTitleStyle}" Text="{Binding DisplayName}"/>
-                                                    <TextBlock Style="{StaticResource TooltipCtxTransStringDescriptionStyle}">
-                                                        <i:Interaction.Behaviors>
-                                                            <ls:CtxTransStringRunGeneratorBehavior ParamRunStyle="{StaticResource TooltipUnitParamRun}" Source="{Binding Description}"/>
-                                                        </i:Interaction.Behaviors>
-                                                    </TextBlock>
-                                                </StackPanel>
-                                            </ContentControl>
-                                        </ControlTemplate>
-                                    </ls:LSTooltip.Template>
+                                <ls:LSTooltip Template="{StaticResource BaseTooltipTemplate}">
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource TooltipTitleStyle}" Text="{Binding DisplayName}"/>
+                                        <TextBlock Style="{StaticResource TooltipCtxTransStringDescriptionStyle}">
+                                            <i:Interaction.Behaviors>
+                                                <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Description}" ParamRunStyle="{StaticResource TooltipUnitParamRun}"/>
+                                            </i:Interaction.Behaviors>
+                                        </TextBlock>
+                                    </StackPanel>
                                 </ls:LSTooltip>
                             </Grid.ToolTip>
                         </Grid>
@@ -829,7 +823,7 @@
                     <StackPanel>
                         <TextBlock Style="{StaticResource PanelTitleText}" Text="{Binding Source='h05d3dcdfgd34fg4ca1gb294gafd882b078d2', Converter={StaticResource TranslatedStringConverter}}"/>
                         <StackPanel Margin="0,0,0,50">
-                            <TextBlock Margin="0,12,0,0" Style="{StaticResource PanelTitleInfoText}" Text="{Binding Source='hda608d66g306eg4739g8ea2g974918945bb8', Converter={StaticResource TranslatedStringConverter}}"/>
+                            <TextBlock Margin="0,12,0,0" Style="{StaticResource PanelTitleInfoText}" ls:TextBlockFormatter.SourceText="{Binding Source='hda608d66g306eg4739g8ea2g974918945bb8', Converter={StaticResource TranslatedStringConverter}}"/>
                             <Grid DataContext="{Binding DummyCharacter.Stats.ProficiencyBonus}" HorizontalAlignment="Center" Margin="0,20,0,0" ToolTip="{StaticResource ManagedTooltip}">
                                 <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/decorated_box.png" Stretch="None"/>
                                 <TextBlock Foreground="{DynamicResource LS_PrimaryColor}" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -927,18 +921,9 @@
                             <TextBlock Margin="0,0,100,0" Style="{StaticResource PanelTitleText}" Text="{Binding Source='h711b5e8bgb67bg43f7gac08g36b2e2466acd', Converter={StaticResource TranslatedStringConverter}}"/>
                             <ContentControl HorizontalAlignment="Center" Tag="{Binding AbilitiesInvalid}" Template="{StaticResource ValidationFailedHighlighter}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="{DynamicResource BigFontSize}">
+                                    <TextBlock FontSize="{DynamicResource BigFontSize}" Foreground="{DynamicResource LS_PrimaryColor}">
                                         <Run Text="{Binding UnusedAbilityPoints}"/>
                                         <Run Text="{Binding TotalAbilityPoints, StringFormat='/{0}'}"/>
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding UnusedAbilityPoints}" Value="0">
-                                                        <Setter Property="Foreground" Value="{DynamicResource LS_PrimaryColor}"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
                                     </TextBlock>
                                 </StackPanel>
                             </ContentControl>
