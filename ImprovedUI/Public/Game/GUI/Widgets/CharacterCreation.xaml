@@ -691,13 +691,15 @@
                         <TextBlock Style="{StaticResource PanelHeaderText}" Text="{Binding Source='hbd793d8fg4b19g4efdga071g112ba7af47dd', Converter={StaticResource TranslatedStringConverter}}"/>
                         <ContentControl DataContext="{Binding AppearanceMakeup.Materials}" HorizontalAlignment="Center" Margin="0,20,0,0" Template="{DynamicResource Carousel}"/>
                         <StackPanel HorizontalAlignment="Center">
-                            <ListBox ItemContainerStyle="{StaticResource AppearanceOptionStyle}" ItemsSource="{Binding AppearanceMakeup.ColorOptions}">
+                            <!-- MOD START - Removing tickbox as not required -->
+							<!-- <ListBox ItemContainerStyle="{StaticResource AppearanceOptionStyle}" ItemsSource="{Binding AppearanceMakeup.ColorOptions}">
                                 <ListBox.Template>
                                     <ControlTemplate>
                                         <ItemsPresenter/>
                                     </ControlTemplate>
                                 </ListBox.Template>
-                            </ListBox>
+                            </ListBox> -->
+							<!-- MOD END -->
                             <ItemsControl DataContext="{Binding AppearanceMakeup}" ItemContainerStyle="{StaticResource ColorCellItemStyle}" Template="{StaticResource CCColorGrid}"/>
                             <StackPanel.Style>
                                 <Style TargetType="StackPanel">
