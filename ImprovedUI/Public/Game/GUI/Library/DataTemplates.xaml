@@ -6,9 +6,6 @@
     <System:Double x:Key="HotBarSlotWidth">80</System:Double>
     <System:Double x:Key="HotBarSlotHeight">80</System:Double>
     <System:Int16 x:Key="MaxVisibleStatuses">3</System:Int16>
-    <SolidColorBrush Color="White" x:Key="ResourceColorNormal"/>
-    <SolidColorBrush Color="White" x:Key="ResourceColorAfterUse"/>
-    <SolidColorBrush Color="#8C000000" x:Key="EquipmentSlotBg"/>
     <Style x:Key="VendorAttitudeImageStyle" TargetType="Image" >
         <Setter Property="DockPanel.Dock" Value="Left"/>
         <Setter Property="Stretch" Value="None"/>
@@ -76,6 +73,31 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="AbilityIconStatStyle" TargetType="Image">
+        <Setter Property="Stretch" Value="None"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IDString}" Value="Strength">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/AbilityIcons/strength.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="Constitution">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/AbilityIcons/constitution.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="Dexterity">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/AbilityIcons/dexterity.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="Intelligence">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/AbilityIcons/intelligence.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="Wisdom">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/AbilityIcons/wisdom.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="Charisma">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/AbilityIcons/charisma.png"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="Image" x:Key="MainClassIconStyle">
         <Setter Property="Stretch" Value="None"/>
         <!-- MOD START - Generic icon for no class selected -->
@@ -323,8 +345,8 @@
                 <Setter Property="Fill">
                     <Setter.Value>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="{DynamicResource LS_RarityUncommonGradientTop}" Offset="0"/>
-                            <GradientStop Color="{DynamicResource LS_RarityUncommonGradientBottom}" Offset="1"/>
+                            <GradientStop Color="{DynamicResource ItemRarityColour.UncommonGradientTop}" Offset="0" />
+                            <GradientStop Color="{DynamicResource ItemRarityColour.UncommonGradientBottom}" Offset="1" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -333,8 +355,8 @@
                 <Setter Property="Fill">
                     <Setter.Value>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="{DynamicResource LS_RarityRareGradientTop}" Offset="0"/>
-                            <GradientStop Color="{DynamicResource LS_RarityRareGradientBottom}" Offset="1"/>
+                            <GradientStop Color="{DynamicResource ItemRarityColour.RareGradientTop}" Offset="0" />
+                            <GradientStop Color="{DynamicResource ItemRarityColour.RareGradientBottom}" Offset="1" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -343,8 +365,8 @@
                 <Setter Property="Fill">
                     <Setter.Value>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="{DynamicResource LS_RarityVeryRareGradientTop}" Offset="0"/>
-                            <GradientStop Color="{DynamicResource LS_RarityVeryRareGradientBottom}" Offset="1"/>
+                            <GradientStop Color="{DynamicResource ItemRarityColour.VeryRareGradientTop}" Offset="0" />
+                            <GradientStop Color="{DynamicResource ItemRarityColour.VeryRareGradientBottom}" Offset="1" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -353,8 +375,8 @@
                 <Setter Property="Fill">
                     <Setter.Value>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="{DynamicResource LS_RarityLegendaryGradientTop}" Offset="0"/>
-                            <GradientStop Color="{DynamicResource LS_RarityLegendaryGradientBottom}" Offset="1"/>
+                            <GradientStop Color="{DynamicResource ItemRarityColour.LegendaryGradientTop}" Offset="0" />
+                            <GradientStop Color="{DynamicResource ItemRarityColour.LegendaryGradientBottom}" Offset="1" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -431,6 +453,34 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+<ControlTemplate x:Key="InventoryInUseSlotIndicator">
+      <Rectangle Name="active" Fill="White" Visibility="{Binding Item.IsInUse, Converter={StaticResource BoolToVisibleConverter}}">
+        <Rectangle.Triggers>
+          <EventTrigger RoutedEvent="Rectangle.Unloaded">
+            <StopStoryboard BeginStoryboardName="InUseSlotIndicatorAnim" />
+          </EventTrigger>
+        </Rectangle.Triggers>
+      </Rectangle>
+      <ControlTemplate.Triggers>
+        <Trigger Property="Visibility" Value="Visible" SourceName="active">
+          <Trigger.EnterActions>
+            <BeginStoryboard x:Name="InUseSlotIndicatorAnim">
+              <Storyboard>
+                <DoubleAnimation Storyboard.TargetName="active" Storyboard.TargetProperty="Opacity" From="0.70" To="0.50" Duration="0:0:0.5" AutoReverse="True" RepeatBehavior="Forever">
+                  <DoubleAnimation.EasingFunction>
+                    <PowerEase EasingMode="EaseInOut"/>
+                  </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+              </Storyboard>
+            </BeginStoryboard>
+          </Trigger.EnterActions>
+          <Trigger.ExitActions>
+            <StopStoryboard BeginStoryboardName="InUseSlotIndicatorAnim" />
+          </Trigger.ExitActions>
+        </Trigger>
+      </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
     <DataTemplate x:Key="InventoryItemCellTemplate">
         <Grid Height="{DynamicResource ItemIconSize}" Width="{DynamicResource ItemIconSize}">
             <Rectangle Style="{StaticResource RarityFrameBackgroundRectangleStyle}"/>
@@ -438,6 +488,15 @@
                 <Image Style="{StaticResource InventoryCellItemImageStyle}"/>
                 <Label IsHitTestVisible="False" Style="{StaticResource InventoryCellLabelStyle}"/>
                 <Image Style="{StaticResource NewInventoryCellItemImageStyle}"/>
+                <!-- Disable slot if the item is in use -->
+                <ContentControl IsHitTestVisible="True">
+                  <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                      <Setter Property="Template" Value="{StaticResource InventoryInUseSlotIndicator}" />
+                    </Style>
+                  </ContentControl.Style>
+                </ContentControl>
+                
             </ls:LSEntityObject>
             <Image Style="{StaticResource RarityFrameForegroundImageStyle}"/>
         </Grid>
@@ -454,7 +513,7 @@
     </DataTemplate>
     <!-- Empty cell Representation -->
     <DataTemplate x:Key="EmptyCellTemplate">
-        <Image Source="{DynamicResource InventoryCellImage}"/>
+        <Image Source="{DynamicResource InventoryCellImage}" Stretch="None"/>
     </DataTemplate>
     <ControlTemplate x:Key="InventoryCellTemplate">
         <!-- This is a ContentControl to facilitate the interaction eventtriggers -->
@@ -468,6 +527,7 @@
                 </i:EventTrigger>
                 <i:EventTrigger EventName="MouseEnter">
                     <i:InvokeCommandAction Command="{Binding DataContext.ClearItemNewFlag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}"/>
+                    <ls:LSPlaySound Sound="UI_HUD_Inventory_Hover"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Grid>
@@ -597,7 +657,7 @@
                             <Image Style="{StaticResource RarityFrameForegroundImageStyle}"/>
                         </Grid>
                         <Ellipse Fill="{Binding Icon}" Height="{StaticResource HotBarSlotHeight}" Visibility="{Binding Visibility, ElementName=iconHolder, Converter={StaticResource InvertVisibilityConverter}}" Width="{StaticResource HotBarSlotWidth}"/>
-                        <Label Content="{Binding HotKey}" FontSize="{DynamicResource SmallFontSize}" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" IsHitTestVisible="False" Margin="4,0,0,-6" VerticalAlignment="Bottom" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="4">
+                        <Label IsHitTestVisible="False" Content="{Binding HotKey}" Margin="4,0,0,-6" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="{StaticResource LS_tint100}" FontWeight="Bold" FontSize="{DynamicResource SmallFontSize}" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="4" >
                             <Label.Style>
                                 <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                                     <Setter Property="Visibility" Value="Visible"/>
@@ -618,7 +678,7 @@
                                 </Style>
                             </Label.Style>
                         </Label>
-                        <Label Content="{Binding Item.Count}" FontSize="{DynamicResource LargeFontSize}" FontWeight="Bold" Foreground="White" HorizontalAlignment="Right" IsHitTestVisible="False" Margin="0,0,4,-2" VerticalAlignment="Bottom" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="4">
+                        <Label IsHitTestVisible="False" Content="{Binding Item.Count}" Margin="0,0,4,-2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="{StaticResource LS_tint100}" FontWeight="Bold" FontSize="{DynamicResource LargeFontSize}" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="4" >
                             <Label.Style>
                                 <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
                                     <Setter Property="Visibility" Value="Visible"/>
@@ -887,7 +947,7 @@
                         </Style>
                     </ls:LSButton.Style>
                 </ls:LSButton>
-                <Label Content="{Binding CurrentIndex}" FontSize="{DynamicResource SmallFontSize}" Foreground="White" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalContentAlignment="Center"/>
+                <Label Content="{Binding CurrentIndex}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="{DynamicResource SmallFontSize}" Foreground="{StaticResource LS_tint100}" Margin="0,0,0,0"/>
                 <ls:LSButton Template="{DynamicResource UpButton}" IsEnabled="{Binding CanGoToPrevPage}" Command="{Binding DownCommand}" SoundID="UI_HUD_Hotbar_PrevPage" Margin="-2,0,0,-8"/>
                 <ls:LSButton Template="{DynamicResource DownButton}" IsEnabled="{Binding CanGoToNextPage}" Command="{Binding UpCommand}" SoundID="UI_HUD_Hotbar_NextPage" Margin="-2,0,0,0"/>
                 <StackPanel.Style>
@@ -1073,6 +1133,15 @@
             <!-- Status (MISSING COLOR CODE) -->
             <DataTrigger Binding="{Binding Type}" Value="Status">
                 <Setter Property="Foreground" Value="GreenYellow"/>
+            </DataTrigger>
+            <!-- Surface (MISSING COLOR CODE) -->
+            <DataTrigger Binding="{Binding Type}" Value="Surface">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <ls:LSTooltip IsHitTestVisible="False" Template="{StaticResource BaseSurfaceTooltipTemplate}" ContentTemplate="{StaticResource SurfaceTooltipContentTemplate}"
+                                      Content="{Binding SurfaceInformation}" Placement="Top" VerticalOffset="-6" HorizontalOffset="-14"/>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TextBlock}}}" Value="True">
                 <Setter Property="TextDecorations" Value="Underline"/>
@@ -1343,6 +1412,16 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
+        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.dds</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.dds</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.dds</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="ActionResources.ActionGroup.DefaultActionPointGroup">
         <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ap_active.png</ImageSource>
@@ -1359,8 +1438,17 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-    <ControlTemplate TargetType="ls:LSActionPoint" x:Key="ActionResources.ActionGroup.SorceryPointGroup">
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.ReactionActionPointGroup">
         <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/rp_active.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/rp_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/rp_used.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.SorceryPointGroup" TargetType="ls:LSActionPoint">        <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_h.png</ImageSource>
             <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_d.png</ImageSource>
             <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_spent.png</ImageSource>
@@ -1460,7 +1548,7 @@
     </ControlTemplate>
 
     <Style x:Key="ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources">
-        <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.DefaultActionPointGroup}"/>
+        <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.FallbackActionPointGroup}"/>
         <Setter Property="MaxGroupActionPoints" Value="4"/>
         <Setter Property="ActionPointSize" Value="44"/>
         <Setter Property="LabelForeground" Value="{DynamicResource ActionResource.Default}"/>
@@ -1562,8 +1650,14 @@
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ActionPoint">
+                <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.DefaultActionPointGroup}"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="BonusActionPoint">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.BonusActionPointGroup}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ReactionActionPoint">
+                <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.ReactionActionPointGroup}"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SpellSlot">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.SpellSlot}"/>
@@ -1776,31 +1870,6 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
-    <ControlTemplate TargetType="ItemsControl" x:Key="ActionResources.Container">
-        <StackPanel Orientation="Horizontal">
-            <Image Panel.ZIndex="0" Source="/GustavNoesisGUI;component/Assets/BottomBar/action_resource_left_frame.png" Stretch="None"/>
-            <ItemsPresenter Margin="-72,0,-72,0" Panel.ZIndex="1"/>
-            <Image Panel.ZIndex="0" Source="/GustavNoesisGUI;component/Assets/BottomBar/action_resource_right_frame.png" Stretch="None"/>
-        </StackPanel>
-    </ControlTemplate>
-    <ControlTemplate TargetType="ItemsControl" x:Key="ActionResources.Template">
-        <ItemsControl ItemTemplate="{StaticResource ActionResources.Item}" ItemsSource="{Binding UIData.ActionResourcesCostPreview}" Template="{StaticResource ActionResources.Container}">
-            <ItemsControl.Style>
-                <Style TargetType="ItemsControl">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding UIData.ActionResourcesCostPreview.Count}" Value="0">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ItemsControl.Style>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ls:LSWrapPanel HorizontalContentAlignment="Center" Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
-    </ControlTemplate>
     <!-- Action resource UI END -->
     <Style TargetType="Image" x:Key="FloralFlairLeftPointing">
         <Setter Property="Stretch" Value="None"/>
@@ -1833,7 +1902,7 @@
     <ControlTemplate TargetType="{x:Type ls:LSWorldMapMarker}" x:Key="Map.MarkerDataTemplateOutsideViewport">
         <Canvas x:Name="canvas">
             <Canvas.ToolTip>
-                <ls:LSTooltip/>
+                <ls:LSTooltip Content="{Binding Name}"/>
             </Canvas.ToolTip>
             <Canvas Canvas.Left="-56" Height="112" RenderTransformOrigin="0.5 0.0" Width="112" x:Name="PART_Rotation">
                 <Ellipse Canvas.Left="15" Canvas.Top="21" Fill="{Binding GameObject.Icon}" Height="80" RenderTransformOrigin="0.5 0.5" Width="80" x:Name="PART_InverseRotation"/>
@@ -1978,16 +2047,107 @@
             </Grid>
         </Grid>
     </ControlTemplate>
-    <ControlTemplate TargetType="Control" x:Key="HeaderInspirationPointsGold">
+    <ControlTemplate x:Key="InspirationProgressBar" TargetType="ls:LSProgressBar">
+        <StackPanel Name="PART_Track" Orientation="Horizontal" ClipToBounds="True">
+            <Rectangle Name="PART_Indicator">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="ImgValue" ImageSource="/GustavNoesisGUI;component/Assets/Shared/ico_resource_inspirationPoint_tile.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,38,38" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Name="PART_SubIndicator">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="ImgCost" ImageSource="/GustavNoesisGUI;component/Assets/Shared/ico_resource_inspirationPoint_inactive_tile.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,38,38" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Name="PART_IndicatorRemaining">
+                <Rectangle.Fill>
+                    <ImageBrush x:Name="ImgEmpty" ImageSource="/GustavNoesisGUI;component/Assets/Shared/ico_resource_inspirationPoint_inactive_tile.png" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,38,38" />
+                </Rectangle.Fill>
+            </Rectangle>
+        </StackPanel>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="HeaderInspirationPointsGold" TargetType="Control">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Background="Transparent" Foreground="{DynamicResource LS_InactivePanelFontColor}" Text="{Binding Source='h62619d26gd851g48a3g9c91ge21ad5928086',Converter={StaticResource TranslatedStringConverter}}" TextAlignment="Right" VerticalAlignment="Center"/>
-            <!-- For the value, as the inspiration points is defined in each character and synced across all the party members,
-                    we can check the inspiration points value on any party character controlled (they will be the same).-->
-            <TextBlock Background="Transparent" FontSize="{DynamicResource DefaultFontSize}" Foreground="{DynamicResource LS_PrimaryColor}" Margin="10 0 10 0" Text="{Binding SelectedCharacter.Stats.InspirationPointsResource.Value}" TextAlignment="Left" VerticalAlignment="Center"/>
-            <Image Margin="0 0 0 7" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_ico_inspirationPoints.png" Stretch="None" VerticalAlignment="Center"/>
-            <TextBlock Background="Transparent" Foreground="{DynamicResource LS_InactivePanelFontColor}" Margin="50,0,0,0" Text="{Binding Source='h4ef69730g7c3fg424ag8a7cge91e33fe7cee',Converter={StaticResource TranslatedStringConverter}}" TextAlignment="Right" VerticalAlignment="Center"/>
-            <TextBlock Background="Transparent" FontSize="{DynamicResource DefaultFontSize}" Foreground="{DynamicResource LS_PrimaryColor}" Margin="10 0 10 0" Text="{Binding PartyGold}" TextAlignment="Right" VerticalAlignment="Center"/>
-            <Image Margin="0 0 0 7" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_ico_gold.png" Stretch="None" VerticalAlignment="Center"/>
+            <StackPanel x:Name="SuppliesHolder" Orientation="Horizontal" Background="Transparent" ToolTipService.IsEnabled="True" ToolTipService.Placement="Bottom">
+                <StackPanel.ToolTip>
+                    <ls:LSTooltip Content="{Binding .}">
+                        <ls:LSTooltip.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock Width="{DynamicResource MaxTooltipContentWidth}" TextWrapping="Wrap" Margin="0,20,0,20">
+                            <ls:TextBlockFormatter.SourceText>
+                                <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                                    <Binding Source="hd7341f92g766ag4d6fg81a6gb5006d22a44b"/>
+                                    <Binding Path="RequiredPartySupplies"/>
+                                </MultiBinding>
+                            </ls:TextBlockFormatter.SourceText>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ls:LSTooltip.ContentTemplate>
+                    </ls:LSTooltip>
+                </StackPanel.ToolTip>
+                <TextBlock VerticalAlignment="Center" TextAlignment="Right"  Foreground="{DynamicResource LS_baseTxtColor}" Background="Transparent"  Text="{Binding Source='h7708bf73ge1fcg40a0gbc51g5128c57ef782',Converter={StaticResource TranslatedStringConverter}}"/>
+                <TextBlock VerticalAlignment="Center" TextAlignment="Right" Margin="10, 0, 0, 0" Foreground="{DynamicResource LS_tint100}" Background="Transparent" Text="{Binding PartySupplies}"/>
+                <Image VerticalAlignment="Center" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_suppliesAquired.dds" Stretch="None">
+                    <i:Interaction.Triggers>
+                        <ei:PropertyChangedTrigger Binding="{Binding Path=PartySupplies}">
+                            <i:Interaction.Behaviors>
+                                <ei:ConditionBehavior>
+                                    <ei:ConditionalExpression>
+                                        <ei:ComparisonCondition LeftOperand="{Binding PartySupplies}" Operator="LessThan" RightOperand="{Binding RequiredPartySupplies}"/>
+                                    </ei:ConditionalExpression>
+                                </ei:ConditionBehavior>
+                            </i:Interaction.Behaviors>
+                            <ei:ChangePropertyAction PropertyName="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_supplies.dds"/>
+                        </ei:PropertyChangedTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+            </StackPanel>
+
+            <StackPanel x:Name="InspirationHolder" Orientation="Horizontal" Background="Transparent" Margin="20,0,0,0" ToolTipService.IsEnabled="True" ToolTipService.Placement="Bottom">
+                <StackPanel.ToolTip>
+                    <ls:LSTooltip Content="{Binding .}">
+                        <ls:LSTooltip.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hd14181dbgc234g48f9gbb1dg4a014583669e',Converter={StaticResource TranslatedStringConverter}}" Width="{DynamicResource MaxTooltipContentWidth}" TextWrapping="Wrap" Margin="0,20,0,20"/>
+                            </DataTemplate>
+                        </ls:LSTooltip.ContentTemplate>
+                    </ls:LSTooltip>
+                </StackPanel.ToolTip>
+
+                <TextBlock VerticalAlignment="Center" TextAlignment="Right" Foreground="{DynamicResource LS_baseTxtColor}" Background="Transparent" Text="{Binding Source='h62619d26gd851g48a3g9c91ge21ad5928086',Converter={StaticResource TranslatedStringConverter}}"/>
+                <!-- For the value, as the inspiration points is defined in each character and synced across all the party members,
+                     we can check the inspiration points value on any party character controlled (they will be the same).-->
+
+                <TextBlock Text="{Binding SelectedCharacter.Stats.InspirationPointsResource.Value}" Foreground="{DynamicResource LS_tint100}" Background="Transparent" VerticalAlignment="Center" TextAlignment="Right" Margin="10,0,10,0">
+                    <Run Text="{Binding SelectedCharacter.Stats.InspirationPointsResource.Value}"/><Run Text="/"/><Run Text="{Binding SelectedCharacter.Stats.InspirationPointsResource.MaxValue}"/>
+                </TextBlock>
+                <Image VerticalAlignment="Center" Stretch="None">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_resource_inspirationPoint_tile.dds"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedCharacter.Stats.InspirationPointsResource.Value}" Value="0">
+                                    <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_resource_inspirationPoint_inactive_tile.dds"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </StackPanel>
+
+            <StackPanel x:Name="PartyGoldHolder" Orientation="Horizontal" Background="Transparent" Margin="20,0,0,0">
+                <StackPanel.ToolTip>
+                    <ls:LSTooltip>
+                        <ls:LSTooltip.Content>
+                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1e646e86g3c05g4c96g9fd8g9c521871d554',Converter={StaticResource TranslatedStringConverter}}" MaxWidth="{DynamicResource MaxTooltipContentWidth}" TextWrapping="Wrap" Margin="0,20,0,20"/>
+                        </ls:LSTooltip.Content>
+                    </ls:LSTooltip>
+                </StackPanel.ToolTip>
+                <TextBlock VerticalAlignment="Center" TextAlignment="Right"  Foreground="{DynamicResource LS_baseTxtColor}" Background="Transparent"  Text="{Binding Source='h4ef69730g7c3fg424ag8a7cge91e33fe7cee',Converter={StaticResource TranslatedStringConverter}}"/>
+                <TextBlock VerticalAlignment="Center" TextAlignment="Right" Margin="10 0 10 0" Foreground="{DynamicResource LS_tint100}" Background="Transparent"  Text="{Binding PartyGold}" FontSize="{DynamicResource DefaultFontSize}"/>
+            <Image VerticalAlignment="Center"  Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_ico_gold.png"  Stretch="None"/>
+            </StackPanel>
         </StackPanel>
     </ControlTemplate>
     <ControlTemplate TargetType="ContentControl" x:Key="BusyElement">
@@ -2058,4 +2218,10 @@
 
         </Style.Triggers>
     </Style>
+
+    <ControlTemplate x:Key="InventoryViewBlocker">
+        <Rectangle x:Name="InventoryBlocker" Fill="{StaticResource LS_DisabledPanelColor}" 
+                   Visibility="{Binding IsContentEditable, Mode=OneWay, Converter={StaticResource BoolToCollapsedConverter}}"/>
+    </ControlTemplate>
+
 </ResourceDictionary>
