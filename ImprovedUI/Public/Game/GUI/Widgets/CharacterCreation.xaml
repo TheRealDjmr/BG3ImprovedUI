@@ -143,6 +143,34 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+			<!-- MOD START - New Appearance template/style for makeup -->
+            <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem" x:Key="ModdedAppearanceOptionStyle">
+                <Setter Property="ContentTemplate" Value="{StaticResource AppearanceOptionTemplate}"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                <Setter Property="IsSelected" Value="False"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="IsSelected" Value="True"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Trigger>
+					<DataTrigger Binding="{Binding ListItemType}" Value="TickBox">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+			<!-- MOD END -->
             <Style TargetType="FrameworkElement" x:Key="ColorCellItemStyle">
                 <Setter Property="Margin" Value="0,0,5,5"/>
                 <Setter Property="Width" Value="58"/>
@@ -692,13 +720,13 @@
                         <ContentControl DataContext="{Binding AppearanceMakeup.Materials}" HorizontalAlignment="Center" Margin="0,20,0,0" Template="{DynamicResource Carousel}"/>
                         <StackPanel HorizontalAlignment="Center">
                             <!-- MOD START - Removing tickbox as not required -->
-							<!-- <ListBox ItemContainerStyle="{StaticResource AppearanceOptionStyle}" ItemsSource="{Binding AppearanceMakeup.ColorOptions}">
+							 <ListBox ItemContainerStyle="{StaticResource ModdedAppearanceOptionStyle}" ItemsSource="{Binding AppearanceMakeup.ColorOptions}">
                                 <ListBox.Template>
                                     <ControlTemplate>
                                         <ItemsPresenter/>
                                     </ControlTemplate>
                                 </ListBox.Template>
-                            </ListBox> -->
+                            </ListBox>
 							<!-- MOD END -->
                             <ItemsControl DataContext="{Binding AppearanceMakeup}" ItemContainerStyle="{StaticResource ColorCellItemStyle}" Template="{StaticResource CCColorGrid}"/>
                             <StackPanel.Style>
