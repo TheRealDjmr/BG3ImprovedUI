@@ -2,6 +2,7 @@
 <p align="middle">
   <img src="https://i.imgur.com/6Zso95t.png"> 
 </p>
+
 #### Description
 - This mod is aimed at making changes to the overall user interface to improve usability as well as opening options to more potential mods.  
 
