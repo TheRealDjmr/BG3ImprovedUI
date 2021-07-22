@@ -4,7 +4,7 @@
 </p>
 
 #### Description
-- This mod is aimed at making changes to the overall user interface to improve usability as well as opening options to more potential mods.  
+This mod is aimed at making changes to the overall user interface to improve usability as well as opening options to more potential mods.  
 
 #### Features
 - Prevents story error message box appearing when using non destructive mods.  
@@ -16,7 +16,7 @@
 - Modifies the character creation screens appearance menu to fix alignment of gender buttons  
 
 #### Installing 
-- Use Candor or place the .pak under `\Documents\Larian Studios\Baldur's Gate 3\Mods` 
+Use Candor or place the .pak under `\Documents\Larian Studios\Baldur's Gate 3\Mods` 
 ![](https://i.imgur.com/Nw8kzJf.png)
 
 #### Changes
@@ -44,7 +44,7 @@
 </p>
 
 #### Discord
-- Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios) server and discuss in the BG3 Modding Channel  
+Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios) server and discuss in the BG3 Modding Channel  
 
 #### Attribution
 - [Baldur's Gate 3](https://store.steampowered.com/app/1086940/Baldurs_Gate_3/), a game by [Larian Studios](http://larian.com/)  
@@ -61,4 +61,4 @@
 
 
 #### Notes for Paking:
-- Using [LSLib 1.15.8+](https://github.com/Norbyte/lslib), set Priority to 21
+Use [LSLib 1.15.8+](https://github.com/Norbyte/lslib); set Priority to 21
