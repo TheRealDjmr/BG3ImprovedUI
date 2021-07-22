@@ -16,7 +16,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Modifies the character creation screens appearance menu to fix alignment of gender buttons  
 
 #### Installing 
-Use Candor or place the .pak under `\Documents\Larian Studios\Baldur's Gate 3\Mods` 
+Use Candor or place the .pak under "\Documents\Larian Studios\Baldur's Gate 3\Mods"  
 ![](https://i.imgur.com/Nw8kzJf.png)
 
 #### Changes
