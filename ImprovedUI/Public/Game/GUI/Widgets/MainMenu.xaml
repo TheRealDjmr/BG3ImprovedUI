@@ -1,0 +1,716 @@
+<ls:UIWidget
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ls="clr-namespace:ls"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+             ls:UIWidget.ContextName="MainMenu" d:DataContext="{d:DesignInstance {x:Type ls:MainMenu}, IsDesignTimeCreatable=True}"
+             d:DesignWidth="3840" d:DesignHeight="2160 ">
+
+    <ls:UIWidget.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Library/PanelAnimations.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Message box to ensure user wants to activate cross save -->
+            <ls:LSMessageBoxData x:Key="MessageBoxCrossSaveCheck"
+                             Text="{Binding Source='hd2483c4eg1d05g4a56gae35g86f1ddad520e', Converter={StaticResource TranslatedStringConverter}}"
+                             Title="{Binding Source='h38a2b4efg958eg46baga570ge044a8985709', Converter={StaticResource TranslatedStringConverter}}"
+                             UUID="UUIDCrossSave" CheckBox="True" CheckBoxValue="False" CheckBoxLabel="{Binding Source='hf23e5e61g00fcg4531g9f57gc6079562ba62', Converter={StaticResource TranslatedStringConverter}}">
+                <ls:LSMessageBoxData.Actions>
+                    <ls:LSGameCommandData ActionName="{Binding Source='h31d65d36gfe5fg4f9bg9184g9f8ceee5f3ed', Converter={StaticResource TranslatedStringConverter}}"
+                                          Command="{Binding DataContext.CheckCrossSaveCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                                          ControlTemplate="{StaticResource BlueButton}"
+                                          BoundEvent="UIAccept"/>
+                </ls:LSMessageBoxData.Actions>
+            </ls:LSMessageBoxData>           
+
+            <Style x:Key="MainMenuTextStyle" TargetType="TextBlock">
+                <Setter  Property="Foreground" Value="{DynamicResource LS_PrimaryColor}"/>
+                <Setter  Property="FontSize" Value="{DynamicResource MediumFontSize}"/>
+                <Setter  Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="TextBlock">
+                <Setter  Property="Foreground" Value="{DynamicResource LS_PrimaryColor}"/>
+                <Setter  Property="FontSize" Value="{DynamicResource MediumFontSize}"/>
+            </Style>
+
+            <!--Menu state button sets - BEGIN-->
+            <ControlTemplate x:Key="MainMenuItems">
+                <StackPanel VerticalAlignment="Top">
+                    <ls:LSButton Content="{Binding Source='h45db0d8cg465fg4c1dg8c21gc894286fa41e', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding ContinueGameCommand}" Visibility="{Binding CanContinueGame, Converter={StaticResource BoolToVisibleConverter}}" Template="{StaticResource MenuShortButtonTemplate}" SoundID="UI_HUD_MainMenu_Continue" Margin="0 0 0 60" Opacity="0">
+                        <Button.RenderTransform>
+                            <TranslateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Resources>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.png</ImageSource>
+                        </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <Storyboard.Children>
+                                                <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}"/>
+                                            </Storyboard.Children>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </ls:LSButton>
+                    <ls:LSButton Content="{Binding Source='h158af72dg233bg4f07gb46ag384440c5da95', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding StartGameCommand}" Template="{StaticResource MenuShortButtonTemplate}" SoundID="UI_HUD_MainMenu_Campaign" Opacity="0">
+                        <Button.RenderTransform>
+                            <TranslateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Resources>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_new.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_new.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_new.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_new.png</ImageSource>
+                        </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <Storyboard.Children>
+                                                <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.15"/>
+                                            </Storyboard.Children>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </ls:LSButton>
+                    <ls:LSButton Content="{Binding Source='hec9e3a7bg5728g4b60gbdd8g0e9950889014', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding OpenLoadGameDialog}" Template="{StaticResource MenuShortButtonTemplate}" SoundID="UI_HUD_MainMenu_GameSettings" Opacity="0" Visibility="{Binding ExistingSaves.Count, Converter={StaticResource CountToVisibleConverter}}">
+                        <Button.RenderTransform>
+                            <TranslateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Resources>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_load.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_load.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_load.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_load.png</ImageSource>
+                        </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <Storyboard.Children>
+                                                <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.3"/>
+                                            </Storyboard.Children>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </ls:LSButton>
+                    <ls:LSButton Content="{Binding Source='hab17cad3g5d1ag4929gaf1cg78dfdc74b136', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding OpenLobbyBrowserCommand}" Template="{StaticResource MenuShortButtonTemplate}" SoundID="UI_HUD_MainMenu_Multiplayer" Opacity="0">
+                        <Button.RenderTransform>
+                            <TranslateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Resources>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_lobby.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_lobby.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_lobby.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_lobby.png</ImageSource>
+                        </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <Storyboard.Children>
+                                                <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.45"/>
+                                            </Storyboard.Children>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </ls:LSButton>
+                    <ls:LSButton Content="{Binding Source='h77b68679g8633g4887g9f1bg14585d8903a5', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding CustomEvent}" CommandParameter="OpenCredits" Template="{StaticResource MenuShortButtonTemplate}" SoundID="UI_HUD_MainMenu_Credits" Opacity="0">
+                        <Button.RenderTransform>
+                            <TranslateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Resources>
+                            <ImageSource x:Key="IconNormal" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_tab_lit.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_tab_lit.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_tab_lit_active.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_tab_lit.png</ImageSource>
+                        </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <Storyboard.Children>
+                                                <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.45"/>
+                                            </Storyboard.Children>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </ls:LSButton>
+
+                </StackPanel>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="NoProfileItems">
+                <StackPanel VerticalAlignment="Top">
+                    <ls:LSButton Content="{Binding Source='he6781e96gc753g46e8g9d9ag2492e0269ada', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding OpenProfileSelect}" Template="{StaticResource MenuShortButtonTemplate}" SoundID="UI_HUD_MainMenu_CreateProfile" Margin="0 0 0 60" Opacity="0">
+                        <Button.RenderTransform>
+                            <TranslateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Resources>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_profiles_d.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_profiles_h.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_profiles_d.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_profiles_d.png</ImageSource>
+                        </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <Storyboard.Children>
+                                                <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.45"/>
+                                            </Storyboard.Children>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </ls:LSButton>
+                    <ls:LSButton Content="{Binding Source='h158af72dg233bg4f07gb46ag384440c5da95', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding SetMainMenuStep}" CommandParameter="GameSettings" Template="{StaticResource MenuShortButtonTemplate}" SoundID="UI_HUD_MainMenu_Campaign" IsEnabled="False" Opacity="0">
+                        <Button.RenderTransform>
+                            <TranslateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Resources>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_new.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_new.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_new.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_new.png</ImageSource>
+                        </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <Storyboard.Children>
+                                                <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.15"/>
+                                            </Storyboard.Children>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </ls:LSButton>
+                    <ls:LSButton Content="{Binding Source='hab17cad3g5d1ag4929gaf1cg78dfdc74b136', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding OpenLobbyBrowserCommand}" Template="{StaticResource MenuShortButtonTemplate}" SoundID="UI_HUD_MainMenu_Multiplayer" IsEnabled="False" Opacity="0">
+                        <Button.RenderTransform>
+                            <TranslateTransform/>
+                        </Button.RenderTransform>
+                        <Button.Resources>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_lobby.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_lobby.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_lobby.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_lobby.png</ImageSource>
+                        </Button.Resources>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <BeginStoryboard.Storyboard>
+                                        <Storyboard>
+                                            <Storyboard.Children>
+                                                <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.45"/>
+                                            </Storyboard.Children>
+                                        </Storyboard>
+                                    </BeginStoryboard.Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </ls:LSButton>
+                </StackPanel>
+            </ControlTemplate>
+            <!--Menu state button sets - END-->
+
+            <ControlTemplate x:Key="InviteButtonTemplate">
+                <ls:LSButton Command="{Binding DataContext.InvitePlayer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_Shared_Invite">
+                    <ls:LSButton.ToolTip>
+                        <ls:LSTooltip Content="{Binding Source='h5bacb1e0geecag4473g9aa1g3f3ed207377e',Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}"/>
+                    </ls:LSButton.ToolTip>
+                    <ls:LSButton.Template>
+                        <ControlTemplate TargetType="ls:LSButton">
+                            <Image x:Name="img" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_addToParty_d.png" Stretch="None"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_addToParty_h.png" TargetName="img"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_addToParty_p.png" TargetName="img"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_addToParty_disabled.png" TargetName="img"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </ls:LSButton.Template>
+                </ls:LSButton>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="EmptySlotsTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Control x:Name="slot1" Template="{DynamicResource InviteButtonTemplate}"/>
+                    <Control x:Name="slot2" Template="{DynamicResource InviteButtonTemplate}"/>
+                    <Control x:Name="slot3" Template="{DynamicResource InviteButtonTemplate}"/>
+                </StackPanel>
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}" Value="True">
+                        <Setter TargetName="slot3" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="slot3" Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=2}" Value="True">
+                        <Setter TargetName="slot2" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="slot2" Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+                        <Setter TargetName="slot1" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="slot1" Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <DataTemplate x:Key="PlayerSlotTemplate">
+                <Grid x:Name="PlayerSlot" Width="112" Height="100">
+                    <Grid x:Name="PlayerInfo">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="7*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="7*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border x:Name="commIcon" Background="{Binding CommunityIcon}" Grid.Row="1" Grid.Column="1">
+                            <Border.ToolTip>
+                                <ls:LSTooltip Content="{Binding PlayerName}"/>
+                            </Border.ToolTip>
+                        </Border>
+                        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_profile_d.png" Stretch="UniformToFill" IsHitTestVisible="False" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+                    </Grid>
+                </Grid>
+                <DataTemplate.Triggers>
+                    <Trigger Property="Tag" Value="Local">
+                        <Setter Property="Height" Value="144" TargetName="PlayerSlot"/>
+                        <Setter Property="Width" Value="160" TargetName="PlayerSlot"/>
+                    </Trigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </ls:UIWidget.Resources>
+
+    <Grid>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:Interaction.Behaviors>
+                    <ei:ConditionBehavior>
+                        <ei:ConditionalExpression>
+                            <ei:ComparisonCondition LeftOperand="{Binding ShowEAMsg}" Operator="Equal" RightOperand="True" />
+                        </ei:ConditionalExpression>
+                    </ei:ConditionBehavior>
+                </i:Interaction.Behaviors>
+                <i:InvokeCommandAction Command="{Binding OpenMessageBox}" >
+                    <i:InvokeCommandAction.CommandParameter>
+                        <!-- Message box to ensure user knows this is EA -->
+                        <ls:LSMessageBoxData 
+                             Text="{Binding Source='h517db734g3a11g4331g9034g697e40614a9b', Converter={StaticResource TranslatedStringConverter}}"
+                             Title="{Binding Source='hc5b40e4bg4ce7g40c3g990cgf78829caf6f7', Converter={StaticResource TranslatedStringConverter}}"
+                             UUID="UUIDEA" >
+                            <ls:LSMessageBoxData.Actions>
+                                <ls:LSGameCommandData ActionName="{Binding Source='h31d65d36gfe5fg4f9bg9184g9f8ceee5f3ed', Converter={StaticResource TranslatedStringConverter}}" ControlTemplate="{StaticResource BlueButton}"
+                                          Command="{Binding DataContext.EAAcceptCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                                          BoundInput="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIMessageBoxA'}"/>
+                            </ls:LSMessageBoxData.Actions>
+                        </ls:LSMessageBoxData>
+                    </i:InvokeCommandAction.CommandParameter>
+                </i:InvokeCommandAction>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding OpenCrossSaveMsgCommand}" CommandParameter="{StaticResource MessageBoxCrossSaveCheck}"/>
+                <i:InvokeCommandAction Command="{Binding TryOpenHDRCommand}"/>
+                <i:InvokeCommandAction Command="{Binding CheckEulaValueCommand}"/>  
+            </i:EventTrigger>
+            <ei:PropertyChangedTrigger Binding="{Binding ProfileId}">
+                <i:Interaction.Behaviors>
+                    <ei:ConditionBehavior>
+                        <ei:ConditionalExpression>
+                            <ei:ComparisonCondition LeftOperand="{Binding ProfileId}" Operator="NotEqual" RightOperand="" />
+                        </ei:ConditionalExpression>
+                    </ei:ConditionBehavior>
+                </i:Interaction.Behaviors>
+                <i:InvokeCommandAction Command="{Binding OpenCrossSaveMsgCommand}" CommandParameter="{StaticResource MessageBoxCrossSaveCheck}"/>
+            </ei:PropertyChangedTrigger>
+        </i:Interaction.Triggers>
+
+        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/MainMenu/menu_Logo.png" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <ls:LSButton x:Name="QuitBtn" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 100 150 0" Content="{Binding Source='h8c64e3a9gef47g4fa4g8d07g4c6056b9ab5f', Converter={StaticResource TranslatedStringConverter}}"
+                         Command="{Binding QuitGameCommand}" SoundID="UI_HUD_GameMenu_Quit" Template="{StaticResource MenuShortButtonTemplate}">
+            <Button.RenderTransform>
+                <TranslateTransform/>
+            </Button.RenderTransform>
+            <Button.Resources>
+                <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.png</ImageSource>
+                <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_h.png</ImageSource>
+                <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.png</ImageSource>
+                <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.png</ImageSource>
+            </Button.Resources>
+            <ls:LSButton.Style>
+                <Style TargetType="ls:LSButton">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsMainPlayer}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ShowQuitButton}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ls:LSButton.Style>
+        </ls:LSButton>
+
+        <StackPanel x:Name="TopLeftButtons" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical" Margin="150 100 0 0">
+            <ls:LSButton Template="{StaticResource MenuShortButtonTemplate}" Content="{Binding Source='h1f5a4453gcd7ag4dc6gb127g5744ea1922ac', Converter={StaticResource TranslatedStringConverter}}" Foreground="{DynamicResource LS_PrimaryColor}" FontSize="{DynamicResource DefaultFontSize}"
+                            Command="{Binding CustomEvent}" CommandParameter="OpenOptions" SoundID="UI_HUD_MainMenu_Options" Opacity="0">
+                <Button.RenderTransform>
+                    <TranslateTransform/>
+                </Button.RenderTransform>
+                <Button.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_options_d.png</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_options_h.png</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_options_d.png</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_options_d.png</ImageSource>
+                </Button.Resources>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <BeginStoryboard>
+                            <BeginStoryboard.Storyboard>
+                                <Storyboard>
+                                    <Storyboard.Children>
+                                        <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}"/>
+                                    </Storyboard.Children>
+                                </Storyboard>
+                            </BeginStoryboard.Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </ls:LSButton>
+            <ls:LSButton Content="{Binding Source='hf19cf374g8319g407bgbc9bg355475adefc7', Converter={StaticResource TranslatedStringConverter}}" Foreground="{DynamicResource LS_PrimaryColor}" FontSize="{DynamicResource DefaultFontSize}"
+                            Command="{Binding OpenProfileSelect}" SoundID="UI_HUD_MainMenu_Profiles" Template="{StaticResource MenuShortButtonTemplate}" Opacity="0">
+                <ls:LSButton.Style>
+                    <Style TargetType="{x:Type ls:LSButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataContext.CommunityType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="GGP">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ls:LSButton.Style>
+                <Button.RenderTransform>
+                    <TranslateTransform/>
+                </Button.RenderTransform>
+                <Button.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_profiles_d.png</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_profiles_h.png</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_profiles_d.png</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_profiles_d.png</ImageSource>
+                </Button.Resources>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                        <BeginStoryboard>
+                            <BeginStoryboard.Storyboard>
+                                <Storyboard>
+                                    <Storyboard.Children>
+                                        <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.15"/>
+                                    </Storyboard.Children>
+                                </Storyboard>
+                            </BeginStoryboard.Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </ls:LSButton>
+        </StackPanel>
+
+        <Grid x:Name="LeftButtons" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150 0 0 600">
+            <ContentControl>
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Setter Property="Template" Value="{StaticResource MainMenuItems}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MainMenuStep}" Value="Main">
+                                <Setter Property="Template" Value="{StaticResource MainMenuItems}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MainMenuStep}" Value="NoProfile">
+                                <Setter Property="Template" Value="{StaticResource NoProfileItems}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </Grid>
+
+        <!-- Set below to visible when we will support invite functionality -->
+        <Grid x:Name="PlayerSlots" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="135 0 0 100" Visibility="Hidden">
+            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/MainMenu/frame_party.png" Stretch="None"/>
+            <ContentControl Template="{DynamicResource EmptySlotsTemplate}" DataContext="{Binding}" Margin="183 0 25 0"/>
+            <ItemsControl ItemsSource="{Binding Data.LocalPlayers}" ItemTemplate="{StaticResource PlayerSlotTemplate}" MinHeight="80" Margin="25 0" AlternationCount="4">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Tag" Value="Local"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource SimpleFadeIn}"/>
+                </EventTrigger>
+            </Grid.Triggers>
+        </Grid>
+
+        <!-- Uncomment below when we will support officially mods and addons -->
+        <!--
+        <Grid x:Name="BottomRightButtons" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 240 644">
+            <ls:LSButton Command="{Binding CustomEvent}" CommandParameter="OpenOptions" Content="{Binding Source='hb5a9053bg754dg482aga2fegddb710ce0d69', Converter={StaticResource TranslatedStringConverter}}" IsEnabled="False" SoundID="UI_HUD_MainMenu_AddOns" Style="{StaticResource MenuLongButtonStyle}">
+                <ls:LSButton.Resources>
+                    <ImageBrush x:Key="IconNormal" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_addons_d.png" Stretch="Fill"/>
+                    <ImageBrush x:Key="IconHighlight" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_addons_h.png" Stretch="Fill"/>
+                    <ImageBrush x:Key="IconPressed" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_addons_h.png" Stretch="Fill"/>
+                    <ImageBrush x:Key="IconDisabled" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_addons_d.png" Stretch="Fill" Opacity="0.5"/>
+                    <System:Double x:Key="IconWidth">64</System:Double>
+                    <System:Double x:Key="IconHeight">64</System:Double>
+                </ls:LSButton.Resources>
+            </ls:LSButton>
+        </Grid>
+        -->
+
+        <!-- Current profile/save info -->
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 150 120" Visibility="{Binding SelectedSave, Converter={StaticResource NullToCollapsedConverter}}">
+            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/MainMenu/settings_frame_currentSave.png" Stretch="None" />
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource MainMenuTextStyle}">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="0,0,0,14" />
+                        <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}" />
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="{Binding Source='h2b508094g3754g41bfg9040g93758f769eed', Converter={StaticResource TranslatedStringConverter}}" Foreground="{StaticResource LS_baseTxtColor}"  />
+                <TextBlock Text="{Binding SelectedSave.Type, Mode=OneWay}"  />
+                <TextBlock Text="{Binding SelectedSave.Title, Mode=OneWay}" />
+
+                <Grid Width="486" Height="162">
+                    <Grid.Resources>
+                        <Style x:Key="MMSaveboxLabel" TargetType="TextBlock" BasedOn="{StaticResource MainMenuTextStyle}">
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="Grid.Column" Value="0"/>
+                            <Setter Property="Foreground" Value="{StaticResource LS_baseTxtColor}"/>
+                        </Style>
+                        <Style x:Key="MMSaveboxDesc" TargetType="TextBlock" BasedOn="{StaticResource MainMenuTextStyle}">
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Setter Property="HorizontalAlignment" Value="Right"/>
+                            <Setter Property="Grid.Column" Value="1"/>
+                            <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{Binding Source='h566a6a0fg0816g48f0g9915gc970e73c7f25', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource MMSaveboxLabel}"/>
+                    <TextBlock Grid.Row="0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource MMSaveboxDesc}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedSave.Difficulty}" Value="Story">
+                                        <Setter Property="Text" Value="{Binding Source='hd2ebe21dgeec1g4a37g9e5ag5fcdf80244ea', Converter={StaticResource TranslatedStringConverter}}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SelectedSave.Difficulty}" Value="Casual">
+                                        <Setter Property="Text" Value="{Binding Source='hced35300gd349g446aga746gdb1acb63bc92', Converter={StaticResource TranslatedStringConverter}}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SelectedSave.Difficulty}" Value="Normal">
+                                        <Setter Property="Text" Value="{Binding Source='h9dfac2f7ged47g41d1gacceg856c75d170a6', Converter={StaticResource TranslatedStringConverter}}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="1" Text="{Binding Source='h4a5b5905gae01g4d01g8f31ge89a0f990ef3', Converter={StaticResource TranslatedStringConverter}}"  Style="{StaticResource MMSaveboxLabel}"/>
+                    <TextBlock Grid.Row="1" Text="{Binding SelectedSave.LevelName, Mode=OneWay}" Style="{StaticResource MMSaveboxDesc}"/>
+
+                    <TextBlock Grid.Row="2" Text="{Binding Source='h1a856c2bg4f94g4267gadd3g34a299e3c5b2', Converter={StaticResource TranslatedStringConverter}}"  Style="{StaticResource MMSaveboxLabel}"/>
+                    <TextBlock Grid.Row="2" Text="{Binding SelectedSave.TimeString, Mode=OneWay}" Style="{StaticResource MMSaveboxDesc}"/>
+                </Grid>
+            </StackPanel>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource SimpleFadeIn}"/>
+                </EventTrigger>
+            </Grid.Triggers>
+        </Grid>
+
+        <!-- Development/Testing Menu Items (Enable by setting Visibility to "Visible") -->
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left"  Margin="1000 0 0 600">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="{Binding Data.IsGold, Converter={StaticResource BoolToCollapsedConverter}}"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding MainMenuStep}" Value="NoProfile">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <StackPanel.Resources>
+                <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.png</ImageSource>
+                <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.png</ImageSource>
+                <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.png</ImageSource>
+                <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.png</ImageSource>
+            </StackPanel.Resources>
+            <TextBlock Text="Debug" Style="{StaticResource MainMenuTextStyle}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  Text="Current Main Mod:" Style="{StaticResource MainMenuTextStyle}" />
+
+                <TextBlock Text="{Binding MainModName}" >
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource MainMenuTextStyle}">
+                            <Setter Property="Foreground" Value="{StaticResource LS_alertTxtColor}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MainModName}" Value="Gustav">
+                                    <Setter Property="Foreground" Value="{StaticResource LS_PrimaryColor}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+               
+            </StackPanel>
+            <TextBlock Text="This will be used on New Game!!" >
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource MainMenuTextStyle}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MainModName}" Value="Gustav">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <ls:LSButton Content="Reset Main Mod" Command="{Binding ResetToMainModCommand}" Template="{StaticResource MenuShortButtonTemplate}">
+                <ls:LSButton.Style>
+                    <Style TargetType="ls:LSButton" >
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MainModName}" Value="Gustav">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ls:LSButton.Style>
+            </ls:LSButton>
+            <StackPanel Orientation="Vertical">
+	            <ls:LSButton Content="Activate Dev Mod" Command="{Binding ActivateDevModCommand}" Template="{StaticResource MenuShortButtonTemplate}" Opacity="0">
+				    <Button.RenderTransform>
+				        <TranslateTransform/>
+				    </Button.RenderTransform>
+				    <Button.Triggers>
+				        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+				            <BeginStoryboard>
+				                <BeginStoryboard.Storyboard>
+				                    <Storyboard>
+				                        <Storyboard.Children>
+				                            <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.15"/>
+				                        </Storyboard.Children>
+				                    </Storyboard>
+				                </BeginStoryboard.Storyboard>
+				            </BeginStoryboard>
+				        </EventTrigger>
+				    </Button.Triggers>
+				</ls:LSButton>
+                <ls:LSButton Content="START TEST LEVEL" Command="{Binding StartTestLevelCommand}" Template="{StaticResource MenuShortButtonTemplate}" Opacity="0">
+                    <Button.RenderTransform>
+                        <TranslateTransform/>
+                    </Button.RenderTransform>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <BeginStoryboard>
+                                <BeginStoryboard.Storyboard>
+                                    <Storyboard>
+                                        <Storyboard.Children>
+                                            <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}"/>
+                                        </Storyboard.Children>
+                                    </Storyboard>
+                                </BeginStoryboard.Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </ls:LSButton>
+                <ls:LSButton Content="START GAME no cc" Command="{Binding StartGameCommand}" CommandParameter="NoCC" Template="{StaticResource MenuShortButtonTemplate}" Opacity="0">
+                    <Button.RenderTransform>
+                        <TranslateTransform/>
+                    </Button.RenderTransform>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <BeginStoryboard>
+                                <BeginStoryboard.Storyboard>
+                                    <Storyboard>
+                                        <Storyboard.Children>
+                                            <Storyboard Children="{StaticResource SimpleMoveAndFadeIn}" BeginTime="0:0:0.15"/>
+                                        </Storyboard.Children>
+                                    </Storyboard>
+                                </BeginStoryboard.Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </ls:LSButton>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock Text="{Binding UserFeedback}" TextWrapping="Wrap" Foreground="{StaticResource LS_PrimaryColor}" FontSize="{DynamicResource BigFontSize}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="50,0,0,50" MaxWidth="1400"/>
+        <TextBlock Text="{Binding Data.VersionString}" Foreground="{StaticResource LS_PrimaryColor}" FontSize="{DynamicResource SmallFontSize}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        <TextBlock Text="{Binding LegalLine}" Foreground="{StaticResource LS_PrimaryColor}" FontSize="{DynamicResource SmallFontSize}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,150,40"/>
+    </Grid>
+</ls:UIWidget>
