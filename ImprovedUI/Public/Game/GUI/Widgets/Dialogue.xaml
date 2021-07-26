@@ -15,6 +15,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Library/DialogueTemplates.xaml"/>
+                <!-- MOD START -->
+                <ResourceDictionary Source="../Library/ImprovedUITemplates.xaml"/>
+                <!-- MOD END -->
             </ResourceDictionary.MergedDictionaries>
 
             <ls:LSMessageBoxData x:Key="OnAttackMessageBox" Text="{Binding Source='h3de62469gbf26g4390ga9a5g530b768217fe', Converter={StaticResource TranslatedStringConverter}}" Title="{Binding Source='h4ce24528g0b74g4dc1g8ba6g80071f09ac12', Converter={StaticResource TranslatedStringConverter}}" UUID="UUID">
@@ -193,6 +196,15 @@
                         <ls:LSTooltip Content="{Binding Source='he9e4a39fg8a5dg4ac5gacffgaea214260c69',Converter={StaticResource TranslatedStringConverter}}"/>
                     </ls:LSButton.ToolTip>
                 </ls:LSButton>
+                <!-- MOD START -->
+                <ls:LSButton x:Name="PictureModeBtn" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-88" Style="{StaticResource PictureModeButtonStyle}"
+                    Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"
+                    CommandParameter="OpenPictureMode">
+                    <ls:LSButton.ToolTip>
+                        <ls:LSTooltip Content="Activate Picture Mode"/>
+                    </ls:LSButton.ToolTip>
+                </ls:LSButton>
+                <!-- MOD END -->
             </StackPanel>
         </StackPanel>
 
