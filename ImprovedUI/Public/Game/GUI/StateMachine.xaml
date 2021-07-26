@@ -155,9 +155,19 @@
                 <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
                 <StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
                 <StateWidget Filename="Notification.xaml" Layer="Notifications"/>
-                <StateWidget Filename="CharacterCreation.xaml" Layer="Pause"/>
+                <StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
+                <!-- MOD START - Adds UI Toggle -->
+                <StateWidget Filename="PictureMode.xaml" Layer="HUDTop"/>
+                <!-- MOD END-->
             </State.Widgets>
             <State.Events>
+                <!-- MOD START - Adds UI Toggle -->
+                <Event Name="OpenPictureMode">
+                    <Event.Actions>
+                        <PushState Name="PictureMode"/>
+                    </Event.Actions>
+                </Event>
+                <!-- MOD END -->
                 <Event Name="CloseWidget">
                     <Event.Actions>
                         <RemoveState/>
@@ -419,11 +429,13 @@
                 <InitialSubstate Name="PlayerPanelsHolder"/>
             </State.InitialSubstates>
             <State.Events>
+                <!-- MOD START - Adds UI Toggle -->
                 <Event Name="OpenPictureMode">
                     <Event.Actions>
                         <PushState Name="PictureMode"/>
                     </Event.Actions>
                 </Event>
+                <!-- MOD END -->
                 <Event Name="ToggleGameMenu">
                     <Event.Actions>
                         <PushState Name="Paused"/>
