@@ -18,9 +18,12 @@
                 <System:String x:Key="DefaultCommandParam">None</System:String>
             </ControlTemplate.Resources>
 
-            <Grid ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Left" ToolTipService.IsEnabled="True" ToolTipService.VerticalOffset="4">
+            <Grid ToolTipService.Placement="Left" ToolTipService.IsEnabled="True" ToolTipService.VerticalOffset="4">
                 <Image x:Name="BtnBg" Source="{StaticResource btnNormal}" Stretch="None"/>
                 <Image x:Name="icon" Source="{DynamicResource Icon_Normal}" Stretch="None"/>
+                <Grid.ToolTip>
+                    <ls:LSTooltip Content="Activate Picture Mode"/>
+                </Grid.ToolTip>
             </Grid>
 
             <ControlTemplate.Triggers>
@@ -36,9 +39,6 @@
       <ls:LSButton  CommandParameter="OpenPictureMode" Template="{StaticResource PanelButtonWT}" ToolTipService.ShowOnDisabled="true" 
                     Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"
                     SoundID="PictureModeSnap" x:Name="PictureModeBtn">
-        <ls:LSButton.ToolTip>
-            <ls:LSTooltip Content="Activate Picture Mode"/>
-        </ls:LSButton.ToolTip>
         <ls:LSButton.Resources>
             <BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
             <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_h.png" />
