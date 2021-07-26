@@ -1,0 +1,313 @@
+<ls:UIWidget x:Name="GameMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ls="clr-namespace:ls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d"
+             ls:UIWidget.SoundID="UI_HUD_EscapeMenu"
+             ls:UIWidget.ContextName="GameMenu" d:DesignWidth="3840" d:DesignHeight="2160">
+
+    <ls:UIWidget.Resources>
+
+        <ControlTemplate x:Key="InviteButtonTemplate">
+            <ls:LSButton Command="{Binding DataContext.InvitePlayer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_Shared_Invite">
+                <ls:LSButton.ToolTip>
+                    <ls:LSTooltip Content="{Binding Source='h5bacb1e0geecag4473g9aa1g3f3ed207377e',Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}"/>
+                </ls:LSButton.ToolTip>
+                <ls:LSButton.Template>
+                    <ControlTemplate TargetType="ls:LSButton">
+                        <Image x:Name="img" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_addToParty_d.png" Stretch="None"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_addToParty_h.png" TargetName="img"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_addToParty_p.png" TargetName="img"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_addToParty_disabled.png" TargetName="img"/>
+                            </Trigger>
+                            
+                            <DataTrigger Binding="{Binding DataContext.Data.LobbyVisibility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Offline">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding DataContext.IsHost, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ls:LSButton.Template>
+            </ls:LSButton>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="EmptySlotsTemplate">
+            <StackPanel Orientation="Horizontal">
+                <ContentControl x:Name="slot1" Template="{DynamicResource InviteButtonTemplate}"/>
+                <ContentControl x:Name="slot2" Template="{DynamicResource InviteButtonTemplate}"/>
+                <ContentControl x:Name="slot3" Template="{DynamicResource InviteButtonTemplate}"/>
+            </StackPanel>
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}" Value="True">
+                    <Setter TargetName="slot3" Property="Visibility" Value="Hidden"/>
+                    <Setter TargetName="slot3" Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=2}" Value="True">
+                    <Setter TargetName="slot2" Property="Visibility" Value="Hidden"/>
+                    <Setter TargetName="slot2" Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+                    <Setter TargetName="slot1" Property="Visibility" Value="Hidden"/>
+                    <Setter TargetName="slot1" Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <DataTemplate x:Key="PlayerSlotTemplate">
+            <Grid x:Name="PlayerSlot" Width="112" Height="112">
+                <Grid x:Name="PlayerInfo">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseEnter">
+                            <i:InvokeCommandAction 
+                                    Command="{Binding DataContext.PlaySoundEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+                                    CommandParameter="UI_HUD_Shared_PlayerSlot_Hover"/>
+                        </i:EventTrigger>
+
+                        <i:EventTrigger EventName="MouseLeave">
+                            <i:InvokeCommandAction 
+                                    Command="{Binding DataContext.PlaySoundEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+                                    CommandParameter="UI_HUD_Shared_PlayerSlot_Out"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                    <Border x:Name="commIcon" Background="{Binding CommunityIcon}" Grid.Row="1" Grid.Column="1">
+                        <Border.ToolTip>
+                            <ls:LSTooltip Content="{Binding PlayerName}"/>
+                        </Border.ToolTip>
+                    </Border>
+                    <Image x:Name="framePlayer" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_profile_d.png" Stretch="UniformToFill" IsHitTestVisible="False" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+                </Grid>
+            </Grid>
+            <DataTemplate.Triggers>
+                <Trigger Property="Tag" Value="Local">
+                    <Setter Property="Height" Value="160" TargetName="PlayerSlot"/>
+                    <Setter Property="Width" Value="160" TargetName="PlayerSlot"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="framePlayer" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/frame_profile_h.png"/>
+                </Trigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </ls:UIWidget.Resources>
+
+    <Grid>
+        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/background_fade.png" Stretch="Fill"/>
+        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/MainMenu/menu_Logo_bgGlow.png" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" />
+        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/MainMenu/menu_Logo.png" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <Grid x:Name="TopLeftButtons" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150, 100, 0, 0">
+            <ls:LSButton x:Name="OptionsBtn" Content="{Binding Source='h1f5a4453gcd7ag4dc6gb127g5744ea1922ac', Converter={StaticResource TranslatedStringConverter}}" 
+                         Command="{Binding CustomEvent}" CommandParameter="OpenOptions" SoundID="UI_HUD_GameMenu_Options" 
+                         Template="{StaticResource MenuShortButtonTemplate}" Visibility="{Binding IsMainPlayer, Converter={StaticResource BoolToVisibleConverter}}"> 
+                <ls:LSButton.RenderTransform>
+                    <TranslateTransform/>
+                </ls:LSButton.RenderTransform>
+                <ls:LSButton.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_options_d.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_options_h.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_options_d.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_options_d.DDS</ImageSource>
+                </ls:LSButton.Resources>
+            </ls:LSButton>
+        </Grid>
+
+        <StackPanel x:Name="TopRightButtons" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, 100, 150, 0">
+            <ls:LSButton x:Name="QuitBtn" HorizontalAlignment="Right" Content="{Binding Source='h8c64e3a9gef47g4fa4g8d07g4c6056b9ab5f', Converter={StaticResource TranslatedStringConverter}}"
+                         Command="{Binding QuitGameCommand}" SoundID="UI_HUD_GameMenu_Quit" Template="{StaticResource MenuShortButtonTemplate}">
+                <Button.RenderTransform>
+                    <TranslateTransform/>
+                </Button.RenderTransform>
+                <Button.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_h.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                </Button.Resources>
+                <ls:LSButton.Style>
+                    <Style TargetType="ls:LSButton">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsMainPlayer}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ShowQuitButton}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ls:LSButton.Style>
+            </ls:LSButton>
+
+            <ls:LSButton x:Name="MainMenuBtn" HorizontalAlignment="Right" Content="{Binding Source='hf1a302e1ged15g4e4fgae48g5579d02b2605', Converter={StaticResource TranslatedStringConverter}}"
+                         Command="{Binding MainMenuCommand}" SoundID="UI_HUD_GameMenu_MainMenu" Template="{StaticResource MenuShortButtonTemplate}"
+                         Visibility="{Binding IsMainPlayer, Converter={StaticResource BoolToVisibleConverter}}">
+                <Button.RenderTransform>
+                    <TranslateTransform/>
+                </Button.RenderTransform>
+                <Button.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_h.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                </Button.Resources>
+            </ls:LSButton>
+
+            <ls:LSButton x:Name="DisconnectBtn" HorizontalAlignment="Right" Content="{Binding Source='h122d51e5g5078g4993g872eg803db71cc57b', Converter={StaticResource TranslatedStringConverter}}"
+                         Command="{Binding DisconnectCommand}" SoundID="UI_HUD_GameMenu_Disconnect" Template="{StaticResource MenuShortButtonTemplate}"
+                         Visibility="{Binding IsMainPlayer, Converter={StaticResource BoolToCollapsedConverter}}">
+                <Button.RenderTransform>
+                    <TranslateTransform/>
+                </Button.RenderTransform>
+                <Button.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_h.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_close_d.DDS</ImageSource>
+                </Button.Resources>
+            </ls:LSButton>
+        </StackPanel>
+
+        <StackPanel x:Name="MiddleLeftButtons" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="150, 0, 0, 600">
+            <ls:LSButton x:Name="ResumeBtn" Template="{StaticResource MenuShortButtonTemplate}" HorizontalAlignment="Left" Margin="0, 0, 0, 60"
+                         Content="{Binding Source='h4fbbc7e3ge45ag4c5bga315ga0155b914856', Converter={StaticResource TranslatedStringConverter}}"
+                         Command="{Binding CustomEvent}" CommandParameter="ToggleGameMenu" SoundID="UI_HUD_GameMenu_Resume">
+                <Button.RenderTransform>
+                    <TranslateTransform/>
+                </Button.RenderTransform>
+                <Button.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_play.DDS</ImageSource>
+                </Button.Resources>
+            </ls:LSButton>
+
+            <ls:LSButton x:Name="SaveBtn" Content="{Binding Source='h294e6fd4gb977g4429g8c81g0775aa1688a7', Converter={StaticResource TranslatedStringConverter}}" 
+                         Command="{Binding CustomEvent}" CommandParameter="SaveGameOpen" SoundID="UI_HUD_GameMenu_Save" Template="{StaticResource MenuShortButtonTemplate}"
+                         IsEnabled="{Binding DataContext.CurrentPlayer.UIData.AllowSaving, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+                <ls:LSButton.RenderTransform>
+                    <TranslateTransform/>
+                </ls:LSButton.RenderTransform>
+                <ls:LSButton.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_save.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_save.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_save.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_save.DDS</ImageSource>
+                </ls:LSButton.Resources>
+                <ls:LSButton.Style>
+                    <Style TargetType="ls:LSButton">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsHost}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsInCC}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ls:LSButton.Style>
+            </ls:LSButton>
+
+            <ls:LSButton x:Name="LoadBtn" Content="{Binding Source='heb9ae2d4g4fcdg4eb2g821bg97ed63c5ce8c', Converter={StaticResource TranslatedStringConverter}}" 
+                         Command="{Binding CustomEvent}" CommandParameter="LoadGameOpen" SoundID="UI_HUD_GameMenu_Load"
+                         Template="{StaticResource MenuShortButtonTemplate}" Visibility="{Binding IsHost, Converter={StaticResource BoolToVisibleConverter}}"
+                         IsEnabled="{Binding DataContext.CurrentPlayer.UIData.AllowLoading, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+                <ls:LSButton.RenderTransform>
+                    <TranslateTransform/>
+                </ls:LSButton.RenderTransform>
+                <ls:LSButton.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_load.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_load.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_load.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_load.DDS</ImageSource>
+                </ls:LSButton.Resources>
+            </ls:LSButton>
+
+            <ls:LSButton x:Name="SessionBtn" Content="{Binding Source='h908649e6gdfe9g4a44g8bf3ga66cc295f28e', Converter={StaticResource TranslatedStringConverter}}" 
+                         Command="{Binding CustomEvent}" CommandParameter="CharacterAssignOpen" SoundID="UI_HUD_GameMenu_SessionManagement"  
+                         Template="{StaticResource MenuShortButtonTemplate}" Visibility="{Binding IsInCC, Converter={StaticResource BoolToCollapsedConverter}}">
+                <ls:LSButton.RenderTransform>
+                    <TranslateTransform/>
+                </ls:LSButton.RenderTransform>
+                <ls:LSButton.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_session.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_session.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_session.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_session.DDS</ImageSource>
+                </ls:LSButton.Resources>
+            </ls:LSButton>
+
+            <ls:LSButton x:Name="ConnectivityBtn" Content="{Binding Source='h9ca1c81fged74g4594ga818gd9f44de63aa5', Converter={StaticResource TranslatedStringConverter}}" 
+                         Command="{Binding ConnectivityCommand}" SoundID="UI_HUD_GameMenu_Connectivity" Template="{StaticResource MenuShortButtonTemplate}">
+                <ls:LSButton.RenderTransform>
+                    <TranslateTransform/>
+                </ls:LSButton.RenderTransform>
+                <ls:LSButton.Resources>
+                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_session.DDS</ImageSource>
+                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_session.DDS</ImageSource>
+                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_session.DDS</ImageSource>
+                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_session.DDS</ImageSource>
+                </ls:LSButton.Resources>
+                <ls:LSButton.Style>
+                    <Style TargetType="ls:LSButton">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsInCC}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsHost}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ls:LSButton.Style>
+            </ls:LSButton>
+        </StackPanel>
+
+        <Grid x:Name="PlayerSlots" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="135, 0, 0, 100">
+            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/MainMenu/frame_party.png" Stretch="None"/>
+            <ContentControl Template="{DynamicResource EmptySlotsTemplate}" Margin="183, 0, 25, 0"/>
+            <ItemsControl ItemsSource="{Binding Data.LocalPlayers}" ItemTemplate="{StaticResource PlayerSlotTemplate}" MinHeight="80" Margin="25 0" AlternationCount="4">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Tag" Value="Local"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+
+</ls:UIWidget>
