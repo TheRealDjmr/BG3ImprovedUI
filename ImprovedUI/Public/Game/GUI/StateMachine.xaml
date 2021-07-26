@@ -273,6 +273,26 @@
                 </Event>
             </State.Events>
         </State>
+
+        <!-- MOD START - Adds UI Toggle -->
+        <!--STATE: Picture Mode -->
+        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="PictureMode" Owner="All">
+            <State.Events>
+                <Event Name="CloseWidget">
+                    <Event.Actions>
+                        <RemoveState/>
+                    </Event.Actions>
+                </Event>
+                <!-- ESC button -->
+                <Event Name="IE.ToggleInGameMenu">
+                    <Event.Actions>
+                        <RemoveState/>
+                    </Event.Actions>
+                </Event>
+            </State.Events>
+        </State>
+        <!-- MOD END -->
+
         <!--STATE: Paused-->
         <State DisableStatesBelow="True" ForceSplitscreen="True" HideStatesBelow="True" IsModal="True" Layout="Player" Name="Paused" Owner="Player">
             <State.Widgets>
@@ -399,6 +419,11 @@
                 <InitialSubstate Name="PlayerPanelsHolder"/>
             </State.InitialSubstates>
             <State.Events>
+                <Event Name="OpenPictureMode">
+                    <Event.Actions>
+                        <PushState Name="PictureMode"/>
+                    </Event.Actions>
+                </Event>
                 <Event Name="ToggleGameMenu">
                     <Event.Actions>
                         <PushState Name="Paused"/>
@@ -481,6 +506,9 @@
                 <StateWidget Filename="DragAndDropPreview.xaml" IgnoreHitTest="True" Layer="DragAndDrop"/>
                 <StateWidget Filename="PassiveRoll.xaml" Layer="HUDTop"/>
                 <StateWidget Filename="VoiceChat.xaml" Layer="HUDTop"/>
+                <!-- MOD START - Adds UI Toggle -->
+                <StateWidget Filename="PictureMode.xaml" Layer="HUD"/>
+                <!-- MOD END-->
             </State.Widgets>
             <State.Events>
                 <Event Name="OpenSelectionFlyOut">
