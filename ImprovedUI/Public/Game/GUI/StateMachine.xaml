@@ -199,11 +199,21 @@
         <State Name = "CharacterLevelUp" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
             <State.Widgets>
                 <StateWidget Filename="Notification.xaml" Layer="Notifications"/>
-                <StateWidget Filename="CharacterLevelUp.xaml" Layer="Pause"/>
+                <StateWidget Filename="CharacterLevelUp.xaml" Layer="HUD"/>
                 <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+				<!-- MOD START - Adds UI Toggle -->
+                <StateWidget Filename="PictureMode.xaml" Layer="HUDTop"/>
+                <!-- MOD END-->
             </State.Widgets>
 
             <State.Events>
+				<!-- MOD START - Adds UI Toggle -->
+                <Event Name="OpenPictureMode">
+                    <Event.Actions>
+                        <PushState Name="PictureMode"/>
+                    </Event.Actions>
+                </Event>
+                <!-- MOD END -->
                 <Event Name = "CloseWidget">
                     <Event.Actions>
                         <RemoveState/>
