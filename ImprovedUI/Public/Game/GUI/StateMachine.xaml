@@ -1,1928 +1,2091 @@
-﻿<StateMachine RootState="Root" mc:Ignorable="d" x:Key="stateMachine" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:ls" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <StateMachine.States>
+﻿<ls:StateMachine RootState = "Root" xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ls:StateMachine.States>
+
         <!--STATE: Root-->
-        <State Layout="Common" Name="Root" Owner="All">
-            <State.InitialSubstates>
-                <InitialSubstate Name="SystemRoot"/>
-                <InitialSubstate Name="GameRoot"/>
-            </State.InitialSubstates>
-        </State>
-        <State Layout="Common" Name="SystemRoot" Owner="All">
-            <State.Events>
+
+
+        <ls:State Name = "Root" Layout = "Common" Owner = "All">
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="SystemRoot"/>
+                <ls:InitialSubstate Name="GameRoot"/>
+            </ls:State.InitialSubstates>
+        </ls:State>
+
+        <ls:State Name = "SystemRoot" Layout = "Common" Owner = "All">
+            <ls:State.Events>
                 <!-- MOD START - Removes story message -->
-                <!--<Event Name = "OpenSystemMessageBox"><Event.Actions><AddSubstate Name="SystemMessageBox"/></Event.Actions></Event>-->
+                <!--<ls:StateEvent Name = "OpenSystemMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="SystemMessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>-->
                 <!-- MOD END -->
-                <Event Name="GE.EditorMode">
-                    <Event.Actions>
-                        <RemoveAllSubstates/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <State Layout="Common" Name="GameRoot" Owner="All">
-            <State.Events>
-                <Event Name="GE.OnStateMainMenu">
-                    <Event.Actions>
-                        <SetSubstate Name="SplashScreen"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.OnStateLoadingStart">
-                    <Event.Actions>
-                        <SetSubstate Name="Loading"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.OnStateRunning">
-                    <Event.Actions>
-                        <SetSubstate Name="Running"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.OnStateLobby">
-                    <Event.Actions>
-                        <SetSubstate Name="Lobby"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.OnBusyShow">
-                    <Event.Actions>
-                        <PushState Name="Busy"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.OnSaveShow">
-                    <Event.Actions>
-                        <PushState Name="Saving"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.EditorMode">
-                    <Event.Actions>
-                        <RemoveAllSubstates/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+                <ls:StateEvent Name = "GE.EditorMode">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveAllSubstates/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "GameRoot" Layout = "Common" Owner = "All">
+            <ls:State.Events>
+                <ls:StateEvent Name = "GE.OnStateMainMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="SplashScreen"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "GE.OnStateLoadingStart">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="Loading"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "GE.OnStateRunning">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="Running"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "GE.OnStateLobby">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="Lobby"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "GE.OnBusyShow">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Busy"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "GE.OnSaveShow">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Saving"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "GE.EditorMode">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveAllSubstates/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: SplashScreen-->
-        <State DisableStatesBelow="True" Layout="Common" Name="SplashScreen" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="SplashScreen.xaml"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="OpenEula">
-                    <Event.Actions>
-                        <PushState Name="Eula"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMainMenu">
-                    <Event.Actions>
-                        <PushState Name="MainMenu"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "SplashScreen" DisableStatesBelow = "True" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="SplashScreen.xaml"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "OpenEula">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Eula"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMainMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="MainMenu"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Eula-->
-        <State DisableStatesBelow="True" Layout="Common" Name="Eula" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="Eula.xaml"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="OpenMainMenu">
-                    <Event.Actions>
-                        <PushState Name="MainMenu"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Eula" DisableStatesBelow = "True" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Eula.xaml"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "OpenMainMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="MainMenu"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: MainMenu-->
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="MainMenu" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="MainMenu.xaml"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="OpenCredits">
-                    <Event.Actions>
-                        <PushState Name="Credits"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenOptions">
-                    <Event.Actions>
-                        <AddSubstate Name="Options"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ProfileSelectOpen">
-                    <Event.Actions>
-                        <AddSubstate Name="ProfileSelect"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenLobbyBrowser">
-                    <Event.Actions>
-                        <AddSubstate Name="LobbyBrowser"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenLobby">
-                    <Event.Actions>
-                        <AddSubstate Name="Lobby"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="LoadGameOpen">
-                    <Event.Actions>
-                        <AddSubstate Name="MainMenu.LoadGame"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenHDR">
-                    <Event.Actions>
-                        <AddSubstate Name="HDRCalibration"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="HDRCalibration" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="HDRCalibration.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "MainMenu" DisableStatesBelow = "True" HideStatesBelow = "True" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="MainMenu.xaml"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "OpenCredits">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Credits"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenOptions">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Options"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ProfileSelectOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ProfileSelect"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenLobbyBrowser">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="LobbyBrowser"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenLobby">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Lobby"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "LoadGameOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MainMenu.LoadGame"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenHDR">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="HDRCalibration"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "HDRCalibration" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="HDRCalibration.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: CharacterCreation -->
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="CharacterCreation" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-                <StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
-                <StateWidget Filename="Notification.xaml" Layer="Notifications"/>
+        <ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="Notification.xaml" Layer="Notifications"/>
                 <!-- MOD START - Adds UI Toggle -->
-                <StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
-                <StateWidget Filename="PictureMode.xaml" Layer="HUDTop"/>
+                <ls:StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="PictureMode.xaml" Layer="HUDTop"/>
                 <!-- MOD END-->
-            </State.Widgets>
-            <State.Events>
-                <!-- MOD START - Adds UI Toggle -->
-                <Event Name="OpenPictureMode">
-                    <Event.Actions>
-                        <PushState Name="PictureMode"/>
-                    </Event.Actions>
-                </Event>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+            	<!-- MOD START - Adds UI Toggle -->
+                <ls:StateEvent Name="OpenPictureMode">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="PictureMode"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <!-- MOD END -->
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleGameMenu">
-                    <Event.Actions>
-                        <PushState Name="Paused"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <PushState Name="Paused"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenSpellSelecting">
-                    <Event.Actions>
-                        <AddSubstate Name="SpellSelecting"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenSpellSelecting">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="SpellSelecting"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: CharacterLevelUp -->
-        <State Name = "CharacterLevelUp" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
-            <State.Widgets>
-                <StateWidget Filename="Notification.xaml" Layer="Notifications"/>
-                <StateWidget Filename="CharacterLevelUp.xaml" Layer="HUD"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-				<!-- MOD START - Adds UI Toggle -->
-                <StateWidget Filename="PictureMode.xaml" Layer="HUDTop"/>
+        <ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Notification.xaml" Layer="Notifications"/>
+                <ls:StateWidget Filename="CharacterLevelUp.xaml" Layer="Pause"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+                <!-- MOD START - Adds UI Toggle -->
+                <ls:StateWidget Filename="PictureMode.xaml" Layer="HUDTop"/>
                 <!-- MOD END-->
-            </State.Widgets>
+            </ls:State.Widgets>
 
-            <State.Events>
-				<!-- MOD START - Adds UI Toggle -->
-                <Event Name="OpenPictureMode">
-                    <Event.Actions>
-                        <PushState Name="PictureMode"/>
-                    </Event.Actions>
-                </Event>
+            <ls:State.Events>
+                <!-- MOD START - Adds UI Toggle -->
+                <ls:StateEvent Name="OpenPictureMode">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="PictureMode"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <!-- MOD END -->
-                <Event Name = "CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "IE.UICancel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "OpenSpellSelecting">
-                    <Event.Actions>
-                        <AddSubstate Name="SpellSelecting"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "OpenFeatSelecting">
-                    <Event.Actions>
-                        <AddSubstate Name="FeatSelecting"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <!--STATE: SpellSelecting-->
-        <State DisableStatesBelow="True" IsModal="True" Layout="Common" Name="SpellSelecting" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="SpellSelecting.xaml" Layer="MessageBox"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <!--STATE: FeatSelecting-->
-        <State DisableStatesBelow="True" IsModal="True" Layout="Common" Name="FeatSelecting" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="FeatSelecting.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="OpenSpellSelecting">
-                    <Event.Actions>
-                        <AddSubstate Name="SpellSelecting"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <!--STATE: Loading-->
-        <State DisableStatesBelow="True" Layout="Common" Name="Loading" Owner="Player">
-            <State.Widgets>
-                <StateWidget BlockedLoading="True" Filename="LoadingScreen.xaml"/>
-            </State.Widgets>
-        </State>
-        <!--STATE: Credits -->
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="Credits" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="Credits.xaml"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <!-- ESC button -->
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.UICancel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenSpellSelecting">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="SpellSelecting"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenFeatSelecting">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="FeatSelecting"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
 
+        <!--STATE: SpellSelecting-->
+        <ls:State Name = "SpellSelecting" DisableStatesBelow = "True" Layout = "Common" Owner = "Player" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="SpellSelecting.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: FeatSelecting-->
+        <ls:State Name = "FeatSelecting" DisableStatesBelow = "True" Layout = "Common" Owner = "Player" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="FeatSelecting.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "OpenSpellSelecting">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="SpellSelecting"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: Loading-->
+        <ls:State Name = "Loading" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="LoadingScreen.xaml" BlockedLoading="True"/>
+            </ls:State.Widgets>
+        </ls:State>
+
+        <!--STATE: Credits -->
+        <ls:State Name = "Credits" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Credits.xaml"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <!-- ESC button -->
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
         <!-- MOD START - Adds UI Toggle -->
         <!--STATE: Picture Mode -->
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="PictureMode" Owner="All">
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
+        <ls:State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="PictureMode" Owner="All">
+            <ls:State.Events>
+                <ls:StateEvent Name="CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <!-- ESC button -->
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
         <!-- MOD END -->
 
         <!--STATE: Paused-->
-        <State DisableStatesBelow="True" ForceSplitscreen="True" HideStatesBelow="True" IsModal="True" Layout="Player" Name="Paused" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
-                <StateWidget Filename="GameMenu.xaml" Layer="Pause"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="ToggleGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.UICancel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenGameOverMessageBox">
-                    <Event.Actions>
-                        <PushState Name="GameOverMessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenOptions">
-                    <Event.Actions>
-                        <PushState Name="Options"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="LoadGameOpen">
-                    <Event.Actions>
-                        <AddSubstate Name="Paused.LoadGame"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="SaveGameOpen">
-                    <Event.Actions>
-                        <AddSubstate Name="Paused.SaveGame"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CharacterAssignOpen">
-                    <Event.Actions>
-                        <PushState Name="CharacterAssign"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ConnectivityMenuOpen">
-                    <Event.Actions>
-                        <PushState Name="ConnectivityMenu"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Paused" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" HideStatesBelow = "True" IsModal="True" ForceSplitscreen="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="GameMenu.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "ToggleGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.UICancel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenGameOverMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="GameOverMessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenOptions">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Options"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "LoadGameOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Paused.LoadGame"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "SaveGameOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Paused.SaveGame"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CharacterAssignOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="CharacterAssign"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ConnectivityMenuOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ConnectivityMenu"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Running-->
-        <State Layout="Common" Name="Running" Owner="All">
-            <State.InitialSubstates>
-                <InitialSubstate Name="PlayerUIs"/>
-            </State.InitialSubstates>
-            <State.Events>
+        <ls:State Name = "Running" Layout = "Common" Owner = "All">
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerUIs"/>
+            </ls:State.InitialSubstates>
+            <ls:State.Events>
                 <!-- eat GE.OnStateRunning to avoid restarting the Running state (for example, when autosaving ends) -->
-                <Event Name="GE.OnStateRunning"/>
-                <Event Name="ProfileSelectOpen">
-                    <Event.Actions>
-                        <AddSubstate Name="ProfileSelect"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenGameOverMessageBox">
-                    <Event.Actions>
-                        <PushState Name="GameOverMessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="LoadGameOpen">
-                    <Event.Actions>
-                        <PushState Name="Paused.LoadGame"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ShowBook">
-                    <Event.Actions>
-                        <PushState Name="Book"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenCharacterCreation">
-                    <Event.Actions>
-                        <PushState Name="CharacterCreation"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenCharacterLevelUp">
-                    <Event.Actions>
-                        <PushState Name="CharacterLevelUp"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenTutorial">
-                    <Event.Actions>
-                        <AddSubstate Name="Tutorial"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenActOver">
-                    <Event.Actions>
-                        <PushState Name="ActOver"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+                <ls:StateEvent Name = "GE.OnStateRunning" />
+                <ls:StateEvent Name = "ProfileSelectOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ProfileSelect"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenGameOverMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="GameOverMessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "LoadGameOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused.LoadGame"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ShowBook">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Book"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenCharacterCreation">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="CharacterCreation"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenCharacterLevelUp">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="CharacterLevelUp"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenTutorial">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Tutorial"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenActOver">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ActOver"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: PlayerUIsHolder-->
-        <State Layout="Player" Name="PlayerUIsHolder" Owner="Player">
-            <State.InitialSubstates>
-                <InitialSubstate Name="PlayerHUD"/>
-                <InitialSubstate Name="PlayerPanelsHolder"/>
-            </State.InitialSubstates>
-            <State.Events>
+        <ls:State Name ="PlayerUIsHolder" Layout ="Player" Owner="Player">
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerHUD"/>
+                <ls:InitialSubstate Name="PlayerPanelsHolder"/>
+            </ls:State.InitialSubstates>
+
+            <ls:State.Events>
                 <!-- MOD START - Adds UI Toggle -->
-                <Event Name="OpenPictureMode">
-                    <Event.Actions>
-                        <PushState Name="PictureMode"/>
-                    </Event.Actions>
-                </Event>
+                <ls:StateEvent Name="OpenPictureMode">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="PictureMode"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <!-- MOD END -->
-                <Event Name="ToggleGameMenu">
-                    <Event.Actions>
-                        <PushState Name="Paused"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <PushState Name="Paused"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.OnDialogueShow">
-                    <Event.Actions>
-                        <PushState Name="Dialogue"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenContainerInventory">
-                    <Event.Actions>
-                        <AddSubstate Name="ContainerInventory"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenCombine">
-                    <Event.Actions>
-                        <PushState Name="Combine"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenPickpocket">
-                    <Event.Actions>
-                        <AddSubstate Name="Pickpocket"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenExamine">
-                    <Event.Actions>
-                        <PushState Name="Examine"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ActiveRollOpen">
-                    <Event.Actions>
-                        <PushState Name="ActiveRoll"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenRewardPanel">
-                    <Event.Actions>
-                        <PushState Name="RewardPanel"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "OpenLongRest">
-                    <Event.Actions>
-                        <PushState Name="LongRest"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMakeCamp">
-                    <Event.Actions>
-                        <PushState Name="MakeCamp"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+                <ls:StateEvent Name = "ToggleGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "GE.OnDialogueShow">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Dialogue"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenContainerInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ContainerInventory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenCombine">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Combine"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenInsert">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Insert"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPickpocket">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Pickpocket"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenExamine">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Examine"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ActiveRollOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ActiveRoll"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenRewardPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="RewardPanel"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenLongRest">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="LongRest"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name="OpenMakeCamp">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="MakeCamp"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: PlayerUIs-->
-        <State Layout="Player" Name="PlayerUIs" Owner="Player">
-            <State.InitialSubstates>
-                <InitialSubstate Name="PlayerUIsHolder" />
-                <InitialSubstate Name="PlayerNotifications"/>
-            </State.InitialSubstates>
-        </State>
+        <ls:State Name = "PlayerUIs" Layout = "Player" Owner = "Player">
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerUIsHolder" />
+                <ls:InitialSubstate Name="PlayerNotifications"/>
+            </ls:State.InitialSubstates>
+        </ls:State>
+
         <!--STATE: PlayerHUD-->
-        <State Layout="Player" Name="PlayerHUD" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
-                <StateWidget Filename="OverheadInfo.xaml" IgnoreHitTest="True" Layer="HUD"/>
-                <StateWidget Filename="WorldTooltips.xaml" Layer="HUD"/>
-                <StateWidget Filename="HotBar.xaml" Layer="HUDHotbar"/>
-                <StateWidget Filename="CharacterResources.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="Minimap.xaml" Layer="HUD"/>
-                <StateWidget Filename="TargetInfo.xaml" IgnoreHitTest="True" Layer="HUD"/>
-                <StateWidget Filename="PlayerPortraits.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="HUDInfo.xaml" IgnoreHitTest="True" Layer="HUD"/>
-                <StateWidget Filename="CombatLog.xaml" Layer="HUD"/>
-                <StateWidget Filename="CombatantsOverlay.xaml" Layer="HUD"/>
-                <StateWidget Filename="CursorText.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="DragAndDropPreview.xaml" IgnoreHitTest="True" Layer="DragAndDrop"/>
-                <StateWidget Filename="PassiveRoll.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="VoiceChat.xaml" Layer="HUDTop"/>
+        <ls:State Name = "PlayerHUD" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
+                <ls:StateWidget Filename="OverheadInfo.xaml" Layer="HUD" IgnoreHitTest="True"/>
+                <ls:StateWidget Filename="WorldTooltips.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="HotBar.xaml" Layer="HUDTop"/>
+                <ls:StateWidget Filename="CharacterResources.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="Minimap.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="TargetInfo.xaml" Layer="HUD" IgnoreHitTest="True"/>
+                <ls:StateWidget Filename="PlayerPortraits.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="HUDInfo.xaml" Layer="HUD" IgnoreHitTest="True"/>
+                <ls:StateWidget Filename="CombatLog.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="CombatantsOverlay.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="CursorText.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="DragAndDropPreview.xaml" Layer="DragAndDrop" IgnoreHitTest="True"/>
+                <ls:StateWidget Filename="PassiveRoll.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="VoiceChat.xaml" Layer="PopupPanels"/>
                 <!-- MOD START - Adds UI Toggle -->
                 <StateWidget Filename="PictureMode.xaml" Layer="HUD"/>
                 <!-- MOD END-->
-            </State.Widgets>
-            <State.Events>
-                <Event Name="OpenSelectionFlyOut">
-                    <Event.Actions>
-                        <AddSubstate Name="SelectionFlyOut"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "OpenSelectionFlyOut">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="SelectionFlyOut"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+
+        </ls:State>
+
         <!--STATE: SelectionFlyOut-->
-        <State Layout="Player" Name="SelectionFlyOut" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="SelectionFlyOut.xaml" Layer="HUDTop"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseSelectionFlyOut">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name= "SelectionFlyOut" Layout="Player" Owner="Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="SelectionFlyOut.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseSelectionFlyOut">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: PlayerNotifications-->
-        <State Layout="Player" Name="PlayerNotifications" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Notification.xaml" Layer="Notifications"/>
-            </State.Widgets>
-        </State>
+        <ls:State Name= "PlayerNotifications" Layout="Player" Owner="Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Notification.xaml" Layer="Notifications"/>
+            </ls:State.Widgets>
+            
+        </ls:State>
+
         <!-- STATE: PlayerPanelsHandle -->
-        <State Layout="Player" Name="PlayerPanelsHolder" Owner="Player">
-            <State.InitialSubstates>
-                <InitialSubstate Name="PlayerPanels"/>
-                <InitialSubstate Name="ExtractedPanels"/>
-                <InitialSubstate Name="PlayerRadials"/>
-            </State.InitialSubstates>
-        </State>
-        <State Layout="Player" Name="PlayerRadials" Owner="Player"/>
+        <ls:State Name = "PlayerPanelsHolder" Layout = "Player" Owner = "Player">
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPanels"/>
+                <ls:InitialSubstate Name="ExtractedPanels"/>
+                <ls:InitialSubstate Name="PlayerRadials"/>
+            </ls:State.InitialSubstates>
+        </ls:State>
+
+        <ls:State Name = "PlayerRadials" Layout = "Player" Owner = "Player">
+
+        </ls:State>
+
         <!-- STATE: ExtractedPanels -->
-        <State Layout="Player" Name="ExtractedPanels" Owner="Player">
-            <State.Events>
-                <Event Name="ExtractEquipment">
-                    <Event.Actions>
-                        <AddSubstate Name="ExtractedEquipment"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ExtractInventory">
-                    <Event.Actions>
-                        <AddSubstate Name="ExtractedInventory"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ExtractCharacterSheet">
-                    <Event.Actions>
-                        <AddSubstate Name="ExtractedCharacterSheet"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ExtractSpellBook">
-                    <Event.Actions>
-                        <AddSubstate Name="ExtractedSpellBook"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ExtractedPanels" Layout = "Player" Owner = "Player">
+            <ls:State.Events>
+                <ls:StateEvent Name = "ExtractEquipment">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ExtractedEquipment"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ExtractInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ExtractedInventory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ExtractCharacterSheet">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ExtractedCharacterSheet"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ExtractSpellBook">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ExtractedSpellBook"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Extracted Equipment -->
-        <State DisableStatesBelow="False" Layout="Player" Name="ExtractedEquipment" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseEquipmentPanel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ExtractedEquipment" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseEquipmentPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Extracted Inventory -->
-        <State DisableStatesBelow="False" Layout="Player" Name="ExtractedInventory" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseInventoryPanel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ExtractedInventory" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseInventoryPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Extracted Character Sheet -->
-        <State DisableStatesBelow="False" Layout="Player" Name="ExtractedCharacterSheet" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseCharSheetPanel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ExtractedCharacterSheet" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseCharSheetPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Extracted Spell Book -->
-        <State DisableStatesBelow="False" Layout="Player" Name="ExtractedSpellBook" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseSpellBookPanel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ExtractedSpellBook" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseSpellBookPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: PlayerPanels-->
-        <State Layout="Player" Name="PlayerPanels" Owner="Player">
-            <State.Events>
-                <Event Name="CloseAll">
-                    <Event.Actions>
-                        <RemoveAllSubstates/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleInventory">
-                    <Event.Actions>
-                        <SetSubstate Name="Inventory"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleJournal">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalQuests"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleJournalQuests">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalQuests"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "IE.ToggleInspiration">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalInspiration"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "ToggleJournalInspiration">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalInspiration"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "ToggleJournalMap">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalMap"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ShowJournalMap">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalMap"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleJournalDialogues">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalDialogues"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleJournalInfo">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalInfo"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleJournalTutorial">
-                    <Event.Actions>
-                        <SetSubstate Name="JournalTutorial"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenTutorialPopup">
-                    <Event.Actions>
-                        <SetSubstate Name="TutorialPopup"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleInventory">
-                    <Event.Actions>
-                        <SetSubstate Name="PartyInventory"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleEquipment">
-                    <Event.Actions>
-                        <SetSubstate Name="PartyEquipment"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleCharacterPane">
-                    <Event.Actions>
-                        <SetSubstate Name="PartyCharacterSheet"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleCharacterOverview">
-                    <Event.Actions>
-                        <SetSubstate Name="CharacterOverview"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleSpells">
-                    <Event.Actions>
-                        <SetSubstate Name="SpellBook"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="SplitItemToggle">
-                    <Event.Actions>
-                        <PushState Name="SplitItem"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.SplitItemToggle">
-                    <Event.Actions>
-                        <PushState Name="SplitItem"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleConditionsPanel">
-                    <Event.Actions>
-                        <PushState Name="ConditionsPanel"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "PlayerPanels" Layout = "Player" Owner = "Player">
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseAll">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveAllSubstates/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="Inventory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleJournal">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalQuests"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleJournalQuests">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalQuests"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInspiration">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalInspiration"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleJournalInspiration">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalInspiration"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleJournalMap">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalMap"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ShowJournalMap">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalMap"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleJournalDialogues">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalDialogues"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleJournalInfo">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalInfo"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleJournalTutorial">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="JournalTutorial"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenTutorialPopup">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="TutorialPopup"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="PartyInventory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleEquipment">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="PartyEquipment"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleCharacterPane">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="PartyCharacterSheet"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleCharacterOverview">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="CharacterOverview"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleSpells">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="SpellBook"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "SplitItemToggle">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="SplitItem"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.SplitItemToggle">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="SplitItem"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleConditionsPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ConditionsPanel"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+
         <!--STATE: PartyEquipment-->
-        <State Layout="Player" Name="PartyEquipment" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="PartyEquipment.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleEquipment">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleEquipment">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "PartyEquipment" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="PartyEquipment.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleEquipment">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleEquipment">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: PartyCharacterSheet-->
-        <State Layout="Player" Name="PartyCharacterSheet" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="PartyCharacterSheet.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleCharacterPane">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleCharacterPane">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "PartyCharacterSheet" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="PartyCharacterSheet.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleCharacterPane">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleCharacterPane">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: CharacterOverview-->
-        <State Layout="Player" Name="CharacterOverview" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="CharacterOverview.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleCharacterOverview">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "CharacterOverview" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="CharacterOverview.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleCharacterOverview">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+
         <!--STATE: Inventory-->
-        <State Layout="Player" Name="PartyInventory" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="PartyInventory.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInventory">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleInventory">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenSortInventory">
-                    <Event.Actions>
-                        <SetSubstate Name="SortInventory"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <State DisableStatesBelow="True" Layout="Player" Name="SortInventory" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="SortInventory.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.UICancel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "PartyInventory" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="PartyInventory.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenSortInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="SortInventory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "SortInventory" Layout = "Player" Owner = "Player" DisableStatesBelow="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="SortInventory.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "IE.UICancel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: JournalQuests-->
-        <State HideStatesBelow="True" Layout="Player" Name="JournalQuests" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="JournalQuests.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleJournal">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        
-        <State Name = "JournalInspiration" Layout = "Player" Owner = "Player" HideStatesBelow="True">
-            <State.Widgets>
-                <StateWidget Filename="JournalInspiration.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-            </State.Widgets>
+        <ls:State Name = "JournalQuests" Layout = "Player" Owner = "Player" HideStatesBelow="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="JournalQuests.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
 
-            <State.Events>
-                <Event Name = "CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "IE.ToggleInspiration">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleJournal">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+        
+        <ls:State Name = "JournalInspiration" Layout = "Player" Owner = "Player" HideStatesBelow="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="JournalInspiration.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInspiration">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: JournalMap-->
-        <State Layout="Player" Name="JournalMap" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="JournalMap.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleJournalMap">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleMap">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "JournalMap" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="JournalMap.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleJournalMap">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleMap">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: JournalDialogues-->
-        <State HideStatesBelow="True" Layout="Player" Name="JournalDialogues" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="JournalDialogues.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "JournalDialogues" Layout = "Player" Owner = "Player" HideStatesBelow="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="JournalDialogues.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: JournalInfo -->
-        <State Layout="Player" Name="JournalInfo" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="JournalInfo.xaml" Layer="HUDTop"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "JournalInfo" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="JournalInfo.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: JournalTutorial -->
-        <State HideStatesBelow="True" Layout="Player" Name="JournalTutorial" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="JournalTutorials.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "JournalTutorial" Layout = "Player" Owner = "Player" HideStatesBelow="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="JournalTutorials.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: TutorialPopup -->
-        <State Layout="Player" Name="TutorialPopup" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="TutorialPopup.xaml" Layer="HUDTop"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "TutorialPopup" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="TutorialPopup.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Trade-->
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Player" Name="Trade" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Trade.xaml" Layer="Panels"/>
-                <StateWidget Filename="PlayerPortraits.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="DragAndDropPreview.xaml" IgnoreHitTest="True" Layer="DragAndDrop"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="SplitItemToggle">
-                    <Event.Actions>
-                        <PushState Name="SplitItem"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenExamine">
-                    <Event.Actions>
-                        <PushState Name="Examine"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAll">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Trade" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Trade.xaml" Layer="Panels"/>
+                <ls:StateWidget Filename="PlayerPortraits.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="DragAndDropPreview.xaml" Layer="DragAndDrop" IgnoreHitTest="True"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "SplitItemToggle">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="SplitItem"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenExamine">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Examine"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAll">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: SpellBook-->
-        <State Layout="Player" Name="SpellBook" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="SpellBook.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleSpells">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleSpells">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "SpellBook" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="SpellBook.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleSpells">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleSpells">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: ProfileSelect-->
-        <State DisableStatesBelow="True" Layout="Player" Name="ProfileSelect" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="ProfileSelect.xaml" Layer="Notifications"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ProfileSelect" DisableStatesBelow = "True" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ProfileSelect.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Messagebox-->
-        <State DisableStatesBelow="True" IsModal="True" Layout="Common" Name="MessageBox" Owner="Player">
-            <State.Widgets>
-                <StateWidget BlockedLoading="True" Filename="MessageBox.xaml" Layer="MessageBox"/>
-                <StateWidget Filename="Overlay.xaml" Layer="MessageBox" BlockedLoading="True"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="TestAction">
-                    <Event.Actions>
-                        <PushState Name="Paused"/>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseMessageBox">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="LoadGameOpen">
-                    <Event.Actions>
-                        <PushState Name="Paused.LoadGame"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <PushState Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenHDR">
-                    <Event.Actions>
-                        <AddSubstate Name="HDRCalibration"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "MessageBox" DisableStatesBelow = "True" IsModal="True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="MessageBox.xaml" Layer="MessageBox" BlockedLoading="True"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox" BlockedLoading="True"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "TestAction">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "LoadGameOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused.LoadGame"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenHDR">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="HDRCalibration"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: GameOverMessagebox-->
-        <State DisableStatesBelow="True" IsModal="True" Layout="Common" Name="GameOverMessageBox" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="MessageBox.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseMessageBox">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="LoadGameOpen">
-                    <Event.Actions>
-                        <PushState Name="Paused.LoadGame"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "GameOverMessageBox" DisableStatesBelow = "True" IsModal = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="MessageBox.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "LoadGameOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused.LoadGame"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Picture in picture panel -->
-        <State DisableStatesBelow="False" Layout="Player" Name="PiPPanel" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="PiPPanel.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="ClosePiPPanel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "PiPPanel" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="PiPPanel.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "ClosePiPPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Messagebox-->
-        <State DisableStatesBelow="True" IsModal="True" Layout="Common" Name="SystemMessageBox" Owner="DefaultPlayer">
-            <State.Widgets>
-                <StateWidget Filename="MessageBox.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseMessageBox">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "SystemMessageBox" DisableStatesBelow = "True" IsModal="True" Layout = "Common" Owner = "DefaultPlayer">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="MessageBox.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Book -->
-        <State DisableStatesBelow="True" Layout="Common" Name="Book" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Book.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAllFullscreen">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Book" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Book.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAllFullscreen">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Dialogue-->
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Player" Name="Dialogue" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Dialogue.xaml" Layer="HUD"/>
-                <StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
-            </State.Widgets>
-            <State.Events>
+        <ls:State Name = "Dialogue" DisableStatesBelow = "True" HideStatesBelow="True"  Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Dialogue.xaml" Layer="HUD" BlockedLoading="True"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="Notifications" BlockedLoading="True"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
                 <!-- MOD START - Adds UI Toggle -->
-                <Event Name="OpenPictureMode">
-                    <Event.Actions>
-                        <PushState Name="PictureMode"/>
-                    </Event.Actions>
-                </Event>
+                <ls:StateEvent Name="OpenPictureMode">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="PictureMode"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <!-- MOD END -->
-                <Event Name="GE.OnDialogueShow"/>
-                <Event Name="OpenTrade">
-                    <Event.Actions>
-                        <PushState Name="Trade"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.OnDialogueHide">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenDialogueHistory">
-                    <Event.Actions>
-                        <PushState Name="DialogueHistory"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.OpenDialogueHistory">
-                    <Event.Actions>
-                        <PushState Name="DialogueHistory"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ActiveRollOpen">
-                    <Event.Actions>
-                        <PushState Name="ActiveRoll"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="ToggleGameMenu">
-                    <Event.Actions>
-                        <PushState Name="Paused"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <PushState Name="Paused"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenTutorial">
-                    <Event.Actions>
-                        <AddSubstate Name="Tutorial"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenGameOverMessageBox">
-                    <Event.Actions>
-                        <PushState Name="GameOverMessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "OpenLongRest">
-	                <Event.Actions>
-		                <PushState Name="LongRest"/>
-	                </Event.Actions>
-                </Event>
-			</State.Events>
-        </State>
+                <ls:StateEvent Name = "GE.OnDialogueShow" />
+                <ls:StateEvent Name = "OpenTrade">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Trade"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "GE.OnDialogueHide">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenDialogueHistory">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="DialogueHistory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.OpenDialogueHistory">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="DialogueHistory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ActiveRollOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ActiveRoll"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenTutorial">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Tutorial"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenGameOverMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="GameOverMessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenLongRest">
+	                <ls:StateEvent.Actions>
+		                <ls:PushState Name="LongRest"/>
+	                </ls:StateEvent.Actions>
+                </ls:StateEvent>
+			</ls:State.Events>
+        </ls:State>
+
         <!-- STATE: DialogueHistory -->
-        <State DisableStatesBelow="True" Layout="Player" Name="DialogueHistory" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="DialogueHistory.xaml" Layer="HUD"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseDialogueHistory">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.CloseDialogueHistory">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "DialogueHistory" DisableStatesBelow = "True" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="DialogueHistory.xaml" Layer="HUD"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseDialogueHistory">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.CloseDialogueHistory">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: SplitItem-->
-        <State DisableStatesBelow="True" ForceSplitscreen="True" HideStatesBelow="False" IsModal="True" Layout="Player" Name="SplitItem" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="SplitItem.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="SplitItemToggle">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.SplitItemToggle">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "SplitItem" IsModal="True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" HideStatesBelow = "False" ForceSplitscreen="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="SplitItem.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "SplitItemToggle">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.SplitItemToggle">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: ConditionsPanel-->
-        <State ForceSplitscreen="True" HideStatesBelow="False" Layout="Player" Name="ConditionsPanel" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="ConditionsPanel.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="ToggleConditionsPanel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ConditionsPanel" Layout = "Player" Owner = "Player" HideStatesBelow = "False" ForceSplitscreen="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ConditionsPanel.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "ToggleConditionsPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: MainMenu.LoadGame-->
-        <State DisableStatesBelow="True" Layout="Common" Name="MainMenu.LoadGame" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="LoadGame.xaml"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="LoadGameClose">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.LoadGameClose">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "MainMenu.LoadGame" DisableStatesBelow = "True" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="LoadGame.xaml"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "LoadGameClose">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.LoadGameClose">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Paused.LoadGame-->
-        <State DisableStatesBelow="True" ForceSplitscreen="True" HideStatesBelow="False" IsModal="True" Layout="Player" Name="Paused.LoadGame" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="LoadGame.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="LoadGameClose">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.LoadGameClose">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Paused.LoadGame" DisableStatesBelow = "True" IsModal="True" Layout = "Player" Owner = "Player" HideStatesBelow = "False" ForceSplitscreen="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="LoadGame.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "LoadGameClose">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.LoadGameClose">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Paused.SaveGame-->
-        <State DisableStatesBelow="True" ForceSplitscreen="True" HideStatesBelow="False" IsModal="True" Layout="Player" Name="Paused.SaveGame" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="SaveGame.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="SaveGameClose">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.SaveGameClose">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenNewSaveDialog">
-                    <Event.Actions>
-                        <AddSubstate Name="SaveGame.InputSaveName"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Paused.SaveGame" DisableStatesBelow = "True" IsModal="True" Layout = "Player" Owner = "Player" HideStatesBelow = "False" ForceSplitscreen="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="SaveGame.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "SaveGameClose">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.SaveGameClose">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenNewSaveDialog">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="SaveGame.InputSaveName"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: SaveGame.InputSaveName-->
-        <State DisableStatesBelow="True" Layout="Common" Name="SaveGame.InputSaveName" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="SaveGameInputSaveNameDialog.xaml" Layer="MessageBox"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseMessageBox">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "SaveGame.InputSaveName" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="SaveGameInputSaveNameDialog.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Container Inventory -->
-        <State DisableStatesBelow="False" Layout="Player" Name="ContainerInventory" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Container.xaml" Layer="HUDTop"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseAll">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "OpenContainerInventory">
+        <ls:State Name = "ContainerInventory" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Container.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseAll">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenContainerInventory">
 
-                </Event>
-            </State.Events>
-        </State>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Pickpocket -->
-        <State DisableStatesBelow="False" Layout="Player" Name="Pickpocket" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Pickpocket.xaml" Layer="HUD"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Pickpocket" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Pickpocket.xaml" Layer="HUD"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Combine UI-->
-        <State DisableStatesBelow="False" Layout="Player" Name="Combine" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Combine.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name="Combine" DisableStatesBelow="False" Layout="Player" Owner="Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Combine.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: Insert UI-->
+        <ls:State Name="Insert" DisableStatesBelow="False" Layout="Player" Owner="Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Insert.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Examine-->
-        <State DisableStatesBelow="False" HideStatesBelow="False" Layout="Player" Name="Examine" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Examine.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Examine" DisableStatesBelow = "False" HideStatesBelow = "False" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Examine.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Options-->
-        <State ActivateOnRestore="True" DisableStatesBelow="True" HideStatesBelow="True" IsModal="True" Layout="Common" Name="Options" Owner="All">
-            <State.InitialSubstates>
-                <InitialSubstate Name="GameOptions"/>
-            </State.InitialSubstates>
-            <State.Events>
-                <Event Name="OpenAudioOptions">
-                    <Event.Actions>
-                        <SetSubstate Name="AudioOptions"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenVideoOptions">
-                    <Event.Actions>
-                        <SetSubstate Name="VideoOptions"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenGameOptions">
-                    <Event.Actions>
-                        <SetSubstate Name="GameOptions"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenKeybindingOptions">
-                    <Event.Actions>
-                        <SetSubstate Name="KeybindingOptions"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenControllerOptions">
-                    <Event.Actions>
-                        <SetSubstate Name="ControllerOptions"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenHDR">
-                    <Event.Actions>
-                        <AddSubstate Name="HDRCalibration"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "Options" Layout = "Common" Owner = "All" DisableStatesBelow = "True" IsModal="True" HideStatesBelow = "True" ActivateOnRestore="True">
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="GameOptions"/>
+            </ls:State.InitialSubstates>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "OpenAudioOptions">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="AudioOptions"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenVideoOptions">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="VideoOptions"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenGameOptions">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="GameOptions"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenKeybindingOptions">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="KeybindingOptions"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenControllerOptions">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="ControllerOptions"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenInterfaceOptions">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="InterfaceOptions"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenHDR">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="HDRCalibration"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: Audio Options-->
-        <State Layout="Common" Name="AudioOptions" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="AudioOptions.xaml" Layer="Pause"/>
-            </State.Widgets>
-        </State>
+        <ls:State Name = "AudioOptions" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="AudioOptions.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+        </ls:State>
+
         <!--STATE: Video Options-->
-        <State Layout="Common" Name="VideoOptions" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="VideoOptions.xaml" Layer="Pause"/>
-            </State.Widgets>
-        </State>
+        <ls:State Name = "VideoOptions" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="VideoOptions.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+        </ls:State>
+
         <!--STATE: Game Options-->
-        <State Layout="Common" Name="GameOptions" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="GameOptions.xaml" Layer="Pause"/>
-            </State.Widgets>
-        </State>
+        <ls:State Name = "GameOptions" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="GameOptions.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+        </ls:State>
+
         <!--STATE: Keybinding Options-->
-        <State Layout="Common" Name="KeybindingOptions" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="KeybindingOptions.xaml" Layer="Pause"/>
-            </State.Widgets>
-        </State>
+        <ls:State Name = "KeybindingOptions" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="KeybindingOptions.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+        </ls:State>
+
         <!--STATE: Controller Options-->
-        <State Layout="Common" Name="ControllerOptions" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="ControllerOptions.xaml" Layer="Pause"/>
-            </State.Widgets>
-        </State>
+        <ls:State Name = "ControllerOptions" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ControllerOptions.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+        </ls:State>
+
+        <!--STATE: Controller Options-->
+        <ls:State Name = "InterfaceOptions" Layout = "Common" Owner = "All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="InterfaceOptions.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+        </ls:State>
+
         <!--STATE: Active Roll -->
-        <State DisableStatesBelow="True" HideStatesBelow="True" IsModal="True" Layout="Player" Name="ActiveRoll" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="ActiveRoll.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenTutorial">
-                    <Event.Actions>
-                        <AddSubstate Name="Tutorial"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ActiveRoll" DisableStatesBelow = "True" HideStatesBelow="True"  IsModal="True" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ActiveRoll.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenTutorial">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Tutorial"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: LobbyBrowser-->
-        <State Layout="Common" Name="LobbyBrowser" Owner="DefaultPlayer">
-            <State.Widgets>
-                <StateWidget Filename="LobbyBrowser.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.ToggleInGameMenu">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <State DisableStatesBelow="True" HideStatesBelow="True" Layout="Common" Name="Lobby" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
-                <StateWidget Filename="Lobby.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="GE.Lobby">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "LobbyBrowser" Layout = "Common" Owner = "DefaultPlayer">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="LobbyBrowser.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "Lobby" Layout = "Common" Owner = "All" DisableStatesBelow = "True" HideStatesBelow = "True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="Lobby.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "GE.Lobby">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: CharacterAssign -->
-        <State DisableStatesBelow="True" IsModal="True" Layout="Player" Name="CharacterAssign" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="CharacterAssign.xaml" Layer="Pause"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="ConnectivityMenuOpen">
-                    <Event.Actions>
-                        <PushState Name="ConnectivityMenu"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="OpenPiPPanel">
-                    <Event.Actions>
-                        <PushState Name="PiPPanel"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="CloseMessageBox">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "CharacterAssign" DisableStatesBelow = "True" HideStatesBelow = "True"  IsModal="True" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="CharacterAssign.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "ConnectivityMenuOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ConnectivityMenu"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPiPPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="PiPPanel"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "CloseMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: ConnectivityMenu -->
-        <State DisableStatesBelow="True" Layout="Player" Name="ConnectivityMenu" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="ConnectivityMenu.xaml" Layer="Pause"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "ConnectivityMenu" DisableStatesBelow = "True" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ConnectivityMenu.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: RewardPanel -->
-        <State DisableStatesBelow="False" IsModal="True" Layout="Player" Name="RewardPanel" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="RewardPanel.xaml" Layer="Panels"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name = "RewardPanel" DisableStatesBelow = "False" Layout = "Player" Owner = "Player" IsModal = "True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="RewardPanel.xaml" Layer="Panels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseRewardPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
         <!--STATE: CombatLog - empty state to switch between kb & controller-->
-        <State HideStatesBelow="False" Layout="Player" Name="CombatLog" Owner="Player"/>
+        <ls:State Name = "CombatLog" Layout = "Player" Owner = "Player" HideStatesBelow = "False"/>
+
         <!--STATE: Tutorials - The modal tutorial showing and highlighting other UIs while explaining their use-->
-        <State DisableStatesBelow="True" IsModal="True" Layout="Player" Name="Tutorial" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="Tutorial.xaml" Layer="HUDTop"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <!--The message boxes shouldn't be usable on the modal tutorial, they are fallbacks as long all tutorials are not implemented.-->
-                <Event Name="OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <State DisableStatesBelow="True" HideStatesBelow="True" IsModal="True" Layout="Player" Name="ActOver" Owner="Player">
-            <State.Widgets>
-                <StateWidget Filename="OverviewMap.xaml" Layer="Notifications"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.UICancel">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                <Event Name="IE.UIAccept">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <State DisableStatesBelow="False" HideStatesBelow="False" IsModal="True" Layout="Common" Name="Busy" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="Busy.xaml" Layer="Pause"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name="GE.OnBusyHide">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
-        <State DisableStatesBelow="False" IsModal="True" Layout="Common" Name="Saving" Owner="All">
-            <State.Widgets>
-                <StateWidget Filename="Saving.xaml" Layer="Notifications"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name = "GE.OnSaveHide">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+        <ls:State Name="Tutorial" DisableStatesBelow="True" Layout="Player" Owner="Player" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Tutorial.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
 
-        <State Name = "LongRest" Layout = "Player" Owner = "Player" DisableStatesBelow = "True" HideStatesBelow = "True" IsModal="True">
-            <State.Widgets>
-                <StateWidget Filename="LongRest.xaml" Layer="HUD"/>
-            </State.Widgets>
-            <State.Events>
-                <Event Name = "HideLongRest">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                
+                <ls:StateEvent Name = "OpenGameOverMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="GameOverMessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name="ActOver" DisableStatesBelow="True" Layout="Player" Owner="Player" HideStatesBelow = "True" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="OverviewMap.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.UICancel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.UIAccept">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "Busy" Layout = "Common" Owner = "All" DisableStatesBelow = "False" HideStatesBelow = "False" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Busy.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "GE.OnBusyHide">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "Saving" Layout = "Common" Owner = "All" DisableStatesBelow = "False" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="Saving.xaml" Layer="Notifications"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "GE.OnSaveHide">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "LongRest" Layout = "Player" Owner = "Player" DisableStatesBelow = "True" HideStatesBelow = "True" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="LongRest.xaml" Layer="HUD"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "HideLongRest">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name="MakeCamp" Layout="Player" Owner="Player" DisableStatesBelow="True" HideStatesBelow="True" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="MakeCamp.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
+                <ls:StateWidget Filename="DragAndDropPreview.xaml" Layer="DragAndDrop" IgnoreHitTest="True"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "CloseMakeCamp">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "SplitItemToggle">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="SplitItem"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.SplitItemToggle">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="SplitItem"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State> 
         
-        <State Name="MakeCamp" Layout="Player" Owner="Player" DisableStatesBelow="True" HideStatesBelow="True" IsModal="True">
-            <State.Widgets>
-                <StateWidget Filename="MakeCamp.xaml" Layer="HUDTop"/>
-                <StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
-                <StateWidget Filename="DragAndDropPreview.xaml" Layer="DragAndDrop" IgnoreHitTest="True"/>
-            </State.Widgets>
 
-            <State.Events>
-                <Event Name = "CloseWidget">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                
-                <Event Name = "CloseMakeCamp">
-                    <Event.Actions>
-                        <RemoveState/>
-                    </Event.Actions>
-                </Event>
-                
-                <Event Name = "OpenMessageBox">
-                    <Event.Actions>
-                        <AddSubstate Name="MessageBox"/>
-                    </Event.Actions>
-                </Event>
-
-                <Event Name = "SplitItemToggle">
-                    <Event.Actions>
-                        <PushState Name="SplitItem"/>
-                    </Event.Actions>
-                </Event>
-                <Event Name = "IE.SplitItemToggle">
-                    <Event.Actions>
-                        <PushState Name="SplitItem"/>
-                    </Event.Actions>
-                </Event>
-            </State.Events>
-        </State> 
-    </StateMachine.States>
-</StateMachine>
+    </ls:StateMachine.States>
+</ls:StateMachine>
