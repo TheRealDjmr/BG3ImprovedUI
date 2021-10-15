@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             xmlns:ls="clr-namespace:ls"
+             xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
@@ -37,7 +37,7 @@
             <System:Int16 x:Key="ShowCharacterSelectionCount">1</System:Int16>
 
             <Style x:Key="Dialogue.ContinueBinding" TargetType="ls:LSInputBinding">
-                <Setter Property="PlayerID" Value="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
+                <Setter Property="PlayerId" Value="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
                 <Setter Property="Command" Value="{Binding SelectorEnterCommand.ActionCommand}" />
                 <Setter Property="CommandParameter" Value="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
 				<Setter Property="SoundID" Value="UI_Input_Dialogue_Continue"/>
@@ -74,8 +74,8 @@
             <TextBlock Text="{Binding PollNotification}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}"/>
         </ContentControl>
 
-        <ls:LSInputBinding PlayerID="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" BoundEvent="UIUp" Command="{Binding SelectorUpCommand.ActionCommand}" />
-        <ls:LSInputBinding PlayerID="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" BoundEvent="UIDown" Command="{Binding SelectorDownCommand.ActionCommand}" />
+        <ls:LSInputBinding PlayerId="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" BoundEvent="UIUp" Command="{Binding SelectorUpCommand.ActionCommand}" />
+        <ls:LSInputBinding PlayerId="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" BoundEvent="UIDown" Command="{Binding SelectorDownCommand.ActionCommand}" />
         <ls:LSInputBinding BoundEvent="UIEndTurn" Style="{StaticResource Dialogue.ContinueBinding}" />
 
         <!-- this is an alternative to allow pressing "1" to on continue nodes -->
@@ -196,24 +196,25 @@
                         <ls:LSTooltip Content="{Binding Source='he9e4a39fg8a5dg4ac5gacffgaea214260c69',Converter={StaticResource TranslatedStringConverter}}"/>
                     </ls:LSButton.ToolTip>
                 </ls:LSButton>
-                <!-- MOD START -->
+                <!-- MOD START - Adds picture button -->
                 <ls:LSButton x:Name="PictureModeBtn" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-88" Style="{StaticResource PictureModeButtonStyle}"
                     Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"
                     CommandParameter="OpenPictureMode">
                     <ls:LSButton.ToolTip>
-                        <ls:LSTooltip Content="Activate Photomode"/>
+                        <ls:LSTooltip Content="Activate Picture Mode"/>
                     </ls:LSButton.ToolTip>
                 </ls:LSButton>
                 <!-- MOD END -->
             </StackPanel>
         </StackPanel>
 
-            <!-- MOD START - Remove early access text from dialogues
+        <!-- MOD START - Remove early access text from dialogues
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="{StaticResource GiganticFontSize}"  Opacity="0.7">
             <Run Text="{Binding Source='h8be1f0ddgdfa7g4812ga2b5g04854b2a1a65', Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}"/>
             <Run Text=" - "/>
             <Run Text="{Binding DataContext.Data.VersionString, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"/>
         </TextBlock>
             MOD END -->
+            
     </Grid>
 </ls:UIWidget>
