@@ -1744,7 +1744,8 @@
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="ActionResources.ActionGroup.PsiPointGroup" TargetType="ls:LSActionPoint">        <ControlTemplate.Resources>
+    <!-- MOD START - Custom action resources -->
+	<ControlTemplate x:Key="ActionResources.ActionGroup.PsiPointGroup" TargetType="ls:LSActionPoint">        <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_h.png</ImageSource>
             <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
             <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_spent.png</ImageSource>
@@ -1767,6 +1768,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
+	<!-- MOD END -->
 
     <ControlTemplate x:Key="ActionResources.ActionGroup.KiActionGroup" TargetType="ls:LSActionPoint">
         <ControlTemplate.Resources>
@@ -1896,6 +1898,7 @@
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+			<!-- MOD START - Custom action resources -->
             <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="PsiPoint">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.PsiPointGroup}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
@@ -1952,6 +1955,7 @@
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+			<!-- MOD END -->
             <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="KiPoint">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.KiActionGroup}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
