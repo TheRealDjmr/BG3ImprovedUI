@@ -52,7 +52,8 @@
     <ImageSource x:Key="SorceryPointUsed" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_spent.png</ImageSource>
     <ImageSource x:Key="SorceryPointUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_missing.png</ImageSource>
 
-    <ImageSource x:Key="PsiPoint" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
+    <!-- MOD START - Custom action resources -->
+	<ImageSource x:Key="PsiPoint" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
     <ImageSource x:Key="PsiPointUsed" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_spent.png</ImageSource>
     <ImageSource x:Key="PsiPointUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_missing.png</ImageSource>
 
@@ -67,6 +68,7 @@
     <ImageSource x:Key="RampageDie" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_d.png</ImageSource>
     <ImageSource x:Key="RampageDieUsed" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_spent.png</ImageSource>
     <ImageSource x:Key="RampageDieUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_missing.png</ImageSource>
+	<!-- MOD END -->
 
     <ImageSource x:Key="KiPoint" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki.png</ImageSource>
     <ImageSource x:Key="KiPointUsed" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki_spent.png</ImageSource>
@@ -1323,6 +1325,7 @@
             <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
                 <Setter Property="Source" Value="{StaticResource SorceryPoint}"/>
             </DataTrigger>
+			<!-- MOD START - Custom action resources -->
             <DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
                 <Setter Property="Source" Value="{StaticResource PsiPoint}"/>
             </DataTrigger>
@@ -1332,6 +1335,10 @@
             <DataTrigger Binding="{Binding TypeId}" Value="HitDice">
                 <Setter Property="Source" Value="{StaticResource HitDice}"/>
             </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RampageDie">
+                <Setter Property="Source" Value="{StaticResource RampageDie}"/>
+            </DataTrigger>
+			<!-- MOD END -->
             <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
                 <Setter Property="Source" Value="{StaticResource KiPoint}"/>
             </DataTrigger>
@@ -1423,6 +1430,7 @@
                     <Setter Property="Source" Value="{StaticResource SorceryPointUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+			<!-- MOD START - Custom action resources -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="PsiPoint"/>
@@ -1453,6 +1461,17 @@
                     <Setter Property="Source" Value="{StaticResource HitDiceUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="RampageDie"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaicResource RampageDieUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<!-- MOD END -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="KiPoint"/>
@@ -1596,6 +1615,7 @@
                     <Setter Property="Source" Value="{StaticResource SorceryPointUsed}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+			<!-- MOD START - Custom action resources -->
             <MultiDataTrigger >
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="PsiPoint"/>
@@ -1636,6 +1656,7 @@
                     <Setter Property="Source" Value="{StaticResource RampageDieUsed}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+			<!-- MOD END -->
             <MultiDataTrigger >
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="KiPoint"/>
