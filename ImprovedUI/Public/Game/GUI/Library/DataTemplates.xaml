@@ -1744,6 +1744,30 @@
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="ActionResources.ActionGroup.PsiPointGroup" TargetType="ls:LSActionPoint">        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_spent.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.HitDiceGroup" TargetType="ls:LSActionPoint">        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_hitdice_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_hitdice_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_hitdice_spent.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.RampageDieGroup" TargetType="ls:LSActionPoint">        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_spent.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
     <ControlTemplate x:Key="ActionResources.ActionGroup.KiActionGroup" TargetType="ls:LSActionPoint">
         <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki_h.png</ImageSource>
@@ -1866,6 +1890,62 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding ActionResource.TypeId}" Value="SorceryPoint"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="PsiPoint">
+                <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.PsiPointGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="48" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ActionResource.TypeId}" Value="PsiPoint"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="PsiPointMastery">
+                <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.PsiPointGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="48" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ActionResource.TypeId}" Value="PsiPointMastery"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="HitDice">
+                <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.HitDiceGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="48" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ActionResource.TypeId}" Value="HitDice"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="RampageDie">
+                <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.RampageDieGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="48" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ActionResource.TypeId}" Value="RampageDie"/>
                     <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
