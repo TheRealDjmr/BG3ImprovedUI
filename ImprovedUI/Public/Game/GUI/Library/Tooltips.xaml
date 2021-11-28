@@ -53,6 +53,10 @@
     <ImageSource x:Key="SorceryPointUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_missing.png</ImageSource>
 
     <!-- MOD START - Custom action resources -->
+	<ImageSource x:Key="SneakAttack" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_res_sneakAttack_d.png</ImageSource>
+    <ImageSource x:Key="SneakAttackDieUsed" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_res_sneakAttack_spent.png</ImageSource>
+    <ImageSource x:Key="SneakAttackDieUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_res_sneakAttack_spent.png</ImageSource>
+	
 	<ImageSource x:Key="PsiPoint" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
     <ImageSource x:Key="PsiPointUsed" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_spent.png</ImageSource>
     <ImageSource x:Key="PsiPointUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_missing.png</ImageSource>
@@ -68,6 +72,26 @@
     <ImageSource x:Key="RampageDie" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_d.png</ImageSource>
     <ImageSource x:Key="RampageDieUsed" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_spent.png</ImageSource>
     <ImageSource x:Key="RampageDieUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_missing.png</ImageSource>
+	
+	<ImageSource x:Key="MartialArtsDieD4" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad1_d.dds</ImageSource>
+    <ImageSource x:Key="MartialArtsDieD4Used" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad1_d.dds</ImageSource>
+    <ImageSource x:Key="MartialArtsDieD4Unavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad1_d.dds</ImageSource>
+	
+	<ImageSource x:Key="MartialArtsDieD6" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad2_d.dds</ImageSource>
+    <ImageSource x:Key="MartialArtsDieD6Used" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad2_d.dds</ImageSource>
+    <ImageSource x:Key="MartialArtsDieD6Unavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad2_d.dds</ImageSource>
+	
+	<ImageSource x:Key="MartialArtsDieD8" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad3_d.dds</ImageSource>
+    <ImageSource x:Key="MartialArtsDieD8Used" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad3_d.dds</ImageSource>
+    <ImageSource x:Key="MartialArtsDieD8Unavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad3_d.dds</ImageSource>
+	
+	<ImageSource x:Key="MartialArtsDieD10" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad4_d.dds</ImageSource>
+    <ImageSource x:Key="MartialArtsDieD10Used" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad4_d.dds</ImageSource>
+    <ImageSource x:Key="MartialArtsDieD10Unavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_mad4_d.dds</ImageSource>
+	
+	<ImageSource x:Key="NecroThaum" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Resource_Thaumaturgy_Icon.dds</ImageSource>
+    <ImageSource x:Key="NecroThaumUsed" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Resource_Thaumaturgy_Used.dds</ImageSource>
+    <ImageSource x:Key="NecroThaumUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Resource_Thaumaturgy_Used.dds</ImageSource>
 	<!-- MOD END -->
 
     <ImageSource x:Key="KiPoint" >pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki.png</ImageSource>
@@ -1326,6 +1350,9 @@
                 <Setter Property="Source" Value="{StaticResource SorceryPoint}"/>
             </DataTrigger>
 			<!-- MOD START - Custom action resources -->
+			<DataTrigger Binding="{Binding TypeId}" Value="SneakAttack">
+                <Setter Property="Source" Value="{StaticResource SneakAttack}"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
                 <Setter Property="Source" Value="{StaticResource PsiPoint}"/>
             </DataTrigger>
@@ -1337,6 +1364,21 @@
             </DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="RampageDie">
                 <Setter Property="Source" Value="{StaticResource RampageDie}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MartialArtsDieD4">
+                <Setter Property="Source" Value="{StaticResource MartialArtsDieD4}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MartialArtsDieD6">
+                <Setter Property="Source" Value="{StaticResource MartialArtsDieD6}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MartialArtsDieD8">
+                <Setter Property="Source" Value="{StaticResource MartialArtsDieD8}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MartialArtsDieD10">
+                <Setter Property="Source" Value="{StaticResource MartialArtsDieD10}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="NecroThaum">
+                <Setter Property="Source" Value="{StaticResource NecroThaum}"/>
             </DataTrigger>
 			<!-- MOD END -->
             <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
@@ -1431,6 +1473,16 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 			<!-- MOD START - Custom action resources -->
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="SneakAttack"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource SneakAttackDieUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="PsiPoint"/>
@@ -1469,6 +1521,56 @@
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Source" Value="{StaicResource RampageDieUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD4"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaicResource MartialArtsDieD4Unavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD6"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaicResource MartialArtsDieD6Unavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD8"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaicResource MartialArtsDieD8Unavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD10"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaicResource MartialArtsDieD10Unavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="NecroThaum"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaicResource NecroThaumUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 			<!-- MOD END -->
@@ -1616,6 +1718,16 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 			<!-- MOD START - Custom action resources -->
+			<MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="SneakAttack"/>
+                    <Condition Binding="{Binding Path=DataContext.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+                    <Condition Binding="{Binding Path=DataContext.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource SneakAttackDieUsed}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
             <MultiDataTrigger >
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="PsiPoint"/>
@@ -1654,6 +1766,56 @@
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Source" Value="{StaticResource RampageDieUsed}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD4"/>
+                    <Condition Binding="{Binding Path=DataContext.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+                    <Condition Binding="{Binding Path=DataContext.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource MartialArtsDieD4Used}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD6"/>
+                    <Condition Binding="{Binding Path=DataContext.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+                    <Condition Binding="{Binding Path=DataContext.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource MartialArtsDieD6Used}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD8"/>
+                    <Condition Binding="{Binding Path=DataContext.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+                    <Condition Binding="{Binding Path=DataContext.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource MartialArtsDieD8Used}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD10"/>
+                    <Condition Binding="{Binding Path=DataContext.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+                    <Condition Binding="{Binding Path=DataContext.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource MartialArtsDieD10Used}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="NecroThaum"/>
+                    <Condition Binding="{Binding Path=DataContext.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+                    <Condition Binding="{Binding Path=DataContext.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource NecroThaumUsed}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 			<!-- MOD END -->
@@ -2208,252 +2370,6 @@
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
-
-                <ContentControl x:Name="MetamagicDesc" Template="{StaticResource TooltipStripTemplate}" Visibility="{Binding Metamagic.Enabled, Converter={StaticResource BoolToVisibleConverter}}" Margin="0,26,0,16">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,10">
-                        <TextBlock Foreground="{DynamicResource LS_baseTxtColor}" Text="{Binding Source='h007741f2ge0abg4842g99f1gcfa286352e4a', Converter={StaticResource TranslatedStringConverter}}"/>
-                        <!-- Empowered section -->
-                        <StackPanel Orientation="Vertical" Visibility="{Binding Metamagic.IsEmpowered, Converter={StaticResource BoolToVisibleConverter}}">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                <Image Stretch="None" VerticalAlignment="Center" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_empowered.dds"/>
-                                <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource Sorcerer.Metamagic}" ls:TextBlockFormatter.SourceText="{Binding Source='h672032fcg3562g4dccgbe76g720228818da1', Converter={StaticResource TranslatedStringConverter}}"/>
-                            </StackPanel>
-                            <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='hc215d788gec91g4f43g97e9gdbf1a904e041', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                        </StackPanel>
-
-                        <!-- Exclusive meta magic section (where only one can be enabled at a time)-->
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel.Style>
-                                <Style TargetType="StackPanel">
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Metamagic.Type}" Value="None">
-                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </StackPanel.Style>
-
-                            <Control HorizontalAlignment="Left">
-                                <Control.Template>
-                                    <ControlTemplate>
-                                        <!-- Icon + metamagic name section -->
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image x:Name="MetamagicIcon" Stretch="None" VerticalAlignment="Center">
-                                                <Image.Style>
-                                                    <Style TargetType="Image">
-                                                        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_careful.dds"/>
-                                                    </Style>
-                                                </Image.Style>
-                                            </Image>
-
-                                            <TextBlock x:Name="MetamagicType" VerticalAlignment="Center" Foreground="{DynamicResource Sorcerer.Metamagic}">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hc60f063eg9286g4461g9781g3d6d66af7384', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                        </StackPanel>
-                                        <ControlTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Distant">
-                                                <Setter TargetName="MetamagicType" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hb9ef85e6gb3d0g4295g8c89g69a102a0444a', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                <Setter TargetName="MetamagicIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_distant.dds"/>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Extended">
-                                                <Setter TargetName="MetamagicType" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h9dacdfbcg09bag4071gb453g164764a12a95', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                <Setter TargetName="MetamagicIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_extended.dds"/>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Heightened">
-                                                <Setter TargetName="MetamagicType" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hc6d29819g33d5g4ca7g9957gb8c47d823262', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                <Setter TargetName="MetamagicIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_heightened.dds"/>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Quickened">
-                                                <Setter TargetName="MetamagicType" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h7a4aed26ga038g4775g885ag81cc91f418ac', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                <Setter TargetName="MetamagicIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_quickened.dds"/>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Subtle">
-                                                <Setter TargetName="MetamagicType" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h51c6fd28gb431g46bfg8415gad6a9a5151a4', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                <Setter TargetName="MetamagicIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_subtle.dds"/>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Twinned">
-                                                <Setter TargetName="MetamagicType" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8d567697g1843g4bdcga303g744782e3c803', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                <Setter TargetName="MetamagicIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_twinned.dds"/>
-                                            </DataTrigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Control.Template>
-                            </Control>
-                            <!-- Metamagic effect section-->
-                            <Control>
-                                <Control.Style>
-                                    <Style TargetType="Control">
-                                        <Setter Property="Template">
-                                            <!-- Default is Careful-->
-                                            <Setter.Value>
-                                                <ControlTemplate>
-                                                    <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='h128bef82g7eb4g4ce1g9d55g5f0e816da7c5', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Distant">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Image Source="{StaticResource IconRange}" Stretch="None" VerticalAlignment="Center"/>
-                                                                <TextBlock VerticalAlignment="Center">
-                                                                    <Run Foreground="{DynamicResource LS_tint100}" Text="{Binding Source='hb984e30dgab6ag4f54g883fg2f499f03b5f5', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                                    <Run Foreground="{DynamicResource LS_tint100}" Text=": "/>
-                                                                </TextBlock>
-                                                                <TextBlock Foreground="{DynamicResource LS_accent100TxtColor}" VerticalAlignment="Center">
-                                                                        <i:Interaction.Behaviors>
-                                                                            <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Metamagic.OldValue}">
-                                                                                <ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                    <Style TargetType="ls:LSRun">
-                                                                                        <Setter Property="Text" Value="{Binding Text, Converter={StaticResource UnitConverter}, ConverterParameter='Distance Short'}"/>
-                                                                                    </Style>
-                                                                                </ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                            </ls:CtxTransStringRunGeneratorBehavior>
-                                                                        </i:Interaction.Behaviors>
-                                                                </TextBlock>
-                                                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/ContextMenu/ico_arrow.png" Stretch="None" VerticalAlignment="Center" Margin="8,0"/>
-                                                                <TextBlock Foreground="{DynamicResource LS_accent100TxtColor}" VerticalAlignment="Center">
-                                                                        <i:Interaction.Behaviors>
-                                                                            <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Metamagic.NewValue}">
-                                                                                <ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                    <Style TargetType="ls:LSRun">
-                                                                                        <Setter Property="Text" Value="{Binding Text, Converter={StaticResource UnitConverter}, ConverterParameter='Distance Short'}"/>
-                                                                                    </Style>
-                                                                                </ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                            </ls:CtxTransStringRunGeneratorBehavior>
-                                                                        </i:Interaction.Behaviors>
-                                                                </TextBlock>
-                                                            </StackPanel>
-                                                            <ControlTemplate.Triggers>
-                                                                <DataTrigger Binding="{Binding Metamagic.NewValue.Text}" Value="">
-                                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Metamagic.OldValue.Text}" Value="">
-                                                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                                                </DataTrigger>
-                                                            </ControlTemplate.Triggers>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Extended">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate>
-                                                            <Grid>
-                                                                <TextBlock x:Name="GenericDuration" ls:TextBlockFormatter.SourceText="{Binding Source='h35573af4g0f87g4ce0gb759g4f4904c04e87', Converter={StaticResource TranslatedStringConverter}}" Visibility="Collapsed"/>
-                                                                <StackPanel x:Name="SpecificDuration" Orientation="Horizontal">
-                                                                    <Image Source="{StaticResource IconDuration}" Stretch="None" VerticalAlignment="Center"/>
-                                                                    <TextBlock VerticalAlignment="Center">
-                                                                        <Run Foreground="{DynamicResource LS_tint100}" Text="{Binding Source='hea6f3450g9430g46bbga707g63aac4dd0bbc', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                                        <Run Foreground="{DynamicResource LS_tint100}" Text=": "/>
-                                                                    </TextBlock>
-                                                                    <TextBlock Foreground="{DynamicResource LS_accent100TxtColor}" TextWrapping="Wrap" VerticalAlignment="Center">
-                                                                            <i:Interaction.Behaviors>
-                                                                                <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Metamagic.OldValue}">
-                                                                                    <ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                        <Style TargetType="ls:LSRun">
-                                                                                            <Setter Property="Text" Value="{Binding Text}"/>
-                                                                                        </Style>
-                                                                                    </ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                </ls:CtxTransStringRunGeneratorBehavior>
-                                                                            </i:Interaction.Behaviors>
-                                                                    </TextBlock>
-                                                                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/ContextMenu/ico_arrow.png" Stretch="None" VerticalAlignment="Center" Margin="8,0"/>
-                                                                    <TextBlock Foreground="{DynamicResource LS_accent100TxtColor}" TextWrapping="Wrap" VerticalAlignment="Center">
-                                                                            <i:Interaction.Behaviors>
-                                                                                <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Metamagic.NewValue}">
-                                                                                    <ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                        <Style TargetType="ls:LSRun">
-                                                                                            <Setter Property="Text" Value="{Binding Text}"/>
-                                                                                        </Style>
-                                                                                    </ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                </ls:CtxTransStringRunGeneratorBehavior>
-                                                                            </i:Interaction.Behaviors>
-                                                                    </TextBlock>
-                                                                </StackPanel>
-                                                            </Grid>
-                                                            <ControlTemplate.Triggers>
-                                                                <DataTrigger Binding="{Binding Metamagic.NewValue.Text}" Value="">
-                                                                    <Setter TargetName="SpecificDuration" Property="Visibility" Value="Collapsed"/>
-                                                                    <Setter TargetName="GenericDuration" Property="Visibility" Value="Visible"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding Metamagic.OldValue.Text}" Value="">
-                                                                    <Setter TargetName="SpecificDuration" Property="Visibility" Value="Collapsed"/>
-                                                                    <Setter TargetName="GenericDuration" Property="Visibility" Value="Visible"/>
-                                                                </DataTrigger>
-                                                            </ControlTemplate.Triggers>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Heightened">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate>
-                                                            <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='he1e8bfc3g6befg49afga083g284a45191d82', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Quickened">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ap_h.png" Stretch="None" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                                                <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource ActionPoint}" ls:TextBlockFormatter.SourceText="{Binding Source='hba0d4fd0ga762g43bfgb86fg1c9c8982c6b2', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/ContextMenu/ico_arrow.png" Stretch="None" VerticalAlignment="Center" Margin="8,0"/>
-                                                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/bap_h.png" Stretch="None" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                                                <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource BonusActionPoint}" ls:TextBlockFormatter.SourceText="{Binding Source='h7a2b85d6g3761g4f1fgb6b2g53cf10b449ea', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                            </StackPanel>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Subtle">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate>
-                                                            <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='hf22ebe0fgc409g42c0gacc9gdb230f898e4b', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="Twinned">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate>
-                                                            <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='h5e3393e9g1125g4f89gba33g55e52287ac30', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Control.Style>
-                            </Control>
-                        </StackPanel>
-                    </StackPanel>
-                </ContentControl>
 
                 <!-- Remaining time for summons -->
                 <ContentControl x:Name="LifetimeHolder" Template="{StaticResource TooltipStripPrimaryContainerTemplate}" >
@@ -3404,262 +3320,6 @@
                                 </Style.Triggers>
                             </Style>
                         </ContentControl.Style>
-                    </ContentControl>
-
-                    <ContentControl x:Name="MetamagicDesc" Template="{StaticResource TooltipStripTemplate}" Visibility="{Binding Metamagic.Enabled, Converter={StaticResource BoolToVisibleConverter}}" Margin="0,26,0,16">
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,10">
-                            <TextBlock Foreground="{DynamicResource LS_baseTxtColor}" Text="{Binding Source='h007741f2ge0abg4842g99f1gcfa286352e4a', Converter={StaticResource TranslatedStringConverter}}"/>
-                            <!-- Empowered section -->
-                            <StackPanel Orientation="Vertical" Visibility="{Binding Metamagic.IsEmpowered, Converter={StaticResource BoolToVisibleConverter}}">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <Image Stretch="None" VerticalAlignment="Center" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_empowered.dds"/>
-                                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource Sorcerer.Metamagic}" ls:TextBlockFormatter.SourceText="{Binding Source='h672032fcg3562g4dccgbe76g720228818da1', Converter={StaticResource TranslatedStringConverter}}"/>
-                                </StackPanel>
-                                <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='hc215d788gec91g4f43g97e9gdbf1a904e041', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                            </StackPanel>
-
-                            <!-- Exclusive meta magic section (where only one can be enabled at a time)-->
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel.Style>
-                                    <Style TargetType="StackPanel">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Metamagic.Type}" Value="None">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </StackPanel.Style>
-
-                                <!-- Icon + metamagic name section -->
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                    <Image Stretch="None" VerticalAlignment="Center">
-                                        <Image.Style>
-                                            <Style TargetType="Image">
-                                                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_careful.dds"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Distant">
-                                                        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_distant.dds"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Extended">
-                                                        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_extended.dds"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Heightened">
-                                                        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_heightened.dds"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Quickened">
-                                                        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_quickened.dds"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Subtle">
-                                                        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_subtle.dds"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Twinned">
-                                                        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/ico_MM_twinned.dds"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Image.Style>
-                                    </Image>
-
-                                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource Sorcerer.Metamagic}">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hc60f063eg9286g4461g9781g3d6d66af7384', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Distant">
-                                                        <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hb9ef85e6gb3d0g4295g8c89g69a102a0444a', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Extended">
-                                                        <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h9dacdfbcg09bag4071gb453g164764a12a95', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Heightened">
-                                                        <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hc6d29819g33d5g4ca7g9957gb8c47d823262', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Quickened">
-                                                        <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h7a4aed26ga038g4775g885ag81cc91f418ac', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Subtle">
-                                                        <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h51c6fd28gb431g46bfg8415gad6a9a5151a4', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Metamagic.Type}" Value="Twinned">
-                                                        <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8d567697g1843g4bdcga303g744782e3c803', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </StackPanel>
-
-                                <!-- Metamagic effect section-->
-                                <Control>
-                                    <Control.Style>
-                                        <Style TargetType="Control">
-                                            <Setter Property="Template">
-                                                <!-- Default is Careful-->
-                                                <Setter.Value>
-                                                    <ControlTemplate>
-                                                        <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='h128bef82g7eb4g4ce1g9d55g5f0e816da7c5', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Metamagic.Type}" Value="Distant">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <Image Source="{StaticResource IconRange}" Stretch="None" VerticalAlignment="Center"/>
-                                                                    <TextBlock Foreground="{DynamicResource LS_tint100}" ls:TextBlockFormatter.SourceText="{Binding Source='hb984e30dgab6ag4f54g883fg2f499f03b5f5', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                                                    <TextBlock Foreground="{DynamicResource LS_tint100}" ls:TextBlockFormatter.SourceText=": " TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                                                    <TextBlock Foreground="{DynamicResource LS_accent100TxtColor}" TextWrapping="Wrap" VerticalAlignment="Center">
-                                                                        <i:Interaction.Behaviors>
-                                                                            <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Metamagic.OldValue}">
-                                                                                <ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                    <Style TargetType="ls:LSRun">
-                                                                                        <Setter Property="Text" Value="{Binding Text, Converter={StaticResource UnitConverter}, ConverterParameter='Distance Short'}"/>
-                                                                                    </Style>
-                                                                                </ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                            </ls:CtxTransStringRunGeneratorBehavior>
-                                                                        </i:Interaction.Behaviors>
-                                                                    </TextBlock>
-                                                                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/ContextMenu/ico_arrow.png" Stretch="None" VerticalAlignment="Center" Margin="8,0"/>
-                                                                    <TextBlock Foreground="{DynamicResource LS_accent100TxtColor}" TextWrapping="Wrap" VerticalAlignment="Center">
-                                                                        <i:Interaction.Behaviors>
-                                                                            <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Metamagic.NewValue}">
-                                                                                <ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                    <Style TargetType="ls:LSRun">
-                                                                                        <Setter Property="Text" Value="{Binding Text, Converter={StaticResource UnitConverter}, ConverterParameter='Distance Short'}"/>
-                                                                                    </Style>
-                                                                                </ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                            </ls:CtxTransStringRunGeneratorBehavior>
-                                                                        </i:Interaction.Behaviors>
-                                                                    </TextBlock>
-                                                                </StackPanel>
-                                                                <ControlTemplate.Triggers>
-                                                                    <DataTrigger Binding="{Binding Metamagic.NewValue.Text}" Value="">
-                                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding Metamagic.OldValue.Text}" Value="">
-                                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                                    </DataTrigger>
-                                                                </ControlTemplate.Triggers>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-
-                                                <DataTrigger Binding="{Binding Metamagic.Type}" Value="Extended">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <Grid>
-                                                                    <TextBlock x:Name="GenericDuration" ls:TextBlockFormatter.SourceText="{Binding Source='h35573af4g0f87g4ce0gb759g4f4904c04e87', Converter={StaticResource TranslatedStringConverter}}" Visibility="Collapsed"/>
-                                                                    <StackPanel x:Name="SpecificDuration" Orientation="Horizontal">
-                                                                        <Image Source="{StaticResource IconDuration}" Stretch="None" VerticalAlignment="Center"/>
-                                                                        <TextBlock Foreground="{DynamicResource LS_tint100}" ls:TextBlockFormatter.SourceText="{Binding Source='hea6f3450g9430g46bbga707g63aac4dd0bbc', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                                                        <TextBlock Foreground="{DynamicResource LS_tint100}" ls:TextBlockFormatter.SourceText=": " TextWrapping="Wrap" VerticalAlignment="Center"/>
-                                                                        <TextBlock Foreground="{DynamicResource LS_accent100TxtColor}" TextWrapping="Wrap" VerticalAlignment="Center">
-                                                                            <i:Interaction.Behaviors>
-                                                                                <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Metamagic.OldValue}">
-                                                                                    <ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                        <Style TargetType="ls:LSRun">
-                                                                                            <Setter Property="Text" Value="{Binding Text}"/>
-                                                                                        </Style>
-                                                                                    </ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                </ls:CtxTransStringRunGeneratorBehavior>
-                                                                            </i:Interaction.Behaviors>
-                                                                        </TextBlock>
-                                                                        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/ContextMenu/ico_arrow.png" Stretch="None" VerticalAlignment="Center" Margin="8,0"/>
-                                                                        <TextBlock Foreground="{DynamicResource LS_accent100TxtColor}" TextWrapping="Wrap" VerticalAlignment="Center">
-                                                                            <i:Interaction.Behaviors>
-                                                                                <ls:CtxTransStringRunGeneratorBehavior Source="{Binding Metamagic.NewValue}">
-                                                                                    <ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                        <Style TargetType="ls:LSRun">
-                                                                                            <Setter Property="Text" Value="{Binding Text}"/>
-                                                                                        </Style>
-                                                                                    </ls:CtxTransStringRunGeneratorBehavior.ParamRunStyle>
-                                                                                </ls:CtxTransStringRunGeneratorBehavior>
-                                                                            </i:Interaction.Behaviors>
-                                                                        </TextBlock>
-                                                                    </StackPanel>
-                                                                </Grid>
-                                                                <ControlTemplate.Triggers>
-                                                                    <DataTrigger Binding="{Binding Metamagic.NewValue.Text}" Value="">
-                                                                        <Setter TargetName="SpecificDuration" Property="Visibility" Value="Collapsed"/>
-                                                                        <Setter TargetName="GenericDuration" Property="Visibility" Value="Visible"/>
-                                                                    </DataTrigger>
-                                                                    <DataTrigger Binding="{Binding Metamagic.OldValue.Text}" Value="">
-                                                                        <Setter TargetName="SpecificDuration" Property="Visibility" Value="Collapsed"/>
-                                                                        <Setter TargetName="GenericDuration" Property="Visibility" Value="Visible"/>
-                                                                    </DataTrigger>
-                                                                </ControlTemplate.Triggers>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-
-                                                <DataTrigger Binding="{Binding Metamagic.Type}" Value="Heightened">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='he1e8bfc3g6befg49afga083g284a45191d82', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-
-                                                <DataTrigger Binding="{Binding Metamagic.Type}" Value="Quickened">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <StackPanel Orientation="Horizontal">
-                                                                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ap_h.png" Stretch="None" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                                                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource ActionPoint}" ls:TextBlockFormatter.SourceText="{Binding Source='hba0d4fd0ga762g43bfgb86fg1c9c8982c6b2', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/ContextMenu/ico_arrow.png" Stretch="None" VerticalAlignment="Center" Margin="8,0"/>
-                                                                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/bap_h.png" Stretch="None" VerticalAlignment="Center" Margin="0,0,2,0"/>
-                                                                    <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource BonusActionPoint}" ls:TextBlockFormatter.SourceText="{Binding Source='h7a2b85d6g3761g4f1fgb6b2g53cf10b449ea', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                                </StackPanel>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-
-                                                <DataTrigger Binding="{Binding Metamagic.Type}" Value="Subtle">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='hf22ebe0fgc409g42c0gacc9gdb230f898e4b', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-
-                                                <DataTrigger Binding="{Binding Metamagic.Type}" Value="Twinned">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <TextBlock Foreground="{DynamicResource LS_accent75TxtColor}" ls:TextBlockFormatter.SourceText="{Binding Source='h5e3393e9g1125g4f89gba33g55e52287ac30', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Control.Style>
-                                </Control>
-                            </StackPanel>
-                        </StackPanel>
                     </ContentControl>
 
                     <TextBlock x:Name="SectionDesc" Width="680" Style="{StaticResource TooltipSectionTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,26,0,16" >
