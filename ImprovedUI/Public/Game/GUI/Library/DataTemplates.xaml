@@ -3,11 +3,11 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+			        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+
                     xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
                     xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
-					mc:Ignorable="d">
+					mc:Ignorable="d"   >
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/GustavNoesisGUI;component/Library/PanelAnimations.xaml"/>
@@ -115,10 +115,13 @@
 
     <Style x:Key="MainClassIconStyle" TargetType="Image" >
         <Setter Property="Stretch" Value="None"/>
-        <!-- MOD START - Generic icon for no class selected -->
+		<!-- MOD START - Generic icon for no class selected -->
         <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/Generic.png"/>
         <!-- MOD END -->
         <Style.Triggers>
+            <DataTrigger Binding="{Binding IDString}" Value="Barbarian">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian.png"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding IDString}" Value="Cleric">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric.png"/>
             </DataTrigger>
@@ -143,15 +146,9 @@
             <DataTrigger Binding="{Binding IDString}" Value="Wizard">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard.png"/>
             </DataTrigger>
-            <!-- MOD START - Custom Class icons -->
+			<!-- MOD START - Custom Class icons -->
             <DataTrigger Binding="{Binding IDString}" Value="Paladin">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/OathPaladin.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IDString}" Value="Oathbound">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/Oathbound.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IDString}" Value="Oathbreaker">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/Oathbreaker.png"/>
             </DataTrigger>
 			<DataTrigger Binding="{Binding IDString}" Value="Monk">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/Icon_Class_Monk.dds"/>
@@ -162,8 +159,18 @@
     </Style>
 
     <Style x:Key="ClassIconStyle" TargetType="Image" BasedOn="{StaticResource MainClassIconStyle}">
+        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/generic.png"/>
         <Style.Triggers>
             <!-- Subclass -->
+             <DataTrigger Binding="{Binding SubclassIDString}" Value="BerserkerPath">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian_berserker.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="TotemWarriorPath">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian_totemWarrior.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="WildMagicPath">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian_wildMagic.png"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding SubclassIDString}" Value="LifeDomain">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric_life.png"/>
             </DataTrigger>
@@ -213,7 +220,7 @@
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid_circleOfMoon.png"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding SubclassIDString}" Value="DraconicBloodline">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/sorcerer_draconicBloodline.png"/>
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/sorcerer_dragoniceBloodline.png"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding SubclassIDString}" Value="WildMagic">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/sorcerer_wildMagic.png"/>
@@ -334,11 +341,11 @@
                       Background="Transparent" BorderBrush="Transparent" 
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                       ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SetPartyInventoryViewCommand}" CommandParameter="{Binding ElementName=invViewList, Path=SelectedItem}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="SelectionChanged">
+                    <b:InvokeCommandAction Command="{Binding SetPartyInventoryViewCommand}" CommandParameter="{Binding ElementName=invViewList, Path=SelectedItem}"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
             <ls:LSListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal" KeyboardNavigation.TabNavigation="Cycle" KeyboardNavigation.DirectionalNavigation="Cycle"/>
@@ -424,13 +431,13 @@
                 <ControlTemplate>
                     <ContentControl ToolTipService.Placement ="Right">
                         <ContentControl.ToolTip>
-                            <ls:LSTooltip CustomData="{Binding Item}"/>
+                            <ls:LSTooltip Content="{Binding DataContext.Item,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                         </ContentControl.ToolTip>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseDoubleClick" >
-                                <i:InvokeCommandAction Command="{Binding DataContext.TakeItemCommand.ActionCommand,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="MouseDoubleClick" >
+                                <b:InvokeCommandAction Command="{Binding DataContext.TakeItemCommand.ActionCommand,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}" />
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
                         <Grid  Width="{DynamicResource ContInvSlotSize}" Height="{DynamicResource ContInvSlotSize}">
                             <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Inventory/inventorySlot_filledOverlay.png"/>
                             <ContentPresenter />
@@ -552,11 +559,11 @@
                 <Label Style="{StaticResource InventoryCellLabelStyle}" IsHitTestVisible="False"/>
             </ls:LSEntityObject>
             <Image Style="{StaticResource RarityFrameForegroundImageStyle}"/>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseEnter">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseEnter">
                     <ls:LSPlaySound Sound="UI_HUD_Inventory_Over"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
         </Grid>
     </DataTemplate>
 
@@ -567,38 +574,39 @@
 
     <ControlTemplate x:Key="InventoryCellTemplate" >
         <!-- This is a ContentControl to facilitate the interaction eventtriggers -->
-        <ContentControl ToolTipService.Placement="Right" Tag="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ToolTip="{StaticResource ManagedTooltip}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <i:InvokeCommandAction Command="{Binding DataContext.ToggleWare, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseDoubleClick" >
-                    <i:Interaction.Behaviors>
-                        <ei:ConditionBehavior >
-                            <ei:ConditionalExpression>
-                                <ei:ComparisonCondition LeftOperand="{Binding DataContext.CurrentPlayer.UIData.CurrentExtractedPanelContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=None}"
-                                                        Operator="Equal" RightOperand="None"/>
-                            </ei:ConditionalExpression>
-                        </ei:ConditionBehavior>
-                    </i:Interaction.Behaviors>
-                    <i:InvokeCommandAction Command="{Binding DataContext.UseGameObject,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}" />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseDoubleClick" >
-                    <i:Interaction.Behaviors>
-                        <ei:ConditionBehavior >
-                            <ei:ConditionalExpression>
-                                <ei:ComparisonCondition LeftOperand="{Binding DataContext.CurrentPlayer.UIData.CurrentExtractedPanelContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
-                                                        Operator="Equal" RightOperand="Combine"/>
-                            </ei:ConditionalExpression>
-                        </ei:ConditionBehavior>
-                    </i:Interaction.Behaviors>
-                    <i:InvokeCommandAction Command="{Binding DataContext.AddToCombine,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}" />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseEnter">
-                    <i:InvokeCommandAction Command="{Binding DataContext.ClearItemNewFlag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}"/>
+        <ContentControl x:Name="invCellBase" ToolTipService.Placement="Right" Tag="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+            <ContentControl.ToolTip>
+                <ls:LSTooltip Content="{Binding Path=DataContext.Item, RelativeSource={RelativeSource Mode=TemplatedParent}}" ls:TooltipExtender.Owner="{Binding Tag.CurrentPlayer.SelectedCharacter, ElementName=invCellBase}"/>
+            </ContentControl.ToolTip>
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseLeftButtonUp">
+                    <b:InvokeCommandAction Command="{Binding DataContext.ToggleWare, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}"/>
+                </b:EventTrigger>
+                <b:EventTrigger EventName="MouseDoubleClick" >
+                    <b:Interaction.Behaviors>
+                        <b:ConditionBehavior >
+                            <b:ConditionalExpression>
+                                <b:ComparisonCondition LeftOperand="{Binding DataContext.CurrentPlayer.UIData.CurrentExtractedPanelContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=None}" Operator="Equal" RightOperand="None"/>
+                            </b:ConditionalExpression>
+                        </b:ConditionBehavior>
+                    </b:Interaction.Behaviors>
+                    <b:InvokeCommandAction Command="{Binding DataContext.UseGameObject,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}" />
+                </b:EventTrigger>
+                <b:EventTrigger EventName="MouseDoubleClick" >
+                    <b:Interaction.Behaviors>
+                        <b:ConditionBehavior >
+                            <b:ConditionalExpression>
+                                <b:ComparisonCondition LeftOperand="{Binding DataContext.CurrentPlayer.UIData.CurrentExtractedPanelContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Operator="Equal" RightOperand="Combine"/>
+                            </b:ConditionalExpression>
+                        </b:ConditionBehavior>
+                    </b:Interaction.Behaviors>
+                    <b:InvokeCommandAction Command="{Binding DataContext.AddToCombine,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}" />
+                </b:EventTrigger>
+                <b:EventTrigger EventName="MouseEnter">
+                    <b:InvokeCommandAction Command="{Binding DataContext.ClearItemNewFlag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Item}"/>
                     <ls:LSPlaySound Sound="UI_HUD_Inventory_Over"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
             <Grid>
                 <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Inventory/inventorySlot_filledOverlay.png" Width="{DynamicResource InvSlotSize}" Height="{DynamicResource InvSlotSize}"/>
                 <ContentPresenter ContentTemplate="{StaticResource InventoryItemCellTemplate}"/>
@@ -636,15 +644,15 @@
                                 </Style.Triggers>
                             </Style>
                         </ls:LSGrid.Style>
-                        <i:Interaction.Behaviors>
+                        <b:Interaction.Behaviors>
                             <ls:DropOnInventoryGridBehavior />
                             <ls:DragGameObjectGridBehavior/>
-                        </i:Interaction.Behaviors>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="WidgetClosing">
-                                <i:InvokeCommandAction Command="{Binding DataContext.ClearInventoryNewFlags, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding }"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                        </b:Interaction.Behaviors>
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="WidgetClosing">
+                                <b:InvokeCommandAction Command="{Binding DataContext.ClearInventoryNewFlags, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding }"/>
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
                     </ls:LSGrid>
                 </ItemsPanelTemplate>
             </Setter.Value>
@@ -806,6 +814,20 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <!--used for all texts in cells or slots like items, spells etc to have a consistent stroke everywhere -->
+    <Style x:Key="CellTextStyle" TargetType="TextBlock" >
+        <Setter Property="noesis:Text.Stroke" Value="#FF000000"/>
+        <Setter Property="noesis:Text.StrokeThickness" Value="4"/>
+        <Setter Property="Foreground" Value="{StaticResource LS_tint100}"/>
+    </Style>
+
+    <Style x:Key="EquippedTextStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource CellTextStyle}">
+        <Setter Property="Foreground" Value="{StaticResource LS_accent75TxtColor}" />
+        <Setter Property="Background" Value="#90000000" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="FontSize" Value="{StaticResource LargeFontSize}" />
+    </Style>
+    
     <!-- Hotbar slot Representation START-->
     <Style x:Key="HotBarSlotStyle" TargetType="ls:LSButton" >
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -819,121 +841,172 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ls:LSButton">
+                    <ControlTemplate.Resources>
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource CellTextStyle}">
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </Style>
+                    </ControlTemplate.Resources>
                     <Grid>
                         <Grid Width="{DynamicResource HotBarSlotWidth}" Height="{DynamicResource HotBarSlotHeight}">
                             <Rectangle Style="{StaticResource RarityFrameBackgroundRectangleStyle}"/>
-                            <Rectangle x:Name="iconHolder" Fill="{Binding Icon}">
-                                <Rectangle.Style>
-                                    <Style TargetType="Rectangle">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding SlotType}" Value="Passive">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Rectangle.Style>
-                            </Rectangle>
+                            <Rectangle x:Name="iconHolder" Fill="{Binding Icon}"/>
                             <Image Style="{StaticResource RarityFrameForegroundImageStyle}"/>
                         </Grid>
-
+                        <TextBlock x:Name="SpellSlotLevel" Text="{Binding Spell.SpellSlotLevel, Converter={StaticResource DecimalToRomanConverter}}" Foreground="{StaticResource LS_specialTxtColor}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="35" Margin="0,0,3,0" FontSize="{StaticResource MediumFontSize}"  noesis:Text.StrokeThickness="5"/>
                         <Ellipse Fill="{Binding Icon}" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" Visibility="{Binding Visibility, ElementName=iconHolder, Converter={StaticResource InvertVisibilityConverter}}"/>
-
-                        <Label IsHitTestVisible="False" Content="{Binding HotKey}" Margin="4,0,0,-6" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="{StaticResource LS_tint100}" FontWeight="Bold" FontSize="{DynamicResource SmallFontSize}" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="4" >
-                            <Label.Style>
-                                <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}" >
-                                    <Setter Property="Visibility" Value="Visible" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="TouchSmall">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="TouchBig">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding HotKey}" Value="null">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-                        <Label IsHitTestVisible="False" Content="{Binding Item.Count}" Margin="0,0,4,-2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="{StaticResource LS_tint100}" FontWeight="Bold" FontSize="{DynamicResource LargeFontSize}" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="4" >
-                            <Label.Style>
-                                <Style TargetType="{x:Type Label}" BasedOn="{StaticResource {x:Type Label}}" >
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding SlotType}" Value="Spell">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding SlotType}" Value="Action">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding SlotType}" Value="Passive">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding SlotType}" Value="Empty">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Item.Count}" Value="1">
-                                            <Setter Property="Visibility" Value="Hidden" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Label.Style>
-                        </Label>
-
-                        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_spellSubSelectIndicator.png" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0">
-                            <Image.Style>
-                                <Style TargetType="{x:Type Image}" >
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Spell.IsContainer}" Value="True">
-                                            <Setter Property="Visibility" Value="Visible" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding DataContext.PanelContentType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Spell">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-
+                        <TextBlock x:Name="HotKey" IsHitTestVisible="False" Text="{Binding HotKey}" Margin="4,0,0,-6" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="{DynamicResource SmallFontSize}" Visibility="Collapsed" />
+                        <TextBlock x:Name="ItemAmount" IsHitTestVisible="False" Text="{Binding Item.Count}" Margin="0,0,4,-2" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="{DynamicResource LargeFontSize}" Visibility="Collapsed" />
+                        <TextBlock x:Name="EquippedText" Text="{Binding Source='h9079b9dcgb3b5g4f5cg9ca0gccadfa842d28',Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="Collapsed" Style="{StaticResource EquippedTextStyle}"/>
+                        <Image x:Name="SubSelectIndicator" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_spellSubSelectIndicator.png" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed" />
                         <Grid x:Name="hover" Visibility="Hidden" Margin="-2,-2,0,0">
-                            <Rectangle x:Name="hoverRect" Fill="#55FFFFFF">
-                                <Rectangle.Style>
-                                    <Style TargetType="Rectangle">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding SlotType}" Value="Passive">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Rectangle.Style>
-                            </Rectangle>
+                            <Rectangle x:Name="hoverRect" Fill="#55FFFFFF" />
                             <Ellipse Fill="#55FFFFFF" Visibility="{Binding Visibility, ElementName=hoverRect, Converter={StaticResource InvertVisibilityConverter}}"/>
                         </Grid>
 
                         <Grid x:Name="disCover" Visibility="Hidden" Opacity="0.5" Margin="-2,-2,0,0">
-                            <Rectangle x:Name="disRect" Fill="Black">
-                                <Rectangle.Style>
-                                    <Style TargetType="Rectangle">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding SlotType}" Value="Passive">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Rectangle.Style>
-                            </Rectangle>
-                            <Ellipse  Fill="Black" Visibility="{Binding Visibility, ElementName=disRect, Converter={StaticResource InvertVisibilityConverter}}"/>
+                            <Rectangle x:Name="disRect" Fill="Black"/>
+                            <Ellipse Fill="Black" Visibility="{Binding Visibility, ElementName=disRect, Converter={StaticResource InvertVisibilityConverter}}"/>
                         </Grid>
+                        <!-- Metamagic animation slot -->
+                        <Control IsHitTestVisible="False" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}">
+                            <Control.Template>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <!-- The borders are here because only one storyboard can manipulate a property at a time, so even starting a storyboard with a start delay, the storyboard will already take ownership of the property -->
+                                        <Border x:Name="FadeFlameEdge" Visibility="Collapsed">
+                                            <ls:AnimatedImage x:Name="MetamagicFlameEdge" Template="{StaticResource BaseAnimatedImage}" ClipSize="80,80" LastFrame="45" RepeatBehavior="Forever" Time="0:0:0.033" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/VFX/squareFlameEdge.png"/>
+                                        </Border>
+
+                                        <Border x:Name="FadeCover" Visibility="Collapsed">
+                                            <Image x:Name="MetamagicCover" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/VFX/squareIconCover.png" />
+                                        </Border>
+                                        <Border x:Name="EnergyFill" Visibility="Collapsed">
+                                            <ls:AnimatedImage x:Name="MetamagicEnergyFill" Template="{StaticResource BaseAnimatedImage}" ClipSize="80,80" RepeatBehavior="1x" Time="0:0:0.033" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/VFX/squareEnergyFill.png"/>
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding MetaMagicEnabled}" Value="True"/>
+                                                <Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.IsSpellCasting, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value=""/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible" TargetName="EnergyFill"/>
+                                            <Setter Property="Visibility" Value="Visible" TargetName="FadeFlameEdge"/>
+                                            <Setter Property="Visibility" Value="Visible" TargetName="FadeCover"/>
+                                            <MultiDataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="EnergyFillControl">
+                                                    <Storyboard>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="EnergyFill">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:0.55" Value="1"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                                <BeginStoryboard x:Name="FadeInFlameEdge">
+                                                    <Storyboard RepeatBehavior="1x" FillBehavior="Stop">
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="FadeFlameEdge">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.9"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                                <BeginStoryboard x:Name="FadeInOutCover">
+                                                    <Storyboard RepeatBehavior="1x" BeginTime="0:0:0.0" FillBehavior="Stop">
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="FadeCover">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.9"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                                <BeginStoryboard x:Name="LoopFlameEdge">
+                                                    <Storyboard RepeatBehavior="Forever" BeginTime="0:0:0.6">
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MetamagicFlameEdge">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0.9"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.9"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                                <BeginStoryboard x:Name="LoopCover">
+                                                    <Storyboard RepeatBehavior="Forever" BeginTime="0:0:0.6">
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MetamagicCover">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0.6"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </MultiDataTrigger.EnterActions>
+                                            <MultiDataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="FadeInFlameEdge"/>
+                                                <StopStoryboard BeginStoryboardName="FadeInOutCover"/>
+                                                <StopStoryboard BeginStoryboardName="LoopFlameEdge"/>
+                                                <StopStoryboard BeginStoryboardName="LoopCover"/>
+                                                <StopStoryboard BeginStoryboardName="EnergyFillControl"/>
+                                            </MultiDataTrigger.ExitActions>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsActive}" Value="True"/>
+                                                <Condition Binding="{Binding SlotType}" Value="Spell"/>
+                                                <Condition Binding="{Binding MetaMagicEnabled}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible" TargetName="FadeFlameEdge"/>
+                                            <Setter Property="Visibility" Value="Visible" TargetName="FadeCover"/>
+                                            <MultiDataTrigger.EnterActions>
+                                                <BeginStoryboard x:Name="FixEdge">
+                                                    <Storyboard RepeatBehavior="1x">
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MetamagicFlameEdge">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0.9"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.9"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                                <BeginStoryboard x:Name="LoopSpellCover">
+                                                    <Storyboard RepeatBehavior="Forever">
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MetamagicCover">
+                                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0.6"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </MultiDataTrigger.EnterActions>
+                                            <MultiDataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="FixEdge"/>
+                                                <StopStoryboard BeginStoryboardName="LoopSpellCover"/>
+                                            </MultiDataTrigger.ExitActions>
+                                        </MultiDataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Control.Template>
+                            <Control.Triggers>
+                                <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
+                                    <StopStoryboard BeginStoryboardName="FadeInFlameEdge"/>
+                                    <StopStoryboard BeginStoryboardName="FadeInOutCover"/>
+                                    <StopStoryboard BeginStoryboardName="LoopFlameEdge"/>
+                                    <StopStoryboard BeginStoryboardName="LoopCover"/>
+                                    <StopStoryboard BeginStoryboardName="FixEdge"/>
+                                    <StopStoryboard BeginStoryboardName="LoopSpellCover"/>
+                                    <StopStoryboard BeginStoryboardName="EnergyFillControl"/>
+                                </EventTrigger>
+                            </Control.Triggers>
+                        </Control>
+                        <!-- active states -->
+                        <Control x:Name="ActiveSlotIndicator" IsHitTestVisible="False" Template="{StaticResource HotBarActiveSlotIndicator}"/>
+
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard">
+                            <Setter Property="Visibility" Value="Visible" TargetName="HotKey"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Item.Count,Converter={StaticResource GreaterThanConverter},ConverterParameter=1}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="ItemAmount"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding Name}" Value="">
                             <Setter Property="IsEnabled" Value="False"/>
                         </DataTrigger>
@@ -942,6 +1015,12 @@
                         </Trigger>
                         <DataTrigger Binding="{Binding CanUse}" Value="False">
                             <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Spell.IsContainer}" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="SubSelectIndicator" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DataContext.PanelContentType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Spell">
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="SubSelectIndicator"/>
                         </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -958,6 +1037,41 @@
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
                             <Setter Property="Command" Value="{x:Null}"/>
+                        </MultiDataTrigger>
+
+                        <DataTrigger Binding="{Binding SlotType}" Value="Passive">
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="SpellSlotLevel"/>
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="iconHolder"/>
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="disRect"/>
+                            <Setter Property="Visibility" Value="Collapsed" TargetName="hoverRect"/>
+                            <Setter TargetName="ActiveSlotIndicator" Property="Template" Value="{StaticResource HotBarActiveSlotIndicatorPassive}" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Passive.IsMetaMagic}" Value="True">
+                            <Setter TargetName="ActiveSlotIndicator" Property="Template" Value="{StaticResource HotBarActiveSlotIndicatorMetamagic}" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding MetaMagicEnabled}" Value="True">
+                            <Setter TargetName="ActiveSlotIndicator" Property="Template" Value="{x:Null}" />
+                        </DataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding SlotType}" Value="Item"/>
+                                <Condition Binding="{Binding Item.Equipped}" Value="ThisEquipped"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="EquippedText" Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding SlotType}" Value="Item"/>
+                                <Condition Binding="{Binding Item.Equipped}" Value="OtherEquipped"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="EquippedText" Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger.Setters>
                         </MultiDataTrigger>
 
                     </ControlTemplate.Triggers>
@@ -983,194 +1097,64 @@
     </Style>
 
     <DataTemplate x:Key="HotBarSlot">
-        <Grid>
-            <ContentControl x:Name="contentContainer" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.IsEnabled="True" ToolTipService.Placement="Top" ToolTipService.VerticalOffset="0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseEnter">
-                        <i:InvokeCommandAction Command="{Binding DataContext.HighlightResourcesCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseLeave">
-                        <i:InvokeCommandAction Command="{Binding DataContext.ClearResourceHighlightsCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="Unloaded">
-                        <ei:ChangePropertyAction TargetName="HotbarslotBtn" PropertyName="CommandParameter" Value="{x:Null}"/>
-                        <ei:ChangePropertyAction TargetName="HotbarslotBtn" PropertyName="Tag" Value="{x:Null}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <ls:LSButton x:Name="HotbarslotBtn">
-                    <ls:LSButton.Tag>
-                        <MultiBinding Converter="{StaticResource PassThroughConverter}">
-                            <Binding ElementName="contentContainer" Mode="OneTime" />
-                            <Binding Source="Top"/>
-                        </MultiBinding>
-                    </ls:LSButton.Tag>
-                    <ls:LSButton.Style>
-                        <Style TargetType="ls:LSButton" BasedOn="{StaticResource HotBarSlotStyle}">
-                            <Setter Property="CommandParameter" Value="{Binding Path=Tag,RelativeSource={RelativeSource Mode=Self}}"/>
-                        </Style>
-                    </ls:LSButton.Style>
-                </ls:LSButton>
-            </ContentControl>
-
-            <!-- Metamagic animation slot -->
-            <Control IsHitTestVisible="False" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}">
-                <Control.Template>
-                    <ControlTemplate>
-                        <Grid>
-                            <!-- The borders are here because only one storyboard can manipulate a property at a time, so even starting a storyboard with a start delay, the storyboard will already take ownership of the property -->
-                            <Border x:Name="FadeFlameEdge" Visibility="Collapsed">
-                                <ls:AnimatedImage x:Name="MetamagicFlameEdge" Template="{StaticResource BaseAnimatedImage}" ClipSize="80,80" LastFrame="45" RepeatBehavior="Forever" Time="0:0:0.033" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/VFX/squareFlameEdge.png"/>
-                            </Border>
-
-                            <Border x:Name="FadeCover" Visibility="Collapsed">
-                                <Image x:Name="MetamagicCover" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/VFX/squareIconCover.png" />
-                            </Border>
-                            <Border x:Name="EnergyFill" Visibility="Collapsed">
-                                <ls:AnimatedImage x:Name="MetamagicEnergyFill" Template="{StaticResource BaseAnimatedImage}" ClipSize="80,80" RepeatBehavior="1x" Time="0:0:0.033" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/VFX/squareEnergyFill.png"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding MetaMagicEnabled}" Value="True"/>
-                                    <Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.IsSpellCasting, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value=""/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Visibility" Value="Visible" TargetName="EnergyFill"/>
-                                <Setter Property="Visibility" Value="Visible" TargetName="FadeFlameEdge"/>
-                                <Setter Property="Visibility" Value="Visible" TargetName="FadeCover"/>
-                                <MultiDataTrigger.EnterActions>
-                                    <BeginStoryboard x:Name="EnergyFillControl">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="EnergyFill">
-                                                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:0.55" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <BeginStoryboard x:Name="FadeInFlameEdge">
-                                        <Storyboard RepeatBehavior="1x" FillBehavior="Stop">
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="FadeFlameEdge">
-                                                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.9"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <BeginStoryboard x:Name="FadeInOutCover">
-                                        <Storyboard RepeatBehavior="1x" BeginTime="0:0:0.0" FillBehavior="Stop">
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="FadeCover">
-                                                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.9"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <BeginStoryboard x:Name="LoopFlameEdge">
-                                        <Storyboard RepeatBehavior="Forever" BeginTime="0:0:0.6">
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MetamagicFlameEdge">
-                                                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0.9"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.9"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <BeginStoryboard x:Name="LoopCover">
-                                        <Storyboard RepeatBehavior="Forever" BeginTime="0:0:0.6">
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MetamagicCover">
-                                                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0.6"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </MultiDataTrigger.EnterActions>
-                                <MultiDataTrigger.ExitActions>
-                                    <StopStoryboard BeginStoryboardName="FadeInFlameEdge"/>
-                                    <StopStoryboard BeginStoryboardName="FadeInOutCover"/>
-                                    <StopStoryboard BeginStoryboardName="LoopFlameEdge"/>
-                                    <StopStoryboard BeginStoryboardName="LoopCover"/>
-                                    <StopStoryboard BeginStoryboardName="EnergyFillControl"/>
-                                </MultiDataTrigger.ExitActions>
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsActive}" Value="True"/>
-                                    <Condition Binding="{Binding SlotType}" Value="Spell"/>
-                                    <Condition Binding="{Binding MetaMagicEnabled}" Value="True"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Visibility" Value="Visible" TargetName="FadeFlameEdge"/>
-                                <Setter Property="Visibility" Value="Visible" TargetName="FadeCover"/>
-                                <MultiDataTrigger.EnterActions>
-                                    <BeginStoryboard x:Name="FixEdge">
-                                        <Storyboard RepeatBehavior="1x">
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MetamagicFlameEdge">
-                                                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0.9"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.9"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                    <BeginStoryboard x:Name="LoopSpellCover">
-                                        <Storyboard RepeatBehavior="Forever">
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MetamagicCover">
-                                                <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="0.6"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0.6"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </MultiDataTrigger.EnterActions>
-                                <MultiDataTrigger.ExitActions>
-                                    <StopStoryboard BeginStoryboardName="FixEdge"/>
-                                    <StopStoryboard BeginStoryboardName="LoopSpellCover"/>
-                                </MultiDataTrigger.ExitActions>
-                            </MultiDataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Control.Template>
-                <Control.Triggers>
-                    <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
-                        <StopStoryboard BeginStoryboardName="FadeInFlameEdge"/>
-                        <StopStoryboard BeginStoryboardName="FadeInOutCover"/>
-                        <StopStoryboard BeginStoryboardName="LoopFlameEdge"/>
-                        <StopStoryboard BeginStoryboardName="LoopCover"/>
-                        <StopStoryboard BeginStoryboardName="FixEdge"/>
-                        <StopStoryboard BeginStoryboardName="LoopSpellCover"/>
-                        <StopStoryboard BeginStoryboardName="EnergyFillControl"/>
-                    </EventTrigger>
-                </Control.Triggers>
-            </Control>
-
-            <!-- active states -->
-            <Control IsHitTestVisible="False">
-                <Control.Style>
-                    <Style TargetType="Control">
-                        <Setter Property="Template" Value="{StaticResource HotBarActiveSlotIndicator}"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SlotType}" Value="Passive">
-                                <Setter Property="Template" Value="{StaticResource HotBarActiveSlotIndicatorPassive}" />
-                            </DataTrigger>
-
-                            <DataTrigger Binding="{Binding Passive.IsMetaMagic}" Value="True">
-                                <Setter Property="Template" Value="{StaticResource HotBarActiveSlotIndicatorMetamagic}" />
-                            </DataTrigger>
-
-                            <DataTrigger Binding="{Binding MetaMagicEnabled}" Value="True">
-                                <Setter Property="Template" Value="{x:Null}" />
-                            </DataTrigger>
-
-                        </Style.Triggers>
+        <ContentControl x:Name="contentContainer" ToolTipService.IsEnabled="True" ToolTipService.Placement="Top" ls:TooltipExtender.Owner="{Binding DataContext.CurrentPlayer.SelectedCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+            <ContentControl.ToolTip>
+                <ls:LSTooltip x:Name="hbTooltip" Content="" ls:TooltipExtender.Context="Hotbar" VerticalOffset="-60" ls:TooltipExtender.Owner="{Binding Path=(ls:TooltipExtender.Owner), ElementName=contentContainer}"/>
+            </ContentControl.ToolTip>
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseEnter">
+                    <b:InvokeCommandAction Command="{Binding DataContext.HighlightResourcesCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
+                </b:EventTrigger>
+                <b:EventTrigger EventName="MouseLeave">
+                    <b:InvokeCommandAction Command="{Binding DataContext.ClearResourceHighlightsCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
+                </b:EventTrigger>
+                <b:EventTrigger EventName="Unloaded">
+                    <b:ChangePropertyAction TargetName="HotbarslotBtn" PropertyName="CommandParameter" Value="{x:Null}"/>
+                    <b:ChangePropertyAction TargetName="HotbarslotBtn" PropertyName="Tag" Value="{x:Null}"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+            <ls:LSButton x:Name="HotbarslotBtn">
+                <ls:LSButton.Tag>
+                    <MultiBinding Converter="{StaticResource PassThroughConverter}">
+                        <Binding ElementName="contentContainer" Mode="OneTime" />
+                        <Binding Source="Top"/>
+                        <Binding Path="DataContext.UseFlyOutSlotCommand" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
+                    </MultiBinding>
+                </ls:LSButton.Tag>
+                <ls:LSButton.Style>
+                    <Style TargetType="ls:LSButton" BasedOn="{StaticResource HotBarSlotStyle}">
+                        <Setter Property="CommandParameter" Value="{Binding Path=Tag,RelativeSource={RelativeSource Mode=Self}}"/>
                     </Style>
-                </Control.Style>
-            </Control>
-
-        </Grid>
+                </ls:LSButton.Style>
+            </ls:LSButton>
+        </ContentControl>
 
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding SlotType}" Value="Empty">
                 <Setter TargetName="contentContainer" Property="ToolTipService.IsEnabled" Value="False"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding SlotIndex, Converter={StaticResource ModuloConverter}, ConverterParameter='2'}" Value="1">
+                <Setter TargetName="hbTooltip" Property="VerticalOffset" Value="-148"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SlotType}" Value="Item">
+                <Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Item, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SlotType}" Value="Passive">
+                <Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Passive, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SlotType}" Value="Spell">
+                <Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Spell, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SlotType}" Value="Action">
+                <Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Spell, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding SlotType}" Value="Item"/>
+                    <Condition Binding="{Binding DataContext.Item.Count, RelativeSource={RelativeSource Mode=TemplatedParent}}" Value="0"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Visibility" Value="Hidden"/>
+            </MultiDataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
     <!-- Hotbar slot Representation END -->
@@ -1203,7 +1187,7 @@
     <!--Hotbar Representation -->
     <ControlTemplate x:Key="LSHotBar" TargetType="ContentControl">
         <StackPanel x:Name="ParentGrid" Orientation="Horizontal">
-            <ls:LSScrollViewer x:Name="SlotHolder" VerticalScrollBarVisibility="Hidden" Height="{Binding ViewPortHeight}" ScrollOffset="{Binding ScrollTo}" ScrollWheelEnabled="False" >
+            <ls:LSScrollViewer x:Name="SlotHolder" VerticalScrollBarVisibility="Hidden" Height="{Binding ViewPortHeight}" VerticalScrollOffset="{Binding ScrollTo}" ScrollWheelEnabled="False" >
                 <ContentPresenter/>
             </ls:LSScrollViewer>
             <StackPanel x:Name="ButtonPanel" Width="28" Margin="5,36,0,0">
@@ -1258,7 +1242,8 @@
     <!--HotBar END -->
 
     <Style x:Key="CombatLog.Entry.ParamRun" TargetType="ls:LSRun">
-        <Style.Triggers>
+            <Style.Triggers>
+                
             <!-- Enemy character (MISSING COLOR CODE) -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
@@ -1394,6 +1379,7 @@
             <!-- Experience (MISSING COLOR CODE) -->
             <DataTrigger Binding="{Binding Type}" Value="Experience">
                 <Setter Property="Foreground" Value="{DynamicResource LS_ExperienceTextColor}" />
+                <Setter Property="ToolTipService.IsEnabled" Value="False" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Type}" Value="ExperienceOverflow">
                 <Setter Property="Foreground" Value="{DynamicResource LS_ExperienceOverflowTextColor}" />
@@ -1435,16 +1421,16 @@
     </Style>
 
     <!--Inactive Dialogue.InactivePortrait Representation -->
-    <DataTemplate x:Key="Dialogue.InactivePortrait">
-        <ContentControl>
-            <i:Interaction.Behaviors>
+    <DataTemplate x:Key="Dialogue.InactivePortrait" DataType="{x:Type ls:Character}">
+        <ContentControl >
+            <b:Interaction.Behaviors>
                 <ls:DropOnCharacterBehavior TargetCharacter="{Binding}"/>
-            </i:Interaction.Behaviors>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding DataContext.SelectCharacter,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Behaviors>
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseLeftButtonDown">
+                    <b:InvokeCommandAction Command="{Binding DataContext.SelectCharacter,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
 
             <Canvas Style="{DynamicResource Dialogue.MiniPortrait.Canvas}" Opacity="0.55">
                 <!-- character image -->
@@ -1477,19 +1463,19 @@
     <!--Inactive Dialogue.InactivePortrait Representation -->
 
     <!--Inactive Dialogue.ActivePortrait Representation -->
-    <DataTemplate x:Key="Dialogue.ActivePortrait">
+    <DataTemplate x:Key="Dialogue.ActivePortrait"  DataType="{x:Type ls:Character}">
         <ContentControl>
-            <i:Interaction.Behaviors>
+            <b:Interaction.Behaviors>
                 <ls:DropOnCharacterBehavior TargetCharacter="{Binding}"/>
-            </i:Interaction.Behaviors>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding DataContext.SelectCharacter,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-                </i:EventTrigger>
-                <i:EventTrigger EventName="MouseDoubleClick" >
-                    <i:InvokeCommandAction Command="{Binding DataContext.SetCameraOnGameObject,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Behaviors>
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseLeftButtonDown">
+                    <b:InvokeCommandAction Command="{Binding DataContext.SelectCharacter,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+                </b:EventTrigger>
+                <b:EventTrigger EventName="MouseDoubleClick" >
+                    <b:InvokeCommandAction Command="{Binding DataContext.SetCameraOnGameObject,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
 
             <Canvas Style="{DynamicResource Dialogue.MiniPortrait.Canvas}">
                 <!-- character image -->
@@ -1548,14 +1534,14 @@
     <!--Inactive Dialogue.InactivePortrait Representation -->
     <DataTemplate x:Key="Dialogue.InactiveSpeaker">
         <ContentControl>
-            <i:Interaction.Behaviors>
+            <b:Interaction.Behaviors>
                 <ls:DropOnCharacterBehavior TargetCharacter="{Binding}"/>
-            </i:Interaction.Behaviors>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding DataContext.SelectSpeaker,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Behaviors>
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseLeftButtonDown">
+                    <b:InvokeCommandAction Command="{Binding DataContext.SelectSpeaker,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
 
             <Canvas Style="{DynamicResource Dialogue.MiniPortrait.Canvas}" Opacity="0.55">
 
@@ -1746,8 +1732,8 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-
-    <!-- MOD START - Custom action resources -->
+	
+	<!-- MOD START - Custom action resources -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.SneakAttackDieGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_res_sneakAttack_h.png</ImageSource>
@@ -1973,127 +1959,127 @@
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="PsiPoint">
+            <DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.PsiPointGroup}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="PsiPoint"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="PsiPoint"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="PsiPointMastery">
+            <DataTrigger Binding="{Binding TypeId}" Value="PsiPointMastery">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.PsiPointGroup}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="PsiPointMastery"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="PsiPointMastery"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="HitDice">
+            <DataTrigger Binding="{Binding TypeId}" Value="HitDice">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.HitDiceGroup}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="HitDice"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="HitDice"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="RampageDie">
+            <DataTrigger Binding="{Binding TypeId}" Value="RampageDie">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.RampageDieGroup}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="RampageDie"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="RampageDie"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="MartialArtsDieD4">
+            <DataTrigger Binding="{Binding TypeId}" Value="MartialArtsDieD4">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.MartialArtsDieGroup1}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="MartialArtsDieD4"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD4"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="MartialArtsDieD6">
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MartialArtsDieD6">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.MartialArtsDieGroup2}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="MartialArtsDieD6"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD6"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="MartialArtsDieD8">
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MartialArtsDieD8">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.MartialArtsDieGroup3}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="MartialArtsDieD8"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD8"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="MartialArtsDieD10">
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MartialArtsDieD10">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.MartialArtsDieGroup4}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="MartialArtsDieD10"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="MartialArtsDieD10"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="NecroThaum">
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="NecroThaum">
                 <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.NecroThaumGroup}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="48" />
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ActionResource.TypeId}" Value="NecroThaum"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding TypeId}" Value="NecroThaum"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
@@ -2288,15 +2274,15 @@
                                                ActionPointGroupSize="56"
                                                Style="{StaticResource ActionResourcesTemplateSelector}"/>
                 </Border>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseEnter">
-                        <i:InvokeCommandAction Command="{Binding DataContext.SetHoveredResourceCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-                        <i:InvokeCommandAction Command="{Binding DataContext.PlaySoundEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="UI_HUD_Shared_Over"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseLeave">
-                        <i:InvokeCommandAction Command="{Binding DataContext.SetHoveredResourceCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseEnter">
+                        <b:InvokeCommandAction Command="{Binding DataContext.SetHoveredResourceCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+                        <b:InvokeCommandAction Command="{Binding DataContext.PlaySoundEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="UI_HUD_Shared_Over"/>
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="MouseLeave">
+                        <b:InvokeCommandAction Command="{Binding DataContext.SetHoveredResourceCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
             </Border>
             <Image VerticalAlignment="Bottom" x:Name="SpellSlotLevels" Stretch="None" Visibility="Hidden" DataContext="{Binding ActionResource}">
                 <Image.Style>
@@ -2338,7 +2324,7 @@
         </DataTemplate.Resources>
         <Grid x:Name="content" Panel.ZIndex="1">
             <Ellipse x:Name="romanBg" Width="40" Height="40" VerticalAlignment="Top" Fill="Black" Margin="0,-2,0,0" Visibility="Collapsed"/>
-            <Image Source="{DynamicResource BackgroundImg}" Stretch="None"/>
+            <Image x:Name="Bg" Source="{DynamicResource BackgroundImg}" Stretch="None"/>
             <Border Width="56" Height="56">
                 <Border Margin="0,-2,-2,0" x:Name="highlightContainer" BorderThickness="1" BorderBrush="Transparent" ToolTipService.IsEnabled="True" ToolTipService.Placement="Top" ToolTip="{StaticResource ManagedTooltip}" DataContext="{Binding}">
                     <Grid>
@@ -2355,52 +2341,52 @@
                                    Foreground="{Binding LabelForeground, ElementName=ResourcePoints}"
                                    FontSize="{DynamicResource MediumFontSize}" Text="{Binding ActionResource.Value}"
                                    noesis:Text.Stroke="{StaticResource LS_PrimaryColorOutlineColor}" noesis:Text.StrokeThickness="4">
-                            <i:Interaction.Triggers>
-                                <ei:PropertyChangedTrigger Binding="{Binding Path=ActionResource.Value}">
-                                    <i:Interaction.Behaviors>
-                                        <ei:ConditionBehavior>
-                                            <ei:ConditionalExpression>
-                                                <ei:ComparisonCondition LeftOperand="{Binding ActionResource.MaxValue}" Operator="GreaterThan" RightOperand="{Binding MaxGroupActionPoints, ElementName=ResourcePoints}"/>
-                                                <ei:ComparisonCondition LeftOperand="{Binding ActionResource.Value}" Operator="GreaterThan" RightOperand="1"/>
-                                            </ei:ConditionalExpression>
-                                        </ei:ConditionBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <ei:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
-                                </ei:PropertyChangedTrigger>
+                            <b:Interaction.Triggers>
+                                <b:PropertyChangedTrigger Binding="{Binding Path=ActionResource.Value}">
+                                    <b:Interaction.Behaviors>
+                                        <b:ConditionBehavior>
+                                            <b:ConditionalExpression>
+                                                <b:ComparisonCondition LeftOperand="{Binding ActionResource.MaxValue}" Operator="GreaterThan" RightOperand="{Binding MaxGroupActionPoints, ElementName=ResourcePoints}"/>
+                                                <b:ComparisonCondition LeftOperand="{Binding ActionResource.Value}" Operator="GreaterThan" RightOperand="1"/>
+                                            </b:ConditionalExpression>
+                                        </b:ConditionBehavior>
+                                    </b:Interaction.Behaviors>
+                                    <b:ChangePropertyAction PropertyName="Visibility" Value="Visible"/>
+                                </b:PropertyChangedTrigger>
                                 
-                                <ei:PropertyChangedTrigger Binding="{Binding Path=ActionResource.Value}">
-                                    <i:Interaction.Behaviors>
-                                        <ei:ConditionBehavior>
-                                            <ei:ConditionalExpression>
-                                                <ei:ComparisonCondition LeftOperand="{Binding ActionResource.Value}" Operator="LessThanOrEqual" RightOperand="1"/>
-                                            </ei:ConditionalExpression>
-                                        </ei:ConditionBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <ei:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
-                                </ei:PropertyChangedTrigger>
-                                <ei:PropertyChangedTrigger Binding="{Binding Path=ActionResource.Value}">
-                                    <i:Interaction.Behaviors>
-                                        <ei:ConditionBehavior>
-                                            <ei:ConditionalExpression>
-                                                <ei:ComparisonCondition LeftOperand="{Binding ActionResource.MaxValue}" Operator="LessThanOrEqual" RightOperand="{Binding MaxGroupActionPoints, ElementName=ResourcePoints}"/>
-                                            </ei:ConditionalExpression>
-                                        </ei:ConditionBehavior>
-                                    </i:Interaction.Behaviors>
-                                    <ei:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
-                                </ei:PropertyChangedTrigger>
-                            </i:Interaction.Triggers>
+                                <b:PropertyChangedTrigger Binding="{Binding Path=ActionResource.Value}">
+                                    <b:Interaction.Behaviors>
+                                        <b:ConditionBehavior>
+                                            <b:ConditionalExpression>
+                                                <b:ComparisonCondition LeftOperand="{Binding ActionResource.Value}" Operator="LessThanOrEqual" RightOperand="1"/>
+                                            </b:ConditionalExpression>
+                                        </b:ConditionBehavior>
+                                    </b:Interaction.Behaviors>
+                                    <b:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
+                                </b:PropertyChangedTrigger>
+                                <b:PropertyChangedTrigger Binding="{Binding Path=ActionResource.Value}">
+                                    <b:Interaction.Behaviors>
+                                        <b:ConditionBehavior>
+                                            <b:ConditionalExpression>
+                                                <b:ComparisonCondition LeftOperand="{Binding ActionResource.MaxValue}" Operator="LessThanOrEqual" RightOperand="{Binding MaxGroupActionPoints, ElementName=ResourcePoints}"/>
+                                            </b:ConditionalExpression>
+                                        </b:ConditionBehavior>
+                                    </b:Interaction.Behaviors>
+                                    <b:ChangePropertyAction PropertyName="Visibility" Value="Collapsed"/>
+                                </b:PropertyChangedTrigger>
+                            </b:Interaction.Triggers>
                         </TextBlock>
                     </Grid>
                 </Border>
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseEnter">
-                        <i:InvokeCommandAction Command="{Binding DataContext.SetHoveredResourceCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-                        <i:InvokeCommandAction Command="{Binding DataContext.PlaySoundEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="UI_HUD_Shared_Over"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="MouseLeave">
-                        <i:InvokeCommandAction Command="{Binding DataContext.SetHoveredResourceCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseEnter">
+                        <b:InvokeCommandAction Command="{Binding DataContext.SetHoveredResourceCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+                        <b:InvokeCommandAction Command="{Binding DataContext.PlaySoundEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="UI_HUD_Shared_Over"/>
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="MouseLeave">
+                        <b:InvokeCommandAction Command="{Binding DataContext.SetHoveredResourceCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
             </Border>
             <Image VerticalAlignment="Top" x:Name="SpellSlotLevels" Stretch="None" Visibility="Hidden" DataContext="{Binding ActionResource}">
                 <Image.Style>
@@ -2435,6 +2421,11 @@
                 <Setter TargetName="romanBg" Property="Visibility" Value="Visible"/>
             </DataTrigger>
 
+            <DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Self}}" Value="minimalView">
+                <Setter TargetName="Bg" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="romanBg" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="SpellSlotLevels" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
     <!-- Action resource UI END -->
@@ -2459,7 +2450,7 @@
     <ControlTemplate x:Key="FloralFlairTitleTemplate" TargetType="ContentControl">
         <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="Transparent">
             <Image HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource FloralFlairLeftPointing}"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}"  Foreground="{DynamicResource LS_SecondaryColor}" />
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}" FontSize="{TemplateBinding FontSize}"  Foreground="{DynamicResource LS_SecondaryColor}" />
             <Image HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource FloralFlairRightPointing}"/>
         </Grid>
     </ControlTemplate>
@@ -2510,11 +2501,30 @@
     <Style x:Key="Map.MarkerItemStyle" TargetType="ls:LSWorldMapMarker">
         <Setter Property="Template" Value="{DynamicResource Map.MarkerDataTemplate}" />
         <Setter Property="EnableIconRotation" Value="False" />
-
+        <Setter Property="Panel.ZIndex" Value="10" />
+        
         <Style.Triggers>
             <Trigger Property="IsInsideViewport" Value="False">
                 <Setter Property="Visibility" Value="Collapsed" />
             </Trigger>
+            <DataTrigger Binding="{Binding Type}" Value="Player">
+                <Setter Property="Panel.ZIndex" Value="50" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="CharacterParty">
+                <Setter Property="Panel.ZIndex" Value="40" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="CharacterNeutral">
+                <Setter Property="Panel.ZIndex" Value="30" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="CharacterEnemy">
+                <Setter Property="Panel.ZIndex" Value="30" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="CharacterFriendly">
+                <Setter Property="Panel.ZIndex" Value="30" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Type}" Value="QuestMarker">
+                <Setter Property="Panel.ZIndex" Value="20" />
+            </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsInsideViewport, RelativeSource={RelativeSource Self}}" Value="False" />
@@ -2589,41 +2599,15 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="Map.HighlightItemStyle" TargetType="ls:LSWorldMapHighlight">
+        <Setter Property="Template" Value="{DynamicResource Map.HighlightDataTemplate}" />
+        <Setter Property="Panel.ZIndex" Value="0" />
+    </Style>
+
     <ControlTemplate x:Key="SelectorTemplate" TargetType="Control">
-        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" >
-            <Grid noesis:Element.PPAAMode="Disabled" Margin="{TemplateBinding Padding}">
-                <Grid.Resources>
-                    <ImageBrush x:Key="TL" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_01.png" Stretch="None"/>
-                    <ImageBrush x:Key="CL" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_04.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="BL" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_07.png" Stretch="None"/>
-                    <ImageBrush x:Key="TC" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_02.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="CC" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_05.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="BC" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_08.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="TR" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_03.png" Stretch="None"/>
-                    <ImageBrush x:Key="CR" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_06.png" Stretch="Fill"/>
-                    <ImageBrush x:Key="BR" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector_09.png" Stretch="None"/>
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="16"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="16"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="16"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="16"/>
-                </Grid.ColumnDefinitions>
-                <Rectangle Grid.Row ="0" Grid.Column ="0" Fill="{DynamicResource TL}"/>
-                <Rectangle Grid.Row ="1" Grid.Column ="0" Fill="{DynamicResource CL}"/>
-                <Rectangle Grid.Row ="2" Grid.Column ="0" Fill="{DynamicResource BL}"/>
-                <Rectangle Grid.Row ="0" Grid.Column ="1" Fill="{DynamicResource TC}"/>
-                <Rectangle Grid.Row ="1" Grid.Column ="1" Fill="{DynamicResource CC}"/>
-                <Rectangle Grid.Row ="2" Grid.Column ="1" Fill="{DynamicResource BC}"/>
-                <Rectangle Grid.Row ="0" Grid.Column ="2" Fill="{DynamicResource TR}"/>
-                <Rectangle Grid.Row ="1" Grid.Column ="2" Fill="{DynamicResource CR}"/>
-                <Rectangle Grid.Row ="2" Grid.Column ="2" Fill="{DynamicResource BR}"/>
-            </Grid>
-        </Grid>
+        <ls:LSNineSliceImage ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemSelector.png" Slices="16" Focusable="False" Margin="-12" Padding="{TemplateBinding Padding}">
+            <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" MinHeight="10" MinWidth="10"  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="12"/>
+        </ls:LSNineSliceImage>
     </ControlTemplate>
 
     <ControlTemplate x:Key="InspirationProgressBar" TargetType="ls:LSProgressBar">
@@ -2647,10 +2631,10 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="HeaderInspirationPointsGold" TargetType="Control">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel x:Name="root" Orientation="Horizontal" >
             <StackPanel x:Name="SuppliesHolder" Orientation="Horizontal" Background="Transparent" ToolTipService.IsEnabled="True" ToolTipService.Placement="Bottom">
                 <StackPanel.ToolTip>
-                    <ls:LSTooltip Content="{Binding .}">
+                    <ls:LSTooltip Content="{Binding Path=DataContext,ElementName=SuppliesHolder}" ls:TooltipExtender.Owner="{Binding Path=DataContext.SelectedCharacter, ElementName=root}">
                         <ls:LSTooltip.ContentTemplate>
                             <DataTemplate>
                                 <TextBlock Width="{DynamicResource MaxTooltipContentWidth}" TextWrapping="Wrap" Margin="0,20,0,20">
@@ -2665,27 +2649,28 @@
                         </ls:LSTooltip.ContentTemplate>
                     </ls:LSTooltip>
                 </StackPanel.ToolTip>
+                
                 <TextBlock VerticalAlignment="Center" TextAlignment="Right"  Foreground="{DynamicResource LS_baseTxtColor}" Background="Transparent"  Text="{Binding Source='h7708bf73ge1fcg40a0gbc51g5128c57ef782',Converter={StaticResource TranslatedStringConverter}}"/>
                 <TextBlock VerticalAlignment="Center" TextAlignment="Right" Margin="10, 0, 0, 0" Foreground="{DynamicResource LS_tint100}" Background="Transparent" Text="{Binding PartySupplies}"/>
                 <Image VerticalAlignment="Center" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_suppliesAquired.png" Stretch="None">
-                    <i:Interaction.Triggers>
-                        <ei:PropertyChangedTrigger Binding="{Binding Path=PartySupplies}">
-                            <i:Interaction.Behaviors>
-                                <ei:ConditionBehavior>
-                                    <ei:ConditionalExpression>
-                                        <ei:ComparisonCondition LeftOperand="{Binding PartySupplies}" Operator="LessThan" RightOperand="{Binding RequiredPartySupplies}"/>
-                                    </ei:ConditionalExpression>
-                                </ei:ConditionBehavior>
-                            </i:Interaction.Behaviors>
-                            <ei:ChangePropertyAction PropertyName="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_supplies.png"/>
-                        </ei:PropertyChangedTrigger>
-                    </i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
+                        <b:PropertyChangedTrigger Binding="{Binding Path=PartySupplies}">
+                            <b:Interaction.Behaviors>
+                                <b:ConditionBehavior>
+                                    <b:ConditionalExpression>
+                                        <b:ComparisonCondition LeftOperand="{Binding PartySupplies}" Operator="LessThan" RightOperand="{Binding RequiredPartySupplies}"/>
+                                    </b:ConditionalExpression>
+                                </b:ConditionBehavior>
+                            </b:Interaction.Behaviors>
+                            <b:ChangePropertyAction PropertyName="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_supplies.png"/>
+                        </b:PropertyChangedTrigger>
+                    </b:Interaction.Triggers>
                 </Image>
             </StackPanel>
 
             <StackPanel x:Name="InspirationHolder" Orientation="Horizontal" Background="Transparent" Margin="20,0,0,0" ToolTipService.IsEnabled="True" ToolTipService.Placement="Bottom">
                 <StackPanel.ToolTip>
-                    <ls:LSTooltip Content="{Binding .}">
+                    <ls:LSTooltip Content="{Binding .}" ls:TooltipExtender.Owner="{Binding Path=DataContext.SelectedCharacter, ElementName=root}">
                         <ls:LSTooltip.ContentTemplate>
                             <DataTemplate>
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hd14181dbgc234g48f9gbb1dg4a014583669e',Converter={StaticResource TranslatedStringConverter}}" Width="{DynamicResource MaxTooltipContentWidth}" TextWrapping="Wrap" Margin="0,20,0,20"/>
@@ -2734,7 +2719,7 @@
         <Setter Property="Text" Value="-" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding DurationType}" Value="Permanent">
-                <Setter Property="Text" Value="{Binding Source='hd66a6a7dg38bcg4d92g9f55g080c1b215e6a',Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter Property="Text" Value="{Binding Source='h82302eb4g8ff2g4ffegbe60gc579e1ae23af',Converter={StaticResource TranslatedStringConverter}}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding DurationType}" Value="Timer">
                 <Setter Property="Text">
@@ -2763,16 +2748,16 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
             <DataTrigger Binding="{Binding DurationType}" Value="FromSurface">
-                <Setter Property="Text" Value="{Binding Source='hccd39823g9eb7g4854g99d5g8d106b3a8d80',Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter Property="Text" Value="{Binding Source='hb2a148a4g90e3g4726g91a4g6f75d101d8a9',Converter={StaticResource TranslatedStringConverter}}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding DurationType}" Value="Aura">
-                <Setter Property="Text" Value="{Binding Source='h70c7fe6agaf87g4d00ga78age516108f3aa1',Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter Property="Text" Value="{Binding Source='h51826368gf983g41a8gaf5cg0b141e1a1239',Converter={StaticResource TranslatedStringConverter}}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding DurationType}" Value="UntilRest">
-                <Setter Property="Text" Value="{Binding Source='h89f4e7f5gcd9ag449aga50ag64fe766c675d',Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter Property="Text" Value="{Binding Source='h50ea69dagf61eg466fga47eg530c55933114',Converter={StaticResource TranslatedStringConverter}}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding DurationType}" Value="Environment">
-                <Setter Property="Text" Value="{Binding Source='h616e456bg93f5g4a9dg98ebgde1f059e0f68',Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter Property="Text" Value="{Binding Source='hffed1068gce4cg4b81g99c0g9e7967ed129c',Converter={StaticResource TranslatedStringConverter}}" />
             </DataTrigger>
 
         </Style.Triggers>
