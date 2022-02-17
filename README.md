@@ -43,9 +43,6 @@ Use Candor/BG3 Mod Manager or place the .pak under "%LocalAppData%\Larian Studio
   <img src="https://imgur.com/o8zPtz9.png" width="500">
 </p>
 <p float="left" align="middle">
-  <img src="https://imgur.com/PBSE1b1.gif" height="400">
-  <img src="https://imgur.com/eemzKrm.gif" height="400">
-  <img src="https://imgur.com/AeDIahc.gif" height="400">
   <img src="https://imgur.com/h4EZbxl.gif" height="400">
 </p>
 
