@@ -22,7 +22,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
 
 #### Installing 
-Use Candor or place the .pak under "\Documents\Larian Studios\Baldur's Gate 3\Mods"  
+Use Candor/BG3 Mod Manager or place the .pak under "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods"
 ![](https://i.imgur.com/Nw8kzJf.png)
 
 #### Changes
