@@ -7,13 +7,19 @@
 This mod is aimed at making changes to the overall user interface to improve usability as well as opening options to more potential mods.  
 
 #### Features
-- Prevents story error message box appearing when using non destructive mods.  
+- Prevents story error message box appearing when using non-destructive mods, which can prevent zoom from working in Character Creation
 <p float="left" align="middle">
   <img src="https://imgur.com/3ysYFd3.png" width="500">
 </p>  
 
-- Modifies the character creation screens race menu in order to provide support for more races.  
-- Modifies the character creation screens appearance menu to fix alignment of gender buttons  
+- Adds picture mode button to Character Creation, Character Level up, in-game and Dialogue screens
+- Modifies the character creation screens race menu in order to provide support for more races
+- Modifies the character creation screens appearance menu to fix alignment of gender buttons
+- Removes unused "All Colours" tickbox from Makeup selection
+- Supports modded class icons, with a generic icon given to mods without a provided icon
+- Unhooks Deity selection from subclass to multiple classes, allows for additional classes to select Deity with additional mods
+- Removes early access text from Dialogue screens
+- Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
 
 #### Installing 
 Use Candor or place the .pak under "\Documents\Larian Studios\Baldur's Gate 3\Mods"  
