@@ -174,9 +174,9 @@
         <!--STATE: CharacterCreation -->
         <ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
             <ls:State.Widgets>
-                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
                 <ls:StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
-                <ls:StateWidget Filename="Notification.xaml" Layer="Notifications"/>
+                <ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
                 <!-- MOD START - Adds UI Toggle -->
                 <ls:StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="PictureMode.xaml" Layer="HUDTop"/>
@@ -222,11 +222,11 @@
         <!--STATE: CharacterLevelUp -->
         <ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
             <ls:State.Widgets>
-                <ls:StateWidget Filename="Notification.xaml" Layer="Notifications"/>
-                <ls:StateWidget Filename="CharacterLevelUp.xaml" Layer="Pause"/>
-                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
+                <ls:StateWidget Filename="CharacterLevelUp.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
 				<!-- MOD START - Adds UI Toggle -->
-                <ls:StateWidget Filename="PictureMode.xaml" Layer="Pause"/>
+                <ls:StateWidget Filename="PictureMode.xaml" Layer="HUDTop"/>
                 <!-- MOD END-->
             </ls:State.Widgets>
 
@@ -264,8 +264,7 @@
         <!--STATE: SpellSelecting-->
         <ls:State Name = "SpellSelecting" DisableStatesBelow = "True" Layout = "Common" Owner = "Player" IsModal="True">
             <ls:State.Widgets>
-                <ls:StateWidget Filename="SpellSelecting.xaml" Layer="MessageBox"/>
-                <ls:StateWidget Filename="Overlay.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="SpellSelecting.xaml" Layer="HUDTop"/>
             </ls:State.Widgets>
             <ls:State.Events>
                 <ls:StateEvent Name = "CloseWidget">
@@ -279,7 +278,7 @@
         <!--STATE: FeatSelecting-->
         <ls:State Name = "FeatSelecting" DisableStatesBelow = "True" Layout = "Common" Owner = "Player" IsModal="True">
             <ls:State.Widgets>
-                <ls:StateWidget Filename="FeatSelecting.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="FeatSelecting.xaml" Layer="HUDTop"/>
             </ls:State.Widgets>
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenSpellSelecting">

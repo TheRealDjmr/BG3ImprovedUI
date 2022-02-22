@@ -3359,13 +3359,13 @@
     <DataTemplate DataType="{x:Type ls:VMAdvantage}">
         <ContentPresenter x:Name="AdvantageTooltipContent" Content="{Binding TooltipData}"/>
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding TooltipData}" Value="{x:Null}">
+            <DataTrigger Binding="{Binding TooltipData, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="False">
                 <Setter TargetName="AdvantageTooltipContent" Property="Content" Value="{Binding .}"/>
                 <Setter TargetName="AdvantageTooltipContent" Property="ContentTemplate" Value="{StaticResource BoostSimpleTooltipContent}"/>
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TooltipData}" Value="{x:Null}"/>
+                    <Condition Binding="{Binding TooltipData, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="False"/>
                     <Condition Binding="{Binding AdvantageType}" Value="Advantage"/>
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="AdvantageTooltipContent" Property="Content" Value="h079123e0geee2g410cgaaf3g7978a3dafdc7"/>
@@ -3374,7 +3374,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TooltipData}" Value="{x:Null}"/>
+                    <Condition Binding="{Binding TooltipData, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="False"/>
                     <Condition Binding="{Binding AdvantageType}" Value="Disadvantage"/>
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="AdvantageTooltipContent" Property="Content" Value="h3723f6abgc46cg42b4gb95eg2449e683e25a"/>
