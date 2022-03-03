@@ -609,7 +609,6 @@
         <ls:State Name = "PlayerPanelsHolder" Layout = "Player" Owner = "Player">
             <ls:State.InitialSubstates>
                 <ls:InitialSubstate Name="PlayerPanels"/>
-                <ls:InitialSubstate Name="ExtractedPanels"/>
                 <ls:InitialSubstate Name="PlayerRadials"/>
             </ls:State.InitialSubstates>
         </ls:State>
@@ -618,89 +617,7 @@
 
         </ls:State>
 
-        <!-- STATE: ExtractedPanels - TO REMOVE -->
-        <ls:State Name = "ExtractedPanels" Layout = "Player" Owner = "Player">
-            <ls:State.Events>
-                <ls:StateEvent Name = "ExtractEquipment">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="ExtractedEquipment"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ExtractInventory">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="ExtractedInventory"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ExtractCharacterSheet">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="ExtractedCharacterSheet"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ExtractSpellBook">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="ExtractedSpellBook"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
-        </ls:State>
-
-        <!--STATE: Extracted Equipment - TO REMOVE -->
-        <ls:State Name = "ExtractedEquipment" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
-            </ls:State.Widgets>
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseEquipmentPanel">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
-        </ls:State>
-
-        <!--STATE: Extracted Inventory - TO REMOVE -->
-        <ls:State Name = "ExtractedInventory" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
-            </ls:State.Widgets>
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseInventoryPanel">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
-        </ls:State>
-
-        <!--STATE: Extracted Character Sheet - TO REMOVE -->
-        <ls:State Name = "ExtractedCharacterSheet" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
-            </ls:State.Widgets>
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseCharSheetPanel">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
-        </ls:State>
-
-        <!--STATE: Extracted Spell Book - TO REMOVE -->
-        <ls:State Name = "ExtractedSpellBook" DisableStatesBelow = "False" Layout = "Player" Owner = "Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="ExtractedPanel.xaml" Layer="HUD"/>
-            </ls:State.Widgets>
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseSpellBookPanel">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
-        </ls:State>
-
-		<!--STATE: PlayerPanels - TO EDIT -->
+        
         <ls:State Name = "PlayerPanels" Layout = "Player" Owner = "Player">
             <ls:State.Events>
                 <ls:StateEvent Name = "CloseAll">
@@ -763,26 +680,6 @@
                         <ls:SetSubstate Name="TutorialPopup"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleInventory">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="PartyInventory"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleEquipment">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="PartyEquipment"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleCharacterPane">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="PartyCharacterSheet"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleCharacterOverview">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="CharacterOverview"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
                 <ls:StateEvent Name = "ToggleSpells">
                     <ls:StateEvent.Actions>
                         <ls:SetSubstate Name="CharacterPanel" Metadata="ToggleSpells"/>
@@ -816,145 +713,22 @@
             </ls:State.Events>
         </ls:State>
 
-        <!--STATE: PartyEquipment - TO REMOVE (Inventory) -->
+        <!--Legacy states, they're still existing in the controller version -->
         <ls:State Name = "PartyEquipment" Layout = "Player" Owner = "Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="PartyEquipment.xaml" Layer="Panels"/>
-            </ls:State.Widgets>
 
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseWidget">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "CloseAllFullscreen">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "IE.ToggleEquipment">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleEquipment">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "IE.ToggleInGameMenu">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
         </ls:State>
 
-        <!--STATE: PartyCharacterSheet - TO REPLACE -->
         <ls:State Name = "PartyCharacterSheet" Layout = "Player" Owner = "Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="PartyCharacterSheet.xaml" Layer="Panels"/>
-            </ls:State.Widgets>
-
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseWidget">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "CloseAllFullscreen">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "IE.ToggleCharacterPane">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleCharacterPane">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "IE.ToggleInGameMenu">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
+            
         </ls:State>
 
-        <!--STATE: CharacterOverview - TO REMOVE-->
         <ls:State Name = "CharacterOverview" Layout = "Player" Owner = "Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="CharacterOverview.xaml" Layer="Panels"/>
-            </ls:State.Widgets>
-
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseWidget">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "CloseAllFullscreen">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleCharacterOverview">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "IE.ToggleInGameMenu">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
+            
         </ls:State>
 
 
-        <!--STATE: Inventory - TO REPLACE -->
         <ls:State Name = "PartyInventory" Layout = "Player" Owner = "Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="PartyInventory.xaml" Layer="Panels"/>
-            </ls:State.Widgets>
-
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseWidget">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "CloseAllFullscreen">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "IE.ToggleInventory">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleInventory">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "OpenSortInventory">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="SortInventory"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "IE.ToggleInGameMenu">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
+            
         </ls:State>
 
         <ls:State Name = "SortInventory" Layout = "Player" Owner = "Player" DisableStatesBelow="True">
@@ -1025,6 +799,12 @@
                 </ls:StateEvent>
 
                 <ls:StateEvent Name = "ClosePartyPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+				
+				<ls:StateEvent Name = "CloseAllFullscreen">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
@@ -2055,7 +1835,7 @@
         <ls:State Name = "CombatLog" Layout = "Player" Owner = "Player" HideStatesBelow = "False"/>
 
         <!--STATE: Tutorials - The modal tutorial showing and highlighting other UIs while explaining their use-->
-        <ls:State Name="Tutorial" DisableStatesBelow="True" Layout="Player" Owner="Player" IsModal="True">
+        <ls:State Name="Tutorial" DisableStatesBelow="True" Layout="Player" Owner="Player" IsModal="False">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="Tutorial.xaml" Layer="PopupPanels"/>
             </ls:State.Widgets>
