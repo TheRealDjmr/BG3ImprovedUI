@@ -484,13 +484,13 @@
 					</ls:LSButton.Resources>
 				</ls:LSButton>
 				<!--Short Rest Button -->
-				<ls:LSButton x:Name="ShortRestBtn" BoundEvent="ShortRest" Command="{Binding ShortRest}" ToolTipService.ShowOnDisabled="True"   SoundID="UI_HUD_ShortRest">
+				<ls:LSButton x:Name="ShortRestBtn" BoundEvent="ShortRest" Command="{Binding ShortRest}" ToolTipService.ShowOnDisabled="True" SoundID="UI_HUD_ShortRest" ls:TutorialProperties.TargetID="TUT_ShortRest" ls:TutorialProperties.ModalType="RightTop">
 					<ls:LSButton.ToolTip>
 						<ls:LSTooltip Content="{Binding Source='hb1796347g75d3g49b3ga928ga568de366a87',Converter={StaticResource TranslatedStringConverter}}" IsHitTestVisible="False" Placement="Left"/>
 					</ls:LSButton.ToolTip>
 					<ls:LSButton.Template>
 						<ControlTemplate TargetType="ls:LSButton">
-							<Grid>
+							<Grid ls:TutorialProperties.TargetID="TUT_ShortRestDowned" ls:TutorialProperties.ModalType="RightTop">
 								<Image x:Name="bgImg" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_d.png" Stretch="None"/>
 								<Image x:Name="ico" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_d.png" Stretch="None"/>
 								<StackPanel x:Name="DotsPanel" Orientation="Horizontal"  Margin="20,0,0,-35">
@@ -542,57 +542,59 @@
 					</ls:LSButton.Style>
 				</ls:LSButton>
 				<!-- Make Camp -->
-				<ls:LSButton ToolTipService.IsEnabled="True" ToolTipService.ShowOnDisabled="true" Template="{StaticResource PanelButton}" Command="{Binding CampTravel}" SoundID="UI_HUD_Party_Campsite">
-					<ls:LSButton.Resources>
-						<BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
-						<BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_h.png" />
-						<BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
-						<BitmapImage x:Key="Icon_Disabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
-					</ls:LSButton.Resources>
-					<ls:LSButton.ToolTip>
-						<ls:LSTooltip IsHitTestVisible="False" Placement="Left" VerticalOffset="4">
-							<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6469d179g46cfg4605gaf1fg2b007517a841',Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center"/>
-						</ls:LSTooltip>
-					</ls:LSButton.ToolTip>
-					<ls:LSButton.Style>
-						<Style TargetType="ls:LSButton">
-							<Setter Property="IsEnabled" Value="True" />
-							<Style.Triggers>
-								<DataTrigger Binding="{Binding CurrentPlayer.EndTheDayState}" Value="Disabled">
-									<Setter Property="IsEnabled" Value="False"/>
-								</DataTrigger>
-								<DataTrigger Binding="{Binding CurrentPlayer.EndTheDayState}" Value="Unavailable">
-									<Setter Property="IsEnabled" Value="False"/>
-								</DataTrigger>
-								<DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
-									<Setter Property="IsEnabled" Value="False"/>
-								</DataTrigger>
-							</Style.Triggers>
-						</Style>
-					</ls:LSButton.Style>
-					<b:Interaction.Triggers>
-						<b:PropertyChangedTrigger Binding="{Binding Path=CurrentPlayer.PartySupplies}">
-							<b:Interaction.Behaviors>
-								<b:ConditionBehavior>
-									<b:ConditionalExpression>
-										<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.PartySupplies}" Operator="LessThan" RightOperand="{Binding CurrentPlayer.RequiredPartySupplies}"/>
-									</b:ConditionalExpression>
-								</b:ConditionBehavior>
-							</b:Interaction.Behaviors>
-							<b:ChangePropertyAction PropertyName="SoundID" Value="UI_HUD_Party_Campsite_NoResources"/>
-						</b:PropertyChangedTrigger>
-						<b:PropertyChangedTrigger Binding="{Binding Path=CurrentPlayer.PartySupplies}">
-							<b:Interaction.Behaviors>
-								<b:ConditionBehavior>
-									<b:ConditionalExpression>
-										<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.PartySupplies}" Operator="GreaterThanOrEqual" RightOperand="{Binding CurrentPlayer.RequiredPartySupplies}"/>
-									</b:ConditionalExpression>
-								</b:ConditionBehavior>
-							</b:Interaction.Behaviors>
-							<b:ChangePropertyAction PropertyName="SoundID" Value="UI_HUD_Party_Campsite"/>
-						</b:PropertyChangedTrigger>
-					</b:Interaction.Triggers>
-				</ls:LSButton>
+				<Border ls:TutorialProperties.TargetID="TUT_LongRest" ls:TutorialProperties.ModalType="RightTop">
+					<ls:LSButton ToolTipService.IsEnabled="True" ToolTipService.ShowOnDisabled="true" Template="{StaticResource PanelButton}" Command="{Binding CampTravel}" SoundID="UI_HUD_Party_Campsite" ls:TutorialProperties.TargetID="TUT_Camp" ls:TutorialProperties.ModalType="RightTop">
+						<ls:LSButton.Resources>
+							<BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
+							<BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_h.png" />
+							<BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
+							<BitmapImage x:Key="Icon_Disabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
+						</ls:LSButton.Resources>
+						<ls:LSButton.ToolTip>
+							<ls:LSTooltip IsHitTestVisible="False" Placement="Left" VerticalOffset="4">
+								<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6469d179g46cfg4605gaf1fg2b007517a841',Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center"/>
+							</ls:LSTooltip>
+						</ls:LSButton.ToolTip>
+						<ls:LSButton.Style>
+							<Style TargetType="ls:LSButton">
+								<Setter Property="IsEnabled" Value="True" />
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding CurrentPlayer.EndTheDayState}" Value="Disabled">
+										<Setter Property="IsEnabled" Value="False"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding CurrentPlayer.EndTheDayState}" Value="Unavailable">
+										<Setter Property="IsEnabled" Value="False"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
+										<Setter Property="IsEnabled" Value="False"/>
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</ls:LSButton.Style>
+						<b:Interaction.Triggers>
+							<b:PropertyChangedTrigger Binding="{Binding Path=CurrentPlayer.PartySupplies}">
+								<b:Interaction.Behaviors>
+									<b:ConditionBehavior>
+										<b:ConditionalExpression>
+											<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.PartySupplies}" Operator="LessThan" RightOperand="{Binding CurrentPlayer.RequiredPartySupplies}"/>
+										</b:ConditionalExpression>
+									</b:ConditionBehavior>
+								</b:Interaction.Behaviors>
+								<b:ChangePropertyAction PropertyName="SoundID" Value="UI_HUD_Party_Campsite_NoResources"/>
+							</b:PropertyChangedTrigger>
+							<b:PropertyChangedTrigger Binding="{Binding Path=CurrentPlayer.PartySupplies}">
+								<b:Interaction.Behaviors>
+									<b:ConditionBehavior>
+										<b:ConditionalExpression>
+											<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.PartySupplies}" Operator="GreaterThanOrEqual" RightOperand="{Binding CurrentPlayer.RequiredPartySupplies}"/>
+										</b:ConditionalExpression>
+									</b:ConditionBehavior>
+								</b:Interaction.Behaviors>
+								<b:ChangePropertyAction PropertyName="SoundID" Value="UI_HUD_Party_Campsite"/>
+							</b:PropertyChangedTrigger>
+						</b:Interaction.Triggers>
+					</ls:LSButton>
+				</Border>
 			</StackPanel>
 
             <Grid.Resources>
