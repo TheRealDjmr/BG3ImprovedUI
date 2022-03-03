@@ -2872,5 +2872,26 @@
         <Rectangle x:Name="InventoryBlocker" Fill="{StaticResource LS_DisabledPanelColor}" 
                    Visibility="{Binding IsContentEditable, Mode=OneWay, Converter={StaticResource BoolToCollapsedConverter}}"/>
     </ControlTemplate>
+	
+	<Style x:Key="TutorialCategoryStyle" TargetType="TextBlock">
+        <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='he162765ega290g4934ga287g65430dcac222', Converter={StaticResource TranslatedStringConverter}}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Tutorial.Category}" Value="Combat">
+                <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h470a1dcfg4daag4f70g8f74g7c40dd9e56fe', Converter={StaticResource TranslatedStringConverter}}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Tutorial.Category}" Value="Gameplay">
+                <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h1e323305g61b3g4f01gb4dag9f9e4d9cf670', Converter={StaticResource TranslatedStringConverter}}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Tutorial.Category}" Value="Character">
+                <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h3c4dec9bgf673g4967gb69ag4a143056e291', Converter={StaticResource TranslatedStringConverter}}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Tutorial.Category}" Value="Exploration">
+                <Setter Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h4447b265g36e8g4ed2g9f91g96dcd20dd041', Converter={StaticResource TranslatedStringConverter}}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>
