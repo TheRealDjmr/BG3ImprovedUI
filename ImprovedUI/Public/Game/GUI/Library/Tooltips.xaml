@@ -3430,6 +3430,49 @@
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
     </DataTemplate>
+	
+	<DataTemplate x:Key="DamageStatParamsTemplate">
+        <ItemsControl Visibility="{Binding CalculationParameters.Count, Converter={StaticResource CountToVisibilityConverter}}" ItemsSource="{Binding CalculationParameters}" Margin="0,20,0,0" AlternationCount="{Binding CalculationParameters.Count}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid MinWidth="{StaticResource StatTooltipMinWidth}">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource TooltipCtxTransStringBodyStyle}"/>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="0">
+                            <TextBlock x:Name="additionSign" Text="+" Visibility="Collapsed" Foreground="{DynamicResource TooltipColor.Secondary}"/>
+                            <TextBlock x:Name="statValue"  Foreground="{DynamicResource TooltipColor.Secondary}" ls:TextBlockFormatter.SourceText="{Binding Value}" Margin="0,0,11,0"/>
+                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Description}">
+                                <TextBlock.Resources>
+                                    <Style TargetType="ls:LSSpan" BasedOn="{StaticResource BaseSpanStyle}">
+                                        <Style.Triggers>
+                                            <Trigger Property="TagType" Value="Damage">
+                                                <Setter Property="Foreground" Value="{DynamicResource TooltipColor.Secondary}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Resources>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock Text="{Binding SourceName}" HorizontalAlignment="Right" Grid.Column="1"/>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter='-1'}" Value="True">
+                            <Setter TargetName="additionSign" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Value}" Value="0">
+                            <Setter TargetName="statValue" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="additionSign" Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </DataTemplate>
 
     <DataTemplate x:Key="VMStatTooltip">
         <StackPanel DataContext="{Binding Path=(ls:TooltipExtender.Data) , RelativeSource={RelativeSource Mode=TemplatedParent}}" ls:TooltipExtender.Owner="{Binding Path=(ls:TooltipExtender.Owner) , RelativeSource={RelativeSource Mode=TemplatedParent}}">
@@ -3439,8 +3482,23 @@
     </DataTemplate>
 
 
+    <DataTemplate x:Key="VMDamageStatTooltip">
+        <StackPanel DataContext="{Binding Path=(ls:TooltipExtender.Data) , RelativeSource={RelativeSource Mode=TemplatedParent}}" ls:TooltipExtender.Owner="{Binding Path=(ls:TooltipExtender.Owner) , RelativeSource={RelativeSource Mode=TemplatedParent}}">
+            <TextBlock Style="{StaticResource TooltipDescriptionStyle}" ls:TextBlockFormatter.SourceText="{Binding Description}" Width="Auto" MaxWidth="{DynamicResource MaxWideTooltipContentWidth}"/>
+            <ContentControl Content="{Binding .}" ContentTemplate="{StaticResource DamageStatParamsTemplate}" Width="{DynamicResource MaxWideTooltipContentWidth}" Visibility="{Binding CalculationParameters.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+        </StackPanel>
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type ls:VMStat}">
         <ContentPresenter x:Name="root" Content="{Binding DataContext}" ContentTemplate="{StaticResource VMStatTooltip}"/>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IDString}" Value="AttackBonus">
+                <Setter TargetName="root" Property="ContentTemplate" Value="{StaticResource VMDamageStatTooltip}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="EquippedWeaponDamage">
+                <Setter TargetName="root" Property="ContentTemplate" Value="{StaticResource VMDamageStatTooltip}"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
 
 
@@ -6344,7 +6402,7 @@
                     <TextBlock Style="{StaticResource TooltipSpecialDescriptionStyle}" ls:TextBlockFormatter.SourceText="{Binding LoreDescription.Str}" ls:AttachedProperties.InheritedTag="{Binding ElementName=DecorationImage}" Margin="0,8,0,16"/>
                 </ContentControl>
 
-                <ContentControl x:Name="footer" Template="{StaticResource TooltipStripBottomTemplate}" Visibility="Collapsed" ContentTemplate="{StaticResource FooterCosts}" Content="{Binding CostSummary}" />
+                <ContentControl x:Name="footer" Template="{StaticResource TooltipStripBottomTemplate}" Visibility="{Binding CostSummary.Count, Converter={StaticResource CountToVisibilityConverter}}" ContentTemplate="{StaticResource FooterCosts}" Content="{Binding CostSummary}" />
             </StackPanel>
         </Grid>
 
