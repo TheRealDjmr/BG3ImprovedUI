@@ -175,7 +175,7 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-			
+
 			<!-- MOD START - New Appearance template/style for makeup -->
             <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem" x:Key="ModdedAppearanceOptionStyle">
                 <Setter Property="ContentTemplate" Value="{StaticResource AppearanceOptionTemplate}"/>
@@ -386,6 +386,9 @@
                     <DataTrigger Binding="{Binding RacePassiveInvalid}" Value="True">
                         <Setter TargetName="raceBtn" Property="Tag" Value="True"/>
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding RaceEquipmentInvalid}" Value="True">
+                        <Setter TargetName="raceBtn" Property="Tag" Value="True"/>
+                    </DataTrigger>
 
                     <DataTrigger Binding="{Binding VoiceInvalid}" Value="True">
                         <Setter TargetName="appearanceBtn" Property="Tag" Value="True"/>
@@ -401,6 +404,9 @@
                         <Setter TargetName="classBtn" Property="Tag" Value="True"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding ClassPassiveInvalid}" Value="True">
+                        <Setter TargetName="classBtn" Property="Tag" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ClassEquipmentInvalid}" Value="True">
                         <Setter TargetName="classBtn" Property="Tag" Value="True"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding GodInvalid}" Value="True">
@@ -567,7 +573,7 @@
                             <ContentControl.Style>
                                 <Style TargetType="ContentControl">
                                     <Style.Resources>
-                                        <System:String x:Key="SoundEventHover">UI_HUD_CC_SelectOrigin_Hover</System:String>
+                                        <System:String x:Key="SoundEventHover">UI_Shared_Hover</System:String>
                                         <System:String x:Key="SoundEventPress">UI_HUD_CC_SelectOrigin_Press</System:String>
                                     </Style.Resources>
                                 </Style>
@@ -613,16 +619,16 @@
                             <ContentControl.Style>
                                 <Style TargetType="ContentControl">
                                     <Style.Resources>
-                                        <System:String x:Key="SoundEventHover">UI_HUD_CC_SelectRace_Hover</System:String>
+                                        <System:String x:Key="SoundEventHover">UI_Shared_Hover</System:String>
                                         <System:String x:Key="SoundEventPress">UI_HUD_CC_SelectRace_Press</System:String>
                                     </Style.Resources>
                                 </Style>
                             </ContentControl.Style>
                         </ContentControl>
                         <!-- MOD START - Gender section original location -->
-                        <!--<ContentControl Template="{StaticResource GenderTemplate}" HorizontalAlignment="Right" Margin="0,-108,108,0"/>-->
+                        <!--<ContentControl Template="{StaticResource GenderTemplate}" HorizontalAlignment="Center" Margin="0,20,0,0"/>-->
                         <!-- MOD END -->
-
+                        
                         <StackPanel Visibility="{Binding Subraces.ComboItems.Count, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,32,0,0">
                             <TextBlock Text="{Binding Source='h29d1d637g94bbg4f11g9bdfgbe0042b60e40', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                             <Control Template="{DynamicResource Carousel}" Margin="0,20,0,0" DataContext="{Binding Subraces}"/>
@@ -739,7 +745,16 @@
                         </ListBox.Template>
                     </ListBox>
                     <ItemsControl DataContext="{Binding HairColors}" Template="{StaticResource CCHairColorGrid}" HorizontalAlignment="Center"/>
-
+					<!-- Hair highlight -->
+					<StackPanel HorizontalAlignment="Center" Background="Transparent">
+						<ListBox ItemsSource="{Binding AppearanceHairHighlights.ColorOptions}" ItemContainerStyle="{StaticResource AppearanceOptionStyle}"/>
+						<ItemsControl DataContext="{Binding AppearanceHairHighlights}" Template="{StaticResource CCColorGrid}" ItemContainerStyle="{StaticResource ColorCellItemStyle}"/>
+					</StackPanel>
+                    <!-- Hair graying -->
+                    <StackPanel HorizontalAlignment="Center" Background="Transparent">
+                        <ListBox ItemsSource="{Binding AppearanceHairGraying.ColorOptions}" ItemContainerStyle="{StaticResource AppearanceOptionStyle}"/>
+                        <ItemsControl DataContext="{Binding AppearanceHairGraying}" Template="{StaticResource CCColorGrid}" ItemContainerStyle="{StaticResource ColorCellItemStyle}"/>
+                    </StackPanel>
                     <!-- Tattoos -->
                     <StackPanel Visibility="{Binding AppearanceTattoos.Materials.ComboItems.Count, Converter={StaticResource CountToVisibilityConverter}}">
                         <TextBlock Text="{Binding Source='h3f96b6b8gd682g4b90ga8fdge34ccb965bbd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
@@ -772,14 +787,14 @@
                         <Control Template="{DynamicResource Carousel}" Margin="0,20,0,0" DataContext="{Binding AppearanceMakeup.Materials}" HorizontalAlignment="Center"/>
                         <StackPanel HorizontalAlignment="Center">
                             <!-- MOD START - Removing tickbox as not required -->
-							 <ListBox ItemContainerStyle="{StaticResource ModdedAppearanceOptionStyle}" ItemsSource="{Binding AppearanceMakeup.ColorOptions}">
+                            <ListBox ItemContainerStyle="{StaticResource ModdedAppearanceOptionStyle}" ItemsSource="{Binding AppearanceMakeup.ColorOptions}">
+                            <!-- MOD END -->
                                 <ListBox.Template>
                                     <ControlTemplate>
                                         <ItemsPresenter/>
                                     </ControlTemplate>
                                 </ListBox.Template>
                             </ListBox>
-							<!-- MOD END -->
                             <ItemsControl DataContext="{Binding AppearanceMakeup}" Template="{StaticResource CCColorGrid}" ItemContainerStyle="{StaticResource ColorCellItemStyle}"/>
                             <StackPanel.Style>
                                 <Style TargetType="StackPanel">
@@ -840,7 +855,7 @@
                                 <ContentControl.Style>
                                     <Style TargetType="ContentControl">
                                         <Style.Resources>
-                                            <System:String x:Key="SoundEventHover">UI_HUD_CC_SelectClass_Hover</System:String>
+                                            <System:String x:Key="SoundEventHover">UI_Shared_Hover</System:String>
                                             <System:String x:Key="SoundEventPress">UI_HUD_CC_SelectClass_Press</System:String>
                                         </Style.Resources>
                                     </Style>
@@ -908,7 +923,7 @@
                                 <TextBlock Text="{Binding DummyCharacter.Stats.GodDescription}" Style="{StaticResource PanelInfoText}" Margin="0,20,0,0"/>
                             </StackPanel> -->
                             <!-- MOD END -->
-
+                            
                             <Control Template="{StaticResource SpellBoxesTemplate}" DataContext="{Binding ClassProgressionDetails}" Margin="0,20,0,0"/>
                             <Control Template="{StaticResource SpellPreparationTemplate}" Margin="0,0,0,30"/>
 
@@ -916,6 +931,9 @@
 
                         <Control Template="{StaticResource ClassPassivesTemplate}" DataContext="{Binding ClassPassives}"/>
                         <Control Template="{StaticResource ClassPassivesTemplate}" DataContext="{Binding SubClassPassives}"/>
+                        
+                        <Control Template="{StaticResource ClassEquipmentsTemplate}" DataContext="{Binding ClassEquipments}"/>
+                        <Control Template="{StaticResource ClassEquipmentsTemplate}" DataContext="{Binding SubClassEquipments}"/>
                             
                         <!-- Appearance Draconic Scales and Color -->
                         <StackPanel Visibility="{Binding AppearancePassive.ColorSwatch.Count, Converter={StaticResource CountToVisibilityConverter}}">
@@ -981,7 +999,10 @@
             </ControlTemplate>
 
             <ControlTemplate x:Key="SkillsCharacterCreationTemplate">
-                <ContentControl Template="{StaticResource CommonCharacterCreationPanel}" Padding="46,0,0,0">
+                <ContentControl x:Name="root" Template="{StaticResource CommonCharacterCreationPanel}" Padding="46,0,0,0">
+                    <b:Interaction.Behaviors>
+                        <noesis:CollectionFilterBehavior x:Name="InheritedExpertiseFilter" ItemsSource="{Binding DummyCharacter.Stats.ExpertSkills}" Predicate="{Binding DummyCharacter.Stats.InheritedExpertisePredicate}"/>
+                    </b:Interaction.Behaviors>
                     <StackPanel>
 
                         <TextBlock Text="{Binding Source='h05d3dcdfgd34fg4ca1gb294gafd882b078d2', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelTitleText}"/>
@@ -1003,36 +1024,17 @@
 
                             <StackPanel Background="Transparent" Visibility="{Binding BackgroundFeatures.Count, Converter={StaticResource CountToVisibilityConverter}}"  Margin="0,30,0,0">
                                 <TextBlock Text="{Binding Source='hb4f4053bg6a73g4eb6gb641g0b835bc3fecf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillHeaderText}" HorizontalAlignment="Center" Foreground="{DynamicResource LS_PrimaryColor}"/>
-                                <ItemsControl ItemsSource="{Binding DummyCharacter.Stats.ProficientSkills}" Margin="128,10,0,0">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid x:Name="skillItem" Visibility="Collapsed" Margin="0,8,0,0" Background="Transparent">
-                                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/checkMark_skills_selectedBefore.png" Stretch="None" HorizontalAlignment="Left"/>
-                                                <TextBlock Text="{Binding Name}" Foreground="{DynamicResource LS_InactivePanelFontColor}" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Left" HorizontalAlignment="Left" Margin="44,0,0,0"/>
-                                                <TextBlock Text="{Binding SkillSourceLabel}" Foreground="{DynamicResource LS_InactivePanelFontColor}" HorizontalAlignment="Right" Margin="0,0,40,0"/>
-                                            </Grid>
-                                            <DataTemplate.Triggers>
-                                                <DataTrigger Binding="{Binding SkillSource}" Value="Background">
-                                                    <Setter TargetName="skillItem" Property="Visibility" Value="Visible"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding SkillSource}" Value="Race">
-                                                    <Setter TargetName="skillItem" Property="Visibility" Value="Visible"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding SkillSource}" Value="Class">
-                                                    <Setter TargetName="skillItem" Property="Visibility" Value="Visible"/>
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding SkillSource}" Value="Passive">
-                                                    <Setter TargetName="skillItem" Property="Visibility" Value="Visible"/>
-                                                </DataTrigger>                                                
-                                            </DataTemplate.Triggers>                                            
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <ItemsControl ItemTemplate="{DynamicResource SkillItemTemplate}" ItemsSource="{Binding DummyCharacter.Stats.ProficientSkills}" Margin="128,10,0,0" />
+                            </StackPanel>
+
+                            <StackPanel Background="Transparent" Visibility="{Binding Path=(b:Interaction.Behaviors)[0].FilteredItems.Count, ElementName=root, Converter={StaticResource CountToVisibilityConverter}}"  Margin="0,30,0,0">
+                                <TextBlock Text="{Binding Source='ha501c259g518eg4925g8f4cgfbe442cdf2ef', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillHeaderText}" HorizontalAlignment="Center" Foreground="{DynamicResource LS_PrimaryColor}"/>
+                                <ItemsControl ItemTemplate="{DynamicResource SkillItemTemplate}" ItemsSource="{Binding Path=(b:Interaction.Behaviors)[0].FilteredItems, ElementName=root}" Margin="128,10,0,0" />
                             </StackPanel>
 
                             <ContentControl Template="{DynamicResource SkillSelectionBox}" DataContext="{Binding RaceSkills}" Margin="0,10,0,0">
                                 <ContentControl.Resources>
-                                    <ControlTemplate x:Key="Title">
+                                    <ControlTemplate x:Key="Header">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_race.png" Stretch="None" VerticalAlignment="Center" Margin="0,0,10,0"/>
                                             <TextBlock x:Name="txt" Style="{StaticResource SkillHeaderText}" Foreground="{DynamicResource LS_PrimaryColor}" VerticalAlignment="Center">
@@ -1052,7 +1054,7 @@
 
                             <ContentControl Template="{DynamicResource SkillSelectionBox}" DataContext="{Binding ClassSkills}" Margin="0,10,0,0">
                                 <ContentControl.Resources>
-                                    <ControlTemplate x:Key="Title">
+                                    <ControlTemplate x:Key="Header">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                             <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_class.png" Stretch="None" VerticalAlignment="Center" Margin="0,-10,10,0"/>
                                             <TextBlock x:Name="txt" Style="{StaticResource SkillHeaderText}" Foreground="{DynamicResource LS_PrimaryColor}" VerticalAlignment="Center">
@@ -1072,16 +1074,19 @@
 							
 							<ContentControl Template="{DynamicResource SkillSelectionBox}" DataContext="{Binding ExpertiseSkills}" Margin="0,10,0,0">
 								<ContentControl.Resources>
-									<ControlTemplate x:Key="Title">
-										<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-											<Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_expertise.png" Stretch="None" VerticalAlignment="Center" Margin="0,-10,10,0"/>
-											<TextBlock x:Name="txt" Style="{StaticResource SkillHeaderText}" Foreground="{DynamicResource LS_PrimaryColor}" VerticalAlignment="Center">
-												<Run Text="{Binding Source='h601ff4c6g67b8g4f32gaaf7g8b29d6daa426', Converter={StaticResource TranslatedStringConverter}}"/>
-												<Run Text="{Binding SelectedSkillCount, StringFormat=' ({0}'}"/>
-												<Run Text="{Binding MaxSelectedSkillCount, StringFormat='/{0})'}"/>
-											</TextBlock>
-										</StackPanel>
-										<ControlTemplate.Triggers>
+									<ControlTemplate x:Key="Header">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_expertise.png" Stretch="None" VerticalAlignment="Center" Margin="0,-10,10,0"/>
+                                                <TextBlock x:Name="txt" Style="{StaticResource SkillHeaderText}" Foreground="{DynamicResource LS_PrimaryColor}" VerticalAlignment="Center">
+                                                    <Run Text="{Binding Source='h601ff4c6g67b8g4f32gaaf7g8b29d6daa426', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                    <Run Text="{Binding SelectedSkillCount, StringFormat=' ({0}'}"/>
+                                                    <Run Text="{Binding MaxSelectedSkillCount, StringFormat='/{0})'}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding Source='hb7bf72ebgcd1ag40fbg9f1eg85d9a5853d4d', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelInfoText}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <ControlTemplate.Triggers>
 											<DataTrigger Binding="{Binding IsComplete}" Value="False">
 												<Setter TargetName="txt" Property="Foreground" Value="{DynamicResource LS_SecondaryColor}"/>
 											</DataTrigger>
@@ -1163,7 +1168,7 @@
                             <ContentControl.Style>
                                 <Style TargetType="ContentControl">
                                     <Style.Resources>
-                                        <System:String x:Key="SoundEventHover">UI_HUD_CC_SelectRace_Hover</System:String>
+                                        <System:String x:Key="SoundEventHover">UI_Shared_Hover</System:String>
                                         <System:String x:Key="SoundEventPress">UI_HUD_CC_SelectRace_Press</System:String>
                                     </Style.Resources>
                                 </Style>
@@ -1196,7 +1201,7 @@
         </ls:LSButton>
         <Control Template="{StaticResource CharacterCreationStepButtons}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-224,10,224,0"/>
 
-        <ls:LSButton Command="{Binding PrevCharacterCreationStep}" SoundID="UI_HUD_CC_Accept" Template="{DynamicResource NavButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,56,0,0">
+        <ls:LSButton Command="{Binding PrevCharacterCreationStep}" SoundID="UI_HUD_CC_Accept" Template="{DynamicResource NavButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,56,0,0" ToolTipService.Placement="Bottom" ToolTipService.VerticalOffset="-10">
             <ls:LSButton.Resources>
                 <BitmapImage x:Key="Icon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_back_d.png"/>
                 <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_back_h.png"/>
@@ -1215,6 +1220,9 @@
                     </Style.Triggers>
                 </Style>
             </ls:LSButton.Style>
+            <ls:LSButton.ToolTip>
+                <ls:LSTooltip Content="{Binding Source='h56d658aeg90c9g4decg895bg66f9bb919211', Converter={StaticResource TranslatedStringConverter}}"/>
+            </ls:LSButton.ToolTip>
         </ls:LSButton>
 
         <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,0">

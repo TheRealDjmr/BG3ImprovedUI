@@ -219,11 +219,11 @@
     </Grid>
     <b:Interaction.Triggers>
         <b:DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue}" Value="{x:Null}">
-            <b:InvokeCommandAction Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" CommandParameter="DialogueHide"/>
+            <b:InvokeCommandAction Command="{Binding Path=CustomEvent}" CommandParameter="DialogueHide"/>
         </b:DataTrigger>
 
         <b:EventTrigger EventName="WidgetClosing">
-            <b:InvokeCommandAction Command="{Binding DataContext.RecheckReward, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+            <b:InvokeCommandAction Command="{Binding RecheckReward}"/>
         </b:EventTrigger>
     </b:Interaction.Triggers>
 </ls:UIWidget>
