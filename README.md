@@ -20,7 +20,6 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Unhooks Deity selection from subclass to multiple classes, allows for additional classes to select Deity with additional mods
 - Removes early access text from Dialogue screens
 - Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
-- Customised Minimap for a cleaner layout that supports scaling
 
 #### Installing 
 Use Candor/BG3 Mod Manager or place the .pak under "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods"
