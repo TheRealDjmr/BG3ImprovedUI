@@ -735,7 +735,7 @@
                             <Style TargetType="ls:LSGrid">
                                 <Setter Property="Margin" Value="0,4,0,0" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
+                                    <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
                                         <Setter Property="Margin" Value="0,0,0,0" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -1105,7 +1105,7 @@
 
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard">
+                        <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard">
                             <Setter Property="Visibility" Value="Visible" TargetName="HotKey"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Item.Count,Converter={StaticResource GreaterThanConverter},ConverterParameter=1}" Value="True">
@@ -1421,7 +1421,7 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding InputType}" Value="TutorialInputKeyboard"/>
-                    <Condition Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard" />
+                    <Condition Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard" />
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter TargetName="holder" Property="Visibility" Value="Visible"/>
@@ -1430,7 +1430,7 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding InputType}" Value="TutorialInputGamepad"/>
-                    <Condition Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller" />
+                    <Condition Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller" />
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter TargetName="holder" Property="Visibility" Value="Visible"/>
@@ -2649,7 +2649,7 @@
                     <Style TargetType="Image" BasedOn="{StaticResource RomanNumeralLevelImage}">
                         <Setter Property="Margin" Value="0,0,0,-4"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
+                            <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
                                 <Setter Property="Margin" Value="0,0,0,-20"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -2753,7 +2753,7 @@
                     <Style TargetType="Image" BasedOn="{StaticResource RomanNumeralLevelImage}">
                         <Setter Property="Margin" Value="0,-4,0,0"/>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
+                            <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
                                 <Setter Property="Margin" Value="0,0,0,-20"/>
                             </DataTrigger>
                         </Style.Triggers>
