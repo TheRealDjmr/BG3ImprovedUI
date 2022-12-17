@@ -6,9 +6,9 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib"
     xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance {x:Type ls:DCCharacterCreation}, IsDesignTimeCreatable=True}"
     d:DesignHeight="2160" d:DesignWidth="3840"
     ls:UIWidget.ContextName="CharacterCreation">
 
@@ -175,9 +175,9 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-
-			<!-- MOD START - New Appearance template/style for makeup -->
-            <Style BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem" x:Key="ModdedAppearanceOptionStyle">
+            
+            <!-- MOD START - New Appearance template/style for makeup -->
+            <Style x:Key="ModdedAppearanceOptionStyle" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
                 <Setter Property="ContentTemplate" Value="{StaticResource AppearanceOptionTemplate}"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
@@ -204,7 +204,7 @@
                 </Style.Triggers>
             </Style>
 			<!-- MOD END -->
-
+			
             <Style x:Key="ColorCellItemStyle" TargetType="FrameworkElement">
                 <Setter Property="Margin" Value="0,0,5,5"/>
             </Style>
@@ -454,7 +454,7 @@
                 </ControlTemplate.Triggers>
             </ControlTemplate>
 
-            <ControlTemplate x:Key="GenderTemplate">
+            <ControlTemplate x:Key="BodyTypeTemplate">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <StackPanel.Resources>
                         <Style TargetType="ls:LSRadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
@@ -516,13 +516,13 @@
                             </Setter>
                         </Style>
                     </StackPanel.Resources>
-                    <ls:LSRadioButton x:Name="FemaleButton" Command="{Binding SetGender}" CommandParameter="Female" SoundID="UI_HUD_CC_Gender">
+                    <ls:LSRadioButton x:Name="FemaleButton" Command="{Binding SetBodyType}" CommandParameter="Female" SoundID="UI_HUD_CC_Gender">
                         <ls:LSRadioButton.Resources>
                             <BitmapImage x:Key="Icon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_female_d.png"/>
                             <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_female_h.png"/>
                         </ls:LSRadioButton.Resources>
                     </ls:LSRadioButton>
-                    <ls:LSRadioButton x:Name="MaleButton" Command="{Binding SetGender}" CommandParameter="Male" SoundID="UI_HUD_CC_Gender">
+                    <ls:LSRadioButton x:Name="MaleButton" Command="{Binding SetBodyType}" CommandParameter="Male" SoundID="UI_HUD_CC_Gender">
                         <ls:LSRadioButton.Resources>
                             <BitmapImage x:Key="Icon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_male_d.png"/>
                             <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ico_male_h.png"/>
@@ -530,13 +530,13 @@
                     </ls:LSRadioButton>
                 </StackPanel>
                 <ControlTemplate.Triggers>
-                    <DataTrigger Binding="{Binding Gender}" Value="Male">
+                    <DataTrigger Binding="{Binding BodyType}" Value="Male">
                         <Setter Property="IsChecked" Value="True" TargetName="MaleButton"/>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Gender}" Value="Female">
+                    <DataTrigger Binding="{Binding BodyType}" Value="Female">
                         <Setter Property="IsChecked" Value="True" TargetName="FemaleButton"/>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding CanEditGender}" Value="False">
+                    <DataTrigger Binding="{Binding CanEditBodyType}" Value="False">
                         <Setter Property="IsEnabled" Value="False"/>
                     </DataTrigger>
                 </ControlTemplate.Triggers>
@@ -566,9 +566,13 @@
             <ControlTemplate x:Key="OriginCharacterCreationTemplate">
                 <ContentControl Template="{StaticResource CommonCharacterCreationPanel}" Margin="-100,0,100,0" Padding="34,0,0,0">
                     <StackPanel>
-                        <TextBlock Text="{Binding Source='h4e22c88bg6071g4c6dg81fdg68133ee0804d', Converter={StaticResource TranslatedStringConverter}}" Style="{DynamicResource PanelTitleText}" Margin="0,0,0,0"/>
-                        <ContentControl Template="{StaticResource GenderTemplate}" HorizontalAlignment="Center"/>
-
+                        
+						<!-- MOD START - Body Type section expanded -->
+                        <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelTitleText}" Margin="0,0,0,0"/>
+                        <ContentControl Template="{StaticResource BodyTypeTemplate}" HorizontalAlignment="Center"/>
+						
+						<TextBlock Text="{Binding Source='h4e22c88bg6071g4c6dg81fdg68133ee0804d', Converter={StaticResource TranslatedStringConverter}}" Style="{DynamicResource PanelTitleText}" Margin="0,0,0,0"/>
+						<!-- MOD END -->
                         <ContentControl Template="{StaticResource BoxedItemSelection}" DataContext="{Binding OriginCharacters}" Margin="0,32,0,0" Resources="{StaticResource SideBoxesTripleResources}">
                             <ContentControl.Style>
                                 <Style TargetType="ContentControl">
@@ -612,7 +616,7 @@
                     <StackPanel Margin="0,0,0,100">
 
                         <TextBlock Text="{Binding Source='h6020727bge0e3g4de7gaf3ag469c3b32b3d2', Converter={StaticResource TranslatedStringConverter}}" Style="{DynamicResource PanelTitleText}"/>
-						<!-- MOD START - Gender section moved -->
+                        <!-- MOD START - Body Type section moved -->
                         <ContentControl HorizontalAlignment="Center" Margin="0,0,0,32" Template="{StaticResource GenderTemplate}"/>
                         <!-- MOD END -->
                         <ContentControl Template="{StaticResource BoxedItemSelection}" DataContext="{Binding Races}" Resources="{StaticResource SideBoxesTripleResources}">
@@ -625,10 +629,10 @@
                                 </Style>
                             </ContentControl.Style>
                         </ContentControl>
-                        <!-- MOD START - Gender section original location -->
-                        <!--<ContentControl Template="{StaticResource GenderTemplate}" HorizontalAlignment="Center" Margin="0,20,0,0"/>-->
+                        <!-- MOD START - Body Type section original location -->
+                        <!--<ContentControl Template="{StaticResource BodyTypeTemplate}" HorizontalAlignment="Center" Margin="0,20,0,0"/>-->
                         <!-- MOD END -->
-                        
+
                         <StackPanel Visibility="{Binding Subraces.ComboItems.Count, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,32,0,0">
                             <TextBlock Text="{Binding Source='h29d1d637g94bbg4f11g9bdfgbe0042b60e40', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                             <Control Template="{DynamicResource Carousel}" Margin="0,20,0,0" DataContext="{Binding Subraces}"/>
@@ -680,20 +684,41 @@
                     <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelTitleText}"/>
 
                     <!-- MOD START - Margin change -->
-                    <ContentControl HorizontalAlignment="Center" Margin="-12,0,0,0" Template="{StaticResource GenderTemplate}"/>
+                    <ContentControl Template="{StaticResource BodyTypeTemplate}" HorizontalAlignment="Center" Margin="-12,0,0,0"/>
                     <!-- MOD END -->
+
+                    <!-- Identity -->
+                    <TextBlock Text="{Binding Source='hcc23cfaagbc1eg4bb0gafb9g9f720497b786', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"
+                               Visibility="{Binding CanShowIdentity, Converter={StaticResource BoolToVisibleConverter}}"/>
+                    <Grid x:Name="IdentityContainer" HorizontalAlignment="Center" Margin="0,20,0,0" Visibility="{Binding CanShowIdentity, Converter={StaticResource BoolToVisibleConverter}}"
+                          IsEnabled="False" ToolTipService.ShowOnDisabled="True">
+                        <Grid.ToolTip>
+                            <ls:LSTooltip >
+                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h4b38cdc8gf9b1g42d0g8a11g6875e943a574', Converter={StaticResource TranslatedStringConverter}}"/>
+                            </ls:LSTooltip>
+                        </Grid.ToolTip>
+                        <Image Source="{StaticResource CharacterCreationBrowseboxImage}" Stretch="None" Margin="0"/>
+                        <ls:LSButton Style="{StaticResource CarouselLeftButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0" IsEnabled="{Binding CanEditIdentity}"
+                                     Command="{Binding DataContext.SelectPreviousIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                                     CommandParameter="{Binding}" SoundID="UI_HUD_CC_Gender"/>
+                        <ls:LSButton Style="{StaticResource CarouselRightButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,0" IsEnabled="{Binding CanEditIdentity}"
+                                     Command="{Binding DataContext.SelectNextIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                                     CommandParameter="{Binding}" SoundID="UI_HUD_CC_Gender"/>
+
+                        <TextBlock x:Name="IdentityTxt" Text="{Binding Source='h033a526fg0fe7g4164g8431g177be16d148a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource CarouselTextStyle}"/>
+                    </Grid>
 
                     <!-- Voice -->
                     <TextBlock Text="{Binding Source='h81102ec7gef4dg42edg85b5g60d7fb1d13f9', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}" HorizontalAlignment="Center"/>
                     <ContentControl Template="{StaticResource ValidationFailedHighlighter}" Tag="{Binding VoiceInvalid}" Margin="0,20,0,0">
-                        <Control Template="{DynamicResource Carousel}" DataContext="{Binding Voices}"/>
+                        <Control Template="{StaticResource Carousel}" DataContext="{Binding Voices}"/>
                     </ContentControl>
                     <Grid>
                         <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/ornate_buttonFrame.png" Stretch="None" Margin="0"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <ls:LSButton Style="{StaticResource PlayOriginStoryButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center"
                                             Command="{Binding DataContext.PlayVoice, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_ListenVoice"/>
-                            <TextBlock Text="{Binding Source='hbf7b56f9g7cd9g4b08g9986ge231edbbde18', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{DynamicResource LS_PrimaryColor}" FontSize="{DynamicResource MediumFontSize}" Margin="20,0,0,0"/>
+                            <TextBlock Text="{Binding Source='hbf7b56f9g7cd9g4b08g9986ge231edbbde18', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" FontSize="{DynamicResource MediumFontSize}" Margin="20,0,0,0"/>
                         </StackPanel>
                     </Grid>
 
@@ -786,8 +811,8 @@
                         <TextBlock Text="{Binding Source='hbd793d8fg4b19g4efdga071g112ba7af47dd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                         <Control Template="{DynamicResource Carousel}" Margin="0,20,0,0" DataContext="{Binding AppearanceMakeup.Materials}" HorizontalAlignment="Center"/>
                         <StackPanel HorizontalAlignment="Center">
-                            <!-- MOD START - Removing tickbox as not required -->
-                            <ListBox ItemContainerStyle="{StaticResource ModdedAppearanceOptionStyle}" ItemsSource="{Binding AppearanceMakeup.ColorOptions}">
+                            <!-- MOD START - Loading custom appearance - removes tick box as not required -->
+                            <ListBox ItemsSource="{Binding AppearanceMakeup.ColorOptions}" ItemContainerStyle="{StaticResource ModdedAppearanceOptionStyle}">
                             <!-- MOD END -->
                                 <ListBox.Template>
                                     <ControlTemplate>
@@ -836,6 +861,21 @@
                     </StackPanel>
 
                 </StackPanel>
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding SelectedIdentity}" Value="Male">
+                        <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='hf12d3837gd6fbg448ag813dg9cf6d9a4d412', Converter={StaticResource TranslatedStringConverter}}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding SelectedIdentity}" Value="Female">
+                        <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='h5d60ad1cg41dcg4d9fgaba8gda842c090327', Converter={StaticResource TranslatedStringConverter}}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding SelectedIdentity}" Value="Neutral">
+                        <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='hea2ce077g2b7ag42dfgb194g928c3dd108a7', Converter={StaticResource TranslatedStringConverter}}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsIdentityEnabled}" Value="True">
+                        <Setter TargetName="IdentityContainer" Property="IsEnabled" Value="True"/>
+                        <Setter TargetName="IdentityContainer" Property="Tooltip" Value="{x:Null}"/>
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
             </ControlTemplate>
 
             <ControlTemplate x:Key="AppearanceCharacterCreationTemplate">
@@ -876,9 +916,8 @@
                                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding DummyCharacter.Stats.ClassList[0].ClassDisplayName}" Style="{StaticResource PanelTitleText}" HorizontalAlignment="Center" Margin="0,0,0,-80"/>
                                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DummyCharacter.Stats.ClassList[0].ClassDescription}" Style="{StaticResource PanelTitleInfoText}" TextAlignment="Left" VerticalAlignment="Top" Margin="0,80,0,0" TextWrapping="Wrap" Width="700"/>
                             </Grid>
-							
-							<!-- MOD START - God available for all classes by moving -->
                             
+                            <!-- MOD START - God available for all classes by moving -->
                             <StackPanel Visibility="{Binding Gods.ComboItems.Count, Converter={StaticResource CountToVisibilityConverter}}">
                                 <TextBlock Text="{Binding Source='hd146e00aga3a6g4e42g8068g9271c358dc5b', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                                 <ContentControl Template="{StaticResource ValidationFailedHighlighter}" Tag="{Binding GodInvalid}" Margin="0,20,0,0">
@@ -890,7 +929,6 @@
                                 </ContentControl>
                                 <TextBlock Text="{Binding DummyCharacter.Stats.GodDescription}" Style="{StaticResource PanelInfoText}" Margin="0,20,0,0"/>
                             </StackPanel>
-                            
                             <!-- MOD END -->
 
 							<Control x:Name="classSpells" Visibility="Collapsed" Template="{StaticResource SpellBoxesTemplate}" DataContext="{Binding ClassProgressionDetails}" Margin="0,20,0,0"/>
@@ -921,9 +959,9 @@
                                     </Control>
                                 </ContentControl>
                                 <TextBlock Text="{Binding DummyCharacter.Stats.GodDescription}" Style="{StaticResource PanelInfoText}" Margin="0,20,0,0"/>
-                            </StackPanel> -->
+                            </StackPanel>-->
                             <!-- MOD END -->
-                            
+
                             <Control Template="{StaticResource SpellBoxesTemplate}" DataContext="{Binding ClassProgressionDetails}" Margin="0,20,0,0"/>
                             <Control Template="{StaticResource SpellPreparationTemplate}" Margin="0,0,0,30"/>
 

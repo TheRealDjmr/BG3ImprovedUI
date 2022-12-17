@@ -1,42 +1,45 @@
 ﻿<ls:UIWidget x:Name="Minimap"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-             
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance {x:Type ls:Widget}, IsDesignTimeCreatable=True}"
              Template="{StaticResource Hud.Root}">
 
     <ls:UIWidget.Resources>
-
+        <BitmapImage x:Key="mnmBtnNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_d.png"/>
+        <BitmapImage x:Key="mnmBtnHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_h.png" />
+        <BitmapImage x:Key="mnmBtnPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_p.png" />
+        <BitmapImage x:Key="mnmBtnDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_disabled.png" />
+        <BitmapImage x:Key="pingBtnNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_signal_d.png"/>
+        <BitmapImage x:Key="pingBtnHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_signal_h.png"/>
         <ControlTemplate x:Key="PanelButtonWT" TargetType="ls:LSButton">
             <ControlTemplate.Resources>
-                <BitmapImage x:Key="btnNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_d.png"/>
-                <BitmapImage x:Key="btnHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_h.png" />
-                <BitmapImage x:Key="btnPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_p.png" />
-                <BitmapImage x:Key="btnDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_disabled.png" />
-
                 <System:String x:Key="DefaultCommandParam">None</System:String>
             </ControlTemplate.Resources>
 
             <Grid ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Top" ToolTipService.IsEnabled="True" ToolTipService.VerticalOffset="4">
-                <Image x:Name="BtnBg" Source="{StaticResource btnNormal}" Stretch="None"/>
+                <Image x:Name="BtnBg" Source="{StaticResource mnmBtnNormal}" Stretch="None"/>
                 <Image x:Name="icon" Source="{DynamicResource Icon_Normal}" Stretch="None"/>
             </Grid>
 
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource btnHover}"/>
+                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource mnmBtnHover}"/>
                     <Setter TargetName="icon" Property="Source" Value="{DynamicResource Icon_Hover}" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource btnPressed}" />
+                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource mnmBtnPressed}" />
                     <Setter TargetName="icon" Property="Source" Value="{DynamicResource Icon_Pressed}" />
                     <Setter TargetName="icon" Property="Margin" Value="0,4,0,0" />
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource btnDisabled}" />
+                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource mnmBtnDisabled}" />
                     <Setter TargetName="icon" Property="Opacity" Value="0.7" />
                 </Trigger>
             </ControlTemplate.Triggers>
@@ -46,262 +49,30 @@
                 So made a template with and a template without a build in tooltip.-->
         <ControlTemplate x:Key="PanelButton" TargetType="ls:LSButton">
             <ControlTemplate.Resources>
-                <BitmapImage x:Key="btnNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_d.png"/>
-                <BitmapImage x:Key="btnHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_h.png" />
-                <BitmapImage x:Key="btnPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_p.png" />
-                <BitmapImage x:Key="btnDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_disabled.png" />
-
                 <System:String x:Key="DefaultCommandParam">None</System:String>
             </ControlTemplate.Resources>
 
             <Grid>
-                <Image x:Name="BtnBg" Source="{StaticResource btnNormal}" Stretch="None"/>
+                <Image x:Name="BtnBg" Source="{StaticResource mnmBtnNormal}" Stretch="None"/>
                 <Image x:Name="icon" Source="{DynamicResource Icon_Normal}" Stretch="None"/>
             </Grid>
 
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource btnHover}"/>
+                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource mnmBtnHover}"/>
                     <Setter TargetName="icon" Property="Source" Value="{DynamicResource Icon_Hover}" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource btnPressed}" />
+                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource mnmBtnPressed}" />
                     <Setter TargetName="icon" Property="Source" Value="{DynamicResource Icon_Pressed}" />
                     <Setter TargetName="icon" Property="Margin" Value="0,4,0,0" />
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
-                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource btnDisabled}" />
+                    <Setter TargetName="BtnBg" Property="Source" Value="{StaticResource mnmBtnDisabled}" />
                     <Setter TargetName="icon" Property="Opacity" Value="0.7" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-
-        <DataTemplate x:Key="TutorialNotification">
-            <DataTemplate.Resources>
-                <System:TimeSpan x:Key="Lifespan">0:3:0</System:TimeSpan>
-            </DataTemplate.Resources>
-            <StackPanel x:Name="holder" Orientation="Horizontal" HorizontalAlignment="Right" Visibility="Collapsed">
-                <StackPanel.Background>
-                    <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Tutorial/tutorialNotification_bg.png"/>
-                </StackPanel.Background>
-                <StackPanel.RenderTransform>
-                    <TranslateTransform />
-                </StackPanel.RenderTransform>
-                <TextBlock x:Name="text" Text="{Binding Title}" VerticalAlignment="Center" Margin="20" TextWrapping="Wrap"/>
-                <ls:LSButton x:Name="playButton"
-                                         Command="{Binding DataContext.OpenTutorialPopup, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
-                                         CommandParameter="{Binding}">
-                    <ls:LSButton.RenderTransform>
-                        <TranslateTransform />
-                    </ls:LSButton.RenderTransform>
-                    <Grid>
-                        <Image x:Name="BtnBg" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_d.png" Stretch="None"/>
-                        <Image x:Name="icon" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Tutorial/ico_play_d.png" Stretch="None"/>
-                        <Canvas>
-                            <Canvas.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform ScaleX="0.86" ScaleY="0.86"/>
-                                    <RotateTransform Angle="45"/>
-                                    <TranslateTransform X="38" Y="38"/>
-                                </TransformGroup>
-                            </Canvas.RenderTransform>
-                            <Path x:Name="Path0" Data="F1M0,-36.87a36.87,36.87,0,0,0,0,73.73a36.87,36.87,0,0,0,0,-73.73Z">
-                                <Path.Fill>
-                                    <LinearGradientBrush MappingMode="Absolute" StartPoint="-108.95,39.75" EndPoint="-21.42,42.08">
-                                        <GradientStop Offset="0" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#4CFFFFFF"/>
-                                        <GradientStop Offset="1" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0.25" Color="#26FFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#4CFFFFFF"/>
-                                        <GradientStop Offset="0.75" Color="#26FFFFFF"/>
-                                        <GradientStop Offset="1" Color="#00FFFFFF"/>
-                                    </LinearGradientBrush>
-                                </Path.Fill>
-                            </Path>
-                            <Path x:Name="Path1" StrokeThickness="4" StrokeMiterLimit="4" Data="M0,-36.87a36.87,36.87,0,0,0,0,73.73a36.87,36.87,0,0,0,0,-73.73Z">
-                                <Path.Stroke>
-                                    <LinearGradientBrush MappingMode="Absolute" StartPoint="-108.95,39.75" EndPoint="-21.42,42.08">
-                                        <GradientStop Offset="0" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#F6FFFFFF"/>
-                                        <GradientStop Offset="1" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0.24" Color="#7FFFFFFF"/>
-                                        <GradientStop Offset="0.48" Color="#FFFFFFFF"/>
-                                        <GradientStop Offset="0.74" Color="#7FFFFFFF"/>
-                                        <GradientStop Offset="1" Color="#00FFFFFF"/>
-                                    </LinearGradientBrush>
-                                </Path.Stroke>
-                            </Path>
-
-                            <Path x:Name="Path2" Data="F1M0,-36.87a36.87,36.87,0,0,0,0,73.73a36.87,36.87,0,0,0,0,-73.73Z">
-                                <Path.Fill>
-                                    <LinearGradientBrush MappingMode="Absolute" StartPoint="-108.95,39.75" EndPoint="-21.42,42.08">
-                                        <GradientStop Offset="0" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#4CFFFFFF"/>
-                                        <GradientStop Offset="1" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0.25" Color="#26FFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#4CFFFFFF"/>
-                                        <GradientStop Offset="0.75" Color="#26FFFFFF"/>
-                                        <GradientStop Offset="1" Color="#00FFFFFF"/>
-                                    </LinearGradientBrush>
-                                </Path.Fill>
-                            </Path>
-                            <Path x:Name="Path3" StrokeThickness="4" StrokeMiterLimit="4" Data="M0,-36.87a36.87,36.87,0,0,0,0,73.73a36.87,36.87,0,0,0,0,-73.73Z">
-                                <Path.Stroke>
-                                    <LinearGradientBrush MappingMode="Absolute" StartPoint="-108.95,39.75" EndPoint="-21.42,42.08">
-                                        <GradientStop Offset="0" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0.5" Color="#F6FFFFFF"/>
-                                        <GradientStop Offset="1" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0" Color="#00FFFFFF"/>
-                                        <GradientStop Offset="0.24" Color="#7FFFFFFF"/>
-                                        <GradientStop Offset="0.48" Color="#FFFFFFFF"/>
-                                        <GradientStop Offset="0.74" Color="#7FFFFFFF"/>
-                                        <GradientStop Offset="1" Color="#00FFFFFF"/>
-                                    </LinearGradientBrush>
-                                </Path.Stroke>
-                            </Path>
-                        </Canvas>
-                    </Grid>
-                </ls:LSButton>
-                <b:Interaction.Triggers>
-                    <b:PropertyChangedTrigger Binding="{Binding Opacity, ElementName=text}">
-                        <b:Interaction.Behaviors>
-                            <b:ConditionBehavior>
-                                <b:ConditionalExpression>
-                                    <b:ComparisonCondition LeftOperand="{Binding Opacity, ElementName=text}" Operator="Equal" RightOperand="0" />
-                                </b:ConditionalExpression>
-                            </b:ConditionBehavior>
-                        </b:Interaction.Behaviors>
-                        <b:InvokeCommandAction Command="{Binding DataContext.RemoveTutorialNotification, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
-                    </b:PropertyChangedTrigger>
-                    <b:EventTrigger EventName="MouseRightButtonDown">
-                        <b:InvokeCommandAction Command="{Binding DataContext.RemoveTutorialNotification, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
-                    </b:EventTrigger>
-                    <b:EventTrigger EventName="Loaded">
-                        <ls:LSPlaySound Sound="UI_HUD_TooltipNotificationAppear"/>
-                    </b:EventTrigger>
-                </b:Interaction.Triggers>
-            </StackPanel>
-            <DataTemplate.Triggers>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding InputType}" Value="TutorialInputKeyboard"/>
-                        <Condition Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard" />
-                    </MultiDataTrigger.Conditions>
-                    <MultiDataTrigger.Setters>
-                        <Setter TargetName="holder" Property="Visibility" Value="Visible"/>
-                    </MultiDataTrigger.Setters>
-                </MultiDataTrigger>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding InputType}" Value="TutorialInputGamepad"/>
-                        <Condition Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller" />
-                    </MultiDataTrigger.Conditions>
-                    <MultiDataTrigger.Setters>
-                        <Setter TargetName="holder" Property="Visibility" Value="Visible"/>
-                    </MultiDataTrigger.Setters>
-                </MultiDataTrigger>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding InputType}" Value="TutorialInputAll"/>
-                    </MultiDataTrigger.Conditions>
-                    <MultiDataTrigger.Setters>
-                        <Setter TargetName="holder" Property="Visibility" Value="Visible"/>
-                    </MultiDataTrigger.Setters>
-                </MultiDataTrigger>
-
-                <Trigger Property="Visibility" Value="Visible">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard x:Name="ShowAnimation">
-                            <BeginStoryboard.Storyboard>
-                                <Storyboard Duration="0:0:2.07">
-                                    <DoubleAnimation Storyboard.TargetName="holder"
-                                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                                                    Duration="0:0:0.7" From="700" To="0">
-                                        <DoubleAnimation.EasingFunction>
-                                            <CubicEase EasingMode="EaseOut"/>
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                    <PointAnimationUsingKeyFrames Storyboard.TargetProperty="Fill.StartPoint" Storyboard.TargetName="Path0">
-                                        <DiscretePointKeyFrame KeyTime="0:0:1.13" Value="-108.95,39.75"/>
-                                        <LinearPointKeyFrame KeyTime="0:0:1.53" Value="40.25,-0"/>
-                                    </PointAnimationUsingKeyFrames>
-                                    <PointAnimationUsingKeyFrames Storyboard.TargetProperty="Fill.EndPoint" Storyboard.TargetName="Path0">
-                                        <DiscretePointKeyFrame KeyTime="0:0:1.13" Value="-21.42,42.08"/>
-                                        <LinearPointKeyFrame KeyTime="0:0:1.53" Value="100,0"/>
-                                    </PointAnimationUsingKeyFrames>
-                                    <PointAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke.StartPoint" Storyboard.TargetName="Path1">
-                                        <DiscretePointKeyFrame KeyTime="0:0:1" Value="-108.95,39.75"/>
-                                        <LinearPointKeyFrame KeyTime="0:0:1.4" Value="40.25,-0"/>
-                                    </PointAnimationUsingKeyFrames>
-                                    <PointAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke.EndPoint" Storyboard.TargetName="Path1">
-                                        <DiscretePointKeyFrame KeyTime="0:0:1" Value="-21.42,42.08"/>
-                                        <LinearPointKeyFrame KeyTime="0:0:1.4" Value="100,0"/>
-                                    </PointAnimationUsingKeyFrames>
-
-                                    <PointAnimationUsingKeyFrames Storyboard.TargetProperty="Fill.StartPoint" Storyboard.TargetName="Path2">
-                                        <DiscretePointKeyFrame KeyTime="0:0:2.67" Value="-108.95,39.75"/>
-                                        <LinearPointKeyFrame KeyTime="0:0:3.07" Value="40.25,-0"/>
-                                    </PointAnimationUsingKeyFrames>
-                                    <PointAnimationUsingKeyFrames Storyboard.TargetProperty="Fill.EndPoint" Storyboard.TargetName="Path2">
-                                        <DiscretePointKeyFrame KeyTime="0:0:2.67" Value="-21.42,42.08"/>
-                                        <LinearPointKeyFrame KeyTime="0:0:3.07" Value="100,0"/>
-                                    </PointAnimationUsingKeyFrames>
-                                    <PointAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke.StartPoint" Storyboard.TargetName="Path3">
-                                        <DiscretePointKeyFrame KeyTime="0:0:2.54" Value="-108.95,39.75"/>
-                                        <LinearPointKeyFrame KeyTime="0:0:2.94" Value="40.25,-0"/>
-                                    </PointAnimationUsingKeyFrames>
-                                    <PointAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke.EndPoint" Storyboard.TargetName="Path3">
-                                        <DiscretePointKeyFrame KeyTime="0:0:2.54" Value="-21.42,42.08"/>
-                                        <LinearPointKeyFrame KeyTime="0:0:2.94" Value="100,0"/>
-                                    </PointAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard.Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                </Trigger>
-
-                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard x:Name="HideStoryboard">
-                            <BeginStoryboard.Storyboard>
-                                <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="text" Storyboard.TargetProperty="Opacity" BeginTime="{StaticResource Lifespan}" Duration="0:0:0.7" From="1" To="0">
-                                        <DoubleAnimation.EasingFunction>
-                                            <CubicEase EasingMode="EaseIn"/>
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                    <DoubleAnimation Storyboard.TargetName="playButton" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" BeginTime="{StaticResource Lifespan}" Duration="0:0:0.7" To="-185">
-                                        <DoubleAnimation.EasingFunction>
-                                            <CubicEase EasingMode="EaseIn"/>
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                    <DoubleAnimation Storyboard.TargetName="playButton" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" BeginTime="{StaticResource Lifespan}" Duration="0:0:0.7" To="-130">
-                                        <DoubleAnimation.EasingFunction>
-                                            <CubicEase EasingMode="EaseIn"/>
-                                        </DoubleAnimation.EasingFunction>
-                                    </DoubleAnimation>
-                                </Storyboard>
-                            </BeginStoryboard.Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <StopStoryboard BeginStoryboardName="HideStoryboard"/>
-                    </Trigger.ExitActions>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True" SourceName="playButton">
-                    <Setter TargetName="BtnBg" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_h.png"/>
-                    <Setter TargetName="icon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tutorial/ico_play_h.png" />
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True" SourceName="playButton">
-                    <Setter TargetName="BtnBg" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_p.png" />
-                    <Setter TargetName="icon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Tutorial/ico_play_d.png" />
-                    <Setter TargetName="icon" Property="Margin" Value="0,4,0,0" />
-                </Trigger>
-            </DataTemplate.Triggers>
-        </DataTemplate>
 
         <Style x:Key="MiniMapTextBlockStyle" TargetType="TextBlock">
             <Setter Property="noesis:Text.StrokeThickness" Value="4"/>
@@ -312,425 +83,530 @@
 
         <Style TargetType="TextBlock" BasedOn="{StaticResource MiniMapTextBlockStyle}"/>
 
+        <KeyTime x:Key="SlideInHudTime">0:0:0.9</KeyTime>
+        <KeyTime x:Key="SlideInHudBeginTime">0:0:0.5</KeyTime>
+        <Storyboard x:Key="Hud.AnimIn" >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MinimapContainer" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.499" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudBeginTime}" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudTime}" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="MinimapContainer">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-200"/>
+                <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudBeginTime}" Value="-200"/>
+                <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudTime}" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MinimapContainer">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudBeginTime}" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudTime}" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </ls:UIWidget.Resources>
+    <ls:UIWidget.ContentTemplate>
+        <DataTemplate DataType="ls:Widget">
+            <Grid MinHeight="40" MinWidth="40">
+                <!--Ping hotkey binding-->
+                <ls:LSInputBinding BoundEvent="Ping" SoundID="UI_Shared_Tick" PlayerId="{Binding CurrentPlayer.PlayerId}" Command="{Binding RequestPing}"/>
 
-	<Grid>
-        <!-- MOD START - Minimap changes -->
-	
-		<!-- Old layout -->
-		<Grid Margin="0,15,15,0" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Transparent">
-
-            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/minimap_bg.png" Stretch="None"/>
-            
-            <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="7,7">
-                <ls:LSWorldMap x:Name="WorldMap"
-					Height="624" Width="624"
-					Scale="13.0" MinScale="4.0" MaxScale="40.0" ScaleSteps="4.0" ScaleDragQuadratSize="40.0"
-					WorldMapData="{Binding CurrentPlayer.WorldMap}"
-					MarkerItemStyle="{StaticResource Map.MarkerItemStyle}"
-                    HighlightItemStyle="{StaticResource Map.HighlightItemStyle}"       
-					MarkerScale="1"
-                    FollowCameraRotation="{Binding CurrentPlayer.UIOptions.RotateMinimap}"
-                    ZoomRate="0" PanRate="0">
-                    <ls:LSWorldMap.Clip>
-                        <EllipseGeometry Center="312,312" RadiusX="312" RadiusY="312" />
-                    </ls:LSWorldMap.Clip>
-
-                    <Image x:Name="DangerZoneGlow" IsHitTestVisible="False" Panel.ZIndex="20" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/alertGlow.png" Focusable="False" Visibility="{Binding CurrentPlayer.SelectedCharacter.IsInDangerZone, Converter={StaticResource BoolToVisibleConverter}}"/>                    
-                    
-                    <Image x:Name="DangerZoneGlowAnimated" IsHitTestVisible="False" Panel.ZIndex="20" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/alertGlow_h.png" Focusable="False" Visibility="{Binding CurrentPlayer.SelectedCharacter.IsInDangerZone, Converter={StaticResource BoolToVisibleConverter}}">
-                        <Image.Style>
-                            <Style TargetType="Image">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.IsInDangerZone}" Value="True">
-                                        <DataTrigger.EnterActions>
-                                            <BeginStoryboard x:Name="DangerZoneGlowAnimation">
-                                                <Storyboard RepeatBehavior="Forever">
-                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" AutoReverse="True">
-                                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
-                                                        <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.15"/>
-                                                    </DoubleAnimationUsingKeyFrames>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.EnterActions>
-                                        <DataTrigger.ExitActions>
-                                            <StopStoryboard BeginStoryboardName="DangerZoneGlowAnimation"/>
-                                        </DataTrigger.ExitActions>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Image.Style>
-                    </Image>
-                    
-                </ls:LSWorldMap>
-
-                <Grid Height="644" Width="644" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Grid.RenderTransform>
-                        <RotateTransform Angle="{Binding ElementName=WorldMap, Path=NorthMarkerAngle}"/>
-                    </Grid.RenderTransform>
-                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/minimap_frame.png" Stretch="None" IsHitTestVisible="False"/>
-                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_north.png" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_east.png" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <RotateTransform Angle="90"/>
-                        </Image.RenderTransform>
-                    </Image>
-                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_south.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <RotateTransform Angle="180"/>
-                        </Image.RenderTransform>
-                    </Image>
-                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_west.png" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <RotateTransform Angle="270"/>
-                        </Image.RenderTransform>
-                    </Image>
-                </Grid>
-            </Grid>
-
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,105" Text="{Binding CurrentPlayer.SelectedCharacter.CurrentSubregionName, Converter={StaticResource StringToUpperConverter}}" Panel.ZIndex="2"/>
-
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,75" FontSize="{StaticResource SmallFontSize}" Panel.ZIndex="2">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource MiniMapTextBlockStyle}">
-                        <Setter Property="Visibility" Value="Visible"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Data.UIMode}"  Value="Controller">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-                    
-                <Run Text="X:"/><Run Text="{Binding CurrentPlayer.WorldMap.CameraLookatPos.x, StringFormat={}{0:0.}}"/>
-                <Run Text="Y:"/><Run Text="{Binding CurrentPlayer.WorldMap.CameraLookatPos.y, StringFormat={}{0:0.}}"/>
-            </TextBlock>
-
-            <ls:LSButton Margin="0,-10,-10,0" VerticalAlignment="Top" HorizontalAlignment="Right" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleInGameMenu'}" Template="{StaticResource PanelButtonWT}" 
-                    Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleGameMenu" SoundID="UI_HUD_EscapeMenu">
-                <ls:LSButton.Resources>
-                    <BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
-                    <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_h.png" />
-                    <BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
-                </ls:LSButton.Resources>
-            </ls:LSButton>
-
-            <ls:LSButton Margin="0,28,94,0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="ls:LSWorldMap.ZoomInCommand" CommandTarget="{Binding ElementName=WorldMap}" SoundID="UI_HUD_Map_Zoom" Template="{StaticResource IconButtonTemplate}">
-                <ls:LSButton.Resources>
-                    <ImageSource x:Key="ButtonNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_d.png</ImageSource>
-                    <ImageSource x:Key="ButtonHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_h.png</ImageSource>
-                    <ImageSource x:Key="ButtonPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_p.png</ImageSource>
-                    <ImageSource x:Key="ButtonDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_disabled.png</ImageSource>
-                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_plus_d.png</ImageSource>
-                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_plus_h.png</ImageSource>
-                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_plus_h.png</ImageSource>
-                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_plus_disabled.png</ImageSource>
-                    <System:Double x:Key="IconWidth">32</System:Double>
-                    <System:Double x:Key="IconHeight">32</System:Double>
-                </ls:LSButton.Resources>
-            </ls:LSButton>
-
-            <ls:LSButton Margin="0,56,61,0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="ls:LSWorldMap.ZoomOutCommand" CommandTarget="{Binding ElementName=WorldMap}" SoundID="UI_HUD_Map_Zoom" Template="{StaticResource IconButtonTemplate}">
-                <ls:LSButton.Resources>
-                    <ImageSource x:Key="ButtonNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_d.png</ImageSource>
-                    <ImageSource x:Key="ButtonHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_h.png</ImageSource>
-                    <ImageSource x:Key="ButtonPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_p.png</ImageSource>
-                    <ImageSource x:Key="ButtonDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_disabled.png</ImageSource>
-                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_minus_d.png</ImageSource>
-                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_minus_h.png</ImageSource>
-                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_minus_h.png</ImageSource>
-                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_minus_disabled.png</ImageSource>
-                    <System:Double x:Key="IconWidth">32</System:Double>
-                    <System:Double x:Key="IconHeight">32</System:Double>
-                </ls:LSButton.Resources>
-            </ls:LSButton>
-
-            <ls:LSButton x:Name="CenterBtn" Margin="0,88,32,0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding DataContext.SetCameraOnGameObject,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding CurrentPlayer.SelectedCharacter}" Template="{StaticResource IconButtonTemplate}">
-                <ls:LSButton.Resources>
-                    <ImageSource x:Key="ButtonNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_d.png</ImageSource>
-                    <ImageSource x:Key="ButtonHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_h.png</ImageSource>
-                    <ImageSource x:Key="ButtonPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_p.png</ImageSource>
-                    <ImageSource x:Key="ButtonDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_disabled.png</ImageSource>
-                    <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_centerCam_d.png</ImageSource>
-                    <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_centerCam_h.png</ImageSource>
-                    <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_centerCam_h.png</ImageSource>
-                    <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_centerCam_disabled.png</ImageSource>
-                    <System:Double x:Key="IconWidth">32</System:Double>
-                    <System:Double x:Key="IconHeight">32</System:Double>
-                </ls:LSButton.Resources>
-                <ls:LSButton.ToolTip>
-                    <ls:LSTooltip Content="{Binding DataContext.CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='CameraCenter' , ElementName=CenterBtn}" IsHitTestVisible="False" Placement="Left" VerticalOffset="4"/>
-                </ls:LSButton.ToolTip>
-            </ls:LSButton>
-
-            <!-- Buttons below minimap -->
-			<StackPanel Orientation="Horizontal" Margin="0,0,0,-40" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-				<!-- Journal -->
-				<ls:LSButton Template="{StaticResource PanelButtonWT}" Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleJournalQuests" 
-                    DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleJournal'}" SoundID="UI_HUD_Journal" BoundEvent="ToggleJournal">
-					<ls:LSButton.Resources>
-						<BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_journal_d.png" />
-						<BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_journal_h.png" />
-						<BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_journal_d.png" />
-					</ls:LSButton.Resources>
-				</ls:LSButton>
-				<!-- Map -->
-				<ls:LSButton Template="{StaticResource PanelButtonWT}"  Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleJournalMap" 
-                    DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleMap'}" BoundEvent="ToggleMap" SoundID="UI_HUD_Map">
-					<ls:LSButton.Resources>
-						<BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_map_d.png" />
-						<BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_map_h.png" />
-						<BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_map_d.png" />
-					</ls:LSButton.Resources>
-				</ls:LSButton>
-				<!--Short Rest Button -->
-				<ls:LSButton x:Name="ShortRestBtn" BoundEvent="ShortRest" Command="{Binding ShortRest}" ToolTipService.ShowOnDisabled="True" SoundID="UI_HUD_ShortRest" ls:TutorialProperties.TargetID="TUT_ShortRest" ls:TutorialProperties.ModalType="RightTop">
-					<ls:LSButton.ToolTip>
-						<ls:LSTooltip Content="{Binding Source='hb1796347g75d3g49b3ga928ga568de366a87',Converter={StaticResource TranslatedStringConverter}}" IsHitTestVisible="False" Placement="Left"/>
-					</ls:LSButton.ToolTip>
-					<ls:LSButton.Template>
-						<ControlTemplate TargetType="ls:LSButton">
-							<Grid ls:TutorialProperties.TargetID="TUT_ShortRestDowned" ls:TutorialProperties.ModalType="RightTop">
-								<Image x:Name="bgImg" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_d.png" Stretch="None"/>
-								<Image x:Name="ico" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_d.png" Stretch="None"/>
-								<StackPanel x:Name="DotsPanel" Orientation="Horizontal"  Margin="20,0,0,-35">
-									<Image x:Name="dot1" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_1.png" Stretch="None"/>
-									<Image x:Name="dot2" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_1.png" Stretch="None" Margin="-3,0,0,0"/>
-								</StackPanel>
-							</Grid>
-
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsMouseOver" Value="True">
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_h.png" TargetName="bgImg"/>
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_h.png" TargetName="ico"/>
-								</Trigger>
-								<Trigger Property="IsPressed" Value="True">
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_p.png" TargetName="bgImg"/>
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_d.png" TargetName="ico"/>
-								</Trigger>
-								<Trigger Property="IsEnabled" Value="False">
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_hudNav_disabled.png" TargetName="bgImg"/>
-									<Setter Property="Opacity" Value="0.7" TargetName="ico"/>
-									<Setter Property="Opacity" Value="0.7" TargetName="DotsPanel" />
-								</Trigger>
-
-								<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.Stats.ShortRestPointsResource.Value}" Value="0">
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_0.png" TargetName="dot1"/>
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_0.png" TargetName="dot2"/>
-								</DataTrigger>
-								<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.Stats.ShortRestPointsResource.Value}" Value="1">
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_1.png" TargetName="dot1"/>
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_0.png" TargetName="dot2"/>
-								</DataTrigger>
-								<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.Stats.ShortRestPointsResource.Value}" Value="2">
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_1.png" TargetName="dot1"/>
-									<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_shortRest_1.png" TargetName="dot2"/>
-								</DataTrigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</ls:LSButton.Template>
-					<ls:LSButton.Style>
-						<Style TargetType="ls:LSButton">
-							<Setter Property="IsEnabled" Value="{Binding CurrentPlayer.SelectedCharacter.IsShortRestAvailable}" />
-							<Style.Triggers>
-
-								<DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
-									<Setter Property="IsEnabled" Value="False"/>
-								</DataTrigger>
-							</Style.Triggers>
-						</Style>
-					</ls:LSButton.Style>
-				</ls:LSButton>
-				<!-- Make Camp -->
-				<Border ls:TutorialProperties.TargetID="TUT_LongRest" ls:TutorialProperties.ModalType="RightTop">
-					<ls:LSButton ToolTipService.IsEnabled="True" ToolTipService.ShowOnDisabled="true" Template="{StaticResource PanelButton}" Command="{Binding CampTravel}" SoundID="UI_HUD_Party_Campsite" ls:TutorialProperties.TargetID="TUT_Camp" ls:TutorialProperties.ModalType="RightTop">
-						<ls:LSButton.Resources>
-							<BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
-							<BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_h.png" />
-							<BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
-							<BitmapImage x:Key="Icon_Disabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_makeCamp_d.png" />
-						</ls:LSButton.Resources>
-						<ls:LSButton.ToolTip>
-							<ls:LSTooltip IsHitTestVisible="False" Placement="Left" VerticalOffset="4">
-								<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6469d179g46cfg4605gaf1fg2b007517a841',Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center"/>
-							</ls:LSTooltip>
-						</ls:LSButton.ToolTip>
-						<ls:LSButton.Style>
-							<Style TargetType="ls:LSButton">
-								<Setter Property="IsEnabled" Value="True" />
-								<Style.Triggers>
-									<DataTrigger Binding="{Binding CurrentPlayer.EndTheDayState}" Value="Disabled">
-										<Setter Property="IsEnabled" Value="False"/>
-									</DataTrigger>
-									<DataTrigger Binding="{Binding CurrentPlayer.EndTheDayState}" Value="Unavailable">
-										<Setter Property="IsEnabled" Value="False"/>
-									</DataTrigger>
-									<DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
-										<Setter Property="IsEnabled" Value="False"/>
-									</DataTrigger>
-								</Style.Triggers>
-							</Style>
-						</ls:LSButton.Style>
-						<b:Interaction.Triggers>
-							<b:PropertyChangedTrigger Binding="{Binding Path=CurrentPlayer.PartySupplies}">
-								<b:Interaction.Behaviors>
-									<b:ConditionBehavior>
-										<b:ConditionalExpression>
-											<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.PartySupplies}" Operator="LessThan" RightOperand="{Binding CurrentPlayer.RequiredPartySupplies}"/>
-										</b:ConditionalExpression>
-									</b:ConditionBehavior>
-								</b:Interaction.Behaviors>
-								<b:ChangePropertyAction PropertyName="SoundID" Value="UI_HUD_Party_Campsite_NoResources"/>
-							</b:PropertyChangedTrigger>
-							<b:PropertyChangedTrigger Binding="{Binding Path=CurrentPlayer.PartySupplies}">
-								<b:Interaction.Behaviors>
-									<b:ConditionBehavior>
-										<b:ConditionalExpression>
-											<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.PartySupplies}" Operator="GreaterThanOrEqual" RightOperand="{Binding CurrentPlayer.RequiredPartySupplies}"/>
-										</b:ConditionalExpression>
-									</b:ConditionBehavior>
-								</b:Interaction.Behaviors>
-								<b:ChangePropertyAction PropertyName="SoundID" Value="UI_HUD_Party_Campsite"/>
-							</b:PropertyChangedTrigger>
-						</b:Interaction.Triggers>
-					</ls:LSButton>
-				</Border>
-			</StackPanel>
-
-            <Grid.Resources>
-
-                <KeyTime x:Key="SlideInHudTime">0:0:0.9</KeyTime>
-                <KeyTime x:Key="SlideInHudBeginTime">0:0:0.5</KeyTime>
-                <Storyboard x:Key="Hud.AnimIn" >
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" >
-                        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:0.499" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudBeginTime}" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudTime}" Value="1">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseOut"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                    </DoubleAnimationUsingKeyFrames>
-
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                        <EasingDoubleKeyFrame KeyTime="0" Value="-200"/>
-                        <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudBeginTime}" Value="-200"/>
-                        <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudTime}" Value="0">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseOut"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                    </DoubleAnimationUsingKeyFrames>
-
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                        <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
-                        <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudBeginTime}" Value="200"/>
-                        <EasingDoubleKeyFrame KeyTime="{StaticResource SlideInHudTime}" Value="0">
-                            <EasingDoubleKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseOut"/>
-                            </EasingDoubleKeyFrame.EasingFunction>
-                        </EasingDoubleKeyFrame>
-                    </DoubleAnimationUsingKeyFrames>
-                </Storyboard>
-            </Grid.Resources>
-
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-                    <Setter Property="RenderTransform">
-                        <Setter.Value>
+                <StackPanel  Margin="0,15,15,0" VerticalAlignment="Top" HorizontalAlignment="Right">
+                    <Grid x:Name="MinimapContainer" Background="Transparent"  VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
                                 <SkewTransform/>
                                 <RotateTransform/>
                                 <TranslateTransform/>
                             </TransformGroup>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
+                        </Grid.RenderTransform>
 
-                        <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="PartyInventory">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard  Storyboard="{StaticResource Hud.AnimIn}" />
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
+                        <!-- Map Border -->
+                        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/minimap_bg.png" Stretch="None"/>
 
-                        <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="PartyEquipment">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard  Storyboard="{StaticResource Hud.AnimIn}" />
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="Dialogue">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard  Storyboard="{StaticResource Hud.AnimIn}" />
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="CharacterOverview">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard  Storyboard="{StaticResource Hud.AnimIn}" />
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="PartyCharacterSheet">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard  Storyboard="{StaticResource Hud.AnimIn}" />
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="SpellBook">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard  Storyboard="{StaticResource Hud.AnimIn}" />
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding CurrentPlayer.UIData.InPlayerPanels}" Value="True">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-		</Grid>
-		<!-- MOD END -->
-		
-		<Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,830,0,0" Height="810">
-            <StackPanel>
-                <ItemsControl x:Name="NotificationsContainer"
-                              ItemsSource="{Binding CurrentPlayer.UIData.Tutorials}"
-                              AlternationCount="{Binding CurrentPlayer.UIData.Tutorials.Count}"
-                              VerticalAlignment="Top" HorizontalAlignment="Right" Width="800"
-                              ItemTemplate="{StaticResource TutorialNotification}">
-                    <ItemsControl.Style>
-                        <Style TargetType="ItemsControl" BasedOn="{StaticResource {x:Type ItemsControl}}">
-                            <Setter Property="MaxHeight" Value="945"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding CurrentPlayer.UIData.CombatLogSize}" Value="Expanded">
-                                    <Setter Property="MaxHeight" Value="840"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding CurrentPlayer.UIData.CombatLogSize}" Value="SuperExpanded">
-                                    <Setter Property="MaxHeight" Value="420"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ItemsControl.Style>
-                </ItemsControl>
-                <ls:LSButton DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleInGameMenu'}"
-                             Content="{Binding Source='h274255deg36c5g4afega896g2fd0a5afab2c', Converter={StaticResource TranslatedStringConverter}}" 
-                             Command="{Binding DataContext.OpenTutorialPopup, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
-                             CommandParameter="{Binding DataContext.CurrentPlayer.UIData.Tutorials, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
-                             HorizontalAlignment="Right">
-                    <ls:LSButton.Style>
-                        <Style TargetType="ls:LSButton" BasedOn="{StaticResource ControllerButton}">
-                            <Setter Property="Visibility" Value="Visible"/>
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding DataContext.CurrentPlayer.UIData.Tutorials.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="0">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding DataContext.Data.UIMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ls:LSButton.Style>
-                </ls:LSButton>
-            </StackPanel>
-        </Grid>
-	</Grid>
+                        <!-- Map -->
+                        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="7,7">
+                            <Grid.Resources>
+                                <Style TargetType="ls:LSWorldMapMarker" BasedOn="{StaticResource Minimap.MarkerItemStyle}"/>
+                            </Grid.Resources>
+                            <ls:LSWorldMap x:Name="WorldMap" 
+                                   Height="624" Width="624"
+                                   MarkerTrajectory ="Ellipse"
+                                   Elevation ="{Binding CurrentPlayer.WorldMap.CurrentCharacterElevation}"
+                                   Scale="13.0" MinScale="4.0" MaxScale="40.0" ScaleSteps="4.0"
+                                   WorldMapData="{Binding CurrentPlayer.WorldMap}"
+                                   MarkerScale="1"
+                                   FollowCameraRotation="{Binding CurrentPlayer.UIOptions.NorthFacingMinimap, Converter={StaticResource InvertBoolConverter}}"
+                                   ZoomRate="0" PanRate="0">
+                                <ls:LSWorldMap.Clip>
+                                    <EllipseGeometry Center="312,312" RadiusX="312" RadiusY="312" />
+                                </ls:LSWorldMap.Clip>
+                            </ls:LSWorldMap>
+
+                            <Grid IsHitTestVisible="False" Visibility="{Binding CurrentPlayer.SelectedCharacter.IsInDangerZone, Converter={StaticResource BoolToVisibleConverter}}">
+                                <!-- Danger zone outlines -->
+                                <Image x:Name="DangerZoneGlow" IsHitTestVisible="False" Stretch="None" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/alertGlow.png" Focusable="False" />
+
+                                <Image x:Name="DangerZoneGlowAnimated" IsHitTestVisible="False" Stretch="None" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/alertGlow_h.png" Focusable="False"/>
+                            </Grid>
+                            <!-- North Pointer -->
+                            <Grid Height="644" Width="644" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Grid.RenderTransform>
+                                    <RotateTransform Angle="{Binding ElementName=WorldMap, Path=MapRotation}"/>
+                                </Grid.RenderTransform>
+                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/minimap_frame.png" Stretch="None" IsHitTestVisible="False"/>
+                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_north.png" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_east.png" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5">
+                                    <Image.RenderTransform>
+                                        <RotateTransform Angle="90"/>
+                                    </Image.RenderTransform>
+                                </Image>
+                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_south.png" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                    <Image.RenderTransform>
+                                        <RotateTransform Angle="180"/>
+                                    </Image.RenderTransform>
+                                </Image>
+                                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_west.png" Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5">
+                                    <Image.RenderTransform>
+                                        <RotateTransform Angle="270"/>
+                                    </Image.RenderTransform>
+                                </Image>
+                            </Grid>
+                        </Grid>
+
+                        <!-- Map Location Text -->
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,105" Text="{Binding CurrentPlayer.SelectedCharacter.CurrentSubregionName, Converter={StaticResource StringToUpperConverter}}" Panel.ZIndex="2"/>
+
+                        <!-- Co-ordinates -->
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,75" FontSize="{StaticResource SmallFontSize}" Panel.ZIndex="2" Style="{StaticResource MiniMapTextBlockStyle}">
+		                    <Run Text="X:"/><Run Text="{Binding CurrentPlayer.WorldMap.CameraLookatPos.X, StringFormat={}{0:0.}}"/>
+		                    <Run Text="Y:"/><Run Text="{Binding CurrentPlayer.WorldMap.CameraLookatPos.Y, StringFormat={}{0:0.}}"/>
+                        </TextBlock>
+
+                        <!-- Buttons under the minimap -->
+                        <ls:LSButton Margin="0,-10,-10,0" VerticalAlignment="Top" HorizontalAlignment="Right" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleInGameMenu'}"
+                             Template="{StaticResource PanelButtonWT}" Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleGameMenu" SoundID="UI_HUD_EscapeMenu">
+                            <ls:LSButton.Resources>
+                                <BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
+                                <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_h.png" />
+                                <BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
+                            </ls:LSButton.Resources>
+                        </ls:LSButton>
+
+                        <ls:LSButton Margin="0,28,94,0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="ls:LSWorldMap.ZoomInCommand" CommandTarget="{Binding ElementName=WorldMap}" SoundID="UI_HUD_Map_Zoom" Template="{StaticResource IconButtonTemplate}">
+                            <ls:LSButton.Resources>
+                                <ImageSource x:Key="ButtonNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_d.png</ImageSource>
+                                <ImageSource x:Key="ButtonHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_h.png</ImageSource>
+                                <ImageSource x:Key="ButtonPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_p.png</ImageSource>
+                                <ImageSource x:Key="ButtonDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_disabled.png</ImageSource>
+                                <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_plus_d.png</ImageSource>
+                                <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_plus_h.png</ImageSource>
+                                <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_plus_h.png</ImageSource>
+                                <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_plus_disabled.png</ImageSource>
+                                <System:Double x:Key="IconWidth">32</System:Double>
+                                <System:Double x:Key="IconHeight">32</System:Double>
+                            </ls:LSButton.Resources>
+                        </ls:LSButton>
+
+                        <ls:LSButton Margin="0,56,61,0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="ls:LSWorldMap.ZoomOutCommand" CommandTarget="{Binding ElementName=WorldMap}" SoundID="UI_HUD_Map_Zoom" Template="{StaticResource IconButtonTemplate}">
+                            <ls:LSButton.Resources>
+                                <ImageSource x:Key="ButtonNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_d.png</ImageSource>
+                                <ImageSource x:Key="ButtonHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_h.png</ImageSource>
+                                <ImageSource x:Key="ButtonPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_p.png</ImageSource>
+                                <ImageSource x:Key="ButtonDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_disabled.png</ImageSource>
+                                <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_minus_d.png</ImageSource>
+                                <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_minus_h.png</ImageSource>
+                                <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_minus_h.png</ImageSource>
+                                <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_minus_disabled.png</ImageSource>
+                                <System:Double x:Key="IconWidth">32</System:Double>
+                                <System:Double x:Key="IconHeight">32</System:Double>
+                            </ls:LSButton.Resources>
+                        </ls:LSButton>
+
+                        <ls:LSButton x:Name="CenterBtn" Margin="0,88,32,0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding DataContext.SetCameraOnGameObject,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding CurrentPlayer.SelectedCharacter}" Template="{StaticResource IconButtonTemplate}">
+                            <ls:LSButton.Resources>
+                                <ImageSource x:Key="ButtonNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_d.png</ImageSource>
+                                <ImageSource x:Key="ButtonHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_h.png</ImageSource>
+                                <ImageSource x:Key="ButtonPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_p.png</ImageSource>
+                                <ImageSource x:Key="ButtonDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/btn_small_round_disabled.png</ImageSource>
+                                <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_centerCam_d.png</ImageSource>
+                                <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_centerCam_h.png</ImageSource>
+                                <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_centerCam_h.png</ImageSource>
+                                <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/ico_centerCam_disabled.png</ImageSource>
+                                <System:Double x:Key="IconWidth">32</System:Double>
+                                <System:Double x:Key="IconHeight">32</System:Double>
+                            </ls:LSButton.Resources>
+                            <ls:LSButton.ToolTip>
+                                <ls:LSTooltip Content="{Binding DataContext.CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='CameraCenter' , ElementName=CenterBtn}" IsHitTestVisible="False" Placement="Left" VerticalOffset="4"/>
+                            </ls:LSButton.ToolTip>
+                        </ls:LSButton>
+
+                        <ls:LSButton Margin="0,0,0,-30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Template="{StaticResource PanelButtonWT}"
+                                     Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"
+                                     CommandParameter="ToggleJournalQuests" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleJournal'}" 
+                                     SoundID="UI_HUD_Journal" BoundEvent="ToggleJournal">
+                            <ls:LSButton.Resources>
+                                <BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_journal_d.png" />
+                                <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_journal_h.png" />
+                                <BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_journal_d.png" />
+                            </ls:LSButton.Resources>
+                        </ls:LSButton>
+
+                        <ls:LSToggleButton x:Name="PingButton" Margin="0,0,46,72" Command="{Binding Path=DataContext.RequestPingState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Right" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='Ping'}">
+                            <ls:LSToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Grid>
+                                        <Image x:Name="bg" Source="{StaticResource mnmBtnNormal}" Stretch="None"/>
+                                        <Image x:Name="img" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Source="{StaticResource pingBtnNormal}"/>
+                                    </Grid>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="bg" Property="Source" Value="{StaticResource mnmBtnHover}"/>
+                                            <Setter TargetName="img" Property="Source" Value="{StaticResource pingBtnHover}"/>
+                                        </Trigger>
+
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="bg" Property="Source" Value="{StaticResource mnmBtnHover}"/>
+                                            <Setter TargetName="img" Property="Source" Value="{StaticResource pingBtnHover}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ls:LSToggleButton.Template>
+                        </ls:LSToggleButton>
+
+                        <ls:LSButton Margin="0,0,120,18" VerticalAlignment="Bottom" HorizontalAlignment="Right" Template="{StaticResource PanelButtonWT}"
+                                     Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"
+                                     CommandParameter="ToggleJournalMap" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleMap'}"
+                                     BoundEvent="ToggleMap" SoundID="UI_HUD_Map">
+                            <ls:LSButton.Resources>
+                                <BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_map_d.png" />
+                                <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_map_h.png" />
+                                <BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_map_d.png" />
+                            </ls:LSButton.Resources>
+                        </ls:LSButton>
+                    </Grid>
+                    <ContentPresenter x:Name="StoryTimer" HorizontalAlignment="Right" Margin="0,6,0,0" Content="{Binding CurrentPlayer.SelectedCharacter.StoryTimer}" Visibility="Collapsed">
+                        <ContentPresenter.RenderTransform>
+                            <TranslateTransform/>
+                        </ContentPresenter.RenderTransform>
+                        <ContentPresenter.Resources>
+                            <KeyTime x:Key="TimerFadeInTime">0:0:0.5</KeyTime>
+                            <KeyTime x:Key="TimerFadeInTime2">0:0:0.55</KeyTime>
+
+                            <Style x:Key="MainPiesStyle" TargetType="ls:LSPie">
+                                <Setter Property="SweepDirection" Value="Clockwise"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+
+                            <Style x:Key="PathStyle" TargetType="Path">
+                                <Setter Property="StrokeThickness" Value="7"/>
+                                <Setter Property="noesis:Element.PPAAIn" Value="0.3"/>
+                                <Setter Property="noesis:Element.PPAAOut" Value="2.0"/>
+                                <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+                                <Setter Property="UseLayoutRounding" Value="True"/>
+                                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                <Setter Property="Width" Value="144"/>
+                                <Setter Property="Height" Value="144"/>
+                                <Setter Property="Stroke" Value="{StaticResource LS_baseTxtColor}"/>
+                                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                                <Setter Property="Data">
+                                    <Setter.Value>
+                                        <EllipseGeometry RadiusX="66" RadiusY="66" Center="72,72"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+
+                            <ControlTemplate x:Key="TimerTemp" TargetType="ls:TimerControl">
+                                <ControlTemplate.Resources>
+                                    <KeyTime x:Key="ttAnim01">0:0:0.6</KeyTime>
+                                    <KeyTime x:Key="ttAnim02">0:0:0.7</KeyTime>
+                                    <KeyTime x:Key="ttAnim03">0:0:0.8</KeyTime>
+
+                                    <Storyboard x:Key="TurnTicked" FillBehavior="Stop">
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="Hourglass">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="{StaticResource ttAnim01}" Value="{x:Static Visibility.Collapsed}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="TurnTexts">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Collapsed}"/>
+                                            <DiscreteObjectKeyFrame KeyTime="{StaticResource ttAnim01}" Value="{x:Static Visibility.Visible}"/>
+                                        </ObjectAnimationUsingKeyFrames>
+
+                                        <DoubleAnimation From="0" To="180" Duration="0:0:0.5" RepeatBehavior="1x" Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)" Storyboard.TargetName="Hourglass"/>
+
+
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TurnAmountLabel" >
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="{StaticResource ttAnim01}" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="{StaticResource ttAnim02}" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TurnLabel" >
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="{StaticResource ttAnim02}" Value="0"/>
+                                            <EasingDoubleKeyFrame KeyTime="{StaticResource ttAnim03}" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+
+                                    </Storyboard>
+                                </ControlTemplate.Resources>
+                                <Grid>
+                                   <Image HorizontalAlignment="Center" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/timer_headerFrame.png" Stretch="None" VerticalAlignment="Top" Margin="0,8,0,0"/>
+                                    <Image HorizontalAlignment="Center" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/timer_frame.png" Stretch="None"/>
+                                    <ls:LSPie Style="{StaticResource MainPiesStyle}" Value="{TemplateBinding TurnPercentRemaining}">
+                                        <Path Style="{StaticResource PathStyle}">
+                                            <b:Interaction.Behaviors>
+                                                <ls:PathDashBehavior SegmentCount="{Binding TotalTurns,RelativeSource={RelativeSource Mode=TemplatedParent}}" StartAngle="-90" FixedGapLength="1" />
+                                            </b:Interaction.Behaviors>
+                                        </Path>
+                                    </ls:LSPie>
+
+                                    <ls:LSPie Style="{StaticResource MainPiesStyle}" Value="{TemplateBinding CurrentTurnPercentRemaining}" RenderTransformOrigin="0.5 0.5">
+                                        <ls:LSPie.RenderTransform>
+                                            <RotateTransform Angle="{Binding CurrentTurnAngle,RelativeSource={RelativeSource Mode=TemplatedParent}}"></RotateTransform>
+                                        </ls:LSPie.RenderTransform>
+                                        <Path Style="{StaticResource PathStyle}" Stroke="White" StrokeThickness="8">
+                                            <b:Interaction.Behaviors>
+                                                <ls:PathDashBehavior SegmentCount="{Binding TotalTurns,RelativeSource={RelativeSource Mode=TemplatedParent}}" StartAngle="-90" FixedGapLength="1" />
+                                            </b:Interaction.Behaviors>
+                                        </Path>
+                                    </ls:LSPie>
+                                    <Image x:Name="Hourglass" HorizontalAlignment="Center" VerticalAlignment="Center" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_hourglass_default.png" Stretch="None" Visibility="Collapsed" RenderTransformOrigin="0.5 0.5">
+                                        <Image.RenderTransform>
+                                            <RotateTransform Angle="0"/>
+                                        </Image.RenderTransform>
+                                    </Image>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="TurnTexts">
+                                        <TextBlock x:Name="TurnAmountLabel" Text="{Binding TurnsRemaining,RelativeSource={RelativeSource Mode=TemplatedParent}}" TextAlignment="Center" FontSize="{StaticResource HugeFontSize}" Margin="0,0,0,-20"/>
+                                        <TextBlock x:Name="TurnLabel" Text="{Binding Source=h7b850a94ge581g4e58gb591gbfe0d1b33604,Converter={StaticResource TranslatedStringConverter}}" Foreground="{StaticResource LS_accent75TxtColor}" FontSize="{StaticResource SmallFontSize}" TextAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <b:Interaction.Triggers>
+                                        <b:PropertyChangedTrigger Binding="{Binding TurnsRemaining,RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                            <b:Interaction.Behaviors>
+                                                <b:ConditionBehavior>
+                                                    <b:ConditionalExpression>
+                                                        <b:ComparisonCondition LeftOperand="{Binding TurnsRemaining,RelativeSource={RelativeSource Mode=TemplatedParent}}" Operator="NotEqual" RightOperand="0"/>
+                                                        <b:ComparisonCondition LeftOperand="{Binding TurnsRemaining,RelativeSource={RelativeSource Mode=TemplatedParent}}" Operator="NotEqual" RightOperand="{Binding TotalTurns,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                                    </b:ConditionalExpression>
+                                                </b:ConditionBehavior>
+                                            </b:Interaction.Behaviors>
+                                            <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource TurnTicked}" />
+                                        </b:PropertyChangedTrigger>
+                                    </b:Interaction.Triggers>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="TurnsRemaining" Value="1">
+                                        <Setter TargetName="TurnLabel" Value="{Binding Source=h9e16089bgf0efg4d5cgb7e9gb783489094d1,Converter={StaticResource TranslatedStringConverter}}" Property="Text"/>
+                                    </Trigger>
+                                    <Trigger Property="TurnsRemaining" Value="0">
+                                        <Setter TargetName="TurnAmountLabel" Value="Collapsed" Property="Visibility"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </ContentPresenter.Resources>
+                        <ContentPresenter.ContentTemplate>
+                            <DataTemplate d:DataContext="ls:VMStoryTimer">
+                                <Grid x:Name="StoryTimerRoot" MinHeight="10" MinWidth="10" >
+                                    <Grid.RenderTransform>
+                                        <TranslateTransform/>
+                                    </Grid.RenderTransform>
+                                    <StackPanel>
+                                        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/minimap_logPane_header.png" Stretch="None"/>
+                                        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/minimap_logPane_body.png" Stretch="None" />
+                                    </StackPanel>
+                                    <StackPanel Margin="0,41,0,0" >
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0" HorizontalAlignment="Center">
+                                            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD/ico_turn_untaken.png" Stretch="None" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                            <TextBlock Text="{Binding Description}"  FontSize="{StaticResource ScaledMediumFontSize}" Foreground="{StaticResource LS_accent75TxtColor}"  TextAlignment="Left" noesis:Text.Stroke="{StaticResource LS_tint00}" noesis:Text.StrokeThickness="4" HorizontalAlignment="Left" MaxWidth="480" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                        <ls:TimerControl VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,14,0,0" x:Name="Timer" CurrentTime="{Binding CurrentTime}" TotalTime="{Binding TotalTime}" Template="{StaticResource TimerTemp}"/>
+                                    </StackPanel>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <Trigger Property="Content" Value="{x:Null}">
+                                        <Trigger.EnterActions>
+                                            <StopStoryboard BeginStoryboardName="AppearAnim" />
+                                            <BeginStoryboard  x:Name="DisappearAnim">
+                                                <BeginStoryboard.Storyboard>
+                                                    <Storyboard >
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" >
+                                                            <DiscreteObjectKeyFrame KeyTime="{StaticResource TimerFadeInTime2}" Value="{x:Static Visibility.Collapsed}"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                            <EasingDoubleKeyFrame KeyTime="{DynamicResource TimerFadeInTime}" Value="0">
+                                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                                    <CubicEase EasingMode="EaseOut"/>
+                                                                </EasingDoubleKeyFrame.EasingFunction>
+                                                            </EasingDoubleKeyFrame>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard.Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                        <Trigger.ExitActions>
+                                            <StopStoryboard BeginStoryboardName="DisappearAnim" />
+                                            <BeginStoryboard x:Name="AppearAnim" >
+                                                <BeginStoryboard.Storyboard>
+                                                    <Storyboard >
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" >
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                                            <EasingDoubleKeyFrame KeyTime="{DynamicResource TimerFadeInTime}" Value="1">
+                                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                                    <CubicEase EasingMode="EaseOut"/>
+                                                                </EasingDoubleKeyFrame.EasingFunction>
+                                                            </EasingDoubleKeyFrame>
+                                                        </DoubleAnimationUsingKeyFrames>
+
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+                                                            <EasingDoubleKeyFrame KeyTime="0" Value="100"/>
+                                                            <EasingDoubleKeyFrame KeyTime="{DynamicResource TimerFadeInTime}" Value="0">
+                                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                                    <CubicEase EasingMode="EaseOut"/>
+                                                                </EasingDoubleKeyFrame.EasingFunction>
+                                                            </EasingDoubleKeyFrame>
+                                                        </DoubleAnimationUsingKeyFrames>
+
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Timer" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                                            <EasingDoubleKeyFrame KeyTime="{DynamicResource TimerFadeInTime}" Value="1">
+                                                                <EasingDoubleKeyFrame.EasingFunction>
+                                                                    <CubicEase EasingMode="EaseOut"/>
+                                                                </EasingDoubleKeyFrame.EasingFunction>
+                                                            </EasingDoubleKeyFrame>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard.Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.ExitActions>
+                                    </Trigger>
+                                    <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
+                                        <StopStoryboard BeginStoryboardName="AppearAnim" />
+                                        <StopStoryboard BeginStoryboardName="DisappearAnim" />
+                                        <StopStoryboard BeginStoryboardName="LoadAnim" />
+                                    </EventTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ContentPresenter.ContentTemplate>
+                    </ContentPresenter>
+
+					<!-- MOD START - Remove Early Access Text -->
+                    <!--<StackPanel x:Name="DebugInfo" Panel.ZIndex="2" Margin="0,28,30,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+		                < Additional debug info >
+                        <TextBlock Foreground="{StaticResource LS_specialTxtColor}" TextAlignment="Right" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="6" Visibility="{Binding Data.IsGold, Converter={StaticResource BoolToCollapsedConverter}}">
+			                <Run Text="Live UI -"/>
+			                <Run Text="{Binding Data.DebugData.BuildType}"/>
+                        </TextBlock>
+                        <TextBlock Foreground="{StaticResource LS_specialTxtColor}" TextAlignment="Right" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="6" Visibility="{Binding Data.IsGold, Converter={StaticResource BoolToCollapsedConverter}}">
+                            <Run Text="{Binding Data.DebugData.MainModName, StringFormat=' {0} -'}"/>
+			                <Run Text="{Binding Data.DebugData.CurrentLevelName}"/>
+		                </TextBlock>
+                        
+                        < EA text + version >
+		                <TextBlock Foreground="{StaticResource LS_tint100}" Panel.ZIndex="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" TextAlignment="Right" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="6">
+			                <Run Text="{Binding Source='h8be1f0ddgdfa7g4812ga2b5g04854b2a1a65', Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}"/>
+			                <Run Text=" - "/>
+			                <Run Text="{Binding Data.VersionString}"/>
+		                </TextBlock>
+	                </StackPanel> -->
+					<!-- MOD END -->
+                    
+                    <ItemsControl x:Name="NotificationsContainer" ItemsSource="{Binding CurrentPlayer.UIData.Tutorials}"
+                              AlternationCount="{Binding CurrentPlayer.UIData.Tutorials.Count}" VerticalAlignment="Top"
+                              HorizontalAlignment="Right" Width="800" ItemTemplate="{StaticResource TutorialNotification}"
+                              MaxHeight="945" />
+                    
+                </StackPanel>
+            </Grid>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding CurrentPlayer.IsRequestingPing}" Value="False">
+                    <Setter TargetName="PingButton" Property="IsChecked" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.IsRequestingPing}" Value="True">
+                    <Setter TargetName="PingButton" Property="IsChecked" Value="True"></Setter>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.StoryTimer, Converter={StaticResource NullToBoolFalseConverter}}" Value="True">
+                    <Setter TargetName="StoryTimer" Property="Visibility" Value="Visible"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.CombatLogSize}" Value="Expanded">
+                    <Setter TargetName="NotificationsContainer" Property="MaxHeight" Value="840"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.CombatLogSize}" Value="SuperExpanded">
+                    <Setter TargetName="NotificationsContainer" Property="MaxHeight" Value="420"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="PartyInventory">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource Hud.AnimIn}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="PartyEquipment">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource Hud.AnimIn}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="Dialogue">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource Hud.AnimIn}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="CharacterOverview">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource Hud.AnimIn}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="PartyCharacterSheet">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource Hud.AnimIn}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.PreviousState}" Value="SpellBook">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource Hud.AnimIn}" />
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.InPlayerPanels}" Value="True">
+                    <Setter TargetName="MinimapContainer" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.IsInDangerZone}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard x:Name="DangerZoneGlowAnimation">
+                            <Storyboard RepeatBehavior="Forever">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="DangerZoneGlowAnimated" Storyboard.TargetProperty="(UIElement.Opacity)" AutoReverse="True">
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="0.15"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <StopStoryboard BeginStoryboardName="DangerZoneGlowAnimation"/>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </ls:UIWidget.ContentTemplate>
 </ls:UIWidget>
