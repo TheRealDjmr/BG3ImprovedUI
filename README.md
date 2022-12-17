@@ -23,6 +23,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 #### Installing 
 EITHER: Use Candor/BG3 Mod Manager to install, this would require [Patch3fixer](https://nb-stor.s3.eu-central-1.amazonaws.com/bg3/nrd_killstory.pak) or a mod that includes it to work correctly.
 ![](https://i.imgur.com/Nw8kzJf.png)
+
 OR: Place the .pak in the folder "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods" without using a mod manager.
 
 #### Changes
