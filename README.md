@@ -13,19 +13,17 @@ This mod is aimed at making changes to the overall user interface to improve usa
 </p>  
 
 - Adds picture mode button to Character Creation, Character Level up, in-game and Dialogue screens
-- Modifies the character creation screens race menu in order to provide support for more races
-- Modifies the character creation screens appearance menu to fix alignment of gender buttons
+- Character Creation Layout Tweaks: Adds Body Type to Origin menu, and modifies Appearance menu to fix alignment of body type buttons
 - Removes unused "All Colours" tickbox from Makeup selection
 - Supports modded class icons, with a generic icon given to mods without a provided icon
 - Unhooks Deity selection from subclass to multiple classes, allows for additional classes to select Deity with additional mods
-- Removes early access text from Dialogue screens
+- Removes early access text from Dialogue and in-game screens
 - Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
 
 #### Installing 
-Use Candor/BG3 Mod Manager or place the .pak under "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods"
+EITHER: Use Candor/BG3 Mod Manager to install, this would require [Patch3fixer](https://nb-stor.s3.eu-central-1.amazonaws.com/bg3/nrd_killstory.pak) or a mod that includes it to work correctly.
 ![](https://i.imgur.com/Nw8kzJf.png)
-
-This mod requires the [Patch3fixer](https://nb-stor.s3.eu-central-1.amazonaws.com/bg3/nrd_killstory.pak) or a mod that includes it to work correctly.
+OR: Place the .pak in the folder "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods" without using a mod manager.
 
 #### Changes
 <p float="left" align="middle">
