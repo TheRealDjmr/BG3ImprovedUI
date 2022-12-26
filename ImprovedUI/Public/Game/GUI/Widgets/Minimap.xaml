@@ -122,7 +122,17 @@
         <DataTemplate DataType="ls:Widget">
             <Grid MinHeight="40" MinWidth="40">
                 <!--Ping hotkey binding-->
-                <ls:LSInputBinding BoundEvent="Ping" SoundID="UI_Shared_Tick" PlayerId="{Binding CurrentPlayer.PlayerId}" Command="{Binding RequestPing}"/>
+                <ls:LSInputBinding BoundEvent="Ping" SoundID="UI_Shared_Tick" PlayerId="{Binding CurrentPlayer.PlayerId}" Command="{Binding RequestPing}"
+                                   IsEnabled="{Binding ElementName=WorldMap, Path=IsMouseOver, Converter={StaticResource InvertBoolConverter}}"/>
+
+                <ls:LSInputBinding BoundEvent="Ping" SoundID="UI_Shared_Tick" PlayerId="{Binding CurrentPlayer.PlayerId}"
+                                   IsEnabled="{Binding ElementName=WorldMap, Path=IsMouseOver}">
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="LSInputBindingPressed">
+                            <b:InvokeCommandAction Command="{Binding RequestPing}" CommandParameter="{Binding ElementName=WorldMap, Path=MouseWorldCoordinates}"/>
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
+                </ls:LSInputBinding>
 
                 <StackPanel  Margin="0,15,15,0" VerticalAlignment="Top" HorizontalAlignment="Right">
                     <Grid x:Name="MinimapContainer" Background="Transparent"  VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5">
@@ -143,7 +153,7 @@
                             <Grid.Resources>
                                 <Style TargetType="ls:LSWorldMapMarker" BasedOn="{StaticResource Minimap.MarkerItemStyle}"/>
                             </Grid.Resources>
-                            <ls:LSWorldMap x:Name="WorldMap" 
+                            <ls:LSWorldMap x:Name="WorldMap"
                                    Height="624" Width="624"
                                    MarkerTrajectory ="Ellipse"
                                    Elevation ="{Binding CurrentPlayer.WorldMap.CurrentCharacterElevation}"
@@ -155,6 +165,18 @@
                                 <ls:LSWorldMap.Clip>
                                     <EllipseGeometry Center="312,312" RadiusX="312" RadiusY="312" />
                                 </ls:LSWorldMap.Clip>
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="MouseDown">
+                                        <b:Interaction.Behaviors>
+                                            <b:ConditionBehavior>
+                                                <b:ConditionalExpression>
+                                                    <b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.IsRequestingPing}" Operator="Equal" RightOperand="True"/>
+                                                </b:ConditionalExpression>
+                                            </b:ConditionBehavior>
+                                        </b:Interaction.Behaviors>
+                                        <b:InvokeCommandAction Command="{Binding RequestPingFromMap}" CommandParameter="{Binding ElementName=WorldMap, Path=MouseWorldCoordinates}"/>
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
                             </ls:LSWorldMap>
 
                             <Grid IsHitTestVisible="False" Visibility="{Binding CurrentPlayer.SelectedCharacter.IsInDangerZone, Converter={StaticResource BoolToVisibleConverter}}">
@@ -267,7 +289,8 @@
                         </ls:LSButton>
 
                         <ls:LSToggleButton x:Name="PingButton" Margin="0,0,46,72" Command="{Binding Path=DataContext.RequestPingState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"
-                                           VerticalAlignment="Bottom" HorizontalAlignment="Right" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='Ping'}">
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Right" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='Ping'}"
+                                           ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Top" ToolTipService.IsEnabled="True" ToolTipService.VerticalOffset="4">
                             <ls:LSToggleButton.Template>
                                 <ControlTemplate TargetType="ToggleButton">
                                     <Grid>
@@ -508,10 +531,9 @@
                         </ContentPresenter.ContentTemplate>
                     </ContentPresenter>
 
-					<!-- MOD START - Remove Early Access Text -->
+                    <!-- MOD START - Remove Early Access Text -->
                     <!--<StackPanel x:Name="DebugInfo" Panel.ZIndex="2" Margin="0,28,30,0" HorizontalAlignment="Right" VerticalAlignment="Center">
 
-		                < Additional debug info >
                         <TextBlock Foreground="{StaticResource LS_specialTxtColor}" TextAlignment="Right" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="6" Visibility="{Binding Data.IsGold, Converter={StaticResource BoolToCollapsedConverter}}">
 			                <Run Text="Live UI -"/>
 			                <Run Text="{Binding Data.DebugData.BuildType}"/>
@@ -521,7 +543,6 @@
 			                <Run Text="{Binding Data.DebugData.CurrentLevelName}"/>
 		                </TextBlock>
                         
-                        < EA text + version >
 		                <TextBlock Foreground="{StaticResource LS_tint100}" Panel.ZIndex="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" TextAlignment="Right" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="6">
 			                <Run Text="{Binding Source='h8be1f0ddgdfa7g4812ga2b5g04854b2a1a65', Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}"/>
 			                <Run Text=" - "/>
@@ -543,6 +564,12 @@
                 </DataTrigger>
                 <DataTrigger Binding="{Binding CurrentPlayer.IsRequestingPing}" Value="True">
                     <Setter TargetName="PingButton" Property="IsChecked" Value="True"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=WorldMap, Path=IsMouseOver}" Value="True">
+                    <Setter TargetName="WorldMap" Property="IsMouseWorldCoordinatesEnabled" Value="{StaticResource TrueValue}"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=WorldMap, Path=IsMouseOver}" Value="False">
+                    <Setter TargetName="WorldMap" Property="IsMouseWorldCoordinatesEnabled" Value="{StaticResource FalseValue}"/>
                 </DataTrigger>
 
                 <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.StoryTimer, Converter={StaticResource NullToBoolFalseConverter}}" Value="True">
