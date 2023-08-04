@@ -15,9 +15,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Library/DialogueTemplates.xaml"/>
-                <!-- MOD START -->
-                <ResourceDictionary Source="../Library/ImprovedUITemplates.xaml"/>
-                <!-- MOD END -->
             </ResourceDictionary.MergedDictionaries>
 
             <ls:LSMessageBoxData x:Key="OnAttackMessageBox" Text="{Binding Source='h3de62469gbf26g4390ga9a5g530b768217fe', Converter={StaticResource TranslatedStringConverter}}" Title="{Binding Source='h4ce24528g0b74g4dc1g8ba6g80071f09ac12', Converter={StaticResource TranslatedStringConverter}}" UUID="UUID">
@@ -37,10 +34,10 @@
             <System:Int16 x:Key="ShowCharacterSelectionCount">1</System:Int16>
 
             <Style x:Key="Dialogue.ContinueBinding" TargetType="ls:LSInputBinding">
-                <Setter Property="PlayerId" Value="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
-                <Setter Property="Command" Value="{Binding SelectorSkipCommand.ActionCommand}" />
-                <Setter Property="CommandParameter" Value="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
-				<Setter Property="SoundID" Value="UI_Input_Dialogue_Continue"/>
+                <Setter Property="PlayerId" Value="{Binding CurrentPlayer.PlayerId}" />
+                <Setter Property="Command" Value="{Binding SelectorSkipCommand}" />
+                <Setter Property="CommandParameter" Value="{Binding CurrentPlayer.PlayerId}" />
+                <Setter Property="SoundID" Value="UI_Input_Dialogue_Continue"/>
             </Style>
 
             <Storyboard x:Key="Dialogue.Anim">
@@ -53,177 +50,281 @@
                     <DiscreteBooleanKeyFrame Value="True" KeyTime="0:0:0" />
                 </BooleanAnimationUsingKeyFrames>
             </Storyboard>
+
+            <Storyboard x:Key="SkipButtonPromptStoryboard" TargetName="SkipDialoguePrompt">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+
+            <Storyboard x:Key="SkipButtonPromptHideStoryboard" TargetName="SkipDialoguePrompt">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
+                    <EasingDoubleKeyFrame KeyTime="0:0:.5" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
         </ResourceDictionary>
     </ls:UIWidget.Resources>
 
-    <Grid DataContext="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue}">
-        <ContentControl Template="{DynamicResource PollNotification}" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <ContentControl.Style>
-                <Style TargetType="ContentControl" BasedOn="{StaticResource {x:Type ContentControl}}">
-                    <Setter Property="Visibility" Value="Visible"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding DataContext.Data.IsCommunityPollEnabled, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="False">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding PollNotification}" Value="">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </ContentControl.Style>
-            <TextBlock Text="{Binding PollNotification}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}"/>
-        </ContentControl>
+    <ls:UIWidget.Template>
+        <ControlTemplate TargetType="ls:UIWidget">
+            <Grid >
+                <ContentControl x:Name="PollNotification" Visibility="Collapsed" Template="{StaticResource PollNotification}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <TextBlock Text="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.PollNotification}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}"/>
+                </ContentControl>
 
-        <ls:LSInputBinding PlayerId="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" BoundEvent="UIUp" Command="{Binding SelectorUpCommand.ActionCommand}" />
-        <ls:LSInputBinding PlayerId="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" BoundEvent="UIDown" Command="{Binding SelectorDownCommand.ActionCommand}" />
-        <ls:LSInputBinding BoundEvent="UISkipDialog" Style="{StaticResource Dialogue.ContinueBinding}" />
+                <ls:LSInputBinding PlayerId="{Binding CurrentPlayer.PlayerId}" BoundEvent="UIUp" Command="{Binding SelectorUpCommand}" />
+                <ls:LSInputBinding PlayerId="{Binding CurrentPlayer.PlayerId}" BoundEvent="UIDown" Command="{Binding SelectorDownCommand}" />
+                <ls:LSInputBinding PlayerId="{Binding PlayerId}" AnyKey="True" EatInput="False" IsEnabled="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.ShowAnswers, Converter={StaticResource InvertBoolConverter}}">
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="LSInputBindingPressed">
+                            <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource SkipButtonPromptStoryboard}"/>
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
+                </ls:LSInputBinding>
+                <ls:LSInputBinding BoundEvent="UISkipDialog" Style="{StaticResource Dialogue.ContinueBinding}" />
 
-        <!-- this is an alternative to allow pressing "1" to on continue nodes -->
-        <ls:LSInputBinding BoundEvent="UISelectSlot1" Style="{StaticResource Dialogue.ContinueBinding}" IsEnabled="{Binding ShowAnswers, Converter={StaticResource InvertBoolConverter}, Mode=OneWay}" />
+                <!-- this is an alternative to allow pressing "1" to on continue nodes -->
+                <ls:LSInputBinding BoundEvent="UISelectSlot1" Style="{StaticResource Dialogue.ContinueBinding}" IsEnabled="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.ShowAnswers, Converter={StaticResource InvertBoolConverter}, Mode=OneWay}" />
 
-        <Control Template="{StaticResource Dialogue.DialogueNotification}"/>
-        <!-- dialogue text and answers -->
-        <Control Template="{StaticResource Dialogue.BodyAndAnswersContainer}" />
+                <Control Template="{StaticResource Dialogue.DialogueNotification}"/>
+                <!-- dialogue text and answers -->
+                <Control Template="{StaticResource Dialogue.BodyAndAnswersContainer}" />
 
-        <!-- tabs -->
-        <Grid x:Name="Tabs" Margin="36,0,36,35" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
-            <Grid.Style>
-                <Style TargetType="Grid">
-                    <Setter Property="IsHitTestVisible" Value="False" />
-                    <Setter Property="Opacity" Value="0" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ShowAnswers, Mode=OneWay}" Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard x:Name="Anim" Storyboard="{StaticResource Dialogue.Anim}" />
-                            </DataTrigger.EnterActions>
-                            <DataTrigger.ExitActions>
-                                <StopStoryboard BeginStoryboardName="Anim" />
-                            </DataTrigger.ExitActions>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding DataContext.SelectedCharacterCanChangeActiveDialogueSpeaker, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard x:Name="SelectorAnim" Storyboard="{StaticResource Dialogue.Anim}" />
-                            </DataTrigger.EnterActions>
-                            <DataTrigger.ExitActions>
-                                <StopStoryboard BeginStoryboardName="SelectorAnim" />
-                            </DataTrigger.ExitActions>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-        </Grid>
+                <!-- tabs -->
+                <Grid x:Name="Tabs" Margin="36,0,36,35" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="IsHitTestVisible" Value="False" />
+                            <Setter Property="Opacity" Value="0" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.ShowAnswers, Mode=OneWay}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard x:Name="Anim" Storyboard="{StaticResource Dialogue.Anim}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="Anim" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding SelectedCharacterCanChangeActiveDialogueSpeaker}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard x:Name="SelectorAnim" Storyboard="{StaticResource Dialogue.Anim}" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="SelectorAnim" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
 
-        <!-- Buttons -->
-        <ls:LSButton x:Name="btnStopListening" Style="{DynamicResource CloseButton}" SoundID="UI_HUD_Dialogue_StopListening" Command="{Binding DataContext.StopListeningCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                <!-- Buttons -->
+                <ls:LSButton x:Name="btnStopListening" Style="{DynamicResource CloseButton}" SoundID="UI_HUD_Dialogue_StopListening" Command="{Binding DataContext.StopListeningCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
                         VerticalAlignment="Top" HorizontalAlignment="Right" Margin="30" Visibility="{Binding DataContext.ActiveDialogueIsListening, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource BoolToVisibleConverter}}"/>
 
-        <StackPanel Name="ButtonsContainer" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="40 0 0 20">
-            <!--#region Character selection-->
-            <ContentControl IsHitTestVisible="{Binding Path=IsChecked, ElementName=btnToggleCharacters}" Opacity="0" Visibility="Collapsed" DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}">
-                <ListBox x:Name="PortraitHolder" ItemsSource="{Binding CurrentPlayer.AssignedCharacters}" ItemContainerStyle="{StaticResource Dialogue.PlayerPortraits}" SelectedItem="{Binding CurrentPlayer.SelectedCharacter, Mode=OneWay}" 
-                            Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="Transparent">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                </ListBox>
+                <StackPanel Name="ButtonsContainer" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="40 0 0 20">
+                    
+                    <!-- Privacy Toggle -->
+                    <StackPanel x:Name="PrivacyToggle" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="4,0,0,16"
+                                Visibility="{Binding DataContext.CanShowPrivacyButton, ElementName=Dialogue, Converter={StaticResource BoolToVisibleConverter}}">
+                        <Border  Background="Black" Margin="18" CornerRadius="6">
+                            <ls:LSToggleButton Style="{StaticResource TickBox}" Margin="0" IsChecked="{Binding ActiveDialogue.PrivacyOverride, Mode=TwoWay}" Command="{Binding OnPrivacyOverrideChange}"/>
+                        </Border>
+                        <TextBlock Text="{Binding Source='h4c3d66a9g8aa4g46e0g9557g3cc7418bdaf2',Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource LargeFontSize}" Style="{StaticResource Dialogue.BodyTextStyle}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
 
-                <ContentControl.Style>
-                    <Style TargetType="ContentControl" BasedOn="{StaticResource {x:Type ContentControl}}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsChecked, ElementName=btnToggleCharacters}" Value="True">
-                                <DataTrigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.2">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.EnterActions>
-                                <DataTrigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.2">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CubicEase EasingMode="EaseOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Collapsed}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </DataTrigger.ExitActions>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ContentControl.Style>
-            </ContentControl>
-            <!--#endregion-->
-            <StackPanel Orientation="Horizontal">
-                <ls:LSButton x:Name="btnMenu" Style="{StaticResource GameMenuButtonStyle}" Command="{Binding DataContext.CustomEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleGameMenu" Content="{Binding Shortcut}" SoundID="UI_HUD_EscapeMenu_Open"
-                                DataContext="{Binding DataContext.CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='Menu', RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-88">
-                    <ls:LSButton.ToolTip>
-                        <ls:LSTooltip Content="{Binding Source='hb9a8dd57g134fg425fg9da0g1dc579af0c60',Converter={StaticResource TranslatedStringConverter}, ConverterParameter='Loca'}"/>
-                    </ls:LSButton.ToolTip>
-                </ls:LSButton>
+                    <!--#region Character selection-->
+                    <ContentControl IsHitTestVisible="{Binding Path=IsChecked, ElementName=btnToggleCharacters}" Opacity="0" Visibility="Collapsed" DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}">
+                        <ItemsControl x:Name="PortraitHolder" ItemsSource="{Binding CurrentPlayer.AssignedCharacters}" Background="Transparent" Template="{StaticResource MinimalItemsControlTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type ContentPresenter}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource Dialogue.InactivePortrait}" />
+                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource EqualConverter}" Mode="OneWay">
+                                                    <Binding Path="DataContext.CurrentPlayer.SelectedCharacter" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
+                                                    <Binding Path="."/>
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="ContentTemplate" Value="{StaticResource Dialogue.ActivePortrait}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>
 
-                <ls:LSToggleButton x:Name="btnToggleCharacters" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-88" HorizontalAlignment="Left" Style="{StaticResource Dialogue.ExpandCharactersButtonStyle}" Visibility="{Binding CurrentPlayer.AssignedCharacters.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter={StaticResource ShowCharacterSelectionCount}}" SoundID="UI_HUD_Dialogue_ExpandCharacters">
-                    <ls:LSToggleButton.ToolTip>
-                        <ls:LSTooltip Content="{Binding Source='h455c1b64g1c6dg4ac4ga9aegb3f0d761858a',Converter={StaticResource TranslatedStringConverter}}"/>
-                    </ls:LSToggleButton.ToolTip>
-                </ls:LSToggleButton>
+                        <ContentControl.Style>
+                            <Style TargetType="ContentControl" BasedOn="{StaticResource {x:Type ContentControl}}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsChecked, ElementName=btnToggleCharacters}" Value="True">
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.2">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CubicEase EasingMode="EaseOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                        <DataTrigger.ExitActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.2">
+                                                        <DoubleAnimation.EasingFunction>
+                                                            <CubicEase EasingMode="EaseOut"/>
+                                                        </DoubleAnimation.EasingFunction>
+                                                    </DoubleAnimation>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="{x:Static Visibility.Collapsed}"/>
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.ExitActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentControl.Style>
+                    </ContentControl>
+                    <!--#endregion-->
 
-                <ls:LSButton x:Name="btnTrade" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-88" IsEnabled="{Binding DataContext.ActiveDialogueIsListening, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource InvertBoolConverter}}" Style="{StaticResource TradeButtonStyle}" Visibility="{Binding CanTrade, Converter={StaticResource BoolToVisibleConverter}}" SoundID="UI_HUD_Dialogue_Trade" Command="{Binding DataContext.StartTrade, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DialogueCharacter}">
-                    <ls:LSButton.ToolTip>
-                        <ls:LSTooltip Content="{Binding Source='he4fdff4dga552g4023gb49bg333f39b77015',Converter={StaticResource TranslatedStringConverter}}"/>
-                    </ls:LSButton.ToolTip>
-                </ls:LSButton>
-                <ls:LSButton x:Name="btnAttack" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-88" IsEnabled="{Binding DataContext.ActiveDialogueIsListening, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource InvertBoolConverter}}" Style="{StaticResource AttackButtonStyle}" Visibility="{Binding AllowAttack, Converter={StaticResource BoolToVisibleConverter}}" Command="{Binding DataContext.OpenMessageBox, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{DynamicResource OnAttackMessageBox}">
-                    <ls:LSButton.ToolTip>
-                        <ls:LSTooltip Content="{Binding Source='hc2b3a4e3ge669g4919ga291ged7ebad9c1b1',Converter={StaticResource TranslatedStringConverter}}"/>
-                    </ls:LSButton.ToolTip>
-                </ls:LSButton>
-                <ls:LSButton x:Name="btnHistory" Style="{StaticResource HistoryButtonStyle}" Command="{Binding DataContext.CustomEvent, ElementName=Dialogue}" CommandParameter="OpenDialogueHistory" SoundID="UI_HUD_Dialogue_History" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-88">
-                    <ls:LSButton.ToolTip>
-                        <ls:LSTooltip Content="{Binding Source='he9e4a39fg8a5dg4ac5gacffgaea214260c69',Converter={StaticResource TranslatedStringConverter}}"/>
-                    </ls:LSButton.ToolTip>
-                </ls:LSButton>
-                <!-- MOD START - Adds picture button -->
-                <ls:LSButton x:Name="PictureModeBtn" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-88" Style="{StaticResource PictureModeButtonStyle}"
-                    Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"
-                    CommandParameter="OpenPictureMode">
-                    <ls:LSButton.ToolTip>
-                        <ls:LSTooltip Content="Activate Picture Mode"/>
-                    </ls:LSButton.ToolTip>
-                </ls:LSButton>
-                <!-- MOD END -->
+                    <StackPanel Orientation="Horizontal">
+                        <ls:LSButton x:Name="btnMenu" Style="{StaticResource GameMenuButtonStyle}" Command="{Binding DataContext.CustomEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleGameMenu" Content="{Binding Shortcut}" SoundID="UI_HUD_EscapeMenu_Open"
+                                DataContext="{Binding DataContext.CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='Menu', RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-100"
+                                IsEnabled="{Binding DataContext.CurrentPlayer.UIData.IsGameMenuAllowed, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+                            <ls:LSButton.ToolTip>
+                                <ls:LSTooltip Content="{Binding Source='hb9a8dd57g134fg425fg9da0g1dc579af0c60',Converter={StaticResource TranslatedStringConverter}, ConverterParameter='Loca'}"/>
+                            </ls:LSButton.ToolTip>
+                        </ls:LSButton>
+
+                        <ls:LSToggleButton x:Name="btnToggleCharacters" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-100" HorizontalAlignment="Left" Style="{StaticResource Dialogue.ExpandCharactersButtonStyle}" Visibility="{Binding DataContext.CanShowToggleCharactersButton, ElementName=Dialogue, Converter={StaticResource BoolToVisibleConverter}}" SoundID="UI_HUD_Dialogue_ExpandCharacters">
+                            <ls:LSToggleButton.ToolTip>
+                                <ls:LSTooltip Content="{Binding Source='h455c1b64g1c6dg4ac4ga9aegb3f0d761858a',Converter={StaticResource TranslatedStringConverter}}"/>
+                            </ls:LSToggleButton.ToolTip>
+                        </ls:LSToggleButton>
+
+                        <ls:LSButton x:Name="btnTrade" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-100" IsEnabled="{Binding DataContext.ActiveDialogueIsListening, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource InvertBoolConverter}}" Style="{StaticResource TradeButtonStyle}" Visibility="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.CanTrade, Converter={StaticResource BoolToVisibleConverter}}" SoundID="UI_HUD_Dialogue_Trade" Command="{Binding DataContext.StartTrade, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.DialogueCharacter}">
+                            <ls:LSButton.ToolTip>
+                                <ls:LSTooltip Content="{Binding Source='he4fdff4dga552g4023gb49bg333f39b77015',Converter={StaticResource TranslatedStringConverter}}"/>
+                            </ls:LSButton.ToolTip>
+                        </ls:LSButton>
+                        <ls:LSButton x:Name="btnAttack" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-100" IsEnabled="{Binding DataContext.ActiveDialogueIsListening, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource InvertBoolConverter}}" Style="{StaticResource AttackButtonStyle}" Visibility="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.AllowAttack, Converter={StaticResource BoolToVisibleConverter}}" Command="{Binding DataContext.OpenMessageBox, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{DynamicResource OnAttackMessageBox}">
+                            <ls:LSButton.ToolTip>
+                                <ls:LSTooltip Content="{Binding Source='hc2b3a4e3ge669g4919ga291ged7ebad9c1b1',Converter={StaticResource TranslatedStringConverter}}"/>
+                            </ls:LSButton.ToolTip>
+                        </ls:LSButton>
+                        <ls:LSButton x:Name="btnHistory" Style="{StaticResource HistoryButtonStyle}" Command="{Binding DataContext.CustomEvent, ElementName=Dialogue}" CommandParameter="OpenDialogueHistory" Visibility="{Binding DataContext.CanShowHistoryButton, ElementName=Dialogue, Converter={StaticResource BoolToVisibleConverter}}" SoundID="UI_HUD_Dialogue_History" ToolTipService.Placement="Center" ToolTipService.VerticalOffset="-100" BoundEvent="ToggleJournal">
+                            <ls:LSButton.ToolTip>
+                                <ls:LSTooltip Content="{Binding Source='he9e4a39fg8a5dg4ac5gacffgaea214260c69',Converter={StaticResource TranslatedStringConverter}}"/>
+                            </ls:LSButton.ToolTip>
+                        </ls:LSButton>
+                        <ls:LSButton x:Name="btnPoll" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="-96" ToolTipService.HorizontalOffset="-200" Command="{Binding CommunityPollRequest}">
+                           <ls:LSButton.ToolTip>
+                                <ls:LSTooltip Content="{Binding Source='hf83a94cbg15c8g4c48gba78g87ac8711afa4',Converter={StaticResource TranslatedStringConverter}}"/>
+                           </ls:LSButton.ToolTip>
+                            <ls:LSButton.Style>
+                                <Style TargetType="ls:LSButton" BasedOn="{StaticResource Dialogue.PollButtonStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding DataContext.Data.IsCommunityPollEnabled, ElementName=Dialogue}" Value="True" />
+                                                <Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.ActiveDialogue.ShowPollButton, ElementName=Dialogue}" Value="True" />
+                                                <Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.ActiveDialogue.ShowAnswers, ElementName=Dialogue}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ls:LSButton.Style>
+                        </ls:LSButton>
+                        
+                    </StackPanel>
                 </StackPanel>
-        </StackPanel>
 
-        <!-- MOD START - Remove early access text from dialogues -->
-        <!-- <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="{StaticResource GiganticFontSize}"  Opacity="0.7">
-            <Run Text="{Binding Source='h8be1f0ddgdfa7g4812ga2b5g04854b2a1a65', Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}"/>
-            <Run Text=" - "/>
-            <Run Text="{Binding DataContext.Data.VersionString, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"/>
-        </TextBlock> -->
-        <!-- MOD END -->
+                <!-- MOD START - Remove early access text from dialogues -->
+                <!--<TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="{StaticResource GiganticFontSize}"  Opacity="0.7">
+                <Run Text="{Binding DataContext.Data.VersionString, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"/>
+                </TextBlock> -->
+				<!-- MOD END -->
 
-    </Grid>
-    <b:Interaction.Triggers>
-        <b:DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue}" Value="{x:Null}">
-            <b:InvokeCommandAction Command="{Binding Path=CustomEvent}" CommandParameter="DialogueHide"/>
-        </b:DataTrigger>
+                <ls:LSNineSliceImage x:Name="SkipDialoguePrompt" Opacity="0" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/worldTT_context_bg.png" Slices="22" Padding="32,22" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,16,16" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UISkipDialog'}">
+                        <TextBlock x:Name="content" VerticalAlignment="Top" Foreground="{DynamicResource TooltipColor.Primary}">
+                            <Run Text="["/><Run 
+                                 Text="{Binding Shortcut}" Foreground="{DynamicResource TooltipColor.Secondary}"/><Run 
+                                 Text="] "/><Run 
+                                 Text="{Binding Caption}"/>
+                    </TextBlock>
+                </ls:LSNineSliceImage>
 
-        <b:EventTrigger EventName="WidgetClosing">
-            <b:InvokeCommandAction Command="{Binding RecheckReward}"/>
-        </b:EventTrigger>
-    </b:Interaction.Triggers>
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Loaded">
+                        <b:Interaction.Behaviors>
+                            <b:ConditionBehavior>
+                                <b:ConditionalExpression>
+                                    <b:ComparisonCondition LeftOperand="{Binding ActiveDialogueIsListening}" Operator="Equal" RightOperand="True" />
+                                </b:ConditionalExpression>
+                            </b:ConditionBehavior>
+                        </b:Interaction.Behaviors>
+                        <!-- Tutorial UI Event - Dialogue listen-->
+                        <b:InvokeCommandAction Command="{Binding TutorialEvent}" CommandParameter="c01b74a1-7ff2-41da-885a-3fe0152d7775"/>
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="Unloaded">
+                        <b:ControlStoryboardAction ControlStoryboardOption="Stop" Storyboard="{StaticResource SkipButtonPromptStoryboard}"/>
+                        <b:ControlStoryboardAction ControlStoryboardOption="Stop" Storyboard="{StaticResource SkipButtonPromptHideStoryboard}"/>
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="WidgetClosing">
+                        <b:InvokeCommandAction Command="{Binding RecheckReward}"/>
+                    </b:EventTrigger>
+
+                    <b:DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.ShowAnswers}" Value="True">
+                        <b:ControlStoryboardAction ControlStoryboardOption="Pause" Storyboard="{StaticResource SkipButtonPromptStoryboard}"/>
+                        <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource SkipButtonPromptHideStoryboard}"/>
+                    </b:DataTrigger>
+                </b:Interaction.Triggers>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.ShowAnswers}" Value="False">
+                    <Setter TargetName="btnTrade" Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                
+                <DataTrigger Binding="{Binding Data.IsCommunityPollEnabled}" Value="True">
+                    <Setter TargetName="PollNotification" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.ActiveDialogue.PollNotification}" Value="">
+                    <Setter TargetName="PollNotification" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+				
+                <DataTrigger Value="True">
+					<DataTrigger.Binding>
+						<MultiBinding Converter="{StaticResource EqualConverter}">
+							<Binding Path="Data.LocalPlayers.Count"/>
+							<Binding Path="Data.Players.Count"/>
+						</MultiBinding>
+					</DataTrigger.Binding>
+					<Setter TargetName="PrivacyToggle" Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
+                <DataTrigger Binding="{Binding PrivacyOverrideGlobalSetting}" Value="True">
+					<Setter TargetName="PrivacyToggle" Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
+                <DataTrigger Binding="{Binding ActiveDialogueIsListening}" Value="True">
+					<Setter TargetName="PrivacyToggle" Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </ls:UIWidget.Template>
 </ls:UIWidget>
