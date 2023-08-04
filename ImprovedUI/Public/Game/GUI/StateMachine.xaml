@@ -9,9 +9,7 @@
             <ls:State.InitialSubstates>
                 <ls:InitialSubstate Name="EditorRoot"/>
                 <ls:InitialSubstate Name="GameRoot"/>
-                <!-- MOD START - Removes story message -->
-                <!--<ls:InitialSubstate Name="SystemRoot"/>-->
-                <!-- MOD END -->
+                <ls:InitialSubstate Name="SystemRoot"/>
             </ls:State.InitialSubstates>
         </ls:State>
 
@@ -27,11 +25,13 @@
 
         <ls:State Name = "SystemRoot" Layout = "Common" Owner = "All">
             <ls:State.Events>
-                <ls:StateEvent Name = "OpenSystemMessageBox">
+                <!-- MOD START - Remove story message -->
+				<!--<ls:StateEvent Name = "OpenSystemMessageBox">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="SystemMessageBox"/>
                     </ls:StateEvent.Actions>
-                </ls:StateEvent>
+                </ls:StateEvent> -->
+				<!-- MOD END -->
             </ls:State.Events>
         </ls:State>
 
@@ -276,7 +276,7 @@
             </ls:State.Widgets>
 
             <ls:State.Events>
-				<ls:StateEvent Name = "CloseWidget">
+                <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
@@ -357,14 +357,13 @@
             </ls:State.Widgets>
 
             <ls:State.Events>
-				<ls:StateEvent Name = "CloseWidget">
+                <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "OpenPinnedTooltips">
                     <ls:StateEvent.Actions>
-                        <ls:PreloadState Name="PinnedTooltips"/>
                         <ls:AddSubstate Name="PinnedTooltips"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
@@ -381,7 +380,7 @@
             </ls:State.Widgets>
 
             <ls:State.Events>
-				<ls:StateEvent Name = "CloseWidget">
+                <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
@@ -469,6 +468,7 @@
                 </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
+
 
         <!--STATE: Paused-->
         <ls:State Name = "Paused" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" HideStatesBelow = "True" IsModal="True" ForceSplitscreen="True" TutorialLayer="Paused">
@@ -603,7 +603,7 @@
             </ls:State.InitialSubstates>
 
             <ls:State.Events>
-				<ls:StateEvent Name = "ToggleGameMenu">
+                <ls:StateEvent Name = "ToggleGameMenu">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="Paused"/>
                     </ls:StateEvent.Actions>
@@ -1559,7 +1559,7 @@
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
             <ls:State.Events>
-				<ls:StateEvent Name = "GE.OnDialogueShow" />
+                <ls:StateEvent Name = "GE.OnDialogueShow" />
                 <ls:StateEvent Name = "OpenTrade">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="Trade"/>
