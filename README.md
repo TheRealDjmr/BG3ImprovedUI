@@ -6,24 +6,29 @@
 #### Description
 This mod is aimed at making changes to the overall user interface to improve usability as well as opening options to more potential mods.  
 
-#### Features
+#### Player Features
 - Prevents annoying story error message box appearing when using mods
 <p float="left" align="middle">
   <img src="https://i.imgur.com/dm5CsPu.png">
 </p>  
 
-- Character Creation Layout Tweaks: Removes head scroll limit (Credit: Alana)
+- Unlocks edit appearance option for all Origin characters in Character Creation.
+- Keyboard-only tweaks: Switched "Expand Tooltip" (highlighting all interactables, default left ALT key) from a toggle to a press. This gets disabled by pressing the key again, or switching to a different UI screen, such as the map or pause screen. (Credit: Violet-Vibes)
+- Keyboard-only tweaks: Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslen)
+
+#### Modder Features
 - Supports modded class icons, with a generic icon given to mods without a provided icon
-- Removes version text from Dialogue and in-game screens
 - Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
-- Allows for Feat selection in CC once someone has worked out how to give Feats at level 1
+- Character Creation Layout tweaks: Removes head scroll limit (Credit: Alana)
+- Character Creation Layout tweaks: Removes appearance tab restrictions allowing for modded slot use (ex: Origin Hairstyles, Humans with tails)
+- Character Creation Layout tweaks: Allows for Feat selection once unlocked by another mod. Tip - "Allowimprovement" doesn't work on its own.
 
 #### Installing 
 EITHER: Use Candor/BG3 Mod Manager/Nexus to install, this would require [Patch3fixer](https://www.nexusmods.com/baldursgate3/mods/550) or a mod that includes it to work correctly.
 
 OR: Place the .pak in the folder "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods" without using a mod manager/updating the modsettings.lsx file.
 
-#### Changes - New photos to come
+#### Changes - Video to come
 
 #### Discord
 Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios) server and discuss in the BG3 Modding Channel  
