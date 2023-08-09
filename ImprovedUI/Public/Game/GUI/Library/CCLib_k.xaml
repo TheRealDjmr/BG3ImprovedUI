@@ -2886,9 +2886,10 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         
                         <!-- To Appearance -->
+						<!-- MOD START - Edit appearance for Origin characters -->
                         <ls:LSButton x:Name="EditAppearanceButton" Style="{StaticResource BigBrownButtonStyle}" 
                                      Content="{Binding Source='h072b13e4g302ag4575g85e8g5c0c26a5d45e', Converter={StaticResource TranslatedStringConverter}}" 
-                                     IsEnabled="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource InvertBoolConverter}}"
+                                     IsEnabled="{Binding Enabled}"
                                      Width="{StaticResource ButtonWidth}">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="Click" >
@@ -2897,6 +2898,7 @@
                                 </b:EventTrigger>
                             </b:Interaction.Triggers>
                         </ls:LSButton>
+						<!-- MOD END -->
 
                         <!-- To Naming -->
                         <ls:LSButton x:Name="GameplayProceedButton" Style="{StaticResource BigBlueButtonStyle}" 
@@ -3118,7 +3120,9 @@
 
             <!-- Button Visibility -->
             <DataTrigger Binding="{Binding SelectedOrigin.IsLockedAppearance}" Value="True">
-                <Setter TargetName="EditAppearanceButton" Property="Visibility" Value="Collapsed"/>
+                <!-- MOD START - Edit appearance for Origin characters -->
+				<!-- <Setter TargetName="EditAppearanceButton" Property="Visibility" Value="Collapsed"/>  -->
+				<!-- MOD END -->
                 <Setter TargetName="GameplayProceedButton" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="GameplayToCompanionButton" Property="Visibility" Value="Visible"/>
             </DataTrigger>

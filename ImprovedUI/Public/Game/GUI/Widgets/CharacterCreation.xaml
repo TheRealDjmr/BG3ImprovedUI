@@ -187,14 +187,16 @@
                                 <ListBoxItem x:Name="subRaceTab" Tag="subrace" Visibility="Collapsed"/>
 
                                 <ListBoxItem x:Name="generalTab" Tag="general" IsSelected="True"/>
-                                <ListBoxItem x:Name="tattooAndPiercingTab" Tag="tattooandpiercing" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}"/>
-                                <ListBoxItem x:Name="eyesTab" Tag="eyes" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}"/>
-                                <ListBoxItem x:Name="makeupTab" Tag="makeup" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}"/>
-                                <ListBoxItem x:Name="hairTab" Tag="hair" Visibility="{Binding SelectableHair.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+								<!-- MOD START - All tabs visible based on content -->
+                                <ListBoxItem x:Name="tattooAndPiercingTab" Tag="tattooandpiercing" Visibility="{Binding SelectablePiercings.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                <ListBoxItem x:Name="eyesTab" Tag="eyes" Visibility="{Binding SelectableEyeColours.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                <ListBoxItem x:Name="makeupTab" Tag="makeup" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+								<ListBoxItem x:Name="hairTab" Tag="hair" Visibility="{Binding SelectableHair.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
                                 <ListBoxItem x:Name="facialHairTab" Tag="facialhair" Visibility="{Binding SelectableBeards.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
                                 <ListBoxItem x:Name="hornsTab" Tag="horns" Visibility="{Binding SelectableHorns.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-                                <ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="{Binding Path=SelectedSubClass.IsDraconicSorcerer, Converter={StaticResource BoolToVisibleConverter}, FallbackValue=Collapsed}"/>
+                                <ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="{Binding SelectableScales.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
                                 <ListBoxItem x:Name="tailTab" Tag="tail" Visibility="{Binding Path=SelectableTail.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+								<!-- MOD END -->
 
                             </ListBox>
                         </StackPanel>
@@ -431,77 +433,88 @@
                                                     </ContentControl>
                                                     <ListBox ItemsSource="{Binding SelectableJaw}" SelectedItem="{Binding SelectedJaw}" Style="{StaticResource headAppearanceIconGridStyle}" Visibility="{Binding SelectableJaw.Count, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,50"/>
 
-                                                    <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,64,0,0">
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hc81ba7bcgb2ccg4423ga050g253fd53ce2c9', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </ContentControl>
-                                                    <ls:LSToggleButton x:Name="swatchSkinColourButton" DataContext="{Binding SelectedSkinColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
+                                                    <!-- MOD START - Show options if they are available -->
+													<StackPanel Visibility="{Binding SelectableSkinColours.Count, Converter={StaticResource CountToVisibilityConverter}}">
+														<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,64,0,0">
+															<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hc81ba7bcgb2ccg4423ga050g253fd53ce2c9', Converter={StaticResource TranslatedStringConverter}}"/>
+														</ContentControl>
+														<ls:LSToggleButton x:Name="swatchSkinColourButton" DataContext="{Binding SelectedSkinColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
+													</StackPanel>
 
-                                                    <StackPanel x:Name="scars" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
-                                                        <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h408d8f2bgca7eg4d20gb0bag4d4a3318f1c5', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </ContentControl>
-                                                        <ListBox ItemsSource="{Binding SelectableScars}" SelectedItem="{Binding SelectedScar}" Style="{StaticResource headAppearanceIconGridStyle}"/>
-                                                    </StackPanel>
+													<!-- MOD NOTE - Show scars if any are available -->
+													<!--<StackPanel x:Name="scars" Visibility="{Binding SelectableScars.Count, Converter={StaticResource CountToVisibilityConverter}}"> -->
+													
+													<StackPanel Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
+													
+														<StackPanel x:Name="scars" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
+															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h408d8f2bgca7eg4d20gb0bag4d4a3318f1c5', Converter={StaticResource TranslatedStringConverter}}"/>
+															</ContentControl>
+															<ListBox ItemsSource="{Binding SelectableScars}" SelectedItem="{Binding SelectedScar}" Style="{StaticResource headAppearanceIconGridStyle}"/>
+														</StackPanel>
 
-                                                    <StackPanel x:Name="Age" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
-                                                        <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hfcbe9131g86b0g46d7ga4afg5c3301c070bf', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </ContentControl>
-                                                        <Slider DataContext="{Binding ApperanceScalarAge}"
-                                                            Template="{StaticResource OptionsSliderTemplate}"
-                                                            Value="{Binding Value}"
-                                                            Minimum="{Binding Min}"
-                                                            Maximum="{Binding Max}"
-                                                            IsSnapToTickEnabled="False"
-                                                            SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-                                                            LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-                                                            IsEnabled="{Binding Enabled}"/>
-                                                    </StackPanel>
+														<StackPanel x:Name="Age" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
+															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hfcbe9131g86b0g46d7ga4afg5c3301c070bf', Converter={StaticResource TranslatedStringConverter}}"/>
+															</ContentControl>
+															<Slider DataContext="{Binding ApperanceScalarAge}"
+																Template="{StaticResource OptionsSliderTemplate}"
+																Value="{Binding Value}"
+																Minimum="{Binding Min}"
+																Maximum="{Binding Max}"
+																IsSnapToTickEnabled="False"
+																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
+																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
+																IsEnabled="{Binding Enabled}"/>
+														</StackPanel>
 
-                                                    <StackPanel x:Name="Freckles" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
-                                                        <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6a8fb398g7b1ag443egb45eg53c46ebbe9a3', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </ContentControl>
-                                                        <Slider DataContext="{Binding ApperanceScalarFreckles}"
-                                                            Template="{StaticResource OptionsSliderTemplate}"
-                                                            Value="{Binding Value}"
-                                                            Minimum="{Binding Min}"
-                                                            Maximum="{Binding Max}"
-                                                            IsSnapToTickEnabled="False"
-                                                            SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-                                                            LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-                                                            IsEnabled="{Binding Enabled}"/>
-                                                    </StackPanel>
+														<StackPanel x:Name="Freckles" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
+															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6a8fb398g7b1ag443egb45eg53c46ebbe9a3', Converter={StaticResource TranslatedStringConverter}}"/>
+															</ContentControl>
+															<Slider DataContext="{Binding ApperanceScalarFreckles}"
+																Template="{StaticResource OptionsSliderTemplate}"
+																Value="{Binding Value}"
+																Minimum="{Binding Min}"
+																Maximum="{Binding Max}"
+																IsSnapToTickEnabled="False"
+																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
+																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
+																IsEnabled="{Binding Enabled}"/>
+														</StackPanel>
 
-                                                    <StackPanel x:Name="FrecklesIntensity" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
-                                                        <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h63c9cb05g65f3g439dgb85bg9eb69a2cc894', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </ContentControl>
-                                                        <Slider DataContext="{Binding ApperanceScalarFrecklesIntensity}"
-                                                            Template="{StaticResource OptionsSliderTemplate}"
-                                                            Value="{Binding Value}"
-                                                            Minimum="{Binding Min}"
-                                                            Maximum="{Binding Max}"
-                                                            IsSnapToTickEnabled="False"
-                                                            SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-                                                            LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-                                                            IsEnabled="{Binding Enabled}"/>
-                                                    </StackPanel>
+														<StackPanel x:Name="FrecklesIntensity" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
+															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h63c9cb05g65f3g439dgb85bg9eb69a2cc894', Converter={StaticResource TranslatedStringConverter}}"/>
+															</ContentControl>
+															<Slider DataContext="{Binding ApperanceScalarFrecklesIntensity}"
+																Template="{StaticResource OptionsSliderTemplate}"
+																Value="{Binding Value}"
+																Minimum="{Binding Min}"
+																Maximum="{Binding Max}"
+																IsSnapToTickEnabled="False"
+																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
+																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
+																IsEnabled="{Binding Enabled}"/>
+														</StackPanel>
 
-                                                    <StackPanel x:Name="Vitiligo" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
-                                                        <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8f8d1cc6g57adg486agbb58gcba376102c37', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </ContentControl>
-                                                        <Slider DataContext="{Binding ApperanceScalarVitiligo}"
-                                                        Template="{StaticResource OptionsSliderTemplate}"
-                                                        Value="{Binding Value}"
-                                                        Minimum="{Binding Min}"
-                                                        Maximum="{Binding Max}"
-                                                        IsSnapToTickEnabled="False"
-                                                        SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-                                                        LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-                                                        IsEnabled="{Binding Enabled}"/>
-                                                    </StackPanel>
+														<StackPanel x:Name="Vitiligo" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
+															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8f8d1cc6g57adg486agbb58gcba376102c37', Converter={StaticResource TranslatedStringConverter}}"/>
+															</ContentControl>
+															<Slider DataContext="{Binding ApperanceScalarVitiligo}"
+															Template="{StaticResource OptionsSliderTemplate}"
+															Value="{Binding Value}"
+															Minimum="{Binding Min}"
+															Maximum="{Binding Max}"
+															IsSnapToTickEnabled="False"
+															SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
+															LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
+															IsEnabled="{Binding Enabled}"/>
+														</StackPanel>
+													
+													</StackPanel>
+													<!-- MOD END -->
 
                                                     <StackPanel x:Name="genitalsPanel" Visibility="Collapsed" Margin="0,50,0,0">
 
@@ -609,7 +622,9 @@
                                                 <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding SelectablePiercings}" SelectedItem="{Binding SelectedPiercing}"/>
                                             </StackPanel>
 
-                                            <DockPanel x:Name="tattoos" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}" >
+                                            <!-- MOD NOTE - Show tattoos if any are available -->
+											<!--<DockPanel x:Name="tattoos" Visibility="{Binding Path=SelectableTattoos.Count, Converter={StaticResource CountToVisibilityConverter}}" > -->
+											<DockPanel x:Name="tattoos" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}" >
                                                 <ContentControl DockPanel.Dock="Top" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                                                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h3f96b6b8gd682g4b90ga8fdge34ccb965bbd', Converter={StaticResource TranslatedStringConverter}}"/>
                                                 </ContentControl>
