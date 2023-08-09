@@ -793,9 +793,11 @@
                     </StackPanel>
 
                     <ListBox Tag="makeup" ItemsSource="{Binding SelectableMakeup}" SelectedItem="{Binding SelectedMakeup}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-
-                    <ListBox Tag="makeupColors" ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}"/>
-                    <ListBox Tag="lipMakeupColors" ItemsSource="{Binding SelectableLipsMakeupColours}" SelectedItem="{Binding SelectedLipsMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableLipsMakeupColours.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+					<ListBox Tag="makeupColors" ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}"/>
+					
+					<!-- MOD START - Hide lip makeup based on if eye makeup is available (doesn't show for Origin characters) -->
+                    <ListBox Tag="lipMakeupColors" ItemsSource="{Binding SelectableLipsMakeupColours}" SelectedItem="{Binding SelectedLipsMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+					<!-- MOD END -->
 
                     <StackPanel x:Name="scarChoices" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
                         <ListBox Tag="scars" ItemsSource="{Binding SelectableScars}" SelectedItem="{Binding SelectedScar}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableScars.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
