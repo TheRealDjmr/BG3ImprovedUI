@@ -13,8 +13,8 @@ This mod is aimed at making changes to the overall user interface to improve usa
 </p>  
 
 - Unlocks edit appearance option for all Origin characters in Character Creation.
-- Keyboard-only tweaks: Switched "Expand Tooltip" (highlighting all interactables, default left ALT key) from a toggle to a press. This gets disabled by pressing the key again, or switching to a different UI screen, such as the map or pause screen. (Credit: Violet-Vibes)
-- Keyboard-only tweaks: Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslen)
+- Keyboard-only tweaks: Switched "Show Item Labels" (highlighting all interactables, default left ALT key) from a toggle to a press. This gets disabled by pressing the key again, or switching to a different UI screen, such as the map or pause screen. (Credit: Violet-Vibes)
+- Keyboard-only tweaks: Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslan)
 
 #### Modder Features
 - Supports modded class icons, with a generic icon given to mods without a provided icon
