@@ -194,7 +194,7 @@
 								<ListBoxItem x:Name="hairTab" Tag="hair" Visibility="{Binding SelectableHair.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
                                 <ListBoxItem x:Name="facialHairTab" Tag="facialhair" Visibility="{Binding SelectableBeards.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
                                 <ListBoxItem x:Name="hornsTab" Tag="horns" Visibility="{Binding SelectableHorns.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-                                <ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="{Binding SelectableScales.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                <ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="Collapsed"/>
                                 <ListBoxItem x:Name="tailTab" Tag="tail" Visibility="{Binding Path=SelectableTail.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 								<!-- MOD END -->
 
@@ -290,7 +290,25 @@
                         <Setter TargetName="appearanceButtons" Property="Template" Value="{StaticResource AppearanceButtonsTemplateRandomOnly}"/>
                     </DataTrigger>
 
-                    <MultiDataTrigger>
+                    <!-- MOD START - Draconic tab visible based on content -->
+					<MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding CharacterCreationStep}" Value="Appearance"/>
+                            <Condition Binding="{Binding SelectableScales.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="draconicTab" Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger>
+					
+					<MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding CharacterCreationStep}" Value="Appearance"/>
+                            <Condition Binding="{Binding SelectablePassiveColours.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="draconicTab" Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger>
+					<!-- MOD END -->
+					
+					<MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
                             <Condition Binding="{Binding CharacterCreationStep}" Value="Companion"/>
                             <Condition Binding="{Binding SelectableSubRaces.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
