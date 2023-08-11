@@ -4163,20 +4163,14 @@
 
     <ControlTemplate x:Key="draconicAppearancePanelTemplate">
         <Grid VerticalAlignment="Top" Height="1560">
-            <DockPanel x:Name="basePanel" IsEnabled="{Binding Path=IsChecked, ElementName=swatchScalesColorButton, Converter={StaticResource InvertBoolConverter}}" VerticalAlignment="Top">
+            <!-- MOD START - Unique appearance options (instead of Draconic Scales) -->
+			<DockPanel x:Name="basePanel" IsEnabled="{Binding Path=IsChecked, ElementName=swatchScalesColorButton, Converter={StaticResource InvertBoolConverter}}" VerticalAlignment="Top">
                 <StackPanel DockPanel.Dock="Top">
                     <Image Style="{StaticResource PanelHeaderIconStyle}"/>
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0e1fded7g681ag4e5fgb0a2gc5928ab399a1', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                 </StackPanel>
 
-                <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches">
-                    <ContentControl x:Name="linesHeader" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToVisibleConverter}}" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h861a433dgcc20g452bg9b1agde89d14c85c9', Converter={StaticResource TranslatedStringConverter}}"/>
-                    </ContentControl>
-                    <StackPanel x:Name="linesToggle" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToVisibleConverter}}" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                        <ls:LSToggleButton x:Name="linesToggleButton" Style="{StaticResource TickBox}" IsChecked="{Binding AppearancePassive.EmptyMaterialSelected, Mode=TwoWay, Converter={StaticResource InvertBoolConverter}}" Command="{Binding DragonbornDraconicLinesToggleCommand}"/>
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ea184f4g802bg4712gac5cgdeaee9390e44', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center"/>
-                    </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches" Template="{StaticResource decoratedHeader}">
                     <ContentControl x:Name="swatchScalesColorHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                         <TextBlock x:Name="swatchScalesColorHeaderText" ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}"/>
                     </ContentControl>
@@ -4184,12 +4178,13 @@
                 </StackPanel>
 
                 <DockPanel>
-                    <ContentControl DockPanel.Dock="Top" x:Name="scalesHeader" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+                    <ContentControl DockPanel.Dock="Top" x:Name="scalesHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                         <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}"/>
                     </ContentControl>
-                    <ListBox x:Name="scalesList" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}" ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
+					<ListBox x:Name="scalesList" ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
                 </DockPanel>
             </DockPanel>
+			<!-- MOD END -->
 
             <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchScalesColorButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0">
                 <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/overPane_appearance.png" Stretch="None"/>
@@ -4220,7 +4215,7 @@
                 <Setter TargetName="swatchContentScalesColorHeaderText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h7202f8ebgaa5dg411dgac62g3bf8986e28b3', Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
 
-            <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchScalesColorButton}" Value="True">
+			<DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchScalesColorButton}" Value="True">
                 <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
                 <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
                 <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
