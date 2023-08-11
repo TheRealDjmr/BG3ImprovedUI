@@ -4164,24 +4164,24 @@
     <ControlTemplate x:Key="draconicAppearancePanelTemplate">
         <Grid VerticalAlignment="Top" Height="1560">
             <!-- MOD START - Unique appearance options (instead of Draconic Scales) -->
-			<DockPanel x:Name="basePanel" VerticalAlignment="Top">
+			<DockPanel x:Name="basePanel" IsEnabled="{Binding Path=IsChecked, ElementName=swatchScalesColorButton, Converter={StaticResource InvertBoolConverter}}" VerticalAlignment="Top">
                 <StackPanel DockPanel.Dock="Top">
                     <Image Style="{StaticResource PanelHeaderIconStyle}"/>
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0e1fded7g681ag4e5fgb0a2gc5928ab399a1', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                 </StackPanel>
 
-                <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches" Visibility="{Binding SelectablePassiveColours.Count, Converter={StaticResource CountToVisibilityConverter}}" Template="{StaticResource decoratedHeader}">
+                <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches" Template="{StaticResource decoratedHeader}">
                     <ContentControl x:Name="swatchScalesColorHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                         <TextBlock x:Name="swatchScalesColorHeaderText" ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}"/>
                     </ContentControl>
                     <ls:LSToggleButton x:Name="swatchScalesColorButton" DataContext="{Binding SelectedPassiveColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
                 </StackPanel>
 
-                <DockPanel Visibility="{Binding SelectableScales.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                <DockPanel>
                     <ContentControl DockPanel.Dock="Top" x:Name="scalesHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                         <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}"/>
                     </ContentControl>
-                    <ListBox x:Name="scalesList" ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
+					<ListBox x:Name="scalesList" ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
                 </DockPanel>
             </DockPanel>
 			<!-- MOD END -->
@@ -4215,13 +4215,11 @@
                 <Setter TargetName="swatchContentScalesColorHeaderText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h7202f8ebgaa5dg411dgac62g3bf8986e28b3', Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
 
-            <!-- MOD START - Remove DataTrigger no longer needed -->
-			<!--<DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchScalesColorButton}" Value="True">
+			<DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchScalesColorButton}" Value="True">
                 <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
                 <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
                 <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-            </DataTrigger> -->
-			<!-- MOD END -->
+            </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
