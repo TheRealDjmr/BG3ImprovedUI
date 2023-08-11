@@ -29,7 +29,7 @@ EITHER: Use Candor/BG3 Mod Manager/Nexus to install, this would require [Patch3f
 
 OR: Place the .pak in the folder "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods" without using a mod manager/updating the modsettings.lsx file.
 
-#### Changes - Video to come
+#### Changes - Video https://www.youtube.com/watch?v=livOpPUNIN0
 
 #### Discord
 Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios) server and discuss in the BG3 Modding Channel  
