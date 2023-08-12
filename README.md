@@ -13,23 +13,31 @@ This mod is aimed at making changes to the overall user interface to improve usa
 </p>  
 
 - Unlocks edit appearance option for all Origin characters in Character Creation.
-- OPTIONAL Keyboard-only tweaks: Switched "Expand Tooltip" (highlighting all interactables, default left ALT key) from a toggle to a press. This gets disabled by pressing the key again, or switching to a different UI screen, such as the map or pause screen. (Credit: Violet-Vibes)
-- OPTIONAL Keyboard-only tweaks: Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslan)
+
+<b>OPTIONAL FILE REQUIRED</b> Keyboard-only tweaks:
+- Switches "Show all items" (highlighting all interactables, default left ALT key) from a toggle to a press. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
+- Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslan)
+- Replaces existing Minimap with smaller version (75% zoom, takes up less space on screen) or no Minimap (leaving the relevant buttons).
+<p float="left" align="middle">
+  <img src="https://i.imgur.com/cMii97G.jpg"><img src="https://i.imgur.com/hElvnJR.jpg">
+</p>
 
 #### Modder Features
 - Character Creation Layout tweaks: Removes head scroll limit (Credit: Alana)
 - Character Creation Layout tweaks: Removes appearance tab restrictions allowing for modded slot use (ex: Origin Hairstyles, Humans with tails)
 - Character Creation Layout tweaks: Changes Dragonborn Sorcerer Draconic Ancestry to allow for additional scale types.
 - Character Creation Layout tweaks: Allows for Feat selection once unlocked by another mod. Tip - "Allowimprovement" doesn't work on its own.
-- OPTIONAL Supports modded class icons, with a generic icon given to mods without a provided icon
-- OPTIONAL Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
+- <b>OPTIONAL FILE REQUIRED</b> Supports modded class icons, with a generic icon given to mods without a provided icon
+- <b>OPTIONAL FILE REQUIRED</b> Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
+
+#### Showcase (version 3.2) - https://www.youtube.com/watch?v=livOpPUNIN0
 
 #### Installing 
-EITHER: Use Candor/BG3 Mod Manager/Nexus to install, this would require [Patch3fixer](https://www.nexusmods.com/baldursgate3/mods/550) or a mod that includes it to work correctly.
+Place both ImprovedUI.pak and optional files under "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods" - no mod list entry required.
 
-OR: Place the .pak in the folder "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods" without using a mod manager/updating the modsettings.lsx file.
+OR
 
-#### Changes - Video https://www.youtube.com/watch?v=livOpPUNIN0
+If added via Candor/BG3 Mod Manager/manual install, ensure that the [Story Fix](https://www.nexusmods.com/baldursgate3/mods/550) (or a mod that includes it) is also added to work correctly.
 
 #### Discord
 Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios) server and discuss in the BG3 Modding Channel  
