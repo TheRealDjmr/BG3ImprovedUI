@@ -15,7 +15,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Unlocks edit appearance option for all Origin characters in Character Creation.
 
 <b>OPTIONAL FILE REQUIRED</b> Keyboard-only tweaks:
-- Switches "Show all items" (highlighting all interactables, default left ALT key) from a toggle to a press. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
+- Switches "Show all items" (highlighting all interactables, default left ALT key) from a press to a toggle. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
 - Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslan)
 - Replaces existing Minimap with smaller version (75% zoom, takes up less space on screen) or no Minimap (leaving the relevant buttons).
 <p float="left" align="middle">
