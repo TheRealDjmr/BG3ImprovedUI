@@ -13,9 +13,9 @@ This mod is aimed at making changes to the overall user interface to improve usa
 </p>  
 
 - Unlocks edit appearance option for all Origin characters in Character Creation.
+- <b>OPTIONAL FILE REQUIRED</b> Switches "Show all items" (highlighting all interactables, default left ALT key/right stick) from requiring a held input to an on/off switch. Works for both Keyboard and Controller - switching between the two input methods when enabled would cause an additional toggle to be required. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
 
 <b>OPTIONAL FILE REQUIRED</b> Keyboard-only tweaks:
-- Switches "Show all items" (highlighting all interactables, default left ALT key) from a toggle to a press. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
 - Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslan)
 - Replaces existing Minimap with smaller version (75% zoom, takes up less space on screen) or no Minimap (leaving the relevant buttons).
 <p float="left" align="middle">
@@ -27,6 +27,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Character Creation Layout tweaks: Removes appearance tab restrictions allowing for modded slot use (ex: Origin Hairstyles, Humans with tails)
 - Character Creation Layout tweaks: Changes Dragonborn Sorcerer Draconic Ancestry to allow for additional scale types.
 - Character Creation Layout tweaks: Allows for Feat selection once unlocked by another mod. Tip - "Allowimprovement" doesn't work on its own.
+- CC/Level up Layout tweaks: Changes passive selection to turn into a scroll option when modded options are added - such as modded Eldritch Invocations. (Credit: Winterbrick)
 - <b>OPTIONAL FILE REQUIRED</b> Supports modded class icons, with a generic icon given to mods without a provided icon
 - <b>OPTIONAL FILE REQUIRED</b> Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
 

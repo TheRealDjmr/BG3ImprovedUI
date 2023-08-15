@@ -708,14 +708,14 @@
                 <ContentControl DockPanel.Dock="Top" ContentTemplate="{DynamicResource PassiveSelectorItemTemplate}" Content="{Binding .}"/>
             </StackPanel>
 
-            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
+			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                     <!-- Features that may depend on passive selection above -->
                     <!-- ToDo: only show things that actually depend, also separate class/subclass -->
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
-                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0" />
 
                     <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
                         <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
@@ -2318,20 +2318,23 @@
             </TextBlock>
             <TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
 
-            <ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,32,0,0">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type ls:VMCharacterCreationPassive}">
-                        <ContentControl Template="{StaticResource SelectableEnhancement}">
-                            <b:Interaction.Triggers>
-                                <b:EventTrigger EventName="MouseLeftButtonUp">
-                                    <b:InvokeCommandAction Command="{Binding DataContext.TogglePassive,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-                                    <ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
-                                </b:EventTrigger>
-                            </b:Interaction.Triggers>
-                        </ContentControl>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <!-- MOD START - Restrict passive list max height -->
+			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="1000" VerticalScrollBarVisibility="Auto">
+				<ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,32,0,0">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type ls:VMCharacterCreationPassive}">
+							<ContentControl Template="{StaticResource SelectableEnhancement}">
+								<b:Interaction.Triggers>
+									<b:EventTrigger EventName="MouseLeftButtonUp">
+										<b:InvokeCommandAction Command="{Binding DataContext.TogglePassive,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+										<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
+									</b:EventTrigger>
+								</b:Interaction.Triggers>
+							</ContentControl>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ls:LSScrollViewer>
 
         </StackPanel>
         <DataTemplate.Triggers>
@@ -3639,7 +3642,7 @@
 
                 </StackPanel>
 
-                <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="Auto" Margin="100,0,88,52">
+				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="Auto" Margin="100,0,88,52">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                         <!-- Name and description -->

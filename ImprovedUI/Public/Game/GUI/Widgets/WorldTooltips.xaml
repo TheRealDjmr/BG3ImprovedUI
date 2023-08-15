@@ -78,7 +78,7 @@
 
 			<Grid>
 				<!-- Show all the world tooltips for this player -->
-				<ItemsControl ItemsSource="{Binding CurrentPlayer.WorldTooltips}" ItemTemplate="{StaticResource CommonTooltipTemplate}" x:Name="WorldTooltipContainer" IsHitTestVisible="True">
+				<ItemsControl ItemsSource="{Binding CurrentPlayer.WorldTooltips}" ItemTemplate="{StaticResource CommonTooltipTemplate}" x:Name="WorldTooltipContainer" Visibility="Collapsed" IsHitTestVisible="True">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<ls:LSWorldTooltipsCanvas ClipToBounds="True"/>
@@ -98,21 +98,38 @@
 					</ItemsControl.ItemContainerStyle>
 				</ItemsControl>
 
-				<!-- MOD START - Show tooltips without requiring input held down -->
-				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" Command="{Binding SetShowWorldTooltipsCommand}" IsEnabled="{Binding ElementName=WorldTooltipContainer, Path=IsHitTestVisible}" CommandParameter="{StaticResource FalseValue}" EatInput="True"/>
+				<!-- MOD START - Show tooltips without requiring input held down -->				
+				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" IsEnabled="{Binding ElementName=WorldTooltipContainer, Path=IsVisible}" EatInput="True">
+					<b:Interaction.Triggers>
+						<b:EventTrigger EventName="LSInputBindingPressed">
+							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}" CommandParameter="{StaticResource FalseValue}"/>
+							<b:ChangePropertyAction TargetName="WorldTooltipContainer" PropertyName="Visibility" Value="Collapsed" />
+						</b:EventTrigger>
+					</b:Interaction.Triggers>
+				</ls:LSInputBinding>
+				
+				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" EatInput="True">
+					<b:Interaction.Triggers>
+						<b:EventTrigger EventName="LSInputBindingPressed">
+							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
+							<b:ChangePropertyAction TargetName="WorldTooltipContainer" PropertyName="Visibility" Value="Visible" />
+						</b:EventTrigger>
+					</b:Interaction.Triggers>
+				</ls:LSInputBinding>
 				<!-- MOD END -->
-				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" Command="{Binding SetShowWorldTooltipsCommand}" EatInput="False"/>
 			</Grid>
       <DataTemplate.Triggers>
           <DataTrigger Binding="{Binding CurrentPlayer.WorldTooltips.Count}" Value="0">
-							<Setter TargetName="WorldTooltipContainer" Property="IsHitTestVisible" Value="False"/>
+			<Setter TargetName="WorldTooltipContainer" Property="IsHitTestVisible" Value="False"/>
           </DataTrigger>
       </DataTemplate.Triggers>
 		</DataTemplate>
 	</ls:UIWidget.ContentTemplate>
-    <b:Interaction.Triggers>
+	<!-- MOD START - Show tooltips when UI changes -->
+    <!--<b:Interaction.Triggers>
         <b:PropertyChangedTrigger Binding="{Binding CurrentPlayer.UIData.ActiveState}">
             <b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}" CommandParameter="{StaticResource FalseValue}"/>
         </b:PropertyChangedTrigger>
-    </b:Interaction.Triggers>
+    </b:Interaction.Triggers>-->
+	<!-- MOD END -->
 </ls:UIWidget>
