@@ -90,6 +90,10 @@
     <BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
     <BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
     <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
+    <!-- MOD -->
+    <BitmapImage x:Key="InfusionSlotsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_infusion_d.png" />
+    <BitmapImage x:Key="ExperimentalElixirsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_elixir_d.png" />
+    <!-- END MOD -->
 
 
     <Style x:Key="CCButtonStyle" TargetType="{x:Type ls:LSButton}"  BasedOn="{StaticResource BaseButtonStyle}">
@@ -268,6 +272,14 @@
             <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
                 <Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
             </DataTrigger>
+            <!-- MOD -->
+            <DataTrigger Binding="{Binding TypeId}" Value="InfusionSlots">
+                <Setter Property="Source" Value="{StaticResource InfusionSlotsIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="ExperimentalElixirs">
+                <Setter Property="Source" Value="{StaticResource ExperimentalElixirsIcon}"/>
+            </DataTrigger>
+            <!-- END MOD -->
         </Style.Triggers>
     </Style>
 
