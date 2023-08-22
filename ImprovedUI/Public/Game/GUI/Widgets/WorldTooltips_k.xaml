@@ -1,0 +1,120 @@
+<ls:UIWidget x:Name="WorldTooltips"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
+             Template="{StaticResource Hud.Root}">
+
+	<ls:UIWidget.ContentTemplate>
+		<DataTemplate DataType="{x:Type ls:Widget}">
+			<DataTemplate.Resources>
+				<DataTemplate x:Key="CommonTooltipTemplate">
+					<Canvas  >
+						<b:Interaction.Triggers>
+							<b:EventTrigger EventName="MouseEnter">
+								<b:InvokeCommandAction Command="{Binding DataContext.SetHoveredWorldTooltipCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding GameObject}" />
+							</b:EventTrigger>
+							<b:EventTrigger EventName="MouseLeave">
+								<b:InvokeCommandAction Command="{Binding DataContext.SetHoveredWorldTooltipCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="" />
+							</b:EventTrigger>
+							<b:EventTrigger EventName="MouseLeftButtonUp" >
+								<b:InvokeCommandAction Command="{Binding DataContext.SelectWorldTooltipCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding GameObject}" />
+							</b:EventTrigger>
+						</b:Interaction.Triggers>
+						<Border  Width="1024" Height="512" Canvas.Left="-512"  Canvas.Top="-128">
+							<ls:LSNineSliceImage Style="{StaticResource WorldTooltip9Slice}" VerticalAlignment="Center" HorizontalAlignment="Center">
+								<b:Interaction.Behaviors>
+									<ls:DragGameObjectBehavior GameObject="{Binding Item}" StartDragOffset="10"/>
+								</b:Interaction.Behaviors>
+								<StackPanel VerticalAlignment="Center" Margin="6,-4,6,-6">
+									<StackPanel.Resources>
+										<Style TargetType="TextBlock">
+											<Setter Property="HorizontalAlignment" Value="Center"/>
+											<Setter Property="TextAlignment" Value="Center"/>
+											<Setter Property="FontSize" Value="{StaticResource ScaledMediumFontSize}"/>
+										</Style>
+									</StackPanel.Resources>
+									<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+										<TextBlock x:Name="NameTxt" ls:TextBlockFormatter.SourceText="{Binding Name}" Foreground="{StaticResource TooltipColor.Title}" Visibility="{Binding Name, Converter={StaticResource StringToVisibilityConverter}}" FontSize="{StaticResource MediumFontSize}"/>
+										<TextBlock x:Name="ExtraInfo" Foreground="{StaticResource TooltipColor.Secondary}" Visibility="Collapsed"/>
+									</StackPanel>
+
+									<TextBlock x:Name="DescriptionTxt" ls:TextBlockFormatter.SourceText="{Binding Description}" Foreground="{StaticResource TooltipColor.Primary}" Visibility="{Binding Description, Converter={StaticResource StringToVisibilityConverter}}"/>
+								</StackPanel>
+							</ls:LSNineSliceImage>
+						</Border>
+					</Canvas>
+					<DataTemplate.Triggers>
+						<DataTrigger Binding="{Binding Item.Rarity}" Value="Uncommon">
+							<Setter TargetName="NameTxt" Property="Foreground" Value="{StaticResource ItemRarityColour.Uncommon}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Item.Rarity}" Value="Rare">
+							<Setter TargetName="NameTxt" Property="Foreground" Value="{StaticResource ItemRarityColour.Rare}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Item.Rarity}" Value="VeryRare">
+							<Setter TargetName="NameTxt" Property="Foreground" Value="{StaticResource ItemRarityColour.VeryRare}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Item.Rarity}" Value="Legendary">
+							<Setter TargetName="NameTxt" Property="Foreground" Value="{StaticResource ItemRarityColour.Legendary}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding Item.IsStoryItem}" Value="True">
+							<Setter TargetName="NameTxt" Property="Foreground" Value="{StaticResource LS_storyColor}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding IsStealing}" Value="True">
+							<Setter TargetName="NameTxt" Property="Foreground" Value="{StaticResource LS_alertTxtColor}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ContainerState}" Value="Empty">
+							<Setter TargetName="ExtraInfo" Property="Text" Value="{Binding Source='h823595e6g550fg4614gb1ddgdcd323bb4c69',Converter={StaticResource TranslatedStringConverter}, StringFormat='{} - {0}'}"/>
+							<Setter TargetName="ExtraInfo" Property="Visibility" Value="Visible"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ContainerState}" Value="NotExplored">
+							<Setter TargetName="ExtraInfo" Property="Text" Value="*"/>
+							<Setter TargetName="ExtraInfo" Property="Visibility" Value="Visible"/>
+						</DataTrigger>
+					</DataTemplate.Triggers>
+				</DataTemplate>
+			</DataTemplate.Resources>
+
+			<Grid>
+				<!-- Show all the world tooltips for this player -->
+				<ItemsControl ItemsSource="{Binding CurrentPlayer.WorldTooltips}" ItemTemplate="{StaticResource CommonTooltipTemplate}" x:Name="WorldTooltipContainer" IsHitTestVisible="True">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<ls:LSWorldTooltipsCanvas ClipToBounds="True"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemContainerStyle>
+						<Style TargetType="ContentPresenter">
+							<Setter Property="Canvas.Left" Value="{Binding Position.X}"/>
+							<Setter Property="Canvas.Top" Value="{Binding Position.Y}"/>
+							<Setter Property="Canvas.ZIndex" Value="1"/>
+							<Style.Triggers>
+								<Trigger Property="IsMouseOver" Value="True">
+									<Setter Property="Canvas.ZIndex" Value="1000" />
+								</Trigger>
+							</Style.Triggers>
+						</Style>
+					</ItemsControl.ItemContainerStyle>
+				</ItemsControl>
+
+				<!-- MOD START - Show tooltips without requiring input held down -->
+				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" Command="{Binding SetShowWorldTooltipsCommand}" IsEnabled="{Binding ElementName=WorldTooltipContainer, Path=IsHitTestVisible}" CommandParameter="{StaticResource FalseValue}" EatInput="True"/>
+				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" Command="{Binding SetShowWorldTooltipsCommand}" EatInput="True"/>
+				<!-- MOD END -->
+			</Grid>
+      <DataTemplate.Triggers>
+          <DataTrigger Binding="{Binding CurrentPlayer.WorldTooltips.Count}" Value="0">
+							<Setter TargetName="WorldTooltipContainer" Property="IsHitTestVisible" Value="False"/>
+          </DataTrigger>
+      </DataTemplate.Triggers>
+		</DataTemplate>
+	</ls:UIWidget.ContentTemplate>
+	<!-- MOD START - Show tooltips when UI changes -->
+    <!--<b:Interaction.Triggers>
+        <b:PropertyChangedTrigger Binding="{Binding CurrentPlayer.UIData.ActiveState}">
+            <b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}" CommandParameter="{StaticResource FalseValue}"/>
+        </b:PropertyChangedTrigger>
+    </b:Interaction.Triggers>-->
+	<!-- MOD END -->
+</ls:UIWidget>
