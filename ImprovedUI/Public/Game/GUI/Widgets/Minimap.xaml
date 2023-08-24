@@ -167,8 +167,10 @@
 
                             <Grid IsHitTestVisible="False" Visibility="{Binding CurrentPlayer.SelectedCharacter.IsInDangerZone, Converter={StaticResource BoolToVisibleConverter}}">
                                 <!-- Danger zone outlines -->
-                                <Image x:Name="DangerZoneGlow" IsHitTestVisible="False" Stretch="None" Source="{StaticResource DangerZone}" Focusable="False" Opacity="0.45" />
-                                <Image x:Name="DangerZoneGlowAnimated" IsHitTestVisible="False" Stretch="None" Source="{StaticResource DangerZone}" Focusable="False" Opacity="0.1"/>
+								<Border Height="468" Width="468" VerticalAlignment="Center" HorizontalAlignment="Center">
+									<Image x:Name="DangerZoneGlow" IsHitTestVisible="False" Stretch="Fill" Source="{StaticResource DangerZone}" Focusable="False" Opacity="0.45" />
+									<Image x:Name="DangerZoneGlowAnimated" IsHitTestVisible="False" Stretch="Fill" Source="{StaticResource DangerZone}" Focusable="False" Opacity="0.1"/>
+								</Border>
                             </Grid>
 
                             <!-- North Pointer -->
@@ -211,7 +213,7 @@
                                    HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,120" Panel.ZIndex="2" /> -->
 
                         <!-- Co-ordinates - Moved -->
-                        <TextBlock  Foreground="{StaticResource LS_accent100TxtColor}" FontSize="{StaticResource SmallFontSize}" Background="Black" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,-5">
+                        <TextBlock  Foreground="{StaticResource LS_accent100TxtColor}" FontSize="{StaticResource SmallFontSize}" Effect="{StaticResource HUD.DropShadow}" Opacity="0.8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,-5">
                             <Run Text="X:"/><Run Text="{Binding CurrentPlayer.WorldMap.CameraLookatPos.X, StringFormat={}{0:0.}}"/>
                             <Run Text="Y:"/><Run Text="{Binding CurrentPlayer.WorldMap.CameraLookatPos.Y, StringFormat={}{0:0.}}"/>
                         </TextBlock>
@@ -221,6 +223,16 @@
                             <ls:LSButton.Template>
                                 <ControlTemplate TargetType="ls:LSButton">
                                     <Grid x:Name="BtnRoot">
+                                       <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Opacity" Value="0" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                                                        <Setter Property="Opacity" Value="1"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
                                         <Grid.ToolTip>
                                             <ls:LSTooltip Content="{Binding ElementName=BtnRoot,Path=DataContext}"/>
                                         </Grid.ToolTip>
@@ -294,16 +306,28 @@
                             </ls:LSButton.Template>
                         </ls:LSButton>
 
-                        <ls:LSButton Margin="0,-10,-10,0" VerticalAlignment="Top" HorizontalAlignment="Right" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleInGameMenu'}"
-                                 Template="{StaticResource PanelButtonWT}" Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleGameMenu"
-                                 SoundID="UI_HUD_EscapeMenu"
-                                 IsEnabled="{Binding DataContext.CurrentPlayer.UIData.IsGameMenuAllowed, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
-                            <ls:LSButton.Resources>
-                                <BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
-                                <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_h.png" />
-                                <BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
-                            </ls:LSButton.Resources>
-                        </ls:LSButton>
+                        <Grid x:Name="MenuButton">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Opacity" Value="0" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                                            <Setter Property="Opacity" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                            <ls:LSButton Margin="0,-10,-10,0" VerticalAlignment="Top" HorizontalAlignment="Right" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleInGameMenu'}"
+                                    Template="{StaticResource PanelButtonWT}" Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleGameMenu"
+                                    SoundID="UI_HUD_EscapeMenu"
+                                    IsEnabled="{Binding DataContext.CurrentPlayer.UIData.IsGameMenuAllowed, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+                                <ls:LSButton.Resources>
+                                    <BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
+                                    <BitmapImage x:Key="Icon_Hover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_h.png" />
+                                    <BitmapImage x:Key="Icon_Pressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_menu_d.png" />
+                                </ls:LSButton.Resources>
+                            </ls:LSButton>
+                        </Grid>
 
                         <ls:LSButton Margin="0,28,94,0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="ls:LSWorldMap.ZoomInCommand" CommandTarget="{Binding ElementName=WorldMap}" SoundID="UI_HUD_Map_Zoom" Template="{StaticResource IconButtonTemplate}">
                             <ls:LSButton.Resources>
@@ -355,6 +379,16 @@
 
 						<!-- Buttons below the minimap -->
 						<StackPanel Orientation="Horizontal" Margin="0,0,0,-80" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Opacity" Value="0" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                                            <Setter Property="Opacity" Value="1"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
 							<ls:LSButton Template="{StaticResource PanelButtonWT}" Command="{Binding Path=DataContext.CustomEvent, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleJournalQuests" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleJournal'}" SoundID="UI_HUD_Journal" BoundEvent="ToggleJournal">
 								<ls:LSButton.Resources>
 									<BitmapImage x:Key="Icon_Normal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_journal_d.png" />
