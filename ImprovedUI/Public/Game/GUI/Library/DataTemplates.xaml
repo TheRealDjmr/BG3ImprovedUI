@@ -634,7 +634,9 @@
             <DataTrigger Binding="{Binding IDString}" Value="Wizard">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard.png"/>
             </DataTrigger>
-
+            <DataTrigger Binding="{Binding IDString}" Value="Artificer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/Artificer.png"/>
+            </DataTrigger>
         </Style.Triggers>
 
     </Style>
@@ -678,7 +680,9 @@
             <DataTrigger Binding="{Binding IDString}" Value="Wizard">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/wizard.png"/>
             </DataTrigger>
-
+            <DataTrigger Binding="{Binding IDString}" Value="Artificer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Artificer_simplified.png"/>
+            </DataTrigger>
         </Style.Triggers>
 
     </Style>
@@ -825,6 +829,18 @@
             <DataTrigger Binding="{Binding SubclassIDString}" Value="Vengeance">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/paladin_oath_of_vengeance.png"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Armorer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Armorer_simplified.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Artillerist">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Artillerist_simplified.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Alchemist">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Alchemist_simplified.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="BattleSmith">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/BattleSmith_simplified.png"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 
@@ -969,6 +985,18 @@
             <DataTrigger Binding="{Binding SubclassIDString}" Value="WildMagic">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/sorcerer_wildMagic.png"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Armorer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/Armorer.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Artillerist">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/Artillerist.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Alchemist">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/Alchemist.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="BattleSmith">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/BattleSmith.png"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 
@@ -1010,6 +1038,9 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding IDString}" Value="Wizard">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Class/ico_class_m_wizard.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="Artificer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Class/ico_class_m_artificer.png"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -3273,6 +3304,34 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding ActionResource.TypeId}" Value="NecroThaum"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="InfusionSlots">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InfusionSlotGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ActionResource.TypeId}" Value="InfusionSlots"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ExperimentalElixirs">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ExperimentalElixirsGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ActionResource.TypeId}" Value="ExperimentalElixirs"/>
                     <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
