@@ -27,6 +27,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Character Creation Layout tweaks: Removes appearance tab restrictions allowing for modded slot use (ex: Origin Hairstyles, Humans with tails)
 - Character Creation Layout tweaks: Changes Dragonborn Sorcerer Draconic Ancestry to allow for additional scale types.
 - Character Creation Layout tweaks: Allows for Feat selection once unlocked by another mod. Tip - "Allowimprovement" doesn't work on its own.
+- CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
 - CC/Level up Layout tweaks: Changes passive selection to turn into a scroll option when modded options are added - such as modded Eldritch Invocations. (Credit: Winterbrick)
 - <b>OPTIONAL FILE REQUIRED</b> Supports modded class icons, with a generic icon given to mods without a provided icon
 - <b>OPTIONAL FILE REQUIRED</b> Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
@@ -38,7 +39,7 @@ Place both ImprovedUI.pak and optional files under "%LocalAppData%\Larian Studio
 
 OR
 
-If added via Candor/BG3 Mod Manager/manual install, ensure that the [Story Fix](https://www.nexusmods.com/baldursgate3/mods/550) (or a mod that includes it) is also added to work correctly.
+If added via Candor/BG3 Mod Manager/manual install, ensure that the [Story Fix](https://www.nexusmods.com/baldursgate3/mods/141) (or a mod that includes it) is also added to work correctly.
 
 #### Discord
 Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios) server and discuss in the BG3 Modding Channel  
@@ -48,7 +49,7 @@ Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios)
 - Initial readme file generously donated by Zerd; check out their project here, [DnD Rebalancing](https://github.com/ZerdBG3/DnD-Rebalancing/)  
 
 #### DISCLAIMER
-- Since modding BG3 is not yet officially supported by Larian Studios, you might encounter unexpected problems that it's not in their current scope to fix. **PLEASE DISABLE AUTOMATIC TELEMETRY** and don't post bug reports on their official platforms, as you're playing an unsupported mod  
+- Since modding BG3 is not yet officially supported by Larian Studios, you might encounter unexpected problems that it's not in their current scope to fix. **PLEASE DISABLE AUTOMATIC TELEMETRY** and don't post bug reports on their official platforms, as you're playing with an unsupported mod.
 - How to disable telemetry:  
 <p float="left" align="middle">
   <img src="https://i.imgur.com/8BSSPiW.png" width="500">

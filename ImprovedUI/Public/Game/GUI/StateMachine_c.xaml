@@ -28,7 +28,7 @@
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="SystemMessageBox"/>
                     </ls:StateEvent.Actions>
-                </ls:StateEvent> -->
+                </ls:StateEvent>-->
                 <!-- MOD END -->
 
                 <ls:StateEvent Name = "OpenOptions">
@@ -36,10 +36,9 @@
                         <ls:AddSubstate Name="Options"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                
+
             </ls:State.Events>
         </ls:State>
-
 
         <!--STATE: Root-->
         <ls:State Name = "GameRoot" Layout = "Common" Owner = "All">
@@ -66,7 +65,7 @@
                         <ls:SetSubstate Name="Lobby"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                 <ls:StateEvent Name = "GE.OnBusyShow">
+                <ls:StateEvent Name = "GE.OnBusyShow">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="Busy"/>
                     </ls:StateEvent.Actions>
@@ -86,7 +85,7 @@
                         <ls:RemoveAllSubstates/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                
+
             </ls:State.Events>
         </ls:State>
 
@@ -368,7 +367,7 @@
                 </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
-		
+
         <!--STATE: CharacterFullRespec -->
         <ls:State Name = "CharacterFullRespec" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
             <ls:State.Widgets>
@@ -480,7 +479,7 @@
         <ls:State Name = "Credits" IsModal="True" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "All">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="Credits.xaml"/>
-				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+                <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
             </ls:State.Widgets>
             <ls:State.Events>
                 <ls:StateEvent Name = "CloseWidget">
@@ -630,7 +629,7 @@
                         <ls:PushState Name="Paused"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                
+
                 <ls:StateEvent Name = "IE.ToggleInGameMenu">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="Paused"/>
@@ -679,17 +678,17 @@
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="Tutorial"/>
                     </ls:StateEvent.Actions>
-                </ls:StateEvent>				
+                </ls:StateEvent>
                 <ls:StateEvent Name = "OpenActOver">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="ActOver"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-				<ls:StateEvent Name = "OpenEndGameCredits">
-					<ls:StateEvent.Actions>
-						<ls:PushState Name="Credits" Metadata="Ending"/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
+                <ls:StateEvent Name = "OpenEndGameCredits">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Credits" Metadata="Ending"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -721,6 +720,10 @@
                 <ls:StateWidget Filename="ActionRadials.xaml" Layer="Panels"/>
 
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits" Metadata="InRadials" />
+            </ls:State.InitialSubstates>
 
             <ls:State.Events>
                 <ls:StateEvent Name = "CloseWidget">
@@ -860,7 +863,7 @@
                         <ls:PushState Name="ShortcutMenu"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                
+
             </ls:State.Events>
         </ls:State>
 
@@ -871,6 +874,70 @@
                 <ls:InitialSubstate Name="PlayerUIsHolder" />
                 <ls:InitialSubstate Name="ScreenFadePlayer"/>
             </ls:State.InitialSubstates>
+        </ls:State>
+
+        <!--STATE: PlayerPortraitsActive -->
+        <ls:State Name = "PlayerPortraitsActive" Layout = "Player" Owner = "Player"  DisableStatesBelow = "False" IsModal="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="PlayerPortraitsActive_c.xaml" Layer="HUDTop"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RequestCloseWidget/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <!--RemovePanelState happens after closing animation so the widget is cleaned up-->
+                <ls:StateEvent Name = "RemovePanelState">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "ClosePlayerPortraits">
+                    <ls:StateEvent.Actions>
+                        <ls:RequestCloseWidget/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "OpenTutorial">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Tutorial"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPinnedTooltips">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PinnedTooltips"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: PlayerPortraits-->
+        <ls:State Name = "PlayerPortraits" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="PlayerPortraits_c.xaml" Layer="HUDTop"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "OpenPlayerPortraits">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PlayerPortraitsActive"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPlayerPortraitsDialogue">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PlayerPortraitsActive" Metadata="InDialogue"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPlayerPortraitsHUD">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PlayerPortraitsActive" Metadata="InHUD"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
         </ls:State>
 
         <!--STATE: PlayerHUD-->
@@ -884,7 +951,6 @@
                 <ls:StateWidget Filename="ReactionDecisionPopup_c.xaml" Layer="Notifications"/>
                 <ls:StateWidget Filename="Minimap_c.xaml" Layer="HUDTop"/>
                 <ls:StateWidget Filename="TargetInfo_c.xaml" Layer="HUDTop"/>
-                <ls:StateWidget Filename="PlayerPortraits_c.xaml" Layer="HUDTop"/>
                 <ls:StateWidget Filename="TurnModeInfo.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="CombatLog_c.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="CombatantsOverlay.xaml" Layer="HUDTop"/>
@@ -892,6 +958,11 @@
                 <ls:StateWidget Filename="PassiveRoll.xaml" Layer="PopupPanels"/>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits" Metadata="InHUD"/>
+            </ls:State.InitialSubstates>
+
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenSelectionFlyOut">
                     <ls:StateEvent.Actions>
@@ -988,22 +1059,7 @@
                         <ls:SetSubstate Name="PartyInventory"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleEquipment">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="PartyEquipment"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "TogglePartyCharacterSheet">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="PartyCharacterSheet"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
 
-                <ls:StateEvent Name = "ToggleInterruptsPanel">
-                    <ls:StateEvent.Actions>
-                        <ls:PushState Name="ShortcutMenu" OnCreateStateEvent="ShowInterrupts"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
                 <ls:StateEvent Name = "ToggleRestPanel">
                     <ls:StateEvent.Actions>
                         <ls:SetSubstate Name="RestPanel"/>
@@ -1076,63 +1132,6 @@
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
 
-            </ls:State.Events>
-        </ls:State>
-
-        <!--STATE: PartyEquipment-->
-        <ls:State Name = "PartyEquipment" Layout = "Player" Owner = "Player" IsModal="True">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="PartyEquipment_c.xaml" Layer="Panels"/>
-            </ls:State.Widgets>
-
-            <ls:State.Events>
-                <ls:StateEvent Name = "IE.ToggleInGameMenu">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                
-                <ls:StateEvent Name = "CloseWidget">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-
-                <ls:StateEvent Name = "CloseAllFullscreen">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                
-            </ls:State.Events>
-        </ls:State>
-
-        <!--STATE: PartyCharacterSheet-->
-        <ls:State Name = "PartyCharacterSheet" Layout = "Player" Owner = "Player" IsModal="True">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="PartyCharacterSheet_c.xaml" Layer="Panels"/>
-            </ls:State.Widgets>
-            <ls:State.Events>
-                <ls:StateEvent Name = "CloseWidget">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "IE.ToggleInGameMenu">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "CloseAllFullscreen">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "TogglePartyCharacterSheet">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -1389,6 +1388,11 @@
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPinnedTooltips">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PinnedTooltips"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -1434,8 +1438,11 @@
         <ls:State Name="CharacterPanel" Layout="Player" Owner="Player">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="CharacterPanel_c.xaml" Layer="Panels"/>
-                <ls:StateWidget Filename="PlayerPortraits_c.xaml" Layer="HUDTop"/>
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits"/>
+            </ls:State.InitialSubstates>
 
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenPinnedTooltips">
@@ -1443,7 +1450,7 @@
                         <ls:AddSubstate Name="PinnedTooltips"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <ls:StateEvent Name = "ToggleInterruptsPanel">
+                <ls:StateEvent Name = "ShowInterrupts">
                     <ls:StateEvent.Actions>
                         <ls:SetSubstate Name="CharacterPanel" Metadata="Interrupts"/>
                     </ls:StateEvent.Actions>
@@ -1454,8 +1461,11 @@
         <ls:State Name="AlchemyPanel" Layout="Player" Owner="Player" HideStatesBelow="False" DisableStatesBelow="False" IsModal="False">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="AlchemyPanel_c.xaml" Layer="Panels"/>
-                <ls:StateWidget Filename="PlayerPortraits_c.xaml" Layer="HUDTop"/>
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits"/>
+            </ls:State.InitialSubstates>
 
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenAlchemyPanel"/>
@@ -1470,8 +1480,11 @@
         <ls:State Name="TadpoleTree" Layout="Player" Owner="Player" HideStatesBelow="False" DisableStatesBelow="False" IsModal="False">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="TadpolePowersTree_c.xaml" Layer="Panels"/>
-                <ls:StateWidget Filename="PlayerPortraits_c.xaml" Layer="HUDTop"/>
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits"/>
+            </ls:State.InitialSubstates>
 
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenTadpolePowers"/>
@@ -1489,7 +1502,7 @@
                 <ls:StateWidget Filename="JournalCombatLog_c.xaml" Layer="Panels"/>
             </ls:State.Widgets>
             <ls:State.Events>
-  
+
                 <ls:StateEvent Name = "OpenPinnedTooltips">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="PinnedTooltips"/>
@@ -1502,8 +1515,11 @@
         <ls:State Name="CharacterStats" Layout="Player" Owner="Player" HideStatesBelow="False" DisableStatesBelow="False" IsModal="False">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="CharacterPanel_c.xaml" Layer="Panels"/>
-                <ls:StateWidget Filename="PlayerPortraits_c.xaml" Layer="HUDTop"/>
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits"/>
+            </ls:State.InitialSubstates>
 
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenCharacterStats"/>
@@ -1515,49 +1531,12 @@
             </ls:State.Events>
         </ls:State>
 
-        <!--STATE: Inventory-->
-        <ls:State Name = "PartyInventory" Layout = "Player" Owner = "Player" IsModal="True">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="PartyInventory_c.xaml" Layer="Panels"/>
-            </ls:State.Widgets>
-
-            <ls:State.Events>
-                <ls:StateEvent Name = "IE.ToggleInGameMenu">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "CloseWidget">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "CloseAllFullscreen">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-
-                <ls:StateEvent Name = "ToggleInventory">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-
-                <ls:StateEvent Name = "OpenSortInventory">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="SortInventory"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
-        </ls:State>
-
         <!--STATE: JournalMap-->
         <ls:State Name = "JournalMap" Layout = "Player" DisableStatesBelow="False" IsModal="False" >
             <ls:State.Widgets>
                 <ls:StateWidget Filename="JournalMap_c.xaml" Layer="Panels"/>
             </ls:State.Widgets>
-            
+
             <ls:State.Events>
                 <ls:StateEvent Name = "JournalMap"/>
             </ls:State.Events>
@@ -1606,8 +1585,11 @@
         <ls:State Name = "SpellBook" Layout = "Player" Owner = "Player" HideStatesBelow="False" DisableStatesBelow="False" IsModal="False" ForceSplitscreen="True">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="SpellBook_c.xaml" Layer="Panels"/>
-                <ls:StateWidget Filename="PlayerPortraits_c.xaml" Layer="HUDTop" />
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits"/>
+            </ls:State.InitialSubstates>
 
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenSpellBookPanel"/>
@@ -1805,9 +1787,13 @@
                     </ls:StateWidget.Libraries>
                 </ls:StateWidget>
                 <ls:StateWidget Filename="Overlay_c.xaml" Layer="Notifications" />
-                <ls:StateWidget Filename="PlayerPortraits_c.xaml" Layer="HUDTop" />
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits" MetaData="InDialogue"/>
+            </ls:State.InitialSubstates>
+
             <ls:State.Events>
                 <ls:StateEvent Name = "GE.OnDialogueShow" />
                 <ls:StateEvent Name = "OpenTrade">
@@ -1837,7 +1823,7 @@
                 </ls:StateEvent>
                 <ls:StateEvent Name = "ActiveRollOpen">
                     <ls:StateEvent.Actions>
-                        <ls:PushState Name="ActiveRoll"/>
+                        <ls:AddSubstate Name="ActiveRoll"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "IE.ToggleInGameMenu">
@@ -1854,18 +1840,18 @@
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="Tutorial"/>
                     </ls:StateEvent.Actions>
-                </ls:StateEvent>				
+                </ls:StateEvent>
                 <ls:StateEvent Name = "OpenGameOverMessageBox">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="GameOverMessageBox"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "OpenLongRest">
-	                <ls:StateEvent.Actions>
-		                <ls:PushState Name="LongRest"/>
-	                </ls:StateEvent.Actions>
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="LongRest"/>
+                    </ls:StateEvent.Actions>
                 </ls:StateEvent>
-			</ls:State.Events>
+            </ls:State.Events>
         </ls:State>
 
         <!-- STATE: DialogueHistory -->
@@ -2401,7 +2387,7 @@
                 </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
-        
+
         <!--STATE: Insert UI-->
         <ls:State Name="Insert" DisableStatesBelow="True" IsModal="True" Layout="Player" Owner="Player">
             <ls:State.Widgets>
@@ -2413,7 +2399,7 @@
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                
+
                 <ls:StateEvent Name = "IE.ToggleInGameMenu">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
@@ -2458,7 +2444,7 @@
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="Tutorial"/>
                     </ls:StateEvent.Actions>
-                </ls:StateEvent>				
+                </ls:StateEvent>
                 <ls:StateEvent Name = "OpenSelectionFlyOut">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="SelectionFlyOut"/>
@@ -2709,7 +2695,7 @@
         <ls:State Name = "Movie" Layout = "Common" Owner = "All" DisableStatesBelow = "True" HideStatesBelow = "True" IsModal="True">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
-				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+                <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
             </ls:State.Widgets>
 
             <ls:State.Events>

@@ -536,6 +536,8 @@
                         <ls:PushState Name="CharacterCreation"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "CloseCursor">
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -715,6 +717,10 @@
             </ls:State.InitialSubstates>
         </ls:State>
 
+        <!--STATE: PlayerPortraits-->
+        <!-- Empty state for controller so it doesn't get purged swapping between them -->
+        <ls:State Name = "PlayerPortraits" Layout = "Player" Owner = "Player"/>
+
         <!--STATE: PlayerHUD-->
         <ls:State Name = "PlayerHUD" Layout = "Player" Owner = "Player">
             <ls:State.Widgets>
@@ -736,6 +742,10 @@
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="PopupPanels"/>
             </ls:State.Widgets>
 
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits" Metadata="InHUD"/>
+            </ls:State.InitialSubstates>
+            
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenSelectionFlyOut">
                     <ls:StateEvent.Actions>
@@ -1558,6 +1568,11 @@
                 <ls:StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
+
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits" MetaData="InDialogue"/>
+            </ls:State.InitialSubstates>
+
             <ls:State.Events>
                 <ls:StateEvent Name = "GE.OnDialogueShow" />
                 <ls:StateEvent Name = "OpenTrade">
@@ -1587,7 +1602,7 @@
                 </ls:StateEvent>
                 <ls:StateEvent Name = "ActiveRollOpen">
                     <ls:StateEvent.Actions>
-                        <ls:PushState Name="ActiveRoll"/>
+                        <ls:AddSubstate Name="ActiveRoll"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "ToggleGameMenu">

@@ -1625,23 +1625,27 @@
                                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h9dad9822gc6c6g4145g8c9bg4d6c48cf2bfb, Converter={StaticResource TranslatedStringConverter}}"/>
                                             </ContentControl>
 
-                                            <!-- Origins -->
-                                            <ListBox x:Name="presetOrigins" ItemsPanel="{StaticResource gameplayItemsPanelTemplate}" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemsSource="{Binding FilteredItems, ElementName=PresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" Margin="0,20,0,0">
-                                                <ListBox.ItemContainerStyle>
-                                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource CCIconTextListBoxItemStyle}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsSelectable}" Value="False">
-                                                                <Setter Property="IsEnabled" Value="False"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </ListBox.ItemContainerStyle>
-                                                <b:Interaction.Triggers>
-                                                    <b:EventTrigger EventName="SelectionChanged">
-                                                        <b:ChangePropertyAction TargetName="customOrigins" PropertyName="SelectedItem" Value="{x:Null}" />
-                                                    </b:EventTrigger>
-                                                </b:Interaction.Triggers>
-                                            </ListBox>
+                                            <!-- MOD START - Add scroll viewer to support multiple modded origin selection -->
+                                            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="650" Height="Auto" VerticalScrollBarVisibility="Auto">
+												<!-- Origins -->
+												<ListBox x:Name="presetOrigins" ItemsPanel="{StaticResource gameplayItemsPanelTemplate}" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemsSource="{Binding FilteredItems, ElementName=PresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" Margin="0,20,0,0" HorizontalContentAlignment="Center">
+													<ListBox.ItemContainerStyle>
+														<Style TargetType="ListBoxItem" BasedOn="{StaticResource CCIconTextListBoxItemStyle}">
+															<Style.Triggers>
+																<DataTrigger Binding="{Binding IsSelectable}" Value="False">
+																	<Setter Property="IsEnabled" Value="False"/>
+																</DataTrigger>
+															</Style.Triggers>
+														</Style>
+													</ListBox.ItemContainerStyle>
+													<b:Interaction.Triggers>
+														<b:EventTrigger EventName="SelectionChanged">
+															<b:ChangePropertyAction TargetName="customOrigins" PropertyName="SelectedItem" Value="{x:Null}" />
+														</b:EventTrigger>
+													</b:Interaction.Triggers>
+												</ListBox>
+											</ls:LSScrollViewer>
+											<!-- MOD END -->
 
                                             <StackPanel x:Name="presetSelectionDetails">
                                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedOrigin.Name}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
@@ -1693,27 +1697,31 @@
                                             <Image Style="{StaticResource PanelHeaderIconStyle}"/>
                                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h6020727bge0e3g4de7gaf3ag469c3b32b3d2, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                                            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto">
-
+                                            <!-- MOD START - Two scroll viewers to support multiple modded race selection -->
+											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" VerticalScrollBarVisibility="Auto">
                                                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-
-                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" HorizontalContentAlignment="Center">
                                                         <ListBox.Resources>
                                                             <Style x:Key="CustomIconStyle" BasedOn="{StaticResource RaceIconStyle}" TargetType="Rectangle"/>
                                                         </ListBox.Resources>
                                                     </ListBox>
-
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding InfoRaceDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
-
-                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-
-                                                    <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
-
-                                                    <ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.RaceProgression.Other}" Content="{Binding Source='hd0d992ebg43f8g429bgbf11g0cbf54d84d4e', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-
-                                                </StackPanel>
+												</StackPanel>
                                             </ls:LSScrollViewer>
+
+                                            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding InfoRaceDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
+
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+													<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
+
+													<ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.RaceProgression.Other}" Content="{Binding Source='hd0d992ebg43f8g429bgbf11g0cbf54d84d4e', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+												</StackPanel>
+											</ls:LSScrollViewer>
+											<!-- MOD END -->
+
                                         </StackPanel>
 
                                     </ControlTemplate>
@@ -1726,32 +1734,35 @@
                             <Setter TargetName="gameplayPanel" Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <StackPanel x:Name="subracePanel">
+                                        <!-- MOD START - Two scroll viewers to support multiple modded subrace selection -->
+										<StackPanel x:Name="subracePanel" Height="1800" VerticalAlignment="Top">
                                             <Image Style="{StaticResource PanelHeaderIconStyle}"/>
                                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h29d1d637g94bbg4f11g9bdfgbe0042b60e40, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-
-                                            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto">
+											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                                                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" HorizontalContentAlignment="Center">
                                                         <ListBox.Resources>
                                                             <Style x:Key="CustomIconStyle" BasedOn="{StaticResource RaceIconStyle}" TargetType="Rectangle"/>
                                                         </ListBox.Resources>
                                                     </ListBox>
-
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Race.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,20"/>
-
-                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-
-                                                    <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
-
-                                                    <ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubRaceProgression.Other}" Content="{Binding Source='hb4961bdbg618bg4350g8bdbg89221f97b659', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-
                                                 </StackPanel>
-
                                             </ls:LSScrollViewer>
+											
+											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Race.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,20"/>
+
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+													<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
+
+													<ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubRaceProgression.Other}" Content="{Binding Source='hb4961bdbg618bg4350g8bdbg89221f97b659', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+												</StackPanel>
+											</ls:LSScrollViewer>
+											<!-- MOD END -->
                                         </StackPanel>
 
                                     </ControlTemplate>
@@ -1791,17 +1802,23 @@
                                             <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
                                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h1d2631e2g78fdg4de2gadceg1a724c2f7d9b, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                                            <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
-                                                <ListBox.Resources>
-                                                    <Style x:Key="CustomIconStyle" BasedOn="{StaticResource BackgroundIconStyle}" TargetType="Rectangle"/>
-                                                </ListBox.Resources>
-                                            </ListBox>
+                                            <!-- MOD START - Two scroll viewers to support multiple background selection -->
+											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
+												<ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" HorizontalContentAlignment="Center">
+													<ListBox.Resources>
+														<Style x:Key="CustomIconStyle" BasedOn="{StaticResource BackgroundIconStyle}" TargetType="Rectangle"/>
+													</ListBox.Resources>
+												</ListBox>
+											</ls:LSScrollViewer>
 
-                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedBackground.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
-                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.BackgroundDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
-
-                                            <Control Template="{StaticResource progressionInfo}" DataContext="{Binding ProgressionData.BackgroundProgression}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
-
+                                            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="770" Height="Auto"><!-- This is just in case of some really long description-->
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedBackground.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.BackgroundDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
+													<Control Template="{StaticResource progressionInfo}" DataContext="{Binding ProgressionData.BackgroundProgression}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
+												</StackPanel>
+                                            </ls:LSScrollViewer>
+											<!-- MOD END -->
                                         </StackPanel>
                                     </ControlTemplate>
                                 </Setter.Value>
