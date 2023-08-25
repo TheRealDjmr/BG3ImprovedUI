@@ -157,7 +157,7 @@
                 </EasingDoubleKeyFrame.EasingFunction>
             </EasingDoubleKeyFrame>
         </DoubleAnimationUsingKeyFrames>
-    </Storyboard> 
+    </Storyboard>
 
     <Style x:Key="gameplayPanelScrollViewerStyle" TargetType="ScrollViewer" BasedOn="{StaticResource {x:Type ScrollViewer}}">
         <Setter Property="Width" Value="{StaticResource gameplayPanelWidth}"/>
@@ -536,7 +536,7 @@
                     <Condition Binding="{Binding Path=DataContext.IsComplete, FallbackValue=False, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False"/>
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="empty" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>            
+            </MultiDataTrigger>
             <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), RelativeSource={RelativeSource AncestorType={x:Type ls:LSButton}}}" Value="True">
                 <Setter TargetName="frame" Property="Template" Value="{StaticResource FocusedOnlyIndicatorTemplate}"/>
             </DataTrigger>
@@ -1224,9 +1224,9 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsSpellsList" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=ClassSpellSelectors}"/>
-            </MultiDataTrigger>            
-            
-            
+            </MultiDataTrigger>
+
+
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="featdetails"/>
@@ -1273,8 +1273,8 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding ClassProgressionDetails.NotSubPassiveSelectors}"/>
-            </MultiDataTrigger>            
-            
+            </MultiDataTrigger>
+
             <!-- Equipment subtabs -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
@@ -1481,6 +1481,15 @@
 
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="raceskills"/>
+                    <Condition Binding="{Binding Validity.RacialSelectors.SkillProficiencySelectors}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="label" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
+                <Setter TargetName="ErrorIcon" Property="Visibility" Value="Visible"/>
+            </MultiDataTrigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="skills"/>
                     <Condition Binding="{Binding Validity.ClassSelectors.SkillProficiencySelectors}" Value="False"/>
                 </MultiDataTrigger.Conditions>
@@ -1538,6 +1547,9 @@
                 <Setter TargetName="label" Property="Text" Value="{Binding Source='h6406727cg0668g4fdag9ca1g72c679c0aeab', Converter={StaticResource TranslatedStringConverter}}"/>
             </Trigger>
 
+            <Trigger Property="Tag" Value="raceskills">
+                <Setter TargetName="label" Property="Text" Value="{Binding Source='h5cba8e35g057eg4e08g84f2g186b89ba12cc', Converter={StaticResource TranslatedStringConverter}}"/>
+            </Trigger>
             <Trigger Property="Tag" Value="skills">
                 <Setter TargetName="label" Property="Text" Value="{Binding Source='h12abe296ga0fbg44feg9451gb10a0bf92acb', Converter={StaticResource TranslatedStringConverter}}"/>
             </Trigger>
@@ -2943,7 +2955,7 @@
                                 <Condition Binding="{Binding DataContext.IsCantrips, ElementName=items}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <Setter TargetName="text" Property="Text" Value="{Binding Source='hbbbb4437g5f6bg480ag8339ge21760a1e1e6', Converter={StaticResource TranslatedStringConverter}}"/>
-                            <Setter TargetName="featureType" Property="Text" Value=""/>                            
+                            <Setter TargetName="featureType" Property="Text" Value=""/>
                         </MultiDataTrigger>
 
                         <MultiDataTrigger>
@@ -2959,6 +2971,74 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="progressionPassiveSelectors" DataType="ls:VMCharacterCreationPassives">
+        <StackPanel>
+
+            <ItemsControl x:Name="items" ItemsSource="{Binding Passives}" Visibility="{Binding SelectedPassiveCount, Converter={StaticResource CountToVisibilityConverter}}">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="FrameworkElement">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Value}" Value="0">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Enabled}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>                            
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="ls:VMCharacterCreationPassive">
+                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+                            <Grid>
+                                <Grid Style="{StaticResource FeatureListItemIconHolder}">
+                                    <Image x:Name="iconImage" Width="96" Height="96">
+                                        <Image.Source>
+                                            <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" ConverterParameter="{StaticResource FallBackPassiveIconPath}">
+                                                <Binding Source="Assets/Tooltips/Icons/"/>
+                                                <Binding Path="IconName"/>
+                                            </MultiBinding>
+                                        </Image.Source>
+                                    </Image>
+                                </Grid>
+
+                                <TextBlock x:Name="text" Text="{Binding Name}" Style="{StaticResource FeatureListItemName}"/>
+
+                                <TextBlock x:Name="featureType" Text="{Binding Source='h68b5a020ga692g416eg8606gef8a995b12ba', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource FeatureListItemKind}"/>
+                            </Grid>
+                        </ContentControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ContentControl Visibility="{Binding Visibility, ElementName=items, Converter={StaticResource InvertVisibilityConverter}}" Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTipService.Placement="Right">
+                <ContentControl.ToolTip>
+                    <ls:LSTooltip>
+                        <TextBlock Text="{Binding Path=DataContext.Name, ElementName=base}" FontSize="{StaticResource ScaledDefaultFontSize}" TextWrapping="Wrap"/>
+                    </ls:LSTooltip>
+                </ContentControl.ToolTip>
+
+                <TextBlock x:Name="previewTitle" Text="{Binding Source='hc2370fb0gadbcg4794g9607gbf3552a7ba15', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource FeatureListItemName}"/>
+
+            </ContentControl>
+
+        </StackPanel>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding MaxSelectedPassiveCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+                <Setter TargetName="previewTitle" Property="Text">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                            <Binding Source="h2e7cf7cag5ca9g48ecgb8d0g9359dd139a5a"/>
+                            <Binding Path="MaxSelectedPassiveCount"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+
     </DataTemplate>
 
     <DataTemplate x:Key="progressionFeatureBoost" DataType="ls:VMFeatureBoost">
@@ -2997,7 +3077,7 @@
                     <Control Template="{StaticResource AbilityDisplayName}" FontWeight="SemiBold" Foreground="{StaticResource LS_accent100TxtColor}"/>
                     <TextBlock x:Name="AbilitySuffix" Text="{Binding Improvement, StringFormat={}{0: +#; -#; +0}}" FontWeight="SemiBold" Foreground="{StaticResource LS_accent100TxtColor}"/>
                 </StackPanel>
-         
+
             </Grid>
         </ContentControl>
     </DataTemplate>
@@ -3208,6 +3288,8 @@
 
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 
+                    <ItemsControl ItemsSource="{Binding ClassProgressionDetails.SubPassiveSelectors}" ItemTemplate="{StaticResource progressionPassiveSelectors}" ItemContainerStyle="{StaticResource UpdateStateItemStyle}"/>
+
                     <Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.SubClassProgression}" HorizontalAlignment="Center"/>
 
                 </StackPanel>
@@ -3374,7 +3456,7 @@
                 <Run Text="{Binding Source='h390a9286g28cag49ceg93c5gd5b7c1e962da', Converter={StaticResource TranslatedStringConverter}}"/><Run Text="{Binding SelectedPassiveCount, StringFormat=' {0}'}"/><Run Text="{Binding MaxSelectedPassiveCount, StringFormat='/{0}'}"/>
                 </TextBlock>
             </StackPanel>
-            
+
             <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
@@ -3808,17 +3890,36 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="skillProficiencyPanelTemplate">
-        <Control Template="{StaticResource skillsSelectionTemplate}" DataContext="{Binding AllSkills.ClassProficientSkills}">
+    <ControlTemplate x:Key="raceSkillProficiencyPanelTemplate">
+        <Control Template="{StaticResource skillsSelectionTemplate}" DataContext="{Binding AllSkills.RaceProficientSkills}">
             <Control.Resources>
                 <ControlTemplate x:Key="skillsSelectionHeader">
-                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6df70972gfd55g4f29g9431g0a1530858ccf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+                    <TextBlock Text="{Binding Source='h6df70972gfd55g4f29g9431g0a1530858ccf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                 </ControlTemplate>
                 <ControlTemplate x:Key="skillsSelectionDescription">
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h50102d2egd75ag447dgba88gf64cd903a457', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" MaxWidth="1100" TextWrapping="Wrap"/>
                 </ControlTemplate>
                 <ControlTemplate x:Key="skillsSelectedLabel">
-                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8931179bg03ebg45bdg8dbbg824c1178ccbd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillsTitleStyle}"/>
+                    <TextBlock Text="{Binding Source='h8931179bg03ebg45bdg8dbbg824c1178ccbd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillsTitleStyle}"/>
+                </ControlTemplate>
+                <ControlTemplate x:Key="selectableSkills">
+                    <ItemsControl ItemsSource="{Binding SortedItems, ElementName=SortedRaceSkills}" ItemTemplate="{StaticResource selectableSkillTemplate}" Tag="Race"/>
+                </ControlTemplate>
+            </Control.Resources>
+        </Control>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="skillProficiencyPanelTemplate">
+        <Control Template="{StaticResource skillsSelectionTemplate}" DataContext="{Binding AllSkills.ClassProficientSkills}">
+            <Control.Resources>
+                <ControlTemplate x:Key="skillsSelectionHeader">
+                    <TextBlock Text="{Binding Source='h6df70972gfd55g4f29g9431g0a1530858ccf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+                </ControlTemplate>
+                <ControlTemplate x:Key="skillsSelectionDescription">
+                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h50102d2egd75ag447dgba88gf64cd903a457', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" MaxWidth="1100" TextWrapping="Wrap"/>
+                </ControlTemplate>
+                <ControlTemplate x:Key="skillsSelectedLabel">
+                    <TextBlock Text="{Binding Source='h8931179bg03ebg45bdg8dbbg824c1178ccbd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillsTitleStyle}"/>
                 </ControlTemplate>
                 <ControlTemplate x:Key="selectableSkills">
                     <ItemsControl ItemsSource="{Binding SortedItems, ElementName=SortedClassSkills}" ItemTemplate="{StaticResource selectableSkillTemplate}"/>
@@ -3831,13 +3932,13 @@
         <Control Template="{StaticResource skillsSelectionTemplate}" DataContext="{Binding AllSkills.ExpertiseSkills}">
             <Control.Resources>
                 <ControlTemplate x:Key="skillsSelectionHeader">
-                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb05a8953g3596g4e62g91c4gb1a8f8babd71', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+                    <TextBlock Text="{Binding Source='hb05a8953g3596g4e62g91c4gb1a8f8babd71', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                 </ControlTemplate>
                 <ControlTemplate x:Key="skillsSelectionDescription">
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hcaaf5b44gc727g4765gb347g4aad3cce1837', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" MaxWidth="1100" TextWrapping="Wrap"/>
                 </ControlTemplate>
                 <ControlTemplate x:Key="skillsSelectedLabel">
-                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h863c91fbg1f42g4969gb7b1ga1245440b043', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillsTitleStyle}"/>
+                    <TextBlock Text="{Binding Source='h863c91fbg1f42g4969gb7b1ga1245440b043', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillsTitleStyle}"/>
                 </ControlTemplate>
                 <ControlTemplate x:Key="selectableSkills">
                     <ItemsControl ItemsSource="{Binding SortedItems, ElementName=SortedExpertiseSkills}" ItemTemplate="{StaticResource selectableSkillTemplate}"/>
@@ -3850,7 +3951,7 @@
         <DockPanel>
             <TextBlock x:Name="MulticlassDisabledDesc" DockPanel.Dock="Top" ls:TextBlockFormatter.SourceText="{Binding Source='h8fcb856ega2acg4a7fga12fg65567a18376e', Converter={StaticResource TranslatedStringConverter}}" 
                        Style="{StaticResource PanelDescriptionText}" Foreground="{StaticResource LS_accent75TxtColor}" HorizontalAlignment="Right" Margin="0,0,0,12"/>
-            
+
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
                 <!-- Add a new class (multiclass) in LevelUp -->
                 <ls:LSButton x:Name="addClassButton" Visibility="Collapsed" IsEnabled="False" Command="{Binding DataContext.SelectFirstUnusedClass, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAddClass, Converter={StaticResource FindInputEventConverter}}" BoundEvent="UIAddClass" Tag="{Binding Source=hcbc3c9a8g9e80g4139g952bga971015c1f41,Converter={StaticResource TranslatedStringConverter}}">
@@ -3868,11 +3969,11 @@
                             <b:ChangePropertyAction TargetName="levelupTab" PropertyName="Visibility" Value="Visible" />
                             <b:ChangePropertyAction TargetName="gameplayTabs" PropertyName="SelectedItem" Value="{Binding ElementName=levelupTab}" />
                         </b:EventTrigger>
-                    </b:Interaction.Triggers>                
+                    </b:Interaction.Triggers>
                 </ls:LSButton>
 
                 <ls:LSButton x:Name="useRecommended" Visibility="Collapsed" Command="{Binding DataContext.UseRecommendedAbilities, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIDelete, Converter={StaticResource FindInputEventConverter}}" BoundEvent="UIDelete" Tag="{Binding Source=h44d84d6fg14d8g4606gb563gf458f155defa,Converter={StaticResource TranslatedStringConverter}}"/>
-                
+
                 <ls:LSButton x:Name="showSummary" Visibility="{Binding ElementName=summary, Path=Visibility, Converter={StaticResource InvertVisibilityConverter}}" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UISort, Converter={StaticResource FindInputEventConverter}}" BoundEvent="UISort" Tag="{Binding Source=h890f4cddg2bdcg4bb2gb73eg43fe16b11b08,Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}">
                     <b:Interaction.Triggers>
                         <b:EventTrigger EventName="Click">
@@ -3996,7 +4097,7 @@
                                  ContentTemplate="{StaticResource ControllerButtonHint}"
                                  Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIShowInfo, Converter={StaticResource FindInputEventConverter}}"
                                  Tag="{Binding Source='h2a8cab0cgbfb8g4890gbfbdg5a9426e29457', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
-           
+
         </StackPanel>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding ElementName=tabBar, Path=Tag}" Value="CanJumpToAppearance">
@@ -4024,13 +4125,13 @@
                 <Setter TargetName="addClassButton" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="cancelAddClassButton" Property="Visibility" Value="Visible"/>
             </DataTrigger>
-            
+
             <!-- MOD START - Edit appearance for Origin characters -->
 			<!--<DataTrigger Binding="{Binding SelectedOrigin.IsLockedAppearance}" Value="True">
                 <Setter TargetName="gotoAppearanceButton" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>-->
 			<!-- MOD END -->
-</ControlTemplate.Triggers>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate x:Key="SummaryBottomButtonsTemplate">
@@ -4043,7 +4144,7 @@
                          Command="{Binding ToggleTooltipOnUIElement}"
                          CommandParameter="{Binding FocusedElement, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ls:UIWidget}}"
                          BoundEvent="UIShowInfo"/>
-            
+
             <ls:LSButton x:Name="backButton" 
                          ContentTemplate="{StaticResource ControllerButtonHint}" 
                          Tag="{Binding Source=h77fec760g866dg4e47g8e81g467c9c05e447,Converter={StaticResource TranslatedStringConverter}}"
@@ -4115,7 +4216,7 @@
                                         <DataTrigger Binding="{Binding Improvement}" Value="0">
                                             <Setter TargetName="value" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
                                         </DataTrigger>
-                                        
+
                                         <MultiDataTrigger>
                                             <MultiDataTrigger.Conditions>
                                                 <Condition Value="True">
@@ -4332,9 +4433,9 @@
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding SelectedFeat}" Value="{x:Null}">
                 <Setter TargetName="featsTitle" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hb7180a49g729ag4ec3g9f87gaeadb7d4252c', Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0} (0/1)'}"/>
-            </DataTrigger>            
+            </DataTrigger>
         </ControlTemplate.Triggers>
-        
+
     </ControlTemplate>
 
 

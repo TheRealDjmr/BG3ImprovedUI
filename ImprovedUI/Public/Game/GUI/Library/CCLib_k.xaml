@@ -34,6 +34,7 @@
     <Duration x:Key="LevelUpTextAndBannerDuration">0:0:0.4</Duration>
     <Duration x:Key="LevelUpItemAppearDuration">0:0:0.2</Duration>
     <Duration x:Key="LevelUpAfterItemsDuration">0:0:0.2</Duration>
+    <Duration x:Key="LevelUpSkipDuration">0:0:0.0</Duration>
 
     <BitmapImage x:Key="ButtonActive" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnNormal_d_active.png"/>
     <BitmapImage x:Key="DetailsBoxSmallActive" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/detailsBox_small_active.png"/>
@@ -90,10 +91,6 @@
     <BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
     <BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
     <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
-    <!-- MOD -->
-    <BitmapImage x:Key="InfusionSlotsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_infusion_d.png" />
-    <BitmapImage x:Key="ExperimentalElixirsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_elixir_d.png" />
-    <!-- END MOD -->
 
 
     <Style x:Key="CCButtonStyle" TargetType="{x:Type ls:LSButton}"  BasedOn="{StaticResource BaseButtonStyle}">
@@ -272,14 +269,6 @@
             <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
                 <Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
             </DataTrigger>
-            <!-- MOD -->
-            <DataTrigger Binding="{Binding TypeId}" Value="InfusionSlots">
-                <Setter Property="Source" Value="{StaticResource InfusionSlotsIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ExperimentalElixirs">
-                <Setter Property="Source" Value="{StaticResource ExperimentalElixirsIcon}"/>
-            </DataTrigger>
-            <!-- END MOD -->
         </Style.Triggers>
     </Style>
 
@@ -398,14 +387,9 @@
                         <DataTrigger Binding="{Binding IsComplete}" Value="False">
                             <Setter TargetName="cross" Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding SpellPrepare, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="True"/>
-                                <Condition Binding="{Binding SpellPrepare.IsComplete}" Value="False"/>
-                            </MultiDataTrigger.Conditions>
+                        <DataTrigger  Binding="{Binding SpellPrepare.IsComplete}" Value="False">
                             <Setter TargetName="cross" Property="Visibility" Value="Visible"/>
-                        </MultiDataTrigger>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -446,6 +430,19 @@
                         </b:ControlStoryboardAction.Storyboard>
                     </b:ControlStoryboardAction>
                 </b:DataTrigger>
+
+                <b:DataTrigger Binding="{Binding DataContext.LevelUpStep, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="SkipAnimation">
+                    <b:ControlStoryboardAction ControlStoryboardOption="Play">
+                        <b:ControlStoryboardAction.Storyboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="Container" Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                                <DoubleAnimation Storyboard.TargetName="Container" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                                <DoubleAnimation Storyboard.TargetName="Container" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                            </Storyboard>
+                        </b:ControlStoryboardAction.Storyboard>
+                    </b:ControlStoryboardAction>                    
+                </b:DataTrigger>
+
             </b:Interaction.Triggers>
 
             <ContentPresenter x:Name="Content" VerticalAlignment="Center" />
@@ -720,14 +717,14 @@
                 <ContentControl DockPanel.Dock="Top" ContentTemplate="{DynamicResource PassiveSelectorItemTemplate}" Content="{Binding .}"/>
             </StackPanel>
 
-			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
+            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                     <!-- Features that may depend on passive selection above -->
                     <!-- ToDo: only show things that actually depend, also separate class/subclass -->
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
-                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0" />
+                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
                     <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
                         <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
@@ -1491,6 +1488,29 @@
                 <Setter TargetName="tick" Property="Visibility" Value="Collapsed"/>
             </MultiDataTrigger>
 
+            <!-- skill selectors on level up -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="levelup"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}},Path=DataContext.RaceSkills.IsComplete}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="tick" Property="Visibility" Value="Collapsed"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="levelup"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}},Path=DataContext.ClassSkills.IsComplete}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="tick" Property="Visibility" Value="Collapsed"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="levelup"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}},Path=DataContext.AllSkills.ExpertiseSkills.IsComplete}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="tick" Property="Visibility" Value="Collapsed"/>
+            </MultiDataTrigger>
+
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="spellprep"/>
@@ -2030,7 +2050,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="ItemTemplate" Value="{StaticResource CustomBrushIconTemplate}"/>
-		<!-- MOD START - Remove scroll limit for heads -->
+        <!-- MOD START - Remove scroll limit for heads -->
         <!--<Setter Property="MaxHeight" Value="736"/> -->
 		<!-- MOD END -->
         <Setter Property="ItemsPanel">
@@ -2084,7 +2104,7 @@
             <Image x:Name="bg" Source="{StaticResource BtnNormal}" Stretch="None"/>
             <TextBlock x:Name="text" ls:TextBlockFormatter.SourceText="{Binding Source=hbe10cd88g9f76g4626g8e4dgb2ebb22f0dc7, Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <Image x:Name="cross" Visibility="Collapsed" Stretch="UniformToFill" Height="54" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
+            <Image x:Name="cross" Visibility="Collapsed" Stretch="Uniform" Height="54" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0">
                 <Image.Triggers>
                     <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                         <BeginStoryboard Storyboard="{StaticResource ExclamationAnim}"/>
@@ -2259,6 +2279,45 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
+    <DataTemplate x:Key="LevelUpPassiveSelectorPreviewTemplate" DataType="ls:VMCharacterCreationPassives">
+        <ContentControl Template="{StaticResource NewItemStripTemplate}">
+            <StackPanel x:Name="previewPanel" Background="Transparent">
+
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="MouseLeftButtonUp">
+                        <b:InvokeCommandAction Command="{Binding DataContext.SelectGameplaySubTabCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+                            <b:InvokeCommandAction.CommandParameter>
+                                <MultiBinding Converter="{StaticResource PassThroughConverter}">
+                                    <Binding ElementName="gameplayTabs"/>
+                                    <Binding Path="."/>
+                                </MultiBinding>
+                            </b:InvokeCommandAction.CommandParameter>
+                        </b:InvokeCommandAction>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+
+                <TextBlock x:Name="previewTitle" Text="{Binding Source='hc2370fb0gadbcg4794g9607gbf3552a7ba15', Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center" FontSize="{StaticResource ScaledDefaultFontSize}"/>
+                <TextBlock x:Name="name" Text="{Binding Name}" HorizontalAlignment="Center" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextLightest}" Margin="0,10,0,0"/>
+            </StackPanel>
+        </ContentControl>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding MaxSelectedPassiveCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+                <Setter TargetName="previewTitle" Property="Text">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                            <Binding Source="h2e7cf7cag5ca9g48ecgb8d0g9359dd139a5a"/>
+                            <Binding Path="MaxSelectedPassiveCount"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+                     
+            <DataTrigger Binding="{Binding ElementName=previewPanel, Path=IsMouseOver}" Value="True">
+                <Setter TargetName="previewTitle" Property="Foreground" Value="{StaticResource LS_specialTxtColor}"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <!-- Old UI design, will be replaced when new design is ready -->
 
     <ControlTemplate x:Key="SelectableEnhancement" TargetType="ContentControl">
@@ -2347,6 +2406,7 @@
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
 			</ls:LSScrollViewer>
+			<!-- MOD END -->
 
         </StackPanel>
         <DataTemplate.Triggers>
@@ -2906,14 +2966,14 @@
                                      Content="{Binding Source='h072b13e4g302ag4575g85e8g5c0c26a5d45e', Converter={StaticResource TranslatedStringConverter}}" 
                                      IsEnabled="{Binding Enabled}"
                                      Width="{StaticResource ButtonWidth}">
-                            <b:Interaction.Triggers>
+                            <!-- MOD END -->
+							<b:Interaction.Triggers>
                                 <b:EventTrigger EventName="Click" >
                                     <b:ChangePropertyAction TargetName="flowPage" PropertyName="SelectedIndex" Value="1" />
                                     <b:InvokeCommandAction Command="{Binding SetCameraMode}" CommandParameter="CloseupB"/>
                                 </b:EventTrigger>
                             </b:Interaction.Triggers>
                         </ls:LSButton>
-						<!-- MOD END -->
 
                         <!-- To Naming -->
                         <ls:LSButton x:Name="GameplayProceedButton" Style="{StaticResource BigBlueButtonStyle}" 
@@ -3279,36 +3339,11 @@
                                 <Setter TargetName="checkMark" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkMark_skills_selected.png"/>
                             </DataTrigger>
 
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Enabled}" Value="True"/>
-                                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="Race"/>
-                                    <Condition Binding="{Binding SkillSource}" Value="RaceSelector"/>
-                                </MultiDataTrigger.Conditions>
+                            <DataTrigger Binding="{Binding Enabled}" Value="True">
                                 <Setter TargetName="checkHolder" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkHolder_active_d.png"/>
                                 <Setter TargetName="checkBox" Property="Visibility" Value="Visible"/>
-                            </MultiDataTrigger>
-
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Enabled}" Value="True"/>
-                                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="Class"/>
-                                    <Condition Binding="{Binding SkillSource}" Value="ClassSelector"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter TargetName="checkHolder" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkHolder_active_d.png"/>
-                                <Setter TargetName="checkBox" Property="Visibility" Value="Visible"/>
-                            </MultiDataTrigger>
-
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Enabled}" Value="True"/>
-                                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="Expertise"/>
-                                    <Condition Binding="{Binding SkillSource}" Value="ClassSelector"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter TargetName="checkHolder" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkHolder_active_d.png"/>
-                                <Setter TargetName="checkBox" Property="Visibility" Value="Visible"/>
-                            </MultiDataTrigger>
-
+                            </DataTrigger>
+                            
                             <DataTrigger Binding="{Binding SkillSource}" Value="Background">
                                 <Setter TargetName="checkHolder" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkHolder_inactive_d.png"/>
                                 <Setter TargetName="checkMark" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkMark_skills_selectedBefore.png"/>
@@ -3376,23 +3411,6 @@
                                     </Control>
                                 </Grid>
                                 <DataTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding Selected}" Value="True">
-                                        <Setter TargetName="text" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding Enabled}" Value="False">
-                                        <Setter TargetName="text" Property="Foreground" Value="{StaticResource CCTextLight}"/>
-                                    </DataTrigger>
-
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Enabled}" Value="False"/>
-                                            <Condition Binding="{Binding SkillSource}" Value="ClassSelector"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter TargetName="source" Property="Source" Value="{StaticResource IconClass}"/>
-                                        <Setter TargetName="sourceTooltip" Property="Content" Value="{Binding Source='h4f84523ag0b42g41f8gafcfgb25f74fd1b74', Converter={StaticResource TranslatedStringConverter}}"/>
-                                    </MultiDataTrigger>
-
                                     <DataTrigger Binding="{Binding SkillSource}" Value="Background">
                                         <Setter TargetName="source" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_origin.png"/>
                                         <Setter TargetName="sourceTooltip" Property="Content" Value="{Binding Source='hedd9548eg9694g41d4g85a5gcca6ecdfdea8', Converter={StaticResource TranslatedStringConverter}}"/>
@@ -3413,13 +3431,24 @@
                                         <Setter TargetName="sourceTooltip" Property="Content" Value="{Binding Source='h099ebd82g6ea7g43b7gbf0fg69e32653f322', Converter={StaticResource TranslatedStringConverter}}"/>
                                         <Setter TargetName="text" Property="Foreground" Value="{StaticResource CCTextLight}"/>
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding SkillSource}" Value="RaceSelector">
+                                        <Setter TargetName="source" Property="Source" Value="{StaticResource IconRace}"/>
+                                        <Setter TargetName="sourceTooltip" Property="Content" Value="{Binding Source='h2b695f65g9317g4a75g9ae2g7f45350c3bfc', Converter={StaticResource TranslatedStringConverter}}"/>
+                                        <Setter TargetName="text" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SkillSource}" Value="ClassSelector">
+                                        <Setter TargetName="source" Property="Source" Value="{StaticResource IconClass}"/>
+                                        <Setter TargetName="sourceTooltip" Property="Content" Value="{Binding Source='h4f84523ag0b42g41f8gafcfgb25f74fd1b74', Converter={StaticResource TranslatedStringConverter}}"/>
+                                        <Setter TargetName="text" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+                                    </DataTrigger>                                    
 
                                 </DataTemplate.Triggers>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <ItemsControl x:Name="rollBonusesRaceSkills" Grid.Row="1" Grid.Column="1" Width="60" ItemsSource="{Binding SortedItems, ElementName=SortedRaceSkills}" Visibility="{Binding AllSkills.RaceProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}">
+                    <!-- Roll Bonuses for all Skill selectors: Race, Class, Expertise -->
+                    <ItemsControl x:Name="rollBonuses" Grid.Row="1" Grid.Column="1" Width="60" ItemsSource="{Binding SortedItems, ElementName=SortedRaceSkills}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="{StaticResource rowHeight}">
@@ -3450,16 +3479,6 @@
                     </StackPanel>
                     <ItemsControl Grid.Row="1" Grid.Column="2" Width="100" ItemsSource="{Binding SortedItems, ElementName=SortedRaceSkills}" ItemTemplate="{StaticResource AllSkillTemplate}" Tag="Race" Visibility="{Binding RaceSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
 
-                    <ItemsControl x:Name="rollBonusesClassSkills" Grid.Row="1" Grid.Column="1" Width="60" ItemsSource="{Binding SortedItems, ElementName=SortedClassSkills}" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Height="{StaticResource rowHeight}">
-                                    <TextBlock Text="{Binding Value, StringFormat={}{0:+#;-#;+0}}" FontSize="{StaticResource ScaledMediumFontSize}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-
                     <StackPanel x:Name="selectableClassSkills" Grid.Row="0" Grid.Column="3" Width="100" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}">
                         <StackPanel.ToolTip>
                             <ls:LSTooltip>
@@ -3480,16 +3499,6 @@
                         </TextBlock>
                     </StackPanel>
                     <ItemsControl Grid.Row="1" Grid.Column="3" Width="100" ItemsSource="{Binding SortedItems, ElementName=SortedClassSkills}" ItemTemplate="{StaticResource AllSkillTemplate}" Tag="Class" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
-
-                    <ItemsControl x:Name="rollBonusesExpertiseSkills" Grid.Row="1" Grid.Column="1" Width="60" ItemsSource="{Binding SortedItems, ElementName=SortedExpertiseSkills}" Visibility="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Height="{StaticResource rowHeight}">
-                                    <TextBlock Text="{Binding Value, StringFormat={}{0:+#;-#;+0}}" FontSize="{StaticResource ScaledMediumFontSize}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
 
                     <StackPanel x:Name="selectableExpertiseSkills" Grid.Row="0" Grid.Column="4" Width="100" Visibility="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}" >
                         <StackPanel.ToolTip>
@@ -3635,27 +3644,33 @@
                     <TextBlock x:Name="panelTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h32d1c528g0dfbg4751ga413g275e6d7ba4c3, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
                     <TextBlock x:Name="addClassDescription" Visibility="Collapsed" ls:TextBlockFormatter.SourceText="{Binding Source=h5207e327g4302g4910gaf8cgc2e27cc1b248, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" Margin="0,20,0,20"/>
+					
+					<!-- MOD START - Add scroll viewer to support multiple modded class selection -->
+					<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" VerticalScrollBarVisibility="Auto">
+						<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                    <!-- Class selector -->
-                    <ListBox x:Name="classList" Visibility="{Binding SelectableClasses.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableClasses}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" SelectedItem="{Binding SelectedClass}" Style="{StaticResource gameplayIconGridStyle}"/>
+							<!-- Class selector -->
+							<ListBox x:Name="classList" Visibility="{Binding SelectableClasses.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableClasses}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" SelectedItem="{Binding SelectedClass}" Style="{StaticResource gameplayIconGridStyle}" HorizontalContentAlignment="Center"/>
 
-                    <ListBox x:Name="multiclassList" Visibility="{Binding SelectableMultiClasses.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" ItemTemplate="{StaticResource ReducedClassIconTemplate}" ItemsSource="{Binding SelectableMultiClasses}" SelectedItem="{Binding SelectedMultiClass}" Style="{StaticResource gameplayIconGridStyle}" Width="920">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource CCIconTextListBoxItemStyle}">
-                                <Setter Property="IsEnabled" Value="True"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding DataContext.Level, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, RelativeSource={RelativeSource Self}}" Value="True">
-                                        <Setter Property="IsEnabled" Value="False"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                    </ListBox>
-
+							<ListBox x:Name="multiclassList" Visibility="{Binding SelectableMultiClasses.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" ItemTemplate="{StaticResource ReducedClassIconTemplate}" ItemsSource="{Binding SelectableMultiClasses}" SelectedItem="{Binding SelectedMultiClass}" Style="{StaticResource gameplayIconGridStyle}" Width="920" HorizontalContentAlignment="Center">
+								<ListBox.ItemContainerStyle>
+									<Style TargetType="ListBoxItem" BasedOn="{StaticResource CCIconTextListBoxItemStyle}">
+										<Setter Property="IsEnabled" Value="True"/>
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding DataContext.Level, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, RelativeSource={RelativeSource Self}}" Value="True">
+												<Setter Property="IsEnabled" Value="False"/>
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</ListBox.ItemContainerStyle>
+							</ListBox>
+						</StackPanel>
+					</ls:LSScrollViewer>
                 </StackPanel>
 
-				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="Auto" Margin="100,0,88,52">
-                    <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+                <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="770" Height="Auto" Margin="100,0,88,52">
+                    <!-- MOD END -->
+					<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                         <!-- Name and description -->
                         <Grid Margin="0,40,0,0">
@@ -3860,15 +3875,20 @@
 
             <Image Source="{StaticResource BGDecoration}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
 
-            <StackPanel>
+            <!-- MOD START - Two scroll viewers to support multiple modded subclass selection -->
+			<StackPanel Height="1800" VerticalAlignment="Top">
                 <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
                 <TextBlock x:Name="subclassTitle" Text="{Binding Source=hc59a4905ge807g44a3g8899gc5e9760dc804, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-
-                <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto">
+				
+				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                        <ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
-
+                        <ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0" HorizontalContentAlignment="Center"/>
+						
+					</StackPanel>
+				</ls:LSScrollViewer>
+				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
                         <Grid Margin="0,60,0,0">
                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>
 
@@ -3882,9 +3902,9 @@
                         <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Margin="0,12,0,0"/>
 
                         <ContentControl x:Name="SubclassFeatures" Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,12,0,0"/>
-
                     </StackPanel>
                 </ls:LSScrollViewer>
+				<!-- MOD END -->
             </StackPanel>
         </Grid>
         <ControlTemplate.Triggers>
@@ -3918,27 +3938,33 @@
         <Grid>
             <Image Source="{StaticResource BGDecoration}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
 
-            <StackPanel>
+            <!-- MOD START - Two scroll viewers to support multiple modded subclass selection -->
+			<StackPanel Height="1800" VerticalAlignment="Top">
                 <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
                 <TextBlock x:Name="subclassTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h1e67bc9cg0f53g4218g8ce8geb6a6636f141, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="1560">
+                <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                         <ListBox ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
-
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,60,0,0"/>
+						
+					</StackPanel>
+                </ls:LSScrollViewer>
+				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
+                    <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+                        <!-- MOD END -->
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,60,0,0"/>
                         <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
 
                         <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource LevelUpSpellSelectorPreviewTemplate}"/>
 
+                        <ItemsControl ItemsSource="{Binding ClassProgressionDetails.SubPassiveSelectors}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" ItemContainerStyle="{StaticResource UpdateStateItemStyle}"/>
+
                         <ContentControl Template="{DynamicResource LevelUpShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center"/>
 
                         <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" />
-
                     </StackPanel>
                 </ls:LSScrollViewer>
-
             </StackPanel>
         </Grid>
 
@@ -3950,18 +3976,14 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="deityTabPanelTemplate">
-        <DockPanel VerticalAlignment="Top" Height="{StaticResource gameplayPanelHeight}">
-            <StackPanel DockPanel.Dock="Top">
+        <!-- MOD START - Change Deity tab to better support modded long descriptions -->
+		<StackPanel>
+            <StackPanel>
                 <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=hf1582cccge964g41abga5acg9cd5ecdf35dc, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
             </StackPanel>
 
-            <StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,88">
-                <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedDeity.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>
-                <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedDeity.Description}"  Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
-            </StackPanel>
-
-            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="Auto">
+            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="1050">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}" Margin="40,0,-40,50">
 
                     <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableDeities}" SelectedItem="{Binding SelectedDeity}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
@@ -3972,8 +3994,15 @@
 
                 </StackPanel>
             </ls:LSScrollViewer>
-
-        </DockPanel>
+			
+			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="490"><!-- This is just in case of some really long description-->
+				<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+					<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedDeity.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>
+					<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedDeity.Description}"  Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
+				</StackPanel>
+            </ls:LSScrollViewer>
+        </StackPanel>
+		<!-- MOD END -->
     </ControlTemplate>
 
     <ControlTemplate x:Key="spellPrepTemplate">
@@ -4185,7 +4214,7 @@
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0e1fded7g681ag4e5fgb0a2gc5928ab399a1', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
                 </StackPanel>
 
-                <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches" Template="{StaticResource decoratedHeader}">
+                <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches">
                     <ContentControl x:Name="swatchScalesColorHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                         <TextBlock x:Name="swatchScalesColorHeaderText" ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}"/>
                     </ContentControl>
@@ -4196,7 +4225,7 @@
                     <ContentControl DockPanel.Dock="Top" x:Name="scalesHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                         <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}"/>
                     </ContentControl>
-					<ListBox x:Name="scalesList" ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
+                    <ListBox x:Name="scalesList" ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
                 </DockPanel>
             </DockPanel>
 			<!-- MOD END -->
@@ -4230,7 +4259,7 @@
                 <Setter TargetName="swatchContentScalesColorHeaderText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h7202f8ebgaa5dg411dgac62g3bf8986e28b3', Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
 
-			<DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchScalesColorButton}" Value="True">
+            <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchScalesColorButton}" Value="True">
                 <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
                 <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
                 <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
@@ -4358,8 +4387,8 @@
 
         </DataTemplate.Triggers>
     </DataTemplate>
-	
-	<ControlTemplate x:Key="featsPanel">
+
+    <ControlTemplate x:Key="featsPanel">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
