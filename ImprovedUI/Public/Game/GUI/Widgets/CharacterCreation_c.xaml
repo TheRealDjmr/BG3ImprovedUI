@@ -793,8 +793,8 @@
                     </StackPanel>
 
                     <ListBox Tag="makeup" ItemsSource="{Binding SelectableMakeup}" SelectedItem="{Binding SelectedMakeup}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-					<ListBox Tag="makeupColors" ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}"/>
-					
+
+                    <ListBox Tag="makeupColors" ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}"/>
 					<!-- MOD START - Hide lip makeup based on if eye makeup is available (doesn't show for Origin characters) -->
                     <ListBox Tag="lipMakeupColors" ItemsSource="{Binding SelectableLipsMakeupColours}" SelectedItem="{Binding SelectedLipsMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 					<!-- MOD END -->
@@ -1806,6 +1806,9 @@
         <b:EventTrigger EventName="GotKeyboardFocus">
             <b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElement}" CommandParameter="{Binding Path=FocusedElement, ElementName=CharacterCreation_c}"/>
         </b:EventTrigger>
+        <b:DataTrigger Binding="{Binding HasInputEnabled, ElementName=CharacterCreation_c}" Value="True">
+            <b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElement}" CommandParameter="{Binding FocusedElement, ElementName=CharacterCreation_c}"/>
+        </b:DataTrigger>
 
         <b:EventTrigger EventName="MoveFocusUp">
             <ls:LSPlaySound Sound="UI_Shared_Hover" />
@@ -2133,6 +2136,7 @@
 													<!-- MOD END -->
 
                                                     <ListBoxItem x:Name="abilityTab" Tag="ability"/>
+                                                    <ListBoxItem x:Name="raceSkillsTab" Tag="raceskills" IsEnabled="{Binding AllSkills.RaceProficientSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}"/>
                                                     <ListBoxItem x:Name="skillsTab" Tag="skills" IsEnabled="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}"/>
                                                     <ListBoxItem x:Name="expertiseTab" Tag="expertise" IsEnabled="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}"/>
 
@@ -3014,6 +3018,20 @@
                                 </DataTrigger>
 
 
+                                <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="raceskills">
+                                    <Setter TargetName="gameplayPanel" Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <StackPanel>
+                                                    <Control Template="{StaticResource setGameplayCameraOffsets}"/>
+
+                                                    <Control Template="{StaticResource raceSkillProficiencyPanelTemplate}"/>
+                                                </StackPanel>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>                                
+                                
                                 <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="skills">
                                     <Setter TargetName="gameplayPanel" Property="Template">
                                         <Setter.Value>
@@ -3371,9 +3389,6 @@
                                 <DataTrigger Binding="{Binding Layout}" Value="Common">
                                     <Setter TargetName="setCameras" Property="Template" Value="{StaticResource setDaisyCamera}"/>
                                     <Setter TargetName="appearancePanel" Property="Margin" Value="0,250,200,0"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
-                                    <Setter TargetName="pageTitle" Property="FontSize" Value="{StaticResource ScaledTitleFontSize}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Layout}" Value="Left">
                                     <Setter TargetName="pageTitle" Property="Style" Value="{StaticResource CCBaseText}"/>
