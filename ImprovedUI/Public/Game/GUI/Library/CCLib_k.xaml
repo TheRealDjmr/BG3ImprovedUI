@@ -91,6 +91,7 @@
     <BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
     <BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
     <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
+    <BitmapImage x:Key="PsiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_psipoint.png" />
 
 
     <Style x:Key="CCButtonStyle" TargetType="{x:Type ls:LSButton}"  BasedOn="{StaticResource BaseButtonStyle}">
@@ -269,6 +270,9 @@
             <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
                 <Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
+                <Setter Property="Source" Value="{StaticResource PsiPointIcon}"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 
@@ -430,7 +434,6 @@
                         </b:ControlStoryboardAction.Storyboard>
                     </b:ControlStoryboardAction>
                 </b:DataTrigger>
-
                 <b:DataTrigger Binding="{Binding DataContext.LevelUpStep, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="SkipAnimation">
                     <b:ControlStoryboardAction ControlStoryboardOption="Play">
                         <b:ControlStoryboardAction.Storyboard>
@@ -442,7 +445,6 @@
                         </b:ControlStoryboardAction.Storyboard>
                     </b:ControlStoryboardAction>                    
                 </b:DataTrigger>
-
             </b:Interaction.Triggers>
 
             <ContentPresenter x:Name="Content" VerticalAlignment="Center" />
@@ -1510,7 +1512,6 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="tick" Property="Visibility" Value="Collapsed"/>
             </MultiDataTrigger>
-
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="spellprep"/>
@@ -2967,7 +2968,7 @@
                                      IsEnabled="{Binding Enabled}"
                                      Width="{StaticResource ButtonWidth}">
                             <!-- MOD END -->
-							<b:Interaction.Triggers>
+                            <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="Click" >
                                     <b:ChangePropertyAction TargetName="flowPage" PropertyName="SelectedIndex" Value="1" />
                                     <b:InvokeCommandAction Command="{Binding SetCameraMode}" CommandParameter="CloseupB"/>
@@ -3343,7 +3344,7 @@
                                 <Setter TargetName="checkHolder" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkHolder_active_d.png"/>
                                 <Setter TargetName="checkBox" Property="Visibility" Value="Visible"/>
                             </DataTrigger>
-                            
+
                             <DataTrigger Binding="{Binding SkillSource}" Value="Background">
                                 <Setter TargetName="checkHolder" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkHolder_inactive_d.png"/>
                                 <Setter TargetName="checkMark" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/checkMark_skills_selectedBefore.png"/>
@@ -3440,7 +3441,7 @@
                                         <Setter TargetName="source" Property="Source" Value="{StaticResource IconClass}"/>
                                         <Setter TargetName="sourceTooltip" Property="Content" Value="{Binding Source='h4f84523ag0b42g41f8gafcfgb25f74fd1b74', Converter={StaticResource TranslatedStringConverter}}"/>
                                         <Setter TargetName="text" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
-                                    </DataTrigger>                                    
+                                    </DataTrigger>
 
                                 </DataTemplate.Triggers>
                             </DataTemplate>
@@ -3947,7 +3948,6 @@
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                         <ListBox ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
-						
 					</StackPanel>
                 </ls:LSScrollViewer>
 				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
@@ -3994,7 +3994,6 @@
 
                 </StackPanel>
             </ls:LSScrollViewer>
-			
 			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="490"><!-- This is just in case of some really long description-->
 				<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 					<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedDeity.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>

@@ -13,11 +13,12 @@
         <ResourceDictionary Source="DataTemplates.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <System:Single x:Key="LevelUpArrowAnimationFrameSmallSize">60</System:Single>
+    <System:String x:Key="FallBackIconPath">Assets/ControllerUIIcons/Item_Unknown.png</System:String>
+
+    <System:Single x:Key="LevelUpArrowAnimationFrameSmallSize">72</System:Single>
     <System:Single x:Key="LevelUpArrowAnimationFrameBigSize">90</System:Single>
 
     <System:Double x:Key="CharacterPanelWidth">450</System:Double>
-
     <System:Double x:Key="ActionResources.ActionPointGroupSize">56</System:Double>
     <System:Double x:Key="ActionResources.ActionPointSize">48</System:Double>
     <System:Double x:Key="ActionResources.ActionPointSmallSize">24</System:Double>
@@ -71,14 +72,15 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
-	<ControlTemplate x:Key="ActionResources.ActionGroup.PsiPointGroup" TargetType="ls:LSActionPoint">
-		<ControlTemplate.Resources>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.PsiPointGroup" TargetType="ls:LSActionPoint">
+        <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_h.png</ImageSource>
             <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
             <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_spent.png</ImageSource>
+            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_missing.png</ImageSource>
         </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
 
     <ControlTemplate x:Key="ActionResources.ActionGroup.HitDiceGroup" TargetType="ls:LSActionPoint">
@@ -126,6 +128,16 @@
             <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_elixir_missing.png</ImageSource>
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.BladesongChargeGroup" TargetType="ls:LSActionPoint">
+        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_bladesong_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_bladesong_spent.png</ImageSource>
+            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
 	<!-- MOD END -->
 
@@ -550,70 +562,6 @@
 
         </ContentControl>
     </DataTemplate>
-
-    <ControlTemplate x:Key="SingleBasicPanel">
-        <Grid>
-            <Image x:Name="frameImg" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/frame_standard.png" Stretch="None" VerticalAlignment="Top"/>
-            <Control x:Name="GoldLabel" Template="{StaticResource CharacterPanelGold}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="250" DataContext="{Binding Inventory.Gold, Mode=OneWay, StringFormat={}{0:N0}}"/>
-
-            <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,80,0,0" Height="120">
-                <TextBlock x:Name="NameLabel" Text="{Binding Name}" Foreground="{DynamicResource LS_ActivePanelFontColor}" VerticalAlignment="Center" TextWrapping="Wrap" Width="330" MaxWidth="330" MaxHeight="120" TextAlignment="Center"/>
-            </Grid>
-
-            <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="580,80,0,0" Height="120">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <TextBlock Foreground="{DynamicResource LS_ActivePanelFontColor}" Margin="8,0,0,0">
-                        <Run Text="{Binding Stats.Level.Name}"/>
-                        <Run Text="{Binding Stats.Level.Value}"/>
-                    </TextBlock>
-                    <Control Margin="8,0,0,0" Template="{DynamicResource CharacterClassList}" DataContext="{Binding}"/>
-                </StackPanel>
-            </Grid>
-
-            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Top" Margin="64,270,0,0"/>
-
-            <Path x:Name="SBPFrameStroke" Style="{StaticResource ArcFrameGlow}" VerticalAlignment="Top">
-                <Path.Stroke>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" >
-                        <GradientStop Color="{StaticResource PanelGlowAnimColour}" Offset="{DynamicResource SBPGlowAnimVal1a}"/>
-                        <GradientStop Color="{StaticResource PanelGlowAnimColourC}" Offset="{DynamicResource SBPGlowAnimVal2a}"/>
-                        <GradientStop Color="{StaticResource PanelGlowAnimColour}" Offset="{DynamicResource SBPGlowAnimVal3a}"/>
-                    </LinearGradientBrush>
-                </Path.Stroke>
-            </Path>
-
-            <ContentControl ContentTemplate="{StaticResource FrameAttachedCharacterPortraitTemplate}" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{Binding}" Margin="0,20,0,0"/>
-            <b:Interaction.Triggers>
-                <b:TimerTrigger EventName="Loaded" MillisecondsPerTick="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}, Converter={StaticResource MultiplierConverter}, ConverterParameter=300}" TotalTicks="1">
-                    <b:ControlStoryboardAction Storyboard="{StaticResource SingleBasicPanelGlowAnim}"/>
-                </b:TimerTrigger>
-            </b:Interaction.Triggers>
-
-            <Grid.Triggers>
-                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                    <BeginStoryboard >
-                        <Storyboard TargetName="GoldLabel">
-                            <Storyboard.Children>
-                                <Storyboard Children="{StaticResource FadeInSecElements}"  />
-                            </Storyboard.Children>
-                        </Storyboard>
-                    </BeginStoryboard>
-                    <BeginStoryboard >
-                        <Storyboard TargetName="NameLabel" >
-                            <Storyboard.Children>
-                                <Storyboard Children="{StaticResource FadeInTertElements}"  />
-                            </Storyboard.Children>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Grid.Triggers>
-        </Grid>
-        <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding IsSelectedCharacter}" Value="True">
-                <Setter TargetName="frameImg" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/frame_standard_selected.png"/>
-            </DataTrigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
 
     <!-- Tooltip defined here because Controller needs a version with a button hint -->
     <DataTemplate DataType="{x:Type ls:QuestView}">
@@ -1422,12 +1370,12 @@
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding CharacterMode}" Value="InDialogue"/>
                     <Condition Value="False">
-                    <Condition.Binding>
-                        <MultiBinding Converter="{StaticResource EqualConverter}">
-                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}" Path="DataContext.CurrentPlayer.UserId"/>
-                            <Binding Path="OwnerUserID"/>
-                        </MultiBinding>
-                    </Condition.Binding>
+                        <Condition.Binding>
+                            <MultiBinding Converter="{StaticResource EqualConverter}">
+                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}" Path="DataContext.CurrentPlayer.UserId"/>
+                                <Binding Path="OwnerUserID"/>
+                            </MultiBinding>
+                        </Condition.Binding>
                     </Condition>
                     <Condition Value="False">
                         <Condition.Binding>
@@ -1440,6 +1388,9 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="ListenInGrid" Property="Visibility" Value="Visible"/>
             </MultiDataTrigger>
+            <DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.InAutomatedDialogueCount, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0 }" Value="True">
+                <Setter TargetName="ListenInGrid" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
 
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
