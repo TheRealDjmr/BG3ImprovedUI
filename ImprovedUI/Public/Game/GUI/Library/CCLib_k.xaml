@@ -91,11 +91,7 @@
     <BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
     <BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
     <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
-    <!-- MOD -->
-    <BitmapImage x:Key="InfusionSlotsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_infusion_d.png" />
-    <BitmapImage x:Key="ExperimentalElixirsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_elixir_d.png" />
-    <BitmapImage x:Key="RQBlessingsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/c_ico_rqblessing_d.png" />
-    <!-- END MOD -->
+
 
     <Style x:Key="CCButtonStyle" TargetType="{x:Type ls:LSButton}"  BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
@@ -272,17 +268,6 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
                 <Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
-            </DataTrigger>
-            <!-- MOD -->
-            <DataTrigger Binding="{Binding TypeId}" Value="InfusionSlots">
-                <Setter Property="Source" Value="{StaticResource InfusionSlotsIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ExperimentalElixirs">
-                <Setter Property="Source" Value="{StaticResource ExperimentalElixirsIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="RQBlessing">
-                <Setter Property="Source" Value="{StaticResource RQBlessingsIcon}"/>
-            <!-- END MOD -->
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -3891,36 +3876,42 @@
             <Image Source="{StaticResource BGDecoration}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
 
             <!-- MOD START - Two scroll viewers to support multiple modded subclass selection -->
-			<StackPanel Height="1800" VerticalAlignment="Top">
-                <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
-                <TextBlock x:Name="subclassTitle" Text="{Binding Source=hc59a4905ge807g44a3g8899gc5e9760dc804, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+			<Grid Height="1750" VerticalAlignment="Top">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
+                <TextBlock Grid.Row="1" x:Name="subclassTitle" Text="{Binding Source=hc59a4905ge807g44a3g8899gc5e9760dc804, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 				
-				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
+				<ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                         <ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0" HorizontalContentAlignment="Center"/>
 						
 					</StackPanel>
 				</ls:LSScrollViewer>
-				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
-                    <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-                        <Grid Margin="0,60,0,0">
-                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>
+				<ls:LSScrollViewer Grid.Row="3" VerticalAlignment="Top" Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
+					<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+						<Grid Margin="0,60,0,0">
+							<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>
 
-                            <Control x:Name="subclassDetailsButton" Visibility="Collapsed" Template="{StaticResource classDetailsButtonTemplate}"/>
-                        </Grid>
+							<Control x:Name="subclassDetailsButton" Visibility="Collapsed" Template="{StaticResource classDetailsButtonTemplate}"/>
+						</Grid>
 
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,12,0,0"/>
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,12,0,0"/>
 
-                        <ItemsControl x:Name="SubclassSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+						<ItemsControl x:Name="SubclassSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 
-                        <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Margin="0,12,0,0"/>
+						<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Margin="0,12,0,0"/>
 
-                        <ContentControl x:Name="SubclassFeatures" Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,12,0,0"/>
-                    </StackPanel>
-                </ls:LSScrollViewer>
+						<ContentControl x:Name="SubclassFeatures" Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,12,0,0"/>
+					</StackPanel>
+				</ls:LSScrollViewer>
 				<!-- MOD END -->
-            </StackPanel>
+            </Grid>
         </Grid>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding SelectedClass.SubclassTitle, FallbackValue='',Converter={StaticResource CompareStringConverter}, ConverterParameter=''}" Value="False">
@@ -3954,18 +3945,24 @@
             <Image Source="{StaticResource BGDecoration}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
 
             <!-- MOD START - Two scroll viewers to support multiple modded subclass selection -->
-			<StackPanel Height="1800" VerticalAlignment="Top">
-                <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
-                <TextBlock x:Name="subclassTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h1e67bc9cg0f53g4218g8ce8geb6a6636f141, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+			<Grid Height="1750" VerticalAlignment="Top">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
+                <TextBlock Grid.Row="1" x:Name="subclassTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h1e67bc9cg0f53g4218g8ce8geb6a6636f141, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
+                <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                         <ListBox ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
 						
 					</StackPanel>
                 </ls:LSScrollViewer>
-				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
+				<ls:LSScrollViewer Grid.Row="3" VerticalAlignment="Top" Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
                         <!-- MOD END -->
 						<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,60,0,0"/>
@@ -3980,7 +3977,7 @@
                         <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" />
                     </StackPanel>
                 </ls:LSScrollViewer>
-            </StackPanel>
+            </Grid>
         </Grid>
 
         <ControlTemplate.Triggers>
