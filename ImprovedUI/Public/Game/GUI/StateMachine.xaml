@@ -223,7 +223,7 @@
         </ls:State>
 
         <!--STATE: HDRCalibration -->
-        <ls:State Name = "HDRCalibration" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
+        <ls:State Name = "HDRCalibration" HideStatesBelow = "True" Layout = "Common" Owner = "Player">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="HDRCalibration.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
@@ -245,7 +245,7 @@
         </ls:State>
 
         <!--STATE: GammaCalibration -->
-        <ls:State Name = "GammaCalibration" HideStatesBelow = "True" IsModal = "True" DisableStatesBelow = "True" Layout = "Common" Owner = "Player">
+        <ls:State Name = "GammaCalibration" HideStatesBelow = "True" IsModal = "True" Layout = "Common" Owner = "Player">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="GammaCalibration.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
@@ -601,6 +601,7 @@
         <ls:State Name ="PlayerUIsHolder" Layout ="Player" Owner="Player">
             <ls:State.InitialSubstates>
                 <ls:InitialSubstate Name="PlayerHUD"/>
+                <ls:InitialSubstate Name="PlayerWorldContextMenu"/>
                 <ls:InitialSubstate Name="PlayerPanelsHolder"/>
             </ls:State.InitialSubstates>
 
@@ -721,11 +722,18 @@
         <!-- Empty state for controller so it doesn't get purged swapping between them -->
         <ls:State Name = "PlayerPortraits" Layout = "Player" Owner = "Player"/>
 
+        <!--STATE: PlayerWorldContextMenu-->
+        <ls:State Name = "PlayerWorldContextMenu" Layout = "Player" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="WorldContextMenu.xaml" Layer="Notifications"/>
+            </ls:State.Widgets>
+        </ls:State>
+
         <!--STATE: PlayerHUD-->
         <ls:State Name = "PlayerHUD" Layout = "Player" Owner = "Player">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="Overlay.xaml" Layer="Notifications"/>
-                <ls:StateWidget Filename="WorldContextMenu.xaml" Layer="Notifications"/>
+                <ls:StateWidget Filename="HudIndicator.xaml" Layer="HUD" IgnoreHitTest="True"/>
                 <ls:StateWidget Filename="OverheadInfo.xaml" Layer="HUD" IgnoreHitTest="True"/>
                 <ls:StateWidget Filename="WorldTooltips.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="HotBar.xaml" Layer="HUDTop"/>
@@ -1600,6 +1608,11 @@
                         <ls:AddSubstate Name="DialogueHistory"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "DialogActiveRollOpen">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ActiveRoll"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <ls:StateEvent Name = "ActiveRollOpen">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="ActiveRoll"/>
@@ -1966,6 +1979,11 @@
                         <ls:AddSubstate Name="GammaCalibration"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+				<ls:StateEvent Name = "CloseGameOptions">
+					<ls:StateEvent.Actions>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
                 <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
