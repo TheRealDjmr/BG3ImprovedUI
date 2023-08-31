@@ -52,7 +52,7 @@
     <System:Double x:Key="UnselectedCarouselIconSize">200</System:Double>
 
     <Thickness x:Key="selectorSlices">44,44,44,44</Thickness>
-    <Thickness x:Key="primaryButtonSlices">84,84,84,84</Thickness>
+
 
     <BitmapImage x:Key="IconTick" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_ico_tick.png"/>
 
@@ -270,31 +270,30 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="buttonBackplateTemplate" TargetType="ContentControl">
-        <ls:LSNineSliceImage x:Name="bg" ImageSource="{StaticResource PrimaryButtonBG}" Slices="{StaticResource primaryButtonSlices}" MinWidth="168" MinHeight="172">
-            <ContentPresenter x:Name="contents" Margin="18,0,60,0"/>
+        <ls:LSNineSliceImage x:Name="bg" ImageSource="{StaticResource PrimaryButtonBG_Large}" Slices="{StaticResource primaryButtonSlices}" MinWidth="168" MinHeight="144" Padding="12,0,48,0">
+            <ContentPresenter x:Name="contents"/>
         </ls:LSNineSliceImage>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="bg" Property="ImageSource" Value="{StaticResource PrimaryButtonBG_Disabled}"/>
+                <Setter TargetName="bg" Property="ImageSource" Value="{StaticResource PrimaryButtonBG_LargeDisabled}"/>
                 <Setter TargetName="contents" Property="Opacity" Value="{StaticResource DisabledOpacity}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate x:Key="nextButtonTemplate" TargetType="Button">
-        <ls:LSNineSliceImage x:Name="bg" ImageSource="{StaticResource PrimaryButtonBG}" Slices="{StaticResource primaryButtonSlices}" MinWidth="168" MinHeight="172">
+        <ls:LSNineSliceImage x:Name="bg" ImageSource="{StaticResource PrimaryButtonBG_Large}" Slices="{StaticResource primaryButtonSlices}" MinWidth="168" MinHeight="144" Padding="12,0,48,0" Margin="0,0,0,20">
             <StackPanel x:Name="contents" Orientation="Horizontal" VerticalAlignment="Center">
 
-                <Control x:Name="img" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Template="{StaticResource ControllerButton.ImageSwitcher}" Width="{DynamicResource ScaledControllerHintSize}" Height="{DynamicResource ScaledControllerHintSize}" Focusable="False" VerticalAlignment="Center" Margin="26,0,-10,0"/>
+                <Control x:Name="img" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Template="{StaticResource ControllerButton.ImageSwitcher}" Width="{DynamicResource ScaledControllerHintSize}" Height="{DynamicResource ScaledControllerHintSize}" Focusable="False" VerticalAlignment="Center" Margin="4,0,-10,0"/>
 
-                <TextBlock x:Name="text" ls:TextBlockFormatter.SourceText="{Binding Source='hc1e4c45fg54e3g49c1ga0aeg88d0eed38ae6', Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledMediumFontSize}" VerticalAlignment="Center" Margin="0,0,60,0"/>
+                <TextBlock x:Name="text" ls:TextBlockFormatter.SourceText="{Binding Source='hc1e4c45fg54e3g49c1ga0aeg88d0eed38ae6', Converter={StaticResource TranslatedStringConverter}}" FontFamily="{StaticResource SpecialFont}" FontWeight="Bold" FontSize="{StaticResource ScaledIntermediateFontSize}" VerticalAlignment="Center" Margin="0,0,8,0"/>
 
             </StackPanel>
         </ls:LSNineSliceImage>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="bg" Property="ImageSource" Value="{StaticResource PrimaryButtonBG_Disabled}"/>
-                <Setter TargetName="contents" Property="Opacity" Value="{StaticResource DisabledOpacity}"/>
+                <Setter TargetName="bg" Property="ImageSource" Value="{StaticResource PrimaryButtonBG_LargeDisabled}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -476,7 +475,7 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <WrapPanel MaxWidth="804"/>
+                    <WrapPanel MaxWidth="804" HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
@@ -615,7 +614,7 @@
                 <TextBlock x:Name="SpellSelectorDescription" ls:TextBlockFormatter.SourceText="{Binding Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
 
                 <TextBlock x:Name="SelectedTitle" ls:TextBlockFormatter.SourceText="{Binding Source='h46206b54gae33g4546ga5dfg13de4a4c66aa', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
-                <ItemsControl x:Name="chosenSpells" ItemsSource="{Binding Additions}" ItemTemplate="{StaticResource removeableSpell}" Style="{StaticResource spellSelectorSpellListStyle}" Margin="0,50,0,0"/>
+                <ItemsControl x:Name="chosenSpells" ItemsSource="{Binding Additions}" ItemTemplate="{StaticResource removeableSpell}" Style="{StaticResource spellSelectorSpellListStyle}" Margin="0,50,0,0" Width="{Binding Width, ElementName=base}"/>
 
                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h76bfc212gcdd9g4c2ag899eg6bbeaf84f1e5', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
 
@@ -624,7 +623,7 @@
             <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                    <ItemsControl x:Name="availableSpells" ItemsSource="{Binding Available}" ItemTemplate="{StaticResource selectableSpell}" Style="{StaticResource spellSelectorSpellListStyle}" Margin="0,50,0,0"/>
+                    <ItemsControl x:Name="availableSpells" ItemsSource="{Binding Available}" ItemTemplate="{StaticResource selectableSpell}" Style="{StaticResource spellSelectorSpellListStyle}" Margin="-60,50,0,0" Width="{Binding Width, ElementName=base}"/>
 
                 </StackPanel>
             </ScrollViewer>
@@ -978,7 +977,7 @@
 
 
     <ControlTemplate x:Key="chooseReplacedOutSpellPanelTemplate">
-        <StackPanel>
+        <StackPanel x:Name="base">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="Loaded">
                     <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
@@ -990,7 +989,7 @@
             <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                    <ItemsControl x:Name="availableSpells" ItemsSource="{Binding ClassProgressionDetails.OutSpellsAvailable}" Style="{StaticResource spellSelectorSpellListStyle}">
+                    <ItemsControl x:Name="availableSpells" ItemsSource="{Binding ClassProgressionDetails.OutSpellsAvailable}" Style="{StaticResource spellSelectorSpellListStyle}" Width="{Binding ActualWidth, ElementName=base}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type ls:VMSpellReference}">
                                 <ls:LSButton x:Name="spell" Template="{StaticResource availableSpellTemplate}" DataContext="{Binding}" Command="{Binding DataContext.SelectSpell,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ToolTip="{StaticResource CCSpellRefTooltip}" ToolTipService.PlacementTarget="{Binding ElementName=availableSpells}" ls:MoveFocus.Focusable="True" Focusable="True">
@@ -1025,7 +1024,7 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="chooseReplacedInSpellPanelTemplate">
-        <StackPanel>
+        <StackPanel x:Name="base">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="Loaded">
                     <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
@@ -1037,7 +1036,7 @@
             <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                    <ItemsControl x:Name="availableSpells" ItemsSource="{Binding ClassProgressionDetails.InSpellsAvailable}" Style="{StaticResource spellSelectorSpellListStyle}">
+                    <ItemsControl x:Name="availableSpells" ItemsSource="{Binding ClassProgressionDetails.InSpellsAvailable}" Style="{StaticResource spellSelectorSpellListStyle}" Width="{Binding ActualWidth, ElementName=base}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type ls:VMSpellReference}">
                                 <ls:LSButton x:Name="spell" Template="{StaticResource availableSpellTemplate}" DataContext="{Binding}" Command="{Binding DataContext.SelectSpell,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ToolTip="{StaticResource CCSpellRefTooltip}" ToolTipService.PlacementTarget="{Binding ElementName=availableSpells}" ls:MoveFocus.Focusable="True" Focusable="True">
@@ -2194,7 +2193,7 @@
 
     <ControlTemplate x:Key="ToggleConfirmButtonTemplate" TargetType="{x:Type ls:LSToggleButton}">
 
-        <ls:LSNineSliceImage x:Name="bg" ImageSource="{StaticResource PrimaryButtonBG}" Slices="{StaticResource primaryButtonSlices}" MinWidth="268" MinHeight="172" HorizontalAlignment="Center">
+        <ls:LSNineSliceImage x:Name="bg" ImageSource="{StaticResource PrimaryButtonBG_Large}" Slices="{StaticResource primaryButtonSlices}" MinWidth="268" MinHeight="144" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
 
                 <Control x:Name="img" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UICreate'}" Template="{StaticResource ControllerButton.ImageSwitcher}" Width="{DynamicResource ScaledControllerHintSize}" Height="{DynamicResource ScaledControllerHintSize}" Focusable="False" VerticalAlignment="Center" Margin="26,0,-10,0"/>
@@ -3356,19 +3355,21 @@
             <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h15329947gc691g4323gac0fge3fbcecb92d9', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                <TextBlock x:Name="SelectorStripTitle" ls:TextBlockFormatter.SourceText="{Binding Source='hdbaa56a0gc5e6g4968gb3eag9d5fbcef225e', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
-                <TextBlock x:Name="PreparedSpellsDescription" ls:TextBlockFormatter.SourceText="{Binding Source='he47d6cc7g50c3g4ab6g9027g2c54a173db29', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}"/>
+                <StackPanel x:Name="PreparationHelp" Visibility="Collapsed">
+                    <TextBlock x:Name="SelectorStripTitle" ls:TextBlockFormatter.SourceText="{Binding Source='hdbaa56a0gc5e6g4968gb3eag9d5fbcef225e', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
+                    <TextBlock x:Name="PreparedSpellsDescription" ls:TextBlockFormatter.SourceText="{Binding Source='he47d6cc7g50c3g4ab6g9027g2c54a173db29', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}"/>
+                </StackPanel>
                 <TextBlock x:Name="PreparedSpellsTitle" ls:TextBlockFormatter.SourceText="{Binding Source='hcfab5df8g7913g4193gae43g805a927077a5', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
-                <ItemsControl x:Name="chosenSpells" ItemsSource="{Binding Prepared}" ItemTemplate="{StaticResource removeableSpell}" Style="{StaticResource spellSelectorSpellListStyle}"/>
+                <ItemsControl x:Name="chosenSpells" ItemsSource="{Binding Prepared}" ItemTemplate="{StaticResource removeableSpell}" Style="{StaticResource spellSelectorSpellListStyle}" Width="{Binding ActualWidth, ElementName=base}"/>
             </StackPanel>
 
             <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" ls:ScrollViewerHelper.VerticalScrollOffsetMargin="300">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h60d9fcd7g33e4g4606g8fe9g8f5f25e03847', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
-                    <ItemsControl x:Name="availableSpellsByLevel" ItemsSource="{Binding SortedItems, ElementName=SortedPreparableSpellGroupsByLevel}" Style="{StaticResource spellSelectorSpellListStyle}">
+                    <ItemsControl x:Name="availableSpellsByLevel" ItemsSource="{Binding SortedItems, ElementName=SortedPreparableSpellGroupsByLevel}" Style="{StaticResource spellSelectorSpellListStyle}" Width="{Binding ActualWidth, ElementName=base}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel IsItemsHost="True"/>
+                                <StackPanel IsItemsHost="True" HorizontalAlignment="Center"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
@@ -3389,7 +3390,9 @@
                                     </TextBlock>
                                     <ItemsControl x:Name="availableSpells" ItemsSource="{Binding SortedItems, ElementName=SortedSpellsBySchool}" 
                                                                           ItemTemplate="{StaticResource selectableSpell}" 
-                                                                          Style="{StaticResource spellSelectorSpellListStyle}"/>
+                                                                          Style="{StaticResource spellSelectorSpellListStyle}"
+                                                                          Width="{Binding ActualWidth, ElementName=base}"
+                                                                          Margin="-60,0,0,0"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -3399,6 +3402,9 @@
         </DockPanel>
 
         <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding DataContext.CurrentCharacterLevel, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource LessThanConverter}, ConverterParameter=5}" Value="True">
+                <Setter TargetName="PreparationHelp" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding SpellPrepare.IsComplete}" Value="False">
                 <Setter TargetName="PreparedSpellsTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
             </DataTrigger>
@@ -3462,10 +3468,7 @@
 
                     <ItemsControl ItemsSource="{Binding Passives}" ItemTemplate="{StaticResource SelectablePassiveTemplate}" Margin="0,40,0,0"/>
 
-                    <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
-                        <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
-                        <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding DataContext.SelectablePiercings, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SelectedItem="{Binding DataContext.SelectedPiercing, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
-                    </StackPanel>
+                    <Control x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0"/>
 
                 </StackPanel>
             </ScrollViewer>
@@ -3478,6 +3481,19 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True">
                 <Setter TargetName="PiercingSelector" Property="Visibility" Value="{Binding DataContext.SelectablePiercings.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource CountToVisibilityConverter}}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsVisible, ElementName=PiercingSelector}" Value="True">
+                <Setter TargetName="PiercingSelector" Property="Template">
+                    <!-- Set it only when it is needed or it will trigger a SelectedItem change on finishing CC, leading to a crash (more details in GUS-305574) -->
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Control">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
+                                <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding DataContext.SelectablePiercings, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SelectedItem="{Binding DataContext.SelectedPiercing, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </DataTrigger>
             <DataTrigger Binding="{Binding IsComplete}" Value="False">
                 <Setter TargetName="SelectedTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
@@ -3996,7 +4012,7 @@
                                      BoundEvent="UIShowInfo"
                                      ContentTemplate="{StaticResource ControllerButtonHint}"
                                      Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIShowInfo, Converter={StaticResource FindInputEventConverter}}"
-                                     Tag="{Binding Source='h2a8cab0cgbfb8g4890gbfbdg5a9426e29457', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
+                                     Tag="{Binding Source='hf8dd4c2fg97e0g4ccdgac1ag3cd1fe5060ef', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
 
                 <ls:LSButton x:Name="backButton" Command="{Binding DataContext.PrevGameplayTab, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding ElementName=gameplayTabs}"  ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICancel, Converter={StaticResource FindInputEventConverter}}" BoundEvent="UICancel" Tag="{Binding Source=h77fec760g866dg4e47g8e81g467c9c05e447,Converter={StaticResource TranslatedStringConverter}}"/>
 
@@ -4043,6 +4059,10 @@
             <DataTrigger Binding="{Binding SelectedMultiClass.Level}" Value="0">
                 <Setter TargetName="addClassButton" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="cancelAddClassButton" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding DataContext.ShowUIElementTooltip, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="True">
+                <Setter TargetName="ToggleTooltips" Property="Tag" Value="{Binding Source='hb33ec471gd611g4ee3gbbffg699af8f79167', Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
 
         </ControlTemplate.Triggers>
@@ -4096,7 +4116,7 @@
                                  BoundEvent="UIShowInfo"
                                  ContentTemplate="{StaticResource ControllerButtonHint}"
                                  Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIShowInfo, Converter={StaticResource FindInputEventConverter}}"
-                                 Tag="{Binding Source='h2a8cab0cgbfb8g4890gbfbdg5a9426e29457', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
+                                 Tag="{Binding Source='hf8dd4c2fg97e0g4ccdgac1ag3cd1fe5060ef', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
 
         </StackPanel>
         <ControlTemplate.Triggers>
@@ -4129,8 +4149,12 @@
             <!-- MOD START - Edit appearance for Origin characters -->
 			<!--<DataTrigger Binding="{Binding SelectedOrigin.IsLockedAppearance}" Value="True">
                 <Setter TargetName="gotoAppearanceButton" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>-->
+            </DataTrigger> -->
 			<!-- MOD END -->
+
+            <DataTrigger Binding="{Binding DataContext.ShowUIElementTooltip, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="True">
+                <Setter TargetName="ToggleTooltips" Property="Tag" Value="{Binding Source='hb33ec471gd611g4ee3gbbffg699af8f79167', Converter={StaticResource TranslatedStringConverter}}"/>
+            </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -4139,7 +4163,7 @@
             <!-- Toggle tooltips -->
             <ls:LSButton x:Name="ToggleTooltips"
                          ContentTemplate="{StaticResource ControllerButtonHint}"
-                         Tag="{Binding Source='h2a8cab0cgbfb8g4890gbfbdg5a9426e29457', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"
+                         Tag="{Binding Source='hf8dd4c2fg97e0g4ccdgac1ag3cd1fe5060ef', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"
                          Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIShowInfo, Converter={StaticResource FindInputEventConverter}}"
                          Command="{Binding ToggleTooltipOnUIElement}"
                          CommandParameter="{Binding FocusedElement, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ls:UIWidget}}"
@@ -4151,6 +4175,12 @@
                          Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICancel, Converter={StaticResource FindInputEventConverter}}" 
                          CommandParameter="{Binding ElementName=gameplayTabs}"/>
         </StackPanel>
+
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding DataContext.ShowUIElementTooltip, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="True">
+                <Setter TargetName="ToggleTooltips" Property="Tag" Value="{Binding Source='hb33ec471gd611g4ee3gbbffg699af8f79167', Converter={StaticResource TranslatedStringConverter}}"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate x:Key="featDetailsPanel">
