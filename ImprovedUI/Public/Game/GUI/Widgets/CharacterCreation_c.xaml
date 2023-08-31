@@ -21,6 +21,10 @@
                 <ResourceDictionary Source="../Library/CCLib_c.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <Thickness x:Key="RightCarouselMargin">0,0,20,20</Thickness>
+            <Thickness x:Key="LeftCarouselMargin">20,0,0,20</Thickness>
+
+
             <!-- Message box to ensure user wants to activate tutorials -->
             <ls:LSMessageBoxData x:Key="MessageBoxTutorialsCheck"
                                  Text="{Binding Source='h86f06e64g4588g4798gb828gf6e0268122af', Converter={StaticResource TranslatedStringConverter}}"
@@ -110,12 +114,12 @@
                 <StackPanel>
                     <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True">
                         <Grid>
-                            <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" IsEnabled="{Binding HasPreviousCharacter}" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.RandomCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="prev">
+                            <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" IsEnabled="{Binding HasPreviousCharacter}" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" Command="{Binding DataContext.RandomCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="prev">
                                 <ls:LSButton.RenderTransform>
                                     <ScaleTransform ScaleX="-1" CenterX="32"/>
                                 </ls:LSButton.RenderTransform>
                             </ls:LSButton>
-                            <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" IsEnabled="{Binding HasNextCharacter}" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.RandomCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="next"/>
+                            <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" IsEnabled="{Binding HasNextCharacter}" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" Command="{Binding DataContext.RandomCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="next"/>
 
                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1595c068g30a1g4efegbd7fg072665991b3b', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource IconCarouselText}"/>
                         </Grid>
@@ -262,19 +266,27 @@
             <ControlTemplate x:Key="AppearanceCarousel" TargetType="ListBox">
                 <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
                     <Grid>
+                        <Grid.Resources>
+                            <BitmapImage x:Key="GridIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/box_ico_actions.png"/>
+                        </Grid.Resources>
 
-                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                        <StackPanel x:Name="ExpandGridInput" Visibility="{Binding Tag, ElementName=base, Converter={StaticResource NullToCollapsedConverter}}" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0.05">
+                            <Image x:Name="box" Source="{StaticResource GridIcon}" Height="64" Width="64" VerticalAlignment="Center" Margin="0,0,-32,20" Opacity="0.8"/>
+                            <Control x:Name="img" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Template="{StaticResource ControllerButton.ImageSwitcher}" Width="{DynamicResource ScaledControllerHintSizeSmall}" Height="{DynamicResource ScaledControllerHintSize}"/>
+                        </StackPanel>
+
+                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                             <ls:LSRepeatButton.RenderTransform>
                                 <ScaleTransform ScaleX="-1" CenterX="32"/>
                             </ls:LSRepeatButton.RenderTransform>
                         </ls:LSRepeatButton>
 
-                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.NextItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
+                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" Command="{Binding DataContext.NextItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
 
                         <StackPanel VerticalAlignment="Center">
 
                             <TextBlock x:Name="title" Text="{TemplateBinding Tag}" Style="{StaticResource AppearanceCarouselTitleText}" />
-
+                            
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock x:Name="cTxt" Style="{StaticResource AppearanceCarouselValueText}">
                                     <Run Text="{Binding SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource AddConverter}, ConverterParameter='1'}"/><Run Text="{Binding ItemsSource.Count, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, StringFormat=/{0}}"/>
@@ -297,6 +309,11 @@
                     </Grid>
                 </ContentControl>
                 <ControlTemplate.Triggers>
+
+                    <DataTrigger Binding="{Binding (ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                        <Setter TargetName="ExpandGridInput" Property="Opacity" Value="1"/>
+                    </DataTrigger>
+                    
                     <Trigger Property="Tag" Value="daisyrace">
                         <Setter TargetName="title" Property="Text" Value="{Binding Source='hadf27237ge191g4922ga84cg055b984c9b1f', Converter={StaticResource TranslatedStringConverter}}"/>
                         <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
@@ -459,15 +476,13 @@
             <ControlTemplate x:Key="AppearanceSliderCarousel" TargetType="ListBox">
                 <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
                     <Grid>
-                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.PrevSliderCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
+                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" Command="{Binding DataContext.PrevSliderCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
                             <ls:LSRepeatButton.RenderTransform>
                                 <ScaleTransform ScaleX="-1" CenterX="32"/>
                             </ls:LSRepeatButton.RenderTransform>
                         </ls:LSRepeatButton>
-                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.NextSliderCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-                        <ls:LSRepeatButton x:Name="leftBtnBigger" BoundEvent="PartyManagement" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.BiggerPrevSliderCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-                        <ls:LSRepeatButton x:Name="rightBtnBigger" BoundEvent="PanelSelect" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.BiggerNextSliderCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
+                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" Command="{Binding DataContext.NextSliderCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                       
                         <StackPanel VerticalAlignment="Center">
 
                             <TextBlock x:Name="title" Text="{Binding Source='hfcbe9131g86b0g46d7ga4afg5c3301c070bf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceCarouselTitleText}" />
@@ -515,7 +530,7 @@
 
                                     <TextBlock x:Name="text" ls:TextBlockFormatter.SourceText="{Binding Source='h6b184ec1gc364g4467g9617g3ab1a3959d10', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceCarouselTitleText}" VerticalAlignment="Center"/>
 
-                                    <Control x:Name="img" Visibility="{Binding (ls:MoveFocus.IsFocused), RelativeSource={RelativeSource AncestorType={x:Type ls:LSButton}}, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter=True}" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Template="{StaticResource ControllerButton.ImageSwitcher}" Width="{DynamicResource ScaledControllerHintSize}" Height="{DynamicResource ScaledControllerHintSize}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                    <Control x:Name="img" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Template="{StaticResource ControllerButton.ImageSwitcher}" Width="{DynamicResource ScaledControllerHintSizeSmall}" Height="{DynamicResource ScaledControllerHintSize}" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Opacity="0.05"/>
 
                                     <Control x:Name="frame" Width="800" Height="126" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
@@ -524,6 +539,7 @@
                                     <Trigger Property="ls:MoveFocus.IsFocused" Value="True">
                                         <Setter TargetName="box" Property="Source" Value="{StaticResource ListButtonBg_h}"/>
                                         <Setter TargetName="frame" Property="Template" Value="{StaticResource FocusedListItemIndicatorTemplate}"/>
+                                        <Setter TargetName="img" Property="Opacity" Value="1"/>
                                     </Trigger>
                                     <DataTrigger Binding="{Binding IsPressed, RelativeSource={RelativeSource Mode=Self}}" Value="True">
                                         <Setter TargetName="img" Property="Margin" Value="0,4,0,-4"/>
@@ -539,12 +555,12 @@
                                 <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
                                     <Grid>
 
-                                        <ls:LSRepeatButton x:Name="leftBtn" Command="{Binding RandomCharacter}" CommandParameter="prev" BoundEvent="UILeft" IsEnabled="{Binding HasPreviousCharacter}" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                                        <ls:LSRepeatButton x:Name="leftBtn" Command="{Binding RandomCharacter}" CommandParameter="prev" BoundEvent="UILeft" IsEnabled="{Binding HasPreviousCharacter}" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                             <ls:LSRepeatButton.RenderTransform>
                                                 <ScaleTransform ScaleX="-1" CenterX="32"/>
                                             </ls:LSRepeatButton.RenderTransform>
                                         </ls:LSRepeatButton>
-                                        <ls:LSRepeatButton x:Name="rightBtn" Command="{Binding RandomCharacter}" CommandParameter="next" BoundEvent="UIRight" IsEnabled="{Binding HasNextCharacter}" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
+                                        <ls:LSRepeatButton x:Name="rightBtn" Command="{Binding RandomCharacter}" CommandParameter="next" BoundEvent="UIRight" IsEnabled="{Binding HasNextCharacter}" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
                                         <StackPanel VerticalAlignment="Center">
                                             <TextBlock Text="{Binding Source='h8b63fa05g09d3g445fgb24agcd8718089484', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceCarouselTitleText}"/>
                                             <TextBlock x:Name="cTxt" Style="{StaticResource AppearanceCarouselValueText}">
@@ -591,13 +607,13 @@
                                 <ControlTemplate>
                                     <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
                                         <Grid>
-                                            <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"
+                                            <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}"
                                         Command="{Binding DataContext.SelectPreviousBodyType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                                 <ls:LSRepeatButton.RenderTransform>
                                                     <ScaleTransform ScaleX="-1" CenterX="32"/>
                                                 </ls:LSRepeatButton.RenderTransform>
                                             </ls:LSRepeatButton>
-                                            <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0"
+                                            <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}"
                                         Command="{Binding DataContext.SelectNextBodyType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
 
                                             <StackPanel VerticalAlignment="Center">
@@ -641,12 +657,12 @@
                                 <ControlTemplate>
                                     <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
                                         <Grid>
-                                            <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.SelectPreviousIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_Gender">
+                                            <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" Command="{Binding DataContext.SelectPreviousIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_Gender">
                                                 <ls:LSRepeatButton.RenderTransform>
                                                     <ScaleTransform ScaleX="-1" CenterX="32"/>
                                                 </ls:LSRepeatButton.RenderTransform>
                                             </ls:LSRepeatButton>
-                                            <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.SelectNextIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_Gender"/>
+                                            <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" Command="{Binding DataContext.SelectNextIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_Gender"/>
 
                                             <StackPanel VerticalAlignment="Center">
 
@@ -677,12 +693,12 @@
                             <ControlTemplate>
                                 <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
                                     <Grid>
-                                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.PrevComboItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Voices}">
+                                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" Command="{Binding DataContext.PrevComboItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Voices}">
                                             <ls:LSRepeatButton.RenderTransform>
                                                 <ScaleTransform ScaleX="-1" CenterX="32"/>
                                             </ls:LSRepeatButton.RenderTransform>
                                         </ls:LSRepeatButton>
-                                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.NextComboItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" Command="{Binding DataContext.NextComboItemCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
                                         CommandParameter="{Binding Voices}"/>
 
                                         <StackPanel VerticalAlignment="Center">
@@ -724,7 +740,7 @@
                             <ControlTemplate>
                                 <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
                                     <Grid x:Name="enableHeterochromiaToggle" Tag="{StaticResource FalseValue}">
-                                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                             <ls:LSRepeatButton.RenderTransform>
                                                 <ScaleTransform ScaleX="-1" CenterX="32"/>
                                             </ls:LSRepeatButton.RenderTransform>
@@ -744,7 +760,7 @@
                                                 </b:EventTrigger>
                                             </b:Interaction.Triggers>
                                         </ls:LSRepeatButton>
-                                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                             <b:Interaction.Triggers>
                                                 <b:EventTrigger EventName="Click" >
                                                     <b:ChangePropertyAction TargetObject="{Binding .}" PropertyName="HeterochromiaEnabled" Value="{Binding HeterochromiaEnabled, Converter={StaticResource InvertBoolConverter}}"/>
@@ -828,7 +844,7 @@
                             <ControlTemplate>
                                 <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
                                     <Grid x:Name="enableDraconicLinesToggle">
-                                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                             <ls:LSRepeatButton.RenderTransform>
                                                 <ScaleTransform ScaleX="-1" CenterX="32"/>
                                             </ls:LSRepeatButton.RenderTransform>
@@ -839,7 +855,7 @@
                                                 </b:EventTrigger>
                                             </b:Interaction.Triggers>
                                         </ls:LSRepeatButton>
-                                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                             <b:Interaction.Triggers>
                                                 <b:EventTrigger EventName="Click" >
                                                     <b:ChangePropertyAction TargetObject="{Binding AppearancePassive}" PropertyName="EmptyMaterialSelected" Value="{Binding AppearancePassive.EmptyMaterialSelected, Converter={StaticResource InvertBoolConverter}}"/>
@@ -888,7 +904,7 @@
                                             </b:EventTrigger>
                                         </b:Interaction.Triggers>
 
-                                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                                        <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource LeftCarouselMargin}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                             <ls:LSRepeatButton.RenderTransform>
                                                 <ScaleTransform ScaleX="-1" CenterX="32"/>
                                             </ls:LSRepeatButton.RenderTransform>
@@ -909,7 +925,7 @@
                                                 </b:EventTrigger>
                                             </b:Interaction.Triggers>
                                         </ls:LSRepeatButton>
-                                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                                        <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="{StaticResource RightCarouselMargin}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                             <b:Interaction.Triggers>
                                                 <b:EventTrigger EventName="Click" >
                                                     <b:ChangePropertyAction TargetName="displayGenitalsToggle" PropertyName="Tag" Value="{Binding Tag, ElementName=displayGenitalsToggle, Converter={StaticResource InvertBoolConverter}}"/>
@@ -1077,8 +1093,14 @@
                                  BoundEvent="UIShowInfo"
                                  ContentTemplate="{StaticResource ControllerButtonHint}"
                                  Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIShowInfo, Converter={StaticResource FindInputEventConverter}}"
-                                 Tag="{Binding Source='h2a8cab0cgbfb8g4890gbfbdg5a9426e29457', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
+                                 Tag="{Binding Source='hf8dd4c2fg97e0g4ccdgac1ag3cd1fe5060ef', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
                 </StackPanel>
+
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding DataContext.ShowUIElementTooltip, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="True">
+                        <Setter TargetName="ToggleTooltips" Property="Tag" Value="{Binding Source='hb33ec471gd611g4ee3gbbffg699af8f79167', Converter={StaticResource TranslatedStringConverter}}"/>
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
             </ControlTemplate>
 
             <ControlTemplate x:Key="AppearanceItemSelectedBottomButtons">
@@ -1107,8 +1129,14 @@
                                  BoundEvent="UIShowInfo"
                                  ContentTemplate="{StaticResource ControllerButtonHint}"
                                  Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIShowInfo, Converter={StaticResource FindInputEventConverter}}"
-                                 Tag="{Binding Source='h2a8cab0cgbfb8g4890gbfbdg5a9426e29457', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
+                                 Tag="{Binding Source='hf8dd4c2fg97e0g4ccdgac1ag3cd1fe5060ef', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
                 </StackPanel>
+
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding DataContext.ShowUIElementTooltip, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="True">
+                        <Setter TargetName="ToggleTooltips" Property="Tag" Value="{Binding Source='hb33ec471gd611g4ee3gbbffg699af8f79167', Converter={StaticResource TranslatedStringConverter}}"/>
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
             </ControlTemplate>
 
             <ControlTemplate x:Key="AppearancePanelTemplate">
@@ -1911,8 +1939,15 @@
                                                                              
                                     </Grid>
 
-                                    <ls:LSButton x:Name="focusGameplayPanelButton" Visibility="Hidden" Content="" Style="{StaticResource ControllerButtonWBG}" 
-                            DataContext = "{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='JumpToFromTab'}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,230,0,0">
+                                    <ls:LSButton x:Name="focusGameplayPanelButton" 
+                                                 Visibility="Hidden" 
+                                                 Tag=" "
+                                                 ContentTemplate="{StaticResource ControllerButtonHint}"
+                                                 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='JumpToFromTab'}"
+                                                 BoundEvent="JumpToFromTab"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Top"
+                                                 Margin="50,230,0,0">
                                         <b:Interaction.Triggers>
                                             <b:EventTrigger EventName="Click" >
                                                 <b:ChangePropertyAction TargetName="leftSidePanels" PropertyName="IsEnabled" Value="True" />
@@ -2206,7 +2241,7 @@
                                         </ls:LSNineSliceImage>
                                         <ls:LSNineSliceImage x:Name="MissingRequirementsMainError" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Style="{StaticResource MissingRequirementsErrorStyle}" Margin="0,0,0,290" ContentTemplate="{StaticResource MissingRequirementsErrorTemplate}" Content=""/>
 
-                                        <ContentControl x:Name="gotoNamingButton" Template="{StaticResource buttonBackplateTemplate}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,128">
+                                        <ContentControl x:Name="gotoNamingButton" Template="{StaticResource buttonBackplateTemplate}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,148">
                                             <ls:LSButton IsEnabled="{Binding IsCharacterCompleteExceptName}"
                                                         ContentTemplate="{StaticResource ControllerButtonHint}" 
                                                         Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIDelete, Converter={StaticResource FindInputEventConverter}}" 
@@ -2268,8 +2303,13 @@
                                             </b:Interaction.Triggers>
                                         </ls:LSInputBinding>
 
-                                        <ls:LSButton x:Name="focusSummaryPanelButton" Content="" Style="{StaticResource ControllerButtonWBG}" 
-                            DataContext = "{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleSummaryFocus'}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                        <ls:LSButton x:Name="focusSummaryPanelButton" 
+                                                     Tag=" " 
+                                                     ContentTemplate="{StaticResource ControllerButtonHint}"
+                                                     Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleSummaryFocus'}"
+                                                     BoundEvent="ToggleSummaryFocus" 
+                                                     HorizontalAlignment="Right"
+                                                     VerticalAlignment="Top">
                                             <b:Interaction.Triggers>
                                                 <b:EventTrigger EventName="Click" >
                                                     <b:ChangePropertyAction TargetName="leftSidePanels" PropertyName="IsEnabled" Value="False" />
@@ -2911,7 +2951,7 @@
                                                                     <ItemsControl.Resources>
                                                                         <ControlTemplate x:Key="buttonsAndValue">
                                                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="400,0,0,0">
-                                                                                <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" IsEnabled="{Binding CanDecrease}" Command="{Binding DataContext.DecreaseAbility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Center" SoundID="UI_HUD_CC_DecreaseAbility">
+                                                                                <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" IsEnabled="{Binding CanDecrease}" Command="{Binding DataContext.DecreaseAbility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Bottom" SoundID="UI_HUD_CC_DecreaseAbility">
                                                                                     <ls:LSButton.RenderTransform>
                                                                                         <ScaleTransform ScaleX="-1" CenterX="32"/>
                                                                                     </ls:LSButton.RenderTransform>
@@ -2921,7 +2961,7 @@
                                                                                     <TextBlock x:Name="value" ls:TextBlockFormatter.SourceText="{Binding Value}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}" HorizontalAlignment="Center"/>
                                                                                 </Grid>
 
-                                                                                <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" IsEnabled="{Binding CanIncrease}" Command="{Binding DataContext.IncreaseAbility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Center" SoundID="UI_HUD_CC_IncreaseAbility"/>
+                                                                                <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" IsEnabled="{Binding CanIncrease}" Command="{Binding DataContext.IncreaseAbility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Bottom" SoundID="UI_HUD_CC_IncreaseAbility"/>
                                                                             </StackPanel>
                                                                         </ControlTemplate>
                                                                     </ItemsControl.Resources>
@@ -2950,7 +2990,7 @@
                                                                                             <ControlTemplate>
                                                                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
-                                                                                                    <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Command="{Binding DataContext.SelectPrevAbilityBonus, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" SoundID="{DynamicResource CarouselButtonSoundEvent}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Center">
+                                                                                                    <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Command="{Binding DataContext.SelectPrevAbilityBonus, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" SoundID="{DynamicResource CarouselButtonSoundEvent}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Bottom">
                                                                                                         <ls:LSButton.RenderTransform>
                                                                                                             <ScaleTransform ScaleX="-1" CenterX="32"/>
                                                                                                         </ls:LSButton.RenderTransform>
@@ -3128,7 +3168,7 @@
 
                                 <Rectangle x:Name="bottomShading" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="{StaticResource bottomBackgroundHeight}" Fill="{StaticResource BottomShadingBrush}"/>
                                 
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,128">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,148">
 
                                     <b:Interaction.Triggers>
                                         <b:EventTrigger EventName="Loaded">
@@ -3145,14 +3185,20 @@
 
                                         <Rectangle Grid.Column="0" Fill="{StaticResource CCTextSpecial}" Opacity="0.8" Height="100"/>
 
-                                        <ls:LSTextBox Grid.Column="0" x:Name="characterName" Text="{Binding CharacterName}" IsEnabled="{Binding CanEditName}" MaxLength="20" TextImmediateSourceUpdate="True" Foreground="{StaticResource CCTextPrimary}" FontSize="{StaticResource ScaledMassiveFontSize}" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" ProfanityFilter="True" Margin="16,0"/>
+                                        <ls:LSTextBox Grid.Column="0" x:Name="characterName" Text="{Binding CharacterName}" IsEnabled="{Binding CanEditName}" MaxLength="20" TextImmediateSourceUpdate="True"
+                                                      Foreground="{StaticResource CCTextPrimary}" FontSize="{StaticResource ScaledMassiveFontSize}" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" ProfanityFilter="True"
+                                                      Margin="16,0"/>
 
-                                        <Control Grid.Column="0" x:Name="frame" Visibility="{Binding ElementName=characterName, Path=IsFocused, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter=True}" Template="{StaticResource FocusedListItemIndicatorTemplate}" Margin="-20,0" />
+                                        <Control Grid.Column="0" x:Name="frame" Visibility="{Binding ElementName=characterName, Path=IsFocused, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter=True}"
+                                                 Template="{StaticResource FocusedListItemIndicatorTemplate}" Margin="-20,0" />
                                     </Grid>
 
-                                    <ls:LSButton x:Name="focusNaming" IsEnabled="{Binding CanEditName}" Visibility="{Binding ElementName=characterName, Path=IsFocused, Converter={StaticResource BoolToHiddenConverter}}" BoundEvent="UIAccept" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=h5cd3cabag657ag4abfga33fg9b1b2808ee7f,Converter={StaticResource TranslatedStringConverter}}">
+                                    <ls:LSButton x:Name="focusNaming" IsEnabled="{Binding CanEditName}" Visibility="{Binding ElementName=characterName, Path=IsFocused, Converter={StaticResource BoolToHiddenConverter}}" BoundEvent="UIAccept"
+                                                 ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}"
+                                                 Tag="{Binding Source=h5cd3cabag657ag4abfga33fg9b1b2808ee7f,Converter={StaticResource TranslatedStringConverter}}">
                                         <b:Interaction.Triggers>
                                             <b:EventTrigger EventName="Click">
+                                                <ls:SetMoveFocusAction TargetName="CharacterCreation_c" Reset="True"/>
                                                 <noesis:SetFocusAction TargetName="characterName"/>
                                             </b:EventTrigger>
                                         </b:Interaction.Triggers>
@@ -3189,8 +3235,14 @@
 
                                         <Control x:Name="summaryPanel" IsEnabled="False" ls:MoveFocus.IsMoveFocusScope="True" Template="{StaticResource summaryPanelTemplate}"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,70,16,0"/>
 
-                                        <ls:LSButton x:Name="focusGameplayPanelButton" Visibility="Hidden" Content="" Style="{StaticResource ControllerButtonWBG}" 
-                            DataContext = "{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleSummaryFocus'}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                        <ls:LSButton x:Name="focusGameplayPanelButton" 
+                                                     Visibility="Hidden"
+                                                     Tag=" "
+                                                     ContentTemplate="{StaticResource ControllerButtonHint}" 
+                                                     Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleSummaryFocus'}"
+                                                     BoundEvent="ToggleSummaryFocus"
+                                                     HorizontalAlignment="Right"
+                                                     VerticalAlignment="Top">
                                             <b:Interaction.Triggers>
                                                 <b:EventTrigger EventName="Click" >
                                                     <ls:SetMoveFocusAction TargetName="CharacterCreation_c" Reset="True"/>
@@ -3203,8 +3255,13 @@
                                             </b:Interaction.Triggers>
                                         </ls:LSButton>
 
-                                        <ls:LSButton x:Name="focusSummaryPanelButton" Content="" Style="{StaticResource ControllerButtonWBG}" 
-                            DataContext = "{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleSummaryFocus'}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                        <ls:LSButton x:Name="focusSummaryPanelButton" 
+                                                     Tag=" " 
+                                                     ContentTemplate="{StaticResource ControllerButtonHint}"  
+                                                     Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleSummaryFocus'}" 
+                                                     BoundEvent="ToggleSummaryFocus"
+                                                     HorizontalAlignment="Right"
+                                                     VerticalAlignment="Top">
                                             <b:Interaction.Triggers>
                                                 <b:EventTrigger EventName="Click" >
                                                     <b:InvokeCommandAction Command="{Binding DataContext.EnableTooltipOnUIElement, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
@@ -3364,9 +3421,9 @@
 
                                 <Control x:Name="appearancePanel" Template="{StaticResource AppearancePanelTemplate}" Height="1700" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,250,50,0"/>
 
-                                <ContentControl Template="{StaticResource buttonBackplateTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,128">
+                                <ContentControl Template="{StaticResource buttonBackplateTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,148">
 
-                                    <ls:LSButton x:Name="VentureForthButton" Style="{StaticResource ControllerHoldButtonStyle}" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Tag="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding DataContext.FinishCreating, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_VentureForth">
+                                    <ls:LSButton x:Name="VentureForthButton" Style="{StaticResource ControllerHoldButtonStyle}" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Tag="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding DataContext.FinishCreating, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_VentureForth" Margin="2,0,0,0">
                                         <b:Interaction.Triggers>
                                             <b:EventTrigger EventName="Click">
                                                 <b:ChangePropertyAction TargetName="daisyPage" PropertyName="Visibility" Value="Collapsed" />
@@ -3495,6 +3552,10 @@
 
                 <ls:LSInputBinding x:Name="PinTooltipBinding" Style="{StaticResource PinTooltipBindingStyle}" EatInput="False"/>
 
+                <ls:LSInputBinding x:Name="RotateLeftBinding" BoundEvent="CharacterCreationRotateLeft" GameInputCommand="{Binding GameInputRotateLeftCommand}"/>
+                <ls:LSInputBinding x:Name="RotateRightBinding" BoundEvent="CharacterCreationRotateRight" GameInputCommand="{Binding GameInputRotateRightcommand}"/>
+                <ls:LSInputBinding x:Name="PrevCameraBinding" BoundEvent="CameraZoomOut" Command="{Binding PrevCameraMode}"/>
+                <ls:LSInputBinding x:Name="NextCameraBinding" BoundEvent="CameraZoomIn" Command="{Binding NextCameraMode}"/>
             </Grid>
 
             <DataTemplate.Triggers>
