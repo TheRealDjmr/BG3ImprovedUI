@@ -1,0 +1,105 @@
+<!-- This is a file for storing Class icon entries. The idea is to put Class icons here instead of updating multiple files -->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib"
+                    xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
+                    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+					mc:Ignorable="d">
+
+	<!-- This is the icon that appears in the top right of the CC screen/shows in character sheet when the class/subclass is selected -->
+	<Style x:Key="IUI_MainClassIconStyle" TargetType="Image" >
+		<!-- This is a generic icon for mods with no class icons provided -->
+        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/generic.png"/>
+        <Style.Triggers>
+            <!--<DataTrigger Binding="{Binding IDString}" Value="Barbarian">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian.png"/>
+            </DataTrigger> -->
+            <DataTrigger Binding="{Binding IDString}" Value="Artificer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/artificer.png"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Armorer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/armorer.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Artillerist">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/artillerist.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Alchemist">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/alchemist.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="BattleSmith">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/battlesmith.png"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ArcanaDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsarcana.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="ForgeDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsforge.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="DeathDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsdeath.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="GraveDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsgrave.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="OrderDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsorder.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="TwilightDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericstwilight.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="PeaceDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericspeace.png"/>
+            </DataTrigger>
+        </Style.Triggers>
+	</Style>
+	
+	<!-- This is the icon that appears as an option when choosing class/subclass in CC/shows in bottom left of hotbar -->
+	<Style x:Key="IUI_MainClassIconHotbarStyle" TargetType="Image" >
+        <Style.Triggers>
+            <!--<DataTrigger Binding="{Binding IDString}" Value="Barbarian">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian.png"/>
+            </DataTrigger> -->
+            <DataTrigger Binding="{Binding IDString}" Value="Artificer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/artificer.png"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Armorer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/armorer.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Artillerist">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/artillerist.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="Alchemist">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/alchemist.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="BattleSmith">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/battlesmith.png"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ArcanaDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsarcana.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="ForgeDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsforge.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="DeathDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsdeath.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="GraveDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsgrave.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="OrderDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsorder.png"/>
+            </DataTrigger> 
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="TwilightDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericstwilight.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="PeaceDomain">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericspeace.png"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>
