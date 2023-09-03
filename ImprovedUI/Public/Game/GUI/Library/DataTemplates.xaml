@@ -13,6 +13,7 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="../Library/IUI_ClassIcons.xaml"/>
 		<ResourceDictionary Source="../Library/IUI_RaceIcons.xaml"/>
+		<ResourceDictionary Source="../Library/IUI_ActionResourceIcons.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 	<!-- MOD END -->
 	
@@ -87,7 +88,7 @@
 
     <!-- Section styles -->
 
-    <Style TargetType="Image" x:Key="ActionResourceTypeIdToSource">
+    <Style TargetType="Image" x:Key="ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
                 <Setter Property="Source" Value="{StaticResource IconActionPoint}"/>
@@ -3188,7 +3189,7 @@
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
 
-    <Style x:Key="ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource {x:Type ls:LSActionPointResources}}">
+    <Style x:Key="ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource IUI_ActionResourcesTemplateSelector}">
         <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.FallbackActionPointGroup}"/>
         <Setter Property="MaxGroupActionPoints" Value="4"/>
         <Setter Property="ActionPointSize" Value="44" />
