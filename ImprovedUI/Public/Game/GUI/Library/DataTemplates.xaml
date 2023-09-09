@@ -89,7 +89,9 @@
 
     <!-- Section styles -->
 
-    <Style TargetType="Image" x:Key="ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
+    <!-- MOD START - Custom modded action resources -->
+	<Style TargetType="Image" x:Key="ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
+		<!-- MOD END -->
         <Style.Triggers>
             <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
                 <Setter Property="Source" Value="{StaticResource IconActionPoint}"/>
@@ -160,6 +162,7 @@
         </Style.Triggers>
     </Style>
 	
+	<!-- MOD START - Custom backgrounds, taken directly from DefaultTheme.Styles and just overwritten here -->
 	<Style x:Key="BackgroundIconStyle" TargetType="Rectangle" BasedOn="{StaticResource IUI_BackgroundIconStyle}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding Guid}" Value="633aa4be-365f-4358-ba56-e2b85f9a88ec">
@@ -332,8 +335,11 @@
             </DataTrigger>            
         </Style.Triggers>
     </Style>
+	<!-- MOD END -->
     
+	<!-- MOD START - Custom action resource icons -->
     <Style TargetType="Image" x:Key="SectionImageStyle" BasedOn="{StaticResource ActionResourceTypeIdToSource}">
+		<!-- MOD END -->
         <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png"/>
         <Setter Property="Width" Value="{StaticResource IconActionPointSize}"/>
         <Setter Property="MaxHeight" Value="{StaticResource IconActionPointSize}"/>
