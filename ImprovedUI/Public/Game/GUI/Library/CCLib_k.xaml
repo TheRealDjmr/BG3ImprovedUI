@@ -2392,7 +2392,7 @@
             <TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
 
             <!-- MOD START - Restrict passive list max height -->
-			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="1000" VerticalScrollBarVisibility="Auto">
+			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="1000" Height="Auto" VerticalScrollBarVisibility="Auto">
 				<ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,32,0,0">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate DataType="{x:Type ls:VMCharacterCreationPassive}">
@@ -4534,15 +4534,27 @@
             <Grid Grid.Column="1" Height="1650" DataContext="{Binding SelectedFeatDetails}" Visibility="{Binding HasFeat, Converter={StaticResource BoolToVisibleConverter}}" Margin="0,100">
                 <ls:LSNineSliceImage Slices="100,80,100,80" Width="800" MinHeight="1650" Margin="-12,-16,-12,-12"  ImageSource="{StaticResource FeatEditBackground}"/>
 
-                <StackPanel x:Name="featEditPanel">
-                    <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
+                <!-- MOD START - Feat panel changes to support modded feats -->
+				<Grid x:Name="featEditPanel" VerticalAlignment="Top">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+                    <Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
 
-                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource PanelHeaderText}"/>
+                    <TextBlock Grid.Row="1" ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource PanelHeaderText}"/>
+					
+					<ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="350" Height="Auto" Width="840" Margin="0,20,0,0" Padding="-40,0,40,60">
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" MaxWidth="700"/>
+					</ls:LSScrollViewer>
 
-                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" MaxWidth="700" Margin="0,20,0,0"/>
-
-                    <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="1200" Width="840" Margin="-20,20,-20,0">
-                        <StackPanel Width="800" HorizontalAlignment="Left" Margin="20,0">
+                    <ls:LSScrollViewer Grid.Row="3" Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="Auto" Width="840" Margin="-20,20,-20,0">
+						<Grid>
+							<TextBlock ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" MaxWidth="700" Margin="0,20,0,0"/>
+						</Grid>
+						<StackPanel Width="800" HorizontalAlignment="Left" Margin="20,0">
 
                             <!-- Boosts and Abilities -->
                             <ItemsControl ItemsSource="{Binding FeatDetails.Progressions}">
@@ -4842,7 +4854,8 @@
                             </ItemsControl>
                         </StackPanel>
                     </ls:LSScrollViewer>
-                </StackPanel>
+                </Grid>
+				<!-- MOD END -->
             </Grid>
 
             <Grid x:Name="SpellSelectorGrid" Grid.Column="2" Height="1650" Margin="0,100" Visibility="Collapsed" Panel.ZIndex="10" Width="800">
