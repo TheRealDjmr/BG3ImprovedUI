@@ -41,6 +41,18 @@
     <ImageSource x:Key="InfusionSlotUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_missing.png</ImageSource>
 	<ImageSource x:Key="IconBreathWeaponCharge" >pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_d.png</ImageSource>
     <ImageSource x:Key="IconBreathWeaponChargeUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_missing.png</ImageSource>
+    <ImageSource x:Key="BloodRune">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_BloodRune.png</ImageSource>
+    <ImageSource x:Key="BloodRuneSpent">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_BloodRune_Used.png</ImageSource>
+    <ImageSource x:Key="BloodRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_BloodRune_Missing.png</ImageSource>
+    <ImageSource x:Key="FrostRune">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_FrostRune.png</ImageSource>
+    <ImageSource x:Key="FrostRuneSpent">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_FrostRune_Used.png</ImageSource>
+    <ImageSource x:Key="FrostRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_FrostRune_Missing.png</ImageSource>
+    <ImageSource x:Key="UnholyRune">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_UnholyRune.png</ImageSource>
+    <ImageSource x:Key="UnholyRuneSpent">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_UnholyRune_Used.png</ImageSource>
+    <ImageSource x:Key="UnholyRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_UnholyRune_Missing.png</ImageSource>
+    <ImageSource x:Key="RunicPower">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_RunicPower.png</ImageSource>
+    <ImageSource x:Key="RunicPowerSpent">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_RunicPower_Used.png</ImageSource>
+    <ImageSource x:Key="RunicPowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_RunicPower_Missing.png</ImageSource>
 	
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource">
@@ -110,6 +122,61 @@
                     <Setter Property="Source" Value="{StaticResource IconBreathWeaponChargeUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="BloodRune">
+                <Setter Property="Source" Value="{StaticResource BloodRune}"/>
+            </DataTrigger>
+            <MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="BloodRune"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource BloodRuneUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FrostRune">
+                <Setter Property="Source" Value="{StaticResource FrostRune}"/>
+            </DataTrigger>
+            <MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="FrostRune"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource FrostRuneUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
+                <Setter Property="Source" Value="{StaticResource UnholyRune}"/>
+            </DataTrigger>
+            <MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="UnholyRune"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource UnholyRuneUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RunicPower">
+                <Setter Property="Source" Value="{StaticResource RunicPower}"/>
+            </DataTrigger>
+            <MultiDataTrigger >
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="RunicPower"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource RunicPowerUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+
+
+
         </Style.Triggers>
     </Style>
 	
@@ -162,7 +229,47 @@
         </ControlTemplate.Resources>
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.BloodRuneGroup" TargetType="ls:LSActionPoint">
+        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_BloodRune_Hover.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_BloodRune.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_BloodRune_Used.png</ImageSource>
+            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_BloodRune_Missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.FrostRuneGroup" TargetType="ls:LSActionPoint">
+        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_FrostRune_Hover.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_FrostRune.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_FrostRune_Used.png</ImageSource>
+            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_FrostRune_Missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.UnholyRuneGroup" TargetType="ls:LSActionPoint">
+        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_UnholyRune_Hover.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_UnholyRune.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_UnholyRune_Used.png</ImageSource>
+            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_UnholyRune_Missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.RunicPowerGroup" TargetType="ls:LSActionPoint">
+        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_RunicPower_Hover.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_RunicPower.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_RunicPower_Used.png</ImageSource>
+            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/Icon_DK_RunicPower_Missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
 	<!-- This is the icon that appears on the hotbar -->
 	<Style x:Key="IUI_ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource {x:Type ls:LSActionPointResources}}">
         <Style.Triggers>
@@ -249,6 +356,54 @@
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="BloodRune">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BloodRuneGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="BloodRune"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Margin" Value="0,-15,0,0"/>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="FrostRune">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FrostRuneGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="FrostRune"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Margin" Value="0,-15,0,0"/>
+            </MultiDataTrigger>          
+            <DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.UnholyRuneGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="UnholyRune"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Margin" Value="0,-15,0,0"/>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="RunicPower">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RunicPowerGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="RunicPower"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Margin" Value="0,-15,0,0"/>
             </MultiDataTrigger>
 		</Style.Triggers>
     </Style>
