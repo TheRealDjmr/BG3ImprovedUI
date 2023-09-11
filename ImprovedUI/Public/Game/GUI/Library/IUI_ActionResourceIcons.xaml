@@ -14,7 +14,9 @@
     <!--<BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />-->
 	<BitmapImage x:Key="PsiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_psipoint.png" />
 	<BitmapImage x:Key="InfusionSlotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_d.png" />
-	
+	<BitmapImage x:Key="ArcanePointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png" />
+	<BitmapImage x:Key="ConfluxFocusIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png" />
+
 	<!-- This is the icon that appears when the action resource is given during CC/level up -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIcon">
         <Style.Triggers>
@@ -26,6 +28,12 @@
             </DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="InfusionSlots">
                 <Setter Property="Source" Value="{StaticResource InfusionSlotIcon}"/>
+            </DataTrigger>
+	    		<DataTrigger Binding="{Binding TypeId}" Value="ArcanePoolResource">
+                <Setter Property="Source" Value="{StaticResource ArcanePointIcon}"/>
+            </DataTrigger>
+            		<DataTrigger Binding="{Binding TypeId}" Value="ConfluxFocus">
+                <Setter Property="Source" Value="{StaticResource ConfluxFocusIcon}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -41,7 +49,11 @@
     <ImageSource x:Key="InfusionSlotUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_missing.png</ImageSource>
 	<ImageSource x:Key="IconBreathWeaponCharge" >pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_d.png</ImageSource>
     <ImageSource x:Key="IconBreathWeaponChargeUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_missing.png</ImageSource>
-	
+	<ImageSource x:Key="ArcanePoint" >pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+    <ImageSource x:Key="ArcanePointUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUnavailable.png</ImageSource>
+	<ImageSource x:Key="ConfluxFocus" >pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+    <ImageSource x:Key="ConfluxFocusUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConflusFocusUnavailable.png</ImageSource>
+
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource">
         <Style.Triggers>
@@ -110,6 +122,32 @@
                     <Setter Property="Source" Value="{StaticResource IconBreathWeaponChargeUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcanePoolResource">
+                <Setter Property="Source" Value="{StaticResource ArcanePoint}"/>
+            </DataTrigger>       
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="ArcanePoolResource"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource ArcanePointUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            		<DataTrigger Binding="{Binding TypeId}" Value="ConfluxFocus">
+                <Setter Property="Source" Value="{StaticResource ConfluxFocus}"/>
+            </DataTrigger>       
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="ConfluxFocus"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource ConfluxFocusUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
         </Style.Triggers>
     </Style>
 	
@@ -162,7 +200,27 @@
         </ControlTemplate.Resources>
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.ArcanePointGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUsed.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUnavailable.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    	<ControlTemplate x:Key="ActionResources.ActionGroup.ConfluxFocusGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUsed.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUnavailable.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
 	<!-- This is the icon that appears on the hotbar -->
 	<Style x:Key="IUI_ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource {x:Type ls:LSActionPointResources}}">
         <Style.Triggers>
@@ -247,6 +305,34 @@
                     <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcanePoolResource">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArcanePointGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ArcanePoolResource"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            		<DataTrigger Binding="{Binding TypeId}" Value="ConfluxFocus">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ConfluxFocusGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ConfluxFocus"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
