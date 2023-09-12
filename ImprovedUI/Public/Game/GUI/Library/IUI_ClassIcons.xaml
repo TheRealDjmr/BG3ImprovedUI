@@ -10,7 +10,7 @@
                     xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
 					mc:Ignorable="d">
 
-	<!-- This is the icon that appears in the top right of the CC screen/shows in character sheet when the class/subclass is selected -->
+	<!-- This is the icon that appears in the top right of the CC screen/shows in character sheet when the class is selected -->
 	<Style x:Key="IUI_MainClassIconStyle" TargetType="Image" >
 		<!-- This is a generic icon for mods with no class icons provided -->
         <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/generic.png"/>
@@ -24,9 +24,46 @@
 			<DataTrigger Binding="{Binding IDString}" Value="Harlequin">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/harlequin.png"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding IDString}" Value="Magus">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/Magus.png"/>
+            </DataTrigger>
 			<DataTrigger Binding="{Binding IDString}" Value="Psion">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ClassIcons/Icon_Class_Psion.png"/>
             </DataTrigger>
+            
+        </Style.Triggers>
+	</Style>
+	
+	<!-- This is the icon that appears as an option when choosing class in CC/shows in bottom left of hotbar -->
+	<Style x:Key="IUI_MainClassIconHotbarStyle" TargetType="Image" >
+        <Style.Triggers>
+            <!--<DataTrigger Binding="{Binding IDString}" Value="Barbarian">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian.png"/>
+            </DataTrigger> -->
+            <DataTrigger Binding="{Binding IDString}" Value="Artificer">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/artificer.png"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Harlequin">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/hotbar/harlequin.png"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Magus">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/hotbar/Magus_hotbar.png"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Psion">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ClassIcons/hotbar/Icon_Class_Psion_Hotbar.png"/>
+            </DataTrigger>
+            
+        </Style.Triggers>
+    </Style>
+
+<!-- This is the icon that appears in the top right of the CC screen/shows in character sheet when the subclass is selected -->
+	<Style x:Key="IUI_ClassIconStyle" TargetType="Image" BasedOn="{StaticResource MainClassIconStyle}">
+		<!-- This is a generic icon for mods with no subclass icons provided -->
+        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/generic.png"/>
+        <Style.Triggers>
+            <!--<DataTrigger Binding="{Binding SubclassIDString}" Value="BerserkerPath">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian_berserker.png"/>
+            </DataTrigger> -->
             <DataTrigger Binding="{Binding SubclassIDString}" Value="Armorer">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/armorer.png"/>
             </DataTrigger>
@@ -75,9 +112,6 @@
             <DataTrigger Binding="{Binding SubclassIDString}" Value="LanternBearer">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/lanternbearer.png"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding IDString}" Value="Magus">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/Magus.png"/>
-            </DataTrigger>
             <DataTrigger Binding="{Binding SubclassIDString}" Value="InexorableIron">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/InexorableIron.png"/>
             </DataTrigger>
@@ -96,27 +130,18 @@
             <DataTrigger Binding="{Binding SubclassIDString}" Value="Hexblade">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Hexblade/ClassIcons/warlock_Hexblade.png"/>
             </DataTrigger>
+
         </Style.Triggers>
-	</Style>
-	
-	<!-- This is the icon that appears as an option when choosing class/subclass in CC/shows in bottom left of hotbar -->
-	<Style x:Key="IUI_MainClassIconHotbarStyle" TargetType="Image" >
+    </Style>
+
+<!-- This is the icon that appears on the bottom left next to the character portrait on the hotbar which reflects the character's subclass. This replaces the parent class icon after a subclass is selected -->
+    <Style x:Key="IUI_ClassIconHotbarStyle" TargetType="Image" BasedOn="{StaticResource MainClassIconHotbarStyle}">
+		<!-- This is a generic icon for mods with no class icons provided -->
+        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/generic.png"/>
         <Style.Triggers>
-            <!--<DataTrigger Binding="{Binding IDString}" Value="Barbarian">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian.png"/>
+            <!--<DataTrigger Binding="{Binding SubclassIDString}" Value="BerserkerPath">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian_berserker.png"/>
             </DataTrigger> -->
-            <DataTrigger Binding="{Binding IDString}" Value="Artificer">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/artificer.png"/>
-            </DataTrigger>
-			<DataTrigger Binding="{Binding IDString}" Value="Harlequin">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/hotbar/harlequin.png"/>
-            </DataTrigger>
-			<DataTrigger Binding="{Binding IDString}" Value="Magus">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/hotbar/Magus_hotbar.png"/>
-            </DataTrigger>
-			<DataTrigger Binding="{Binding IDString}" Value="Psion">
-                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ClassIcons/hotbar/Icon_Class_Psion_Hotbar.png"/>
-            </DataTrigger>
             <DataTrigger Binding="{Binding SubclassIDString}" Value="Armorer">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/armorer.png"/>
             </DataTrigger>
@@ -183,6 +208,7 @@
             <DataTrigger Binding="{Binding SubclassIDString}" Value="Hexblade">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Hexblade/ClassIcons/hotbar/warlock_Hexblade.png"/>
             </DataTrigger>
+
         </Style.Triggers>
     </Style>
 
