@@ -16,8 +16,8 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Library/CCLib.xaml"/>
         <ResourceDictionary Source="../Library/OptionTemplates.xaml"/>
-		<!-- MOD START - Custom Action resource icon -->
-		<ResourceDictionary Source="../Library/IUI_ActionResourceIcons.xaml"/>
+		<!-- MOD START - Custom Action resource icon for CC only -->
+		<ResourceDictionary Source="../Library/IUI_ActionResourceIcons_k.xaml"/>
 		<!-- MOD END -->
     </ResourceDictionary.MergedDictionaries>
 
@@ -69,8 +69,8 @@
     <BitmapImage x:Key="TickActive_h" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_tick_active_h.png" />
     <BitmapImage x:Key="TickInactive" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_tick_inactive_d.png" />
 
-    <!-- Action Resource Decorative Icons-->
-    <BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />
+    <!-- MOD START - Move Action resource icon to IUI files -->
+    <!--<BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />
     <BitmapImage x:Key="BonusActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/bap_d.png" />
     <BitmapImage x:Key="ReactionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_reaction_d.png" />
     <BitmapImage x:Key="MovementSpeedIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_speed.png" />
@@ -90,8 +90,8 @@
     <BitmapImage x:Key="TidesOfChaosIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_tidesOfChaos_d.png" />
     <BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
     <BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
-    <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
-
+    <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />-->
+	<!-- MOD END -->
 
     <Style x:Key="CCButtonStyle" TargetType="{x:Type ls:LSButton}"  BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
@@ -204,9 +204,8 @@
         <Setter Property="Stretch" Value="None"/>
     </Style>
 
-    <!-- MOD START - Custom Action resource icon -->
-	<Style TargetType="Image" x:Key="ActionResourceDecorativeIcon" BasedOn="{StaticResource IUI_ActionResourceDecorativeIcon}">
-		<!-- MOD END -->
+    <!-- MOD START - Move Action resource icon to IUI files -->
+	<!--<Style TargetType="Image" x:Key="ActionResourceDecorativeIcon">
         <Style.Triggers>
             <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
                 <Setter Property="Source" Value="{StaticResource ActionPointIcon}"/>
@@ -272,7 +271,8 @@
                 <Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
             </DataTrigger>
         </Style.Triggers>
-    </Style>
+    </Style> -->
+	<!-- MOD END -->
 
     <DataTemplate x:Key="FeatureIcon" DataType="ls:VMFeatureBoost">
         <Grid ToolTip="{StaticResource CCSpellTooltip}" Margin="4">
