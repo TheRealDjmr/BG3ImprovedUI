@@ -16,7 +16,7 @@
 
 	<Style x:Key="IUI_MainClassIconStyleDefault" TargetType="Image" >
         <Setter Property="Stretch" Value="None"/>
-		<!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
+		<!-- Set static icon with fallback if class icon has been inserted -->
         <Setter Property="Source">
 			<Setter.Value>
 				<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
@@ -68,7 +68,7 @@
 
     <Style x:Key="IUI_MainClassIconHotbarStyleDefault" TargetType="Image" >
         <Setter Property="Stretch" Value="None"/>
-		<!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
+		<!-- Set static icon with fallback if class icon has been inserted -->
         <Setter Property="Source">
 			<Setter.Value>
 				<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
@@ -165,17 +165,19 @@
 	
 	<!-- Leave the below alone please -->
 	<Style x:Key="IUI_ClassIconStyleDefault" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconStyle}">
-		<!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
-        <Setter Property="Source">
-			<Setter.Value>
-				<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
-					<Binding Source="Assets/ClassIcons/"/>
-					<Binding Path="SubclassIDString"/>
-				</MultiBinding>
-            </Setter.Value>
-        </Setter>
         <Style.Triggers>
-            <!-- Subclass -->
+            <!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
+			<DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+                <Setter Property="Source">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
+                            <Binding Source="Assets/ClassIcons/"/>
+                            <Binding Path="SubclassIDString"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+			<!-- Subclass -->
             <DataTrigger Binding="{Binding SubclassIDString}" Value="BerserkerPath">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian_berserker.png"/>
             </DataTrigger>
@@ -318,17 +320,19 @@
     </Style>
 	
 	<Style x:Key="IUI_ClassIconHotbarStyleDefault" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconHotbarStyle}">
-        <!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
-        <Setter Property="Source">
-			<Setter.Value>
-				<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
-					<Binding Source="Assets/ClassIcons/hotbar/"/>
-					<Binding Path="SubclassIDString"/>
-				</MultiBinding>
-            </Setter.Value>
-        </Setter>
         <Style.Triggers>
-            <!-- Subclass -->
+			<!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
+            <DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+                <Setter Property="Source">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
+                            <Binding Source="Assets/ClassIcons/hotbar/"/>
+                            <Binding Path="SubclassIDString"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+			<!-- Subclass -->
             <DataTrigger Binding="{Binding SubclassIDString}" Value="BerserkerPath">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian_berserker.png"/>
             </DataTrigger>
