@@ -1843,6 +1843,55 @@
             </StackPanel.Resources>
 
             <Grid HorizontalAlignment="Center">
+				<!-- MOD START - Use main class instead of subclass icon -->
+                <Image Style="{StaticResource MainClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
+				<!-- MOD END -->
+                <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
+            </Grid>
+            <TextBlock x:Name="label" ls:TextBlockFormatter.SourceText="{Binding ShortName}" Foreground="{StaticResource CCTextNormal}" Width="{DynamicResource IconTextWidth}" 
+                       TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock x:Name="level" Foreground="{StaticResource CCTextNormal}" HorizontalAlignment="Center">
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                        <Binding Source="hd678d4eeg181fg499dg9e81g2146ab24e03a"/>
+                        <Binding Path="DataContext.Level" RelativeSource="{RelativeSource Mode=Self}"/>
+                        <Binding Source=""/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding ShortName}" Value="">
+                <Setter TargetName="label" Property="Text" Value="{Binding Name}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
+                <Setter TargetName="frame" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="label" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+                <Setter TargetName="level" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
+                <Setter TargetName="frame" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="frame" Property="ImageSource" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/selector_CC_h.png"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Level}" Value="0">
+                <Setter TargetName="level" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+	
+	<!-- MOD START - Duplicate for subclass icons -->
+	<DataTemplate x:Key="SubclassIconTemplate" DataType="ls:VMSelectableClass">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Grid HorizontalAlignment="Center">
                 <Image Style="{StaticResource ClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
             </Grid>
@@ -1879,6 +1928,7 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
+	<!-- MOD END -->
 
     <DataTemplate x:Key="ReducedClassIconTemplate" DataType="ls:VMSelectableClass">
         <DataTemplate.Resources>
@@ -1886,7 +1936,9 @@
         </DataTemplate.Resources>
         <StackPanel>
             <Grid HorizontalAlignment="Center">
-                <Image x:Name="icon" Style="{StaticResource ClassIconHotbarStyle}" Stretch="None"/>
+				<!-- MOD START - Use main class instead of subclass icon -->
+                <Image x:Name="icon" Style="{StaticResource MainClassIconHotbarStyle}" Stretch="None"/>
+				<!-- MOD END -->
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Width="148" Height="148"/>
 
                 <Grid x:Name="level" Margin="4,6" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -3891,7 +3943,7 @@
                 <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                        <ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
+                        <ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
 						
 					</StackPanel>
 				</ls:LSScrollViewer>
@@ -3961,7 +4013,7 @@
                 <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                        <ListBox ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
+                        <ListBox ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
 						
 					</StackPanel>
                 </ls:LSScrollViewer>

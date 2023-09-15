@@ -1850,6 +1850,50 @@
     <ControlTemplate x:Key="CarouselClassIconsFewTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Grid x:Name="leftIcon" DataContext="{Binding SelectedItem.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
+				<!-- MOD START - Use main class instead of subclass icon -->
+                <Image Style="{StaticResource MainClassIconStyle}" OpacityMask="{StaticResource leftFadeBrush}" Stretch="UniformToFill" Width="200" Height="200"/>
+                <Control Template="{DynamicResource IconsSubtitleTemplate}"/>
+            </Grid>
+
+            <Image Style="{StaticResource MainClassIconStyle}" Stretch="None" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+
+            <Grid x:Name="rightIcon" DataContext="{Binding SelectedItem.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
+                <Image Style="{StaticResource MainClassIconStyle}" OpacityMask="{StaticResource rightFadeBrush}" Stretch="UniformToFill" Width="200" Height="200"/>
+                <Control Template="{DynamicResource IconsSubtitleTemplate}"/>
+            </Grid>
+        </StackPanel>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding ItemsSource.Count, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Value="1">
+                <Setter TargetName="leftIcon" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="rightIcon" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ItemsSource.Count, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Value="2">
+                <Setter TargetName="leftIcon" Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="CarouselClassIconsTemplate">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <Image Style="{StaticResource MainClassIconStyle}" OpacityMask="{StaticResource leftFadeBrush}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+
+            <Image Style="{StaticResource MainClassIconStyle}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+
+            <Image Style="{StaticResource MainClassIconStyle}" Stretch="None" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+
+            <Image Style="{StaticResource MainClassIconStyle}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+
+            <Image Style="{StaticResource MainClassIconStyle}" OpacityMask="{StaticResource rightFadeBrush}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Next.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+			<!-- MOD END -->
+
+        </StackPanel>
+    </ControlTemplate>
+	
+	<!-- MOD START - Duplicate for subclass icons -->
+	<ControlTemplate x:Key="CarouselSubclassIconsFewTemplate">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Grid x:Name="leftIcon" DataContext="{Binding SelectedItem.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
                 <Image Style="{StaticResource ClassIconStyle}" OpacityMask="{StaticResource leftFadeBrush}" Stretch="UniformToFill" Width="200" Height="200"/>
                 <Control Template="{DynamicResource IconsSubtitleTemplate}"/>
             </Grid>
@@ -1872,7 +1916,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="CarouselClassIconsTemplate">
+    <ControlTemplate x:Key="CarouselSubclassIconsTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
             <Image Style="{StaticResource ClassIconStyle}" OpacityMask="{StaticResource leftFadeBrush}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
@@ -1887,6 +1931,7 @@
 
         </StackPanel>
     </ControlTemplate>
+	<!-- MOD END -->
 
     <ControlTemplate x:Key="CarouselCustomIconsFewTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -3260,10 +3305,12 @@
                 <ListBox x:Name="subclassCarousel" Template="{StaticResource IconCarouselTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}">
                     <ListBox.Resources>
                         <ControlTemplate x:Key="IconsTemplate">
-                            <Control x:Name="icons" Template="{StaticResource CarouselClassIconsFewTemplate}"/>
+							<!-- MOD START - Use duplicate subclass template -->
+                            <Control x:Name="icons" Template="{StaticResource CarouselSubclassIconsFewTemplate}"/>
                             <ControlTemplate.Triggers>
                                 <DataTrigger Binding="{Binding SelectableSubClasses.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}">
-                                    <Setter TargetName="icons" Property="Template" Value="{StaticResource CarouselClassIconsTemplate}"/>
+									<Setter TargetName="icons" Property="Template" Value="{StaticResource CarouselSubclassIconsTemplate}"/>
+									<!-- MOD END -->
                                 </DataTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
