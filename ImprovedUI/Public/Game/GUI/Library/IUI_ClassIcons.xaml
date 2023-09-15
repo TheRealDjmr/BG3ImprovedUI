@@ -14,19 +14,21 @@
 	<BitmapImage x:Key="IUI_GenericClassMainIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/generic.png"/>
 	<BitmapImage x:Key="IUI_GenericClassHotbarIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/generic.png"/>
 
-	<Style x:Key="IUI_MainClassIconStyleDefault" TargetType="Image" >
+	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
+	<Style x:Key="IUI_MainClassIconStyleDefault" TargetType="Image">
         <Setter Property="Stretch" Value="None"/>
-		<!-- Set static icon with fallback if class icon has been inserted -->
-        <Setter Property="Source">
-			<Setter.Value>
-				<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
-					<Binding Source="Assets/ClassIcons/"/>
-					<Binding Path="IDString"/>
-				</MultiBinding>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-			<!-- These entries are just here for reference, no touchy -->
+		<Style.Triggers>
+            <!-- Dynamically try and find an image by the Class ID in the regular Larian folder -->
+			<DataTrigger Binding="{Binding IDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+				<Setter Property="Source">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
+							<Binding Source="Assets/ClassIcons/"/>
+							<Binding Path="IDString"/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
             <DataTrigger Binding="{Binding IDString}" Value="Barbarian">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian.png"/>
             </DataTrigger>
@@ -66,18 +68,20 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="IUI_MainClassIconHotbarStyleDefault" TargetType="Image" >
-        <Setter Property="Stretch" Value="None"/>
-		<!-- Set static icon with fallback if class icon has been inserted -->
-        <Setter Property="Source">
-			<Setter.Value>
-				<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
-					<Binding Source="Assets/ClassIcons/hotbar/"/>
-					<Binding Path="IDString"/>
-				</MultiBinding>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
+	<Style x:Key="IUI_MainClassIconHotbarStyleDefault" TargetType="Image" >
+		<Setter Property="Stretch" Value="None"/>
+		<Style.Triggers>
+            <!-- Dynamically try and find an image by the Class ID in the regular Larian folder -->
+			<DataTrigger Binding="{Binding IDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+                <Setter Property="Source">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
+                            <Binding Source="Assets/ClassIcons/hotbar/"/>
+                            <Binding Path="IDString"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
             <DataTrigger Binding="{Binding IDString}" Value="Barbarian">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian.png"/>
             </DataTrigger>
@@ -166,7 +170,7 @@
 	<!-- Leave the below alone please -->
 	<Style x:Key="IUI_ClassIconStyleDefault" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconStyle}">
         <Style.Triggers>
-            <!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
+            <!-- Dynamically try and find an image by the Subclass ID in the regular Larian folder -->
 			<DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
                 <Setter Property="Source">
                     <Setter.Value>
@@ -321,7 +325,7 @@
 	
 	<Style x:Key="IUI_ClassIconHotbarStyleDefault" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconHotbarStyle}">
         <Style.Triggers>
-			<!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
+			<!-- Dynamically try and find an image by the Subclass ID in the regular Larian folder -->
             <DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
                 <Setter Property="Source">
                     <Setter.Value>
