@@ -10,11 +10,34 @@
                     xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
 					mc:Ignorable="d">
 
+    <BitmapImage x:Key="IUI_GenericClassHotbarIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/generic.png"/>
+    <!-- This is a generic icon for mods with no class icons provided. TODO: Change to an icon included in ImprovedUI? -->
+    <BitmapImage x:Key="IUI_GenericClassMainIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/generic.png"/>
+
 	<!-- This is the icon that appears in the top right of the CC screen/shows in character sheet when the class/subclass is selected -->
 	<Style x:Key="IUI_MainClassIconStyle" TargetType="Image" >
-		<!-- This is a generic icon for mods with no class icons provided -->
-        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/generic.png"/>
         <Style.Triggers>
+            <!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
+           <DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+                <Setter Property="Source">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
+                            <Binding Source="Assets/ClassIcons/"/>
+                            <Binding Path="SubclassIDString"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="True">
+                <Setter Property="Source">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
+                            <Binding Source="Assets/ClassIcons/"/>
+                            <Binding Path="IDString"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
             <!--<DataTrigger Binding="{Binding IDString}" Value="Barbarian">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian.png"/>
             </DataTrigger> -->
@@ -96,12 +119,36 @@
             <DataTrigger Binding="{Binding SubclassIDString}" Value="Hexblade">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Hexblade/ClassIcons/warlock_Hexblade.png"/>
             </DataTrigger>
+	    <DataTrigger Binding="{Binding SubclassIDString}" Value="WarMagic">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WarMagic/ClassIcons/ftt_wizardtraditions_warmagic.png"/>
+            </DataTrigger>
         </Style.Triggers>
 	</Style>
 	
 	<!-- This is the icon that appears as an option when choosing class/subclass in CC/shows in bottom left of hotbar -->
 	<Style x:Key="IUI_MainClassIconHotbarStyle" TargetType="Image" >
         <Style.Triggers>
+            <!-- Dynamically try and find an image by the class ID in the regular Larian folder -->
+           <DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+                <Setter Property="Source">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
+                            <Binding Source="Assets/ClassIcons/hotbar/"/>
+                            <Binding Path="SubclassIDString"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="True">
+                <Setter Property="Source">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
+                            <Binding Source="Assets/ClassIcons/hotbar/"/>
+                            <Binding Path="IDString"/>
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
             <!--<DataTrigger Binding="{Binding IDString}" Value="Barbarian">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian.png"/>
             </DataTrigger> -->
@@ -182,6 +229,9 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding SubclassIDString}" Value="Hexblade">
                 <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Hexblade/ClassIcons/hotbar/warlock_Hexblade.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding SubclassIDString}" Value="WarMagic">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WarMagic/ClassIcons/hotbar/ftt_wizardtraditions_warmagic.png"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
