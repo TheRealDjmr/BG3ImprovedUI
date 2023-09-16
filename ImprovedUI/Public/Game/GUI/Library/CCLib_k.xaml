@@ -727,7 +727,11 @@
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+                    <!-- Mod Start -->
+                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
+                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+                    <!-- Mod End -->
                     <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
                         <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
 
@@ -1327,6 +1331,24 @@
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding ClassProgressionDetails.SubPassiveSelectors}"/>
             </MultiDataTrigger>
+            <!-- Mod Start -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+                    <Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
+                    <Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+            </MultiDataTrigger>
+            <!-- Mod End -->
             <!-- Passive subtabs for Level Up (if there is not a new subclass tab) -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
@@ -2281,6 +2303,16 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
+    <!-- Mod Start -->
+    <DataTemplate x:Key="PassiveSelectorPreviewTemplate" DataType="ls:VMCharacterCreationPassives">
+        <ls:LSNineSliceImage Padding="50,0,50,32" Slices="100,80,100,80" MinWidth="388" MaxWidth="1000" MinHeight="200" ImageSource="{StaticResource DetailsBoxSmall}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <StackPanel>
+                <TextBlock Text="{Binding Title}" MaxWidth="534" Style="{StaticResource selectorPreviewText}"/>
+                <ItemsControl Style="{StaticResource SpellSelectorItemControlStyle}" ItemsSource="{Binding Additions}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+            </StackPanel>
+        </ls:LSNineSliceImage>
+    </DataTemplate>
+    <!-- Mod End -->
     <DataTemplate x:Key="LevelUpPassiveSelectorPreviewTemplate" DataType="ls:VMCharacterCreationPassives">
         <ContentControl Template="{StaticResource NewItemStripTemplate}">
             <StackPanel x:Name="previewPanel" Background="Transparent">

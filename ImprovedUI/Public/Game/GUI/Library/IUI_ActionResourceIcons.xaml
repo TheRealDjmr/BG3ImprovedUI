@@ -14,7 +14,9 @@
     <!--<BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />-->
 	<BitmapImage x:Key="PsiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_psipoint.png" />
 	<BitmapImage x:Key="InfusionSlotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_d.png" />
-	
+	<BitmapImage x:Key="ArcanePointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png" />
+	<BitmapImage x:Key="ConfluxFocusIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png" />
+
 	<!-- This is the icon that appears when the action resource is given during CC/level up -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIcon">
         <Style.Triggers>
@@ -26,6 +28,12 @@
             </DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="InfusionSlots">
                 <Setter Property="Source" Value="{StaticResource InfusionSlotIcon}"/>
+            </DataTrigger>
+	    		<DataTrigger Binding="{Binding TypeId}" Value="ArcanePoolResource">
+                <Setter Property="Source" Value="{StaticResource ArcanePointIcon}"/>
+            </DataTrigger>
+            		<DataTrigger Binding="{Binding TypeId}" Value="ConfluxFocus">
+                <Setter Property="Source" Value="{StaticResource ConfluxFocusIcon}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -53,7 +61,11 @@
     <ImageSource x:Key="RunicPower">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower.png</ImageSource>
     <ImageSource x:Key="RunicPowerSpent">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Used.png</ImageSource>
     <ImageSource x:Key="RunicPowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Missing.png</ImageSource>
-	
+	<ImageSource x:Key="ArcanePoint" >pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+    <ImageSource x:Key="ArcanePointUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUnavailable.png</ImageSource>
+	<ImageSource x:Key="ConfluxFocus" >pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+    <ImageSource x:Key="ConfluxFocusUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConflusFocusUnavailable.png</ImageSource>
+
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource">
         <Style.Triggers>
@@ -122,10 +134,27 @@
                     <Setter Property="Source" Value="{StaticResource IconBreathWeaponChargeUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+
             <DataTrigger Binding="{Binding TypeId}" Value="BloodRune">
                 <Setter Property="Source" Value="{StaticResource BloodRune}"/>
             </DataTrigger>
-            <MultiDataTrigger >
+			<DataTrigger Binding="{Binding TypeId}" Value="FrostRune">
+                <Setter Property="Source" Value="{StaticResource FrostRune}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
+                <Setter Property="Source" Value="{StaticResource UnholyRune}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RunicPower">
+                <Setter Property="Source" Value="{StaticResource RunicPower}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcanePoolResource">
+                <Setter Property="Source" Value="{StaticResource ArcanePoint}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="ConfluxFocus">
+                <Setter Property="Source" Value="{StaticResource ConfluxFocus}"/>
+            </DataTrigger>
+          
+          <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="BloodRune"/>
                     <Condition Binding="{Binding Value}" Value="0"/>
@@ -135,10 +164,7 @@
                     <Setter Property="Source" Value="{StaticResource BloodRuneUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="FrostRune">
-                <Setter Property="Source" Value="{StaticResource FrostRune}"/>
-            </DataTrigger>
-            <MultiDataTrigger >
+			<MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="FrostRune"/>
                     <Condition Binding="{Binding Value}" Value="0"/>
@@ -148,10 +174,7 @@
                     <Setter Property="Source" Value="{StaticResource FrostRuneUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
-                <Setter Property="Source" Value="{StaticResource UnholyRune}"/>
-            </DataTrigger>
-            <MultiDataTrigger >
+			<MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="UnholyRune"/>
                     <Condition Binding="{Binding Value}" Value="0"/>
@@ -161,10 +184,7 @@
                     <Setter Property="Source" Value="{StaticResource UnholyRuneUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="RunicPower">
-                <Setter Property="Source" Value="{StaticResource RunicPower}"/>
-            </DataTrigger>
-            <MultiDataTrigger >
+			<MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="RunicPower"/>
                     <Condition Binding="{Binding Value}" Value="0"/>
@@ -174,8 +194,26 @@
                     <Setter Property="Source" Value="{StaticResource RunicPowerUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-
-
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="ArcanePoolResource"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource ArcanePointUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="ConfluxFocus"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource ConfluxFocusUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
 
         </Style.Triggers>
     </Style>
@@ -268,6 +306,25 @@
             <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Missing.png</ImageSource>
         </ControlTemplate.Resources>
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+      </ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.ArcanePointGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUsed.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUnavailable.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    	<ControlTemplate x:Key="ActionResources.ActionGroup.ConfluxFocusGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUsed.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUnavailable.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
 
 	<!-- This is the icon that appears on the hotbar -->
@@ -357,9 +414,9 @@
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BloodRune">
+          <DataTrigger Binding="{Binding TypeId}" Value="BloodRune">
                 <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BloodRuneGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
             </DataTrigger>
             <MultiDataTrigger>
@@ -367,7 +424,9 @@
                     <Condition Binding="{Binding TypeId}" Value="BloodRune"/>
                     <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
             </MultiDataTrigger>
             <DataTrigger Binding="{Binding TypeId}" Value="FrostRune">
                 <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FrostRuneGroup}"/>
@@ -379,7 +438,9 @@
                     <Condition Binding="{Binding TypeId}" Value="FrostRune"/>
                     <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
             </MultiDataTrigger>          
             <DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
                 <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.UnholyRuneGroup}"/>
@@ -391,7 +452,9 @@
                     <Condition Binding="{Binding TypeId}" Value="UnholyRune"/>
                     <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
             </MultiDataTrigger>
             <DataTrigger Binding="{Binding TypeId}" Value="RunicPower">
                 <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RunicPowerGroup}"/>
@@ -401,9 +464,39 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="RunicPower"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
+				<MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcanePoolResource">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArcanePointGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ArcanePoolResource"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            		<DataTrigger Binding="{Binding TypeId}" Value="ConfluxFocus">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ConfluxFocusGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ConfluxFocus"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 		</Style.Triggers>
     </Style>

@@ -1252,6 +1252,24 @@
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding DataContext.SubClassPassives, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
             </MultiDataTrigger>
+            <!-- Mod Start -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+                    <Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding DataContext.RacePassives, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
+                    <Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding DataContext.SubRacePassives, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+            </MultiDataTrigger>
+            <!-- Mod End -->
 
             <!-- Passive subtabs for Level Up (if there is not a new subclass tab) -->
             <MultiDataTrigger>
