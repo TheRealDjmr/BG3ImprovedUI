@@ -90,77 +90,9 @@
     <!-- Section styles -->
 
     <!-- MOD START - Custom modded action resources -->
-	<Style TargetType="Image" x:Key="ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
-		<!-- MOD END -->
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
-                <Setter Property="Source" Value="{StaticResource IconActionPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
-                <Setter Property="Source" Value="{StaticResource IconBonusActionPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
-                <Setter Property="Source" Value="{StaticResource IconReactionPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Movement">
-                <Setter Property="Source" Value="{StaticResource IconMovement}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
-                <Setter Property="Source" Value="{StaticResource IconWarlockSpellSlot}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
-                <Setter Property="Source" Value="{StaticResource IconSpellSlot}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
-                <Setter Property="Source" Value="{StaticResource SorceryPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
-                <Setter Property="Source" Value="{StaticResource KiPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
-                <Setter Property="Source" Value="{StaticResource LayOnHandsCharge}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Rage">
-                <Setter Property="Source" Value="{StaticResource Rage}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
-                <Setter Property="Source" Value="{StaticResource BardicInspiration}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
-                <Setter Property="Source" Value="{StaticResource ChannelDivinity}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
-                <Setter Property="Source" Value="{StaticResource ChannelOath}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
-                <Setter Property="Source" Value="{StaticResource SuperiorityDie}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
-                <Setter Property="Source" Value="{StaticResource ArcaneRecoveryPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
-                <Setter Property="Source" Value="{StaticResource NaturalRecovery}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WildShape">
-                <Setter Property="Source" Value="{StaticResource WildShape}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
-                <Setter Property="Source" Value="{StaticResource TidesOfChaos}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
-                <Setter Property="Source" Value="{StaticResource WarPriestActionPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
-                <Setter Property="Source" Value="{StaticResource FungalInfestationCharge}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
-                <Setter Property="Source" Value="{StaticResource LuckPoint}"/>
-            </DataTrigger>            
-            <DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
-                <Setter Property="Source" Value="{StaticResource ShadowSpellSlot}"/>
-            </DataTrigger>            
-        </Style.Triggers>
-    </Style>
+	<Style TargetType="Image" x:Key="ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}"/>
+	<Style TargetType="Image" x:Key="SectionImageStyle" BasedOn="{StaticResource IUI_SectionImageStyle}"/>
+	<!-- MOD END -->
 	
 	<!-- MOD START - Custom backgrounds, taken directly from DefaultTheme.Styles and just overwritten here -->
 	<Style x:Key="BackgroundIconStyle" TargetType="Rectangle" BasedOn="{StaticResource IUI_BackgroundIconStyle}">
@@ -336,409 +268,6 @@
         </Style.Triggers>
     </Style>
 	<!-- MOD END -->
-    
-	<!-- MOD START - Custom action resource icons -->
-    <Style TargetType="Image" x:Key="SectionImageStyle" BasedOn="{StaticResource ActionResourceTypeIdToSource}">
-		<!-- MOD END -->
-        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png"/>
-        <Setter Property="Width" Value="{StaticResource IconActionPointSize}"/>
-        <Setter Property="MaxHeight" Value="{StaticResource IconActionPointSize}"/>
-        <Setter Property="Stretch" Value="Uniform"/>
-        <Setter Property="Margin" Value="0,-2,0,0"/>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding TypeId}" Value="">
-                <Setter Property="Visibility" Value="Hidden"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding IsHidden}" Value="True">
-                <Setter Property="Visibility" Value="Hidden"/>
-            </DataTrigger>
-
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ActionPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconActionPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="BonusActionPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconBonusActionPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Movement"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconMovementUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconSpellSlotUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconWarlockSpellSlotUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SorceryPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource SorceryPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="KiPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource KiPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="LayOnHandsCharge"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource LayOnHandsChargeUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Rage"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource RageUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="BardicInspiration"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource BardicInspirationUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ChannelDivinity"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource ChannelDivinityUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ChannelOath"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource ChannelOathUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SuperiorityDie"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource SuperiorityDieUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource ArcaneRecoveryPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="NaturalRecoveryPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource NaturalRecoveryUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WildShape"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource WildShapeUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="TidesOfChaos"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource TidesOfChaosUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarPriestActionPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource WarPriestActionPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="FungalInfestationCharge"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource FungalInfestationChargeUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="LuckPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource LuckPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ShadowSpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource ShadowSpellSlotUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-
-            <!--<DataTrigger Binding="{Binding TypeId}" Value="SpellSlotUnavailable">
-                <Setter Property="Source" Value="{StaticResource IconSpellSlotUnavailable}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellUnavailable">
-                <Setter Property="Source" Value="{StaticResource IconWarlockSpellSlotUnavailable}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ActionPointUnavailable">
-                <Setter Property="Source" Value="{StaticResource IconActionPointUnavailable}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPointUnavailable">
-                <Setter Property="Source" Value="{StaticResource IconBonusActionPointUnavailable}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="MovementUnavailable">
-                <Setter Property="Source" Value="{StaticResource IconMovementUnavailable}"/>
-            </DataTrigger>-->
-            <DataTrigger Binding="{Binding TypeId}" Value="MagicDamage">
-                <Setter Property="Source" Value="{StaticResource IconMagicDamage}"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="Range">
-                <Setter Property="Source" Value="{StaticResource IconRange}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Range"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="Melee"/>
-                </MultiDataTrigger.Conditions>
-                <Setter Property="Source" Value="{StaticResource IconAttack}"/>
-            </MultiDataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="Radius">
-                <Setter Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="ZoneRadius">
-                <Setter Property="Source" Value="{StaticResource IconRadius}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="CastAbility">
-                <Setter Property="Source" Value="{StaticResource IconCastAbility}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="AlwaysPrepared">
-                <Setter Property="Source" Value="{StaticResource IconPreparation}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Cooldown">
-                <Setter Property="Source" Value="{StaticResource IconCooldown}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArmorClass">
-                <Setter Property="Source" Value="{StaticResource IconArmorClass}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TwoHanded">
-                <Setter Property="Source" Value="{StaticResource IconHanded}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Versatile">
-                <Setter Property="Source" Value="{StaticResource IconHanded}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Light">
-                <Setter Property="Source" Value="{StaticResource IconLight}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Heavy">
-                <Setter Property="Source" Value="{StaticResource IconHeavy}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Reach">
-                <Setter Property="Source" Value="{StaticResource IconReach}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Ammunition">
-                <Setter Property="Source" Value="{StaticResource IconAmmunition}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Attack">
-                <Setter Property="Source" Value="{StaticResource IconAttack}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="AttackRoll">
-                <Setter Property="Source" Value="{StaticResource IconTarget}"/>
-                <Setter Property="Margin" Value="0,-6,0,6"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Save">
-                <Setter Property="Source" Value="{StaticResource IconSave}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SaveTurn">
-                <Setter Property="Source" Value="{StaticResource IconSaveTurn}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Concentration">
-                <Setter Property="Source" Value="{StaticResource IconConcentration}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Dippable">
-                <Setter Property="Source" Value="{StaticResource IconDippable}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Finesse">
-                <Setter Property="Source" Value="{StaticResource IconFinesse}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Thrown">
-                <Setter Property="Source" Value="{StaticResource IconThrown}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Loading">
-                <Setter Property="Source" Value="{StaticResource IconLoading}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NoDualWield">
-                <Setter Property="Source" Value="{StaticResource IconNoDuelWield}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Type">
-                <Setter Property="Source" Value="{StaticResource IconType}"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="SoftWarning">
-                <Setter Property="Source" Value="{StaticResource IconWarningSoft}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Warning">
-                <Setter Property="Source" Value="{StaticResource IconWarning}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Race">
-                <Setter Property="Source" Value="{StaticResource IconRace}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Health">
-                <Setter Property="Source" Value="{StaticResource IconHealth}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Speed">
-                <Setter Property="Source" Value="{StaticResource IconSpeed}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TargetSelf">
-                <Setter Property="Source" Value="{StaticResource IconTarget}"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="Toggleable">
-                <Setter Property="Source" Value="{StaticResource IconWarningSoft}"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="Proficiency">
-                <Setter Property="Source" Value="{StaticResource IconProficiency}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Proficiency"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="HeavyArmor"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Proficiency"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="LightArmor"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Proficiency"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="MediumArmor"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Proficiency"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="Shields"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-
-            <DataTrigger Binding="{Binding IsOverridden}" Value="True">
-                <Setter Property="Opacity" Value="0.5"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
 
     <ControlTemplate x:Key="CharacterClassList">
         <ItemsControl AlternationCount="{Binding Stats.ClassList.Count}" ItemsSource="{Binding Stats.ClassList}" HorizontalAlignment="Center">
@@ -800,20 +329,11 @@
 	<Style x:Key="ClassIconStyle" TargetType="Image" BasedOn="{StaticResource IUI_ClassIconStyle}"/>
 	<Style x:Key="ClassIconHotbarStyle" TargetType="Image" BasedOn="{StaticResource IUI_ClassIconHotbarStyle}"/>
 	<!-- MOD END -->
-	
-	<Style x:Key="RaceIconFallback" TargetType="Rectangle">
-        <Setter Property="OpacityMask">
-            <Setter.Value>
-                <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/CustomCharacter.png"/>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
     <!-- MOD START - Custom Race icons -->
 	<Style x:Key="RaceIconStyle" TargetType="Rectangle" BasedOn="{StaticResource IUI_RaceIconStyle}">
         <!-- MOD END -->
 		<Style.Triggers>
-                     
             <DataTrigger Binding="{Binding Guid}" Value="9c61a74a-20df-4119-89c5-d996956b6c66">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -856,7 +376,6 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
             <DataTrigger Binding="{Binding Guid}" Value="fe648fc4-3bc9-412c-b692-15fecddc3c69">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -892,8 +411,6 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
-
             <DataTrigger Binding="{Binding Guid}" Value="4f5d1434-5175-4fa9-b7dc-ab24fba37929">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -915,7 +432,6 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
             <DataTrigger Binding="{Binding Guid}" Value="fe584d14-71ea-4bee-8ba0-99f780d4c957">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -944,7 +460,6 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
             <DataTrigger Binding="{Binding Guid}" Value="6c038dcb-7eb5-431d-84f8-cecfaf1c0c5a">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -990,7 +505,6 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
             <DataTrigger Binding="{Binding Guid}" Value="3560f4a2-c0b8-4f8b-baf8-6b6eaef0c160">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -1026,7 +540,6 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
             <DataTrigger Binding="{Binding Guid}" Value="76057327-da03-4398-aaf0-c59345ef3a8b">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -1034,7 +547,6 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
             <DataTrigger Binding="{Binding Guid}" Value="e966f47f-998a-41df-ad86-d83b44299efb">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -1042,8 +554,6 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-
-
             <DataTrigger Binding="{Binding Guid}" Value="78cd3bcc-1c43-4a2a-aa80-c34322c16a04">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -2993,286 +2503,10 @@
 
         </DataTemplate.Triggers>
     </DataTemplate>
-    <ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
 
-    <Style x:Key="ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource IUI_ActionResourcesTemplateSelector}">
-        <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.FallbackActionPointGroup}"/>
-        <Setter Property="MaxGroupActionPoints" Value="4"/>
-        <Setter Property="ActionPointSize" Value="44" />
-        <Setter Property="Foreground" Value="{DynamicResource ActionResource.Default}" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SorceryPointGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SorceryPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KiActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="KiPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LayOnHandsChargeActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="LayOnHandsCharge"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Rage">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RageActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Rage"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InspirationActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="BardicInspiration"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DivinityActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ChannelDivinity"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.OathActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ChannelOath"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SuperiorityDieActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-                <Setter Property="Foreground" Value="{StaticResource ActionResource.SuperiorityDie}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SuperiorityDie"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArcaneRecoveryActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DefaultActionPointGroup}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BonusActionPointGroup}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ReactionActionPointGroup}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SpellSlot}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="1"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,0,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WarlockSpellSlot}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="1"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,0,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="RitualPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RitualPointActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-                <Setter Property="Foreground" Value="{StaticResource ActionResource.RitualPoint}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="RitualPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.NaturalRecoveryPointActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-                <Setter Property="Foreground" Value="{StaticResource ActionResource.NaturalRecovery}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="NaturalRecoveryPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-18,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WildShape">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WildShapeActionGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-                <Setter Property="Foreground" Value="{StaticResource ActionResource.WildShape}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WildShape"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-18,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.TidesOfChaosActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WarPriestActionPointGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarPriestActionPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FungalInfestationChargeGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="FungalInfestationCharge"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LuckPointGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="LuckPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
-            </MultiDataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ShadowSpellSlotGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ShadowSpellSlot"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
-            </MultiDataTrigger>
-        </Style.Triggers>
-    </Style>
+    <!-- MOD START - Custom modded action resources -->
+	<Style x:Key="ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource IUI_ActionResourcesTemplateSelector}"/>
+	<!-- MOD END -->
 
     <!-- Action resource UI END -->
 
