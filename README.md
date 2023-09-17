@@ -29,8 +29,14 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Character Creation Layout tweaks: Allows for Feat selection once unlocked by another mod. Tip - "Allowimprovement" doesn't work on its own.
 - CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
 - CC/Level up Layout tweaks: Changes passive selection to turn into a scroll option when modded options are added - such as modded Eldritch Invocations. (Credit: Winterbrick)
-- <b>OPTIONAL FILE REQUIRED</b> Supports modded class icons, with a generic icon given to mods without a provided icon
-- <b>OPTIONAL FILE REQUIRED</b> Supports modded action resources to appear in the action resource bar (instead of a red star placeholder)
+- CC/Level up Layout tweaks: Changes Feat panel to have additional scroll options to support modded Feats with long descriptions and multiple options. (Credit: Lostsoul)
+
+#### <b>OPTIONAL FILE REQUIRED</b> Custom Asset Features 
+- Supports modded class/subclass icons, with a generic icon given to mods without a provided icon
+- Dynamic support for class/subclass icons that have not been provided, the image name would need to match the class/subclass name in classdescriptions.lsx
+- Supports modded race/subrace icons
+- Supports modded action resource icons to appear in the action resource bar (instead of a red star placeholder)
+- Supports modded background icons (instead of a square block) (Credit: NellsRelo)
 
 #### Showcase (version 3.2) - https://www.youtube.com/watch?v=livOpPUNIN0
 
