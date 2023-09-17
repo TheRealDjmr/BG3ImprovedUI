@@ -1,0 +1,1724 @@
+<ls:UIWidget x:Name="CharacterLevelUp_c"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d"
+    d:DesignHeight="2160" d:DesignWidth="3840"
+    ls:UIWidget.ContextName="CharacterLevelUp"
+    ls:TooltipExtender.Owner="{Binding DummyCharacter}"
+    FocusDown="UIDown" FocusLeft="UILeft" FocusRight="UIRight" FocusUp="UIUp" ls:MoveFocus.FocusMovementMode="Closest" CanCacheFocusSurroundingElements="False">
+
+    <ls:UIWidget.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Library/CCLib_c.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <System:TimeSpan x:Key="LevelUpShowItemsStartTime">0:0:1.5</System:TimeSpan>
+            <Duration x:Key="LevelUpTextAndBannerDuration">0:0:0.4</Duration>
+            <Duration x:Key="LevelUpItemAppearDuration">0:0:0.2</Duration>
+            <Duration x:Key="LevelUpAfterItemsDuration">0:0:0.2</Duration>
+            <Duration x:Key="LevelUpSkipDuration">0:0:0.0</Duration>
+
+            <DataTemplate x:Key="HPTooltipTooltip">
+                <StackPanel Width="600">
+                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h5702bcfbg5b6bg4c6cga370gbabede69cf41, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap" FontSize="{StaticResource ScaledDefaultFontSize}"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <ControlTemplate x:Key="levelUpListBoxItemTemplate" TargetType="ListBoxItem">
+                <ContentPresenter>
+                    <b:Interaction.Triggers>
+                        <b:DataTrigger Binding="{Binding Path=(ls:SequenceBehavior.PlayElement), RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                            <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                        </b:DataTrigger>
+                    </b:Interaction.Triggers>
+                </ContentPresenter>
+            </ControlTemplate>
+
+            <Style x:Key="levelUpListBoxItemStyle" TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1" ScaleY="1" CenterX="400" CenterY="100"/>
+                            <TranslateTransform X="0" Y="0"/>
+                        </TransformGroup>
+                    </Setter.Value>
+                </Setter>
+
+                <Setter Property="noesis:StyleInteraction.Triggers">
+                    <Setter.Value>
+                        <noesis:StyleTriggerCollection>
+
+                            <!-- Initially invisible -->
+                            <b:DataTrigger Binding="{Binding DataContext.LevelUpStep, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Started">
+                                <b:ChangePropertyAction PropertyName="Opacity" Value="0"/>
+                            </b:DataTrigger>
+
+                            <!-- Fade and scale in -->
+                            <b:DataTrigger Binding="{Binding Path=(ls:SequenceBehavior.PlayElement), RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                <b:ControlStoryboardAction ControlStoryboardOption="Play">
+                                    <b:ControlStoryboardAction.Storyboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="{StaticResource LevelUpItemAppearDuration}"/>
+
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" From="2" To="1" Duration="{StaticResource LevelUpItemAppearDuration}"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" From="2" To="1" Duration="{StaticResource LevelUpItemAppearDuration}"/>
+
+                                        </Storyboard>
+                                    </b:ControlStoryboardAction.Storyboard>
+                                </b:ControlStoryboardAction>
+                                <ls:LSPlaySound  Sound="UI_LevelUp_Menu_Perks_Sequence"/>
+
+                            </b:DataTrigger>
+
+                            <b:DataTrigger Binding="{Binding DataContext.LevelUpStep, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="SkipAnimation">
+                                <b:ControlStoryboardAction ControlStoryboardOption="Play">
+                                    <b:ControlStoryboardAction.Storyboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>                                            
+                                        </Storyboard>
+                                    </b:ControlStoryboardAction.Storyboard>
+                                </b:ControlStoryboardAction>
+                            </b:DataTrigger>
+
+                            <b:DataTrigger Binding="{Binding Path=(ls:SequenceBehavior.PlayedLastElement), RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
+                                <ls:LSPlaySound  Sound="UI_LevelUp_Menu_SequenceEnds"/>
+                            </b:DataTrigger>
+
+                            <b:DataTrigger Binding="{Binding Path=(ls:SequenceBehavior.SequenceCompleted), ElementName=levelUpItemsSequence}" Value="True">
+                                <b:ChangePropertyAction PropertyName="Opacity" Value="1"/>
+                            </b:DataTrigger>
+
+                        </noesis:StyleTriggerCollection>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Storyboard x:Key="LevelUpAppearStoryboard">
+                <!-- Big "Level Up" text and banner -->
+                <DoubleAnimation Storyboard.TargetName="LevelUpTextAndBanner" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="{StaticResource LevelUpTextAndBannerDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="LevelUpTextAndBanner" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" From="2" To="1" Duration="{StaticResource LevelUpTextAndBannerDuration}">
+                    <DoubleAnimation.EasingFunction>
+                        <BounceEase EasingMode="EaseOut" Bounces="1" Bounciness="10" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="LevelUpTextAndBanner" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" From="2" To="1" Duration="{StaticResource LevelUpTextAndBannerDuration}">
+                    <DoubleAnimation.EasingFunction>
+                        <BounceEase EasingMode="EaseOut" Bounces="1" Bounciness="10" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+
+                <!-- VFX under Level Up! -->
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LevelUpTrail" Storyboard.TargetProperty="Visibility">
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+                    <DiscreteObjectKeyFrame KeyTime="0:0:1.4" Value="{x:Static Visibility.Hidden}"/>
+                </ObjectAnimationUsingKeyFrames>
+
+                <!-- Panel with big intro text moves up -->
+                <DoubleAnimation Storyboard.TargetName="LevelUpTextAndBanner" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(TranslateTransform.Y)" BeginTime="0:0:1.3" From="0" To="-690" Duration="0:0:2">
+                    <DoubleAnimation.EasingFunction>
+                        <ElasticEase Oscillations="1" Springiness="15" EasingMode="EaseOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="ClassIconBanner" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" BeginTime="0:0:1.3" From="0" To="-860" Duration="0:0:2">
+                    <DoubleAnimation.EasingFunction>
+                        <ElasticEase Oscillations="1" Springiness="15" EasingMode="EaseOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="LevelTextPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" BeginTime="0:0:1.3" From="0" To="-850" Duration="0:0:2">
+                    <DoubleAnimation.EasingFunction>
+                        <ElasticEase Oscillations="1" Springiness="15" EasingMode="EaseOut"/>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <!-- Banner fades out -->
+                <DoubleAnimation Storyboard.TargetName="LevelUpBanner" Storyboard.TargetProperty="Opacity" BeginTime="0:0:1.3" From="1" To="0" Duration="0:0:0.3"/>
+
+            </Storyboard>
+
+            <Storyboard x:Key="LevelUpAppearSkipStoryboard">
+                <!-- Big "Level Up" text and banner -->
+                <DoubleAnimation Storyboard.TargetName="LevelUpTextAndBanner" Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="LevelUpTextAndBanner" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="LevelUpTextAndBanner" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+
+                <!-- VFX under Level Up! -->
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LevelUpTrail" Storyboard.TargetProperty="Visibility">
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Hidden}"/>
+                </ObjectAnimationUsingKeyFrames>
+
+                <!-- Panel with big intro text moves up -->
+                <DoubleAnimation Storyboard.TargetName="LevelUpIntroPanel" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="-690" Duration="{StaticResource LevelUpSkipDuration}"/>
+
+                <!-- Banner fades out -->
+                <DoubleAnimation Storyboard.TargetName="LevelUpBanner" Storyboard.TargetProperty="Opacity" To="0" Duration="{StaticResource LevelUpSkipDuration}"/>
+
+            </Storyboard>            
+            
+            <Storyboard x:Key="LevelUpAfterItemsStoryboard">
+
+                <!-- Fade up class panel top contents while intro text fades out (crossfade) -->
+                <DoubleAnimation Storyboard.TargetName="classPanelTitleText" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="{StaticResource LevelUpAfterItemsDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="multiClassCarousel" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="{StaticResource LevelUpAfterItemsDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="LevelUpIntroPanel" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="{StaticResource LevelUpAfterItemsDuration}"/>
+
+                <DoubleAnimation Storyboard.TargetName="tabNavigation" Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpAfterItemsDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="bottomControls" Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.2" To="1" Duration="{StaticResource LevelUpAfterItemsDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="leftSideShading" Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.2" To="1" Duration="0:0:0.3"/>
+                <DoubleAnimation Storyboard.TargetName="worldFader" Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.3" To="0" Duration="0:0:0.3"/>
+
+                <!-- Move left side panel from center -->
+                <DoubleAnimation Storyboard.TargetName="leftSidePanels" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="0:0:0.5" AccelerationRatio="0.75" DecelerationRatio="0.25"/>
+
+                <!-- Move right side panel onscreen -->
+                <DoubleAnimation Storyboard.TargetName="summary" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="0:0:0.5" AccelerationRatio="0.75" DecelerationRatio="0.25"/>
+
+            </Storyboard>
+
+            <Storyboard x:Key="LevelUpAfterItemsSkipStoryboard">
+
+                <!-- Fade up class panel top contents while intro text fades out (crossfade) -->
+                <DoubleAnimation Storyboard.TargetName="classPanelTitleText" Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="multiClassCarousel" Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="LevelUpIntroPanel" Storyboard.TargetProperty="Opacity" To="0" Duration="{StaticResource LevelUpSkipDuration}"/>
+
+                <DoubleAnimation Storyboard.TargetName="tabNavigation" Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="bottomControls" Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="leftSideShading" Storyboard.TargetProperty="Opacity" To="1" Duration="{StaticResource LevelUpSkipDuration}"/>
+                <DoubleAnimation Storyboard.TargetName="worldFader" Storyboard.TargetProperty="Opacity" To="0" Duration="{StaticResource LevelUpSkipDuration}"/>
+
+                <!-- Move left side panel from center -->
+                <DoubleAnimation Storyboard.TargetName="leftSidePanels" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="{StaticResource LevelUpSkipDuration}" AccelerationRatio="0.75" DecelerationRatio="0.25"/>
+
+                <!-- Move right side panel onscreen -->
+                <DoubleAnimation Storyboard.TargetName="summary" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="{StaticResource LevelUpSkipDuration}" AccelerationRatio="0.75" DecelerationRatio="0.25"/>
+
+            </Storyboard>
+
+            <ControlTemplate x:Key="LevelUpFinishingTemplate">
+                <Grid Background="Black" Opacity="0.5"/>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="LevelUpTemplate">
+
+                <Grid x:Name="levelUp" IsEnabled="{Binding IsLocked, Converter={StaticResource InvertBoolConverter}}">
+
+                    <Rectangle x:Name="bottomShading" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="{StaticResource bottomBackgroundHeight}" Fill="{StaticResource BottomShadingBrush}"/>
+                    <Grid x:Name="worldFader" Background="Black" IsHitTestVisible="False"/>
+
+                    <Grid HorizontalAlignment="Left">
+
+                        <Rectangle x:Name="leftSideShading" HorizontalAlignment="Left" Opacity="0" Width="{StaticResource leftSidePanelBackgroundWidth}" Fill="{StaticResource LeftSideShadingBrush}" OpacityMask="{StaticResource OpacityMaskShadingBrush}"/>
+
+                        <Grid x:Name="leftSidePanels" ls:MoveFocus.IsMoveFocusScope="True" Width="1218" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,50,0,0" Tag="0">
+
+                            <Grid.RenderTransform>
+                                <!-- Offset to center panel under intro animation -->
+                                <TranslateTransform>
+                                    <TranslateTransform.X>
+                                        <MultiBinding Converter="{StaticResource AddMultipleConverter}">
+                                            <Binding ElementName="CharacterLevelUp_c" Path="ActualWidth" Converter="{StaticResource MultiplierConverter}" ConverterParameter="0.5"/>
+                                            <Binding ElementName="leftSidePanels" Path="ActualWidth" Converter="{StaticResource MultiplierConverter}" ConverterParameter="-0.5"/>
+                                            <Binding ElementName="leftSidePanels" Path="Tag"/>
+                                        </MultiBinding>
+                                    </TranslateTransform.X>
+                                </TranslateTransform>
+                            </Grid.RenderTransform>
+
+                            <ContentControl x:Name="gameplaySubPanel" Content="{Binding .}">
+                                <b:Interaction.Triggers>
+                                    <b:PropertyChangedTrigger Binding="{Binding Path=SelectedIndex, ElementName=gameplayTabs}">
+                                        <b:Interaction.Behaviors>
+                                            <b:ConditionBehavior>
+                                                <b:ConditionalExpression>
+                                                    <b:ComparisonCondition LeftOperand="{Binding Path=SelectedIndex, ElementName=gameplayTabs}" Operator="NotEqual" RightOperand="-1"/>
+                                                </b:ConditionalExpression>
+                                            </b:ConditionBehavior>
+                                        </b:Interaction.Behaviors>
+                                        <!-- clear subtab panel -->
+                                        <b:ChangePropertyAction TargetName="gameplaySubPanel" PropertyName="DataContext" Value="{x:Null}"/>
+                                    </b:PropertyChangedTrigger>
+                                </b:Interaction.Triggers>
+                            </ContentControl>
+
+                            <Control x:Name="gameplayPanel" Height="{StaticResource gameplayPanelHeight}"/>
+
+                        </Grid>
+
+                        <Grid x:Name="tabNavigation" Opacity="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,110" Width="{StaticResource gameplaySideWidth}">
+                            <StackPanel HorizontalAlignment="Center">
+                                <Grid x:Name="dummyMotionKey" Visibility="Collapsed" HorizontalAlignment="Center">
+                                    <Image Source="{StaticResource CameraActionIndication}" Stretch="None"/>
+                                    <Image Source="{StaticResource CameraActionStickIcon}" Stretch="None" Margin="0,8,0,0"/>
+                                </Grid>
+
+                                <ContentPresenter x:Name="MissingRequirementsError" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,0" ContentTemplate="{StaticResource MissingRequirementsErrorTemplate}" Content=""/>
+
+                                <!-- forward navigation only here, back is in bottombuttons -->
+                                <ls:LSButton x:Name="nextButton" IsEnabled="False" Style="{StaticResource nextGameplayTabNavButtonStyle}" HorizontalAlignment="Center"/>
+
+                                <ls:LSNineSliceImage x:Name="ventureForthButton" Visibility="Collapsed" HorizontalContentAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource PrimaryButton9Slice}" Margin="0,0,0,20">
+                                    <ls:LSButton Style="{StaticResource ControllerHoldButtonStyle}" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Tag="{Binding Source='ha7867654g6f71g41ccgbd0bgba956a682293', Converter={StaticResource TranslatedStringConverter}}" EatInput="False" Command="{Binding DataContext.PlayDummyVFX, ElementName=CharacterLevelUp_c}" CommandParameter="VFX_UI_LevelUp_01" Margin="6,0,8,0" >
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Click" >
+
+                                                <b:ChangePropertyAction TargetName="levelUp" PropertyName="Visibility" Value="Collapsed" />
+                                                <b:ChangePropertyAction TargetName="levelUp" PropertyName="IsEnabled" Value="False" />
+
+                                                <b:InvokeCommandAction Command="{Binding DataContext.SetCameraMode, ElementName=CharacterLevelUp_c}" CommandParameter="Overview"/>
+
+                                                <b:InvokeCommandAction Command="{Binding DataContext.HideTooltipOnUIElement, ElementName=CharacterLevelUp_c}"/>
+
+                                            </b:EventTrigger>
+                                            <b:TimerTrigger EventName="Click" MillisecondsPerTick="1400" TotalTicks="1">
+                                                <b:InvokeCommandAction Command="{Binding DataContext.FinishLevelUp, ElementName=CharacterLevelUp_c}" CommandParameter="Overview"/>
+                                            </b:TimerTrigger>
+                                        </b:Interaction.Triggers>
+                                    </ls:LSButton>
+                                </ls:LSNineSliceImage>
+
+                                <ListBox x:Name="gameplayTabs" Tag="levelup" ItemsPanel="{StaticResource gameplayTabListPanel}" HorizontalAlignment="Center" Margin="0,-20,0,50">
+                                    <b:Interaction.Triggers>
+                                        <b:EventTrigger EventName="Loaded">
+                                            <b:InvokeCommandAction Command="{Binding SetupGameplayTabNavigation}" CommandParameter="{Binding ElementName=gameplayTabs}"/>
+                                        </b:EventTrigger>
+										<b:PropertyChangedTrigger Binding="{Binding Path=SelectedMultiClass.Name}">
+											<b:InvokeCommandAction Command="{Binding SetupGameplayTabNavigation}" CommandParameter="{Binding ElementName=gameplayTabs}"/>
+										</b:PropertyChangedTrigger>
+                                    </b:Interaction.Triggers>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Template" Value="{StaticResource gameplayTabTemplate}"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+
+                                    <ListBoxItem x:Name="levelupTab" Tag="levelup" IsSelected="True"/>
+
+                                    <ListBoxItem x:Name="classTab" Tag="class" Visibility="{Binding Visibility, ElementName=levelupTab, Converter={StaticResource InvertVisibilityConverter}}"/>
+                                    <ListBoxItem x:Name="subClassTab" Tag="subclass" Visibility="Collapsed"/>
+
+                                    <ListBoxItem x:Name="raceTab" Tag="race" Visibility="Collapsed"/>
+
+                                    <ListBoxItem x:Name="deityTab" Tag="deity" Visibility="{Binding SelectableDeities.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                    <ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="Collapsed"/>
+                                    <ListBoxItem x:Name="draconicDragonbornTab" Tag="draconicDragonborn" Visibility="Collapsed"/>
+
+                                    <ListBoxItem x:Name="skillsTab" Tag="skills" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                    <ListBoxItem x:Name="expertiseTab" Tag="expertise" Visibility="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                    <ListBoxItem x:Name="spellReplaceTab" Tag="spellreplace" Visibility="{Binding ClassProgressionDetails.InSpellReplacement, Converter={StaticResource NullToCollapsedConverter}}"/>
+
+                                    <ListBoxItem x:Name="featTab" Tag="feat" Visibility="{Binding CanSelectFeat, Converter={StaticResource BoolToVisibleConverter}}"/>
+                                    <ListBoxItem x:Name="featDetailsTab" Tag="featdetails" Visibility="{Binding SelectedFeatDetails.HasFeat, Converter={StaticResource BoolToVisibleConverter}}"/>
+
+                                    <ListBoxItem x:Name="spellPrepTab" Tag="spellprep" Visibility="{Binding SpellPrepare.Preparable.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                </ListBox>
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
+
+
+                    <Grid x:Name="summary" Visibility="Collapsed" HorizontalAlignment="Right">
+                        <Grid.RenderTransform>
+                            <TranslateTransform X="1000"/>
+                        </Grid.RenderTransform>
+
+                        <Rectangle x:Name="summaryBackground" HorizontalAlignment="Right" Width="{StaticResource summaryPanelBackgroundWidth}" RenderTransformOrigin="1,0.5" Fill="{StaticResource RightSideShadingBrush}" OpacityMask="{StaticResource OpacityMaskShadingBrush}">
+                            <Rectangle.RenderTransform>
+                                <ScaleTransform/>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+
+                        <Grid x:Name="summaryAnimPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,230,34,0">
+                            <Grid.RenderTransform>
+                                <TranslateTransform X="0"/>
+                            </Grid.RenderTransform>
+
+                            <Control x:Name="summaryPanel" IsEnabled="False" ls:MoveFocus.IsMoveFocusScope="True" Template="{StaticResource summaryPanelTemplate}"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,70,16,0"/>
+
+                            <ls:LSInputBinding x:Name="backFromFocusedSummary" IsEnabled="{Binding IsEnabled, ElementName=summaryPanel}" BoundEvent="UICancel">
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="LSInputBindingReleased" >
+                                        <b:ChangePropertyAction TargetName="leftSidePanels" PropertyName="IsEnabled" Value="True" />
+                                        <b:ChangePropertyAction TargetName="summaryPanel" PropertyName="IsEnabled" Value="False" />
+                                        <b:ChangePropertyAction TargetName="focusSummaryPanelButton" PropertyName="Visibility" Value="Visible" />
+                                        <b:ChangePropertyAction TargetName="focusGameplayPanelButton" PropertyName="Visibility" Value="Hidden" />
+                                        <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{StaticResource StandardBottomButtonsTemplate}"/>
+                                        <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c" FocusElement="{Binding ElementName=leftSidePanels}"/>
+                                        <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource unfocusSummaryPanelStoryboard}"/>
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
+                            </ls:LSInputBinding>
+
+                            <ls:LSButton x:Name="focusGameplayPanelButton" 
+                                         Visibility="Hidden" 
+                                         Tag=" "
+                                         ContentTemplate="{StaticResource ControllerButtonHint}"
+                                         Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleSummaryFocus'}"
+                                         BoundEvent="ToggleSummaryFocus"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Top">
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="Click" >
+                                        <b:ChangePropertyAction TargetName="leftSidePanels" PropertyName="IsEnabled" Value="True" />
+                                        <b:ChangePropertyAction TargetName="summaryPanel" PropertyName="IsEnabled" Value="False" />
+                                        <b:ChangePropertyAction TargetName="focusSummaryPanelButton" PropertyName="Visibility" Value="Visible" />
+                                        <b:ChangePropertyAction TargetName="focusGameplayPanelButton" PropertyName="Visibility" Value="Hidden" />
+                                        <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{StaticResource StandardBottomButtonsTemplate}"/>
+                                        <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c" FocusElement="{Binding ElementName=leftSidePanels}"/>
+                                        <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource unfocusSummaryPanelStoryboard}"/>
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
+                            </ls:LSButton>
+
+                            <ls:LSButton x:Name="focusSummaryPanelButton"
+                                         Tag=" "
+                                         ContentTemplate="{StaticResource ControllerButtonHint}"
+                                         Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='ToggleSummaryFocus'}"
+                                         BoundEvent="ToggleSummaryFocus"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Top">
+                                <b:Interaction.Triggers>
+                                    <b:EventTrigger EventName="Click" >
+                                        <b:ChangePropertyAction TargetName="leftSidePanels" PropertyName="IsEnabled" Value="False" />
+                                        <b:ChangePropertyAction TargetName="summaryPanel" PropertyName="IsEnabled" Value="True" />
+                                        <b:ChangePropertyAction TargetName="focusSummaryPanelButton" PropertyName="Visibility" Value="Hidden" />
+                                        <b:ChangePropertyAction TargetName="focusGameplayPanelButton" PropertyName="Visibility" Value="Visible" />
+                                        <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{StaticResource SummaryBottomButtonsTemplate}"/>
+                                        <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c" FocusElement="{Binding ElementName=summaryPanel}"/>
+                                        <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource focusSummaryPanelStoryboard}"/>
+                                    </b:EventTrigger>
+                                </b:Interaction.Triggers>
+                            </ls:LSButton>
+
+                        </Grid>
+                    </Grid>
+
+                    <StackPanel x:Name="bottomControls" Opacity="0" Style="{StaticResource ButtonHint.Container.Right}">
+                        <ContentControl x:Name="bottomButtons" IsEnabled="False" Template="{StaticResource StandardBottomButtonsTemplate}">
+                            <ls:LSButton x:Name="CancelLevelUpButton" 
+                                         Tag="{Binding Source='hbc80c075g1c12g45a7gb006gfdc65eea207d', Converter={StaticResource TranslatedStringConverter}}"  
+                                         DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UICancel'}" 
+                                         Command="{Binding DataContext.CustomEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="CloseWidget" EatInput="False"
+                                         IsEnabled="False" Style="{StaticResource ControllerHoldButtonStyle}" 
+                                         VerticalAlignment="Bottom" Visibility="Collapsed"/>
+                        </ContentControl>
+
+
+                    </StackPanel>
+
+                    <ls:LSInputBinding x:Name="PinTooltipBinding" Style="{StaticResource PinTooltipBindingStyle}" EatInput="False"/>
+
+                    <!-- On opening the game menu, mark the session as cancelled so there won't be any fade -->
+                    <ls:LSInputBinding BoundEvent="ToggleInGameMenu"
+                                   PlayerId="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                                   Command="{Binding DataContext.SetAsCancelled, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+                                   CommandParameter="{StaticResource TrueValue}"
+                                   EatInput="False"/>
+
+                    <!-- 
+                
+                    Animated LevelUp Intro
+                
+                    -->
+                    <StackPanel x:Name="LevelUpIntroPanel" Height="800" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid x:Name="LevelUpTextAndBanner">
+                            <Grid.RenderTransform>
+                                <TransformGroup>
+                                <!-- Banner image scaled from 1324x364 to 1080x297 -->
+                                <ScaleTransform CenterX="540" CenterY="148"/>
+                                    <TranslateTransform Y="0"/>
+                                </TransformGroup>
+                            </Grid.RenderTransform>
+
+                            <Image x:Name="LevelUpBanner" Source="{StaticResource LevelUpBanner}" Stretch="Uniform" Width="1080"/>
+
+                            <TextBlock x:Name="LevelUpText" Text="{Binding Source='he3ccedd0gceaeg4b1fg8e74g9dfc6da58cd2', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}" VerticalAlignment="Top" Margin="0,60,0,0"/>
+
+                            <ls:AnimatedImage x:Name="LevelUpTrail" Style="{StaticResource trailVfx}" Margin="0,0,0,-300">
+                                <ls:AnimatedImage.RenderTransform>
+                                    <TransformGroup>
+                                        <RotateTransform Angle="90"/>
+                                        <ScaleTransform ScaleX="1.3" ScaleY="1.3"/>
+                                        <TranslateTransform X="500" Y="50"/>
+                                    </TransformGroup>
+                                </ls:AnimatedImage.RenderTransform>
+                            </ls:AnimatedImage>
+                        </Grid>
+
+                        <!-- MOD START - Use main class instead of subclass icon -->
+						<Image x:Name="ClassIconBanner" Style="{StaticResource MainClassIconStyle}" Stretch="None" DataContext="{Binding SelectedMultiClass}" Margin="0,46,0,0">
+							<!-- MOD END -->
+                            <Image.RenderTransform>
+                                <TranslateTransform Y="0"/>
+                            </Image.RenderTransform>
+                        </Image>
+
+                        <StackPanel x:Name="LevelTextPanel" Margin="0,-14,0,0">
+                            <StackPanel.RenderTransform>
+                                <TranslateTransform Y="0"/>
+                            </StackPanel.RenderTransform>
+                        <!-- Tav Level N -->
+                            <TextBlock x:Name="characterLevelText" Visibility="Hidden" Style="{StaticResource IconCarouselText}" FontSize="{StaticResource ScaledLargeFontSize}">
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                                    <Binding Source="hc76e785eg7837g43a5g9cb5g55d46ed41522"/>
+                                    <Binding Path="DummyCharacter.Name"/>
+                                    <Binding Path="AvailableCharacterLevel"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+
+                        <!-- Class Lv N -->
+                        <TextBlock x:Name="classLevelText" Style="{StaticResource IconCarouselText}">
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                                    <Binding Source="h1a47a847g893eg4cb2ga87bgaa23ee47055b"/>
+                                    <Binding Path="SelectedMultiClass.Name"/>
+                                    <Binding Path="SelectedMultiClass.Level" Converter="{StaticResource AddConverter}" ConverterParameter="1"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Control x:Name="SetCameraControl"/>
+
+                    <!-- Skip LevelUp Animations -->
+                    <ls:LSInputBinding x:Name="SkipAnimationInput" BoundEvent="UISkipDialog" EatInput="False">
+                        <b:Interaction.Triggers>
+                            <b:EventTrigger EventName="LSInputBindingPressed">
+                                <b:InvokeCommandAction Command="{Binding SetLevelUpStep}" CommandParameter="SkipAnimation"/>
+                            </b:EventTrigger>
+                        </b:Interaction.Triggers>
+                    </ls:LSInputBinding>
+
+                    <b:Interaction.Triggers>
+
+                        <b:EventTrigger EventName="Loaded">
+                            <b:InvokeCommandAction Command="{Binding SetCameraMode}" CommandParameter="Overview"/>
+
+                            <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource LevelUpAppearStoryboard}"/>
+
+                            <ls:LSPlaySound  Sound="UI_LevelUp_Menu_SequenceStart"/>
+
+                        </b:EventTrigger>
+
+                        <b:DataTrigger Binding="{Binding LevelUpStep}" Value="SkipAnimation">
+                            <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource LevelUpAppearSkipStoryboard}"/>
+                        </b:DataTrigger>
+
+                        <!-- Enable Tooltips after animation -->
+                        <b:DataTrigger Binding="{Binding LevelUpStep}" Value="IntroComplete">
+                            <b:InvokeCommandAction Command="{Binding EnableTooltipOnUIElement}"/>
+
+                            <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c" FocusElement="{Binding ElementName=gameplayPanel}"/>
+                            
+                            <b:ChangePropertyAction TargetName="SkipAnimationInput" PropertyName="IsEnabled" Value="False"/>
+                        </b:DataTrigger>
+
+                        <b:DataTrigger Binding="{Binding Path=IsVisible, ElementName=levelUp}" Value="True">
+                            <ls:LSPlaySound  Sound="UI_HUD_TriggerLevelUp"/>
+                        </b:DataTrigger>
+
+                    </b:Interaction.Triggers>
+
+                </Grid>
+
+                <ControlTemplate.Triggers>
+
+                    <!-- Split Screen variation -->
+                    <DataTrigger Binding="{Binding Layout}" Value="Common">
+                        <Setter TargetName="leftSidePanels" Property="Margin" Value="200,50,0,0"/>
+                        <Setter TargetName="leftSidePanels" Property="Tag" Value="-200"/>
+                        <Setter TargetName="tabNavigation" Property="Margin" Value="0,0,0,0"/>
+                    </DataTrigger>
+
+                    <DataTrigger Value="False">
+                        <DataTrigger.Binding>
+                            <MultiBinding Converter="{StaticResource EqualConverter}">
+                                <Binding Path="AvailableCharacterLevel"/>
+                                <Binding Path="SelectedMultiClass.Level" Converter="{StaticResource AddConverter}" ConverterParameter="1"/>
+                            </MultiBinding>
+                        </DataTrigger.Binding>
+                        <Setter TargetName="characterLevelText" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding LevelUpStep}" Value="IntroComplete">
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="True"/>
+                        <Setter TargetName="bottomButtons" Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ProgressionData.RaceProgression.Other.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ProgressionData.RaceProgression.AbilityBonuses.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ProgressionData.RaceProgression.SaveProficiencies.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ProgressionData.RaceProgression.WeaponProficiencies.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ProgressionData.RaceProgression.ArmourProficiencies.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ProgressionData.RaceProgression.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+
+                    <!-- Subclass has a selection -->
+                    <DataTrigger Binding="{Binding SelectableSubClasses.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="subClassTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding HasNextGameplayTab}" Value="False">
+                        <Setter TargetName="nextButton" Property="Visibility" Value="Collapsed"/>
+                        <Setter TargetName="ventureForthButton" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+
+                    <!-- Disabled next/continue button if current subtab panel is incomplete -->
+                    <DataTrigger Binding="{Binding DataContext.IsComplete, ElementName=gameplaySubPanel}" Value="False">
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="skills"/>
+                            <Condition Binding="{Binding Validity.ClassSelectors.SkillProficiencySelectors}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="expertise"/>
+                            <Condition Binding="{Binding Validity.ClassSelectors.SkillExpertiseSelectors}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="featdetails"/>
+                            <Condition Binding="{Binding SelectedFeatDetails.FeatDetails.IsAbilitySelectionComplete}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="feat"/>
+                            <Condition Binding="{Binding SelectedFeatDetails.HasFeat, FallbackValue=False}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="spellprep"/>
+                            <Condition Binding="{Binding SpellPrepare.IsInvalid}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="spellprep"/>
+                            <Condition Binding="{Binding SpellPrepare.IsComplete}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+
+                    <!-- Feats with ability points (e.g., Athlete) -->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=SelectedItem.Tag, ElementName=gameplayTabs}" Value="featdetails"/>
+                            <Condition Binding="{Binding Validity.RacialSelectors.AbilitySelectors}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=SelectedItem.Tag, ElementName=gameplayTabs}" Value="featdetails"/>
+                            <Condition Binding="{Binding Validity.ClassSelectors.AbilitySelectors}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+
+                    <!-- Feats with passives (e.g., Elemental Adept) -->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=SelectedItem.Tag, ElementName=gameplayTabs}" Value="featdetails"/>
+                            <Condition Binding="{Binding Validity.RacialSelectors.PassiveSelectors}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=SelectedItem.Tag, ElementName=gameplayTabs}" Value="featdetails"/>
+                            <Condition Binding="{Binding Validity.ClassSelectors.PassiveSelectors}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+
+                    <!-- Feats with skills (e.g., Skilled) -->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=SelectedItem.Tag, ElementName=gameplayTabs}" Value="featdetails"/>
+                            <Condition Binding="{Binding Validity.RacialSelectors.SkillProficiencySelectors}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Path=SelectedItem.Tag, ElementName=gameplayTabs}" Value="featdetails"/>
+                            <Condition Binding="{Binding Validity.ClassSelectors.SkillProficiencySelectors}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+                    </MultiDataTrigger>
+
+                    <DataTrigger Binding="{Binding IsLevelUpComplete}" Value="False">
+                        <Setter TargetName="ventureForthButton" Property="IsEnabled" Value="False"/>
+                    </DataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding LevelUpStep}" Value="IntroComplete"/>
+                            <Condition Binding="{Binding IsEnabled, ElementName=nextButton}" Value="False"/>
+                            <Condition Binding="{Binding Visibility, ElementName=nextButton}" Value="Visible"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="MissingRequirementsError" Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding LevelUpStep}" Value="IntroComplete"/>
+                            <Condition Binding="{Binding IsEnabled, ElementName=ventureForthButton}" Value="False"/>
+                            <Condition Binding="{Binding Visibility, ElementName=ventureForthButton}" Value="Visible"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="MissingRequirementsError" Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger>
+
+                    <DataTrigger Binding="{Binding Layout}" Value="Common">
+                        <Setter TargetName="summary" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Tag, ElementName=summary}" Value="ShowIfPossible">
+                        <Setter TargetName="summary" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="summary" Property="Tag" Value=""/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Tag, ElementName=summary}" Value="HideIfPossible">
+                        <Setter TargetName="summary" Property="Visibility" Value="Collapsed"/>
+                        <Setter TargetName="summary" Property="Tag" Value=""/>
+                    </DataTrigger>
+
+                    <!-- Panel Triggers -->
+
+
+                    <!-- Level Up Class -->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="levelup"/>
+                            <Condition Binding="{Binding SelectedMultiClass.Level, Converter={StaticResource GreaterThanConverter}, 
+ConverterParameter=0}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Grid.Resources>
+                                            <Storyboard x:Key="levelUpAppear">
+
+                                                <DoubleAnimation Storyboard.TargetName="LevelUpAcquiredText" Storyboard.TargetProperty="Opacity" BeginTime="{StaticResource LevelUpShowItemsStartTime}" From="0" To="1" Duration="0:0:0.2"/>
+
+                                            </Storyboard>
+                                        </Grid.Resources>
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
+                                                <b:InvokeCommandAction Command="{Binding SetupClassesLoopingCommand}" CommandParameter="Owned"/>
+                                            </b:EventTrigger>
+
+                                            <!-- Animations (Only run once, not when changing tabs) -->
+                                            <b:DataTrigger Binding="{Binding LevelUpStep}" Value="Started">
+
+                                                <b:ChangePropertyAction TargetName="worldFader" PropertyName="Opacity" Value="0.85"/>
+
+                                                <b:ChangePropertyAction TargetName="classPanelTitleText" PropertyName="Opacity" Value="0"/>
+                                                <b:ChangePropertyAction TargetName="multiClassCarousel" PropertyName="Opacity" Value="0"/>
+                                                <b:ChangePropertyAction TargetName="LevelUpAcquiredText" PropertyName="Opacity" Value="0"/>
+
+                                                <b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource levelUpAppear}"/>
+
+                                            </b:DataTrigger>
+
+                                            <b:DataTrigger Binding="{Binding LevelUpStep}" Value="SkipAnimation">
+                                                <b:ControlStoryboardAction ControlStoryboardOption="Stop" Storyboard="{StaticResource levelUpAppear}"/>
+                                                <b:ChangePropertyAction TargetName="LevelUpAcquiredText" PropertyName="Opacity" Value="1"/>
+                                            </b:DataTrigger>
+
+                                        </b:Interaction.Triggers>
+                                        <DockPanel x:Name="basePanel" Height="{StaticResource gameplayPanelHeight}" VerticalAlignment="Top">
+
+                                            <StackPanel DockPanel.Dock="Top">
+
+                                                <TextBlock x:Name="classPanelTitleText" ls:TextBlockFormatter.SourceText="{Binding Source=he3ccedd0gceaeg4b1fg8e74g9dfc6da58cd2, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+                                                <ListBox x:Name="multiClassCarousel" Template="{StaticResource IconCarouselTemplate}" ItemsSource="{Binding FilteredItems, ElementName=CurrentMultiClasses}" SelectedItem="{Binding SelectedMultiClass}">
+                                                    <ListBox.Resources>
+
+                                                        <ControlTemplate x:Key="IconsSubtitleTemplate">
+                                                            <TextBlock FontSize="{StaticResource ScaledDefaultFontSize}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20">
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                                                                        <Binding Source="h5df00b79ga6acg4d9fgb8dag23340151fba7"/>
+                                                                        <Binding Path="Level"/>
+                                                                        <Binding Source=""/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </ControlTemplate>
+
+                                                        <ControlTemplate x:Key="IconsTemplate">
+                                                            <Control x:Name="icons" Template="{StaticResource CarouselClassIconsFewTemplate}"/>
+                                                            <ControlTemplate.Triggers>
+                                                                <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=CurrentMultiClasses, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}">
+                                                                    <Setter TargetName="icons" Property="Template" Value="{StaticResource CarouselClassIconsTemplate}"/>
+                                                                </DataTrigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+
+                                                        <ControlTemplate x:Key="IconCarouselTextTemplate">
+                                                            <TextBlock Style="{StaticResource IconCarouselText}">
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                                                                        <Binding Source="h1a47a847g893eg4cb2ga87bgaa23ee47055b"/>
+                                                                        <Binding Path="SelectedItem.Name" RelativeSource="{RelativeSource AncestorType={x:Type ListBox}}"/>
+                                                                        <Binding Path="SelectedItem.Level" RelativeSource="{RelativeSource AncestorType={x:Type ListBox}}" Converter="{StaticResource AddConverter}" ConverterParameter="1"/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </ControlTemplate>
+
+                                                    </ListBox.Resources>
+                                                </ListBox>
+
+                                                <TextBlock x:Name="LevelUpAcquiredText" ls:TextBlockFormatter.SourceText="{Binding Source='h230f60c6g161fg481bgbe52g42bc264618dd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource FeatureListHeaderText}" Margin="0,50,0,0"/>
+
+                                            </StackPanel>
+
+                                            <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+                                                <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+                                                    <ListBox x:Name="animatedLevelUpItems">
+
+                                                        <ListBox.Template>
+                                                            <ControlTemplate TargetType="ListBox">
+                                                                <!-- No ScrollViewer -->
+                                                                <ItemsPresenter/>
+                                                            </ControlTemplate>
+                                                        </ListBox.Template>
+
+                                                        <b:Interaction.Behaviors>
+
+                                                            <ls:SequenceBehavior x:Name="levelUpItemsSequence" TimeOffset="0:0:0.5" CompletedDelay="0:0:0.5"/>
+
+                                                        </b:Interaction.Behaviors>
+
+                                                        <b:Interaction.Triggers>
+                                                            <b:TimerTrigger EventName="Loaded" MillisecondsPerTick="2000" TotalTicks="1">
+                                                                <b:Interaction.Behaviors>
+                                                                    <b:ConditionBehavior>
+                                                                        <b:ConditionalExpression>
+                                                                            <b:ComparisonCondition LeftOperand="{Binding LevelUpStep}" Operator="Equal" RightOperand="Started"/>
+                                                                        </b:ConditionalExpression>
+                                                                    </b:ConditionBehavior>
+                                                                </b:Interaction.Behaviors>
+                                                                <b:ChangePropertyAction TargetName="levelUpItemsSequence" PropertyName="Animate" Value="True"/>
+                                                            </b:TimerTrigger>
+
+                                                            <b:DataTrigger Binding="{Binding LevelUpStep}" Value="SkipAnimation">
+                                                                <b:ChangePropertyAction TargetName="levelUpItemsSequence" PropertyName="TimeOffset" Value="0:0:0"/>
+                                                                <b:ChangePropertyAction TargetName="levelUpItemsSequence" PropertyName="CompletedDelay" Value="0:0:0"/>
+                                                                <b:ChangePropertyAction TargetName="levelUpItemsSequence" PropertyName="Animate" Value="True"/>
+
+                                                                <ls:LSControlStoryboard ControlStoryboardOption="Play" Storyboard="{StaticResource LevelUpAfterItemsSkipStoryboard}" CompletedCommand="{Binding SetLevelUpStep}" CompletedCommandParameter="IntroComplete"/>
+                                                                <b:ChangePropertyAction TargetName="SetCameraControl" PropertyName="Template" Value="{StaticResource setGameplayCameraOffsets}"/>
+                                                                <b:ChangePropertyAction TargetName="levelUp" PropertyName="IsHitTestVisible" Value="True"/>
+                                                            </b:DataTrigger>
+
+                                                            <b:DataTrigger Binding="{Binding ElementName=levelUpItemsSequence, Path=SequenceCompleted}" Value="True">
+                                                                <ls:LSControlStoryboard ControlStoryboardOption="Play" Storyboard="{StaticResource LevelUpAfterItemsStoryboard}" CompletedCommand="{Binding SetLevelUpStep}" CompletedCommandParameter="IntroComplete"/>
+
+                                                                <b:ChangePropertyAction TargetName="SetCameraControl" PropertyName="Template" Value="{StaticResource setGameplayCameraOffsets}"/>
+
+                                                                <b:ChangePropertyAction TargetName="levelUp" PropertyName="IsHitTestVisible" Value="True"/>
+                                                            </b:DataTrigger>
+                                                        </b:Interaction.Triggers>
+
+                                                        <!-- These ListBoxItems animate in at the start -->
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Visibility="{Binding SelectableSubClasses.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource levelUpListBoxItemStyle}">
+                                                            <!-- Subclass available -->
+                                                            <ContentControl x:Name="Subclasses" ContentTemplate="{StaticResource SubclassesTemplate}" Content="{Binding .}"/>
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Visibility="{Binding CanSelectFeat, Converter={StaticResource BoolToVisibleConverter}}" Style="{StaticResource levelUpListBoxItemStyle}">
+                                                            <!-- Feat available -->
+                                                            <Control Template="{StaticResource FeatAvailableTemplate}"/>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}"  >
+                                                            <!-- HP -->
+                                                            <ContentControl x:Name="base" Template="{StaticResource ListButtonTemplate}" ls:MoveFocus.Focusable="True" Focusable="True" ToolTipService.Placement="Right">
+                                                                <ContentControl.ToolTip>
+                                                                    <ls:LSTooltip ContentTemplate="{StaticResource HPTooltipTooltip}"/>
+                                                                </ContentControl.ToolTip>
+                                                                <Grid>
+                                                                    <Grid Style="{StaticResource FeatureListItemIconHolder}">
+                                                                        <Image x:Name="SlotHolder" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel/ico_hp.png" Width="96" Height="96" Stretch="UniformToFill"/>
+                                                                        <Rectangle x:Name="icon" Fill="{Binding Icon}" Width="96" Height="96"/>
+                                                                    </Grid>
+
+                                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="160,0,0,0">
+                                                                        <StackPanel.Resources>
+                                                                            <BitmapImage x:Key="SideArrow2Image" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/levelUp_sideArrow_h2.png" />
+                                                                            <Style TargetType="TextBlock">
+                                                                                <Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
+                                                                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                                                                <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
+                                                                            </Style>
+                                                                        </StackPanel.Resources>
+                                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h7f2fb117g1f87g4849ga4b8gd864068066b8', Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledDefaultFontSize}" VerticalAlignment="Center" Margin="0,0,20,0"/>
+
+                                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Health.Value}" VerticalAlignment="Center" FontSize="{StaticResource ScaledDefaultFontSize}"/>
+                                                                        <Image Source="{StaticResource SideArrowChunky}" Stretch="None" VerticalAlignment="Center" Margin="0,0,0,-4"/>
+                                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Health.Max}" VerticalAlignment="Center" Foreground="{StaticResource LS_tempHPColor}" FontSize="{StaticResource ScaledDefaultFontSize}"/>
+                                                                    </StackPanel>
+
+                                                                </Grid>
+                                                            </ContentControl>
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.ClassProgression.Other.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.ClassProgression.Other}" ItemTemplate="{StaticResource progressionFeatureBoost}"/>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.ClassProgression.Skills.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.ClassProgression.Skills}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMSkill">
+                                                                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+                                                                            <Grid>
+                                                                                <Grid Style="{StaticResource FeatureListItemIconHolder}"/>
+
+                                                                                <Control Template="{StaticResource SkillDisplayName}" FontSize="{StaticResource ScaledDefaultFontSize}" FontWeight="SemiBold" Foreground="{StaticResource LS_accent100TxtColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="160,0,0,0"/>
+
+                                                                                <TextBlock x:Name="featureType" Text="{Binding Source='h6df70972gfd55g4f29g9431g0a1530858ccf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource FeatureListItemKind}"/>
+
+                                                                            </Grid>
+                                                                        </ContentControl>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.ClassProgression.AbilityBonuses.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.ClassProgression.AbilityBonuses}" Margin="0,20,0,0">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMAbility">
+                                                                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+                                                                            <Grid>
+                                                                                <Grid Style="{StaticResource FeatureListItemIconHolder}"/>
+
+                                                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource FeatureListItemName}">
+                                    <b:Interaction.Behaviors>
+                                        <ls:CtxTransStringRunGeneratorBehavior Source="{Binding NameCTS}"/>
+                                    </b:Interaction.Behaviors>
+                                                                                </TextBlock>
+                                                                            </Grid>
+                                                                        </ContentControl>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.ClassProgression.WeaponProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.ClassProgression.WeaponProficiencies}" ItemTemplate="{StaticResource progressionFeatureBoost}"/>
+
+                                                        </ListBoxItem>
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.ClassProgression.ArmourProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.ClassProgression.ArmourProficiencies}" ItemTemplate="{StaticResource progressionFeatureBoost}"/>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="classPassiveActions" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Actions}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+                                                            
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="classPassiveCantrips" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Cantrips}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="classPassiveSpells" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Spells}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="classProgressionActions" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassProgressions}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Actions}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="classProgressionCantrips" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassProgressions}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Cantrips}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="classProgressionSpells" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassProgressions}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Spells}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}"/>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Visibility="{Binding ClassProgressionDetails.NotSubPassiveSelectors.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding ClassProgressionDetails.NotSubPassiveSelectors}" ItemTemplate="{StaticResource progressionPassiveSelectors}" ItemContainerStyle="{StaticResource UpdateStateItemStyle}"/>
+
+                                                        </ListBoxItem>
+
+                                                        <!-- Subclass Features-->
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.SubClassProgression.Other.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.SubClassProgression.Other}" ItemTemplate="{StaticResource progressionFeatureBoost}"/>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.SubClassProgression.Skills.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.SubClassProgression.Skills}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMSkill">
+                                                                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+                                                                            <Grid>
+                                                                                <Grid Style="{StaticResource FeatureListItemIconHolder}"/>
+
+                                                                                <Control Template="{StaticResource SkillDisplayName}" FontSize="{StaticResource ScaledDefaultFontSize}" FontWeight="SemiBold" Foreground="{StaticResource LS_accent100TxtColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="160,0,0,0"/>
+
+                                                                                <TextBlock x:Name="featureType" Text="{Binding Source='h6df70972gfd55g4f29g9431g0a1530858ccf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource FeatureListItemKind}"/>
+
+                                                                            </Grid>
+                                                                        </ContentControl>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.SubClassProgression.AbilityBonuses.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.SubClassProgression.AbilityBonuses}" Margin="0,20,0,0">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMAbility">
+                                                                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+                                                                            <Grid>
+                                                                                <Grid Style="{StaticResource FeatureListItemIconHolder}"/>
+
+                                                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource FeatureListItemName}">
+                                    <b:Interaction.Behaviors>
+                                        <ls:CtxTransStringRunGeneratorBehavior Source="{Binding NameCTS}"/>
+                                    </b:Interaction.Behaviors>
+                                                                                </TextBlock>
+                                                                            </Grid>
+                                                                        </ContentControl>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.SubClassProgression.WeaponProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.SubClassProgression.WeaponProficiencies}" ItemTemplate="{StaticResource progressionFeatureBoost}"/>
+
+                                                        </ListBoxItem>
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}" Visibility="{Binding ProgressionData.SubClassProgression.ArmourProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
+
+                                                            <ItemsControl ItemsSource="{Binding ProgressionData.SubClassProgression.ArmourProficiencies}" ItemTemplate="{StaticResource progressionFeatureBoost}"/>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="subclassPassiveActions" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Actions}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+                                                            
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="subclassPassiveCantrips" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Cantrips}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="subclassPassiveSpells" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Spells}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+
+                                                        <ListBoxItem x:Name="subclassProgressionActions" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Actions}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="subclassProgressionCantrips" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Cantrips}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem x:Name="subclassProgressionSpells" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="ls:VMProgression">
+                                                                        <ContentControl Template="{StaticResource progressionFeaturesSpellList}" DataContext="{Binding Features.Spells}" Content="{Binding Source='h420f4742g1f0dg4d44gb326g4a8f7547b7a3', Converter={StaticResource TranslatedStringConverter}}"/>
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+
+                                                        </ListBoxItem>
+
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}"/>
+
+                                                        </ListBoxItem>
+
+                                                        <ListBoxItem Template="{StaticResource levelUpListBoxItemTemplate}" Visibility="{Binding ClassProgressionDetails.SubPassiveSelectors.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource levelUpListBoxItemStyle}">
+
+                                                            <ItemsControl ItemsSource="{Binding ClassProgressionDetails.SubPassiveSelectors}" ItemTemplate="{StaticResource progressionPassiveSelectors}" ItemContainerStyle="{StaticResource UpdateStateItemStyle}"/>
+                                                            
+                                                        </ListBoxItem>                                                        
+
+                                                    </ListBox>
+
+                                                </StackPanel>
+                                            </ScrollViewer>
+
+                                        </DockPanel>
+
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=classPassiveActions}" Value="0">
+                                            <Setter TargetName="classPassiveActions" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=classPassiveCantrips}" Value="0">
+                                            <Setter TargetName="classPassiveCantrips" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=classPassiveSpells}" Value="0">
+                                            <Setter TargetName="classPassiveSpells" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=classProgressionActions}" Value="0">
+                                            <Setter TargetName="classProgressionActions" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=classProgressionCantrips}" Value="0">
+                                            <Setter TargetName="classProgressionCantrips" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=classProgressionSpells}" Value="0">
+                                            <Setter TargetName="classProgressionSpells" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=subclassPassiveActions}" Value="0">
+                                            <Setter TargetName="subclassPassiveActions" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=subclassPassiveCantrips}" Value="0">
+                                            <Setter TargetName="subclassPassiveCantrips" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=subclassPassiveSpells}" Value="0">
+                                            <Setter TargetName="subclassPassiveSpells" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=subclassProgressionActions}" Value="0">
+                                            <Setter TargetName="subclassProgressionActions" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=subclassProgressionCantrips}" Value="0">
+                                            <Setter TargetName="subclassProgressionCantrips" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ActualHeight, ElementName=subclassProgressionSpells}" Value="0">
+                                            <Setter TargetName="subclassProgressionSpells" Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                    </MultiDataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="race">
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+
+                                        <TextBlock Text="{Binding DummyCharacter.Stats.Race.DisplayName}" Style="{StaticResource PanelHeaderText}" Margin="0,0,0,50"/>
+
+                                        <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                        <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}"/>
+
+                                        <ItemsControl x:Name="subRaceFeatureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                        <Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.RaceProgression}" HorizontalAlignment="Center"/>
+
+                                        <Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.SubRaceProgression}" HorizontalAlignment="Center"/>
+
+                                    </StackPanel>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="levelup">
+                        <Setter TargetName="CancelLevelUpButton" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="CancelLevelUpButton" Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="class">
+                        <Setter TargetName="CancelLevelUpButton" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="CancelLevelUpButton" Property="IsEnabled" Value="True" />
+                    </DataTrigger>
+
+                    <!-- New MultiClass -->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="class"/>
+                            <Condition Binding="{Binding SelectedMultiClass.Level}" Value="0"/>
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Control Template="{StaticResource classPanelTemplate}">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </Control>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                    </MultiDataTrigger>
+
+                    <!-- Subclass of a new multiclass -->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="subclass"/>
+                            <Condition Binding="{Binding SelectedMultiClass.Level}" Value="0"/>
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Control Template="{StaticResource subClassPanelTemplate}">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </Control>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                    </MultiDataTrigger>
+
+                    <!-- Level Up SubClass (not new multiclass) -->
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="subclass"/>
+                            <Condition Binding="{Binding SelectedMultiClass.Level, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Control Template="{StaticResource subClassPanelTemplate}">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </Control>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                    </MultiDataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="draconic">
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+                                            <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0e1fded7g681ag4e5fgb0a2gc5928ab399a1', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
+
+                                                <ListBox ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
+
+                                                <TextBlock x:Name="draconicColourHeader" ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,100,0,0"/>
+
+                                                <ItemsControl x:Name="draconicColourOptionList" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearancePassive.ColorOptions}"/>
+
+                                                <ListBox x:Name="draconicColourOptionGrid" ItemsSource="{Binding SelectablePassiveColours}" SelectedItem="{Binding SelectedPassiveColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
+
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding AppearancePassive.EmptyMaterialSelected}" Value="True">
+                                            <Setter TargetName="draconicColourHeader" Property="Visibility" Value="Collapsed"/>
+                                            <Setter TargetName="draconicColourOptionList" Property="Visibility" Value="Collapsed"/>
+                                            <Setter TargetName="draconicColourOptionGrid" Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="draconicDragonborn">
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+                                            <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0e1fded7g681ag4e5fgb0a2gc5928ab399a1', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h861a433dgcc20g452bg9b1agde89d14c85c9', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
+
+                                                <ls:LSToggleButton x:Name="draconicDragonbornToggle" Template="{StaticResource DraconicDragonbornTickBoxTemplate}" HorizontalAlignment="Center" ls:MoveFocus.Focusable="True" IsChecked="{Binding AppearancePassive.EmptyMaterialSelected, Mode=TwoWay, Converter={StaticResource InvertBoolConverter}}" Command="{Binding DragonbornDraconicLinesToggleCommand}"/>
+
+                                                <TextBlock x:Name="draconicDragonbornColourHeader" ls:TextBlockFormatter.SourceText="{Binding Source='h7202f8ebgaa5dg411dgac62g3bf8986e28b3', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,100,0,0"/>
+
+                                                <ItemsControl x:Name="draconicDragonbornColourOptionList" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearancePassive.ColorOptions}"/>
+
+                                                <ListBox x:Name="draconicDragonbornColourOptionGrid" ItemsSource="{Binding SelectablePassiveColours}" SelectedItem="{Binding SelectedPassiveColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
+
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=draconicDragonbornToggle, Path=(ls:MoveFocus.IsFocused)}" Value="True">
+                                            <Setter TargetName="draconicDragonbornToggle" Property="BoundEvent" Value="UIAccept"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=draconicDragonbornToggle, Path=(ls:MoveFocus.IsFocused)}" Value="True">
+                                            <Setter TargetName="draconicDragonbornToggle" Property="BoundEvent" Value="UIAccept"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding AppearancePassive.EmptyMaterialSelected}" Value="True">
+                                            <Setter TargetName="draconicDragonbornColourHeader" Property="Visibility" Value="Collapsed"/>
+                                            <Setter TargetName="draconicDragonbornColourOptionList" Property="Visibility" Value="Collapsed"/>
+                                            <Setter TargetName="draconicDragonbornColourOptionGrid" Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="deity">
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Control Template="{StaticResource deityTabPanelTemplate}">
+                                            <b:Interaction.Triggers>
+                                                <b:EventTrigger EventName="Loaded">
+                                                    <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                                </b:EventTrigger>
+                                            </b:Interaction.Triggers>
+                                        </Control>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="skills">
+                        <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource skillProficiencyPanelTemplate}"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="expertise">
+                        <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource skillExpertisePanelTemplate}"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="spellreplace">
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+
+                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h000011feg0be5g4f09g978eg030b3e2e62c6', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h7d40d764gac52g4ccbgb18eg136c928dd69e', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" Margin="0,20,0,0"/>
+
+                                        <Grid>
+                                            <StackPanel x:Name="replaceSummary" ls:MoveFocus.IsMoveFocusScope="True">
+
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,100,0,0">
+
+                                                    <StackPanel Margin="0,0,50,0">
+                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=hd19b7627gc9c3g4ff4ga827g5d68b0ce1409, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
+
+                                                        <ls:LSButton x:Name="outSpell" ls:MoveFocus.Focusable="True" Focusable="True">
+                                                            <b:Interaction.Triggers>
+                                                                <b:EventTrigger EventName="LSButtonReleased" >
+                                                                    <b:ChangePropertyAction TargetName="replaceSummary" PropertyName="Visibility" Value="Hidden" />
+                                                                    <b:ChangePropertyAction TargetName="replaceChooseOutSpell" PropertyName="Visibility" Value="Visible" />
+                                                                    <b:ChangePropertyAction TargetName="replaceChooseOutSpell" PropertyName="IsEnabled" Value="True" />
+                                                                    <b:ChangePropertyAction TargetName="replaceChooseOutSpell" PropertyName= "Template" Value="{StaticResource chooseReplacedOutSpellPanelTemplate}"/>
+                                                                    <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c" FocusElement="{Binding ElementName=replaceChooseOutSpell}"/>
+                                                                </b:EventTrigger>
+                                                            </b:Interaction.Triggers>
+                                                            <ls:LSButton.Template>
+                                                                <ControlTemplate>
+                                                                    <Grid>
+                                                                        <Image Source="{StaticResource SpellReplaceFrame}" Stretch="None"/>
+                                                                        <Rectangle Fill="{Binding ClassProgressionDetails.OutSpellReplacement.Spell.Icon}" Width="100" Height="100"/>
+                                                                        <Image Source="{StaticResource SpellReplaceOutOverlay}" Stretch="None"/>
+                                                                        <Control x:Name="frame" Width="150" Height="150" Template="{StaticResource FocusedOnlyIndicatorTemplate}" Visibility="{Binding Path=(ls:MoveFocus.IsFocused), RelativeSource={RelativeSource AncestorType={x:Type ls:LSButton}}, Converter={StaticResource BoolToVisibleConverter}}"/>
+                                                                    </Grid>
+                                                                </ControlTemplate>
+                                                            </ls:LSButton.Template>
+                                                        </ls:LSButton>
+                                                    </StackPanel>
+
+                                                    <Image Source="{StaticResource SideArrowChunky}" Stretch="None" VerticalAlignment="Bottom" Margin="0,0,0,60"/>
+
+                                                    <StackPanel Margin="50,0,0,0">
+                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h19bc3d6bg4c93g413fga949g4db364084cf4, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
+
+                                                        <ls:LSButton x:Name="inSpell" ls:MoveFocus.Focusable="True" Focusable="True">
+                                                            <b:Interaction.Triggers>
+                                                                <b:EventTrigger EventName="LSButtonReleased" >
+                                                                    <b:ChangePropertyAction TargetName="replaceSummary" PropertyName="Visibility" Value="Hidden" />
+                                                                    <b:ChangePropertyAction TargetName="replaceChooseInSpell" PropertyName="Visibility" Value="Visible" />
+                                                                    <b:ChangePropertyAction TargetName="replaceChooseInSpell" PropertyName="IsEnabled" Value="True" />
+                                                                    <b:ChangePropertyAction TargetName="replaceChooseInSpell" PropertyName= "Template" Value="{StaticResource chooseReplacedInSpellPanelTemplate}"/>
+                                                                    <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c" FocusElement="{Binding ElementName=replaceChooseInSpell}"/>
+                                                                </b:EventTrigger>
+                                                            </b:Interaction.Triggers>
+                                                            <ls:LSButton.Template>
+                                                                <ControlTemplate>
+                                                                    <Grid>
+                                                                        <Image Source="{StaticResource SpellReplaceFrame}" Stretch="None"/>
+                                                                        <Rectangle Fill="{Binding ClassProgressionDetails.InSpellReplacement.Spell.Icon}" Width="100" Height="100"/>
+                                                                        <Control x:Name="frame" Width="150" Height="150" Template="{StaticResource FocusedOnlyIndicatorTemplate}" Visibility="{Binding Path=(ls:MoveFocus.IsFocused), RelativeSource={RelativeSource AncestorType={x:Type ls:LSButton}}, Converter={StaticResource BoolToVisibleConverter}}"/>
+                                                                    </Grid>
+                                                                </ControlTemplate>
+                                                            </ls:LSButton.Template>
+                                                        </ls:LSButton>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <Control x:Name="replaceChooseOutSpell" Visibility="Collapsed" IsEnabled="False" ls:MoveFocus.IsMoveFocusScope="True"/>
+
+                                            <Control x:Name="replaceChooseInSpell" Visibility="Collapsed" IsEnabled="False" ls:MoveFocus.IsMoveFocusScope="True"/>
+
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <ControlTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=outSpell, Path=(ls:MoveFocus.IsFocused)}" Value="True">
+                                            <Setter TargetName="outSpell" Property="BoundEvent" Value="UIAccept"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=inSpell, Path=(ls:MoveFocus.IsFocused)}" Value="True">
+                                            <Setter TargetName="inSpell" Property="BoundEvent" Value="UIAccept"/>
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="spellprep">
+                        <Setter TargetName="gameplayPanel" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Control Template="{StaticResource spellPrepTemplate}">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Loaded">
+                                                <ls:SetMoveFocusAction TargetName="CharacterLevelUp_c"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </Control>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="feat">
+                        <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource featsPanel}"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="featdetails">
+                        <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource featDetailsPanel}"/>
+                    </DataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding SelectedSubClass.IsDraconicSorcerer}" Value="True"/>
+                            <Condition Binding="{Binding IsDragonborn}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <MultiDataTrigger.Setters>
+                            <Setter TargetName="draconicTab" Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger.Setters>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding SelectedSubClass.IsDraconicSorcerer}" Value="True"/>
+                            <Condition Binding="{Binding IsDragonborn}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+                        <MultiDataTrigger.Setters>
+                            <Setter TargetName="draconicDragonbornTab" Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger.Setters>
+                    </MultiDataTrigger>
+
+                </ControlTemplate.Triggers>
+
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ls:UIWidget.Resources>
+
+    <b:Interaction.Behaviors>
+
+        <ls:CollectionFilterBehavior x:Name="CurrentMultiClasses" ItemsSource="{Binding SelectableMultiClasses}" Predicate="{Binding IsCurrentClassPredicate}"/>
+
+        <ls:CollectionFilterBehavior x:Name="RaceProgressions" ItemsSource="{Binding RaceProgressionDetails.Progressions}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRaceProgressions" ItemsSource="{Binding RaceProgressionDetails.Progressions}" Predicate="{Binding IsSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="ClassProgressions" ItemsSource="{Binding ClassProgressionDetails.Progressions}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubClassProgressions" ItemsSource="{Binding ClassProgressionDetails.Progressions}" Predicate="{Binding IsSubProgressionPredicate}"/>
+
+        <ls:CollectionFilterBehavior x:Name="RaceSpellSelectors" ItemsSource="{Binding RaceProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRaceSpellSelectors" ItemsSource="{Binding RaceProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
+
+        <ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
+
+        <ls:CollectionSortBehavior x:Name="SortedRaceSkills" ItemsSource="{Binding AllSkills.RaceProficientSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
+        <ls:CollectionSortBehavior x:Name="SortedClassSkills" ItemsSource="{Binding AllSkills.ClassProficientSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
+        <ls:CollectionSortBehavior x:Name="SortedExpertiseSkills" ItemsSource="{Binding AllSkills.ExpertiseSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
+
+        <ls:CollectionSortBehavior x:Name="SortedSummarySkills" ItemsSource="{Binding ProgressionData.AllProgressions.Skills}" Comparer="{Binding SkillSortComparer}" />
+
+        <ls:CollectionSortBehavior x:Name="SortedPreparableSpells" ItemsSource="{Binding SpellPrepare.Preparable}" Comparer="{Binding SpellByLevelSortComparer}" />
+        <ls:CollectionSortBehavior x:Name="SortedPreparableSpellGroupsByLevel" ItemsSource="{Binding SpellPrepare.PreparableByLevel}" Comparer="{Binding SpellGroupByLevelSortComparer}" />
+    </b:Interaction.Behaviors>
+
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <!-- Don't start in add new multiclass mode -->
+            <b:InvokeCommandAction Command="{Binding SelectFirstUsedClass}"/>
+
+            <!-- Tutorial UI Event - Level Up Opened-->
+            <b:InvokeCommandAction Command="{Binding TutorialEvent}" CommandParameter="a9b0d917-809d-43bc-a3fb-6da86e6f517d"/>
+
+            <!-- Start with Tooltips hidden -->
+            <b:InvokeCommandAction Command="{Binding HideTooltipOnUIElement}"/>
+
+            <!-- Center Dummy Character with Overview Camera at first -->
+            <b:InvokeCommandAction Command="{Binding SetCameraMode}" CommandParameter="Overview"/>
+            <b:ChangePropertyAction TargetName="SetCameraControl" PropertyName="Template" Value="{StaticResource clearCameraOffsets}"/>
+
+        </b:EventTrigger>
+
+        <b:EventTrigger EventName="GotKeyboardFocus">
+            <b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElement}" CommandParameter="{Binding Path=FocusedElement, ElementName=CharacterLevelUp_c}"/>
+        </b:EventTrigger>
+        <b:DataTrigger Binding="{Binding HasInputEnabled, ElementName=CharacterLevelUp_c}" Value="True">
+            <b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElement}" CommandParameter="{Binding FocusedElement, ElementName=CharacterLevelUp_c}"/>
+        </b:DataTrigger>
+
+        <b:EventTrigger EventName="MoveFocusUp">
+            <ls:LSPlaySound Sound="UI_Shared_Hover" />
+        </b:EventTrigger>
+
+        <b:EventTrigger EventName="MoveFocusDown">
+            <ls:LSPlaySound Sound="UI_Shared_Hover" />
+        </b:EventTrigger>
+
+        <b:EventTrigger EventName="MoveFocusRight">
+            <ls:LSPlaySound Sound="UI_Shared_Hover" />
+        </b:EventTrigger>
+
+        <b:EventTrigger EventName="MoveFocusLeft">
+            <ls:LSPlaySound Sound="UI_Shared_Hover" />
+        </b:EventTrigger>
+
+    </b:Interaction.Triggers>
+
+    <ls:UIWidget.ContentTemplate>
+        <DataTemplate>
+            <Control x:Name="levelUpControl" Template="{StaticResource LevelUpTemplate}"/>
+            <DataTemplate.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding LevelUpStep}" Value="Started"/>
+                        <Condition Binding="{Binding CurrentPlayer.IsScreenFadeActive}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <!-- Wait for fade to finish before starting animations -->
+                    <Setter TargetName="levelUpControl" Property="Template" Value="{StaticResource LevelUpFadeInTemplate}"/>
+                </MultiDataTrigger>
+                <DataTrigger Binding="{Binding LevelUpStep}" Value="Finishing">
+                    <Setter TargetName="levelUpControl" Property="Template" Value="{StaticResource LevelUpFinishingTemplate}"/>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </ls:UIWidget.ContentTemplate>
+
+</ls:UIWidget>

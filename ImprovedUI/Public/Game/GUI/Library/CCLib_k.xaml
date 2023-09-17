@@ -16,8 +16,8 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../Library/CCLib.xaml"/>
         <ResourceDictionary Source="../Library/OptionTemplates.xaml"/>
-		<!-- MOD START - Custom Action resource icon -->
-		<ResourceDictionary Source="../Library/IUI_ActionResourceIcons.xaml"/>
+		<!-- MOD START - Custom Action resource icon for CC only -->
+		<ResourceDictionary Source="../Library/IUI_ActionResourceIcons_k.xaml"/>
 		<!-- MOD END -->
     </ResourceDictionary.MergedDictionaries>
 
@@ -69,8 +69,8 @@
     <BitmapImage x:Key="TickActive_h" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_tick_active_h.png" />
     <BitmapImage x:Key="TickInactive" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_tick_inactive_d.png" />
 
-    <!-- Action Resource Decorative Icons-->
-    <BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />
+    <!-- MOD START - Move Action resource icon to IUI files -->
+    <!--<BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />
     <BitmapImage x:Key="BonusActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/bap_d.png" />
     <BitmapImage x:Key="ReactionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_reaction_d.png" />
     <BitmapImage x:Key="MovementSpeedIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_speed.png" />
@@ -90,8 +90,8 @@
     <BitmapImage x:Key="TidesOfChaosIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_tidesOfChaos_d.png" />
     <BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
     <BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
-    <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
-
+    <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />-->
+	<!-- MOD END -->
 
     <Style x:Key="CCButtonStyle" TargetType="{x:Type ls:LSButton}"  BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
@@ -204,75 +204,9 @@
         <Setter Property="Stretch" Value="None"/>
     </Style>
 
-    <!-- MOD START - Custom Action resource icon -->
-	<Style TargetType="Image" x:Key="ActionResourceDecorativeIcon" BasedOn="{StaticResource IUI_ActionResourceDecorativeIcon}">
-		<!-- MOD END -->
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
-                <Setter Property="Source" Value="{StaticResource ActionPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
-                <Setter Property="Source" Value="{StaticResource BonusActionPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
-                <Setter Property="Source" Value="{StaticResource ReactionPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Movement">
-                <Setter Property="Source" Value="{StaticResource MovementSpeedIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
-                <Setter Property="Source" Value="{StaticResource WarlockSpellslotIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
-                <Setter Property="Source" Value="{StaticResource SpellSlotIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
-                <Setter Property="Source" Value="{StaticResource SorceryPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
-                <Setter Property="Source" Value="{StaticResource KiPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
-                <Setter Property="Source" Value="{StaticResource LayOnHandsIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Rage">
-                <Setter Property="Source" Value="{StaticResource RagePointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
-                <Setter Property="Source" Value="{StaticResource BardicInspirationIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
-                <Setter Property="Source" Value="{StaticResource ChannelDivinityIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
-                <Setter Property="Source" Value="{StaticResource ChannelOathIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
-                <Setter Property="Source" Value="{StaticResource SuperiorityDieIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
-                <Setter Property="Source" Value="{StaticResource ArcaneRecoveryIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
-                <Setter Property="Source" Value="{StaticResource NaturalRecoveryIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WildShape">
-                <Setter Property="Source" Value="{StaticResource WildshapeIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
-                <Setter Property="Source" Value="{StaticResource TidesOfChaosIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
-                <Setter Property="Source" Value="{StaticResource WarPriestPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
-                <Setter Property="Source" Value="{StaticResource FungalInfestationIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
-                <Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
+    <!-- MOD START - Move Action resource icon to IUI files -->
+	<Style TargetType="Image" x:Key="ActionResourceDecorativeIcon" BasedOn="{StaticResource IUI_ActionResourceDecorativeIcon}"/>
+	<!-- MOD END -->
 
     <DataTemplate x:Key="FeatureIcon" DataType="ls:VMFeatureBoost">
         <Grid ToolTip="{StaticResource CCSpellTooltip}" Margin="4">
@@ -727,11 +661,13 @@
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-                    <!-- Mod Start -->
+					
+                    <!-- MOD START - Racial passive selection -->
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-                    <!-- Mod End -->
+                    <!-- MOD END -->
+
                     <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
                         <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
 
@@ -1277,6 +1213,24 @@
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsSpellsList" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}"/>
             </MultiDataTrigger>
+			<!-- MOD START - Racial passive selection -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+                    <Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
+                    <Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+            </MultiDataTrigger>
+            <!-- MOD END -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="class"/>
@@ -1331,24 +1285,6 @@
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding ClassProgressionDetails.SubPassiveSelectors}"/>
             </MultiDataTrigger>
-            <!-- Mod Start -->
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
-                    <Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
-                    <Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
-            </MultiDataTrigger>
-            <!-- Mod End -->
             <!-- Passive subtabs for Level Up (if there is not a new subclass tab) -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
@@ -1865,6 +1801,55 @@
             </StackPanel.Resources>
 
             <Grid HorizontalAlignment="Center">
+				<!-- MOD START - Use main class instead of subclass icon -->
+                <Image Style="{StaticResource MainClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
+				<!-- MOD END -->
+                <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
+            </Grid>
+            <TextBlock x:Name="label" ls:TextBlockFormatter.SourceText="{Binding ShortName}" Foreground="{StaticResource CCTextNormal}" Width="{DynamicResource IconTextWidth}" 
+                       TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+            <TextBlock x:Name="level" Foreground="{StaticResource CCTextNormal}" HorizontalAlignment="Center">
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                        <Binding Source="hd678d4eeg181fg499dg9e81g2146ab24e03a"/>
+                        <Binding Path="DataContext.Level" RelativeSource="{RelativeSource Mode=Self}"/>
+                        <Binding Source=""/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding ShortName}" Value="">
+                <Setter TargetName="label" Property="Text" Value="{Binding Name}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
+                <Setter TargetName="frame" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="label" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+                <Setter TargetName="level" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
+                <Setter TargetName="frame" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="frame" Property="ImageSource" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/selector_CC_h.png"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Level}" Value="0">
+                <Setter TargetName="level" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+	
+	<!-- MOD START - Duplicate for subclass icons -->
+	<DataTemplate x:Key="SubclassIconTemplate" DataType="ls:VMSelectableClass">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Grid HorizontalAlignment="Center">
                 <Image Style="{StaticResource ClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
             </Grid>
@@ -1901,6 +1886,7 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
+	<!-- MOD END -->
 
     <DataTemplate x:Key="ReducedClassIconTemplate" DataType="ls:VMSelectableClass">
         <DataTemplate.Resources>
@@ -1908,7 +1894,9 @@
         </DataTemplate.Resources>
         <StackPanel>
             <Grid HorizontalAlignment="Center">
-                <Image x:Name="icon" Style="{StaticResource ClassIconHotbarStyle}" Stretch="None"/>
+				<!-- MOD START - Use main class instead of subclass icon -->
+                <Image x:Name="icon" Style="{StaticResource MainClassIconHotbarStyle}" Stretch="None"/>
+				<!-- MOD END -->
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Width="148" Height="148"/>
 
                 <Grid x:Name="level" Margin="4,6" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -2303,16 +2291,6 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <!-- Mod Start -->
-    <DataTemplate x:Key="PassiveSelectorPreviewTemplate" DataType="ls:VMCharacterCreationPassives">
-        <ls:LSNineSliceImage Padding="50,0,50,32" Slices="100,80,100,80" MinWidth="388" MaxWidth="1000" MinHeight="200" ImageSource="{StaticResource DetailsBoxSmall}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0">
-            <StackPanel>
-                <TextBlock Text="{Binding Title}" MaxWidth="534" Style="{StaticResource selectorPreviewText}"/>
-                <ItemsControl Style="{StaticResource SpellSelectorItemControlStyle}" ItemsSource="{Binding Additions}" HorizontalAlignment="Center" Margin="0,8,0,0"/>
-            </StackPanel>
-        </ls:LSNineSliceImage>
-    </DataTemplate>
-    <!-- Mod End -->
     <DataTemplate x:Key="LevelUpPassiveSelectorPreviewTemplate" DataType="ls:VMCharacterCreationPassives">
         <ContentControl Template="{StaticResource NewItemStripTemplate}">
             <StackPanel x:Name="previewPanel" Background="Transparent">
@@ -3923,7 +3901,7 @@
                 <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                        <ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
+                        <ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
 						
 					</StackPanel>
 				</ls:LSScrollViewer>
@@ -3993,7 +3971,7 @@
                 <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                        <ListBox ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
+                        <ListBox ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
 						
 					</StackPanel>
                 </ls:LSScrollViewer>
