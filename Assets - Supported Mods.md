@@ -14,6 +14,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - The Way of the Drunken Master Subclass - https://www.nexusmods.com/baldursgate3/mods/1832
 - Expansion (Bladesinger only) - https://www.nexusmods.com/baldursgate3/mods/279
 - Hexblade - https://www.nexusmods.com/baldursgate3/mods/1100
+- Wizard Traditions - War Magic - https://www.nexusmods.com/baldursgate3/mods/924
 
 #### Race Icons
 - Shadar-Kai - https://www.nexusmods.com/baldursgate3/mods/1305

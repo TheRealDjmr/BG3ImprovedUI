@@ -122,6 +122,46 @@
     <ImageSource x:Key="BladesongChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 	
+	<!-- This is the icon that appears on the tooltip -->
+	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
+		<Style.Triggers>
+			<!--<DataTrigger Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME">
+                <Setter Property="Source" Value="{StaticResource UNIQUEIMAGENAME}"/> This needs to match the above entry
+            </DataTrigger>-->
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
+                <Setter Property="Source" Value="{StaticResource PsiPoint}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RampageDie">
+                <Setter Property="Source" Value="{StaticResource RampageDie}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="InfusionSlots">
+                <Setter Property="Source" Value="{StaticResource InfusionSlot}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="XCL_BreathWeaponCharge">
+                <Setter Property="Source" Value="{StaticResource IconBreathWeaponCharge}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodRune">
+                <Setter Property="Source" Value="{StaticResource BloodRune}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FrostRune">
+                <Setter Property="Source" Value="{StaticResource FrostRune}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
+                <Setter Property="Source" Value="{StaticResource UnholyRune}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RunicPower">
+                <Setter Property="Source" Value="{StaticResource RunicPower}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcanePoolResource">
+                <Setter Property="Source" Value="{StaticResource ArcanePoint}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="ConfluxFocus">
+                <Setter Property="Source" Value="{StaticResource ConfluxFocus}"/>
+            </DataTrigger>
+			<!-- EDIT HERE -->
+		</Style.Triggers>
+    </Style>
+	
 	<!-- More reference entries -->
 	<Style TargetType="Image" x:Key="IUI_SectionImageStyleDefault" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
         <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png"/>
