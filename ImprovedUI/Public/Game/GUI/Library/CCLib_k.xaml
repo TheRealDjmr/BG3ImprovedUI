@@ -205,73 +205,7 @@
     </Style>
 
     <!-- MOD START - Move Action resource icon to IUI files -->
-	<!--<Style TargetType="Image" x:Key="ActionResourceDecorativeIcon">
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
-                <Setter Property="Source" Value="{StaticResource ActionPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
-                <Setter Property="Source" Value="{StaticResource BonusActionPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
-                <Setter Property="Source" Value="{StaticResource ReactionPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Movement">
-                <Setter Property="Source" Value="{StaticResource MovementSpeedIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
-                <Setter Property="Source" Value="{StaticResource WarlockSpellslotIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
-                <Setter Property="Source" Value="{StaticResource SpellSlotIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
-                <Setter Property="Source" Value="{StaticResource SorceryPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
-                <Setter Property="Source" Value="{StaticResource KiPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
-                <Setter Property="Source" Value="{StaticResource LayOnHandsIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Rage">
-                <Setter Property="Source" Value="{StaticResource RagePointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
-                <Setter Property="Source" Value="{StaticResource BardicInspirationIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
-                <Setter Property="Source" Value="{StaticResource ChannelDivinityIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
-                <Setter Property="Source" Value="{StaticResource ChannelOathIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
-                <Setter Property="Source" Value="{StaticResource SuperiorityDieIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
-                <Setter Property="Source" Value="{StaticResource ArcaneRecoveryIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
-                <Setter Property="Source" Value="{StaticResource NaturalRecoveryIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WildShape">
-                <Setter Property="Source" Value="{StaticResource WildshapeIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
-                <Setter Property="Source" Value="{StaticResource TidesOfChaosIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
-                <Setter Property="Source" Value="{StaticResource WarPriestPointIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
-                <Setter Property="Source" Value="{StaticResource FungalInfestationIcon}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
-                <Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style> -->
+	<Style TargetType="Image" x:Key="ActionResourceDecorativeIcon" BasedOn="{StaticResource IUI_ActionResourceDecorativeIcon}"/>
 	<!-- MOD END -->
 
     <DataTemplate x:Key="FeatureIcon" DataType="ls:VMFeatureBoost">
@@ -727,6 +661,12 @@
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+					
+                    <!-- MOD START - Racial passive selection -->
+                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+
+                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+                    <!-- MOD END -->
 
                     <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
                         <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
@@ -1273,6 +1213,24 @@
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsSpellsList" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}"/>
             </MultiDataTrigger>
+			<!-- MOD START - Racial passive selection -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+                    <Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
+                    <Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+            </MultiDataTrigger>
+            <!-- MOD END -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="class"/>

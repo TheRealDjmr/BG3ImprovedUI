@@ -1236,6 +1236,24 @@
             </MultiDataTrigger>
 
             <!-- Passive subtabs -->
+			<!-- MOD START - Racial passive selection -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+                    <Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding DataContext.RacePassives, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
+                    <Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding DataContext.SubRacePassives, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+            </MultiDataTrigger>
+			<!-- MOD END -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="class"/>
@@ -3090,7 +3108,9 @@
             <Grid>
                 <Grid Style="{StaticResource FeatureListItemIconHolder}">
                     <Rectangle x:Name="icon" Width="96" Height="96" Fill="{Binding Icon}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Image x:Name="actionResource" Style="{StaticResource ActionResourceTypeIdToSource}" Width="96" Height="96" Stretch="Uniform"/>
+					<!-- MOD START - Fix for CC breaking -->
+                    <Image x:Name="actionResource" Style="{StaticResource IUI_ActionResourceTypeIdToSource}" Width="96" Height="96" Stretch="Uniform"/>
+					<!-- MOD END -->
                 </Grid>
 
                 <TextBlock Style="{StaticResource FeatureListItemName}">
