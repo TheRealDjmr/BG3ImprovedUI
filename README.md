@@ -33,7 +33,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 
 #### <b>OPTIONAL FILE REQUIRED</b> Custom Asset Features 
 - Supports modded class/subclass icons, with a generic icon given to mods without a provided icon
-- Dynamic support for class/subclass icons that have not been provided, the image name would need to match the class/subclass name in classdescriptions.lsx
+- Dynamic support for class/subclass icons that have not been provided, the image name would need to match the class/subclass name in classdescriptions.lsx (Credit: LaughingLeader)
 - Supports modded race/subrace icons
 - Supports modded action resource icons to appear in the action resource bar (instead of a red star placeholder)
 - Supports modded background icons (instead of a square block) (Credit: NellsRelo)
