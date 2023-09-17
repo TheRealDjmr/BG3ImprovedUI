@@ -1245,7 +1245,11 @@
         <ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
-        <ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<!-- MOD START - Racial passive selection -->
+		<ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
+		<!-- MOD END -->
+		<ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
         <ls:CollectionSortBehavior x:Name="SortedRaceSkills" ItemsSource="{Binding AllSkills.RaceProficientSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
@@ -1716,6 +1720,9 @@
 													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 
 													<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
+													
+													<!-- MOD NOTE - Race passive features in CC preview -->
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
 													<ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.RaceProgression.Other}" Content="{Binding Source='hd0d992ebg43f8g429bgbf11g0cbf54d84d4e', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
 												</StackPanel>
@@ -1764,6 +1771,9 @@
 													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 
 													<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
+													
+													<!-- MOD NOTE - Subrace passive features in CC preview -->
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
 													<ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubRaceProgression.Other}" Content="{Binding Source='hb4961bdbg618bg4350g8bdbg89221f97b659', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
 												</StackPanel>
