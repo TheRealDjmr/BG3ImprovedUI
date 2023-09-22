@@ -33,7 +33,6 @@
                 </ls:LSMessageBoxData.Actions>
             </ls:LSMessageBoxData>
 
-            <BitmapImage x:Key="swatchColourBackground" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/overPane_appearance.png" />
 
             <ControlTemplate x:Key="appearancePageTemplate" TargetType="Control">
                 <ControlTemplate.Resources>
@@ -82,7 +81,7 @@
 
                             </Grid>
 
-                            <ListBox x:Name="appearanceTabs" HorizontalAlignment="Right" Margin="0,300,8,0">
+                            <ListBox x:Name="appearanceTabs" ItemContainerStyle="{StaticResource AppearanceTabsStyle}" HorizontalAlignment="Right" Margin="0,300,8,0">
 
                                 <b:Interaction.Triggers>
                                     <b:DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.IsVisible}" Value="False">
@@ -94,97 +93,6 @@
                                     <BitmapImage x:Key="tabIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_race.png"/>
                                     <BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_race_h.png"/>
                                 </ListBox.Resources>
-                                <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="ListBoxItem">
-
-                                                    <Grid Margin="0,0,0,12" MinWidth="276" MaxWidth="400">
-
-                                                        <Grid HorizontalAlignment="Right" VerticalAlignment="Center">
-                                                            <Image x:Name="ring" Source="{StaticResource TabBackground_d}" Stretch="None"/>
-                                                            <Image x:Name="icon" Source="{DynamicResource tabIcon}" Stretch="None"/>
-                                                        </Grid>
-
-                                                        <TextBlock x:Name="label" 
-                                                               Foreground="{StaticResource CCTextNormal}"
-                                                               TextAlignment="Right" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"
-                                                               HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,92,0"/>
-
-                                                        <b:Interaction.Triggers>
-                                                            <b:EventTrigger EventName="MouseLeftButtonUp">
-                                                                <ls:LSPlaySound Sound="UI_Shared_Click"/>
-                                                            </b:EventTrigger>
-                                                            <b:EventTrigger EventName="MouseLeftButtonDown">
-                                                                <ls:LSPlaySound Sound="UI_Shared_Press"/>
-                                                            </b:EventTrigger>
-                                                            <b:EventTrigger EventName="MouseEnter">
-                                                                <ls:LSPlaySound Sound="UI_Shared_Hover"/>
-                                                            </b:EventTrigger>
-                                                        </b:Interaction.Triggers>
-
-                                                    </Grid>
-
-                                                    <ControlTemplate.Triggers>
-
-                                                        <Trigger Property="Tag" Value="race">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hadf27237ge191g4922ga84cg055b984c9b1f', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="subrace">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hf4977710g272bg4334g84aegf749a3b18205', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="general">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h255e892egec87g4160gb9fag20d69d7c9d30', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="tattooandpiercing">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hff534bd5g26b4g44dbg877bg9ca6abd65969', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="eyes">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h9b52cf91g3b11g428ag9d17g3a724339b3cd', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="makeup">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hbbddf3e9g352fg461fg8761gbb5256ebd9c4', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="hair">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h6c6fae77g40f8g4c82gaabfg69655aae2293', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="facialhair">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h5060d1edg2799g4388g9203gc42e380c68f8', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="horns">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h1e2fea14g1a4fg4567ga286g8c4162b78d6e_14', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="draconic">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h0e1fded7g681ag4e5fgb0a2gc5928ab399a1', Converter={StaticResource TranslatedStringConverter}}"/>
-															<!-- MOD START - Can hide draconic tab -->
-															<Setter Property="Opacity" Value="0"/>
-															<!-- MOD END -->
-                                                        </Trigger>
-                                                        <Trigger Property="Tag" Value="tail">
-                                                            <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h11908357gafefg4f3dg92feg11588e5e123e', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                        </Trigger>
-
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="icon" Property="Source" Value="{DynamicResource tabIconHover}"/>
-                                                            <Setter TargetName="ring" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/tab_inactive_h.png"/>
-                                                            <Setter TargetName="label" Property="Foreground" Value="White"/>
-                                                        </Trigger>
-
-                                                        <Trigger Property="IsSelected" Value="True">
-                                                            <Setter TargetName="label" Property="Foreground" Value="White"/>
-                                                        </Trigger>
-                                                        <Trigger Property="IsEnabled" Value="False">
-                                                            <Setter TargetName="ring" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/tab_inactive_disabled.png"/>
-                                                            <Setter TargetName="label" Property="Foreground" Value="Gray"/>
-                                                        </Trigger>
-
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </ListBox.ItemContainerStyle>
 
                                 <ListBoxItem x:Name="raceTab" Tag="race" Visibility="Collapsed"/>
                                 <ListBoxItem x:Name="subRaceTab" Tag="subrace" Visibility="Collapsed"/>
@@ -200,7 +108,6 @@
                                 <ListBoxItem x:Name="tailTab" Tag="tail" Visibility="{Binding Path=SelectableTail.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 								<ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="Visible"/>
 								<!-- MOD END -->
-
                             </ListBox>
                         </StackPanel>
 
@@ -290,8 +197,8 @@
                     <DataTrigger Binding="{Binding CharacterCreationStep}" Value="Appearance">
                         <Setter TargetName="appearanceButtons" Property="Template" Value="{StaticResource AppearanceButtonsTemplateRandomOnly}"/>
                     </DataTrigger>
-
-                    <!-- MOD START - Draconic tab based on content -->
+					
+					<!-- MOD START - Draconic tab based on content -->
 					<MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
                             <Condition Binding="{Binding CharacterCreationStep}" Value="Appearance"/>
@@ -300,8 +207,8 @@
                         <Setter TargetName="draconicTab" Property="Opacity" Value="1"/>
                     </MultiDataTrigger>
 					<!-- MOD END -->
-					
-					<MultiDataTrigger>
+
+                    <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
                             <Condition Binding="{Binding CharacterCreationStep}" Value="Companion"/>
                             <Condition Binding="{Binding SelectableSubRaces.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
@@ -354,843 +261,31 @@
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="general">
-                        <Setter TargetName="appearancePanel" Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Grid>
-                                        <StackPanel x:Name="basePanel">
-
-                                            <b:Interaction.Triggers>
-                                                <b:EventTrigger EventName="Unloaded">
-                                                    <b:InvokeCommandAction Command="{Binding DisplayEquipment}" CommandParameter="{StaticResource TrueValue}"/>
-                                                    <b:ChangePropertyAction TargetName="displayGenitalsToggle" PropertyName="IsChecked" Value="False" />
-                                                </b:EventTrigger>
-                                                <b:PropertyChangedTrigger Binding="{Binding ElementName=flowPage, Path=SelectedIndex}">
-                                                    <b:InvokeCommandAction Command="{Binding DisplayEquipment}" CommandParameter="{StaticResource TrueValue}"/>
-                                                    <b:ChangePropertyAction TargetName="displayGenitalsToggle" PropertyName="IsChecked" Value="False" />
-                                                </b:PropertyChangedTrigger>
-                                            </b:Interaction.Triggers>
-
-                                            <Image Style="{StaticResource PanelHeaderIconStyle}"/>
-                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h3003476bg9facg4159g87e1gd9f70aee88eb', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-
-                                            <ls:LSScrollViewer x:Name="scrollSection" Template="{StaticResource NoForcedStyleScrollViewerTemplate}" VerticalScrollBarVisibility="Auto" Height="1436" HorizontalAlignment="Right" Margin="0,0,112,0">
-                                                <ls:LSScrollViewer.Resources>
-                                                    <GridLength x:Key="Top">20</GridLength>
-                                                    <GridLength x:Key="Bottom">80</GridLength>
-                                                </ls:LSScrollViewer.Resources>
-
-                                                <StackPanel Width="1000" HorizontalAlignment="Left" Margin="0,0,0,50">
-
-                                                    <Control x:Name="bodyTypeSelector"  Template="{StaticResource BodyTypeTemplate}" Margin="0,64,0,0"/>
-
-                                                    <ContentControl x:Name="identityHeader"  Template="{StaticResource decoratedHeader}" Margin="0,50,0,0" Visibility="{Binding CanShowIdentity, Converter={StaticResource BoolToVisibleConverter}}">
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hcc23cfaagbc1eg4bb0gafb9g9f720497b786', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </ContentControl>
-
-                                                    <Grid x:Name="IdentityContainer" HorizontalAlignment="Center" Margin="0,20,0,0" Visibility="{Binding CanShowIdentity, Converter={StaticResource BoolToVisibleConverter}}">
-                                                        <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/dropdownBox_d.png" Stretch="None"/>
-                                                        <ls:LSButton Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-40,0,0,0"
-                                                                 IsEnabled="{Binding CanEditIdentity}"
-                                                                 Command="{Binding DataContext.SelectPreviousIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
-                                                                 CommandParameter="{Binding}" SoundID="UI_HUD_CC_Gender"/>
-                                                        <ls:LSButton Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-40,0"
-                                                                 IsEnabled="{Binding CanEditIdentity}"
-                                                                 Command="{Binding DataContext.SelectNextIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
-                                                                 CommandParameter="{Binding}" SoundID="UI_HUD_CC_Gender">
-                                                            <ls:LSButton.RenderTransform>
-                                                                <ScaleTransform ScaleX="-1" CenterX="80"/>
-                                                            </ls:LSButton.RenderTransform>
-                                                        </ls:LSButton>
-
-                                                        <TextBlock x:Name="IdentityTxt" Text="{Binding Source='h033a526fg0fe7g4164g8431g177be16d148a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource CarouselTextStyle}" TextTrimming="CharacterEllipsis" MaxWidth="500"/>
-                                                    </Grid>
-
-                                                    <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h81102ec7gef4dg42edg85b5g60d7fb1d13f9', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </ContentControl>
-                                                    <ListBox Style="{StaticResource CCCarouselStyle}" DataContext="{Binding Voices}"/>
-
-                                                    <ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Content="{Binding Source='hbf7b56f9g7cd9g4b08g9986ge231edbbde18', Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnRight" Command="{Binding PlayVoice}" SoundID="UI_HUD_CC_ListenVoice" HorizontalAlignment="Center" Margin="0,20,0,0">
-                                                        <ls:LSButton.Resources>
-                                                            <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_d.png"/>
-                                                            <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_h.png"/>
-                                                            <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_p.png"/>
-                                                            <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_disabled.png"/>
-                                                            <BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                                                            <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_h.png"/>
-                                                            <BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                                                            <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                                                        </ls:LSButton.Resources>
-                                                    </ls:LSButton>
-
-                                                    <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0" Visibility="{Binding SelectableHeads.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h3eee9b8dgc315g4cb8g90a3g50cea8a27c69', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </ContentControl>
-                                                    <ListBox ItemsSource="{Binding SelectableHeads}" SelectedItem="{Binding SelectedHead}" Style="{StaticResource headAppearanceIconGridStyle}" Visibility="{Binding SelectableHeads.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-
-                                                    <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0" Visibility="{Binding SelectableTopOfHead.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8949ad0egb0f8g4ea8gbf56g25a764a8bb34', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </ContentControl>
-                                                    <ListBox ItemsSource="{Binding SelectableTopOfHead}" SelectedItem="{Binding SelectedTopOfHead}" Style="{StaticResource headAppearanceIconGridStyle}" Visibility="{Binding SelectableTopOfHead.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-
-                                                    <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0" Visibility="{Binding SelectableChin.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h44344a58g63ccg44b2gb878gc5d3cdb31b17', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </ContentControl>
-                                                    <ListBox ItemsSource="{Binding SelectableChin}" SelectedItem="{Binding SelectedChin}" Style="{StaticResource headAppearanceIconGridStyle}" Visibility="{Binding SelectableChin.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
-
-                                                    <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0" Visibility="{Binding SelectableJaw.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hdff3076bg631ag4c0egadbdgbf4a6f9d777e', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </ContentControl>
-                                                    <ListBox ItemsSource="{Binding SelectableJaw}" SelectedItem="{Binding SelectedJaw}" Style="{StaticResource headAppearanceIconGridStyle}" Visibility="{Binding SelectableJaw.Count, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,50"/>
-
-                                                    <!-- MOD START - Show options if they are available -->
-													<StackPanel Visibility="{Binding SelectableSkinColours.Count, Converter={StaticResource CountToVisibilityConverter}}">
-														<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,64,0,0">
-															<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hc81ba7bcgb2ccg4423ga050g253fd53ce2c9', Converter={StaticResource TranslatedStringConverter}}"/>
-														</ContentControl>
-														<ls:LSToggleButton x:Name="swatchSkinColourButton" DataContext="{Binding SelectedSkinColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-													</StackPanel>
-
-													<!-- MOD NOTE - Show scars if any are available -->
-													<!--<StackPanel x:Name="scars" Visibility="{Binding SelectableScars.Count, Converter={StaticResource CountToVisibilityConverter}}"> -->
-													
-													<StackPanel Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
-													
-														<StackPanel x:Name="scars" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
-															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h408d8f2bgca7eg4d20gb0bag4d4a3318f1c5', Converter={StaticResource TranslatedStringConverter}}"/>
-															</ContentControl>
-															<ListBox ItemsSource="{Binding SelectableScars}" SelectedItem="{Binding SelectedScar}" Style="{StaticResource headAppearanceIconGridStyle}"/>
-														</StackPanel>
-
-														<StackPanel x:Name="Age" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
-															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hfcbe9131g86b0g46d7ga4afg5c3301c070bf', Converter={StaticResource TranslatedStringConverter}}"/>
-															</ContentControl>
-															<Slider DataContext="{Binding ApperanceScalarAge}"
-																Template="{StaticResource OptionsSliderTemplate}"
-																Value="{Binding Value}"
-																Minimum="{Binding Min}"
-																Maximum="{Binding Max}"
-																IsSnapToTickEnabled="False"
-																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}"/>
-														</StackPanel>
-
-														<StackPanel x:Name="Freckles" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
-															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6a8fb398g7b1ag443egb45eg53c46ebbe9a3', Converter={StaticResource TranslatedStringConverter}}"/>
-															</ContentControl>
-															<Slider DataContext="{Binding ApperanceScalarFreckles}"
-																Template="{StaticResource OptionsSliderTemplate}"
-																Value="{Binding Value}"
-																Minimum="{Binding Min}"
-																Maximum="{Binding Max}"
-																IsSnapToTickEnabled="False"
-																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}"/>
-														</StackPanel>
-
-														<StackPanel x:Name="FrecklesIntensity" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
-															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h63c9cb05g65f3g439dgb85bg9eb69a2cc894', Converter={StaticResource TranslatedStringConverter}}"/>
-															</ContentControl>
-															<Slider DataContext="{Binding ApperanceScalarFrecklesIntensity}"
-																Template="{StaticResource OptionsSliderTemplate}"
-																Value="{Binding Value}"
-																Minimum="{Binding Min}"
-																Maximum="{Binding Max}"
-																IsSnapToTickEnabled="False"
-																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}"/>
-														</StackPanel>
-
-														<StackPanel x:Name="Vitiligo" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
-															<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8f8d1cc6g57adg486agbb58gcba376102c37', Converter={StaticResource TranslatedStringConverter}}"/>
-															</ContentControl>
-															<Slider DataContext="{Binding ApperanceScalarVitiligo}"
-															Template="{StaticResource OptionsSliderTemplate}"
-															Value="{Binding Value}"
-															Minimum="{Binding Min}"
-															Maximum="{Binding Max}"
-															IsSnapToTickEnabled="False"
-															SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-															LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-															IsEnabled="{Binding Enabled}"/>
-														</StackPanel>
-													
-													</StackPanel>
-													<!-- MOD END -->
-
-                                                    <StackPanel x:Name="genitalsPanel" Visibility="Collapsed" Margin="0,50,0,0">
-
-                                                        <ContentControl Template="{StaticResource decoratedHeader}">
-                                                            <TextBlock Text="{Binding Source='h72410e08g770dg48c8g98e8g5a5a933a2254', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
-                                                        </ContentControl>
-
-                                                        <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding SelectableGenitals}" SelectedItem="{Binding SelectedGenitals}" Margin="0,20,0,0"/>
-
-                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-                                                            <ls:LSToggleButton x:Name="displayGenitalsToggle" Style="{StaticResource TickBox}" IsChecked="False" Command="{Binding DisplayEquipment}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource InvertBoolConverter}}">
-                                                                <b:Interaction.Triggers>
-                                                                    <b:EventTrigger EventName="Click" >
-                                                                        <b:Interaction.Behaviors>
-                                                                            <b:ConditionBehavior>
-                                                                                <b:ConditionalExpression>
-                                                                                    <b:ComparisonCondition LeftOperand="{Binding IsChecked, ElementName=displayGenitalsToggle}" Operator="Equal" RightOperand="{StaticResource TrueValue}"/>
-                                                                                </b:ConditionalExpression>
-                                                                            </b:ConditionBehavior>
-                                                                        </b:Interaction.Behaviors>
-                                                                        <b:InvokeCommandAction Command="{Binding SetCameraMode}" CommandParameter="Overview"/>
-                                                                    </b:EventTrigger>
-                                                                </b:Interaction.Triggers>
-                                                            </ls:LSToggleButton>
-                                                            <TextBlock Text="{Binding Source='h5d70015agdbd9g45c9g9270g7ee6876b5b9a', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center"/>
-                                                        </StackPanel>
-
-                                                    </StackPanel>
-
-                                                </StackPanel>
-                                            </ls:LSScrollViewer>
-                                        </StackPanel>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchSkinColourButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hc81ba7bcgb2ccg4423ga050g253fd53ce2c9', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding SkinColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableSkinColours}" SelectedItem="{Binding SelectedSkinColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchSkinColourButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-                                    </Grid>
-
-                                    <ControlTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchSkinColourButton}" Value="True">
-                                            <Setter TargetName="scrollSection" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>                                        
-                                        <DataTrigger Binding="{Binding SelectedIdentity}" Value="Male">
-                                            <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='hf12d3837gd6fbg448ag813dg9cf6d9a4d412', Converter={StaticResource TranslatedStringConverter}}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding SelectedIdentity}" Value="Female">
-                                            <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='h5d60ad1cg41dcg4d9fgaba8gda842c090327', Converter={StaticResource TranslatedStringConverter}}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding SelectedIdentity}" Value="Neutral">
-                                            <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='hea2ce077g2b7ag42dfgb194g928c3dd108a7', Converter={StaticResource TranslatedStringConverter}}"/>
-                                        </DataTrigger>
-
-                                        <DataTrigger Binding="{Binding SelectableGenitals.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
-                                            <Setter TargetName="genitalsPanel" Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding CoverNudity}" Value="True">
-                                            <Setter TargetName="genitalsPanel" Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-
-                                        <DataTrigger Binding="{Binding CharacterCreationStep}" Value="Companion">
-                                            <!-- Don't show genitals options for Companion -->
-                                            <Setter TargetName="genitalsPanel" Property="Visibility" Value="Collapsed"/>
-                                            <Setter TargetName="bodyTypeSelector" Property="Visibility" Value="Collapsed"/>
-                                            <Setter TargetName="identityHeader" Property="Margin" Value="0,64,0,0"/>
-                                        </DataTrigger>
-
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceGeneralPanel}"/>
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="tattooandpiercing">
-                        <Setter TargetName="appearancePanel" Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Grid VerticalAlignment="Top" Height="1560">
-                                        <DockPanel x:Name="basePanel" VerticalAlignment="Top">
-                                            
-                                            <StackPanel x:Name="PanelHeader"  DockPanel.Dock="Top" VerticalAlignment="Top">
-                                                <Image Style="{StaticResource PanelHeaderIconStyle}"/>
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hff534bd5g26b4g44dbg877bg9ca6abd65969', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-                                            </StackPanel>
-
-                                            <StackPanel DockPanel.Dock="Bottom" x:Name="piercings" Visibility="{Binding Path=SelectablePiercings.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h57dba953g6fd2g4a66g8155gc527b809a882', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding SelectablePiercings}" SelectedItem="{Binding SelectedPiercing}"/>
-                                            </StackPanel>
-
-                                            <!-- MOD NOTE - Show tattoos if any are available -->
-											<!--<DockPanel x:Name="tattoos" Visibility="{Binding Path=SelectableTattoos.Count, Converter={StaticResource CountToVisibilityConverter}}" > -->
-											<DockPanel x:Name="tattoos" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}" >
-                                                <ContentControl DockPanel.Dock="Top" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h3f96b6b8gd682g4b90ga8fdge34ccb965bbd', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-
-                                                <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches">
-                                                    <ContentControl x:Name="swatchTattooColorHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0c6d2890g6a16g4e20ga2a1gcb15afa6e8d3', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                    </ContentControl>
-                                                    <ls:LSToggleButton x:Name="swatchTattooColorButton" DataContext="{Binding SelectedTattooColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                                </StackPanel>
-
-                                                <ListBox ItemsSource="{Binding SelectableTattoos}" SelectedItem="{Binding SelectedTattoo}" Style="{StaticResource appearanceIconGridStyle}"/>
-
-                                            </DockPanel>
-
-                                        </DockPanel>
-
-                                        <Grid x:Name="TattooColorPicker" Visibility="{Binding Path=IsChecked, ElementName=swatchTattooColorButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0c6d2890g6a16g4e20ga2a1gcb15afa6e8d3', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceTattoos.ColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableTattooColours}" SelectedItem="{Binding SelectedTattooColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchTattooColorButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-                                    </Grid>
-
-                                    <ControlTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding AppearanceTattoos.EmptyMaterialSelected}" Value="True">
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchTattooColorButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="piercings" Property="Visibility" Value="Hidden"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceTattooAndPiercingPanel}"/>
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="eyes">
-                        <Setter TargetName="appearancePanel" Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Grid>
-                                        <StackPanel x:Name="basePanel">
-                                            <Image Style="{StaticResource PanelHeaderIconStyle}"/>
-                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h9b52cf91g3b11g428ag9d17g3a724339b3cd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-
-                                            <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1203122ag1146g4759ga531g57ccd5ef36da', Converter={StaticResource TranslatedStringConverter}}"/>
-                                            </ContentControl>
-
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
-                                                <StackPanel.ToolTip>
-                                                    <ls:LSTooltip>
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h52617c33g962bg4bddg9493gb00e40c28fb0', Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                    </ls:LSTooltip>
-                                                </StackPanel.ToolTip>
-                                                <ls:LSToggleButton x:Name="heteroChromiaToggle" Style="{StaticResource TickBox}" IsChecked="{Binding HeterochromiaEnabled, Mode=TwoWay}">
-                                                    <b:Interaction.Triggers>
-                                                        <b:EventTrigger EventName="Click" >
-                                                            <b:Interaction.Behaviors>
-                                                                <b:ConditionBehavior>
-                                                                    <b:ConditionalExpression>
-                                                                        <b:ComparisonCondition LeftOperand="{Binding IsChecked, ElementName=heteroChromiaToggle}" Operator="Equal" RightOperand="{StaticResource FalseValue}"/>
-                                                                    </b:ConditionalExpression>
-                                                                </b:ConditionBehavior>
-                                                            </b:Interaction.Behaviors>
-                                                            <b:InvokeCommandAction Command="{Binding DisableHeterochromia}"/>
-                                                        </b:EventTrigger>
-                                                    </b:Interaction.Triggers>
-                                                </ls:LSToggleButton>
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6f4a0631g9994g44ffg9468gaec6c6a62838', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center"/>
-                                            </StackPanel>
-
-                                            <StackPanel Visibility="{Binding HeterochromiaEnabled, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter='True'}">
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,20,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hc6bfd120gde63g4c3ag99eag43e8f905a7d4', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                            </StackPanel>
-
-                                            <ls:LSToggleButton x:Name="swatchEyeColourButton" DataContext="{Binding SelectedEyeColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-
-                                            <StackPanel Visibility="{Binding HeterochromiaEnabled, Converter={StaticResource BoolToVisibleConverter}}">
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,20,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h7d84f886g75e1g46begb5adg922b4238c617', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-
-                                                <ls:LSToggleButton x:Name="swatchHeterochromiaEyeColourButton" DataContext="{Binding SelectedHeterochromiaEyeColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                            </StackPanel>
-                                        </StackPanel>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchEyeColourButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1203122ag1146g4759ga531g57ccd5ef36da', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding EyeColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableEyeColours}" SelectedItem="{Binding SelectedEyeColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchEyeColourButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchHeterochromiaEyeColourButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1203122ag1146g4759ga531g57ccd5ef36da', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding EyeColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableEyeColours}" SelectedItem="{Binding SelectedHeterochromiaEyeColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchHeterochromiaEyeColourButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-                                    </Grid>
-
-                                    <ControlTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchEyeColourButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchHeterochromiaEyeColourButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                        </DataTrigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceEyesPanel}"/>
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="makeup">
-                        <Setter TargetName="appearancePanel" Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Grid VerticalAlignment="Top" Height="1560">
-                                        <DockPanel x:Name="basePanel" VerticalAlignment="Top">
-                                            <StackPanel DockPanel.Dock="Top">
-                                                <Image Style="{StaticResource PanelHeaderIconStyle}"/>
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hbbddf3e9g352fg461fg8761gbb5256ebd9c4', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-                                            </StackPanel>
-
-                                            <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches">
-                                                <ContentControl x:Name="swatchMakeupColorHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hd98545bbg8f42g437dg8f70gcb5f7a1bda8b', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchMakeupColorButton" DataContext="{Binding SelectedMakeupColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-
-                                                <ContentControl x:Name="swatchLipsMakeupColorHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='ha96c9b3bg5d8dg4ebbgb7a8gbefe66c7b781', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchLipsMakeupColorButton" DataContext="{Binding SelectedLipsMakeupColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                            </StackPanel>
-
-                                            <DockPanel>
-                                                <ContentControl DockPanel.Dock="Top" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hbd793d8fg4b19g4efdga071g112ba7af47dd', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ListBox ItemsSource="{Binding SelectableMakeup}" SelectedItem="{Binding SelectedMakeup}" Style="{StaticResource appearanceIconGridStyle}"/>
-                                            </DockPanel>
-
-                                        </DockPanel>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchMakeupColorButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <b:Interaction.Behaviors>
-                                                <ls:CollectionFilterBehavior x:Name="IsDragonbornMakeupFilter" ItemsSource="{Binding AppearanceMakeup.ColorOptions}" Predicate="{Binding IsDragonbornPredicate}"/>
-                                            </b:Interaction.Behaviors>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hd98545bbg8f42g437dg8f70gcb5f7a1bda8b', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding FilteredItems, ElementName=IsDragonbornMakeupFilter}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchMakeupColorButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchLipsMakeupColorButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <b:Interaction.Behaviors>
-                                                <ls:CollectionFilterBehavior x:Name="IsDragonbornLipsMakeupFilter" ItemsSource="{Binding AppearanceLipsMakeup.ColorOptions}" Predicate="{Binding IsDragonbornPredicate}"/>
-                                            </b:Interaction.Behaviors>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='ha96c9b3bg5d8dg4ebbgb7a8gbefe66c7b781', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding FilteredItems, ElementName=IsDragonbornLipsMakeupFilter}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableLipsMakeupColours}" SelectedItem="{Binding SelectedLipsMakeupColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchLipsMakeupColorButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                    </Grid>
-
-                                    <ControlTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding AppearanceMakeup.EmptyMaterialSelected}" Value="True">
-                                            <Setter TargetName="swatchMakeupColorHeader" Property="Visibility" Value="Collapsed"/>
-                                            <Setter TargetName="swatchMakeupColorButton" Property="Visibility" Value="Collapsed"/>
-                                        </DataTrigger>
-
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchMakeupColorButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchLipsMakeupColorButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceMakeupPanel}"/>
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="hair">
-                        <Setter TargetName="appearancePanel" Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Grid VerticalAlignment="Top" Height="1560">
-                                        <DockPanel x:Name="basePanel" VerticalAlignment="Top">
-                                            <StackPanel DockPanel.Dock="Top">
-                                                <Image Style="{StaticResource PanelHeaderIconStyle}"/>
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6c6fae77g40f8g4c82gaabfg69655aae2293', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-                                            </StackPanel>
-
-
-                                            <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches" Visibility="{Binding SelectedHair.IsNull, Converter={StaticResource BoolToCollapsedConverter}}">
-
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchHairButton" DataContext="{Binding SelectedHairColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h9d4a4e08g81cdg4259g8bd1g80b47dbda3f3', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchHighlightsButton" DataContext="{Binding SelectedHighlightColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchGrayButton" DataContext="{Binding SelectedGrayingColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-
-                                            </StackPanel>
-                                            
-                                            <DockPanel>
-                                                <ContentControl DockPanel.Dock="Top" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='haaecd709ga04eg4c33gb2a3gd5be989e5146', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ListBox ItemsSource="{Binding SelectableHair}" SelectedItem="{Binding SelectedHair}" Style="{StaticResource appearanceIconGridStyle}"/>
-                                            </DockPanel>
-                                        </DockPanel>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchHairButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding HairColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableHairColours}" SelectedItem="{Binding SelectedHairColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchHairButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchHighlightsButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h9d4a4e08g81cdg4259g8bd1g80b47dbda3f3', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHairHighlights.ColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableHighlightColours}" SelectedItem="{Binding SelectedHighlightColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchHighlightsButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchGrayButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHairGraying.ColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableGrayingColours}" SelectedItem="{Binding SelectedGrayingColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchGrayButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                    </Grid>
-                                    <ControlTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchHairButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchHighlightsButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchGrayButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceHairPanel}"/>
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="facialhair">
-                        <Setter TargetName="appearancePanel" Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Grid VerticalAlignment="Top" Height="1560">
-                                        <DockPanel x:Name="basePanel" VerticalAlignment="Top">
-                                            <StackPanel DockPanel.Dock="Top">
-                                                <Image Style="{StaticResource PanelHeaderIconStyle}"/>
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h5060d1edg2799g4388g9203gc42e380c68f8', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-                                            </StackPanel>
-
-                                            <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches" Visibility="{Binding SelectedBeard.IsNull, Converter={StaticResource BoolToCollapsedConverter}}">
-
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchHairButton" DataContext="{Binding SelectedHairColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchGrayButton" DataContext="{Binding SelectedGrayingColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-
-                                            </StackPanel>
-
-                                            <DockPanel>
-                                                <ContentControl DockPanel.Dock="Top" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='haaecd709ga04eg4c33gb2a3gd5be989e5146', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ListBox ItemsSource="{Binding SelectableBeards}" SelectedItem="{Binding SelectedBeard}" Style="{StaticResource appearanceIconGridStyle}"/>
-                                            </DockPanel>
-
-                                        </DockPanel>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchHairButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0">
-                                            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/overPane_appearance.png" Stretch="None"/>
-
-                                            <StackPanel HorizontalAlignment="Center" Margin="0,64,0,0">
-                                                <ContentControl Template="{StaticResource decoratedHeader}">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                                </ContentControl>
-                                                <ListBox Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding HairColorOptions}" Margin="0,20,0,0"/>
-                                                <ListBox ItemsSource="{Binding SelectableHairColours}" SelectedItem="{Binding SelectedHairColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="0,20,0,0"/>
-                                            </StackPanel>
-
-                                            <ls:LSToggleButton IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchHairButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" VerticalAlignment="Bottom" Margin="0,0,0,-16" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchGrayButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0">
-                                            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/overPane_appearance.png" Stretch="None"/>
-
-                                            <StackPanel DataContext="{Binding AppearanceHairGraying}" VerticalAlignment="Top" Margin="0,64,0,0">
-                                                <ContentControl Template="{StaticResource decoratedHeader}">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                                </ContentControl>
-                                                <ListBox Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding ColorOptions}" Margin="0,20,0,0"/>
-                                                <ItemsControl Style="{StaticResource ColorSwatchStyle}" Margin="0,20,0,0"/>
-                                            </StackPanel>
-
-                                            <ls:LSToggleButton IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchGrayButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" VerticalAlignment="Bottom" Margin="0,0,0,-16" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                    </Grid>
-                                    <ControlTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchHairButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchGrayButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceFacialHairPanel}"/>
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="horns">
-                        <Setter TargetName="appearancePanel" Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <Grid VerticalAlignment="Top" Height="1560">
-                                        <DockPanel x:Name="basePanel" VerticalAlignment="Top">
-                                            <StackPanel DockPanel.Dock="Top">
-                                                <Image Style="{StaticResource PanelHeaderIconStyle}"/>
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1e2fea14g1a4fg4567ga286g8c4162b78d6e_14', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-                                            </StackPanel>
-
-                                            <StackPanel x:Name="colorSwatches" DockPanel.Dock="Bottom">
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8f9581e8g4440g4cf5g8752g220535346a50', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchHornColorButton" DataContext="{Binding SelectedHornColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-
-                                                <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h33ea2bd3g91cag471cg8242gef7327983dbf', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ls:LSToggleButton x:Name="swatchHornTipColorButton" DataContext="{Binding SelectedHornTipColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                            </StackPanel>
-
-                                            <DockPanel>
-                                                <ContentControl DockPanel.Dock="Top" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h290f2542g9702g4651g8afdgdae1f08a12eb', Converter={StaticResource TranslatedStringConverter}}"/>
-                                                </ContentControl>
-                                                <ListBox ItemsSource="{Binding SelectableHorns}" SelectedItem="{Binding SelectedHorn}" Style="{StaticResource appearanceIconGridStyle}"/>
-                                            </DockPanel>
-
-                                        </DockPanel>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchHornColorButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8f9581e8g4440g4cf5g8752g220535346a50', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHornColor.ColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableHornColours}" SelectedItem="{Binding SelectedHornColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchHornColorButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-
-                                        <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchHornTipColorButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
-
-                                            <ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h33ea2bd3g91cag471cg8242gef7327983dbf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                            </ContentControl>
-
-                                            <ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHornTipColor.ColorOptions}" Margin="0,20,0,0"/>
-
-                                            <ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableHornTipColours}" SelectedItem="{Binding SelectedHornTipColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
-
-                                            <ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchHornTipColorButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                                        </Grid>
-                                    </Grid>
-
-                                    <ControlTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchHornColorButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchHornTipColorButton}" Value="True">
-                                            <Setter TargetName="basePanel" Property="IsEnabled" Value="False"/>
-                                            <Setter TargetName="basePanel" Property="Opacity" Value="{StaticResource OverlayBackgroundContentFade}"/>
-                                            <Setter TargetName="colorSwatches" Property="Visibility" Value="Hidden"/>
-                                        </DataTrigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceHornsPanel}"/>
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="draconic">
@@ -1198,25 +293,7 @@
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="tail">
-                        <Setter TargetName="appearancePanel" Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate>
-                                    <DockPanel VerticalAlignment="Top" MaxHeight="1560">
-
-                                        <StackPanel DockPanel.Dock="Top">
-                                            <Image Style="{StaticResource PanelHeaderIconStyle}"/>
-                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h11908357gafefg4f3dg92feg11588e5e123e', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-                                        </StackPanel>
-
-                                        <ContentControl DockPanel.Dock="Top" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hbb75a111g99e6g45afga2a6gaf73b748faa8', Converter={StaticResource TranslatedStringConverter}}"/>
-                                        </ContentControl>
-                                        <ListBox ItemsSource="{Binding SelectableTail}" SelectedItem="{Binding SelectedTail}" Style="{StaticResource appearanceIconGridStyle}" Height="1300" MaxHeight="1300"/>
-
-                                    </DockPanel>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
+                        <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceTailPanel}"/>
                     </DataTrigger>
 
                 </ControlTemplate.Triggers>
@@ -1244,17 +321,14 @@
         <ls:CollectionFilterBehavior x:Name="SubRaceSpellSelectors" ItemsSource="{Binding RaceProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
-
+		
 		<!-- MOD START - Racial passive selection -->
 		<ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
 		<!-- MOD END -->
-		<ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
-        <!-- Mod Start -->
-        <ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
-        <ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
-        <!-- Mod End -->
+
         <ls:CollectionSortBehavior x:Name="SortedRaceSkills" ItemsSource="{Binding AllSkills.RaceProficientSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
         <ls:CollectionSortBehavior x:Name="SortedClassSkills" ItemsSource="{Binding AllSkills.ClassProficientSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
         <ls:CollectionSortBehavior x:Name="SortedExpertiseSkills" ItemsSource="{Binding AllSkills.ExpertiseSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
@@ -1451,7 +525,7 @@
                                     </ListBoxItem.Resources>
                                 </ListBoxItem>
 
-								<ListBoxItem x:Name="deityTab" Tag="deity" Visibility="{Binding Path=SelectableDeities.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                                <ListBoxItem x:Name="deityTab" Tag="deity" Visibility="{Binding Path=SelectableDeities.Count, Converter={StaticResource CountToVisibilityConverter}}">
                                     <ListBoxItem.Resources>
                                         <BitmapImage x:Key="tabIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_class.png"/>
                                         <BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_class.png"/>
@@ -1465,7 +539,7 @@
                                     </ListBoxItem.Resources>
                                 </ListBoxItem>
 								
-								<!-- MOD START - Add feat selection into CC -->							
+								<!-- MOD START - Add feat selection into CC -->
 								<ListBoxItem x:Name="featTab" Tag="feat" Visibility="{Binding CanSelectFeat, Converter={StaticResource BoolToVisibleConverter} }">
                                 <ListBoxItem.Resources>
                                     <BitmapImage x:Key="tabIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_origin.png"/>
@@ -1632,9 +706,9 @@
                                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h9dad9822gc6c6g4145g8c9bg4d6c48cf2bfb, Converter={StaticResource TranslatedStringConverter}}"/>
                                             </ContentControl>
 
-                                            <!-- MOD START - Add scroll viewer to support multiple modded origin selection -->
+                                            <!-- Origins -->
+											<!-- MOD START - Add scroll viewer to support multiple modded origin selection -->
                                             <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="650" Height="Auto" VerticalScrollBarVisibility="Auto">
-												<!-- Origins -->
 												<ListBox x:Name="presetOrigins" ItemsPanel="{StaticResource gameplayItemsPanelTemplate}" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemsSource="{Binding FilteredItems, ElementName=PresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" Margin="0,20,0,0">
 													<ListBox.ItemContainerStyle>
 														<Style TargetType="ListBoxItem" BasedOn="{StaticResource CCIconTextListBoxItemStyle}">
@@ -1707,7 +781,8 @@
                                             <!-- MOD START - Two scroll viewers to support multiple modded race selection -->
 											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" VerticalScrollBarVisibility="Auto">
                                                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" HorizontalContentAlignment="Center">
+
+                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
                                                         <ListBox.Resources>
                                                             <Style x:Key="CustomIconStyle" BasedOn="{StaticResource RaceIconStyle}" TargetType="Rectangle"/>
                                                         </ListBox.Resources>
@@ -1717,23 +792,22 @@
 
                                             <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
 												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-													<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
-													<TextBlock ls:TextBlockFormatter.SourceText="{Binding InfoRaceDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
 
-													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
+                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding InfoRaceDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
 
-                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource PassiveSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 
-													<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
+                                                    <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
 													
 													<!-- MOD NOTE - Race passive features in CC preview -->
 													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
-													<ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.RaceProgression.Other}" Content="{Binding Source='hd0d992ebg43f8g429bgbf11g0cbf54d84d4e', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-												</StackPanel>
-											</ls:LSScrollViewer>
-											<!-- MOD END -->
+                                                    <ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.RaceProgression.Other}" Content="{Binding Source='hd0d992ebg43f8g429bgbf11g0cbf54d84d4e', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
 
+                                                </StackPanel>
+                                            </ls:LSScrollViewer>
+											<!-- MOD END -->
                                         </StackPanel>
 
                                     </ControlTemplate>
@@ -1757,34 +831,35 @@
                                             <Image Grid.Row="0" Style="{StaticResource PanelHeaderIconStyle}"/>
                                             <TextBlock Grid.Row="1" ls:TextBlockFormatter.SourceText="{Binding Source=h29d1d637g94bbg4f11g9bdfgbe0042b60e40, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-											<ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
+
+                                            <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                                                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" HorizontalContentAlignment="Center">
+                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
                                                         <ListBox.Resources>
                                                             <Style x:Key="CustomIconStyle" BasedOn="{StaticResource RaceIconStyle}" TargetType="Rectangle"/>
                                                         </ListBox.Resources>
                                                     </ListBox>
-                                                </StackPanel>
+												</StackPanel>
                                             </ls:LSScrollViewer>
 											
 											<ls:LSScrollViewer Grid.Row="3" VerticalAlignment="Top" Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
 												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-													<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
-													<TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Race.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,20"/>
+                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
+                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Race.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,20"/>
 
-													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-                                                    
-                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource PassiveSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 
-													<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
+                                                    <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}"/>
 													
 													<!-- MOD NOTE - Subrace passive features in CC preview -->
 													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
-													<ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubRaceProgression.Other}" Content="{Binding Source='hb4961bdbg618bg4350g8bdbg89221f97b659', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
-												</StackPanel>
-											</ls:LSScrollViewer>
+                                                    <ContentControl Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubRaceProgression.Other}" Content="{Binding Source='hb4961bdbg618bg4350g8bdbg89221f97b659', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+
+                                                </StackPanel>
+
+                                            </ls:LSScrollViewer>
                                         </Grid>
 										<!-- MOD END -->
                                     </ControlTemplate>
@@ -1826,7 +901,7 @@
 
                                             <!-- MOD START - Two scroll viewers to support multiple background selection -->
 											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
-												<ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" HorizontalContentAlignment="Center">
+												<ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
 													<ListBox.Resources>
 														<Style x:Key="CustomIconStyle" BasedOn="{StaticResource BackgroundIconStyle}" TargetType="Rectangle"/>
 													</ListBox.Resources>
@@ -2230,14 +1305,14 @@
                                 <TranslateTransform/>
                             </DockPanel.RenderTransform>
 
-                            <Control DockPanel.Dock="Top" Template="{StaticResource summaryPanelTemplate}"/>
-
                             <!-- Appearance Buttons on Gameplay Page -->
                             <Control x:Name="GameplayAppearanceButtons" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Template="{StaticResource AppearanceButtonsTemplate}" Tag="gameplayPage">
                                 <Control.RenderTransform>
                                     <TranslateTransform/>
                                 </Control.RenderTransform>
                             </Control>
+
+                            <Control Template="{StaticResource summaryPanelTemplate}"/>
 
                         </DockPanel>
                     </Grid>
