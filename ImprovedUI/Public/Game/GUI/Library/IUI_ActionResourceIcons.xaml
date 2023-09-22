@@ -121,7 +121,9 @@
 	<ImageSource x:Key="BladesongCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
     <ImageSource x:Key="BladesongChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
 	<!-- EDIT HERE -->
-	
+    <ImageSource x:Key="FFT_RunicPower">pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPower.png</ImageSource>
+    <ImageSource x:Key="FFT_RunicPowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerMissing.png</ImageSource>
+
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
 		<Style.Triggers>
@@ -162,6 +164,9 @@
                 <Setter Property="Source" Value="{StaticResource BladesongCharge}"/>
             </DataTrigger>
 			<!-- EDIT HERE -->
+	<DataTrigger Binding="{Binding TypeId}" Value="FFT_RunicPower">
+                <Setter Property="Source" Value="{StaticResource FFT_RunicPower}"/>
+    	</DataTrigger>
 		</Style.Triggers>
     </Style>
 	
@@ -674,6 +679,17 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 			<!-- EDIT HERE -->
+	<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="FFT_RunicPower"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource FFT_RunicPowerUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+
         </Style.Triggers>
     </Style>
 
@@ -798,7 +814,15 @@
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
 	<!-- EDIT HERE -->
-	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.FFT_RunicPowerGroup" TargetType="ls:LSActionPoint">
+        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerH.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerD.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerSpent.png</ImageSource>
+            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerMissing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
         <ControlTemplate.Resources>
@@ -1268,6 +1292,20 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 			<!-- EDIT HERE -->
+	<DataTrigger Binding="{Binding TypeId}" Value="FFT_RunicPower">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FFT_RunicPowerGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="FFT_RunicPower"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
 		</Style.Triggers>
     </Style>
 	
