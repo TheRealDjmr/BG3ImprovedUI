@@ -442,6 +442,44 @@
             </ls:State.Events>
         </ls:State>
 
+        <!--STATE: CharacterChangeAppearance -->
+        <ls:State Name = "CharacterChangeAppearance" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+                <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
+                <ls:StateWidget Filename="CharacterChangeAppearance_c.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPinnedTooltips">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PinnedTooltips"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>        
+        
         <!--STATE: Henchmen -->
         <ls:State Name = "Henchmen" HideStatesBelow = "True" DisableStatesBelow = "True" Layout="Player" Owner="Player" ForceSplitscreen="True">
             <ls:State.Widgets>
@@ -554,6 +592,14 @@
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                         <ls:PushState Name="Dialogue"/>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "OpenReactionsPopup">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                        <ls:PushState Name="ReactionsPopup"/>
                         <ls:PushState Name="Paused"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
@@ -880,7 +926,16 @@
                         <ls:PushState Name="ShortcutMenu"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                
+                <ls:StateEvent Name = "OpenReactionsPopup">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ReactionsPopup"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenCharacterChangeAppearance">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="CharacterChangeAppearance"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -972,7 +1027,6 @@
                 <ls:StateWidget Filename="OverheadInfo_c.xaml" Layer="HUD" IgnoreHitTest="True"/>
                 <ls:StateWidget Filename="WorldTooltips.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ActionResources_c.xaml" Layer="HUD"/>
-                <ls:StateWidget Filename="ReactionDecisionPopup_c.xaml" Layer="Notifications"/>
                 <ls:StateWidget Filename="Minimap_c.xaml" Layer="HUDTop"/>
                 <ls:StateWidget Filename="TargetInfo_c.xaml" Layer="HUDTop"/>
                 <ls:StateWidget Filename="TurnModeInfo.xaml" Layer="HUD"/>
@@ -1001,6 +1055,30 @@
                 <ls:StateEvent Name = "OpenCursor">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="ControllerCursor"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPinnedTooltips">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PinnedTooltips"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: ReactionsPopup -->
+        <ls:State Name = "ReactionsPopup" Layout = "Player" Owner = "Player" IsModal = "True" DisableStatesBelow="True">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ReactionDecisionPopup_c.xaml" Layer="PopupPanels"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseReactionsPopup">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "OpenPinnedTooltips">
@@ -1812,7 +1890,6 @@
                         <ls:StateLibrary Filename="Library/DialogueTemplates.xaml"/>
                     </ls:StateWidget.Libraries>
                 </ls:StateWidget>
-                <ls:StateWidget Filename="Overlay_c.xaml" Layer="Notifications" />
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
 
