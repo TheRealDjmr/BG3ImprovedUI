@@ -13,6 +13,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 </p>  
 
 - Unlocks edit appearance option for all Origin characters in Character Creation.
+- Magic Mirror tweaks: Allows all combinations to hit confirm.
 - <b>OPTIONAL FILE REQUIRED</b> Switches "Show all items" (highlighting all interactables, default left ALT key/right stick) from requiring a held input to an on/off switch. Works for both Keyboard and Controller - switching between the two input methods when enabled would cause an additional toggle to be required. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
 
 <b>OPTIONAL FILE REQUIRED</b> Keyboard-only tweaks:
