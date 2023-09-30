@@ -22,20 +22,8 @@
     <ImageSource x:Key="movementUsed">/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_movement_spent.png</ImageSource>
     <ImageSource x:Key="movementMissing">/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_movement_unavailable.png</ImageSource>
 
-    <Style x:Key="ResourceBarLabelStyle">
-        <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
-        <Setter Property="TextBlock.FontSize" Value="{StaticResource ScaledMediumFontSize}" />
-        <Setter Property="TextBlock.Foreground" Value="{StaticResource LS_accent75TxtColor}" />
-        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-        <Setter Property="TextBlock.Margin" Value="28,0,14,0" />
-    </Style>
-    <Style x:Key="ActionResourceAmountStyle">
-        <Setter Property="TextBlock.FontWeight" Value="Bold" />
-        <Setter Property="TextBlock.FontSize" Value="{StaticResource ScaledLargeFontSize}" />
-        <Setter Property="TextBlock.Foreground" Value="{StaticResource LS_accent100TxtColor}" />
-        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-        <Setter Property="TextBlock.Margin" Value="0,-3,0,3" />
-    </Style>
+    <!-- MOD START - Moved to IUI files -->
+	<!-- MOD END -->
     <Style x:Key="ResourceBar9Slice" TargetType="ls:LSNineSliceImage" BasedOn="{StaticResource {x:Type ls:LSNineSliceImage}}">
         <Setter Property="ImageSource" Value="{StaticResource resourceBarBG}" />
         <Setter Property="Slices" Value="100,50,100,50" />
@@ -43,30 +31,8 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="IconWidth" Value="200" />
     </Style>
-
-    <Storyboard x:Key="ResourceSelectedAnimation" RepeatBehavior="Forever">
-        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
-                        Storyboard.TargetName="ResourceLabel"
-                        To="White"
-                        AutoReverse="True"
-                        Duration="0:0:0.4"/>
-    </Storyboard>
-
-    <Storyboard x:Key="ResourceSelectedBGAnimation" RepeatBehavior="Forever" AutoReverse="True">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.Opacity)" Storyboard.TargetName="ActionResourceBackgroundStrokeHighlight">
-            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0.4">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <CubicEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-            <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.8">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <CubicEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
-
+    <!-- MOD START - Moved to IUI files -->
+	<!-- MOD END -->
 
     <Style x:Key="ResourcesCollectionStyle" TargetType="ItemsControl">
         <Setter Property="ItemsPanel">
