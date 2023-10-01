@@ -18,6 +18,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Rogues Extra - https://www.nexusmods.com/baldursgate3/mods/189
 - Samurai - https://www.nexusmods.com/baldursgate3/mods/2245
 - Wizard Traditions - https://www.nexusmods.com/baldursgate3/mods/924 / https://www.nexusmods.com/baldursgate3/mods/2563
+
 (Via Dynamic support)
 - Red Mage - https://www.nexusmods.com/baldursgate3/mods/2056
 - Thanator - https://www.nexusmods.com/baldursgate3/mods/2796
