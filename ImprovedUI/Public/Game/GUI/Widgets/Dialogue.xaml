@@ -90,7 +90,10 @@
 
                 <Control Template="{StaticResource Dialogue.DialogueNotification}"/>
                 <!-- dialogue text and answers -->
-                <Control Template="{StaticResource Dialogue.BodyAndAnswersContainer}" />
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
+                    <Control Template="{StaticResource Dialogue.TradeNotificationControl}" HorizontalAlignment="Center"/>
+                    <Control Template="{StaticResource Dialogue.BodyAndAnswersContainer}" VerticalAlignment="Bottom"/>
+                </StackPanel>
 
                 <!-- tabs -->
                 <Grid x:Name="Tabs" Margin="36,0,36,35" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
@@ -274,16 +277,18 @@
                     </StackPanel>
                 </StackPanel>
 
-                <TextBlock VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="{StaticResource GiganticFontSize}"  Opacity="0.7" 
-                           Visibility="{Binding Data.IsGold, Converter={StaticResource BoolToCollapsedConverter}}">
-                    <Run Text="{Binding DataContext.Data.VersionString, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"/>
-                </TextBlock>
+                <TextBlock VerticalAlignment="Top" 
+                           HorizontalAlignment="Right" 
+                           FontSize="{StaticResource GiganticFontSize}" 
+                           Opacity="0.7" 
+                           Text="{Binding Data.VersionString}"
+                           Visibility="{Binding Data.IsGold, Converter={StaticResource BoolToCollapsedConverter}}"/>
 
 
-                <ls:LSNineSliceImage x:Name="SkipDialoguePrompt" Opacity="0" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/worldTT_context_bg.png" Slices="22" Padding="32,22" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,16,16" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UISkipDialog'}">
-                        <TextBlock x:Name="content" VerticalAlignment="Top" Foreground="{DynamicResource TooltipColor.Primary}">
+                <ls:LSNineSliceImage x:Name="SkipDialoguePrompt" Opacity="0" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/worldTT_context_bg.png" Slices="22" Padding="32,22" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,16,16" Visibility="{Binding ActiveDialogueIsListening, Converter={StaticResource BoolToCollapsedConverter}}">
+                    <TextBlock x:Name="content" VerticalAlignment="Top" Foreground="{StaticResource TooltipColor.Primary}" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UISkipDialog'}">
                             <Run Text="["/><Run 
-                                 Text="{Binding Shortcut}" Foreground="{DynamicResource TooltipColor.Secondary}"/><Run 
+                                 Text="{Binding Shortcut}" Foreground="{StaticResource TooltipColor.Secondary}"/><Run 
                                  Text="] "/><Run 
                                  Text="{Binding Caption}"/>
                     </TextBlock>

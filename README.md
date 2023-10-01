@@ -35,11 +35,15 @@ This mod is aimed at making changes to the overall user interface to improve usa
 #### <b>OPTIONAL FILE REQUIRED</b> Custom Asset Features 
 - Supports modded class/subclass icons, with a generic icon given to mods without a provided icon
 - Dynamic support for class/subclass icons that have not been provided, the image name would need to match the class/subclass name in classdescriptions.lsx (Credit: LaughingLeader)
-- Supports modded race/subrace icons
-- Supports modded action resource icons to appear in the action resource bar (instead of a red star placeholder)
+- Supports modded race/subrace icons, including custom names for Subraces such as Dragonborn.
+- Supports modded action resource icons for Keyboard - Hotbar, Tooltips and CC/Levelup.
+- Supports modded action resource icons for Controller - Tooltips, Action Radial "Cost:", Action Radial bottom resource bar and CC/Levelup.
+- Dynamic support for action resource icons that have not been provided and fallback support when no entries are provided for CC/Levelup and Action Radial bottom resource bar.
+- Better handling of action resources without icons, with placeholder stars added to each section and counted on Keyboard Hotbar (Credit: juumeijin)
 - Supports modded background icons (instead of a square block) (Credit: NellsRelo)
+- Supports modded deity icons (instead of a square block) (Credit: Lostsoul)
 
-#### Showcase (version 3.2) - https://www.youtube.com/watch?v=livOpPUNIN0
+#### Showcase (version 3.2) - https://www.youtube.com/watch?v=livOpPUNIN0 - new video soon
 
 #### Installing 
 Place both ImprovedUI.pak and optional files under "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods" - no mod list entry required.
