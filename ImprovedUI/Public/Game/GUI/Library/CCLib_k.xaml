@@ -2401,7 +2401,7 @@
             <TextBlock x:Name="SelectionTitle" Style="{StaticResource PanelHeaderText}" FontSize="{StaticResource ScaledDefaultFontSize}" MaxWidth="700" TextWrapping="Wrap" TextAlignment="Center">
                 <Run Text="{Binding Name}"/>
                 <Run Text="{Binding SelectedPassiveCount, StringFormat=' ({0}'}"/>
-                <Run Text="{Binding MaxSelectedPassiveCount, StringFormat='/{0})'}"/>
+                <Run x:Name="PassiveSelectorMaxText" Text="{Binding MaxSelectedPassiveCount, StringFormat='/{0})'}"/>
             </TextBlock>
             <TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
 
@@ -2433,6 +2433,21 @@
             <DataTrigger Binding="{Binding IsComplete}" Value="False">
                 <Setter TargetName="SelectionTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
             </DataTrigger>
+			
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsComplete}" Value="True"/>
+                    <Condition Value="True">
+                        <Condition.Binding>
+                            <MultiBinding Converter="{StaticResource GreaterOrEqualThanMultiConverter}">
+                                <Binding Path="MaxSelectedPassiveCount"/>
+                                <Binding Path="SelectedPassiveCount"/>
+                            </MultiBinding>
+                        </Condition.Binding>
+                    </Condition>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="PassiveSelectorMaxText" Property="Text" Value="{Binding SelectedPassiveCount, StringFormat='/{0})'}"/>
+            </MultiDataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 
