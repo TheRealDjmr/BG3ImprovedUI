@@ -18,7 +18,6 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Hexblade - https://www.nexusmods.com/baldursgate3/mods/1100
 - Rogues Extra - https://www.nexusmods.com/baldursgate3/mods/189
 - Samurai - https://www.nexusmods.com/baldursgate3/mods/2245
-- Wizard Traditions - https://www.nexusmods.com/baldursgate3/mods/924 / https://www.nexusmods.com/baldursgate3/mods/2563
 
 (Via Dynamic support)
 - Red Mage - https://www.nexusmods.com/baldursgate3/mods/2056
@@ -41,4 +40,3 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Expansion (Bladesinger - Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/279
 - Improved Breath Weapon - https://www.nexusmods.com/baldursgate3/mods/993
 - Magus (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/422
-- Wizard Traditions Runesmith (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2563
