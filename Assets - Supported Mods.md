@@ -6,6 +6,7 @@
 Since it's gotten bigger, here's a list of custom icons currently supported:
 
 #### Class/Subclass Icons - Guide https://bg3.wiki/wiki/Modding_Class_Icons
+- Alternate Monk - https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer - https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter - https://www.nexusmods.com/baldursgate3/mods/2151
 - Harlequin - https://www.nexusmods.com/baldursgate3/mods/2120
@@ -36,6 +37,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Gods Extra - https://www.nexusmods.com/baldursgate3/mods/433
 
 #### Action Resource Icons
+- Alternate Monk (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer - https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2151
 - Expansion (Bladesinger - Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/279
