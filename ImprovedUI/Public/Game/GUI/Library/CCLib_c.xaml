@@ -4361,7 +4361,9 @@
                                     <TextBlock x:Name="description" Visibility="{Binding Description.Text, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,20,0,0"/>
 
                                     <TextBlock x:Name="SelectedTitle" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0">
-                <Run Text="{Binding Source='h390a9286g28cag49ceg93c5gd5b7c1e962da', Converter={StaticResource TranslatedStringConverter}}"/><Run Text="{Binding SelectedPassiveCount, StringFormat=' {0}'}"/><Run Text="{Binding MaxSelectedPassiveCount, StringFormat='/{0}'}"/>
+										<Run Text="{Binding Source='h390a9286g28cag49ceg93c5gd5b7c1e962da', Converter={StaticResource TranslatedStringConverter}}"/>
+                                        <Run Text="{Binding SelectedPassiveCount, StringFormat=' {0}'}"/>
+                                        <Run x:Name="PassiveSelectorMaxText" Text="{Binding MaxSelectedPassiveCount, StringFormat='/{0}'}"/>
                                     </TextBlock>
 
                                     <ItemsControl ItemsSource="{Binding Passives}" ItemTemplate="{StaticResource SelectablePassiveTemplate}" Margin="0,40,0,0"/>
@@ -4372,6 +4374,20 @@
                                     <DataTrigger Binding="{Binding IsComplete}" Value="False">
                                         <Setter TargetName="SelectedTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
                                     </DataTrigger>
+									<MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsComplete}" Value="True"/>
+                                            <Condition Value="True">
+                                                <Condition.Binding>
+                                                    <MultiBinding Converter="{StaticResource GreaterOrEqualThanMultiConverter}">
+                                                        <Binding Path="MaxSelectedPassiveCount"/>
+                                                        <Binding Path="SelectedPassiveCount"/>
+                                                    </MultiBinding>
+                                                </Condition.Binding>
+                                            </Condition>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter TargetName="PassiveSelectorMaxText" Property="Text" Value="{Binding SelectedPassiveCount, StringFormat='/{0}'}"/>
+                                    </MultiDataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
 
