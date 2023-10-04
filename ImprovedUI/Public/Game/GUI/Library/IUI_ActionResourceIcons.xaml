@@ -721,6 +721,16 @@
                     <Setter Property="Source" Value="{StaticResource FFT_RunicPowerUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+			<MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="PsionicDie"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource PsionicDieUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
 			<!-- EDIT HERE -->
         </Style.Triggers>
     </Style>
@@ -974,6 +984,15 @@
             <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerD.png</ImageSource>
             <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerSpent.png</ImageSource>
             <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerMissing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BladesongChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_missing.png</ImageSource>
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
@@ -1459,6 +1478,19 @@
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="FFT_RunicPower"/>
                     <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="PsionicDie">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.PsionicDiceGroup}"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="PsionicDie"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
                     <Setter Property="Margin" Value="0,-15,0,0"/>
