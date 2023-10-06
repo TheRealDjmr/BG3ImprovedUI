@@ -1983,7 +1983,7 @@
             <DataTrigger Binding="{Binding Guid}" Value="cbe10ab9-11a6-450e-844a-175bcca25de7">
                 <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h6f244511g84dag44f2g884dg48475c76d9bb',Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
-			<!-- MOD START - Custom Dragonborn subrace names -->
+			<!-- MOD START - Custom Dragonborn subrace names - this can be applied to any subrace -->
             <!--Amethyst-->
             <DataTrigger Binding="{Binding Guid}" Value="4fe25c67-8198-4349-9d30-bb973f022221">
                 <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h3f87da5agadc1g4d73gd099gf3e1d77d67fa',Converter={StaticResource TranslatedStringConverter}}"/>
@@ -5072,7 +5072,25 @@
 
                     <StackPanel Width="1000" HorizontalAlignment="Left" Margin="0,0,0,50">
 
-                        <Control x:Name="bodyTypeSelector"  Template="{StaticResource BodyTypeTemplate}" Margin="0,64,0,0"/>
+                        <StackPanel x:Name="changeNameSection" Visibility="Collapsed">
+                            <ContentControl x:Name="changeNameHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+                                <TextBlock Text="{Binding Source='h5cd3cabag657ag4abfga33fg9b1b2808ee7f', Converter={StaticResource TranslatedStringConverter}}"/>
+                            </ContentControl>
+
+                            <Grid x:Name="textInputBox" HorizontalAlignment="Center" Margin="0,-30,0,-40">
+                                <ls:LSNineSliceImage x:Name="textInputBg" Padding="20,0,20,0" Slices="150,86,150,86" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_namegroupBG_01.png" MinWidth="740" MinHeight="196">
+
+                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Image x:Name="textInputDashes" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_namegroup_input_d.png" Stretch="Fill" Height="68" MinWidth="584" Width="{Binding ElementName=characterName, Path=ActualWidth}"/>
+
+                                        <ls:LSTextBox x:Name="characterName" Text="{Binding CharacterName}" IsEnabled="{Binding CanEditName}" MaxLength="20" TextImmediateSourceUpdate="True" Foreground="{StaticResource CCTextPrimary}" FontSize="{StaticResource MassiveFontSize}" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Margin="60,0,60,0"/>
+                                    </Grid>
+
+                                </ls:LSNineSliceImage>
+                            </Grid>
+                        </StackPanel>
+						
+						<Control x:Name="bodyTypeSelector"  Template="{StaticResource BodyTypeTemplate}" Margin="0,64,0,0"/>
 
                         <ContentControl x:Name="identityHeader"  Template="{StaticResource decoratedHeader}" Margin="0,50,0,0" Visibility="{Binding CanShowIdentity, Converter={StaticResource BoolToVisibleConverter}}">
                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hcc23cfaagbc1eg4bb0gafb9g9f720497b786', Converter={StaticResource TranslatedStringConverter}}"/>
@@ -5101,18 +5119,25 @@
                         </ContentControl>
                         <ListBox Style="{StaticResource CCCarouselStyle}" DataContext="{Binding Voices}"/>
 
-                        <ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Content="{Binding Source='hbf7b56f9g7cd9g4b08g9986ge231edbbde18', Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnRight" Command="{Binding PlayVoice}" SoundID="UI_HUD_CC_ListenVoice" HorizontalAlignment="Center" Margin="0,20,0,0">
-                            <ls:LSButton.Resources>
-                                <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_d.png"/>
-                                <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_h.png"/>
-                                <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_p.png"/>
-                                <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_disabled.png"/>
-                                <BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                                <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_h.png"/>
-                                <BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                                <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                            </ls:LSButton.Resources>
-                        </ls:LSButton>
+                        <StackPanel x:Name="voiceSection" Visibility="Collapsed">
+                            <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h81102ec7gef4dg42edg85b5g60d7fb1d13f9', Converter={StaticResource TranslatedStringConverter}}"/>
+                            </ContentControl>
+                            <ListBox Style="{StaticResource CCCarouselStyle}" DataContext="{Binding Voices}"/>
+
+                            <ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Content="{Binding Source='hbf7b56f9g7cd9g4b08g9986ge231edbbde18', Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnRight" Command="{Binding PlayVoice}" SoundID="UI_HUD_CC_ListenVoice" HorizontalAlignment="Center" Margin="0,20,0,0">
+                                <ls:LSButton.Resources>
+                                    <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_d.png"/>
+                                    <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_h.png"/>
+                                    <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_p.png"/>
+                                    <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_disabled.png"/>
+                                    <BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
+                                    <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_h.png"/>
+                                    <BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
+                                    <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
+                                </ls:LSButton.Resources>
+                            </ls:LSButton>
+                        </StackPanel>
 
                         <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0" Visibility="{Binding SelectableHeads.Count, Converter={StaticResource CountToVisibilityConverter}}">
                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h3eee9b8dgc315g4cb8g90a3g50cea8a27c69', Converter={StaticResource TranslatedStringConverter}}"/>
@@ -5278,6 +5303,10 @@
             <DataTrigger Binding="{Binding SelectedIdentity}" Value="Neutral">
                 <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='hea2ce077g2b7ag42dfgb194g928c3dd108a7', Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
+			
+			<DataTrigger Binding="{Binding Voices.ComboItems.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+                <Setter TargetName="voiceSection" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
 
             <DataTrigger Binding="{Binding SelectableGenitals.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                 <Setter TargetName="genitalsPanel" Property="Visibility" Value="Visible"/>
@@ -5294,7 +5323,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="CharacterChangeAppearance">
-                <Setter TargetName="bodyTypeSelector" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="changeNameSection" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="bodyTypeSelector" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="identityHeader" Property="Margin" Value="0,64,0,0"/>
             </DataTrigger>
 

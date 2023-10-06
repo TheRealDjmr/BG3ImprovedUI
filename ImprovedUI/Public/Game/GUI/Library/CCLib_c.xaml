@@ -4223,7 +4223,7 @@
 
             <DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="CharacterChangeAppearance">
                 <Setter TargetName="showSummary" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="hideSummary" Property="Visibility" Value="Collapsed"/>                
+                <Setter TargetName="hideSummary" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
 
         </ControlTemplate.Triggers>
@@ -4902,6 +4902,52 @@
                     <b:InvokeCommandAction Command="{Binding DisplayEquipment}" CommandParameter="{StaticResource TrueValue}"/>
                 </b:EventTrigger>
             </b:Interaction.Triggers>
+			
+			<ListBox x:Name="rename" Visibility="Collapsed">
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="text" ls:TextBlockFormatter.SourceText="{Binding Source='h5cd3cabag657ag4abfga33fg9b1b2808ee7f', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceCarouselTitleText}"/>
+
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Rectangle Grid.Column="0" Fill="{StaticResource CCTextSpecial}" Opacity="0.8" Height="90"/>
+
+                                        <ls:LSTextBox Grid.Column="0" x:Name="characterName" Text="{Binding CharacterName}" IsEnabled="{Binding CanEditName}" MaxLength="20" TextImmediateSourceUpdate="True"
+                                                      Foreground="{StaticResource CCTextPrimary}" FontSize="{StaticResource ScaledDefaultFontSize}" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" ProfanityFilter="True"
+                                                      Margin="16,0"/>
+                                    </Grid>
+
+                                </StackPanel>
+
+                                <ls:LSButton x:Name="focusNaming" IsEnabled="{Binding CanEditName}" Visibility="Collapsed" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                    <ls:LSButton.ContentTemplate>
+                                        <DataTemplate DataType="ls:VMInputEvent">
+                                            <Control x:Name="ImageSwitcher" Template="{StaticResource ControllerButton.ImageSwitcher}" VerticalAlignment="Center" Width="{StaticResource ScaledControllerHintSizeSmall}" Height="{StaticResource ScaledControllerHintSizeSmall}"/>
+                                        </DataTemplate>
+                                    </ls:LSButton.ContentTemplate>
+                                    <b:Interaction.Triggers>
+                                        <b:EventTrigger EventName="Click">
+                                            <noesis:SetFocusAction TargetName="characterName"/>
+                                        </b:EventTrigger>
+                                    </b:Interaction.Triggers>
+                                </ls:LSButton>
+                            </Grid>
+                        </ContentControl>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                                <Setter TargetName="focusNaming" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="focusNaming" Property="BoundEvent" Value="UIAccept"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </ListBox.Template>
+            </ListBox>
 
             <ls:LSButton x:Name="newRandomAppearance" Visibility="Collapsed" ls:MoveFocus.Focusable="True" Focusable="True" Command="{Binding RandomCharacter}" CommandParameter="new">
                 <ls:LSButton.Template>
@@ -5078,7 +5124,7 @@
             </StackPanel>
 
             <!-- ToDo: polish, press to hear voice -->
-            <ListBox x:Name="voices" ItemsSource="{Binding Voices.ComboItems}" SelectedItem="{Binding Voices.SelectedItem}">
+            <ListBox x:Name="voices" Visibility="Collapsed" ItemsSource="{Binding Voices.ComboItems}" SelectedItem="{Binding Voices.SelectedItem}">
                 <ListBox.Template>
                     <ControlTemplate>
                         <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
@@ -5374,13 +5420,18 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="CharacterChangeAppearance">
-                <Setter TargetName="newRandomAppearance" Property="Command" Value="{Binding RandomAppearance}"/>
+                <Setter TargetName="rename" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="newRandomAppearance" Property="Command" Value="{Binding RandomAppearance}"/>
                 <Setter TargetName="daisyRace" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="daisySubRace" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="bodyTypeCarousel" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
 
-            <DataTrigger Binding="{Binding SelectedHair.IsNull, FallbackValue=False}" Value="False">
+            <DataTrigger Binding="{Binding Voices.ComboItems.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+                <Setter TargetName="voices" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+			
+			<DataTrigger Binding="{Binding SelectedHair.IsNull, FallbackValue=False}" Value="False">
                 <Setter TargetName="hairColoring" Property="Visibility" Value="Visible"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding SelectedBeard.IsNull, FallbackValue=False}" Value="False">
