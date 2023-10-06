@@ -11,6 +11,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 <p float="left" align="middle">
   <img src="https://i.imgur.com/dm5CsPu.png">
 </p>
+
 - Removes annoying reset tutorial/enable tutorials message box when entering CC
 <p float="left" align="middle">
   <img src="https://i.imgur.com/piE3sv3.jpg">
