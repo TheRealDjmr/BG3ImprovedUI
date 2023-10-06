@@ -10,10 +10,14 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Prevents annoying story error message box appearing when using mods
 <p float="left" align="middle">
   <img src="https://i.imgur.com/dm5CsPu.png">
-</p>  
+</p>
+- Removes annoying reset tutorial/enable tutorials message box when entering CC
+<p float="left" align="middle">
+  <img src="https://i.imgur.com/piE3sv3.jpg">
+</p>
 
 - Unlocks edit appearance option for all Origin characters in Character Creation.
-- Magic Mirror tweaks: Allows all combinations to hit confirm.
+- Magic Mirror tweaks: Allows all combinations to hit confirm. May need to hit randomise once for changes to go through.
 - <b>OPTIONAL FILE REQUIRED</b> Switches "Show all items" (highlighting all interactables, default left ALT key/right stick) from requiring a held input to an on/off switch. Works for both Keyboard and Controller - switching between the two input methods when enabled would cause an additional toggle to be required. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
 
 <b>OPTIONAL FILE REQUIRED</b> Keyboard-only tweaks:
@@ -69,4 +73,4 @@ Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios)
 
 
 #### Notes for Paking:
-Use [LSLib](https://github.com/Norbyte/lslib); set Priority to 21
+Use [LSLib](https://github.com/Norbyte/lslib); set Priority to 26
