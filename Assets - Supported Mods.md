@@ -11,8 +11,9 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Harlequin - https://www.nexusmods.com/baldursgate3/mods/2120
 - Magus - https://www.nexusmods.com/baldursgate3/mods/422
 - Cleric Subclasses - https://www.nexusmods.com/baldursgate3/mods/432
-- Death Knight Class - https://www.nexusmods.com/baldursgate3/mods/1725
 - Death Domain Subclass - https://www.nexusmods.com/baldursgate3/mods/1552
+- Death Knight Class - https://www.nexusmods.com/baldursgate3/mods/1725
+- Drakewarden Subclass - https://www.nexusmods.com/baldursgate3/mods/2838
 - The Way of the Drunken Master Subclass - https://www.nexusmods.com/baldursgate3/mods/1832
 - Expansion (Bladesinger only) - https://www.nexusmods.com/baldursgate3/mods/279
 - Hexblade - https://www.nexusmods.com/baldursgate3/mods/1100
