@@ -40,6 +40,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Gods Extra - https://www.nexusmods.com/baldursgate3/mods/433
 
 #### Action Resource Icons
+- Alternate Monk (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer - https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2151
 - Expansion (Bladesinger - Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/279
