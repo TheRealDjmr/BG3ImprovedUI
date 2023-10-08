@@ -24,6 +24,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 
 (Via Dynamic support)
 - Alternate Monk - https://www.nexusmods.com/baldursgate3/mods/2266
+- Pirate Homebrew Subclass - https://www.nexusmods.com/baldursgate3/mods/3070
 - Red Mage - https://www.nexusmods.com/baldursgate3/mods/2056
 - Thanator - https://www.nexusmods.com/baldursgate3/mods/2796
 
@@ -43,6 +44,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Alternate Monk (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer - https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2151
+- Death Knight Class (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/1725
 - Expansion (Bladesinger - Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/279
 - Improved Breath Weapon - https://www.nexusmods.com/baldursgate3/mods/993
 - Magus (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/422
