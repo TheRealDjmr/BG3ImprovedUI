@@ -26,6 +26,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 #### Race Icons
 - Shadar-Kai - https://www.nexusmods.com/baldursgate3/mods/1305
 - Fizbans Treasury of Dragons - https://www.nexusmods.com/baldursgate3/mods/1793
+- Whispers of the Fey - Changelings (Race) - https://www.nexusmods.com/baldursgate3/mods/3110
 
 #### Background Icons
 - Was a Goat - https://www.nexusmods.com/baldursgate3/mods/552
