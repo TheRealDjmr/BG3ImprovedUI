@@ -5114,7 +5114,9 @@
                             <TextBlock x:Name="IdentityTxt" Text="{Binding Source='h033a526fg0fe7g4164g8431g177be16d148a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource CarouselTextStyle}" TextTrimming="CharacterEllipsis" MaxWidth="500"/>
                         </Grid>
 
-                        <StackPanel x:Name="voiceSection" Visibility="Collapsed">
+                        <!-- MOD START - Always show voices, even for Hirelings/Origins -->
+						<StackPanel x:Name="voiceSection">
+							<!-- MOD END -->
                             <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h81102ec7gef4dg42edg85b5g60d7fb1d13f9', Converter={StaticResource TranslatedStringConverter}}"/>
                             </ContentControl>
@@ -5299,9 +5301,11 @@
                 <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='hea2ce077g2b7ag42dfgb194g928c3dd108a7', Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
 			
-			<DataTrigger Binding="{Binding Voices.ComboItems.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+			<!-- MOD START - Always show voices, even for Hirelings/Origins -->
+			<!--<DataTrigger Binding="{Binding Voices.ComboItems.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
                 <Setter TargetName="voiceSection" Property="Visibility" Value="Visible"/>
-            </DataTrigger>
+            </DataTrigger> -->
+			<!-- MOD END -->
 
             <DataTrigger Binding="{Binding SelectableGenitals.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                 <Setter TargetName="genitalsPanel" Property="Visibility" Value="Visible"/>
