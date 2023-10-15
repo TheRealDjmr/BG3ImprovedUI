@@ -21,7 +21,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Message box to ensure user wants to activate tutorials -->
-			<ls:LSMessageBoxData x:Key="MessageBoxTutorialsCheck"
+			<!-- <ls:LSMessageBoxData x:Key="MessageBoxTutorialsCheck"
                                  Text="{Binding Source='h86f06e64g4588g4798gb828gf6e0268122af', Converter={StaticResource TranslatedStringConverter}}"
                                  Title="{Binding Source='h402bb6d3gff93g4f4fga983g36460a611cab', Converter={StaticResource TranslatedStringConverter}}"
                                  UUID="UUIDTutorialsCheck" CheckBox="True" CheckBoxValue="True" CheckBoxLabel="{Binding Source='h4506643cg668fg49ecgb9f8g09d96745e1a8', Converter={StaticResource TranslatedStringConverter}}">
@@ -31,7 +31,7 @@
                                           ControlTemplate="{StaticResource BlueButton}"
                                           BoundEvent="UIAccept"/>
                 </ls:LSMessageBoxData.Actions>
-            </ls:LSMessageBoxData>
+            </ls:LSMessageBoxData>-->
 
 
             <ControlTemplate x:Key="appearancePageTemplate" TargetType="Control">
@@ -302,11 +302,11 @@
         </ResourceDictionary>
     </ls:UIWidget.Resources>
 
-    <b:Interaction.Triggers>
+    <!--<b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding OpenShowTutorialsQuestion}" CommandParameter="{StaticResource MessageBoxTutorialsCheck}"/>
         </b:EventTrigger>
-    </b:Interaction.Triggers>
+    </b:Interaction.Triggers>-->
 
     <b:Interaction.Behaviors>
         <ls:CollectionFilterBehavior x:Name="CustomOriginsCollection" ItemsSource="{Binding SelectableOrigins}" Predicate="{Binding IsCustomOriginPredicate}"/>
@@ -1491,8 +1491,8 @@
         </Control>
 
         <Control x:Name="centralBottomControls" Template="{StaticResource centralBottomControlsTemplate}" VerticalAlignment="Bottom"/>
-
-        <ls:LSButton Template="{StaticResource FrameWithIconButtonTemplate}" Command="{Binding ExitCharacterCreation}" SoundID="UI_HUD_CC_Accept" ToolTipService.Placement="Bottom" ToolTipService.VerticalOffset="-20"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
+		
+		<ls:LSButton Template="{StaticResource FrameWithIconButtonTemplate}" Command="{Binding CustomEvent}" CommandParameter="IUI_OpenMainMenuPrompt" SoundID="UI_HUD_CC_Accept" ToolTipService.Placement="Bottom" ToolTipService.VerticalOffset="-20"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
             <ls:LSButton.Resources>
                 <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
                 <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>
