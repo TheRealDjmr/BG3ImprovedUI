@@ -135,7 +135,12 @@
     <ImageSource x:Key="PsionicDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_missing.png</ImageSource>
     <ImageSource x:Key="CunningDie">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_d.png</ImageSource>
     <ImageSource x:Key="CunningDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_missing.png</ImageSource>
-	<!-- EDIT HERE -->
+
+	<ImageSource x:Key="PsiPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_d.png</ImageSource>
+    <ImageSource x:Key="PsiPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_missing.png</ImageSource>
+    <ImageSource x:Key="PsionicMasteryCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_d.png</ImageSource>
+    <ImageSource x:Key="PsionicMasteryChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_missing.png</ImageSource>
+    <!-- EDIT HERE -->
 	
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
@@ -193,6 +198,13 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="CunningDie">
 				<Setter Property="Source" Value="{StaticResource CunningDie}"/>
+			</DataTrigger>
+
+            <DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
+				<Setter Property="Source" Value="{StaticResource PsiPoints}"/>
+			</DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
+				<Setter Property="Source" Value="{StaticResource PsionicMasteryCharge}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -766,6 +778,27 @@
 					<Setter Property="Source" Value="{StaticResource CunningDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="PsiPointsResource"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource PsiPointsUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+            <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="PsionicMasteryResource"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource PsionicMasteryChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>  
 			<!-- EDIT HERE -->
         </Style.Triggers>
     </Style>
@@ -1051,6 +1084,26 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.PsiPointsGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.PsionicMasteryChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
 	<!-- EDIT HERE -->
 	
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
@@ -1577,6 +1630,33 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+
+            <DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.PsiPointsGroup}"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="PsiPointsResource"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+           <DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.PsionicMasteryChargeGroup}"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="PsionicMasteryResource"/>
+                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
     </Style>
