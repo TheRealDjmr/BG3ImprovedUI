@@ -131,6 +131,10 @@
     <ImageSource x:Key="FFT_RunicPowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerMissing.png</ImageSource>
 	<ImageSource x:Key="WuJenSpellSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot.png</ImageSource>
     <ImageSource x:Key="WuJenSpellSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot_missing.png</ImageSource>
+	<ImageSource x:Key="LuminousBurst">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst.png</ImageSource>
+    <ImageSource x:Key="LuminousBurstUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_missing.png</ImageSource>
+	<ImageSource x:Key="PracticedStrike">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike.png</ImageSource>
+    <ImageSource x:Key="PracticedStrikeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_missing.png</ImageSource>
 	<ImageSource x:Key="PsionicDie">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_d.png</ImageSource>
     <ImageSource x:Key="PsionicDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_missing.png</ImageSource>
     <ImageSource x:Key="CunningDie">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_d.png</ImageSource>
@@ -187,6 +191,12 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="WuJenSpellSlot">
 				<Setter Property="Source" Value="{StaticResource WuJenSpellSlot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="PracticedStrike">
+				<Setter Property="Source" Value="{StaticResource PracticedStrike}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LuminousBurst">
+				<Setter Property="Source" Value="{StaticResource LuminousBurst}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="PsionicDie">
 				<Setter Property="Source" Value="{StaticResource PsionicDie}"/>
@@ -748,6 +758,26 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="LuminousBurst"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource LuminousBurstUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="PracticedStrike"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource PracticedStrikeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="PsionicDie"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
@@ -1029,6 +1059,26 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.PracticedStrikeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.LuminousBurstGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -1545,6 +1595,32 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="WuJenSpellSlot"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LuminousBurst">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LuminousBurstGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="LuminousBurst"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="PracticedStrike">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.PracticedStrikeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="PracticedStrike"/>
 					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
