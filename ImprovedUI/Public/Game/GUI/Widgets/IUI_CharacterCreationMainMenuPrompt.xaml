@@ -8,13 +8,11 @@
     xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     mc:Ignorable="d"
-    ls:UIWidget.ContextName="CharacterCreation"
-    ls:TooltipExtender.Owner="{Binding DummyCharacter}"
-	d:DataContext="{d:DesignInstance {x:Type ls:DCCharacterCreation}, IsDesignTimeCreatable=True}">
+    ls:UIWidget.ContextName="GameMenu">
 
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding ExitCharacterCreation}"/>
+            <b:InvokeCommandAction Command="{Binding MainMenuCommand}"/>
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
