@@ -139,7 +139,9 @@
     <ImageSource x:Key="PsionicDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_missing.png</ImageSource>
     <ImageSource x:Key="CunningDie">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_d.png</ImageSource>
     <ImageSource x:Key="CunningDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_missing.png</ImageSource>
-	<!-- EDIT HERE -->
+    <ImageSource x:Key="SpellbaneDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
+    <ImageSource x:Key="SpellbaneDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
+  <!-- EDIT HERE -->
 	
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
@@ -203,6 +205,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="CunningDie">
 				<Setter Property="Source" Value="{StaticResource CunningDie}"/>
+			</DataTrigger>
+      <DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
+				<Setter Property="Source" Value="{StaticResource SpellbaneDie}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -796,6 +801,16 @@
 					<Setter Property="Source" Value="{StaticResource CunningDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellbaneDie"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SpellbaneDieUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
         </Style.Triggers>
     </Style>
@@ -1098,6 +1113,15 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_d.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+  <ControlTemplate x:Key="ActionResources.ActionGroup.SpellbaneDieGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -1647,6 +1671,15 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="CunningDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellbaneDie"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
