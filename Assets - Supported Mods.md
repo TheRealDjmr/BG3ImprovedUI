@@ -13,6 +13,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Cleric Subclasses - https://www.nexusmods.com/baldursgate3/mods/432
 - Death Domain Subclass - https://www.nexusmods.com/baldursgate3/mods/1552
 - Death Knight Class - https://www.nexusmods.com/baldursgate3/mods/1725
+- Demon Hunter Class - https://www.nexusmods.com/baldursgate3/mods/3165
 - Drakewarden Subclass - https://www.nexusmods.com/baldursgate3/mods/2838
 - The Way of the Drunken Master Subclass - https://www.nexusmods.com/baldursgate3/mods/1832
 - Expansion (Bladesinger only) - https://www.nexusmods.com/baldursgate3/mods/279
@@ -24,8 +25,9 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 
 (Via Dynamic support)
 - Alternate Monk - https://www.nexusmods.com/baldursgate3/mods/2266
-- Pirate Homebrew Subclass - https://www.nexusmods.com/baldursgate3/mods/3070
-- Red Mage - https://www.nexusmods.com/baldursgate3/mods/2056
+- Monk Subclass - Way of the Kensei - https://www.nexusmods.com/baldursgate3/mods/1330
+- Pirate (Homebrew Rogue Subclass) - https://www.nexusmods.com/baldursgate3/mods/3070
+- Red Mage / White Mage - https://www.nexusmods.com/baldursgate3/mods/2056 / https://www.nexusmods.com/baldursgate3/mods/2961
 - Thanator - https://www.nexusmods.com/baldursgate3/mods/2796
 
 #### Race Icons
@@ -33,20 +35,24 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Shadar-Kai - https://www.nexusmods.com/baldursgate3/mods/1305
 - Fizbans Treasury of Dragons - https://www.nexusmods.com/baldursgate3/mods/1793
 - Whispers of the Fey: Changelings Race - https://www.nexusmods.com/baldursgate3/mods/3110
+- Whispers of the Fey: Goblins Race - https://www.nexusmods.com/baldursgate3/mods/3254
 
 #### Background Icons
 - Was a Goat - https://www.nexusmods.com/baldursgate3/mods/552
 - Additional Backgrounds - https://www.nexusmods.com/baldursgate3/mods/1874
 
 #### Deity Icons
+- Faithful and Faithless - https://www.nexusmods.com/baldursgate3/mods/1512
 - Gods Extra - https://www.nexusmods.com/baldursgate3/mods/433
 
 #### Action Resource Icons
 - Alternate Monk (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer - https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2151
-- Death Knight Class (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/1725
+- Death Knight Class - https://www.nexusmods.com/baldursgate3/mods/1725
+- Demon Hunter Class - https://www.nexusmods.com/baldursgate3/mods/3165
 - Expansion (Bladesinger - Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/279
 - Improved Breath Weapon - https://www.nexusmods.com/baldursgate3/mods/993
 - Magus (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/422
+- Mystic (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2786
 - Wizard Traditions Runesmith (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2563
