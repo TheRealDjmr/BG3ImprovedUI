@@ -143,9 +143,9 @@
     <ImageSource x:Key="MysticPsiPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_missing.png</ImageSource>
     <ImageSource x:Key="MysticPsionicMasteryCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_d.png</ImageSource>
     <ImageSource x:Key="MysticPsionicMasteryChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_missing.png</ImageSource>
-	<!-- EDIT HERE -->
-    <ImageSource x:Key="DemonicFury">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury.png</ImageSource>
+	<ImageSource x:Key="DemonicFury">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury.png</ImageSource>
     <ImageSource x:Key="DemonicFuryUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Missing.png</ImageSource>
+	<!-- EDIT HERE -->
 	
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
@@ -210,17 +210,16 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="CunningDie">
 				<Setter Property="Source" Value="{StaticResource CunningDie}"/>
 			</DataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
 				<Setter Property="Source" Value="{StaticResource MysticPsiPoints}"/>
 			</DataTrigger>
             <DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
 				<Setter Property="Source" Value="{StaticResource MysticPsionicMasteryCharge}"/>
 			</DataTrigger>
-			<!-- EDIT HERE -->
-            <DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
+			<DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
                 <Setter Property="Source" Value="{StaticResource DemonicFury}"/>
             </DataTrigger>
+			<!-- EDIT HERE -->
 		</Style.Triggers>
     </Style>
 	
@@ -812,7 +811,6 @@
 					<Setter Property="Source" Value="{StaticResource CunningDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="PsiPointsResource"/>
@@ -832,9 +830,8 @@
 				<MultiDataTrigger.Setters>
 					<Setter Property="Source" Value="{StaticResource MysticPsionicMasteryChargeUnavailable}"/>
 				</MultiDataTrigger.Setters>
-			</MultiDataTrigger>  
-			<!-- EDIT HERE -->
-            <MultiDataTrigger>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="DemonicFury"/>
                     <Condition Binding="{Binding Value}" Value="0"/>
@@ -844,7 +841,7 @@
                     <Setter Property="Source" Value="{StaticResource DemonicFuryUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-
+			<!-- EDIT HERE -->
         </Style.Triggers>
     </Style>
 	
@@ -1110,7 +1107,7 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-
+	
 	<ControlTemplate x:Key="ActionResources.ActionGroup.PracticedStrikeGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_h.png</ImageSource>
@@ -1149,8 +1146,8 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-
-    <ControlTemplate x:Key="ActionResources.ActionGroup.MysticPsiPointsGroup" TargetType="ls:LSActionPoint">
+	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.MysticPsiPointsGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_h.png</ImageSource>
             <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_d.png</ImageSource>
@@ -1169,7 +1166,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	<!-- EDIT HERE -->
+	
 	<ControlTemplate x:Key="ActionResources.ActionGroup.DemonicFuryGroup" TargetType="ls:LSActionPoint">
         <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Hover.png</ImageSource>
@@ -1179,7 +1176,8 @@
         </ControlTemplate.Resources>
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-
+	<!-- EDIT HERE -->
+	
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
         <ControlTemplate.Resources>
@@ -1730,8 +1728,7 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-
-            <DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
                 <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.MysticPsiPointsGroup}"/>
                 <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
             </DataTrigger>
@@ -1757,8 +1754,7 @@
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-			<!-- EDIT HERE -->
-            <DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
+			<DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
                 <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DemonicFuryGroup}"/>
                 <Setter Property="MaxGroupActionPoints" Value="1"/>
                 <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -1772,7 +1768,7 @@
                     <Setter Property="Margin" Value="0,-15,0,0"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
-                        
+			<!-- EDIT HERE -->
 		</Style.Triggers>
     </Style>
 </ResourceDictionary>
