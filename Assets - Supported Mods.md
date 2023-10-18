@@ -56,3 +56,4 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Magus (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/422
 - Mystic (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2786
 - Wizard Traditions Runesmith (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2563
+- Whispers of the Fey: Goblins Race - https://www.nexusmods.com/baldursgate3/mods/3254
