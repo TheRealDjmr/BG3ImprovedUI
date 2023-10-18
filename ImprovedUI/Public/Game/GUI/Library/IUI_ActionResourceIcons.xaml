@@ -107,6 +107,8 @@
     <ImageSource x:Key="RampageDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_missing.png</ImageSource>
     <ImageSource x:Key="InfusionSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_d.png</ImageSource>
     <ImageSource x:Key="InfusionSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_missing.png</ImageSource>
+    <ImageSource x:Key="GoblinFots">pack://application:,,,/GustavNoesisGUI;component/Assets/Goblins/Shared/Resources/ico_classRes_fots_d.png</ImageSource>
+    <ImageSource x:Key="GoblinFotsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Goblins/Shared/Resources/ico_classRes_fots_missing.png</ImageSource>
     <ImageSource x:Key="IconBreathWeaponCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_d.png</ImageSource>
     <ImageSource x:Key="IconBreathWeaponChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_missing.png</ImageSource>
     <ImageSource x:Key="BloodRune">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune.png</ImageSource>
@@ -867,6 +869,16 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GoblinFotsGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    </ControlTemplate>
 	
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BreathWeaponGroup" TargetType="ls:LSActionPoint">
         <ControlTemplate.Resources>
@@ -1315,6 +1327,19 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="InfusionSlots"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GoblinFots">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GoblinFotsGroup}"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GoblinFots"/>
                     <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
