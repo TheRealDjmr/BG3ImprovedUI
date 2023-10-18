@@ -1,4 +1,4 @@
-<!-- This is a file for storing Action Resource icon entries for Controller ("Cost" and bottom of Action Radial screen). The idea is to split Controller Action Resource files from Keyboard -->
+<!-- This is a file for storing Action Resource icon entries for Controller ("Cost" and bottom of Action Radial screen). This splits Controller Action Resource files from Keyboard -->
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -94,6 +94,12 @@
 			</StackPanel>
 		</Border>
 		<DataTemplate.Triggers>
+			<!-- Hide ResourcePoints if you have more than 5 and no explicit entry -->
+			<DataTrigger Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=5}" Value="True">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+			
 			<DataTrigger Binding="{Binding ActionResource.Level}" Value="1">
 				<Setter TargetName="SpellSlotLabel" Property="Text" Value="{Binding Source='hbdeb8e2fg50e9g424fgbe6dg248268275452',Converter={StaticResource TranslatedStringConverter}}"/>
 				<Setter TargetName="SpellSlotLabel" Property="Visibility" Value="Visible"/>
@@ -320,16 +326,19 @@
 			</DataTrigger>
 			<!-- Please leave the above alone -->
 			
-			<!-- This is the icon that appears in the Controller Action Radial screen (when selecting an action on Controller) -->
+			<!-- This is the icon that appears in the Controller Action Radial screen (when selecting an action on Controller). LevelImage is the leftmost image. ResourcePoints is the individual count for each icon. ResourceAmount is the count as a number. -->
 			<!--<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ACTIONRESOURCENAME">
 				IF YOU HAVE CUSTOM CONTROLLER ICONS <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
 				IF YOU HAVE CUSTOM CONTROLLER ICONS <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/ActionResources_c/Icons/CONTROLLERICON.png"/>
-				OPTIONAL MARGIN OVERRIDE <Setter TargetName="LevelImage" Property="Margin" Value="0,0,0,0"/>
+				IF YOU WANT A CUSTOM FIT <Setter TargetName="LevelImage" Property="Height" Value="X"/>
+				IF YOU WANT A CUSTOM FIT <Setter TargetName="LevelImage" Property="Width" Value="X"/>
+				IF YOU WANT A CUSTOM FIT <Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+				OPTIONAL MARGIN OVERRIDE <Setter TargetName="LevelImage" Property="Margin" Value="LEFT,TOP,RIGHT,BOTTOM"/>
 				IF YOU WANT TO CHANGE RESOURCE SPACING <Setter TargetName="ResourcePoints" Property="ActionPointInBetweenMargin" Value="-32"/>
 				IF YOU WANT TO SHOW AMOUNT FOR EACH RESOURCE <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
 				OPTIONAL BACKGROUND <Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource CUSTOMCOLOURNAME}"/>
 				OPTIONAL BACKGROUND <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource CUSTOMCOLOURNAME}"/>
-				OPTIONAL RESOURCE LABEL <Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='LOCALISATIONENTRYFORRESOURCE', Converter={StaticResource TranslatedStringConverter}}"/>
+				OPTIONAL RESOURCE LABEL FOR EARLY LEVELS <Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='LOCALISATIONENTRYFORRESOURCE', Converter={StaticResource TranslatedStringConverter}}"/>
 			</DataTrigger>-->
 			
 			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="XCL_BreathWeaponCharge">
@@ -351,7 +360,6 @@
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 			</DataTrigger>
-
 			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="GoblinFots">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
@@ -363,7 +371,93 @@
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 			</DataTrigger>
-
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="CunningDie">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/ActionResources_c/Icons/c_ico_classRes_CunningDie_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+			
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="BloodRune">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_BloodRune.png"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>                
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#cc0000"/>
+                <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#cc0000"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="FrostRune">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_FrostRune.png"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>  
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#3abad6"/>
+                <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#3abad6"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="UnholyRune">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_UnholyRune.png"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>  
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#93c47d"/>
+                <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#93c47d"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="RunicPower">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_RunicPower.png"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+                <Setter TargetName="ActionResourceBackground" Property="Fill" Value="#26a2f4"/>
+                <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#26a2f4"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="DemonicFury">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ActionResources_c/Icons/Icon_DH_DemonicFury.png"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#9933FF"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#9933FF"/>
+            </DataTrigger>
 			<!-- EDIT HERE -->
 			
 			<!-- Please leave the below alone -->
@@ -421,7 +515,7 @@
 			<!-- MOD NOTE - Revert to star icon if not defined here -->
             <Rectangle x:Name="ResourceImage" Width="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=25}" Height="64" VerticalAlignment="Center">
 				<Rectangle.Fill>
-					<ImageBrush ImageSource="{StaticResource TypeIdToSourceFallback}" Stretch="None"/>
+					<ImageBrush ImageSource="{StaticResource TypeIdToSourceFallback}" TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
 				</Rectangle.Fill>
 			</Rectangle>
             <TextBlock x:Name="ResourceName" Text="{Binding Name}" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="{DynamicResource ScaledSmallishFontSize}" Foreground="{StaticResource LS_tint100}" Style="{StaticResource HUD.DefaultTextStyle}"/>
@@ -433,6 +527,13 @@
             <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                 <Setter TargetName="AddSign" Property="Visibility" Value="Collapsed"/>
             </Trigger>
+			
+			<!-- Hide ResourceImage if you have more than 5 and no explicit entry -->
+			<DataTrigger Binding="{Binding MaxValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=5}" Value="True">
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
 
             <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
                 <Setter TargetName="ResourceImage" Property="Width" Value="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=48}"/>
@@ -660,34 +761,33 @@
             </DataTrigger>
 			
 			<!--<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_shadow_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>-->
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_shadow_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>-->
 			<DataTrigger Binding="{Binding TypeId}" Value="XCL_BreathWeaponCharge">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/ActionResources_c/Icons/c_ico_breathweaponcharge.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/ActionResources_c/Icons/c_ico_breathweaponcharge_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,48,68" ViewboxUnits="Absolute" Viewbox="10,0,48,68"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/ActionResources_c/Icons/c_ico_breathweaponcharge.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/ActionResources_c/Icons/c_ico_breathweaponcharge_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,48,68" ViewboxUnits="Absolute" Viewbox="10,0,48,68"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
 			
 			<!-- This one works well instead of tiles when only using 1 action resource at a time -->
 			<DataTrigger Binding="{Binding TypeId}" Value="InfusionSlots">
 				<Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ActionResources_c/Icons/c_ico_classRes_infusion_d.png" Stretch="Uniform"/>
-                    </Setter.Value>
-                </Setter>
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ActionResources_c/Icons/c_ico_classRes_infusion_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
-
 			<DataTrigger Binding="{Binding TypeId}" Value="GoblinFots">
 				<Setter TargetName="ResourceImage" Property="Fill">
                     <Setter.Value>
@@ -695,6 +795,63 @@
                     </Setter.Value>
                 </Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>			
+			<DataTrigger Binding="{Binding TypeId}" Value="PsionicDie">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/ActionResources_c/Icons/c_ico_classRes_PsionicDie_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="CunningDie">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/ActionResources_c/Icons/c_ico_classRes_CunningDie_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+			
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodRune">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_BloodRune.png"/>
+                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FrostRune">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_FrostRune.png"/>
+                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_UnholyRune.png"/>
+                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RunicPower">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_RunicPower.png"/>
+                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ActionResources_c/Icons/Icon_DH_DemonicFury.png"/>
+                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 

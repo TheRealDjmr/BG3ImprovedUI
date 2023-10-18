@@ -10,10 +10,17 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Prevents annoying story error message box appearing when using mods
 <p float="left" align="middle">
   <img src="https://i.imgur.com/dm5CsPu.png">
-</p>  
+</p>
+
+- Removes annoying reset tutorial/enable tutorials message box when entering CC
+<p float="left" align="middle">
+  <img src="https://i.imgur.com/piE3sv3.jpg">
+</p>
 
 - Unlocks edit appearance option for all Origin characters in Character Creation.
-- Magic Mirror tweaks: Allows all combinations to hit confirm.
+- Character Creation Layout tweaks: Redesigned Origin layout (the first screen you see when entering CC).
+- Magic Mirror tweaks: Allows all combinations to hit confirm. May need to hit randomise once before making changes.
+- Hireling tweaks: Redesigned Hireling layout (makes better use of the dead space).
 - <b>OPTIONAL FILE REQUIRED</b> Switches "Show all items" (highlighting all interactables, default left ALT key/right stick) from requiring a held input to an on/off switch. Works for both Keyboard and Controller - switching between the two input methods when enabled would cause an additional toggle to be required. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
 
 <b>OPTIONAL FILE REQUIRED</b> Keyboard-only tweaks:
@@ -25,23 +32,24 @@ This mod is aimed at making changes to the overall user interface to improve usa
 
 #### Modder Features
 - Character Creation Layout tweaks: Removes head scroll limit (Credit: Alana)
-- Character Creation Layout tweaks: Removes appearance tab restrictions allowing for modded slot use (ex: Origin Hairstyles, Humans with tails)
+- Character Creation Layout tweaks: Removes appearance tab restrictions allowing for modded slot use. (ex: Origin Hairstyles, Humans with tails)
 - Character Creation Layout tweaks: Changes Dragonborn Sorcerer Draconic Ancestry to allow for additional scale types.
 - Character Creation Layout tweaks: Allows for Feat selection once unlocked by another mod. Tip - "Allowimprovement" doesn't work on its own.
 - CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
 - CC/Level up Layout tweaks: Changes passive selection to turn into a scroll option when modded options are added - such as modded Eldritch Invocations. (Credit: Winterbrick)
 - CC/Level up Layout tweaks: Changes Feat panel to have additional scroll options to support modded Feats with long descriptions and multiple options. (Credit: Lostsoul)
+- Hireling tweaks: Adds multiple scroll bars to Hireling selection for better support with modded options.
 
 #### <b>OPTIONAL FILE REQUIRED</b> Custom Asset Features 
-- Supports modded class/subclass icons, with a generic icon given to mods without a provided icon
-- Dynamic support for class/subclass icons that have not been provided, the image name would need to match the class/subclass name in classdescriptions.lsx (Credit: LaughingLeader)
+- Supports modded class/subclass icons, with a generic icon given to mods without a provided icon.
+- Dynamic support for class/subclass icons that have not been provided, the image name would need to match the class/subclass name in classdescriptions.lsx. (Credit: LaughingLeader)
 - Supports modded race/subrace icons, including custom names for Subraces such as Dragonborn.
 - Supports modded action resource icons for Keyboard - Hotbar, Tooltips and CC/Levelup.
 - Supports modded action resource icons for Controller - Tooltips, Action Radial "Cost:", Action Radial bottom resource bar and CC/Levelup.
 - Dynamic support for action resource icons that have not been provided and fallback support when no entries are provided for CC/Levelup and Action Radial bottom resource bar.
-- Better handling of action resources without icons, with placeholder stars added to each section and counted on Keyboard Hotbar (Credit: juumeijin)
-- Supports modded background icons (instead of a square block) (Credit: NellsRelo)
-- Supports modded deity icons (instead of a square block) (Credit: Lostsoul)
+- Better handling of action resources without icons, with placeholder stars added to each section and counted on Keyboard Hotbar. (Credit: juumeijin)
+- Supports modded background icons (instead of a square block). (Credit: NellsRelo)
+- Supports modded deity icons (instead of a square block). (Credit: Lostsoul)
 
 #### Showcase (version 3.2) - https://www.youtube.com/watch?v=livOpPUNIN0 - new video soon
 
@@ -69,4 +77,4 @@ Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios)
 
 
 #### Notes for Paking:
-Use [LSLib](https://github.com/Norbyte/lslib); set Priority to 21
+Use [LSLib](https://github.com/Norbyte/lslib); set Priority to 26

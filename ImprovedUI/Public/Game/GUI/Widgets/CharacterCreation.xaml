@@ -21,7 +21,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Message box to ensure user wants to activate tutorials -->
-            <ls:LSMessageBoxData x:Key="MessageBoxTutorialsCheck"
+			<!-- <ls:LSMessageBoxData x:Key="MessageBoxTutorialsCheck"
                                  Text="{Binding Source='h86f06e64g4588g4798gb828gf6e0268122af', Converter={StaticResource TranslatedStringConverter}}"
                                  Title="{Binding Source='h402bb6d3gff93g4f4fga983g36460a611cab', Converter={StaticResource TranslatedStringConverter}}"
                                  UUID="UUIDTutorialsCheck" CheckBox="True" CheckBoxValue="True" CheckBoxLabel="{Binding Source='h4506643cg668fg49ecgb9f8g09d96745e1a8', Converter={StaticResource TranslatedStringConverter}}">
@@ -31,7 +31,7 @@
                                           ControlTemplate="{StaticResource BlueButton}"
                                           BoundEvent="UIAccept"/>
                 </ls:LSMessageBoxData.Actions>
-            </ls:LSMessageBoxData>
+            </ls:LSMessageBoxData>-->
 
 
             <ControlTemplate x:Key="appearancePageTemplate" TargetType="Control">
@@ -302,11 +302,11 @@
         </ResourceDictionary>
     </ls:UIWidget.Resources>
 
-    <b:Interaction.Triggers>
+    <!--<b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding OpenShowTutorialsQuestion}" CommandParameter="{StaticResource MessageBoxTutorialsCheck}"/>
         </b:EventTrigger>
-    </b:Interaction.Triggers>
+    </b:Interaction.Triggers>-->
 
     <b:Interaction.Behaviors>
         <ls:CollectionFilterBehavior x:Name="CustomOriginsCollection" ItemsSource="{Binding SelectableOrigins}" Predicate="{Binding IsCustomOriginPredicate}"/>
@@ -620,86 +620,89 @@
                             <Setter TargetName="gameplayPanel" Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
+                                        <!-- MOD START - Two scroll viewers to support multiple Origins -->
                                         <StackPanel>
-                                            <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_origin.png" Stretch="None" Margin="0,64,0,0"/>
-                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h4e22c88bg6071g4c6dg81fdg68133ee0804d, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+											<Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_origin.png" Stretch="None" Margin="0,64,0,0"/>
+											<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h4e22c88bg6071g4c6dg81fdg68133ee0804d, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+											<!-- Custom -->
+											<StackPanel Orientation="Horizontal">
+												<Border Width="517"/>
+												<ListBox x:Name="customOrigins" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemContainerStyle="{DynamicResource CCIconTextListBoxItemStyle}" ItemsSource="{Binding FilteredItems, ElementName=CustomOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" HorizontalAlignment="Center" Margin="0,10,0,0">
+													<ListBox.ItemsPanel>
+														<ItemsPanelTemplate>
+															<WrapPanel HorizontalAlignment="Center"/>
+														</ItemsPanelTemplate>
+													</ListBox.ItemsPanel>
+													<b:Interaction.Triggers>
+														<b:EventTrigger EventName="SelectionChanged">
+															<b:ChangePropertyAction TargetName="presetOrigins" PropertyName="SelectedItem" Value="{x:Null}" />
+														</b:EventTrigger>
+													</b:Interaction.Triggers>
+												</ListBox>
 
-                                            <!-- Custom -->
-                                            <ListBox x:Name="customOrigins" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemContainerStyle="{DynamicResource CCIconTextListBoxItemStyle}" ItemsSource="{Binding FilteredItems, ElementName=CustomOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" HorizontalAlignment="Center" Margin="0,10,0,0">
-                                                <ListBox.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <WrapPanel HorizontalAlignment="Center"/>
-                                                    </ItemsPanelTemplate>
-                                                </ListBox.ItemsPanel>
-                                                <b:Interaction.Triggers>
-                                                    <b:EventTrigger EventName="SelectionChanged">
-                                                        <b:ChangePropertyAction TargetName="presetOrigins" PropertyName="SelectedItem" Value="{x:Null}" />
-                                                    </b:EventTrigger>
-                                                </b:Interaction.Triggers>
-                                            </ListBox>
+												<StackPanel x:Name="customSelectionDetails">
 
-                                            <StackPanel x:Name="customSelectionDetails">
+													<StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,90,0,0">
 
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
+														<ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Content="{Binding Source=h6b184ec1gc364g4467g9617g3ab1a3959d10, Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnLeft" Command="{Binding RandomCharacter}" CommandParameter="new" IsEnabled="{Binding HasNewRandomCharacter}">
+															<ls:LSButton.ToolTip>
+																<ls:LSTooltip>
+																	<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h039ed18bge1e8g4aaeg9c14g7d6c5a78d84a, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
+																</ls:LSTooltip>
+															</ls:LSButton.ToolTip>
+															<ls:LSButton.Resources>
+																<BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_d.png"/>
+																<BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_h.png"/>
+																<BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_p.png"/>
+																<BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_disabled.png"/>
+																<BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_randomize_d.png"/>
+																<BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_randomize_h.png"/>
+																<BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_randomize_d.png"/>
+																<BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_randomize_d.png"/>
+															</ls:LSButton.Resources>
+														</ls:LSButton>
 
-                                                    <ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Content="{Binding Source=h6b184ec1gc364g4467g9617g3ab1a3959d10, Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnLeft" Command="{Binding RandomCharacter}" CommandParameter="new" IsEnabled="{Binding HasNewRandomCharacter}">
-                                                        <ls:LSButton.ToolTip>
-                                                            <ls:LSTooltip>
-                                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h039ed18bge1e8g4aaeg9c14g7d6c5a78d84a, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                            </ls:LSTooltip>
-                                                        </ls:LSButton.ToolTip>
-                                                        <ls:LSButton.Resources>
-                                                            <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_d.png"/>
-                                                            <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_h.png"/>
-                                                            <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_p.png"/>
-                                                            <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_disabled.png"/>
-                                                            <BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_randomize_d.png"/>
-                                                            <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_randomize_h.png"/>
-                                                            <BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_randomize_d.png"/>
-                                                            <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_randomize_d.png"/>
-                                                        </ls:LSButton.Resources>
-                                                    </ls:LSButton>
+														<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+															<ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Command="{Binding RandomCharacter}" CommandParameter="prev" IsEnabled="{Binding HasPreviousCharacter}">
+																<ls:LSButton.ToolTip>
+																	<ls:LSTooltip>
+																		<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=hfbb465c0g5acbg4bf1g9fbagcaf67a9dc6c6, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
+																	</ls:LSTooltip>
+																</ls:LSButton.ToolTip>
+																<ls:LSButton.Resources>
+																	<BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
+																	<BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>
+																	<BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
+																	<BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
+																	<BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
+																	<BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_h.png"/>
+																	<BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
+																	<BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
+																	<System:Single x:Key="XScale">-1</System:Single>
+																	<System:Single x:Key="XCenter">14</System:Single>
+																</ls:LSButton.Resources>
+															</ls:LSButton>
 
-                                                    <ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Command="{Binding RandomCharacter}" CommandParameter="prev" IsEnabled="{Binding HasPreviousCharacter}">
-                                                        <ls:LSButton.ToolTip>
-                                                            <ls:LSTooltip>
-                                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=hfbb465c0g5acbg4bf1g9fbagcaf67a9dc6c6, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                            </ls:LSTooltip>
-                                                        </ls:LSButton.ToolTip>
-                                                        <ls:LSButton.Resources>
-                                                            <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                                                            <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>
-                                                            <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                                                            <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                                                            <BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
-                                                            <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_h.png"/>
-                                                            <BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
-                                                            <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
-                                                            <System:Single x:Key="XScale">-1</System:Single>
-                                                            <System:Single x:Key="XCenter">14</System:Single>
-                                                        </ls:LSButton.Resources>
-                                                    </ls:LSButton>
-
-                                                    <ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Command="{Binding RandomCharacter}" CommandParameter="next" IsEnabled="{Binding HasNextCharacter}" Margin="-10,0,0,0">
-                                                        <ls:LSButton.ToolTip>
-                                                            <ls:LSTooltip>
-                                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=heff4d9a7g56e6g4000g84c1g6f9ab6e49467, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                            </ls:LSTooltip>
-                                                        </ls:LSButton.ToolTip>
-                                                        <ls:LSButton.Resources>
-                                                            <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                                                            <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>
-                                                            <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                                                            <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                                                            <BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
-                                                            <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_h.png"/>
-                                                            <BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
-                                                            <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
-                                                        </ls:LSButton.Resources>
-                                                    </ls:LSButton>
-
-                                                </StackPanel>
-
+															<ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Command="{Binding RandomCharacter}" CommandParameter="next" IsEnabled="{Binding HasNextCharacter}" Margin="-10,0,0,0">
+																<ls:LSButton.ToolTip>
+																	<ls:LSTooltip>
+																		<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=heff4d9a7g56e6g4000g84c1g6f9ab6e49467, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
+																	</ls:LSTooltip>
+																</ls:LSButton.ToolTip>
+																<ls:LSButton.Resources>
+																	<BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
+																	<BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>
+																	<BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
+																	<BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
+																	<BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
+																	<BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_h.png"/>
+																	<BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
+																	<BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_prevNext_d.png"/>
+																</ls:LSButton.Resources>
+															</ls:LSButton>
+														</StackPanel>
+													</StackPanel>
+												</StackPanel>
                                             </StackPanel>
 
                                             <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
@@ -707,9 +710,9 @@
                                             </ContentControl>
 
                                             <!-- Origins -->
-											<!-- MOD START - Add scroll viewer to support multiple modded origin selection -->
-                                            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="650" Height="Auto" VerticalScrollBarVisibility="Auto">
-												<ListBox x:Name="presetOrigins" ItemsPanel="{StaticResource gameplayItemsPanelTemplate}" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemsSource="{Binding FilteredItems, ElementName=PresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" Margin="0,20,0,0">
+											<!-- Add scroll viewer to support multiple modded origin selection -->
+                                            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="760" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,20,88,0">
+												<ListBox x:Name="presetOrigins" ItemsPanel="{StaticResource gameplayItemsPanelTemplate}" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemsSource="{Binding FilteredItems, ElementName=PresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}">
 													<ListBox.ItemContainerStyle>
 														<Style TargetType="ListBoxItem" BasedOn="{StaticResource CCIconTextListBoxItemStyle}">
 															<Style.Triggers>
@@ -726,30 +729,33 @@
 													</b:Interaction.Triggers>
 												</ListBox>
 											</ls:LSScrollViewer>
+
+                                            <!-- This is just in case of some very long description -->
+											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="380" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,20,88,0">
+												<StackPanel x:Name="presetSelectionDetails">
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedOrigin.Name}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"/>
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.OriginDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,20,0,0"/>
+
+													<ls:LSButton x:Name="playIntroButton" Visibility="Visible" Template="{StaticResource FramedIconWithTextButtonTemplate}" Content="{Binding Source=h0a5097d1g8471g4a05ga294gf9549ecf2151, Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnLeft" Command="{Binding PlayOriginTimeline}" HorizontalAlignment="Center" Margin="0,20,0,0">
+														<ls:LSButton.ToolTip>
+															<ls:LSTooltip>
+																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h27748ec7g3daag48d2gb349g3918f5c929c4, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
+															</ls:LSTooltip>
+														</ls:LSButton.ToolTip>
+														<ls:LSButton.Resources>
+															<BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_d.png"/>
+															<BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_h.png"/>
+															<BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_p.png"/>
+															<BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_disabled.png"/>
+															<BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
+															<BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_h.png"/>
+															<BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
+															<BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
+														</ls:LSButton.Resources>
+													</ls:LSButton>
+												</StackPanel>
+											</ls:LSScrollViewer>
 											<!-- MOD END -->
-
-                                            <StackPanel x:Name="presetSelectionDetails">
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedOrigin.Name}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
-                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.OriginDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,20,0,0"/>
-
-                                                <ls:LSButton Template="{StaticResource FramedIconWithTextButtonTemplate}" Content="{Binding Source=h0a5097d1g8471g4a05ga294gf9549ecf2151, Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnLeft" Command="{Binding PlayOriginTimeline}" HorizontalAlignment="Center" Margin="0,50,0,0">
-                                                    <ls:LSButton.ToolTip>
-                                                        <ls:LSTooltip>
-                                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h27748ec7g3daag48d2gb349g3918f5c929c4, Converter={StaticResource TranslatedStringConverter}}" TextWrapping="Wrap"/>
-                                                        </ls:LSTooltip>
-                                                    </ls:LSButton.ToolTip>
-                                                    <ls:LSButton.Resources>
-                                                        <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_d.png"/>
-                                                        <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_h.png"/>
-                                                        <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_p.png"/>
-                                                        <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnTiny_disabled.png"/>
-                                                        <BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                                                        <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_h.png"/>
-                                                        <BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                                                        <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_playRecording_d.png"/>
-                                                    </ls:LSButton.Resources>
-                                                </ls:LSButton>
-                                            </StackPanel>
                                         </StackPanel>
                                         <ControlTemplate.Triggers>
                                             <DataTrigger Binding="{Binding SelectedOrigin}" Value="{x:Null}">
@@ -1485,8 +1491,8 @@
         </Control>
 
         <Control x:Name="centralBottomControls" Template="{StaticResource centralBottomControlsTemplate}" VerticalAlignment="Bottom"/>
-
-        <ls:LSButton Template="{StaticResource FrameWithIconButtonTemplate}" Command="{Binding ExitCharacterCreation}" SoundID="UI_HUD_CC_Accept" ToolTipService.Placement="Bottom" ToolTipService.VerticalOffset="-20"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
+		
+		<ls:LSButton Template="{StaticResource FrameWithIconButtonTemplate}" Command="{Binding CustomEvent}" CommandParameter="IUI_OpenMainMenuPrompt" SoundID="UI_HUD_CC_Accept" ToolTipService.Placement="Bottom" ToolTipService.VerticalOffset="-20"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
             <ls:LSButton.Resources>
                 <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
                 <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>

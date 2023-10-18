@@ -269,7 +269,8 @@
         <!--STATE: CharacterCreation -->
         <ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
             <ls:State.Widgets>
-                <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+                <!-- MOD START - Remove CC tutorial message -->
+				<!--<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>-->
                 <ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
                 <ls:StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
@@ -291,11 +292,24 @@
                         <ls:PushState Name="Paused"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <ls:StateEvent Name = "OpenMessageBox">
+                <!-- MOD START - Remove CC tutorial message -->
+				<!--<ls:StateEvent Name = "OpenMessageBox">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="MessageBox"/>
                     </ls:StateEvent.Actions>
+                </ls:StateEvent>-->
+				<ls:StateEvent Name = "IUI_OpenMainMenuPrompt">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="IUI_CharacterCreationMainMenuPrompt"/>
+                    </ls:StateEvent.Actions>
                 </ls:StateEvent>
+				<ls:StateEvent Name = "OpenSplashScreen">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="SplashScreen"/>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+				<!-- MOD END -->
                 <ls:StateEvent Name = "OpenPinnedTooltips">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="PinnedTooltips"/>
@@ -303,6 +317,29 @@
                 </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
+		
+		<!-- MOD START - Custom state for main menu prompt -->
+		<ls:State Name = "IUI_CharacterCreationMainMenuPrompt" DisableStatesBelow = "False" HideStatesBelow = "False" Layout="Player" Owner="Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="IUI_CharacterCreationMainMenuPrompt.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+            </ls:State.Widgets>
+			
+			<ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+		<!-- MOD END -->
 
         <!--STATE: CharacterLevelUp -->
         <ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">

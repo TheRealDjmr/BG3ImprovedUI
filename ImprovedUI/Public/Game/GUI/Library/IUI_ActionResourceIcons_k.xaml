@@ -1,4 +1,4 @@
-<!-- This is a file that is overwritten in ImprovedUI for Action Resources in CC/Levelup Keyboard UI. Entries here are optional as the tooltip action resource will be used instead -->
+<!-- This is a file that is overwritten in ImprovedUI for Action Resources in CC/Levelup Keyboard UI. Entries here are optional as the tooltip action resource will be used if no entry exists here -->
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -42,6 +42,11 @@
 	<!-- <BitmapImage x:Key="ADIFFERENTUNIQUENAMEFORIMAGE" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/CC/icons_resources/NAMEOFDDSFILEFORTHEICON.png" /> -->
 	<BitmapImage x:Key="PsiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_psipoint.png" />
 	<BitmapImage x:Key="BladesongIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/CC/icons_resources/ico_classRes_bladesong.png" />
+    <BitmapImage x:Key="BloodMaledictIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/CC/icons_resources/ico_classRes_BloodMaledict.png" />
+    <BitmapImage x:Key="HybridTransformationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/CC/icons_resources/ico_classRes_HybridTransformation.png" />
+	<BitmapImage x:Key="WuJenSpellSlotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/CC/icons_resources/ico_classRes_WuJenSpellSlot.png" />
+	<BitmapImage x:Key="MysticPsiPointsResourceIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/CC/icons_resources/ico_classRes_PsiPointsResource.png" />
+    <BitmapImage x:Key="MysticPsionicMasteryResourceIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/CC/icons_resources/ico_classRes_PsionicMasteryResource.png" />
 	<!-- EDIT HERE -->
 	
 	<!-- Reference entries below -->
@@ -117,12 +122,30 @@
 	<!-- This is the section for custom icons now -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIcon" BasedOn="{StaticResource IUI_ActionResourceDecorativeIconDefault}">
         <Style.Triggers>
-            <DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
+			<!--<DataTrigger Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME">
+				<Setter Property="Source" Value="{StaticResource ADIFFERENTUNIQUENAMEFORIMAGE}"/>
+			</DataTrigger>-->
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
                 <Setter Property="Source" Value="{StaticResource PsiPointIcon}"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
+			<DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
                 <Setter Property="Source" Value="{StaticResource BladesongIcon}"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="BloodMaledict">
+                <Setter Property="Source" Value="{StaticResource BloodMaledictIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="HybridTransformation">
+                <Setter Property="Source" Value="{StaticResource HybridTransformationIcon}"/>
+            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WuJenSpellSlot">
+				<Setter Property="Source" Value="{StaticResource WuJenSpellSlotIcon}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
+				<Setter Property="Source" Value="{StaticResource MysticPsiPointsResourceIcon}"/>
+			</DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
+				<Setter Property="Source" Value="{StaticResource MysticPsionicMasteryResourceIcon}"/>
+			</DataTrigger> 
 			<!-- EDIT HERE -->
         </Style.Triggers>
     </Style>
