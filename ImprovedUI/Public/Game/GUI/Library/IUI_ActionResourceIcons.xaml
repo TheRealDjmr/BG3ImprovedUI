@@ -9,10 +9,10 @@
                     xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
                     xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
 					mc:Ignorable="d">
-	
+
 	<!-- Setup default style that is inherited before changes are applied, do not touch-->
 	<ImageSource x:Key="TypeIdToSourceFallback">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-	
+
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSourceDefault">
         <Style.Triggers>
 			<!-- Dynamically try and find an image by the Type ID in the regular Larian folder -->
@@ -89,14 +89,14 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
                 <Setter Property="Source" Value="{StaticResource LuckPoint}"/>
-            </DataTrigger>            
+            </DataTrigger>
             <DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
                 <Setter Property="Source" Value="{StaticResource ShadowSpellSlot}"/>
             </DataTrigger>
         </Style.Triggers>
     </Style>
 	<!-- Please leave the above alone -->
-	
+
 	<!-- ACTION RESOURCE ICONS - TOOLTIPS -->
 	<!-- Create tooltip icon entries that can be used as reference -->
     <!--<ImageSource x:Key="UNIQUEIMAGENAME" >pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/NAMEOFDDSFILEFORTHEDEFAULTICON.png</ImageSource>
@@ -145,8 +145,10 @@
     <ImageSource x:Key="MysticPsionicMasteryChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_missing.png</ImageSource>
 	<ImageSource x:Key="DemonicFury">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury.png</ImageSource>
     <ImageSource x:Key="DemonicFuryUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Missing.png</ImageSource>
+    <ImageSource x:Key="FormOfDreadPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_d.png</ImageSource>
+    <ImageSource x:Key="FormOfDreadPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_missing.png</ImageSource>
 	<!-- EDIT HERE -->
-	
+
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
 		<Style.Triggers>
@@ -219,10 +221,13 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
                 <Setter Property="Source" Value="{StaticResource DemonicFury}"/>
             </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="FormOfDreadPoint">
+                <Setter Property="Source" Value="{StaticResource FormOfDreadPoint}"/>
+            </DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
     </Style>
-	
+
 	<!-- More reference entries -->
 	<Style TargetType="Image" x:Key="IUI_SectionImageStyleDefault" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
         <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png"/>
@@ -607,7 +612,7 @@
         </Style.Triggers>
     </Style>
 	<!-- Please leave the above alone -->
-	
+
 	<!-- This shows the "unavailable" icon on tooltips when the action resource is empty -->
 	<Style TargetType="Image" x:Key="IUI_SectionImageStyle" BasedOn="{StaticResource IUI_SectionImageStyleDefault}">
         <Style.Triggers>
@@ -841,10 +846,20 @@
                     <Setter Property="Source" Value="{StaticResource DemonicFuryUnavailable}"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="FormOfDreadPoint"/>
+                    <Condition Binding="{Binding Value}" Value="0"/>
+                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Source" Value="{StaticResource FormOfDreadPointUnavailable}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
 			<!-- EDIT HERE -->
         </Style.Triggers>
     </Style>
-	
+
 	<!-- More definition entries -->
 	<Storyboard x:Key="ActionResources.ActionGroup.ActionPoint.PreviewAnimation" RepeatBehavior="Forever">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Image.Opacity)">
@@ -861,7 +876,7 @@
             </EasingDoubleKeyFrame>
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
-	
+
 	<DataTemplate x:Key="ActionResources.ActionGroup.ActionPoint">
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image x:Name="image" Stretch="None" Source="{DynamicResource Highlight}" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -946,7 +961,7 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
-	
+
 	<!-- ACTION RESOURCE ICONS - HOTBAR -->
 	<!-- Hotbar icon definition -->
 	<!--<ControlTemplate x:Key="ActionResources.ActionGroup.YOURACTIONPOINTGROUPNAME" TargetType="ls:LSActionPoint">
@@ -977,7 +992,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.InfusionSlotGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_h.png</ImageSource>
@@ -987,7 +1002,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BreathWeaponGroup" TargetType="ls:LSActionPoint">
         <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_h.png</ImageSource>
@@ -997,7 +1012,7 @@
         </ControlTemplate.Resources>
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodRuneGroup" TargetType="ls:LSActionPoint">
         <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Hover.png</ImageSource>
@@ -1037,7 +1052,7 @@
         </ControlTemplate.Resources>
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.ArcanePointGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
@@ -1057,7 +1072,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BladesongChargeGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_h.png</ImageSource>
@@ -1067,7 +1082,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodMaledict" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_h.png</ImageSource>
@@ -1087,7 +1102,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FFT_RunicPowerGroup" TargetType="ls:LSActionPoint">
         <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerH.png</ImageSource>
@@ -1097,7 +1112,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.WuJenSpellSlotGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot_h.png</ImageSource>
@@ -1107,7 +1122,7 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.PracticedStrikeGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_h.png</ImageSource>
@@ -1127,7 +1142,7 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.PsionicDieGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_h.png</ImageSource>
@@ -1146,7 +1161,7 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.MysticPsiPointsGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_h.png</ImageSource>
@@ -1166,7 +1181,7 @@
         </ControlTemplate.Resources>
         <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.DemonicFuryGroup" TargetType="ls:LSActionPoint">
         <ControlTemplate.Resources>
             <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Hover.png</ImageSource>
@@ -1176,8 +1191,18 @@
         </ControlTemplate.Resources>
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
+    <ControlTemplate x:Key="ActionResources.ActionGroup.FormOfDreadPointGroup" TargetType="ls:LSActionPoint">
+        <ControlTemplate.Resources>
+            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_h.png</ImageSource>
+            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_d.png</ImageSource>
+            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_spent.png</ImageSource>
+            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_missing.png</ImageSource>
+        </ControlTemplate.Resources>
+        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	<!-- EDIT HERE -->
-	
+
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
         <ControlTemplate.Resources>
@@ -1188,7 +1213,7 @@
         </ControlTemplate.Resources>
         <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
     </ControlTemplate>
-	
+
 	<Style x:Key="IUI_ActionResourcesTemplateSelectorDefault" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource {x:Type ls:LSActionPointResources}}">
         <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.FallbackActionPointGroup}"/>
 		<!--Reverting standard to 1 and added 4 to all resources that should have it-->
@@ -1450,7 +1475,7 @@
         </Style.Triggers>
     </Style>
 	<!-- Please leave the above alone -->
-	
+
 	<!-- This is the icon that appears on the hotbar and selection fly out (reactions) -->
 	<Style x:Key="IUI_ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource IUI_ActionResourcesTemplateSelectorDefault}">
         <Style.Triggers>
@@ -1558,7 +1583,7 @@
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
-			</MultiDataTrigger>          
+			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.UnholyRuneGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -1762,6 +1787,20 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding TypeId}" Value="DemonicFury"/>
+                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+                    <Setter Property="Margin" Value="0,-15,0,0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="FormOfDreadPoint">
+                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FormOfDreadPointGroup}"/>
+                <Setter Property="MaxGroupActionPoints" Value="1"/>
+                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding TypeId}" Value="FormOfDreadPoint"/>
                     <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
                 </MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>

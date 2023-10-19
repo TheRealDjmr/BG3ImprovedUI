@@ -1,6 +1,6 @@
 
 <p align="middle">
-  <img src="https://i.imgur.com/6Zso95t.png"> 
+  <img src="https://i.imgur.com/6Zso95t.png">
 </p>
 
 Since it's gotten bigger, here's a list of custom icons currently supported:
@@ -56,3 +56,4 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Magus (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/422
 - Mystic (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2786
 - Wizard Traditions Runesmith (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2563
+- Warlock: The Undead subclass - https://www.nexusmods.com/baldursgate3/mods/3045
