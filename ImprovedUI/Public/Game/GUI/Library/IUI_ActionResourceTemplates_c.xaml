@@ -12,48 +12,48 @@
 
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="../Library/IUI_ActionResourceIcons.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
+	</ResourceDictionary.MergedDictionaries>
 
 	<!-- ACTION RESOURCE ICONS - CONTROLLER UI ACTION RADIAL RESOURCE BAR -->
 	<!-- Resource bar background colour. You can have a colour for both background and the lip around them  -->
-    <!--<SolidColorBrush x:Key="ActionResource.Default" Color="#ffffff"/>
-    <SolidColorBrush x:Key="ActionPoint" Color="#1ECC5B"/>
-    <SolidColorBrush x:Key="ActionResource.SorceryPoint" Color="#ff0066"/>-->
-    <SolidColorBrush x:Key="ActionResource.BreathWeaponCharge" Color="#7c0c60"/>
+	<!--<SolidColorBrush x:Key="ActionResource.Default" Color="#ffffff"/>
+	<SolidColorBrush x:Key="ActionPoint" Color="#1ECC5B"/>
+	<SolidColorBrush x:Key="ActionResource.SorceryPoint" Color="#ff0066"/>-->
+	<SolidColorBrush x:Key="ActionResource.BreathWeaponCharge" Color="#7c0c60"/>
 	<!-- EDIT HERE -->
 
 	<!-- Setup default controller styles here, scroll down for custom entries -->
 	<Style x:Key="ResourceBarLabelStyle">
-        <Setter Property="TextBlock.FontWeight" Value="DemiBold" />
-        <Setter Property="TextBlock.FontSize" Value="{StaticResource ScaledMediumFontSize}" />
-        <Setter Property="TextBlock.Foreground" Value="{StaticResource LS_accent75TxtColor}" />
-        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-        <Setter Property="TextBlock.Margin" Value="28,0,14,0" />
-    </Style>
-    <Style x:Key="ActionResourceAmountStyle">
-        <Setter Property="TextBlock.FontWeight" Value="Bold" />
-        <Setter Property="TextBlock.FontSize" Value="{StaticResource ScaledLargeFontSize}" />
-        <Setter Property="TextBlock.Foreground" Value="{StaticResource LS_accent100TxtColor}" />
-        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
-        <Setter Property="TextBlock.Margin" Value="0,-3,0,3" />
-    </Style>
+		<Setter Property="TextBlock.FontWeight" Value="DemiBold" />
+		<Setter Property="TextBlock.FontSize" Value="{StaticResource ScaledMediumFontSize}" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource LS_accent75TxtColor}" />
+		<Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+		<Setter Property="TextBlock.Margin" Value="28,0,14,0" />
+	</Style>
+	<Style x:Key="ActionResourceAmountStyle">
+		<Setter Property="TextBlock.FontWeight" Value="Bold" />
+		<Setter Property="TextBlock.FontSize" Value="{StaticResource ScaledLargeFontSize}" />
+		<Setter Property="TextBlock.Foreground" Value="{StaticResource LS_accent100TxtColor}" />
+		<Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+		<Setter Property="TextBlock.Margin" Value="0,-3,0,3" />
+	</Style>
 	<Storyboard x:Key="ResourceSelectedAnimation" RepeatBehavior="Forever">
-        <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ResourceLabel" To="White" AutoReverse="True" Duration="0:0:0.4"/>
-    </Storyboard>
-    <Storyboard x:Key="ResourceSelectedBGAnimation" RepeatBehavior="Forever" AutoReverse="True">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.Opacity)" Storyboard.TargetName="ActionResourceBackgroundStrokeHighlight">
-            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0.4">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <CubicEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-            <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.8">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <CubicEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
+		<ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ResourceLabel" To="White" AutoReverse="True" Duration="0:0:0.4"/>
+	</Storyboard>
+	<Storyboard x:Key="ResourceSelectedBGAnimation" RepeatBehavior="Forever" AutoReverse="True">
+		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Rectangle.Opacity)" Storyboard.TargetName="ActionResourceBackgroundStrokeHighlight">
+			<EasingDoubleKeyFrame KeyTime="0:0:0" Value="0.4">
+				<EasingDoubleKeyFrame.EasingFunction>
+					<CubicEase EasingMode="EaseInOut"/>
+				</EasingDoubleKeyFrame.EasingFunction>
+			</EasingDoubleKeyFrame>
+			<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.8">
+				<EasingDoubleKeyFrame.EasingFunction>
+					<CubicEase EasingMode="EaseInOut"/>
+				</EasingDoubleKeyFrame.EasingFunction>
+			</EasingDoubleKeyFrame>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
 
 	<DataTemplate x:Key="IUI_ControllerActionResourcesTemplate" DataType="ls:VMActionResourceCostPreview">
 		<Border x:Name="Container" ls:MoveFocus.Focusable="True" Focusable="True" ToolTipService.Placement="Top" ToolTip="{StaticResource ManagedTooltip}" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="90" BorderThickness="2">
@@ -62,7 +62,7 @@
 				<TextBlock x:Name="ResourceLabel" Effect="{StaticResource ShadowEffect}" Text="{Binding ActionResource.Name}" Style="{StaticResource ResourceBarLabelStyle}"/>
 				<Grid Margin="0,0,12,0">
 					<Rectangle HorizontalAlignment="Stretch" Height="72" Fill="#99151515" RadiusX="36" RadiusY="36" Opacity="0.4">
-                    </Rectangle>
+					</Rectangle>
 					<!-- MOD NOTE - Default having same colour as ActionPoint -->
 					<Rectangle x:Name="ActionResourceBackground" HorizontalAlignment="Stretch" Height="72" Fill="#99CCCCFF" RadiusX="36" RadiusY="36" Stroke="{StaticResource ActionPoint}" Opacity="0.3">
 					</Rectangle>
@@ -389,77 +389,77 @@
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
 				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_BloodRune.png"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_BloodRune.png"/>
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#cc0000"/>
-                <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#cc0000"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="FrostRune">
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#cc0000"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="FrostRune">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
 				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_FrostRune.png"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_FrostRune.png"/>
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#3abad6"/>
-                <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#3abad6"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="UnholyRune">
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#3abad6"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="UnholyRune">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
 				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_UnholyRune.png"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_UnholyRune.png"/>
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#93c47d"/>
-                <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#93c47d"/>
-            </DataTrigger>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#93c47d"/>
+			</DataTrigger>
 			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="RunicPower">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
 				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_RunicPower.png"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_RunicPower.png"/>
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
-                <Setter TargetName="ActionResourceBackground" Property="Fill" Value="#26a2f4"/>
-                <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#26a2f4"/>
-            </DataTrigger>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#26a2f4"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#26a2f4"/>
+			</DataTrigger>
 			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="DemonicFury">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePoints" Property="MaxActionPoints" Value="1"/>
 				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ActionResources_c/Icons/Icon_DH_DemonicFury.png"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ActionResources_c/Icons/Icon_DH_DemonicFury.png"/>
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#9933FF"/>
 				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#9933FF"/>
-            </DataTrigger>
+			</DataTrigger>
 
 			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="FormOfDreadPoint">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
@@ -468,6 +468,30 @@
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WarlockUndead/ActionResources_c/Icons/c_ico_classRes_warlockundead_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="GoblinFots">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Goblin/ActionResources_c/Icons/c_ico_classRes_fots_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SpellbaneDie">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/ActionResources_c/Icons/c_ico_classRes_SpellbaneDie_d.png"/>
 				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
@@ -518,29 +542,29 @@
 				<Setter TargetName="ResourceAmount" Property="TextBlock.Foreground" Value="{StaticResource LS_accent00TxtColor}"/>
 			</DataTrigger>
 		</DataTemplate.Triggers>
-    </DataTemplate>
+	</DataTemplate>
 
 	<!-- ACTION RESOURCE ICONS - CONTROLLER UI ACTION RADIAL COST SECTION -->
 	<!-- This is the "Cost" section of the Action Radials screen when hovering over an action/spell, NOT the bottom resource bar -->
 	<DataTemplate x:Key="ActionCostSummaryList" DataType="ls:VMActionResource">
-        <StackPanel x:Name="ActionCostSummary"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,6,0,8">
-            <TextBlock x:Name="AddSign" Text="+" VerticalAlignment="Center" Margin="12,0,12,0"/>
-            <Image x:Name="LevelImage" Visibility="Collapsed" VerticalAlignment="Center" Stretch="None"/>
+		<StackPanel x:Name="ActionCostSummary"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,6,0,8">
+			<TextBlock x:Name="AddSign" Text="+" VerticalAlignment="Center" Margin="12,0,12,0"/>
+			<Image x:Name="LevelImage" Visibility="Collapsed" VerticalAlignment="Center" Stretch="None"/>
 			<!-- MOD NOTE - Revert to star icon if not defined here -->
-            <Rectangle x:Name="ResourceImage" Width="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=25}" Height="64" VerticalAlignment="Center">
+			<Rectangle x:Name="ResourceImage" Width="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=25}" Height="64" VerticalAlignment="Center">
 				<Rectangle.Fill>
 					<ImageBrush ImageSource="{StaticResource TypeIdToSourceFallback}" TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
 				</Rectangle.Fill>
 			</Rectangle>
-            <TextBlock x:Name="ResourceName" Text="{Binding Name}" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="{DynamicResource ScaledSmallishFontSize}" Foreground="{StaticResource LS_tint100}" Style="{StaticResource HUD.DefaultTextStyle}"/>
-            <TextBlock x:Name="ResourceValue" Visibility="Collapsed"/>
-        </StackPanel>
+			<TextBlock x:Name="ResourceName" Text="{Binding Name}" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="{DynamicResource ScaledSmallishFontSize}" Foreground="{StaticResource LS_tint100}" Style="{StaticResource HUD.DefaultTextStyle}"/>
+			<TextBlock x:Name="ResourceValue" Visibility="Collapsed"/>
+		</StackPanel>
 
-        <DataTemplate.Triggers>
+		<DataTemplate.Triggers>
 
-            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                <Setter TargetName="AddSign" Property="Visibility" Value="Collapsed"/>
-            </Trigger>
+			<Trigger Property="ItemsControl.AlternationIndex" Value="0">
+				<Setter TargetName="AddSign" Property="Visibility" Value="Collapsed"/>
+			</Trigger>
 
 			<!-- Hide ResourceImage if you have more than 5 and no explicit entry -->
 			<DataTrigger Binding="{Binding MaxValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=5}" Value="True">
@@ -549,230 +573,230 @@
 				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
 			</DataTrigger>
 
-            <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
-                <Setter TargetName="ResourceImage" Property="Width" Value="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=48}"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_AP.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,48,68" ViewboxUnits="Absolute" Viewbox="10,0,48,68"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
-                <Setter TargetName="ResourceImage" Property="Width" Value="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=48}"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_bonusAction.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,48,68" ViewboxUnits="Absolute" Viewbox="10,0,48,68"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Movement">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_movement.png"/>
-                <Setter TargetName="LevelImage" Property="Margin" Value="8,0,8,0"/>
-                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="ResourceName" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue, Converter={StaticResource UnitConverter}, ConverterParameter='Distance Short', StringFormat='{}{0} '}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
-                <Setter TargetName="ResourceImage" Property="Width" Value="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=60}"/>
-                <Setter TargetName="ResourceImage" Property="Height" Value="64"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_reaction.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,60,80" ViewboxUnits="Absolute" Viewbox="0,0,60,80"/>
-                    </Setter.Value>
-                </Setter>
+			<DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
+				<Setter TargetName="ResourceImage" Property="Width" Value="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=48}"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_AP.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,48,68" ViewboxUnits="Absolute" Viewbox="10,0,48,68"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
+				<Setter TargetName="ResourceImage" Property="Width" Value="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=48}"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_bonusAction.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,48,68" ViewboxUnits="Absolute" Viewbox="10,0,48,68"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Movement">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_movement.png"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="8,0,8,0"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue, Converter={StaticResource UnitConverter}, ConverterParameter='Distance Short', StringFormat='{}{0} '}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
+				<Setter TargetName="ResourceImage" Property="Width" Value="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=60}"/>
+				<Setter TargetName="ResourceImage" Property="Height" Value="64"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_reaction.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,60,80" ViewboxUnits="Absolute" Viewbox="0,0,60,80"/>
+					</Setter.Value>
+				</Setter>
 
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_warlock_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_LayOnHands.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="RitualPoint">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_d.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WildShape">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_wildshape.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_wildshape_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_tidesOfChaos.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_tidesOfChaos_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_arcaneRecovery.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_arcaneRecovery_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_res_superiorityDice.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_res_superiorityDice_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_channelOath.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_channelOath_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_channelDivinity.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_channelDivinity_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_inspiration.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_inspiration_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Rage">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rage.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/ico_classRes_rage_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_warPriest.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_warPriest_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_FungalInfestationCharge.png"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_warlock_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_LayOnHands.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RitualPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_d.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WildShape">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_wildshape.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_wildshape_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_tidesOfChaos.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_tidesOfChaos_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_arcaneRecovery.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_arcaneRecovery_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_res_superiorityDice.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_res_superiorityDice_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_channelOath.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_channelOath_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_channelDivinity.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_channelDivinity_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_inspiration.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_inspiration_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Rage">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rage.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/ico_classRes_rage_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_warPriest.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_warPriest_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_FungalInfestationCharge.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
 
-            <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="{StaticResource LuckPoint}"/>
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_Luck_point.png"
-                                                TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="{StaticResource LuckPoint}"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_Luck_point.png"
+												TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
 
-            <DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
-                <Setter TargetName="ResourceImage" Property="Fill">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_shadow_point.png"
-                                                            TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
-                    </Setter.Value>
-                </Setter>
-            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_shadow_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
 
 			<!--<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
 				<Setter TargetName="ResourceImage" Property="Fill">
@@ -822,43 +846,43 @@
 
 			<DataTrigger Binding="{Binding TypeId}" Value="BloodRune">
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_BloodRune.png"/>
-                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_BloodRune.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="FrostRune">
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_FrostRune.png"/>
-                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_FrostRune.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="UnholyRune">
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_UnholyRune.png"/>
-                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_UnholyRune.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="RunicPower">
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_RunicPower.png"/>
-                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ActionResources_c/Icons/Icon_DK_RunicPower.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ActionResources_c/Icons/Icon_DH_DemonicFury.png"/>
-                <Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ActionResources_c/Icons/Icon_DH_DemonicFury.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
 			</DataTrigger>
 
 			<DataTrigger Binding="{Binding TypeId}" Value="FormOfDreadPoint">
@@ -869,69 +893,87 @@
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="GoblinFots">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Goblins/ActionResources_c/Icons/c_ico_classRes_fots_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/ActionResources_c/Icons/c_ico_classRes_SpellbaneDie_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
 			<!-- EDIT HERE -->
 
 
-            <DataTrigger Binding="{Binding Level}" Value="1">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_1.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Level}" Value="2">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_2.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Level}" Value="3">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_3.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Level}" Value="4">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_4.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Level}" Value="5">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_5.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Level}" Value="6">
-                <Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_6.png"/>
-            </DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="1">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_1.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="2">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_2.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="3">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_3.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="4">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_4.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="5">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_5.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="6">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_6.png"/>
+			</DataTrigger>
 
-            <!-- Ritual -->
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
-                    <Condition Binding="{Binding Path=DataContext.Spell.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
-                    <Condition Binding="{Binding Path=DataContext.Spell.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter TargetName="ResourceImage" Property="Fill">
-                        <Setter.Value>
-                            <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_d.png" Stretch="Uniform"/>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter TargetName="ResourceImage" Property="Width" Value="64"/>
-                    <Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
-                    <Setter TargetName="ResourceName" Property="Text" Value="{Binding Source='hc3fa3d4agb98bg4cceg80a4g4ae437a80850', Converter={StaticResource TranslatedStringConverter}}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
-                    <Condition Binding="{Binding Path=DataContext.Spell.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
-                    <Condition Binding="{Binding Path=DataContext.Spell.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter TargetName="ResourceImage" Property="Fill">
-                        <Setter.Value>
-                            <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_d.png" Stretch="Uniform"/>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter TargetName="ResourceImage" Property="Width" Value="64"/>
-                    <Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
-                    <Setter TargetName="ResourceName" Property="Text" Value="{Binding Source='hc3fa3d4agb98bg4cceg80a4g4ae437a80850', Converter={StaticResource TranslatedStringConverter}}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-        </DataTemplate.Triggers>
-    </DataTemplate>
+			<!-- Ritual -->
+			<MultiDataTrigger >
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
+					<Condition Binding="{Binding Path=DataContext.Spell.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+					<Condition Binding="{Binding Path=DataContext.Spell.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="ResourceImage" Property="Fill">
+						<Setter.Value>
+							<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_d.png" Stretch="Uniform"/>
+						</Setter.Value>
+					</Setter>
+					<Setter TargetName="ResourceImage" Property="Width" Value="64"/>
+					<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+					<Setter TargetName="ResourceName" Property="Text" Value="{Binding Source='hc3fa3d4agb98bg4cceg80a4g4ae437a80850', Converter={StaticResource TranslatedStringConverter}}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger >
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
+					<Condition Binding="{Binding Path=DataContext.Spell.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+					<Condition Binding="{Binding Path=DataContext.Spell.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="ResourceImage" Property="Fill">
+						<Setter.Value>
+							<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_d.png" Stretch="Uniform"/>
+						</Setter.Value>
+					</Setter>
+					<Setter TargetName="ResourceImage" Property="Width" Value="64"/>
+					<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+					<Setter TargetName="ResourceName" Property="Text" Value="{Binding Source='hc3fa3d4agb98bg4cceg80a4g4ae437a80850', Converter={StaticResource TranslatedStringConverter}}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
 </ResourceDictionary>

@@ -14,7 +14,7 @@
 	<ImageSource x:Key="TypeIdToSourceFallback">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
 
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSourceDefault">
-        <Style.Triggers>
+		<Style.Triggers>
 			<!-- Dynamically try and find an image by the Type ID in the regular Larian folder -->
 			<DataTrigger Binding="{Binding TypeId, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
 				<Setter Property="Source">
@@ -27,126 +27,130 @@
 				</Setter>
 			</DataTrigger>
 			<!-- Proof working with action point icon -->
-            <!--<DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
-                <Setter Property="Source" Value="{StaticResource IconActionPoint}"/>
-            </DataTrigger>-->
-            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
-                <Setter Property="Source" Value="{StaticResource IconBonusActionPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
-                <Setter Property="Source" Value="{StaticResource IconReactionPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Movement">
-                <Setter Property="Source" Value="{StaticResource IconMovement}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
-                <Setter Property="Source" Value="{StaticResource IconWarlockSpellSlot}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
-                <Setter Property="Source" Value="{StaticResource IconSpellSlot}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
-                <Setter Property="Source" Value="{StaticResource SorceryPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
-                <Setter Property="Source" Value="{StaticResource KiPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
-                <Setter Property="Source" Value="{StaticResource LayOnHandsCharge}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Rage">
-                <Setter Property="Source" Value="{StaticResource Rage}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
-                <Setter Property="Source" Value="{StaticResource BardicInspiration}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
-                <Setter Property="Source" Value="{StaticResource ChannelDivinity}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
-                <Setter Property="Source" Value="{StaticResource ChannelOath}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
-                <Setter Property="Source" Value="{StaticResource SuperiorityDie}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
-                <Setter Property="Source" Value="{StaticResource ArcaneRecoveryPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
-                <Setter Property="Source" Value="{StaticResource NaturalRecovery}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WildShape">
-                <Setter Property="Source" Value="{StaticResource WildShape}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
-                <Setter Property="Source" Value="{StaticResource TidesOfChaos}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
-                <Setter Property="Source" Value="{StaticResource WarPriestActionPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
-                <Setter Property="Source" Value="{StaticResource FungalInfestationCharge}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
-                <Setter Property="Source" Value="{StaticResource LuckPoint}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
-                <Setter Property="Source" Value="{StaticResource ShadowSpellSlot}"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
+			<!--<DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
+				<Setter Property="Source" Value="{StaticResource IconActionPoint}"/>
+			</DataTrigger>-->
+			<DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
+				<Setter Property="Source" Value="{StaticResource IconBonusActionPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
+				<Setter Property="Source" Value="{StaticResource IconReactionPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Movement">
+				<Setter Property="Source" Value="{StaticResource IconMovement}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
+				<Setter Property="Source" Value="{StaticResource IconWarlockSpellSlot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
+				<Setter Property="Source" Value="{StaticResource IconSpellSlot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
+				<Setter Property="Source" Value="{StaticResource SorceryPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
+				<Setter Property="Source" Value="{StaticResource KiPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
+				<Setter Property="Source" Value="{StaticResource LayOnHandsCharge}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Rage">
+				<Setter Property="Source" Value="{StaticResource Rage}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
+				<Setter Property="Source" Value="{StaticResource BardicInspiration}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
+				<Setter Property="Source" Value="{StaticResource ChannelDivinity}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
+				<Setter Property="Source" Value="{StaticResource ChannelOath}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
+				<Setter Property="Source" Value="{StaticResource SuperiorityDie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
+				<Setter Property="Source" Value="{StaticResource ArcaneRecoveryPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
+				<Setter Property="Source" Value="{StaticResource NaturalRecovery}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WildShape">
+				<Setter Property="Source" Value="{StaticResource WildShape}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
+				<Setter Property="Source" Value="{StaticResource TidesOfChaos}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
+				<Setter Property="Source" Value="{StaticResource WarPriestActionPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
+				<Setter Property="Source" Value="{StaticResource FungalInfestationCharge}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
+				<Setter Property="Source" Value="{StaticResource LuckPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
+				<Setter Property="Source" Value="{StaticResource ShadowSpellSlot}"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
 	<!-- Please leave the above alone -->
 
 	<!-- ACTION RESOURCE ICONS - TOOLTIPS -->
 	<!-- Create tooltip icon entries that can be used as reference -->
-    <!--<ImageSource x:Key="UNIQUEIMAGENAME" >pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/NAMEOFDDSFILEFORTHEDEFAULTICON.png</ImageSource>
-    <ImageSource x:Key="UNIQUEIMAGENAMEUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/NAMEOFDDSFILEFORTHEMISSINGICON.png</ImageSource> -->
-    <ImageSource x:Key="PsiPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
-    <ImageSource x:Key="PsiPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_missing.png</ImageSource>
-    <ImageSource x:Key="RampageDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_d.png</ImageSource>
-    <ImageSource x:Key="RampageDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_missing.png</ImageSource>
-    <ImageSource x:Key="InfusionSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_d.png</ImageSource>
-    <ImageSource x:Key="InfusionSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_missing.png</ImageSource>
-    <ImageSource x:Key="IconBreathWeaponCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_d.png</ImageSource>
-    <ImageSource x:Key="IconBreathWeaponChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_missing.png</ImageSource>
-    <ImageSource x:Key="BloodRune">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune.png</ImageSource>
-    <ImageSource x:Key="BloodRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Missing.png</ImageSource>
-    <ImageSource x:Key="FrostRune">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune.png</ImageSource>
-    <ImageSource x:Key="FrostRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune_Missing.png</ImageSource>
-    <ImageSource x:Key="UnholyRune">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune.png</ImageSource>
-    <ImageSource x:Key="UnholyRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune_Missing.png</ImageSource>
-    <ImageSource x:Key="RunicPower">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower.png</ImageSource>
-    <ImageSource x:Key="RunicPowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Missing.png</ImageSource>
-    <ImageSource x:Key="ArcanePoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
-    <ImageSource x:Key="ArcanePointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUnavailable.png</ImageSource>
-    <ImageSource x:Key="ConfluxFocus">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
-    <ImageSource x:Key="ConfluxFocusUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConflusFocusUnavailable.png</ImageSource>
-    <ImageSource x:Key="BladesongCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
-    <ImageSource x:Key="BladesongChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
-    <ImageSource x:Key="BloodMaledict">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict.png</ImageSource>
-    <ImageSource x:Key="BloodMaledictUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_missing.png</ImageSource>
-    <ImageSource x:Key="HybridTransformation">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridForm.png</ImageSource>
-    <ImageSource x:Key="HybridTransformationUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridForm_missing.png</ImageSource>
-    <ImageSource x:Key="FFT_RunicPower">pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPower.png</ImageSource>
-    <ImageSource x:Key="FFT_RunicPowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerMissing.png</ImageSource>
+	<!--<ImageSource x:Key="UNIQUEIMAGENAME" >pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/NAMEOFDDSFILEFORTHEDEFAULTICON.png</ImageSource>
+	<ImageSource x:Key="UNIQUEIMAGENAMEUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/NAMEOFDDSFILEFORTHEMISSINGICON.png</ImageSource> -->
+	<ImageSource x:Key="PsiPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
+	<ImageSource x:Key="PsiPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_missing.png</ImageSource>
+	<ImageSource x:Key="RampageDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_d.png</ImageSource>
+	<ImageSource x:Key="RampageDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_missing.png</ImageSource>
+	<ImageSource x:Key="InfusionSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_d.png</ImageSource>
+	<ImageSource x:Key="InfusionSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_missing.png</ImageSource>
+	<ImageSource x:Key="IconBreathWeaponCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_d.png</ImageSource>
+	<ImageSource x:Key="IconBreathWeaponChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_missing.png</ImageSource>
+	<ImageSource x:Key="BloodRune">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune.png</ImageSource>
+	<ImageSource x:Key="BloodRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Missing.png</ImageSource>
+	<ImageSource x:Key="FrostRune">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune.png</ImageSource>
+	<ImageSource x:Key="FrostRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune_Missing.png</ImageSource>
+	<ImageSource x:Key="UnholyRune">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune.png</ImageSource>
+	<ImageSource x:Key="UnholyRuneUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune_Missing.png</ImageSource>
+	<ImageSource x:Key="RunicPower">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower.png</ImageSource>
+	<ImageSource x:Key="RunicPowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Missing.png</ImageSource>
+	<ImageSource x:Key="ArcanePoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+	<ImageSource x:Key="ArcanePointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUnavailable.png</ImageSource>
+	<ImageSource x:Key="ConfluxFocus">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+	<ImageSource x:Key="ConfluxFocusUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConflusFocusUnavailable.png</ImageSource>
+	<ImageSource x:Key="BladesongCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
+	<ImageSource x:Key="BladesongChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
+	<ImageSource x:Key="BloodMaledict">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict.png</ImageSource>
+	<ImageSource x:Key="BloodMaledictUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_missing.png</ImageSource>
+	<ImageSource x:Key="HybridTransformation">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridForm.png</ImageSource>
+	<ImageSource x:Key="HybridTransformationUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridForm_missing.png</ImageSource>
+	<ImageSource x:Key="FFT_RunicPower">pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPower.png</ImageSource>
+	<ImageSource x:Key="FFT_RunicPowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerMissing.png</ImageSource>
 	<ImageSource x:Key="WuJenSpellSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot.png</ImageSource>
-    <ImageSource x:Key="WuJenSpellSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot_missing.png</ImageSource>
+	<ImageSource x:Key="WuJenSpellSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_WuJenSpellSlot_missing.png</ImageSource>
 	<ImageSource x:Key="LuminousBurst">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst.png</ImageSource>
-    <ImageSource x:Key="LuminousBurstUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_missing.png</ImageSource>
+	<ImageSource x:Key="LuminousBurstUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_missing.png</ImageSource>
 	<ImageSource x:Key="PracticedStrike">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike.png</ImageSource>
-    <ImageSource x:Key="PracticedStrikeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_missing.png</ImageSource>
+	<ImageSource x:Key="PracticedStrikeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_missing.png</ImageSource>
 	<ImageSource x:Key="PsionicDie">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_d.png</ImageSource>
-    <ImageSource x:Key="PsionicDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_missing.png</ImageSource>
-    <ImageSource x:Key="CunningDie">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_d.png</ImageSource>
-    <ImageSource x:Key="CunningDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_missing.png</ImageSource>
+	<ImageSource x:Key="PsionicDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_missing.png</ImageSource>
+	<ImageSource x:Key="CunningDie">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_d.png</ImageSource>
+	<ImageSource x:Key="CunningDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_missing.png</ImageSource>
 	<ImageSource x:Key="MysticPsiPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_d.png</ImageSource>
-    <ImageSource x:Key="MysticPsiPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_missing.png</ImageSource>
-    <ImageSource x:Key="MysticPsionicMasteryCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_d.png</ImageSource>
-    <ImageSource x:Key="MysticPsionicMasteryChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_missing.png</ImageSource>
+	<ImageSource x:Key="MysticPsiPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_missing.png</ImageSource>
+	<ImageSource x:Key="MysticPsionicMasteryCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_d.png</ImageSource>
+	<ImageSource x:Key="MysticPsionicMasteryChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_missing.png</ImageSource>
 	<ImageSource x:Key="DemonicFury">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury.png</ImageSource>
-    <ImageSource x:Key="DemonicFuryUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Missing.png</ImageSource>
-    <ImageSource x:Key="FormOfDreadPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_d.png</ImageSource>
-    <ImageSource x:Key="FormOfDreadPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_missing.png</ImageSource>
+	<ImageSource x:Key="DemonicFuryUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Missing.png</ImageSource>
+	<ImageSource x:Key="FormOfDreadPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_d.png</ImageSource>
+	<ImageSource x:Key="FormOfDreadPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_missing.png</ImageSource>
+	<ImageSource x:Key="GoblinFots">pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_d.png</ImageSource>
+	<ImageSource x:Key="GoblinFotsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_missing.png</ImageSource>
+	<ImageSource x:Key="SpellbaneDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
+	<ImageSource x:Key="SpellbaneDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -215,417 +219,423 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
 				<Setter Property="Source" Value="{StaticResource MysticPsiPoints}"/>
 			</DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
+			<DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
 				<Setter Property="Source" Value="{StaticResource MysticPsionicMasteryCharge}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
-                <Setter Property="Source" Value="{StaticResource DemonicFury}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FormOfDreadPoint">
-                <Setter Property="Source" Value="{StaticResource FormOfDreadPoint}"/>
-            </DataTrigger>
+				<Setter Property="Source" Value="{StaticResource DemonicFury}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FormOfDreadPoint">
+				<Setter Property="Source" Value="{StaticResource FormOfDreadPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GoblinFots">
+				<Setter Property="Source" Value="{StaticResource GoblinFots}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
+				<Setter Property="Source" Value="{StaticResource SpellbaneDie}"/>
+			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
-    </Style>
+	</Style>
 
 	<!-- More reference entries -->
 	<Style TargetType="Image" x:Key="IUI_SectionImageStyleDefault" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
-        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png"/>
-        <Setter Property="Width" Value="{StaticResource IconActionPointSize}"/>
-        <Setter Property="MaxHeight" Value="{StaticResource IconActionPointSize}"/>
-        <Setter Property="Stretch" Value="Uniform"/>
-        <Setter Property="Margin" Value="0,-2,0,0"/>
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding TypeId}" Value="">
-                <Setter Property="Visibility" Value="Hidden"/>
-            </DataTrigger>
+		<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png"/>
+		<Setter Property="Width" Value="{StaticResource IconActionPointSize}"/>
+		<Setter Property="MaxHeight" Value="{StaticResource IconActionPointSize}"/>
+		<Setter Property="Stretch" Value="Uniform"/>
+		<Setter Property="Margin" Value="0,-2,0,0"/>
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding TypeId}" Value="">
+				<Setter Property="Visibility" Value="Hidden"/>
+			</DataTrigger>
 
-            <DataTrigger Binding="{Binding IsHidden}" Value="True">
-                <Setter Property="Visibility" Value="Hidden"/>
-            </DataTrigger>
+			<DataTrigger Binding="{Binding IsHidden}" Value="True">
+				<Setter Property="Visibility" Value="Hidden"/>
+			</DataTrigger>
 
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ActionPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconActionPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="BonusActionPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconBonusActionPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+			<MultiDataTrigger >
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ActionPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconActionPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger >
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BonusActionPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconBonusActionPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Movement"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconMovementUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+			<MultiDataTrigger >
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Movement"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconMovementUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 
-            <MultiDataTrigger >
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconSpellSlotUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+			<MultiDataTrigger >
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconSpellSlotUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconWarlockSpellSlotUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SorceryPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource SorceryPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="KiPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource KiPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="LayOnHandsCharge"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource LayOnHandsChargeUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Rage"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource RageUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="BardicInspiration"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource BardicInspirationUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ChannelDivinity"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource ChannelDivinityUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ChannelOath"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource ChannelOathUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SuperiorityDie"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource SuperiorityDieUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource ArcaneRecoveryPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="NaturalRecoveryPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource NaturalRecoveryUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WildShape"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource WildShapeUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="TidesOfChaos"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource TidesOfChaosUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarPriestActionPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource WarPriestActionPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="FungalInfestationCharge"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource FungalInfestationChargeUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="LuckPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource LuckPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconWarlockSpellSlotUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SorceryPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SorceryPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KiPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource KiPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="LayOnHandsCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource LayOnHandsChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Rage"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource RageUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BardicInspiration"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BardicInspirationUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ChannelDivinity"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ChannelDivinityUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ChannelOath"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ChannelOathUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SuperiorityDie"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SuperiorityDieUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ArcaneRecoveryPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="NaturalRecoveryPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource NaturalRecoveryUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WildShape"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource WildShapeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="TidesOfChaos"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource TidesOfChaosUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WarPriestActionPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource WarPriestActionPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FungalInfestationCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource FungalInfestationChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="LuckPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource LuckPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ShadowSpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource ShadowSpellSlotUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ShadowSpellSlot"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ShadowSpellSlotUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 
-            <DataTrigger Binding="{Binding TypeId}" Value="MagicDamage">
-                <Setter Property="Source" Value="{StaticResource IconMagicDamage}"/>
-            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MagicDamage">
+				<Setter Property="Source" Value="{StaticResource IconMagicDamage}"/>
+			</DataTrigger>
 
-            <DataTrigger Binding="{Binding TypeId}" Value="Range">
-                <Setter Property="Source" Value="{StaticResource IconRange}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Range"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="Melee"/>
-                </MultiDataTrigger.Conditions>
-                <Setter Property="Source" Value="{StaticResource IconAttack}"/>
-            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Range">
+				<Setter Property="Source" Value="{StaticResource IconRange}"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Range"/>
+					<Condition Binding="{Binding SubtypeId}" Value="Melee"/>
+				</MultiDataTrigger.Conditions>
+				<Setter Property="Source" Value="{StaticResource IconAttack}"/>
+			</MultiDataTrigger>
 
-            <DataTrigger Binding="{Binding TypeId}" Value="Radius">
-                <Setter Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Radius">
+				<Setter Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
 
-            <DataTrigger Binding="{Binding TypeId}" Value="ZoneRadius">
-                <Setter Property="Source" Value="{StaticResource IconRadius}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="CastAbility">
-                <Setter Property="Source" Value="{StaticResource IconCastAbility}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="AlwaysPrepared">
-                <Setter Property="Source" Value="{StaticResource IconPreparation}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Cooldown">
-                <Setter Property="Source" Value="{StaticResource IconCooldown}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArmorClass">
-                <Setter Property="Source" Value="{StaticResource IconArmorClass}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TwoHanded">
-                <Setter Property="Source" Value="{StaticResource IconHanded}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Versatile">
-                <Setter Property="Source" Value="{StaticResource IconHanded}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Light">
-                <Setter Property="Source" Value="{StaticResource IconLight}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Heavy">
-                <Setter Property="Source" Value="{StaticResource IconHeavy}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Reach">
-                <Setter Property="Source" Value="{StaticResource IconReach}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Ammunition">
-                <Setter Property="Source" Value="{StaticResource IconAmmunition}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Attack">
-                <Setter Property="Source" Value="{StaticResource IconAttack}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="AttackRoll">
-                <Setter Property="Source" Value="{StaticResource IconTarget}"/>
-                <Setter Property="Margin" Value="0,-6,0,6"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Save">
-                <Setter Property="Source" Value="{StaticResource IconSave}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SaveTurn">
-                <Setter Property="Source" Value="{StaticResource IconSaveTurn}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Concentration">
-                <Setter Property="Source" Value="{StaticResource IconConcentration}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Dippable">
-                <Setter Property="Source" Value="{StaticResource IconDippable}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Finesse">
-                <Setter Property="Source" Value="{StaticResource IconFinesse}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Thrown">
-                <Setter Property="Source" Value="{StaticResource IconThrown}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Loading">
-                <Setter Property="Source" Value="{StaticResource IconLoading}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NoDualWield">
-                <Setter Property="Source" Value="{StaticResource IconNoDuelWield}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Type">
-                <Setter Property="Source" Value="{StaticResource IconType}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SoftWarning">
-                <Setter Property="Source" Value="{StaticResource IconWarningSoft}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Warning">
-                <Setter Property="Source" Value="{StaticResource IconWarning}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Race">
-                <Setter Property="Source" Value="{StaticResource IconRace}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Health">
-                <Setter Property="Source" Value="{StaticResource IconHealth}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Speed">
-                <Setter Property="Source" Value="{StaticResource IconSpeed}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TargetSelf">
-                <Setter Property="Source" Value="{StaticResource IconTarget}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Toggleable">
-                <Setter Property="Source" Value="{StaticResource IconWarningSoft}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Proficiency">
-                <Setter Property="Source" Value="{StaticResource IconProficiency}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Proficiency"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="HeavyArmor"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Proficiency"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="LightArmor"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Proficiency"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="MediumArmor"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Proficiency"/>
-                    <Condition Binding="{Binding SubtypeId}" Value="Shields"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ZoneRadius">
+				<Setter Property="Source" Value="{StaticResource IconRadius}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="CastAbility">
+				<Setter Property="Source" Value="{StaticResource IconCastAbility}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="AlwaysPrepared">
+				<Setter Property="Source" Value="{StaticResource IconPreparation}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Cooldown">
+				<Setter Property="Source" Value="{StaticResource IconCooldown}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArmorClass">
+				<Setter Property="Source" Value="{StaticResource IconArmorClass}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TwoHanded">
+				<Setter Property="Source" Value="{StaticResource IconHanded}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Versatile">
+				<Setter Property="Source" Value="{StaticResource IconHanded}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Light">
+				<Setter Property="Source" Value="{StaticResource IconLight}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Heavy">
+				<Setter Property="Source" Value="{StaticResource IconHeavy}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Reach">
+				<Setter Property="Source" Value="{StaticResource IconReach}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Ammunition">
+				<Setter Property="Source" Value="{StaticResource IconAmmunition}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Attack">
+				<Setter Property="Source" Value="{StaticResource IconAttack}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="AttackRoll">
+				<Setter Property="Source" Value="{StaticResource IconTarget}"/>
+				<Setter Property="Margin" Value="0,-6,0,6"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Save">
+				<Setter Property="Source" Value="{StaticResource IconSave}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SaveTurn">
+				<Setter Property="Source" Value="{StaticResource IconSaveTurn}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Concentration">
+				<Setter Property="Source" Value="{StaticResource IconConcentration}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Dippable">
+				<Setter Property="Source" Value="{StaticResource IconDippable}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Finesse">
+				<Setter Property="Source" Value="{StaticResource IconFinesse}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Thrown">
+				<Setter Property="Source" Value="{StaticResource IconThrown}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Loading">
+				<Setter Property="Source" Value="{StaticResource IconLoading}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="NoDualWield">
+				<Setter Property="Source" Value="{StaticResource IconNoDuelWield}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Type">
+				<Setter Property="Source" Value="{StaticResource IconType}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SoftWarning">
+				<Setter Property="Source" Value="{StaticResource IconWarningSoft}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Warning">
+				<Setter Property="Source" Value="{StaticResource IconWarning}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Race">
+				<Setter Property="Source" Value="{StaticResource IconRace}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Health">
+				<Setter Property="Source" Value="{StaticResource IconHealth}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Speed">
+				<Setter Property="Source" Value="{StaticResource IconSpeed}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TargetSelf">
+				<Setter Property="Source" Value="{StaticResource IconTarget}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Toggleable">
+				<Setter Property="Source" Value="{StaticResource IconWarningSoft}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Proficiency">
+				<Setter Property="Source" Value="{StaticResource IconProficiency}"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Proficiency"/>
+					<Condition Binding="{Binding SubtypeId}" Value="HeavyArmor"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Proficiency"/>
+					<Condition Binding="{Binding SubtypeId}" Value="LightArmor"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Proficiency"/>
+					<Condition Binding="{Binding SubtypeId}" Value="MediumArmor"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Proficiency"/>
+					<Condition Binding="{Binding SubtypeId}" Value="Shields"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource IconProficiencyArmour}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 
-            <DataTrigger Binding="{Binding IsOverridden}" Value="True">
-                <Setter Property="Opacity" Value="0.5"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
+			<DataTrigger Binding="{Binding IsOverridden}" Value="True">
+				<Setter Property="Opacity" Value="0.5"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
 	<!-- Please leave the above alone -->
 
 	<!-- This shows the "unavailable" icon on tooltips when the action resource is empty -->
 	<Style TargetType="Image" x:Key="IUI_SectionImageStyle" BasedOn="{StaticResource IUI_SectionImageStyleDefault}">
-        <Style.Triggers>
+		<Style.Triggers>
 			<!--<MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource UNIQUEIMAGENAMEUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>-->
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource UNIQUEIMAGENAMEUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>-->
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="PsiPoint"/>
@@ -826,7 +836,7 @@
 					<Setter Property="Source" Value="{StaticResource MysticPsiPointsUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-            <MultiDataTrigger>
+			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="PsionicMasteryResource"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
@@ -837,281 +847,301 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="DemonicFury"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource DemonicFuryUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="FormOfDreadPoint"/>
-                    <Condition Binding="{Binding Value}" Value="0"/>
-                    <Condition Binding="{Binding IgnoreCost}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Source" Value="{StaticResource FormOfDreadPointUnavailable}"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DemonicFury"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource DemonicFuryUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FormOfDreadPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource FormOfDreadPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GoblinFots"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GoblinFotsUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellbaneDie"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SpellbaneDieUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
-        </Style.Triggers>
-    </Style>
+		</Style.Triggers>
+	</Style>
 
 	<!-- More definition entries -->
 	<Storyboard x:Key="ActionResources.ActionGroup.ActionPoint.PreviewAnimation" RepeatBehavior="Forever">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Image.Opacity)">
-            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0.5">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <CubicEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-            <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1">
-                <EasingDoubleKeyFrame.EasingFunction>
-                    <CubicEase EasingMode="EaseInOut"/>
-                </EasingDoubleKeyFrame.EasingFunction>
-            </EasingDoubleKeyFrame>
-        </DoubleAnimationUsingKeyFrames>
-    </Storyboard>
+		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Image.Opacity)">
+			<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+			<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0.5">
+				<EasingDoubleKeyFrame.EasingFunction>
+					<CubicEase EasingMode="EaseInOut"/>
+				</EasingDoubleKeyFrame.EasingFunction>
+			</EasingDoubleKeyFrame>
+			<EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1">
+				<EasingDoubleKeyFrame.EasingFunction>
+					<CubicEase EasingMode="EaseInOut"/>
+				</EasingDoubleKeyFrame.EasingFunction>
+			</EasingDoubleKeyFrame>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
 
 	<DataTemplate x:Key="ActionResources.ActionGroup.ActionPoint">
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image x:Name="image" Stretch="None" Source="{DynamicResource Highlight}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <SkewTransform/>
-                        <ScaleTransform CenterX="22" CenterY="32"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
-            <Image x:Name="imageExplosion" Stretch="None" Source="{DynamicResource Highlight}" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <SkewTransform/>
-                        <ScaleTransform CenterX="22" CenterY="32"/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
-        </Grid>
+		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Image x:Name="image" Stretch="None" Source="{DynamicResource Highlight}" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Image.RenderTransform>
+					<TransformGroup>
+						<SkewTransform/>
+						<ScaleTransform CenterX="22" CenterY="32"/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Image.RenderTransform>
+			</Image>
+			<Image x:Name="imageExplosion" Stretch="None" Source="{DynamicResource Highlight}" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Image.RenderTransform>
+					<TransformGroup>
+						<SkewTransform/>
+						<ScaleTransform CenterX="22" CenterY="32"/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Image.RenderTransform>
+			</Image>
+		</Grid>
 
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Available">
-                <Setter TargetName="image" Property="Source" Value="{DynamicResource Available}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Highlight">
-                <Setter TargetName="image" Property="Source" Value="{DynamicResource Highlight}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Missing">
-                <Setter TargetName="image" Property="Source" Value="{DynamicResource Missing}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Used">
-                <Setter TargetName="image" Property="Source" Value="{DynamicResource Used}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding (ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="NoAnimation">
-                <Setter TargetName="imageExplosion" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Used"/>
-                    <Condition Binding="{Binding Path=IsActionPointSpent, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="True"/>
-                    <Condition Binding="{Binding Path=Visibility, ElementName=imageExplosion}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.EnterActions>
-                    <BeginStoryboard x:Name="explodeAnim">
-                        <Storyboard RepeatBehavior="1x">
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleX)">
-                                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.6"/>
-                                <DiscreteDoubleKeyFrame Value="1"/>
-                            </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleY)">
-                                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.6"/>
-                                <DiscreteDoubleKeyFrame Value="1"/>
-                            </DoubleAnimationUsingKeyFrames>
-                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.Opacity)">
-                                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </MultiDataTrigger.EnterActions>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Highlight"/>
-                    <Condition Binding="{Binding Path=DataContext.PreviewState, RelativeSource={RelativeSource AncestorType={x:Type ls:LSActionPointResources}}}" Value="Hover"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.EnterActions>
-                    <BeginStoryboard x:Name="previewAnim" Storyboard="{StaticResource ActionResources.ActionGroup.ActionPoint.PreviewAnimation}" Storyboard.TargetName="image"/>
-                </MultiDataTrigger.EnterActions>
-                <MultiDataTrigger.ExitActions>
-                    <StopStoryboard BeginStoryboardName="previewAnim"/>
-                </MultiDataTrigger.ExitActions>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding Path=DataContext.PreviewState, RelativeSource={RelativeSource AncestorType={x:Type ls:LSActionPointResources}}}" Value="Inactive">
-                <Setter Property="Opacity" Value="0.5"/>
-            </DataTrigger>
-        </DataTemplate.Triggers>
-    </DataTemplate>
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Available">
+				<Setter TargetName="image" Property="Source" Value="{DynamicResource Available}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Highlight">
+				<Setter TargetName="image" Property="Source" Value="{DynamicResource Highlight}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Missing">
+				<Setter TargetName="image" Property="Source" Value="{DynamicResource Missing}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Used">
+				<Setter TargetName="image" Property="Source" Value="{DynamicResource Used}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding (ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="NoAnimation">
+				<Setter TargetName="imageExplosion" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Used"/>
+					<Condition Binding="{Binding Path=IsActionPointSpent, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="True"/>
+					<Condition Binding="{Binding Path=Visibility, ElementName=imageExplosion}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.EnterActions>
+					<BeginStoryboard x:Name="explodeAnim">
+						<Storyboard RepeatBehavior="1x">
+							<DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleX)">
+								<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.6"/>
+								<DiscreteDoubleKeyFrame Value="1"/>
+							</DoubleAnimationUsingKeyFrames>
+							<DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleY)">
+								<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.6"/>
+								<DiscreteDoubleKeyFrame Value="1"/>
+							</DoubleAnimationUsingKeyFrames>
+							<DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.Opacity)">
+								<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+							</DoubleAnimationUsingKeyFrames>
+						</Storyboard>
+					</BeginStoryboard>
+				</MultiDataTrigger.EnterActions>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Highlight"/>
+					<Condition Binding="{Binding Path=DataContext.PreviewState, RelativeSource={RelativeSource AncestorType={x:Type ls:LSActionPointResources}}}" Value="Hover"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.EnterActions>
+					<BeginStoryboard x:Name="previewAnim" Storyboard="{StaticResource ActionResources.ActionGroup.ActionPoint.PreviewAnimation}" Storyboard.TargetName="image"/>
+				</MultiDataTrigger.EnterActions>
+				<MultiDataTrigger.ExitActions>
+					<StopStoryboard BeginStoryboardName="previewAnim"/>
+				</MultiDataTrigger.ExitActions>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding Path=DataContext.PreviewState, RelativeSource={RelativeSource AncestorType={x:Type ls:LSActionPointResources}}}" Value="Inactive">
+				<Setter Property="Opacity" Value="0.5"/>
+			</DataTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
 
 	<!-- ACTION RESOURCE ICONS - HOTBAR -->
 	<!-- Hotbar icon definition -->
 	<!--<ControlTemplate x:Key="ActionResources.ActionGroup.YOURACTIONPOINTGROUPNAME" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/HIGHLIGHTEDICON.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/DEFAULTICON.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/USEDICON.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/UNAVAILABLEICON.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate> -->
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/HIGHLIGHTEDICON.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/DEFAULTICON.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/USEDICON.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MODNAME/Shared/Resources/UNAVAILABLEICON.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate> -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.PsiPointGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_spent.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
-    <ControlTemplate x:Key="ActionResources.ActionGroup.RampageDieGroup" TargetType="ls:LSActionPoint">
+	<ControlTemplate x:Key="ActionResources.ActionGroup.RampageDieGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_d.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_spent.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.InfusionSlotGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_d.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_spent.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Artificer/Shared/Resources/ico_classRes_infusion_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BreathWeaponGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_d.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_spent.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ImprovedBreathWeapon/Shared/Resources/ico_breathweaponcharge_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodRuneGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Hover.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Used.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Hover.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Used.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_BloodRune_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
-    <ControlTemplate x:Key="ActionResources.ActionGroup.FrostRuneGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune_Hover.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune_Used.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune_Missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.FrostRuneGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune_Hover.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune_Used.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_FrostRune_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
-    <ControlTemplate x:Key="ActionResources.ActionGroup.UnholyRuneGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune_Hover.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune_Used.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune_Missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.UnholyRuneGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune_Hover.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune_Used.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_UnholyRune_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
-    <ControlTemplate x:Key="ActionResources.ActionGroup.RunicPowerGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Hover.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Used.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.RunicPowerGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Hover.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Used.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/Shared/Resources/Icon_DK_RunicPower_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.ArcanePointGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUsed.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePoint.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUsed.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUnavailable.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
-    <ControlTemplate x:Key="ActionResources.ActionGroup.ConfluxFocusGroup" TargetType="ls:LSActionPoint">
+	<ControlTemplate x:Key="ActionResources.ActionGroup.ConfluxFocusGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUsed.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUsed.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUnavailable.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BladesongChargeGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_spent.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodMaledict" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_spent.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.HybridTransformation" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridTransformation_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridTransformation.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridTransformation_spent.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridTransformation_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridTransformation.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridTransformation_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridTransformation_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FFT_RunicPowerGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerH.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerD.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerSpent.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerMissing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerH.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerD.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerSpent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FFT_Runesmith/Shared/Resources/FFT_Icon_RunicPowerMissing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.WuJenSpellSlotGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
@@ -1164,335 +1194,355 @@
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.MysticPsiPointsGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_d.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_spent.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psipointsresource_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
-
-    <ControlTemplate x:Key="ActionResources.ActionGroup.MysticPsionicMasteryChargeGroup" TargetType="ls:LSActionPoint">
-		<ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_d.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_spent.png</ImageSource>
-			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
-
-	<ControlTemplate x:Key="ActionResources.ActionGroup.DemonicFuryGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Hover.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Used.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
-    <ControlTemplate x:Key="ActionResources.ActionGroup.FormOfDreadPointGroup" TargetType="ls:LSActionPoint">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_h.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_d.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_spent.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_missing.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.MysticPsionicMasteryChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Mystic/Shared/Resources/ico_classRes_psionicmasteryresource_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.DemonicFuryGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Hover.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Used.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/Shared/Resources/Icon_DH_DemonicFury_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.FormOfDreadPointGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WarlockUndead/Shared/Resources/ico_classRes_warlockundead_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GoblinFotsGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.SpellbaneDieGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
-        <ControlTemplate.Resources>
-            <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-            <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-            <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-            <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
-        </ControlTemplate.Resources>
-        <ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-    </ControlTemplate>
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/ico_red_star.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<Style x:Key="IUI_ActionResourcesTemplateSelectorDefault" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource {x:Type ls:LSActionPointResources}}">
-        <Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.FallbackActionPointGroup}"/>
+		<Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.FallbackActionPointGroup}"/>
 		<!--Reverting standard to 1 and added 4 to all resources that should have it-->
-        <Setter Property="MaxGroupActionPoints" Value="1"/>
-        <Setter Property="ActionPointSize" Value="44" />
-        <Setter Property="Foreground" Value="{DynamicResource ActionResource.Default}" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SorceryPointGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SorceryPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KiActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="KiPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LayOnHandsChargeActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="LayOnHandsCharge"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="Rage">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RageActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="Rage"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InspirationActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="BardicInspiration"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DivinityActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ChannelDivinity"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.OathActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ChannelOath"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SuperiorityDieActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-                <Setter Property="Foreground" Value="{StaticResource ActionResource.SuperiorityDie}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SuperiorityDie"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArcaneRecoveryActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
+		<Setter Property="MaxGroupActionPoints" Value="1"/>
+		<Setter Property="ActionPointSize" Value="44" />
+		<Setter Property="Foreground" Value="{DynamicResource ActionResource.Default}" />
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SorceryPointGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SorceryPoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KiActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KiPoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LayOnHandsChargeActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="LayOnHandsCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Rage">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RageActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Rage"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InspirationActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BardicInspiration"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DivinityActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ChannelDivinity"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.OathActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ChannelOath"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SuperiorityDieActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+				<Setter Property="Foreground" Value="{StaticResource ActionResource.SuperiorityDie}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SuperiorityDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArcaneRecoveryActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
 				<Setter Property="MaxGroupActionPoints" Value="4"/>
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DefaultActionPointGroup}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DefaultActionPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
 				<Setter Property="MaxGroupActionPoints" Value="4"/>
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BonusActionPointGroup}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ReactionActionPointGroup}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BonusActionPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ReactionActionPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
 				<Setter Property="MaxGroupActionPoints" Value="4"/>
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SpellSlot}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="1"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,0,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SpellSlot}"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
+					<Condition Binding="{Binding Value}" Value="1"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,0,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
 				<Setter Property="MaxGroupActionPoints" Value="4"/>
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WarlockSpellSlot}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
-                    <Condition Binding="{Binding Value}" Value="1"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,0,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="RitualPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RitualPointActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-                <Setter Property="Foreground" Value="{StaticResource ActionResource.RitualPoint}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="RitualPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.NaturalRecoveryPointActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-                <Setter Property="Foreground" Value="{StaticResource ActionResource.NaturalRecovery}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="NaturalRecoveryPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-18,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WildShape">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WildShapeActionGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-                <Setter Property="Foreground" Value="{StaticResource ActionResource.WildShape}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WildShape"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-18,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.TidesOfChaosActionGroup}"/>
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WarlockSpellSlot}"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
+					<Condition Binding="{Binding Value}" Value="1"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,0,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RitualPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RitualPointActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+				<Setter Property="Foreground" Value="{StaticResource ActionResource.RitualPoint}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="RitualPoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.NaturalRecoveryPointActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+				<Setter Property="Foreground" Value="{StaticResource ActionResource.NaturalRecovery}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="NaturalRecoveryPoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-18,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WildShape">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WildShapeActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+				<Setter Property="Foreground" Value="{StaticResource ActionResource.WildShape}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WildShape"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-18,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.TidesOfChaosActionGroup}"/>
 				<Setter Property="MaxGroupActionPoints" Value="4"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WarPriestActionPointGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="WarPriestActionPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FungalInfestationChargeGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="FungalInfestationCharge"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LuckPointGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="LuckPoint"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
-            </MultiDataTrigger>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WarPriestActionPointGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WarPriestActionPoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FungalInfestationChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FungalInfestationCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LuckPointGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="LuckPoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter Property="Margin" Value="0,-15,0,0"/>
+			</MultiDataTrigger>
 
-            <DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ShadowSpellSlotGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}"/>
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ShadowSpellSlot"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter Property="Margin" Value="0,-15,0,0"/>
-            </MultiDataTrigger>
-        </Style.Triggers>
-    </Style>
+			<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ShadowSpellSlotGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ShadowSpellSlot"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter Property="Margin" Value="0,-15,0,0"/>
+			</MultiDataTrigger>
+		</Style.Triggers>
+	</Style>
 	<!-- Please leave the above alone -->
 
 	<!-- This is the icon that appears on the hotbar and selection fly out (reactions) -->
 	<Style x:Key="IUI_ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource IUI_ActionResourcesTemplateSelectorDefault}">
-        <Style.Triggers>
-            <!--<DataTrigger Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.YOURACTIONPOINTGROUPNAME}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>-->
+		<Style.Triggers>
+			<!--<DataTrigger Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.YOURACTIONPOINTGROUPNAME}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>-->
 			<DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.PsiPointGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -1754,60 +1804,86 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.MysticPsiPointsGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="PsiPointsResource"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-           <DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.MysticPsionicMasteryChargeGroup}"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="PsionicMasteryResource"/>
-                    <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.MysticPsiPointsGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="PsiPointsResource"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+		   <DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.MysticPsionicMasteryChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="PsionicMasteryResource"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="DemonicFury">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DemonicFuryGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="DemonicFury"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DemonicFuryGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DemonicFury"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
-            <DataTrigger Binding="{Binding TypeId}" Value="FormOfDreadPoint">
-                <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FormOfDreadPointGroup}"/>
-                <Setter Property="MaxGroupActionPoints" Value="1"/>
-                <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-            </DataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding TypeId}" Value="FormOfDreadPoint"/>
-                    <Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-                </MultiDataTrigger.Conditions>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FormOfDreadPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FormOfDreadPointGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FormOfDreadPoint"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
-                    <Setter Property="Margin" Value="0,-15,0,0"/>
-                </MultiDataTrigger.Setters>
-            </MultiDataTrigger>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GoblinFots">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GoblinFotsGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GoblinFots"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SpellbaneDieGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellbaneDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
-    </Style>
+	</Style>
 </ResourceDictionary>
