@@ -8,6 +8,9 @@
 	<ls:UIWidget.ContentTemplate>
 		<DataTemplate DataType="{x:Type ls:Widget}">
 			<DataTemplate.Resources>
+			<!-- MOD START - Add toggled tooltips indicator icon-->
+				<BitmapImage x:Key="IconSpyglass" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD/ico_spyglass.png" />
+			<!-- MOD END -->
 				<DataTemplate x:Key="CommonTooltipTemplate">
 					<Canvas  >
 						<b:Interaction.Triggers>
@@ -98,12 +101,15 @@
 					</ItemsControl.ItemContainerStyle>
 				</ItemsControl>
 
-				<!-- MOD START - Show tooltips without requiring input held down -->				
+				<!-- MOD START - Show tooltips without requiring input held down -->
+				<Image x:Name="IconSpyglass" Source="{StaticResource IconSpyglass}" Visibility="Hidden" Height="120" Width="120" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+
 				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" IsEnabled="{Binding ElementName=WorldTooltipContainer, Path=IsVisible}" EatInput="True">
 					<b:Interaction.Triggers>
 						<b:EventTrigger EventName="LSInputBindingPressed">
 							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}" CommandParameter="{StaticResource FalseValue}"/>
 							<b:ChangePropertyAction TargetName="WorldTooltipContainer" PropertyName="Visibility" Value="Collapsed" />
+							<b:ChangePropertyAction TargetName="IconSpyglass" PropertyName="Visibility" Value="Hidden" />
 						</b:EventTrigger>
 					</b:Interaction.Triggers>
 				</ls:LSInputBinding>
@@ -113,6 +119,7 @@
 						<b:EventTrigger EventName="LSInputBindingPressed">
 							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
 							<b:ChangePropertyAction TargetName="WorldTooltipContainer" PropertyName="Visibility" Value="Visible" />
+							<b:ChangePropertyAction TargetName="IconSpyglass" PropertyName="Visibility" Value="Visible" />
 						</b:EventTrigger>
 					</b:Interaction.Triggers>
 				</ls:LSInputBinding>
