@@ -33,6 +33,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 #### Race Icons
 - Aasimar - https://www.nexusmods.com/baldursgate3/mods/1824
 - Shadar-Kai - https://www.nexusmods.com/baldursgate3/mods/1305
+- Embrace The Pain - Witch Elf - https://www.nexusmods.com/baldursgate3/mods/3490/
 - Fizbans Treasury of Dragons - https://www.nexusmods.com/baldursgate3/mods/1793
 - Whispers of the Fey: Changelings Race - https://www.nexusmods.com/baldursgate3/mods/3110
 - Whispers of the Fey: Goblins Race - https://www.nexusmods.com/baldursgate3/mods/3254
