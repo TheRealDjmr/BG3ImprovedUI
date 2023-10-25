@@ -1073,17 +1073,19 @@ ConverterParameter=0}" Value="True"/>
 
                                         <ItemsControl x:Name="raceFeatureSpells" ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
 
-<!-- MOD START -->
+                                        <!-- MOD START -->
+                                        
                                         <!-- <ItemsControl x:Name="raceSpellSelectors" ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/> -->
 
-<!-- MOD END -->
+                                        <!-- MOD END -->
 
                                         <ItemsControl x:Name="subRaceFeatureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
 
-<!-- MOD START -->
-                                        <!-- <ItemsControl x:Name="subRaceSpellSelectors" ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource FeatSpellSelector}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/> -->
+                                        <!-- MOD START -->
+                                        
+                                        <ItemsControl x:Name="subRaceSpellSelectors" ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource LevelUpSpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
 
-<!-- MOD END -->
+                                        <!-- MOD END -->
 
                                         <ContentControl Template="{DynamicResource LevelUpShowFeaturesTemplate}" DataContext="{Binding ProgressionData.RaceProgression.Other}" Content="{Binding Source='hd0d992ebg43f8g429bgbf11g0cbf54d84d4e', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
