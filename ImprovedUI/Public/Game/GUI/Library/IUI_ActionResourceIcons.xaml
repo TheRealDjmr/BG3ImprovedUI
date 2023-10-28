@@ -151,6 +151,8 @@
 	<ImageSource x:Key="GoblinFotsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_missing.png</ImageSource>
 	<ImageSource x:Key="SpellbaneDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
 	<ImageSource x:Key="SpellbaneDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
+	<ImageSource x:Key="LivingFlameCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame.png</ImageSource>
+	<ImageSource x:Key="LivingFlameChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -233,6 +235,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
 				<Setter Property="Source" Value="{StaticResource SpellbaneDie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LivingFlameCharge">
+				<Setter Property="Source" Value="{StaticResource LivingFlameCharge}"/> This needs to match the above entry
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -886,6 +891,16 @@
 					<Setter Property="Source" Value="{StaticResource SpellbaneDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="LivingFlameCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource LivingFlameChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1248,6 +1263,16 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.LivingFlameChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+          		<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame_highlight.png</ImageSource>
+           	 	<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame.png</ImageSource>
+         	   	<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame_used.png</ImageSource>
+           	 	<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -1877,6 +1902,15 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="SpellbaneDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="LivingFlameCharge"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
