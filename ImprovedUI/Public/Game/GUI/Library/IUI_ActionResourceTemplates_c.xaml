@@ -20,6 +20,7 @@
 	<SolidColorBrush x:Key="ActionPoint" Color="#1ECC5B"/>
 	<SolidColorBrush x:Key="ActionResource.SorceryPoint" Color="#ff0066"/>-->
 	<SolidColorBrush x:Key="ActionResource.BreathWeaponCharge" Color="#7c0c60"/>
+	<SolidColorBrush x:Key="ActionResource.LivingFlameCharge" Color="#000000"/>
 	<!-- EDIT HERE -->
 
 	<!-- Setup default controller styles here, scroll down for custom entries -->
@@ -496,6 +497,17 @@
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="LivingFlameCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/ActionResources_c/Icons/c_Icon_LivingFlame.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="#000000"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#000000"/>
+			</DataTrigger>
 			<!-- EDIT HERE -->
 
 			<!-- Please leave the below alone -->
@@ -907,6 +919,15 @@
 				<Setter TargetName="ResourceImage" Property="Fill">
 					<Setter.Value>
 						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/ActionResources_c/Icons/c_ico_classRes_SpellbaneDie_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="LivingFlameCharge">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/ActionResources_c/Icons/c_Icon_LivingFlame.png" Stretch="Uniform"/>
 					</Setter.Value>
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
