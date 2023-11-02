@@ -696,9 +696,11 @@
                                 <DataTrigger Binding="{Binding AppearanceValidationError, Converter={StaticResource NullToBoolFalseConverter}, ConverterParameter='EmptyString', FallbackValue=False}" Value="True">
                                     <Setter TargetName="InvalidAppearanceError" Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding SelectedOrigin.IsLockedAppearance}" Value="True">
-                                    <Setter TargetName="appearanceTab" Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
+								<!-- MOD START - Edit appearance for Origin characters -->
+								<!--<DataTrigger Binding="{Binding SelectedOrigin.IsLockedAppearance}" Value="True">
+									<Setter TargetName="appearanceTab" Property="Visibility" Value="Collapsed"/>
+								</DataTrigger>-->
+								<!-- MOD END -->
 
                                 <!-- Split Screen variation -->
                                 <DataTrigger Binding="{Binding Layout}" Value="Common">

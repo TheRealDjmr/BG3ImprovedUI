@@ -1224,8 +1224,9 @@
         </Control>
 
         <Control x:Name="centralBottomControls" Template="{StaticResource centralBottomControlsTemplate}" VerticalAlignment="Bottom"/>
-
-        <ls:LSButton Template="{StaticResource FrameWithIconButtonTemplate}" Command="{Binding ExitCharacterCreation}" SoundID="UI_HUD_CC_Accept" ToolTipService.Placement="Bottom" ToolTipService.VerticalOffset="-20"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
+		<!-- MOD START - Custom UI for return to main menu -->
+		<ls:LSButton Template="{StaticResource FrameWithIconButtonTemplate}" Command="{Binding CustomEvent}" CommandParameter="IUI_OpenMainMenuPrompt" SoundID="UI_HUD_CC_Accept" ToolTipService.Placement="Bottom" ToolTipService.VerticalOffset="-20"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,20,0">
+			<!-- MOD END -->
             <ls:LSButton.Resources>
                 <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
                 <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>
