@@ -5248,7 +5248,9 @@
             </StackPanel>
 
             <!-- ToDo: polish, press to hear voice -->
-            <ListBox x:Name="voices" Visibility="Collapsed" ItemsSource="{Binding Voices.ComboItems}" SelectedItem="{Binding Voices.SelectedItem}" Style="{StaticResource paginatedListBoxStyle}">
+			<!-- MOD START - Always show voices, even for Hirelings/Origins -->
+			<ListBox x:Name="voices" ItemsSource="{Binding Voices.ComboItems}" SelectedItem="{Binding Voices.SelectedItem}" Style="{StaticResource paginatedListBoxStyle}">
+				<!-- MOD END -->
                 <ListBox.Template>
                     <ControlTemplate>
                         <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
@@ -5481,13 +5483,13 @@
 
 			<!-- MOD START - Hide lip makeup based on if eye makeup is available (doesn't show for Origin characters) -->
 			<ListBox Tag="lipMakeupColors" ItemsSource="{Binding SelectableLipsMakeupColours}" SelectedItem="{Binding SelectedLipsMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
+
+            <ListBox x:Name="lipColorIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="lipColorIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+            <ListBox x:Name="metallicIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="metallicIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[1]}" Template="{StaticResource AppearanceSliderCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+            <ListBox x:Name="glossyIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="glossyIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[2]}" Template="{StaticResource AppearanceSliderCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 			<!-- MOD END -->
-
-            <ListBox x:Name="lipColorIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="lipColorIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
-
-            <ListBox x:Name="metallicIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="metallicIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[1]}" Template="{StaticResource AppearanceSliderCarousel}"/>
-
-            <ListBox x:Name="glossyIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="glossyIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[2]}" Template="{StaticResource AppearanceSliderCarousel}"/>
 
             <!-- HAIR -->
 
