@@ -227,7 +227,7 @@
 		<ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
 		<!-- MOD END -->
-		<ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
         <ls:CollectionSortBehavior x:Name="SortedRaceSkills" ItemsSource="{Binding AllSkills.RaceProficientSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
@@ -320,7 +320,7 @@
 
 
                                     <Control x:Name="appearanceBackground"/>
-                                    <Control x:Name="appearancePanel" Height="{StaticResource appearancePanelHeight_SplitScreen}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,250,50,0"/>
+                                    <Control x:Name="appearancePanel" Height="{StaticResource appearancePanelHeight_SplitScreen}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,212,50,0"/>
 
                                     <Grid x:Name="tabNavigation" Tag="None">
 
@@ -522,7 +522,7 @@
 
                                                     <ListBoxItem x:Name="backgroundTab" Tag="background"/>
 													
-													<!-- MOD START - Add feat selection into CC -->
+                                                    <!-- MOD START - Add feat selection into CC -->
 													<ListBoxItem x:Name="featTab" Tag="feat" Visibility="{Binding CanSelectFeat, Converter={StaticResource BoolToVisibleConverter}}"/>
 													<ListBoxItem x:Name="featDetailsTab" Tag="featdetails" Visibility="{Binding SelectedFeatDetails.HasFeat, Converter={StaticResource BoolToVisibleConverter}}"/>
 													<!-- MOD END -->
@@ -707,7 +707,7 @@
                                     <Setter TargetName="tabBar" Property="Margin" Value="260,0,0,0"/>
                                     <Setter TargetName="selectedTabUnderline" Property="Margin" Value="252,-54,0,0"/>
                                     <Setter TargetName="appearancePanel" Property="Height" Value="{StaticResource appearancePanelHeight}"/>
-                                    <Setter TargetName="appearancePanel" Property="Margin" Value="0,250,200,0"/>
+                                    <Setter TargetName="appearancePanel" Property="Margin" Value="0,212,200,0"/>
                                     <Setter TargetName="leftSideShading" Property="Width" Value="{StaticResource leftSidePanelBackgroundWidth}"/>
                                 </DataTrigger>
 
@@ -983,8 +983,8 @@
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
 
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-															
-															<!-- MOD START - Racial passive selection -->
+                                                            
+                                                            <!-- MOD START - Racial passive selection -->
 															<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
 															<!-- MOD END -->
 
@@ -1044,8 +1044,8 @@
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
 
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-															
-															<!-- MOD START - Racial passive selection -->
+                                                            
+                                                            <!-- MOD START - Racial passive selection -->
 															<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
 															<!-- MOD END -->
 
@@ -1466,8 +1466,8 @@
                                         </Setter.Value>
                                     </Setter>
                                 </DataTrigger>
-								
-								<!-- MOD START - Add feat selection into CC -->
+
+                                <!-- MOD START - Add feat selection into CC -->
 								<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="feat">
                                     <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource featsPanel}"/>
 								</DataTrigger>
@@ -1786,11 +1786,11 @@
                                     <TextBlock x:Name="pageTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h0606bec2g5227g499ag8f4bg9ab2589ccded, Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledTitleFontSize}" Foreground="{StaticResource LS_extraspecialTxtColor}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="40 20 40 20" MaxWidth="700"/>
                                 </ls:LSNineSliceImage>
 
-                                <Control x:Name="appearancePanel" Template="{StaticResource AppearancePanelTemplate}" Height="1700" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,250,50,0"/>
+                                <Control x:Name="appearancePanel" Template="{StaticResource AppearancePanelTemplate}" Height="1700" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,212,50,0"/>
 
                                 <ContentControl Template="{StaticResource buttonBackplateTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,148">
 
-                                    <ls:LSButton x:Name="VentureForthButton" Style="{StaticResource ControllerHoldButtonStyle}" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Tag="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding DataContext.FinishCreating, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_VentureForth" Margin="2,0,0,0">
+                                    <ls:LSButton x:Name="VentureForthButton" Style="{StaticResource ControllerHoldButtonStyle}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Tag="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding DataContext.FinishCreating, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_VentureForth" Margin="2,0,0,0">
                                         <b:Interaction.Triggers>
                                             <b:EventTrigger EventName="Click">
                                                 <b:ChangePropertyAction TargetName="daisyPage" PropertyName="Visibility" Value="Collapsed" />
@@ -1812,7 +1812,7 @@
                             <ControlTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Layout}" Value="Common">
                                     <Setter TargetName="setCameras" Property="Template" Value="{StaticResource setDaisyCamera}"/>
-                                    <Setter TargetName="appearancePanel" Property="Margin" Value="0,250,200,0"/>
+                                    <Setter TargetName="appearancePanel" Property="Margin" Value="0,212,200,0"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Layout}" Value="Left">
                                     <Setter TargetName="pageTitle" Property="Style" Value="{StaticResource CCBaseText}"/>
@@ -1915,7 +1915,17 @@
                     </Control.Template>
                 </Control>
 
-                <Control x:Name="PlayerSlots" Template="{StaticResource PlayerSlotsTemplate}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource ButtonHint.Margin.Left}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="{StaticResource ButtonHint.Margin.Left}">
+                    <Control x:Name="PlayerSlots" Template="{StaticResource PlayerSlotsTemplate}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="PressToJoinText" Foreground="{StaticResource LS_accent75TxtColor}" FontSize="{StaticResource ScaledSmallishFontSize}"
+                               VerticalAlignment="Center" Visibility="Collapsed" Opacity="0" Margin="12,-18,0,18">
+                        <b:Interaction.Behaviors>
+                            <ls:CtxTransStringRunGeneratorBehavior LocaSource="{Binding Source='h562afe65ge87fg4863gb4fcg56a432b35903',Converter={StaticResource TranslatedStringConverter}}" 
+                                                                   PlayerId="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" 
+                                                                   NamedParamContentStyle="{StaticResource ParamContentControllerStyle}"/>
+                        </b:Interaction.Behaviors>
+                    </TextBlock>
+                </StackPanel>
 
                 <ls:LSInputBinding x:Name="PinTooltipBinding" Style="{StaticResource PinTooltipBindingStyle}" EatInput="False"/>
 
@@ -1929,6 +1939,32 @@
                 <DataTrigger Binding="{Binding DataContext.Layout, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Right">
                     <Setter TargetName="PlayerSlots" Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Data.Players.Count}" Value="1"/>
+                        <Condition Binding="{Binding Data.ConnectedControllers, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.EnterActions>
+                        <BeginStoryboard Name="IconBounce">
+                            <BeginStoryboard.Storyboard>
+                                <Storyboard FillBehavior="Stop">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PressToJoinText">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:6" Value="1"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="PressToJoinText">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:7" Value="{x:Static Visibility.Collapsed}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard.Storyboard>
+                        </BeginStoryboard>
+                    </MultiDataTrigger.EnterActions>
+                </MultiDataTrigger>
+
             </DataTemplate.Triggers>
         </DataTemplate>
     </ls:UIWidget.ContentTemplate>
