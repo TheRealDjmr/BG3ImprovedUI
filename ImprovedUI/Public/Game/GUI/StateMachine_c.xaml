@@ -8,6 +8,7 @@
                 <ls:InitialSubstate Name="EditorRoot"/>
                 <ls:InitialSubstate Name="GameRoot"/>
                 <ls:InitialSubstate Name="SystemRoot"/>
+                <ls:InitialSubstate Name="SystemOverlayRoot"/>
             </ls:State.InitialSubstates>
         </ls:State>
 
@@ -23,14 +24,13 @@
 
         <ls:State Name = "SystemRoot" Layout = "Common" Owner = "All">
             <ls:State.Events>
-                <!-- MOD START - Removes story message for Controller UI -->
-                <!--<ls:StateEvent Name = "OpenSystemMessageBox">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="SystemMessageBox"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>-->
-                <!-- MOD END -->
-				
+				<!-- MOD START - Removes story message for Controller UI -->
+				<!--<ls:StateEvent Name = "OpenSystemMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="SystemMessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>-->
+				<!-- MOD END -->
                 <ls:StateEvent Name = "OpenOptions">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="Options"/>
@@ -49,6 +49,16 @@
                 <ls:StateEvent Name = "OpenDifficultySettings">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="GameSettings"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "SystemOverlayRoot" Layout = "Common" Owner = "All">
+            <ls:State.Events>
+                <ls:StateEvent Name = "ShowVoiceChat">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="VoiceChat"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
             </ls:State.Events>
@@ -108,6 +118,7 @@
             <ls:State.Widgets>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
                 <ls:StateWidget Filename="SplashScreen.xaml" Layer="Default"/>
+                <ls:StateWidget Filename="Notification_c.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenMainMenu">
@@ -167,6 +178,22 @@
             </ls:State.Events>
         </ls:State>
 
+        <!--STATE: VoiceChat-->
+        <ls:State Name = "VoiceChat" Layout="Common" Owner="All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="VoiceChat.xaml" Layer="MessageBox"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "ShowVoiceChat">
+                </ls:StateEvent>
+                <ls:StateEvent Name = "HideVoiceChat">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+        
         <!--STATE: ScreenFade-->
         <ls:State Name = "ScreenFadePlayer" DisableStatesBelow = "False" HideStatesBelow = "False" Layout="Player" Owner="Player">
             <ls:State.Widgets>
@@ -212,6 +239,7 @@
             <ls:State.Widgets>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
                 <ls:StateWidget Filename="MainMenu_c.xaml" Layer="Pause"/>
+                <ls:StateWidget Filename="Notification_c.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
             <ls:State.Events>
                 <ls:StateEvent Name = "ProfileSelectOpen">
@@ -335,12 +363,12 @@
                         <ls:PushState Name="Paused"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <!-- MOD START - Remove CC tutorial message -->
+				<!-- MOD START - Remove CC tutorial message -->
 				<!--<ls:StateEvent Name = "OpenMessageBox">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="MessageBox"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>-->
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>-->
 				<!-- MOD END -->
                 <ls:StateEvent Name = "OpenPinnedTooltips">
                     <ls:StateEvent.Actions>
@@ -351,7 +379,7 @@
         </ls:State>
 
         <!--STATE: CharacterLevelUp -->
-        <ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" IsModalCameraControlAllowed="True" ForceSplitscreen="True" Layout = "Player" Owner = "Player">
+        <ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" ForceSplitscreen="True" Layout = "Player" Owner = "Player">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
                 <ls:StateWidget Filename="CharacterLevelUp_c.xaml" Layer="HUD"/>
@@ -385,7 +413,7 @@
         </ls:State>
 		
         <!--STATE: CharacterFullRespec -->
-        <ls:State Name = "CharacterFullRespec" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+        <ls:State Name = "CharacterFullRespec" HideStatesBelow = "True" DisableStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
                 <ls:StateWidget Filename="CharacterFullRespec_c.xaml" Layer="HUD"/>
@@ -407,7 +435,7 @@
         </ls:State>
 
         <!--STATE: CharacterRespec -->
-        <ls:State Name = "CharacterRespec" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+        <ls:State Name = "CharacterRespec" HideStatesBelow = "True" DisableStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
@@ -445,7 +473,7 @@
         </ls:State>
 
         <!--STATE: CharacterChangeAppearance -->
-        <ls:State Name = "CharacterChangeAppearance" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+        <ls:State Name = "CharacterChangeAppearance" HideStatesBelow = "True" DisableStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
@@ -483,7 +511,7 @@
         </ls:State>        
         
         <!--STATE: Henchmen -->
-        <ls:State Name = "Henchmen" HideStatesBelow = "True" DisableStatesBelow = "True" Layout="Player" Owner="Player" ForceSplitscreen="True">
+        <ls:State Name = "Henchmen" HideStatesBelow = "True" DisableStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" Layout="Player" Owner="Player" ForceSplitscreen="True">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
@@ -1615,7 +1643,6 @@
             </ls:State.Events>
         </ls:State>
 
-
         <ls:State Name="CharacterStats" Layout="Player" Owner="Player" HideStatesBelow="False" DisableStatesBelow="False" IsModal="False">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="CharacterPanel_c.xaml" Layer="Panels"/>
@@ -1884,6 +1911,7 @@
                 </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
+        
         <!--STATE: Dialogue-->
         <ls:State Name = "Dialogue" DisableStatesBelow = "True" HideStatesBelow = "True" Layout = "Adaptive" Owner = "Player">
             <ls:State.Widgets>
@@ -2019,6 +2047,7 @@
             <ls:State.Widgets>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
                 <ls:StateWidget Filename="NewGameSettings_c.xaml" Layer="HUDTop"/>
+                <ls:StateWidget Filename="Notification_c.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
 
             <ls:State.Events>
@@ -2476,6 +2505,9 @@
                         <ls:AddSubstate Name="PinnedTooltips"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "OpenContainerInventory">
+
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -2734,6 +2766,7 @@
         <ls:State Name = "LobbyBrowser" HideStatesBelow="True"  DisableStatesBelow = "True" Layout = "Common" Owner = "DefaultPlayer">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="LobbyBrowser_c.xaml" Layer="Panels" />
+                <ls:StateWidget Filename="Notification_c.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
 
             <ls:State.Events>

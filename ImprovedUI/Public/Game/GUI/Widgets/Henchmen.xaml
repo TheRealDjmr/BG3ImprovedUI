@@ -51,13 +51,14 @@
                 <ControlTemplate.Resources>
                     <BitmapImage x:Key="OriginIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_origin.png"/>
                 </ControlTemplate.Resources>
-                <!-- MOD START - Two scroll viewers mirroring Origin setup -->
-				<StackPanel>
+                <StackPanel>
                     <Image Source="{StaticResource OriginIcon}" Stretch="None" Margin="0,64,0,0"/>
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=hdd1cb010g6baag43e5g92a0ga68099423f90, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                    <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="1170" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,20,88,0">
-						<ListBox x:Name="presetOrigins" ItemsPanel="{StaticResource gameplayItemsPanelTemplate}" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemsSource="{Binding FilteredItems, ElementName=PresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}">
+					<!-- MOD START - Two scroll viewers mirroring Origin setup -->
+					<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="1170" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,20,88,0">
+						<!-- Origins -->
+						<ListBox x:Name="presetOrigins" ItemsPanel="{StaticResource gameplayItemsPanelTemplate}" ItemTemplate="{StaticResource OriginPortraitTemplate}" ItemsSource="{Binding FilteredItems, ElementName=PresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" Margin="0,120,0,0">
 							<ListBox.ItemContainerStyle>
 								<Style TargetType="ListBoxItem" BasedOn="{StaticResource CCIconTextListBoxItemStyle}">
 									<Style.Triggers>
@@ -70,15 +71,16 @@
 						</ListBox>
 					</ls:LSScrollViewer>
 
-                    <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="300" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,20,88,0">
+					<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="300" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,20,88,0">
 						<StackPanel x:Name="presetSelectionDetails">
-							<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedOrigin.Name}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center"/>
+							<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedOrigin.Name}" FontSize="{StaticResource BigFontSize}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
 							<TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.OriginDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,20,0,0"/>
 						</StackPanel>
 					</ls:LSScrollViewer>
+					<!-- MOD END -->
                 </StackPanel>
-				<!-- MOD END -->
             </ControlTemplate>
+
         </ResourceDictionary>
     </ls:UIWidget.Resources>
 
@@ -86,19 +88,80 @@
         <ls:CollectionFilterBehavior x:Name="PresetOriginsCollection" ItemsSource="{Binding SelectableOrigins}" Predicate="{Binding IsNotCustomOriginPredicate}"/>
     </b:Interaction.Behaviors>
 
-    <Grid ls:TooltipExtender.Owner="{Binding DummyCharacter}">
-        
+    <Grid x:Name="widgetBase" IsEnabled="{Binding IsLocked, Converter={StaticResource InvertBoolConverter}}" ls:TooltipExtender.Owner="{Binding DummyCharacter}">
+
+        <!-- Flow control -->
+        <ListBox x:Name="flowPage" Visibility="Hidden">
+            <ListBoxItem Content="Gameplay" IsSelected="True"/>
+            <ListBoxItem Content="Appearance"/>
+        </ListBox>
+
         <Control Template="{StaticResource setOverviewCamera}"/>
-        
+
         <Control x:Name="gamePlayPage">
             <Control.Template>
                 <ControlTemplate TargetType="Control">
                     <ControlTemplate.Resources>
                         <BitmapImage x:Key="GameplayGridBackground" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/vignette_left.png"/>
                         <BitmapImage x:Key="SelectionBackground" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/contentPane.png"/>
+                        <Storyboard x:Key="TransitionToOff">
+                            <DoubleAnimation Storyboard.TargetName="gamePlayLeftSidePanels" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="-1700" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="gamePlayLeftSidePanels">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{x:Static Visibility.Collapsed}"/>
+                            </ObjectAnimationUsingKeyFrames>
+
+                            <DoubleAnimation Storyboard.TargetName="bottomControlLine" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="-1000" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+
+                        </Storyboard>
+                        <Storyboard x:Key="TransitionToOn">
+                            <DoubleAnimation Storyboard.TargetName="gamePlayLeftSidePanels" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="gamePlayLeftSidePanels">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
+
+                            <DoubleAnimation Storyboard.TargetName="bottomControlLine" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+                            
+                        </Storyboard>
                     </ControlTemplate.Resources>
+
                     <Grid>
-                        <Grid HorizontalAlignment="Left">
+                        <b:Interaction.Triggers>
+
+                            <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Gameplay">
+                                <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOn}" ControlStoryboardOption="Play"/>
+                                <b:InvokeCommandAction Command="{Binding Path=SetCameraOffsets}">
+                                    <b:InvokeCommandAction.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource PassThroughConverter}">
+                                            <Binding>
+                                                <Binding.Source>
+                                                    <System:Single>-13.5</System:Single>
+                                                </Binding.Source>
+                                            </Binding>
+                                            <Binding>
+                                                <Binding.Source>
+                                                    <System:Single>-5.5</System:Single>
+                                                </Binding.Source>
+                                            </Binding>
+                                            <Binding>
+                                                <Binding.Source>
+                                                    <System:Single>-4.5</System:Single>
+                                                </Binding.Source>
+                                            </Binding>
+                                        </MultiBinding>
+                                    </b:InvokeCommandAction.CommandParameter>
+                                </b:InvokeCommandAction>
+                            </b:DataTrigger>
+
+                            <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Appearance">
+                                <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOff}" ControlStoryboardOption="Play"/>
+                            </b:DataTrigger>
+
+                        </b:Interaction.Triggers>
+
+                        <Grid x:Name="gamePlayLeftSidePanels" HorizontalAlignment="Left">
+                            <Grid.RenderTransform>
+                                <TranslateTransform/>
+                            </Grid.RenderTransform>
                             <Grid.Background>
                                 <ImageBrush ImageSource="{StaticResource GameplayGridBackground}"/>
                             </Grid.Background>
@@ -109,23 +172,140 @@
                             </Grid>
                         </Grid>
 
-                        <Control x:Name="summaryControls" Template="{StaticResource summaryPanelTemplate}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,100,20,0"/>
+                        <StackPanel x:Name="bottomControlLine" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,940,100">
+                            <StackPanel.RenderTransform>
+                                <TranslateTransform/>
+                            </StackPanel.RenderTransform>
+                            <StackPanel.Resources>
+                                <BitmapImage x:Key="ButtonNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnAppearance_d.png"/>
+                                <BitmapImage x:Key="ButtonHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnAppearance_h.png"/>
+                                <BitmapImage x:Key="ButtonPressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnAppearance_p.png"/>
+                                <BitmapImage x:Key="ButtonDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnAppearance_disabled.png"/>
+                                <BitmapImage x:Key="ButtonAppearanceBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnAppearance_bg.png"/>
 
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,1040,100">
+                                <System:Double x:Key="ButtonWidth">440</System:Double>
+
+                                <Style x:Key="ButtonsFrame" TargetType="ls:LSNineSliceImage" BasedOn="{StaticResource {x:Type ls:LSNineSliceImage}}">
+                                    <Setter Property="ImageSource" Value="{StaticResource ButtonAppearanceBg}"/>
+                                    <Setter Property="Slices" Value="96,0"/>
+                                    <Setter Property="IconWidth" Value="340"/>
+                                    <Setter Property="Margin" Value="-38,-34"/>
+                                    <Setter Property="Padding" Value="64,64"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                </Style>
+                            </StackPanel.Resources>
 
                             <Control Template="{StaticResource cameraModeControlsTemplate}"/>
 
-                            <ls:LSButton Content="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}"
-                                         Style="{StaticResource CCNextButtonStyle}" IsEnabled="{Binding IsCharacterComplete}" Command="{Binding FinishHenchmenCreating}"
-                                         Foreground="{StaticResource CCTextPrimary}" Margin="0,0,0,0"/>
+                            <ls:LSNineSliceImage x:Name="gameplayPageButtons" Style="{StaticResource ButtonsFrame}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                    <!-- To Appearance -->
+                                    <ls:LSButton x:Name="EditAppearanceButton" Style="{StaticResource BigBrownButtonStyle}" 
+                                     Content="{Binding Source='h072b13e4g302ag4575g85e8g5c0c26a5d45e', Converter={StaticResource TranslatedStringConverter}}" Width="{StaticResource ButtonWidth}">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Click" >
+                                                <b:ChangePropertyAction TargetName="appearancePage" PropertyName="Visibility" Value="Visible" />
+                                                <b:ChangePropertyAction TargetName="flowPage" PropertyName="SelectedIndex" Value="1" />
+                                                <b:InvokeCommandAction Command="{Binding SetCameraMode}" CommandParameter="CloseupB"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </ls:LSButton>
+
+                                    <!-- To Gameplay -->
+                                    <ls:LSButton x:Name="BackFromAppearanceButton" Visibility="Collapsed" Style="{StaticResource BigBrownButtonStyle}"
+                                     Content="{Binding Source='h742dfaf1g3998g4f97gb4b8g2c0f0801adb0', Converter={StaticResource TranslatedStringConverter}}"
+                                     Width="{StaticResource ButtonWidth}">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Click" >
+                                                <b:ChangePropertyAction TargetName="flowPage" PropertyName="SelectedIndex" Value="0" />
+                                                <b:InvokeCommandAction Command="{Binding SetCameraMode}" CommandParameter="Overview"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </ls:LSButton>
+
+                                    <!-- Finish -->
+                                    <ls:LSButton x:Name="FinishButton" Style="{StaticResource BigBlueButtonStyle}" Command="{Binding FinishHenchmenCreating}"
+                                     Content="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}" 
+                                     IsEnabled="{Binding IsCharacterComplete}"
+                                     Width="{StaticResource ButtonWidth}"
+                                     SoundID="UI_HUD_CC_Proceed">
+                                        <b:Interaction.Triggers>
+                                            <b:EventTrigger EventName="Click" >
+                                                <ls:LSPlaySound Sound="UI_HUD_CC_VentureForth_Click"/>
+                                            </b:EventTrigger>
+                                        </b:Interaction.Triggers>
+                                    </ls:LSButton>
+
+                                </StackPanel>
+                            </ls:LSNineSliceImage>
 
                             <Control Template="{StaticResource rotateDummyControlsTemplate}"/>
-
+                            
                         </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedIndex}" Value="1">
+                            <Setter TargetName="EditAppearanceButton" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="BackFromAppearanceButton" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Control.Template>
+        </Control>
+
+        <Control x:Name="Summary">
+            <Control.Template>
+                <ControlTemplate TargetType="Control">
+                    <ControlTemplate.Resources>
+
+                        <Storyboard x:Key="TransitionToOff">
+                            <DoubleAnimation Storyboard.TargetName="summaryControls" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+                            <DoubleAnimation Storyboard.TargetName="summaryControls" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1"/>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="summaryControls">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{x:Static Visibility.Collapsed}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+
+                        <Storyboard x:Key="TransitionToOn">
+                            <DoubleAnimation Storyboard.TargetName="summaryControls" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+                            <DoubleAnimation Storyboard.TargetName="summaryControls" Storyboard.TargetProperty="Opacity" To="1" BeginTime="0:0:0.4" Duration="0:0:0.1"/>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="summaryControls">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+
+                        <Storyboard x:Key="TransitionToCenter">
+                            <DoubleAnimation Storyboard.TargetName="summaryControls" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="-200" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+                            <DoubleAnimation Storyboard.TargetName="summaryControls" Storyboard.TargetProperty="Opacity" To="1" BeginTime="0:0:0.4" Duration="0:0:0.1"/>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="summaryControls">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+
+                    </ControlTemplate.Resources>
+
+                    <Grid>
+                        <b:Interaction.Triggers>
+                            <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Gameplay">
+                                <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOn}" ControlStoryboardOption="Play"/>
+                            </b:DataTrigger>
+                            <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Appearance">
+                                <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOff}" ControlStoryboardOption="Play"/>
+                            </b:DataTrigger>
+                        </b:Interaction.Triggers>
+
+                        <Control x:Name="summaryControls" Template="{StaticResource summaryPanelTemplate}" HorizontalAlignment="Right" Margin="0,100,4,64">
+                            <Control.RenderTransform>
+                                <TranslateTransform/>
+                            </Control.RenderTransform>
+                        </Control>
                     </Grid>
                 </ControlTemplate>
             </Control.Template>
         </Control>
+
+        <Control x:Name="appearancePage" Template="{StaticResource appearancePageTemplate}" Tag="appearancePage" Visibility="Hidden"/>
 
         <ls:LSButton Template="{StaticResource FrameWithIconButtonTemplate}" Command="{Binding CancelHenchmenCreating}" SoundID="UI_HUD_CC_Accept" VerticalAlignment="Top"
                          ToolTipService.Placement="Bottom" ToolTipService.VerticalOffset="-20" Margin="10,20,20,0" HorizontalAlignment="Right">
@@ -140,5 +320,6 @@
                 <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_close_big_d.png"/>
             </ls:LSButton.Resources>
         </ls:LSButton>
+
     </Grid>
 </ls:UIWidget>
