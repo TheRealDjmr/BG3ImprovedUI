@@ -52,7 +52,7 @@
     <ls:UIWidget.ContentTemplate>
         <DataTemplate>
 
-            <Grid>
+            <Grid x:Name="widgetBase" IsEnabled="{Binding IsLocked, Converter={StaticResource InvertBoolConverter}}">
 
                 <Grid x:Name="appearanceRightSidePanels" HorizontalAlignment="Right">
 
@@ -87,7 +87,7 @@
                                 <BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_race_h.png"/>
                             </ListBox.Resources>
 
-							<ListBoxItem x:Name="raceTab" Tag="race" Visibility="Collapsed"/>
+                            <ListBoxItem x:Name="raceTab" Tag="race" Visibility="Collapsed"/>
                             <ListBoxItem x:Name="subRaceTab" Tag="subrace" Visibility="Collapsed"/>
 
                             <ListBoxItem x:Name="generalTab" Tag="general" IsSelected="True"/>
@@ -114,9 +114,7 @@
 
                     <Control Template="{StaticResource cameraModeControlsTemplate}"/>
 
-                    <!-- MOD START - Can always confirm -->
-					<ls:LSButton x:Name="confirmButton" Content="{Binding Source='h7a174735g0099g4ca9ga1f7ga53ad66b1aa4', Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}" Style="{StaticResource CCNextButtonStyle}" Command="{Binding FinishHenchmenCreating}" Foreground="{StaticResource CCTextPrimary}" Margin="0,0,0,0"/>
-					<!-- MOD END -->
+                    <ls:LSButton x:Name="confirmButton" Content="{Binding Source='h7a174735g0099g4ca9ga1f7ga53ad66b1aa4', Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}" Style="{StaticResource CCNextButtonStyle}" IsEnabled="{Binding IsCharacterComplete}" Command="{Binding FinishHenchmenCreating}" Foreground="{StaticResource CCTextPrimary}" Margin="0,0,0,0"/>
 
                     <Control Template="{StaticResource rotateDummyControlsTemplate}"/>
 
@@ -138,8 +136,8 @@
             </Grid>
 
             <DataTemplate.Triggers>
-				
-				<DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="general">
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="general">
                     <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceGeneralPanel}"/>
                 </DataTrigger>
 
