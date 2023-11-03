@@ -81,7 +81,7 @@
 
 			<Grid>
 				<!-- Show all the world tooltips for this player -->
-				<ItemsControl ItemsSource="{Binding CurrentPlayer.WorldTooltips}" ItemTemplate="{StaticResource CommonTooltipTemplate}" x:Name="WorldTooltipContainer" Visibility="Collapsed" IsHitTestVisible="True">
+				<ItemsControl ItemsSource="{Binding CurrentPlayer.WorldTooltips}" ItemTemplate="{StaticResource CommonTooltipTemplate}" x:Name="WorldTooltipContainer" IsHitTestVisible="True">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<ls:LSWorldTooltipsCanvas ClipToBounds="True"/>
@@ -133,10 +133,10 @@
 		</DataTemplate>
 	</ls:UIWidget.ContentTemplate>
 	<!-- MOD START - Show tooltips when UI changes -->
-    <!--<b:Interaction.Triggers>
+    <!-- <b:Interaction.Triggers>
         <b:PropertyChangedTrigger Binding="{Binding CurrentPlayer.UIData.ActiveState}">
             <b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}" CommandParameter="{StaticResource FalseValue}"/>
         </b:PropertyChangedTrigger>
-    </b:Interaction.Triggers>-->
+    </b:Interaction.Triggers> -->
 	<!-- MOD END -->
 </ls:UIWidget>
