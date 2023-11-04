@@ -10,6 +10,7 @@
                 <ls:InitialSubstate Name="EditorRoot"/>
                 <ls:InitialSubstate Name="GameRoot"/>
                 <ls:InitialSubstate Name="SystemRoot"/>
+                <ls:InitialSubstate Name="SystemOverlayRoot"/>
             </ls:State.InitialSubstates>
         </ls:State>
 
@@ -25,13 +26,23 @@
 
         <ls:State Name = "SystemRoot" Layout = "Common" Owner = "All">
             <ls:State.Events>
-                <!-- MOD START - Remove story message -->
+				<!-- MOD START - Remove story message -->
 				<!--<ls:StateEvent Name = "OpenSystemMessageBox">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="SystemMessageBox"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent> -->
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="SystemMessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>-->
 				<!-- MOD END -->
+            </ls:State.Events>
+        </ls:State>
+
+        <ls:State Name = "SystemOverlayRoot" Layout = "Common" Owner = "All">
+            <ls:State.Events>
+                <ls:StateEvent Name = "ShowVoiceChat">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="VoiceChat"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -98,6 +109,19 @@
             </ls:State.Events>
         </ls:State>
 
+        <!--STATE: VoiceChat-->
+        <ls:State Name = "VoiceChat" Layout="Common" Owner="All">
+            <ls:State.Events>
+                <ls:StateEvent Name = "ShowVoiceChat">
+                </ls:StateEvent>
+                <ls:StateEvent Name = "HideVoiceChat">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+        
         <!--STATE: ScreenFade-->
         <ls:State Name = "ScreenFadePlayer" DisableStatesBelow = "False" HideStatesBelow = "False" Layout="Player" Owner="Player">
             <ls:State.Widgets>
@@ -269,7 +293,7 @@
         <!--STATE: CharacterCreation -->
         <ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
             <ls:State.Widgets>
-                <!-- MOD START - Remove CC tutorial message -->
+				<!-- MOD START - Remove CC tutorial message -->
 				<!--<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>-->
                 <ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
                 <ls:StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
@@ -292,23 +316,23 @@
                         <ls:PushState Name="Paused"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <!-- MOD START - Remove CC tutorial message -->
+				<!-- MOD START - Remove CC tutorial message -->
 				<!--<ls:StateEvent Name = "OpenMessageBox">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="MessageBox"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>-->
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>-->
 				<ls:StateEvent Name = "IUI_OpenMainMenuPrompt">
-                    <ls:StateEvent.Actions>
-                        <ls:PushState Name="IUI_CharacterCreationMainMenuPrompt"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="IUI_CharacterCreationMainMenuPrompt"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
 				<ls:StateEvent Name = "OpenSplashScreen">
-                    <ls:StateEvent.Actions>
-                        <ls:PushState Name="SplashScreen"/>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="SplashScreen"/>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
 				<!-- MOD END -->
                 <ls:StateEvent Name = "OpenPinnedTooltips">
                     <ls:StateEvent.Actions>
@@ -317,28 +341,28 @@
                 </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
-		
+
 		<!-- MOD START - Custom state for main menu prompt -->
 		<ls:State Name = "IUI_CharacterCreationMainMenuPrompt" DisableStatesBelow = "False" HideStatesBelow = "False" Layout="Player" Owner="Player">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
 				<ls:StateWidget Filename="IUI_CharacterCreationMainMenuPrompt.xaml" Layer="HUD"/>
-                <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
-            </ls:State.Widgets>
-			
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>
+
 			<ls:State.Events>
-                <ls:StateEvent Name = "CloseWidget">
-                    <ls:StateEvent.Actions>
-                        <ls:RemoveState/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "OpenMessageBox">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="MessageBox"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
-        </ls:State>
+				<ls:StateEvent Name = "CloseWidget">
+					<ls:StateEvent.Actions>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+			</ls:State.Events>
+		</ls:State>
 		<!-- MOD END -->
 
         <!--STATE: CharacterLevelUp -->
@@ -992,11 +1016,6 @@
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
 
-                <ls:StateEvent Name = "IE.UIToggleAlchemy">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="CharacterPanel" Metadata="ToggleAlchemy"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
                 <ls:StateEvent Name = "ToggleAlchemy">
                     <ls:StateEvent.Actions>
                         <ls:SetSubstate Name="CharacterPanel" Metadata="ToggleAlchemy"/>
@@ -1174,7 +1193,7 @@
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <ls:StateEvent Name = "IE.UIToggleAlchemy">
+                <ls:StateEvent Name = "ToggleAlchemy">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
