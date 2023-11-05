@@ -1419,8 +1419,8 @@ ConverterParameter=0}" Value="True"/>
         <ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
         <!-- MOD START - Filter racial passives -->
-        <ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
-        <ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+        <ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
         <!-- MOD END -->
 
         <ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
