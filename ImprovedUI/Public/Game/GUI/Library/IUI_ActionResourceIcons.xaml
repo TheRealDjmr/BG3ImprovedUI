@@ -151,6 +151,10 @@
 	<ImageSource x:Key="GoblinFotsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_missing.png</ImageSource>
 	<ImageSource x:Key="SpellbaneDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
 	<ImageSource x:Key="SpellbaneDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
+	<ImageSource x:Key="BladeDashResource">pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_BladeDash_d.png</ImageSource>
+	<ImageSource x:Key="BladeDashResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_BladeDash_missing.png</ImageSource>
+	<ImageSource x:Key="ElementalBladeResource">pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_d.png</ImageSource>
+	<ImageSource x:Key="ElementalBladeResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -233,6 +237,12 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
 				<Setter Property="Source" Value="{StaticResource SpellbaneDie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BladeDashResource">
+				<Setter Property="Source" Value="{StaticResource BladeDashResource}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ElementalBladeResource">
+				<Setter Property="Source" Value="{StaticResource ElementalBladeResource}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -886,6 +896,26 @@
 					<Setter Property="Source" Value="{StaticResource SpellbaneDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BladeDashResource"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BladeDashResourceUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ElementalBladeResource"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ElementalBladeResourceUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1248,6 +1278,26 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BladeDashResourceGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_BladeDash_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_BladeDash_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_BladeDash_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_BladeDash_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.ElementalBladeResourceGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -1877,6 +1927,32 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="SpellbaneDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BladeDashResource">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BladeDashResourceGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BladeDashResource"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ElementalBladeResource">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ElementalBladeResourceGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ElementalBladeResource"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
