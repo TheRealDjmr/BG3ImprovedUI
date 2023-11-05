@@ -267,7 +267,7 @@
                                 <ls:LSButton x:Name="nextButton" IsEnabled="False" Style="{StaticResource nextGameplayTabNavButtonStyle}" HorizontalAlignment="Center"/>
 
                                 <ls:LSNineSliceImage x:Name="ventureForthButton" Visibility="Collapsed" HorizontalContentAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource PrimaryButton9Slice}" Margin="0,0,0,20">
-                                    <ls:LSButton Style="{StaticResource ControllerHoldButtonStyle}" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Tag="{Binding Source='ha7867654g6f71g41ccgbd0bgba956a682293', Converter={StaticResource TranslatedStringConverter}}" EatInput="False" Command="{Binding DataContext.PlayDummyVFX, ElementName=CharacterLevelUp_c}" CommandParameter="VFX_UI_LevelUp_01" Margin="6,0,8,0" >
+                                    <ls:LSButton Style="{StaticResource ControllerHoldButtonStyle}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Tag="{Binding Source='ha7867654g6f71g41ccgbd0bgba956a682293', Converter={StaticResource TranslatedStringConverter}}" EatInput="False" Command="{Binding DataContext.PlayDummyVFX, ElementName=CharacterLevelUp_c}" CommandParameter="VFX_UI_LevelUp_01" Margin="6,0,8,0" >
                                         <b:Interaction.Triggers>
                                             <b:EventTrigger EventName="Click" >
 
@@ -410,7 +410,7 @@
                         <ContentControl x:Name="bottomButtons" IsEnabled="False" Template="{StaticResource StandardBottomButtonsTemplate}">
                             <ls:LSButton x:Name="CancelLevelUpButton" 
                                          Tag="{Binding Source='hbc80c075g1c12g45a7gb006gfdc65eea207d', Converter={StaticResource TranslatedStringConverter}}"  
-                                         DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UICancel'}" 
+                                         Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UICancel'}" 
                                          Command="{Binding DataContext.CustomEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="CloseWidget" EatInput="False"
                                          IsEnabled="False" Style="{StaticResource ControllerHoldButtonStyle}" 
                                          VerticalAlignment="Bottom" Visibility="Collapsed"/>
@@ -1004,7 +1004,7 @@ ConverterParameter=0}" Value="True"/>
                                                             </ItemsControl>
 
                                                         </ListBoxItem>
-
+                                                        
                                                         <ListBoxItem x:Name="classPassiveSpells" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
 
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}">
@@ -1014,7 +1014,7 @@ ConverterParameter=0}" Value="True"/>
                                                                     </DataTemplate>
                                                                 </ItemsControl.ItemTemplate>
                                                             </ItemsControl>
-
+                                                            
                                                         </ListBoxItem>
 
                                                         <ListBoxItem x:Name="classProgressionActions" Template="{StaticResource levelUpListBoxItemTemplate}" Style="{StaticResource levelUpListBoxItemStyle}">
@@ -1238,7 +1238,7 @@ ConverterParameter=0}" Value="True"/>
                                         <DataTrigger Binding="{Binding ActualHeight, ElementName=classProgressionSpells}" Value="0">
                                             <Setter TargetName="classProgressionSpells" Property="Visibility" Value="Hidden"/>
                                         </DataTrigger>
-
+                                        
                                         <DataTrigger Binding="{Binding ActualHeight, ElementName=subclassPassiveActions}" Value="0">
                                             <Setter TargetName="subclassPassiveActions" Property="Visibility" Value="Hidden"/>
                                         </DataTrigger>
@@ -1385,7 +1385,7 @@ ConverterParameter=0}" Value="True"/>
                                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
 
                                                 <ListBox ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
-
+                                                
                                                 <TextBlock x:Name="draconicColourHeader" ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,100,0,0"/>
 
                                                 <ItemsControl x:Name="draconicColourOptionList" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearancePassive.ColorOptions}"/>

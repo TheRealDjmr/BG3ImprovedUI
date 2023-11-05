@@ -1,4 +1,4 @@
-<!-- This is a file that is overwritten in ImprovedUI for Action Resources in CC/Levelup Keyboard UI. Entries here are optional as the tooltip action resource will be used if no entry exists here -->
+<!-- This is a null file that will be overridden by ImprovedUI Assets. The same entries are still required here to populate on CC without ImprovedUI Assets. -->
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,13 +10,7 @@
                     xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
 					mc:Ignorable="d">
 
-	<ResourceDictionary.MergedDictionaries>
-		<!-- Revert to Action Resource icon when icon is missing -->
-		<ResourceDictionary Source="../Library/IUI_ActionResourceIcons.xaml"/>
-	</ResourceDictionary.MergedDictionaries>
-
-	<!-- This is the icon that appears when the action resource is given during CC/level up -->
-	<!-- The icon is slightly different, and is placed in a different folder -->
+	<!-- Action Resource Decorative Icons-->
 	<BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />
 	<BitmapImage x:Key="BonusActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/bap_d.png" />
 	<BitmapImage x:Key="ReactionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_reaction_d.png" />
@@ -38,22 +32,9 @@
 	<BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
 	<BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
 	<BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
-	<!-- Custom icons from here -->
-	<!-- <BitmapImage x:Key="ADIFFERENTUNIQUENAMEFORIMAGE" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/CC/icons_resources/NAMEOFDDSFILEFORTHEICON.png" /> -->
-	<BitmapImage x:Key="PsiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_psipoint.png" />
-	<BitmapImage x:Key="BladesongIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/CC/icons_resources/ico_classRes_bladesong.png" />
-	<BitmapImage x:Key="BloodMaledictIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/CC/icons_resources/ico_classRes_BloodMaledict.png" />
-	<BitmapImage x:Key="HybridTransformationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/CC/icons_resources/ico_classRes_HybridTransformation.png" />
-	<BitmapImage x:Key="WuJenSpellSlotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/CC/icons_resources/ico_classRes_WuJenSpellSlot.png" />
-	<BitmapImage x:Key="MysticPsiPointsResourceIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/CC/icons_resources/ico_classRes_PsiPointsResource.png" />
-	<BitmapImage x:Key="MysticPsionicMasteryResourceIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/CC/icons_resources/ico_classRes_PsionicMasteryResource.png" />
-	<BitmapImage x:Key="SpellbaneDiceIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/CC/icons_resources/ico_classRes_SpellbaneDie_d.png" />
-	<BitmapImage x:Key="LivingFlameChargeIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/CC/icons_resources/Icon_classRes_LivingFlame.png" />
-	<!-- EDIT HERE -->
 
-	<!-- Reference entries below -->
-	<!-- Revert to Tooltip icon if CC icon is not defined here -->
-	<Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIconDefault" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
+
+	<Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIcon">
 		<Style.Triggers>
 			<DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
 				<Setter Property="Source" Value="{StaticResource ActionPointIcon}"/>
@@ -121,40 +102,4 @@
 		</Style.Triggers>
 	</Style>
 
-	<!-- This is the section for custom icons now -->
-	<Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIcon" BasedOn="{StaticResource IUI_ActionResourceDecorativeIconDefault}">
-		<Style.Triggers>
-			<!--<DataTrigger Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME">
-				<Setter Property="Source" Value="{StaticResource ADIFFERENTUNIQUENAMEFORIMAGE}"/>
-			</DataTrigger>-->
-			<DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
-				<Setter Property="Source" Value="{StaticResource PsiPointIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
-				<Setter Property="Source" Value="{StaticResource BladesongIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="BloodMaledict">
-				<Setter Property="Source" Value="{StaticResource BloodMaledictIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="HybridTransformation">
-				<Setter Property="Source" Value="{StaticResource HybridTransformationIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="WuJenSpellSlot">
-				<Setter Property="Source" Value="{StaticResource WuJenSpellSlotIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
-				<Setter Property="Source" Value="{StaticResource MysticPsiPointsResourceIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
-				<Setter Property="Source" Value="{StaticResource MysticPsionicMasteryResourceIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
-				<Setter Property="Source" Value="{StaticResource SpellbaneDiceIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="LivingFlameCharge">
-				<Setter Property="Source" Value="{StaticResource LivingFlameChargeIcon}"/>
-			</DataTrigger>
-			<!-- EDIT HERE -->
-		</Style.Triggers>
-	</Style>
 </ResourceDictionary>
