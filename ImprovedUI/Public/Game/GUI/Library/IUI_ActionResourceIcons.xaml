@@ -151,6 +151,8 @@
 	<ImageSource x:Key="GoblinFotsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_missing.png</ImageSource>
 	<ImageSource x:Key="SpellbaneDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
 	<ImageSource x:Key="SpellbaneDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
+	<ImageSource x:Key="WeaponCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponCharge.png</ImageSource>
+	<ImageSource x:Key="WeaponChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponChargeUnavailable.png</ImageSource>
 	<ImageSource x:Key="DWE_UnleashIncarnationUse">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_d.png</ImageSource>
 	<ImageSource x:Key="DWE_UnleashIncarnationUseUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_missing.png</ImageSource>
 	<ImageSource x:Key="DWE_ReclaimPotentialUse">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_d.png</ImageSource>
@@ -237,6 +239,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
 				<Setter Property="Source" Value="{StaticResource SpellbaneDie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WeaponCharge">
+				<Setter Property="Source" Value="{StaticResource WeaponCharge}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse">
 				<Setter Property="Source" Value="{StaticResource DWE_UnleashIncarnationUse}"/>
@@ -896,6 +901,16 @@
 					<Setter Property="Source" Value="{StaticResource SpellbaneDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WeaponCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource WeaponChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse"/>
@@ -1280,6 +1295,16 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.WeaponChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponCharge.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponCharge.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponChargeUsed.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponChargeUnavailable.png</ImageSource>
+		</ControlTemplate.Resources>
+	  <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.DWE_UnleashIncarnationUseGroup" TargetType="ls:LSActionPoint">
@@ -1927,6 +1952,19 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="SpellbaneDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+      <DataTrigger Binding="{Binding TypeId}" Value="WeaponCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WeaponChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WeaponCharge"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
