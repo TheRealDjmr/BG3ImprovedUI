@@ -173,6 +173,12 @@
                     <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceTailPanel}"/>
                 </DataTrigger>
 
+				<!-- MOD START - Draconic tab based on content -->
+				<DataTrigger Binding="{Binding SelectableScales.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+					<Setter TargetName="draconicTab" Property="Opacity" Value="1"/>
+				</DataTrigger>
+				<!-- MOD END -->
+
             </DataTemplate.Triggers>
 
         </DataTemplate>
