@@ -155,6 +155,10 @@
 	<ImageSource x:Key="BladeDashResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_BladeDash_missing.png</ImageSource>
 	<ImageSource x:Key="ElementalBladeResource">pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_d.png</ImageSource>
 	<ImageSource x:Key="ElementalBladeResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_missing.png</ImageSource>
+	<ImageSource x:Key="DWE_UnleashIncarnationUse">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_d.png</ImageSource>
+	<ImageSource x:Key="DWE_UnleashIncarnationUseUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_missing.png</ImageSource>
+	<ImageSource x:Key="DWE_ReclaimPotentialUse">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_d.png</ImageSource>
+	<ImageSource x:Key="DWE_ReclaimPotentialUseUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -243,6 +247,11 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="ElementalBladeResource">
 				<Setter Property="Source" Value="{StaticResource ElementalBladeResource}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse">
+				<Setter Property="Source" Value="{StaticResource DWE_UnleashIncarnationUse}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_ReclaimPotentialUse">
+				<Setter Property="Source" Value="{StaticResource DWE_ReclaimPotentialUse}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -916,6 +925,26 @@
 					<Setter Property="Source" Value="{StaticResource ElementalBladeResourceUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+      	<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource DWE_UnleashIncarnationUseUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_ReclaimPotentialUse"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource DWE_ReclaimPotentialUseUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1300,6 +1329,25 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    
+	<ControlTemplate x:Key="ActionResources.ActionGroup.DWE_UnleashIncarnationUseGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.DWE_ReclaimPotentialUseGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
 
@@ -1954,6 +2002,34 @@
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="ElementalBladeResource"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DWE_UnleashIncarnationUseGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_ReclaimPotentialUse">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DWE_ReclaimPotentialUseGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_ReclaimPotentialUse"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
