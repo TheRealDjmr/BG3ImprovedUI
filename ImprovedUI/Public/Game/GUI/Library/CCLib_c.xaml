@@ -3905,9 +3905,16 @@
                 <DataTemplate>
                     <StackPanel>
                         <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplateShort}" HorizontalAlignment="Center">
-                            <Control  Template="{StaticResource ColorOptionTickBoxTemplate}" />
+                            <Control Template="{StaticResource ColorOptionTickBoxTemplate}" />
                         </ContentControl>
                     </StackPanel>
+					<!-- MOD START - Hide all sliders since sliders are now added to the main page -->
+					<DataTemplate.Triggers>
+						<DataTrigger Binding="{Binding ListItemType}" Value="Slider">
+							<Setter TargetName="base" Property="Visibility" Value="Collapsed"/>
+						</DataTrigger>
+					</DataTemplate.Triggers>
+					<!-- MOD END -->
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -5467,8 +5474,12 @@
 
             <StackPanel x:Name="tattooChoices" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
                 <ListBox Tag="tattoos" ItemsSource="{Binding SelectableTattoos}" SelectedItem="{Binding SelectedTattoo}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableTattoos.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
-
-                <ListBox Tag="tattooColors" ItemsSource="{Binding SelectableTattooColours}" SelectedItem="{Binding SelectedTattooColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding AppearanceTattoos.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
+				<!-- MOD START - Add makeup color sliders -->
+				<StackPanel Visibility="{Binding AppearanceTattoos.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}">
+					<ListBox Tag="tattooColors" ItemsSource="{Binding SelectableTattooColours}" SelectedItem="{Binding SelectedTattooColour}" Template="{StaticResource AppearanceCarousel}" Style="{StaticResource sliderListBoxStyle}"/>
+					<ListBox x:Name="tattooIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="highlightIntensity" DataContext="{Binding AppearanceTattoos.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
+				</StackPanel>
+				<!-- MOD END -->
             </StackPanel>
 
             <ListBox Tag="piercing" ItemsSource="{Binding SelectablePiercings}" SelectedItem="{Binding SelectedPiercing}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectablePiercings.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource sliderListBoxStyle}" />
@@ -5480,13 +5491,20 @@
             <ListBox Tag="makeup" ItemsSource="{Binding SelectableMakeup}" SelectedItem="{Binding SelectedMakeup}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
 
             <ListBox Tag="makeupColors" ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
+			<!-- MOD START - Add makeup color sliders -->
+			<StackPanel Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}">
+				<ListBox x:Name="makeupColorIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="highlightIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
+				<ListBox x:Name="makeupMetallicIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="metallicIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[1]}" Template="{StaticResource AppearanceSliderCarousel}"/>
+				<ListBox x:Name="makeupGlossyIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="glossyIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[2]}" Template="{StaticResource AppearanceSliderCarousel}"/>
+			</StackPanel>
+			<!-- MOD END -->
 
 			<!-- MOD START - Hide lip makeup based on if eye makeup is available (doesn't show for Origin characters) -->
 			<StackPanel Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}">
 				<ListBox Tag="lipMakeupColors" ItemsSource="{Binding SelectableLipsMakeupColours}" SelectedItem="{Binding SelectedLipsMakeupColour}" Template="{StaticResource AppearanceCarousel}" Style="{StaticResource sliderListBoxStyle}"/>
 				<ListBox x:Name="lipColorIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="lipColorIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
-				<ListBox x:Name="metallicIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="metallicIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[1]}" Template="{StaticResource AppearanceSliderCarousel}"/>
-				<ListBox x:Name="glossyIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="glossyIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[2]}" Template="{StaticResource AppearanceSliderCarousel}"/>
+				<ListBox x:Name="lipMetallicIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="metallicIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[1]}" Template="{StaticResource AppearanceSliderCarousel}"/>
+				<ListBox x:Name="lipGlossyIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="glossyIntensity" DataContext="{Binding AppearanceLipsMakeup.ColorOptions[2]}" Template="{StaticResource AppearanceSliderCarousel}"/>
 			</StackPanel>
 			<!-- MOD END -->
 
@@ -6143,6 +6161,8 @@
                                 </b:Interaction.Triggers>
 
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
+<!-- MOD NOTE - Re-add color options -->
+                                <ItemsControl Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding HairColorOptions}" Margin="0,50,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHairColours}" SelectedItem="{Binding SelectedHairColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6164,6 +6184,8 @@
                                 </b:Interaction.Triggers>
 
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h9d4a4e08g81cdg4259g8bd1g80b47dbda3f3', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
+<!-- MOD NOTE - Re-add color options -->
+                                <ItemsControl Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHairHighlights.ColorOptions}" Margin="0,50,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHighlightColours}" SelectedItem="{Binding SelectedHighlightColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6247,6 +6269,8 @@
                                 </b:Interaction.Triggers>
 
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8f9581e8g4440g4cf5g8752g220535346a50', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
+<!-- MOD NOTE - Re-add color options -->
+                                <ItemsControl Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHornColor.ColorOptions}" Margin="0,50,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHornColours}" SelectedItem="{Binding SelectedHornColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6268,6 +6292,8 @@
                                 </b:Interaction.Triggers>
 
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h33ea2bd3g91cag471cg8242gef7327983dbf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
+<!-- MOD NOTE - Re-add color options -->
+                                <ItemsControl Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHornTipColor.ColorOptions}" Margin="0,50,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHornTipColours}" SelectedItem="{Binding SelectedHornTipColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
