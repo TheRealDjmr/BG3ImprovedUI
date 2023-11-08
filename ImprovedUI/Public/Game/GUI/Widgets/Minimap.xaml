@@ -96,7 +96,7 @@
 
                 <BitmapImage x:Key="MinimapBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/minimap_bg.png" />
                 <BitmapImage x:Key="MinimapFrame" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/minimap_frame.png" />
-				<BitmapImage x:Key="MinimapNorth" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_north.png" />
+                <BitmapImage x:Key="MinimapNorth" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_north.png" />
                 <BitmapImage x:Key="MinimapSouth" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_south.png" />
                 <BitmapImage x:Key="MinimapWest" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_west.png" />
                 <BitmapImage x:Key="MinimapEast" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Minimap/dir_east.png" />
@@ -442,12 +442,6 @@
                 </DataTrigger>
                 <DataTrigger Binding="{Binding CurrentPlayer.IsRequestingPing}" Value="True">
                     <Setter TargetName="PingButton" Property="IsChecked" Value="True"></Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=WorldMap, Path=IsMouseOver}" Value="True">
-                    <Setter TargetName="WorldMap" Property="IsMouseWorldCoordinatesEnabled" Value="{StaticResource TrueValue}"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=WorldMap, Path=IsMouseOver}" Value="False">
-                    <Setter TargetName="WorldMap" Property="IsMouseWorldCoordinatesEnabled" Value="{StaticResource FalseValue}"/>
                 </DataTrigger>
 
                 <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.StoryTimer, Converter={StaticResource NullToBoolFalseConverter}}" Value="True">

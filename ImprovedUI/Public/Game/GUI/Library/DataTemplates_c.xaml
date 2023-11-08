@@ -262,7 +262,7 @@
     <Style x:Key="AvatarCrownImageStyle" TargetType="Image">
         <Setter Property="Stretch" Value="None"/>
         <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/avatar_crown.png"/>
-        <Setter Property="Visibility" Value="Hidden" />
+        <Setter Property="Visibility" Value="Collapsed" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding CharacterType}" Value="Avatar">
                 <Setter Property="Visibility" Value="Visible" />
@@ -1635,13 +1635,19 @@
         <GradientStop Offset="1" Color="Transparent" />
     </LinearGradientBrush>
 
+    <Style x:Key="MultiselectInactiveOverlay" TargetType="Rectangle">
+        <Setter Property="Fill" Value="{StaticResource LS_tint00}"/>
+        <Setter Property="Opacity" Value="0.2"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+    </Style>
+
     <ControlTemplate x:Key="Template.InventoryListBoxItem" TargetType="ListBoxItem">
         <ls:LSEntityObject x:Name="CellRoot" Context="{Binding (ls:ContextMenuService.Context) , RelativeSource={RelativeSource Mode=TemplatedParent} }" ls:ContextMenuService.GenerateEnabled="False" DataContext="{Binding Object}" EntityRef="{Binding EntityHandle}" Background="{TemplateBinding Background}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="6" ToolTipService.VerticalOffset="120" Focusable="True" ls:MoveFocus.Focusable="True" Tag="">
             <ls:LSEntityObject.ToolTip>
                 <ls:LSTooltip Content="{Binding DataContext.Object,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </ls:LSEntityObject.ToolTip>
             <b:Interaction.Behaviors>
-                <ls:ContextMenuFillBehavior Context="{Binding (ls:ContextMenuService.Context) , RelativeSource={RelativeSource Mode=TemplatedParent} }" Player="{Binding DataContext.CurrentPlayer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" TargetObject="{Binding .}" Source="{Binding SelectedItems,RelativeSource={RelativeSource AncestorType=ListBox}}" Command="{Binding DataContext.ContextActionPressed, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                <ls:ContextMenuFillBehavior Context="{Binding (ls:ContextMenuService.Context) , RelativeSource={RelativeSource Mode=TemplatedParent} }" Player="{Binding DataContext.CurrentPlayer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" TargetObject="{Binding .}" Source="{Binding SelectedItems,RelativeSource={RelativeSource AncestorType=ListBox}}" Command="{Binding DataContext.ContextActionPressed, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" MultiSelectThreshold="1" RequireTargetInList="False"/>
             </b:Interaction.Behaviors>
             <b:Interaction.Triggers>
                 <b:DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=CellRoot}" Value="True">
@@ -1650,6 +1656,7 @@
             </b:Interaction.Triggers>
             <ContentPresenter IsHitTestVisible="False"/>
             <Image x:Name="SelectOverlay" Source="{StaticResource InvSlot_SelectionOverlay}" IsHitTestVisible="False" Visibility="Hidden" />
+            <Rectangle x:Name="InactiveOverlay" Visibility="{Binding Visibility, ElementName=SelectOverlay, Converter={StaticResource InvertVisibilityConverter}}" Style="{StaticResource MultiselectInactiveOverlay}"/>
             <Control x:Name="FocusOverlay" Visibility="Collapsed" Template="{DynamicResource FocusableBorderTemplate}"/>
             <Control Style="{StaticResource NewInventoryCellItemStyle}"/>
         </ls:LSEntityObject>
@@ -1659,6 +1666,9 @@
                 <!--can be removed if we get the focusedElement on the ListboxItem-->
                 <Setter TargetName="CellRoot" Property="Tag" Value="IsSelected"/>
             </Trigger>
+            <DataTrigger Binding="{Binding (ls:MultiSelect.IsEnabled), RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Value="False">
+                <Setter TargetName="InactiveOverlay" Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
             <Trigger SourceName="CellRoot" Property="ls:MoveFocus.IsFocused" Value="True">
                 <Setter TargetName="FocusOverlay" Property="Visibility" Value="Visible" />
             </Trigger>

@@ -72,8 +72,28 @@
     <BitmapImage x:Key="TickInactive" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/ico_tick_inactive_d.png" />
 
     <!-- Action Resource Decorative Icons-->
-	<!-- MOD START - Move Action resource icon to IUI files -->
-	<!-- MOD END -->
+    <BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />
+    <BitmapImage x:Key="BonusActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/bap_d.png" />
+    <BitmapImage x:Key="ReactionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_reaction_d.png" />
+    <BitmapImage x:Key="MovementSpeedIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_speed.png" />
+    <BitmapImage x:Key="WarlockSpellslotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_warlock.png" />
+    <BitmapImage x:Key="SpellSlotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot.png" />
+    <BitmapImage x:Key="SorceryPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_sorc_d.png" />
+    <BitmapImage x:Key="KiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_ki.png" />
+    <BitmapImage x:Key="LayOnHandsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_LayOnHands.png" />
+    <BitmapImage x:Key="RagePointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_rage.png" />
+    <BitmapImage x:Key="BardicInspirationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_inspiration.png" />
+    <BitmapImage x:Key="ChannelDivinityIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_channelDivinity_d.png" />
+    <BitmapImage x:Key="ChannelOathIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_channelOath.png" />
+    <BitmapImage x:Key="SuperiorityDieIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_superiorityDice_d.png" />
+    <BitmapImage x:Key="ArcaneRecoveryIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_arcaneRecovery_d.png" />
+    <BitmapImage x:Key="NaturalRecoveryIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_NaturalRecovery.png" />
+    <BitmapImage x:Key="WildshapeIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_wildshape.png" />
+    <BitmapImage x:Key="TidesOfChaosIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_tidesOfChaos_d.png" />
+    <BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
+    <BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
+    <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
+
 
     <Style x:Key="CCButtonStyle" TargetType="{x:Type ls:LSButton}"  BasedOn="{StaticResource BaseButtonStyle}">
         <Setter Property="FontSize" Value="{StaticResource MediumFontSize}"/>
@@ -186,7 +206,7 @@
         <Setter Property="Stretch" Value="None"/>
     </Style>
 
-    <!-- MOD START - Move Action resource icon to IUI files -->
+	<!-- MOD START - Move Action resource icon to IUI files -->
 	<Style TargetType="Image" x:Key="ActionResourceDecorativeIcon" BasedOn="{StaticResource IUI_ActionResourceDecorativeIcon}"/>
 	<!-- MOD END -->
 
@@ -643,12 +663,11 @@
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-					
-					<!-- MOD START - Racial passive selection -->
-                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
-                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-                    <!-- MOD END -->
+					<!-- MOD START - Racial passive selection -->
+					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+					<!-- MOD END -->
 
                     <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
                         <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
@@ -1196,23 +1215,23 @@
                 <Setter TargetName="subTabsSpellsList" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}"/>
             </MultiDataTrigger>
 			<!-- MOD START - Racial passive selection -->
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
-                    <Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
-                    <Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
-            </MultiDataTrigger>
-            <!-- MOD END -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+					<Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
+					<Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+			</MultiDataTrigger>
+			<!-- MOD END -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="class"/>
@@ -1783,8 +1802,8 @@
             </StackPanel.Resources>
 
             <Grid HorizontalAlignment="Center">
-                <!-- MOD START - Use main class instead of subclass icon -->
-                <Image Style="{StaticResource MainClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
+				<!-- MOD START - Use main class instead of subclass icon -->
+				<Image Style="{StaticResource MainClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
 				<!-- MOD END -->
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
             </Grid>
@@ -1821,7 +1840,7 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
-	
+
 	<!-- MOD START - Duplicate for subclass icons -->
 	<DataTemplate x:Key="SubclassIconTemplate" DataType="ls:VMSelectableClass">
         <StackPanel>
@@ -1868,7 +1887,6 @@
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
-	<!-- MOD END -->
 
     <DataTemplate x:Key="ReducedClassIconTemplate" DataType="ls:VMSelectableClass">
         <DataTemplate.Resources>
@@ -1876,8 +1894,8 @@
         </DataTemplate.Resources>
         <StackPanel>
             <Grid HorizontalAlignment="Center">
-                <!-- MOD START - Use main class instead of subclass icon -->
-                <Image x:Name="icon" Style="{StaticResource MainClassIconHotbarStyle}" Stretch="None"/>
+				<!-- MOD START - Use main class instead of subclass icon -->
+				<Image x:Name="icon" Style="{StaticResource MainClassIconHotbarStyle}" Stretch="None"/>
 				<!-- MOD END -->
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Width="148" Height="148"/>
 
@@ -1984,27 +2002,27 @@
                 <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h6f244511g84dag44f2g884dg48475c76d9bb',Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
 			<!-- MOD START - Custom Dragonborn subrace names - this can be applied to any subrace -->
-            <!--Amethyst-->
-            <DataTrigger Binding="{Binding Guid}" Value="4fe25c67-8198-4349-9d30-bb973f022221">
-                <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h3f87da5agadc1g4d73gd099gf3e1d77d67fa',Converter={StaticResource TranslatedStringConverter}}"/>
-            </DataTrigger>
-            <!--Crystal-->
-            <DataTrigger Binding="{Binding Guid}" Value="1d4e4ebf-8651-4a3d-b157-553293acf264">
-                <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h46eb5a13g802dg4755g74cbgeb26bdbb5cc8',Converter={StaticResource TranslatedStringConverter}}"/>
-            </DataTrigger>
-            <!--Emerald-->
-            <DataTrigger Binding="{Binding Guid}" Value="88666a48-6da7-4fa3-85f1-2938f99691e2">
-                <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h99ab364eg5332g4505gb60bg63ad16ce41d2',Converter={StaticResource TranslatedStringConverter}}"/>
-            </DataTrigger>
-            <!--Sapphire-->
-            <DataTrigger Binding="{Binding Guid}" Value="6728720b-07f4-487d-ac59-ae2b4e2006ac">
-                <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hbb627349g7365g41c3g5297g8319cb4d25a7',Converter={StaticResource TranslatedStringConverter}}"/>
-            </DataTrigger>
-            <!--Topaz-->
-            <DataTrigger Binding="{Binding Guid}" Value="eb88b85c-a191-40ef-803b-c07b60eb478e">
-                <Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h4abbcd9bg68cag425cg7bdfg3acbb790d35f',Converter={StaticResource TranslatedStringConverter}}"/>
-            </DataTrigger>
-            <!-- MOD END -->
+			<!--Amethyst-->
+			<DataTrigger Binding="{Binding Guid}" Value="4fe25c67-8198-4349-9d30-bb973f022221">
+				<Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h3f87da5agadc1g4d73gd099gf3e1d77d67fa',Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+			<!--Crystal-->
+			<DataTrigger Binding="{Binding Guid}" Value="1d4e4ebf-8651-4a3d-b157-553293acf264">
+				<Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h46eb5a13g802dg4755g74cbgeb26bdbb5cc8',Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+			<!--Emerald-->
+			<DataTrigger Binding="{Binding Guid}" Value="88666a48-6da7-4fa3-85f1-2938f99691e2">
+				<Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h99ab364eg5332g4505gb60bg63ad16ce41d2',Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+			<!--Sapphire-->
+			<DataTrigger Binding="{Binding Guid}" Value="6728720b-07f4-487d-ac59-ae2b4e2006ac">
+				<Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hbb627349g7365g41c3g5297g8319cb4d25a7',Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+			<!--Topaz-->
+			<DataTrigger Binding="{Binding Guid}" Value="eb88b85c-a191-40ef-803b-c07b60eb478e">
+				<Setter TargetName="label" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h4abbcd9bg68cag425cg7bdfg3acbb790d35f',Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+			<!-- MOD END -->
         </DataTemplate.Triggers>
     </DataTemplate>
 
@@ -2066,8 +2084,8 @@
             </Setter.Value>
         </Setter>
         <Setter Property="ItemTemplate" Value="{StaticResource CustomBrushIconTemplate}"/>
-        <!-- MOD START - Remove scroll limit for heads -->
-        <!--<Setter Property="MaxHeight" Value="736"/> -->
+		<!-- MOD START - Remove scroll limit for heads -->
+		<!--<Setter Property="MaxHeight" Value="736"/> -->
 		<!-- MOD END -->
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -2405,7 +2423,7 @@
             </TextBlock>
             <TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
 
-            <!-- MOD START - Restrict passive list max height -->
+			<!-- MOD START - Restrict passive list max height -->
 			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="1000" Height="Auto" VerticalScrollBarVisibility="Auto">
 				<ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,32,0,0">
 					<ItemsControl.ItemTemplate>
@@ -2433,8 +2451,8 @@
             <DataTrigger Binding="{Binding IsComplete}" Value="False">
                 <Setter TargetName="SelectionTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
             </DataTrigger>
-			
-			<MultiDataTrigger>
+
+            <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsComplete}" Value="True"/>
                     <Condition Value="True">
@@ -2448,6 +2466,7 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="PassiveSelectorMaxText" Property="Text" Value="{Binding SelectedPassiveCount, StringFormat='/{0})'}"/>
             </MultiDataTrigger>
+
         </DataTemplate.Triggers>
     </DataTemplate>
 
@@ -2843,7 +2862,7 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="cameraModeControlsTemplate">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Background="Transparent" >
             <StackPanel.Resources>
                 <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
                 <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>
@@ -3243,8 +3262,8 @@
 
             <!-- Button Visibility -->
             <DataTrigger Binding="{Binding SelectedOrigin.IsLockedAppearance}" Value="True">
-                <!-- MOD START - Edit appearance for Origin characters -->
-				<!-- <Setter TargetName="EditAppearanceButton" Property="Visibility" Value="Collapsed"/>  -->
+				<!-- MOD START - Edit appearance for Origin characters -->
+				<!--<Setter TargetName="EditAppearanceButton" Property="Visibility" Value="Collapsed"/>-->
 				<!-- MOD END -->
                 <Setter TargetName="GameplayProceedButton" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="GameplayToCompanionButton" Property="Visibility" Value="Visible"/>
@@ -3604,10 +3623,11 @@
                 </StackPanel.Resources>
 
                 <TextBlock x:Name="SpecializationText" Text="{Binding Source='h990f5b12g47e8g409fg8ebeg1b658317dc01', Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center"/>
-                <StackPanel x:Name="SpecializationSelection" Orientation="Horizontal"  HorizontalAlignment="Center" Visibility="Collapsed">
-                    <TextBlock x:Name="chosenText" Text="{Binding Source='h13a16848g4e88g4228g92c3ge41772417b03', Converter={StaticResource TranslatedStringConverter}}"/>
-                    <TextBlock x:Name="subClassNameText" Text="{Binding SelectedSubclass.Name}" Margin="8,0,0,0"/>
-                </StackPanel>
+
+                <TextBlock x:Name="SpecializationSelection" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+                    <Run x:Name="chosenText" Text="{Binding Source='h13a16848g4e88g4228g92c3ge41772417b03', Converter={StaticResource TranslatedStringConverter}}"/>
+                    <Run x:Name="subClassNameText" Text="{Binding SelectedSubclass.Name}"/>
+                </TextBlock>
 
                 <ItemsControl x:Name="SubclassesList" ItemsSource="{Binding SelectableSubClasses}" ItemsPanel="{StaticResource gameplayItemsPanelTemplate}" Margin="0,20,0,0">
                     <ItemsControl.ItemTemplate>
@@ -3693,13 +3713,12 @@
 
                     <TextBlock x:Name="addClassDescription" Visibility="Collapsed" ls:TextBlockFormatter.SourceText="{Binding Source=h5207e327g4302g4910gaf8cgc2e27cc1b248, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" Margin="0,20,0,20"/>
 
-                    <!-- MOD START - Add scroll viewer to support multiple modded class selection -->
+					<!-- MOD START - Add scroll viewer to support multiple modded class selection -->
 					<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" VerticalScrollBarVisibility="Auto">
 						<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-						
+
 							<!-- Class selector -->
 							<ListBox x:Name="classList" Visibility="{Binding SelectableClasses.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" ItemTemplate="{StaticResource ClassIconTemplate}" ItemsSource="{Binding SelectableClasses}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" SelectedItem="{Binding SelectedClass}" Style="{StaticResource gameplayIconGridStyle}"/>
-
 							<ListBox x:Name="multiclassList" Visibility="{Binding SelectableMultiClasses.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" ItemTemplate="{StaticResource ReducedClassIconTemplate}" ItemsSource="{Binding SelectableMultiClasses}" SelectedItem="{Binding SelectedMultiClass}" Style="{StaticResource gameplayIconGridStyle}" Width="920">
 								<ListBox.ItemContainerStyle>
 									<Style TargetType="ListBoxItem" BasedOn="{StaticResource CCIconTextListBoxItemStyle}">
@@ -3714,10 +3733,10 @@
 							</ListBox>
 						</StackPanel>
 					</ls:LSScrollViewer>
-                </StackPanel>
+				</StackPanel>
 
-                <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="770" Height="Auto" Margin="100,0,88,52">
-                    <!-- MOD END -->
+				<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="770" Height="Auto" Margin="100,0,88,52">
+					<!-- MOD END -->
                     <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                         <!-- Name and description -->
@@ -3923,7 +3942,7 @@
 
             <Image Source="{StaticResource BGDecoration}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
 
-            <!-- MOD START - Two scroll viewers to support multiple modded subclass selection -->
+			<!-- MOD START - Two scroll viewers to support multiple modded subclass selection -->
 			<Grid Height="1750" VerticalAlignment="Top">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
@@ -3931,35 +3950,35 @@
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-                <Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
-                <TextBlock Grid.Row="1" x:Name="subclassTitle" Text="{Binding Source=hc59a4905ge807g44a3g8899gc5e9760dc804, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+				<Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
+				<TextBlock Grid.Row="1" x:Name="subclassTitle" Text="{Binding Source=hc59a4905ge807g44a3g8899gc5e9760dc804, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
-                    <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+				<ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
+					<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                        <ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
-						
+						<ListBox x:Name="SubclassesList" ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
+
 					</StackPanel>
 				</ls:LSScrollViewer>
 				<ls:LSScrollViewer Grid.Row="3" VerticalAlignment="Top" Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
 					<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-                        <Grid Margin="0,60,0,0">
-                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>
+						<Grid Margin="0,60,0,0">
+							<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>
 
-                            <Control x:Name="subclassDetailsButton" Visibility="Collapsed" Template="{StaticResource classDetailsButtonTemplate}"/>
-                        </Grid>
+							<Control x:Name="subclassDetailsButton" Visibility="Collapsed" Template="{StaticResource classDetailsButtonTemplate}"/>
+						</Grid>
 
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,12,0,0"/>
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,12,0,0"/>
 
-                        <ItemsControl x:Name="SubclassSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+						<ItemsControl x:Name="SubclassSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 
-                        <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Margin="0,12,0,0"/>
+						<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Margin="0,12,0,0"/>
 
-                        <ContentControl x:Name="SubclassFeatures" Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,12,0,0"/>
+						<ContentControl x:Name="SubclassFeatures" Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,12,0,0"/>
 
-                    </StackPanel>
-                </ls:LSScrollViewer>
-            </Grid>
+					</StackPanel>
+				</ls:LSScrollViewer>
+			</Grid>
 			<!-- MOD END -->
         </Grid>
         <ControlTemplate.Triggers>
@@ -3993,7 +4012,7 @@
         <Grid>
             <Image Source="{StaticResource BGDecoration}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0"/>
 
-             <!-- MOD START - Two scroll viewers to support multiple modded subclass selection -->
+			<!-- MOD START - Two scroll viewers to support multiple modded subclass selection (level up) -->
 			<Grid Height="1750" VerticalAlignment="Top">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
@@ -4001,33 +4020,33 @@
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
-                <Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
-                <TextBlock Grid.Row="1" x:Name="subclassTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h1e67bc9cg0f53g4218g8ce8geb6a6636f141, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+				<Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
+				<TextBlock Grid.Row="1" x:Name="subclassTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h1e67bc9cg0f53g4218g8ce8geb6a6636f141, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
-                    <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+				<ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
+					<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                        <ListBox ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
+						<ListBox ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
 						
 					</StackPanel>
-                </ls:LSScrollViewer>
+				</ls:LSScrollViewer>
 				<ls:LSScrollViewer Grid.Row="3" VerticalAlignment="Top" Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
-                    <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+					<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,60,0,0"/>
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,60,0,0"/>
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
 
-                        <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource LevelUpSpellSelectorPreviewTemplate}"/>
+						<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource LevelUpSpellSelectorPreviewTemplate}"/>
 
-                        <ItemsControl ItemsSource="{Binding ClassProgressionDetails.SubPassiveSelectors}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" ItemContainerStyle="{StaticResource UpdateStateItemStyle}"/>
+						<ItemsControl ItemsSource="{Binding ClassProgressionDetails.SubPassiveSelectors}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" ItemContainerStyle="{StaticResource UpdateStateItemStyle}"/>
 
-                        <ContentControl Template="{DynamicResource LevelUpShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center"/>
+						<ContentControl Template="{DynamicResource LevelUpShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center"/>
 
-                        <ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" />
+						<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" />
 
-                    </StackPanel>
-                </ls:LSScrollViewer>
-            </Grid>
+					</StackPanel>
+				</ls:LSScrollViewer>
+			</Grid>
 			<!-- MOD END -->
         </Grid>
 
@@ -4039,32 +4058,32 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="deityTabPanelTemplate">
-        <!-- MOD START - Change Deity tab to better support modded long descriptions -->
+		<!-- MOD START - Change Deity tab to better support modded long descriptions -->
 		<StackPanel>
-            <StackPanel>
-                <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
-                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=hf1582cccge964g41abga5acg9cd5ecdf35dc, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
-            </StackPanel>
+			<StackPanel>
+				<Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
+				<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=hf1582cccge964g41abga5acg9cd5ecdf35dc, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+			</StackPanel>
 
-            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="1050">
-                <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}" Margin="40,0,-40,50">
+			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="1050">
+				<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}" Margin="40,0,-40,50">
 
-                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableDeities}" SelectedItem="{Binding SelectedDeity}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
-                        <ListBox.Resources>
-                            <Style x:Key="CustomIconStyle" BasedOn="{StaticResource DeityIconStyle}" TargetType="Rectangle"/>
-                        </ListBox.Resources>
-                    </ListBox>
+					<ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableDeities}" SelectedItem="{Binding SelectedDeity}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+						<ListBox.Resources>
+							<Style x:Key="CustomIconStyle" BasedOn="{StaticResource DeityIconStyle}" TargetType="Rectangle"/>
+						</ListBox.Resources>
+					</ListBox>
 
-                </StackPanel>
-            </ls:LSScrollViewer>
+				</StackPanel>
+			</ls:LSScrollViewer>
 
-            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="490"><!-- This is just in case of some really long description-->
+			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="490"><!-- This is just in case of some really long description-->
 				<StackPanel Margin="0,0,0,88">
 					<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedDeity.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center"/>
 					<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedDeity.Description}"  Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
 				</StackPanel>
 			</ls:LSScrollViewer>
-        </StackPanel>
+		</StackPanel>
 		<!-- MOD END -->
     </ControlTemplate>
 
@@ -4239,7 +4258,13 @@
         <StackPanel>
             <TextBlock Text="{Binding Text}" HorizontalAlignment="Center"/>
             <Slider DataContext="{Binding}" Template="{StaticResource OptionsSliderTemplate}" Value="{Binding Value}" Minimum="{Binding Min}" Maximum="{Binding Max}" IsSnapToTickEnabled="False" 
-                    SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}" LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}" IsEnabled="{Binding Enabled}"/>
+                    SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}" LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}" IsEnabled="{Binding Enabled}">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="ValueChanged">
+                        <b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </Slider>
         </StackPanel>
     </ControlTemplate>
 
@@ -4278,24 +4303,24 @@
 
                 <StackPanel DockPanel.Dock="Bottom" x:Name="colorSwatches">
 					<!-- MOD START - Unique appearance options (instead of Draconic Scales) -->
-                    <!--<ContentControl x:Name="linesHeader" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToVisibleConverter}}" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h861a433dgcc20g452bg9b1agde89d14c85c9', Converter={StaticResource TranslatedStringConverter}}"/>
-                    </ContentControl>
-                    <StackPanel x:Name="linesToggle" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToVisibleConverter}}" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                        <ls:LSToggleButton x:Name="linesToggleButton" Style="{StaticResource TickBox}" IsChecked="{Binding AppearancePassive.EmptyMaterialSelected, Mode=TwoWay, Converter={StaticResource InvertBoolConverter}}" Command="{Binding DragonbornDraconicLinesToggleCommand}"/>
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ea184f4g802bg4712gac5cgdeaee9390e44', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center"/>
-                    </StackPanel>-->
-                    <ContentControl x:Name="swatchScalesColorHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                        <TextBlock x:Name="swatchScalesColorHeaderText" ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}"/>
-                    </ContentControl>
-                    <ls:LSToggleButton x:Name="swatchScalesColorButton" DataContext="{Binding SelectedPassiveColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-                </StackPanel>
+					<!--<ContentControl x:Name="linesHeader" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToVisibleConverter}}" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h861a433dgcc20g452bg9b1agde89d14c85c9', Converter={StaticResource TranslatedStringConverter}}"/>
+					</ContentControl>
+					<StackPanel x:Name="linesToggle" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToVisibleConverter}}" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+						<ls:LSToggleButton x:Name="linesToggleButton" Style="{StaticResource TickBox}" IsChecked="{Binding AppearancePassive.EmptyMaterialSelected, Mode=TwoWay, Converter={StaticResource InvertBoolConverter}}" Command="{Binding DragonbornDraconicLinesToggleCommand}"/>
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ea184f4g802bg4712gac5cgdeaee9390e44', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center"/>
+					</StackPanel>-->
+					<ContentControl x:Name="swatchScalesColorHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+						<TextBlock x:Name="swatchScalesColorHeaderText" ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}"/>
+					</ContentControl>
+					<ls:LSToggleButton x:Name="swatchScalesColorButton" DataContext="{Binding SelectedPassiveColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
+				</StackPanel>
 
-                <DockPanel>
-                    <ContentControl DockPanel.Dock="Top" x:Name="scalesHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}"/>
-                    </ContentControl>
-                    <ListBox x:Name="scalesList" ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
+				<DockPanel>
+					<ContentControl DockPanel.Dock="Top" x:Name="scalesHeader" Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
+						<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}"/>
+					</ContentControl>
+					<ListBox x:Name="scalesList" ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
 					<!-- MOD END -->
                 </DockPanel>
             </DockPanel>
@@ -4587,7 +4612,7 @@
             <Grid Grid.Column="1" Height="1650" DataContext="{Binding SelectedFeatDetails}" Visibility="{Binding HasFeat, Converter={StaticResource BoolToVisibleConverter}}" Margin="0,100">
                 <ls:LSNineSliceImage Slices="100,80,100,80" Width="800" MinHeight="1650" Margin="-12,-16,-12,-12"  ImageSource="{StaticResource FeatEditBackground}"/>
 
-                <!-- MOD START - Feat panel changes to support modded feats -->
+				<!-- MOD START - Feat panel changes to support modded feats -->
 				<Grid x:Name="featEditPanel" VerticalAlignment="Top">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
@@ -4595,17 +4620,17 @@
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="*"/>
 					</Grid.RowDefinitions>
-                    <Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
+					<Image Grid.Row="0" Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
 
-                    <TextBlock Grid.Row="1" ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource PanelHeaderText}"/>
+					<TextBlock Grid.Row="1" ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource PanelHeaderText}"/>
 					
 					<!-- This is only needed because of Lostsoul's huge descriptions -->
 					<ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="350" Height="Auto" Width="840" Margin="0,20,0,0" Padding="-40,0,40,60">
 						<TextBlock ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" MaxWidth="700"/>
 					</ls:LSScrollViewer>
 
-                    <ls:LSScrollViewer Grid.Row="3" Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="Auto" Width="840" Margin="-20,20,-20,0">
-						<StackPanel Width="800" HorizontalAlignment="Left" Margin="20,0">
+					<ls:LSScrollViewer Grid.Row="3" Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" Height="Auto" Width="840" Margin="-20,20,-20,0">
+						<StackPanel Width="800" HorizontalAlignment="Left" Margin="20,0"><!-- Almost MOD END apart from a /Grid -->
 
                             <!-- Boosts and Abilities -->
                             <ItemsControl ItemsSource="{Binding FeatDetails.Progressions}">
@@ -5089,8 +5114,8 @@
                                 </ls:LSNineSliceImage>
                             </Grid>
                         </StackPanel>
-						
-						<Control x:Name="bodyTypeSelector"  Template="{StaticResource BodyTypeTemplate}" Margin="0,64,0,0"/>
+
+                        <Control x:Name="bodyTypeSelector"  Template="{StaticResource BodyTypeTemplate}" Margin="0,64,0,0"/>
 
                         <ContentControl x:Name="identityHeader"  Template="{StaticResource decoratedHeader}" Margin="0,50,0,0" Visibility="{Binding CanShowIdentity, Converter={StaticResource BoolToVisibleConverter}}">
                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hcc23cfaagbc1eg4bb0gafb9g9f720497b786', Converter={StaticResource TranslatedStringConverter}}"/>
@@ -5114,7 +5139,7 @@
                             <TextBlock x:Name="IdentityTxt" Text="{Binding Source='h033a526fg0fe7g4164g8431g177be16d148a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource CarouselTextStyle}" TextTrimming="CharacterEllipsis" MaxWidth="500"/>
                         </Grid>
 
-                        <!-- MOD START - Always show voices, even for Hirelings/Origins -->
+						<!-- MOD START - Always show voices, even for Hirelings/Origins -->
 						<StackPanel x:Name="voiceSection">
 							<!-- MOD END -->
                             <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
@@ -5156,14 +5181,14 @@
                         </ContentControl>
                         <ListBox ItemsSource="{Binding SelectableJaw}" SelectedItem="{Binding SelectedJaw}" Style="{StaticResource headAppearanceIconGridStyle}" Visibility="{Binding SelectableJaw.Count, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,50"/>
 
-                        <!-- MOD START - Show options if they are available -->
+						<!-- MOD START - Show options if they are available -->
 						<StackPanel Visibility="{Binding SelectableSkinColours.Count, Converter={StaticResource CountToVisibilityConverter}}">
 							<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,64,0,0">
 								<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hc81ba7bcgb2ccg4423ga050g253fd53ce2c9', Converter={StaticResource TranslatedStringConverter}}"/>
 							</ContentControl>
 							<ls:LSToggleButton x:Name="swatchSkinColourButton" DataContext="{Binding SelectedSkinColour}" IsChecked="False" Template="{StaticResource ColourButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
 						</StackPanel>
-						
+
 						<StackPanel Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
 							<StackPanel x:Name="scars" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
 								<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
@@ -5184,7 +5209,13 @@
 																IsSnapToTickEnabled="False"
 																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
 																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}"/>
+																IsEnabled="{Binding Enabled}">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="ValueChanged">
+											<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</Slider>
 							</StackPanel>
 
 							<StackPanel x:Name="Freckles" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
@@ -5199,7 +5230,13 @@
 																IsSnapToTickEnabled="False"
 																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
 																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}"/>
+																IsEnabled="{Binding Enabled}">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="ValueChanged">
+											<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</Slider>
 							</StackPanel>
 
 							<StackPanel x:Name="FrecklesIntensity" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
@@ -5214,7 +5251,13 @@
 																IsSnapToTickEnabled="False"
 																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
 																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}"/>
+																IsEnabled="{Binding Enabled}">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="ValueChanged">
+											<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</Slider>
 							</StackPanel>
 
 							<StackPanel x:Name="Vitiligo" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}">
@@ -5229,7 +5272,13 @@
 															IsSnapToTickEnabled="False"
 															SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
 															LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-															IsEnabled="{Binding Enabled}"/>
+															IsEnabled="{Binding Enabled}">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="ValueChanged">
+											<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</Slider>
 							</StackPanel>
 						</StackPanel>
 						<!-- MOD END -->
@@ -5300,11 +5349,11 @@
             <DataTrigger Binding="{Binding SelectedIdentity}" Value="Neutral">
                 <Setter TargetName="IdentityTxt" Property="Text" Value="{Binding Source='hea2ce077g2b7ag42dfgb194g928c3dd108a7', Converter={StaticResource TranslatedStringConverter}}"/>
             </DataTrigger>
-			
+
 			<!-- MOD START - Always show voices, even for Hirelings/Origins -->
 			<!--<DataTrigger Binding="{Binding Voices.ComboItems.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
-                <Setter TargetName="voiceSection" Property="Visibility" Value="Visible"/>
-            </DataTrigger> -->
+				<Setter TargetName="voiceSection" Property="Visibility" Value="Visible"/>
+			</DataTrigger>-->
 			<!-- MOD END -->
 
             <DataTrigger Binding="{Binding SelectableGenitals.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
@@ -5323,10 +5372,14 @@
 
             <DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="CharacterChangeAppearance">
                 <Setter TargetName="changeNameSection" Property="Visibility" Value="Visible"/>
-				<Setter TargetName="bodyTypeSelector" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="bodyTypeSelector" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="identityHeader" Property="Margin" Value="0,64,0,0"/>
             </DataTrigger>
-
+            <DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="Henchmen">
+                <Setter TargetName="changeNameSection" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="bodyTypeSelector" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="identityHeader" Property="Margin" Value="0,64,0,0"/>
+            </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -5887,6 +5940,273 @@
             <ListBox ItemsSource="{Binding SelectableTail}" SelectedItem="{Binding SelectedTail}" Style="{StaticResource appearanceIconGridStyle}" Height="1300" MaxHeight="1300"/>
 
         </DockPanel>
+    </ControlTemplate>
+
+
+    <ControlTemplate x:Key="appearancePageTemplate" TargetType="Control">
+        <ControlTemplate.Resources>
+            <Storyboard x:Key="TransitionToOff">
+                <DoubleAnimation Storyboard.TargetName="appearanceRightSidePanels" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="1700" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+                <DoubleAnimation Storyboard.TargetName="appearanceButtons" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1"/>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="appearanceRightSidePanels" Storyboard.TargetProperty="Visibility" >
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0.6" Value="{x:Static Visibility.Collapsed}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="TransitionToOn">
+                <DoubleAnimation Storyboard.TargetName="appearanceRightSidePanels" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="0:0:0.6" DecelerationRatio="0.5"/>
+                <DoubleAnimation Storyboard.TargetName="appearanceButtons" Storyboard.TargetProperty="Opacity" To="1" BeginTime="0:0:0.5" Duration="0:0:0.1"/>
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="appearanceRightSidePanels" Storyboard.TargetProperty="Visibility" >
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                </ObjectAnimationUsingKeyFrames>
+            </Storyboard>
+            <BitmapImage x:Key="headerBackdrop" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/titleBG_guardian.png"/>
+        </ControlTemplate.Resources>
+        <Grid>
+
+            <ls:LSNineSliceImage x:Name="companionHeader" Slices="240,130,560,130" MinWidth="1060" MinHeight="272" Visibility="Collapsed" ImageSource="{StaticResource headerBackdrop}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="176,146,0,0" Padding="0 80 40 0">
+                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0606bec2g5227g499ag8f4bg9ab2589ccded', Converter={StaticResource TranslatedStringConverter}}" MaxWidth="700" TextWrapping="Wrap" FontSize="{StaticResource ScaledBigFontSize}" Foreground="{StaticResource LS_tint100}"/>
+            </ls:LSNineSliceImage>
+
+            <Grid x:Name="appearanceRightSidePanels" HorizontalAlignment="Right">
+                <Grid.RenderTransform>
+                    <TranslateTransform/>
+                </Grid.RenderTransform>
+
+                <Grid HorizontalAlignment="Right" Width="1372">
+                    <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/vignette_left.png" Stretch="Fill">
+                        <Image.RenderTransform>
+                            <ScaleTransform ScaleX="-1" CenterX="686"/>
+                        </Image.RenderTransform>
+                    </Image>
+                </Grid>
+
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,58,0,0">
+
+                    <Grid Margin="-76,0">
+
+                        <Image x:Name="bg" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/appearanceOptionsPane.png" Stretch="None" />
+
+                        <Control x:Name="appearancePanel"/>
+
+                    </Grid>
+
+                    <ListBox x:Name="appearanceTabs" ItemContainerStyle="{StaticResource AppearanceTabsStyle}" HorizontalAlignment="Right" Margin="0,300,8,0">
+
+                        <b:Interaction.Triggers>
+                            <b:DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.IsVisible}" Value="False">
+                                <b:ChangePropertyAction TargetName="appearanceTabs" PropertyName="SelectedItem" Value="{Binding ElementName=generalTab}"/>
+                            </b:DataTrigger>
+                        </b:Interaction.Triggers>
+
+                        <ListBox.Resources>
+                            <BitmapImage x:Key="tabIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_race.png"/>
+                            <BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_race_h.png"/>
+                        </ListBox.Resources>
+
+                        <ListBoxItem x:Name="raceTab" Tag="race" Visibility="Collapsed"/>
+                        <ListBoxItem x:Name="subRaceTab" Tag="subrace" Visibility="Collapsed"/>
+
+                        <ListBoxItem x:Name="generalTab" Tag="general" IsSelected="True"/>
+						<!-- MOD START - All tabs visible based on content -->
+						<ListBoxItem x:Name="tattooAndPiercingTab" Tag="tattooandpiercing" Visibility="{Binding SelectablePiercings.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+						<ListBoxItem x:Name="eyesTab" Tag="eyes" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}"/>
+						<ListBoxItem x:Name="makeupTab" Tag="makeup" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+						<ListBoxItem x:Name="hairTab" Tag="hair" Visibility="{Binding SelectableHair.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+						<ListBoxItem x:Name="facialHairTab" Tag="facialhair" Visibility="{Binding SelectableBeards.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+						<ListBoxItem x:Name="hornsTab" Tag="horns" Visibility="{Binding SelectableHorns.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+						<ListBoxItem x:Name="tailTab" Tag="tail" Visibility="{Binding Path=SelectableTail.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+						<ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="Visible"/>
+						<!-- MOD END -->
+
+                    </ListBox>
+                </StackPanel>
+
+                <!-- Appearance Buttons on Appearance Page -->
+                <Control x:Name="appearanceButtons" Template="{StaticResource AppearanceButtonsTemplate}" Margin="0,0,492,64" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+
+            </Grid>
+
+            <b:Interaction.Triggers>
+                <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Gameplay">
+                    <b:InvokeCommandAction Command="{Binding SetCharacterCreationStep}" CommandParameter="Origin"/>
+                    <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOff}" ControlStoryboardOption="Play"/>
+                </b:DataTrigger>
+
+                <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Appearance">
+                    <b:InvokeCommandAction Command="{Binding SetCharacterCreationStep}" CommandParameter="Appearance"/>
+                    <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOn}" ControlStoryboardOption="Play"/>
+                    <b:InvokeCommandAction Command="{Binding Path=SetCameraOffsets}">
+                        <b:InvokeCommandAction.CommandParameter>
+                            <MultiBinding Converter="{StaticResource PassThroughConverter}">
+                                <Binding>
+                                    <Binding.Source>
+                                        <System:Single>3.8</System:Single>
+                                    </Binding.Source>
+                                </Binding>
+                                <Binding>
+                                    <Binding.Source>
+                                        <System:Single>4</System:Single>
+                                    </Binding.Source>
+                                </Binding>
+                                <Binding>
+                                    <Binding.Source>
+                                        <System:Single>4.2</System:Single>
+                                    </Binding.Source>
+                                </Binding>
+                            </MultiBinding>
+                        </b:InvokeCommandAction.CommandParameter>
+                    </b:InvokeCommandAction>
+                </b:DataTrigger>
+
+                <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Companion">
+                    <b:InvokeCommandAction Command="{Binding SetCharacterCreationStep}" CommandParameter="Companion"/>
+                    <b:ChangePropertyAction TargetName="appearanceTabs" PropertyName="SelectedItem" Value="{Binding ElementName=raceTab}"/>
+                    <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOn}" ControlStoryboardOption="Play"/>
+                    <b:InvokeCommandAction Command="{Binding Path=SetCameraOffsets}">
+                        <b:InvokeCommandAction.CommandParameter>
+                            <MultiBinding Converter="{StaticResource PassThroughConverter}">
+                                <Binding>
+                                    <Binding.Source>
+                                        <System:Single>0</System:Single>
+                                    </Binding.Source>
+                                </Binding>
+                                <Binding>
+                                    <Binding.Source>
+                                        <System:Single>0</System:Single>
+                                    </Binding.Source>
+                                </Binding>
+                                <Binding>
+                                    <Binding.Source>
+                                        <System:Single>0</System:Single>
+                                    </Binding.Source>
+                                </Binding>
+                            </MultiBinding>
+                        </b:InvokeCommandAction.CommandParameter>
+                    </b:InvokeCommandAction>
+                </b:DataTrigger>
+
+                <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Naming">
+                    <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOff}" ControlStoryboardOption="Play"/>
+                </b:DataTrigger>
+
+                <b:DataTrigger Binding="{Binding ElementName=flowPage, Path=SelectedItem.Content}" Value="Finished">
+                    <b:ControlStoryboardAction Storyboard="{StaticResource TransitionToOff}" ControlStoryboardOption="Play"/>
+                </b:DataTrigger>
+
+            </b:Interaction.Triggers>
+
+        </Grid>
+        <ControlTemplate.Triggers>
+
+            <DataTrigger Binding="{Binding CharacterCreationStep}" Value="Companion">
+                <Setter TargetName="companionHeader" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="appearanceButtons" Property="Template" Value="{StaticResource AppearanceButtonsTemplate}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding CharacterCreationStep}" Value="Appearance">
+                <Setter TargetName="appearanceButtons" Property="Template" Value="{StaticResource AppearanceButtonsTemplateRandomOnly}"/>
+            </DataTrigger>
+
+			<!-- MOD START - Draconic tab based on content -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding CharacterCreationStep}" Value="Appearance"/>
+					<Condition Binding="{Binding SelectableScales.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="draconicTab" Property="Opacity" Value="1"/>
+			</MultiDataTrigger>
+			<!-- MOD END -->
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding CharacterCreationStep}" Value="Companion"/>
+                    <Condition Binding="{Binding SelectableSubRaces.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="subRaceTab" Property="Visibility" Value="Visible"/>
+            </MultiDataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="race">
+                <Setter TargetName="appearancePanel" Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Image Style="{StaticResource PanelHeaderIconStyle}"/>
+                                <TextBlock Text="{Binding Source='h6020727bge0e3g4de7gaf3ag469c3b32b3d2', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+                                <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+                                    <ListBox.Resources>
+                                        <Style x:Key="CustomIconStyle" BasedOn="{StaticResource RaceIconStyle}" TargetType="Rectangle"/>
+                                    </ListBox.Resources>
+                                </ListBox>
+
+                                <TextBlock Text="{Binding SelectedRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,50,0,0"/>
+                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding InfoRaceDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="subrace">
+                <Setter TargetName="appearancePanel" Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Image Style="{StaticResource PanelHeaderIconStyle}"/>
+                                <TextBlock Text="{Binding Source='h29d1d637g94bbg4f11g9bdfgbe0042b60e40', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+                                <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+                                    <ListBox.Resources>
+                                        <Style x:Key="CustomIconStyle" BasedOn="{StaticResource RaceIconStyle}" TargetType="Rectangle"/>
+                                    </ListBox.Resources>
+                                </ListBox>
+
+                                <TextBlock Text="{Binding SelectedSubRace.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,50,0,0"/>
+                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Race.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
+
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="general">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceGeneralPanel}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="tattooandpiercing">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceTattooAndPiercingPanel}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="eyes">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceEyesPanel}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="makeup">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceMakeupPanel}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="hair">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceHairPanel}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="facialhair">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceFacialHairPanel}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="horns">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceHornsPanel}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="draconic">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource draconicAppearancePanelTemplate}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="tail">
+                <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceTailPanel}"/>
+            </DataTrigger>
+
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
 </ResourceDictionary>

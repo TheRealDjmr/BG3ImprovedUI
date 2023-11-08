@@ -17,8 +17,8 @@
 		<ResourceDictionary Source="../Library/IUI_BackgroundIcons.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 	<!-- MOD END -->
-	
-	<System:TimeSpan x:Key="DefaultButtonTapTime">0:0:0.3</System:TimeSpan>
+
+    <System:TimeSpan x:Key="DefaultButtonTapTime">0:0:0.3</System:TimeSpan>
     
     <System:Double x:Key="HotBarSlotWidth">88</System:Double>
     <System:Double x:Key="HotBarSlotHeight">88</System:Double>
@@ -93,7 +93,7 @@
 	<Style TargetType="Image" x:Key="ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}"/>
 	<Style TargetType="Image" x:Key="SectionImageStyle" BasedOn="{StaticResource IUI_SectionImageStyle}"/>
 	<!-- MOD END -->
-	
+
 	<!-- MOD START - Custom backgrounds, taken directly from DefaultTheme.Styles and just overwritten here -->
 	<Style x:Key="BackgroundIconStyle" TargetType="Rectangle" BasedOn="{StaticResource IUI_BackgroundIconStyle}">
         <Style.Triggers>
@@ -322,7 +322,7 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-	
+
 	<!-- MOD START - Custom Class icons -->
 	<Style x:Key="MainClassIconStyle" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconStyle}"/>
 	<Style x:Key="MainClassIconHotbarStyle" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconHotbarStyle}"/>
@@ -332,8 +332,8 @@
 
     <!-- MOD START - Custom Race icons -->
 	<Style x:Key="RaceIconStyle" TargetType="Rectangle" BasedOn="{StaticResource IUI_RaceIconStyle}">
-        <!-- MOD END -->
-		<Style.Triggers>
+    <!-- MOD END -->
+        <Style.Triggers>
             <DataTrigger Binding="{Binding Guid}" Value="9c61a74a-20df-4119-89c5-d996956b6c66">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -376,6 +376,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+
             <DataTrigger Binding="{Binding Guid}" Value="fe648fc4-3bc9-412c-b692-15fecddc3c69">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -411,6 +412,8 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+
+
             <DataTrigger Binding="{Binding Guid}" Value="4f5d1434-5175-4fa9-b7dc-ab24fba37929">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -432,6 +435,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+
             <DataTrigger Binding="{Binding Guid}" Value="fe584d14-71ea-4bee-8ba0-99f780d4c957">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -460,6 +464,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+
             <DataTrigger Binding="{Binding Guid}" Value="6c038dcb-7eb5-431d-84f8-cecfaf1c0c5a">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -505,6 +510,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+
             <DataTrigger Binding="{Binding Guid}" Value="3560f4a2-c0b8-4f8b-baf8-6b6eaef0c160">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -540,6 +546,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+
             <DataTrigger Binding="{Binding Guid}" Value="76057327-da03-4398-aaf0-c59345ef3a8b">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -547,6 +554,7 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+
             <DataTrigger Binding="{Binding Guid}" Value="e966f47f-998a-41df-ad86-d83b44299efb">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -554,6 +562,8 @@
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
+
+
             <DataTrigger Binding="{Binding Guid}" Value="78cd3bcc-1c43-4a2a-aa80-c34322c16a04">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -1025,16 +1035,131 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
+    <DataTemplate x:Key="Template.ItemEquipment" DataType="{x:Type ls:VMItem}">
+        <Grid x:Name="rootGrid" Width="{DynamicResource ScaledNewSlotSize}" Height="{DynamicResource ScaledNewSlotSize}">
+            <Image Style="{StaticResource RarityFrameBackgroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
+            <Rectangle Fill="{Binding Icon}" Width="{DynamicResource ScaledNewItemIconSize}" Height="{DynamicResource ScaledNewItemIconSize}" IsHitTestVisible="False" />
+            <!-- Compatibility with "Stackable Items" Mod, displays stack amount for equipment stacks. Begin -->
+            <Viewbox x:Name="ItemAmountHolder" Width="{DynamicResource ScaledNewSlotSize}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}" StretchDirection="DownOnly">
+                <TextBlock x:Name="ItemAmount" Text="{Binding Count, Converter={StaticResource AbbreviateNumberConverter}}" Style="{StaticResource ItemAmountTextStyle}" Margin="8,0"/>
+            </Viewbox>
+            <!-- Compatibility with "Stackable Items" Mod. End -->
+            <Image Style="{StaticResource RarityFrameForegroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
+            <Image x:Name="WaresIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource InventoryWaresCellItemImageStyle}"/>
+            <ContentPresenter ContentTemplate="{StaticResource EquippedTorchIcon}" Content="{Binding .}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,4,4,0"/>
+        </Grid>
+        <DataTemplate.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding DataContext.IsInventoryLocked, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="True"/>
+                    <Condition Value="False">
+                        <Condition.Binding>
+                            <MultiBinding Converter="{StaticResource EqualConverter}">
+                                <Binding Path="DataContext.OwnerUserID" RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}"/>
+                                <Binding Path="DataContext.CurrentPlayer.UserId" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
+                            </MultiBinding>
+                        </Condition.Binding>
+                    </Condition>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="rootGrid" Property="Effect">
+                    <Setter.Value>
+                        <ls:SaturationEffect Saturation="0.3"/>
+                    </Setter.Value>
+                </Setter>
+            </MultiDataTrigger>
+
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Template.ItemContainer" DataType="{x:Type ls:VMItem}">
+        <Grid x:Name="rootGrid" Width="{DynamicResource ScaledNewSlotSize}" Height="{DynamicResource ScaledNewSlotSize}">
+            <Image Style="{StaticResource ContainerItemBackgroundStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
+            <Rectangle Fill="{Binding Icon}" Width="{DynamicResource ScaledNewItemIconSize}" Height="{DynamicResource ScaledNewItemIconSize}" IsHitTestVisible="False" />
+            <ContentPresenter ContentTemplate="{StaticResource EquippedTorchIcon}" Content="{Binding .}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,4,4,0"/>
+            <Control Style="{StaticResource ContainerCellItemStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
+            <Control Style="{StaticResource ContainerItemCountItemStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,3,9,0"/>
+        </Grid>
+        <DataTemplate.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding DataContext.IsInventoryLocked, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="True"/>
+                    <Condition Value="False">
+                        <Condition.Binding>
+                            <MultiBinding Converter="{StaticResource EqualConverter}">
+                                <Binding Path="DataContext.OwnerUserID" RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}"/>
+                                <Binding Path="DataContext.CurrentPlayer.UserId" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
+                            </MultiBinding>
+                        </Condition.Binding>
+                    </Condition>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="rootGrid" Property="Effect">
+                    <Setter.Value>
+                        <ls:SaturationEffect Saturation="0.3"/>
+                    </Setter.Value>
+                </Setter>
+            </MultiDataTrigger>
+
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Template.Item" DataType="{x:Type ls:VMItem}">
+        <Grid x:Name="rootGrid" Width="{DynamicResource ScaledNewSlotSize}" Height="{DynamicResource ScaledNewSlotSize}">
+            <Image Style="{StaticResource RarityFrameBackgroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
+            <Rectangle Fill="{Binding Icon}" Width="{DynamicResource ScaledNewItemIconSize}" Height="{DynamicResource ScaledNewItemIconSize}" IsHitTestVisible="False" />
+            <Viewbox x:Name="ItemAmountHolder" Width="{DynamicResource ScaledNewSlotSize}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}" StretchDirection="DownOnly">
+                <TextBlock x:Name="ItemAmount" Text="{Binding Count, Converter={StaticResource AbbreviateNumberConverter}}" Style="{StaticResource ItemAmountTextStyle}" Margin="8,0"/>
+            </Viewbox>
+            <Image Style="{StaticResource RarityFrameForegroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
+            <Image x:Name="WaresIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource InventoryWaresCellItemImageStyle}"/>
+        </Grid>
+        <DataTemplate.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding DataContext.IsInventoryLocked, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="True"/>
+                    <Condition Value="False">
+                        <Condition.Binding>
+                            <MultiBinding Converter="{StaticResource EqualConverter}">
+                                <Binding Path="DataContext.OwnerUserID" RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}"/>
+                                <Binding Path="DataContext.CurrentPlayer.UserId" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
+                            </MultiBinding>
+                        </Condition.Binding>
+                    </Condition>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="rootGrid" Property="Effect">
+                    <Setter.Value>
+                        <ls:SaturationEffect Saturation="0.3"/>
+                    </Setter.Value>
+                </Setter>
+            </MultiDataTrigger>
+
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <DataTemplate x:Key="Template.InventorySlot" DataType="ls:VMInventorySlot">
-	    <ContentPresenter Content="{Binding Object}" ContentTemplate="{StaticResource Template.GameObject}" />
+        <ContentPresenter x:Name="Presenter" Content="{Binding Object}" ContentTemplate="{StaticResource Template.GameObject}" />
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Object.Type}" Value="Item">
+                <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.Item}"/>
+            </DataTrigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Object.Type}" Value="Item"/>
+                    <Condition Binding="{Binding Object.IsEquipment}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.ItemEquipment}"/>
+            </MultiDataTrigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Object.Type}" Value="Item"/>
+                    <Condition Binding="{Binding Object.IsContainer}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.ItemContainer}"/>
+            </MultiDataTrigger>
+        </DataTemplate.Triggers>
     </DataTemplate>
-
-
-    <DataTemplate x:Key="Template.ContainerCell"  DataType="ls:VMInventorySlot">
-		<ContentPresenter Content="{Binding Object}" ContentTemplate="{StaticResource Template.GameObject}" />
-    </DataTemplate>
-
-
 
     <ControlTemplate x:Key="InventoryCellTemplate" >
         <!-- This is a ContentControl to facilitate the interaction eventtriggers -->
@@ -1402,9 +1527,11 @@
             <BitmapImage x:Key="SelfEquippedIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_EQ_selected.png"/>
             <BitmapImage x:Key="PartyEquippedIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_EQ_party.png"/>
             <BitmapImage x:Key="CoopEquippedIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_EQ_coop.png"/>
+            <System:Double x:Key="IconHeight">28</System:Double>
+            <System:Double x:Key="IconWidth">36</System:Double>
         </ControlTemplate.Resources>
 
-        <Image x:Name="icon" Stretch="None" Source="{StaticResource CoopEquippedIcon}"/>
+        <Image x:Name="icon" Stretch="Uniform" Width="{DynamicResource IconWidth}" Height="{DynamicResource IconHeight}" Source="{StaticResource CoopEquippedIcon}"/>
 
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding Equipped}" Value="NotEquipped">
@@ -1585,6 +1712,107 @@
 
     <BitmapImage x:Key="IcoPlusImg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BottomBar/ico_spellSubSelectIndicator.png"/>
 
+    <DataTemplate x:Key="SpellContent" DataType="ls:VMHotBarSlot">
+        <Border x:Name="Slot" Panel.ZIndex="0" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" Background="Transparent">
+            <Grid Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}" >
+                <Rectangle x:Name="iconHolder" Fill="{Binding Spell.Icon}"/>
+                <TextBlock x:Name="SpellSlotLevel" Text="{Binding Spell.SpellSlotLevel, Converter={StaticResource DecimalToRomanConverter}}" Foreground="{StaticResource LS_specialTxtColor}" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                       Height="35" Margin="0,0,3,0" FontSize="{StaticResource ScaledMediumFontSize}"  noesis:Text.StrokeThickness="5" Visibility="{Binding (ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BoolToVisibleConverter}}"/>
+                <Image x:Name="SubSelectIndicator" Source="{StaticResource IcoPlusImg}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed"/>
+                <Control Style="{StaticResource NewInventoryCellItemStyle}"/>
+            </Grid>
+        </Border>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Spell.IsContainer}" Value="True">
+                <Setter Property="Visibility" Value="Visible" TargetName="SubSelectIndicator" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding DataContext.PanelContentType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Spell">
+                <Setter Property="Visibility" Value="Collapsed" TargetName="SubSelectIndicator"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
+                <Setter TargetName="SpellSlotLevel" Property="FontSize" Value="{StaticResource ScaledTinyFontSize}"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ItemContent" DataType="ls:VMHotBarSlot">
+        <DataTemplate.Resources>
+
+            <System:Double x:Key="ScaledNewItemIconSize">72</System:Double>
+            <System:Double x:Key="ScaledNewItemIconSizeHighlight">73.8</System:Double>
+            <System:Double x:Key="ScaledNewSlotSize">79.2</System:Double>
+        </DataTemplate.Resources>
+
+        <Border x:Name="Slot" DataContext="{Binding GameObject}" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" Background="Transparent">
+            <Grid x:Name="SlotContent" Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <ContentPresenter x:Name="Presenter" Content="{Binding .}" ContentTemplate="{StaticResource Template.GameObject}" />
+                <Control x:Name="EquipmentIcon" Template="{StaticResource EquippedItemIconIndicator}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="4,0,0,4">
+                    <Control.Resources>
+                        <System:Double x:Key="IconHeight">42</System:Double>
+                        <System:Double x:Key="IconWidth">54</System:Double>
+                    </Control.Resources>
+                </Control>
+                <Image x:Name="SubSelectIndicator" Source="{StaticResource IcoPlusImg}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed" />
+            </Grid>
+        </Border>
+
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding GameObject.Type}" Value="Item">
+                <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.Item}"/>
+            </DataTrigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding GameObject.Type}" Value="Item"/>
+                    <Condition Binding="{Binding GameObject.IsEquipment}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.ItemEquipment}"/>
+            </MultiDataTrigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding GameObject.Type}" Value="Item"/>
+                    <Condition Binding="{Binding GameObject.IsContainer}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.ItemContainer}"/>
+            </MultiDataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CharacterContent" DataType="ls:VMHotBarSlot">
+        <Border x:Name="Slot" Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}">
+            <Grid Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" DataContext="{Binding GameObject}">
+                <Image Style="{StaticResource RarityFrameBackgroundImageStyle}"/>
+                <Rectangle x:Name="iconHolder" Fill="{Binding Icon}"/>
+                <Image Style="{StaticResource RarityFrameForegroundImageStyle}"/>
+                <Image x:Name="SubSelectIndicator" Source="{StaticResource IcoPlusImg}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="PassiveContent" DataType="ls:VMHotBarSlot">
+        <Border x:Name="Slot" Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}">
+            <Grid Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}">
+                <Ellipse x:Name="passiveIconHolder" Fill="{Binding Passive.Icon}"/>
+                <!-- GUS-216305 - Hiding spell slot level, to uncomment or remove according to results -->
+                <TextBlock x:Name="SpellSlotLevel" Text="{Binding Spell.SpellSlotLevel, Converter={StaticResource DecimalToRomanConverter}}" Foreground="{StaticResource LS_specialTxtColor}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="35"
+                                               Margin="0,0,3,0" FontSize="{StaticResource ScaledMediumFontSize}"  noesis:Text.StrokeThickness="5" Visibility="{Binding (ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BoolToVisibleConverter}}"/>
+                <Image x:Name="SubSelectIndicator" Source="{StaticResource IcoPlusImg}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed" />
+                <Ellipse Fill="Black" x:Name="disCover" Visibility="Collapsed" Opacity="0.5"/>
+                <Control x:Name="ActiveSlotIndicatorPassive" IsHitTestVisible="False" Visibility="Collapsed" Template="{StaticResource HotBarActiveSlotIndicatorPassive}"/>
+            </Grid>
+        </Border>
+
+        <DataTemplate.Triggers>
+            
+            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                <Setter TargetName="ActiveSlotIndicatorPassive" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
     <Style x:Key="HotBarSlotStyle" TargetType="ls:LSButton" >
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Background" Value="Transparent" />
@@ -1595,6 +1823,7 @@
         <Setter Property="Command" Value="{Binding DataContext.UseSlotCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
         <Setter Property="CommandParameter" Value="{Binding}"/>
         <Setter Property="SoundID" Value="UI_HUD_HotbarSlot"/>
+        <Setter Property="ContentTemplate" Value="{StaticResource SpellContent}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ls:LSButton">
@@ -1680,13 +1909,24 @@
                                 </ls:AdornedBehavior.AdornerStyle>
                             </ls:AdornedBehavior>
                         </b:Interaction.Behaviors>
+                        
                         <ContentPresenter x:Name="cnt" />
+                        <Rectangle Fill="{StaticResource LS_HoverColor}" x:Name="hover" Visibility="Collapsed"/>
+                        <Rectangle x:Name="disCover" Visibility="Collapsed" Opacity="0.5" Fill="Black"/>
+
                         <!-- Icon glow animation slot (Metamagic, UnlockSpellVariant) -->
-                        <Control x:Name="MetaMagicOverlay" IsHitTestVisible="False" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" Template="{StaticResource HotbarSlotGlow}" Visibility="Collapsed"/>
+                        <Control x:Name="MetaMagicOverlay" IsHitTestVisible="False" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" Template="{x:Null}"/>
                         <TextBlock x:Name="HotKey" IsHitTestVisible="False" Text="{Binding HotKey}" Margin="4,0,0,-6" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="{StaticResource ScaledSmallFontSize}" Visibility="Collapsed" />
 
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="hover"/>
+                        </Trigger>
+
+                        <DataTrigger Binding="{Binding CanUse}" Value="False">
+                            <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
+                        </DataTrigger>
 
                         <DataTrigger Binding="{Binding IsVisible,RelativeSource={RelativeSource Self}}" Value="False">
                             <Setter TargetName="Slot" Property="Tag" Value="False"/>
@@ -1703,6 +1943,16 @@
                         </DataTrigger>
                         <DataTrigger Binding="{Binding SlotType}" Value="Passive">
                             <Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Passive, ElementName=Slot}" />
+                            <Setter TargetName="hover" Property="Clip">
+                                <Setter.Value>
+                                    <EllipseGeometry RadiusX="44" RadiusY="44" Center="44,44"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="disCover" Property="Clip">
+                                <Setter.Value>
+                                    <EllipseGeometry RadiusX="44" RadiusY="44" Center="44,44"/>
+                                </Setter.Value>
+                            </Setter>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard">
                             <Setter Property="Visibility" Value="Visible" TargetName="HotKey"/>
@@ -1751,155 +2001,28 @@
                             <Setter Property="IsEnabled" Value="False"/>
                         </MultiDataTrigger>
                         <DataTrigger Binding="{Binding GameObject.IsModified}" Value="True">
-                            <Setter TargetName="MetaMagicOverlay" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="MetaMagicOverlay" Property="Template" Value="{StaticResource HotbarSlotGlow}" />
                             <Setter TargetName="Slot" Property="Tag" Value="False"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Spell.IsModified}" Value="True">
-                            <Setter TargetName="MetaMagicOverlay" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="MetaMagicOverlay" Property="Template" Value="{StaticResource HotbarSlotGlow}" />
                             <Setter TargetName="Slot" Property="Tag" Value="False"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ContentTemplate">
-            <Setter.Value>
-                <DataTemplate DataType="ls:VMHotBarSlot">
-
-                    <Border x:Name="Slot" Panel.ZIndex="0" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" Background="Transparent">
-                        <Grid Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}" >
-                            <Rectangle x:Name="iconHolder" Fill="{Binding Spell.Icon}"/>
-                            <TextBlock x:Name="SpellSlotLevel" Text="{Binding Spell.SpellSlotLevel, Converter={StaticResource DecimalToRomanConverter}}" Foreground="{StaticResource LS_specialTxtColor}" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                                       Height="35" Margin="0,0,3,0" FontSize="{StaticResource ScaledMediumFontSize}"  noesis:Text.StrokeThickness="5" Visibility="{Binding (ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BoolToVisibleConverter}}"/>
-                            <Image x:Name="SubSelectIndicator" Source="{StaticResource IcoPlusImg}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed"/>
-                            <Rectangle x:Name="disCover" Visibility="Collapsed" Opacity="0.5" Fill="Black"/>
-                            <Rectangle Fill="{StaticResource LS_HoverColor}" x:Name="hover" Visibility="Collapsed"/>
-                            <Control Style="{StaticResource NewInventoryCellItemStyle}"/>
-                        </Grid>
-                    </Border>
-
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding CanUse}" Value="False">
-                            <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
-                        </DataTrigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Visibility" Value="Visible" TargetName="hover"/>
-                        </Trigger>
-                        <DataTrigger Binding="{Binding Spell.IsContainer}" Value="True">
-                            <Setter Property="Visibility" Value="Visible" TargetName="SubSelectIndicator" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding DataContext.PanelContentType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Spell">
-                            <Setter Property="Visibility" Value="Collapsed" TargetName="SubSelectIndicator"/>
-                        </DataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding CanUse}" Value="False"/>
-                                <Condition Binding="{Binding Spell.IsContainer}" Value="True"/>
-                                <Condition Binding="{Binding DataContext.PanelContentType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Spell"/>
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
-                        </MultiDataTrigger>
-
-                        <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
-                            <Setter TargetName="SpellSlotLevel" Property="FontSize" Value="{StaticResource ScaledTinyFontSize}"/>
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding SlotType}" Value="Item">
-                <Setter Property="ContentTemplate">
-                    <Setter.Value>
-                        <DataTemplate DataType="ls:VMHotBarSlot">
-                            <DataTemplate.Resources>
-
-                                <System:Double x:Key="ScaledNewItemIconSize">72</System:Double>
-                                <System:Double x:Key="ScaledNewItemIconSizeHighlight">73.8</System:Double>
-                                <System:Double x:Key="ScaledNewSlotSize">79.2</System:Double>
-                            </DataTemplate.Resources>
-
-                            <Border x:Name="Slot" DataContext="{Binding GameObject}" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" Background="Transparent">
-                                <Grid x:Name="SlotContent" Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <ContentPresenter Content="{Binding .}" ContentTemplate="{StaticResource Template.GameObject}" />
-                                    <Control x:Name="EquipmentIcon" Template="{StaticResource EquippedItemIconIndicator}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="4,0,0,4"/>
-                                    <Image x:Name="SubSelectIndicator" Source="{StaticResource IcoPlusImg}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed" />
-                                    <Rectangle x:Name="disCover" Visibility="Collapsed" Opacity="0.5" Fill="Black"/>
-                                    <Rectangle Fill="{StaticResource LS_HoverColor}" x:Name="hover" Visibility="Collapsed"/>
-                                </Grid>
-                            </Border>
-
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding CanUse}" Value="False">
-                                    <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
-                                </DataTrigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" TargetName="hover"/>
-                                </Trigger>
-                            </DataTemplate.Triggers>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="ContentTemplate" Value="{StaticResource ItemContent}"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding SlotType}" Value="Character">
-                <Setter Property="ContentTemplate">
-                    <Setter.Value>
-                        <DataTemplate DataType="ls:VMHotBarSlot">
-                            <Border x:Name="Slot" Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}">
-                                <Grid Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" DataContext="{Binding GameObject}">
-                                    <Image Style="{StaticResource RarityFrameBackgroundImageStyle}"/>
-                                    <Rectangle x:Name="iconHolder" Fill="{Binding Icon}"/>
-                                    <Image Style="{StaticResource RarityFrameForegroundImageStyle}"/>
-                                    <Image x:Name="SubSelectIndicator" Source="{StaticResource IcoPlusImg}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed" />
-                                    <Rectangle x:Name="disCover" Visibility="Collapsed" Opacity="0.5" Fill="Black"/>
-                                    <Rectangle Fill="{StaticResource LS_HoverColor}" x:Name="hover" Visibility="Collapsed"/>
-                                </Grid>
-                            </Border>
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding CanUse}" Value="False">
-                                    <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
-                                </DataTrigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" TargetName="hover"/>
-                                </Trigger>
-                            </DataTemplate.Triggers>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="ContentTemplate" Value="{StaticResource CharacterContent}"/>
             </DataTrigger>
 
             <DataTrigger Binding="{Binding SlotType}" Value="Passive">
-                <Setter Property="ContentTemplate">
-                    <Setter.Value>
-                        <DataTemplate DataType="ls:VMHotBarSlot">
-                            <Border x:Name="Slot" Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}">
-                                <Grid Width="{StaticResource HotBarIconWidth}" Height="{StaticResource HotBarIconHeight}">
-                                    <Ellipse x:Name="passiveIconHolder" Fill="{Binding Passive.Icon}"/>
-                                    <!-- GUS-216305 - Hiding spell slot level, to uncomment or remove according to results -->
-                                    <TextBlock x:Name="SpellSlotLevel" Text="{Binding Spell.SpellSlotLevel, Converter={StaticResource DecimalToRomanConverter}}" Foreground="{StaticResource LS_specialTxtColor}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="35"
-                                               Margin="0,0,3,0" FontSize="{StaticResource ScaledMediumFontSize}"  noesis:Text.StrokeThickness="5" Visibility="{Binding (ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource BoolToVisibleConverter}}"/>
-                                    <Image x:Name="SubSelectIndicator" Source="{StaticResource IcoPlusImg}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,8,0" Visibility="Collapsed" />
-                                    <Ellipse Fill="Black" x:Name="disCover" Visibility="Collapsed" Opacity="0.5"/>
-                                    <Ellipse Fill="{StaticResource LS_HoverColor}" x:Name="hover" Visibility="Collapsed" />
-                                    <Control x:Name="ActiveSlotIndicatorPassive" IsHitTestVisible="False" Visibility="Collapsed" Template="{StaticResource HotBarActiveSlotIndicatorPassive}"/>
-                                </Grid>
-                            </Border>
-
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding CanUse}" Value="False">
-                                    <Setter Property="Visibility" Value="Visible" TargetName="disCover"/>
-                                </DataTrigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Visibility" Value="Visible" TargetName="hover"/>
-                                </Trigger>
-                                <DataTrigger Binding="{Binding IsActive}" Value="True">
-                                    <Setter TargetName="ActiveSlotIndicatorPassive" Property="Visibility" Value="Visible"/>
-                                </DataTrigger>
-                            </DataTemplate.Triggers>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="ContentTemplate" Value="{StaticResource PassiveContent}"/>
             </DataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
@@ -2860,7 +2983,7 @@
                     <ls:LSTooltip>
                         <ls:LSTooltip.Content>
                             <StackPanel>
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h406620e5g846cg4c3eg9e50g1fb3041a894c, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipTitleStyle}"/>
+                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h55e5ec72g331dg4dc9g9532g4a68ba0bc2a3, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipTitleStyle}"/>
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h1e646e86g3c05g4c96g9fd8g9c521871d554, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipDefaultTextStyle}"/>
                             </StackPanel>
                         </ls:LSTooltip.Content>
@@ -3967,6 +4090,9 @@
                 <Setter Property="Panel.ZIndex" Value="1000" />
                 <Setter Property="Visibility" Value="Visible" />
             </DataTrigger>
+            <DataTrigger Binding="{Binding GameObject.WantsToTalk, FallbackValue=False}" Value="True">
+                <Setter Property="IgnoreMapRotation" Value="True" />
+            </DataTrigger>
             <DataTrigger Binding="{Binding Type}" Value="PingMarker">
                 <Setter Property="Template" Value="{StaticResource Map.Template.MarkerPing}"/>
                 <Setter Property="Visibility" Value="Visible" />
@@ -4380,5 +4506,33 @@
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <Style x:Key="MinimalPlayerSlotsMenuStyle" TargetType="{x:Type Control}" BasedOn="{StaticResource baseStyle}">
+        <Setter Property="Margin" Value="{StaticResource ButtonHint.Margin.Left}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ItemsControl ItemsSource="{Binding Data.Players}" ItemTemplate="{StaticResource PlayerSlotItemTemplate}" MinHeight="80" AlternationCount="4" HorizontalAlignment="Center" Visibility="{Binding Data.Players.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Style.Triggers>
+                                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                        <Setter Property="Tag" Value="Local"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                    </ItemsControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

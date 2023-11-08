@@ -151,6 +151,16 @@
 	<ImageSource x:Key="GoblinFotsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Goblin/Shared/Resources/ico_classRes_fots_missing.png</ImageSource>
 	<ImageSource x:Key="SpellbaneDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_d.png</ImageSource>
 	<ImageSource x:Key="SpellbaneDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
+	<ImageSource x:Key="WeaponCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponCharge.png</ImageSource>
+	<ImageSource x:Key="WeaponChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponChargeUnavailable.png</ImageSource>
+	<ImageSource x:Key="DWE_UnleashIncarnationUse">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_d.png</ImageSource>
+	<ImageSource x:Key="DWE_UnleashIncarnationUseUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_missing.png</ImageSource>
+	<ImageSource x:Key="DWE_ReclaimPotentialUse">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_d.png</ImageSource>
+	<ImageSource x:Key="DWE_ReclaimPotentialUseUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_missing.png</ImageSource>
+	<ImageSource x:Key="Trips_Aasimar_Smallcast" >pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsSmallcast_d.png</ImageSource>
+	<ImageSource x:Key="Trips_Aasimar_SmallcastUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsSmallcast_missing.png</ImageSource>
+	<ImageSource x:Key="Trips_Aasimar_Bigcast" >pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsBigcast_d.png</ImageSource>
+	<ImageSource x:Key="Trips_Aasimar_BigcastUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsBigcast_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -233,6 +243,21 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
 				<Setter Property="Source" Value="{StaticResource SpellbaneDie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WeaponCharge">
+				<Setter Property="Source" Value="{StaticResource WeaponCharge}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse">
+				<Setter Property="Source" Value="{StaticResource DWE_UnleashIncarnationUse}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_ReclaimPotentialUse">
+				<Setter Property="Source" Value="{StaticResource DWE_ReclaimPotentialUse}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Trips_Aasimar_Smallcast">
+				<Setter Property="Source" Value="{StaticResource Trips_Aasimar_Smallcast}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Trips_Aasimar_Bigcast">
+				<Setter Property="Source" Value="{StaticResource Trips_Aasimar_Bigcast}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -886,6 +911,56 @@
 					<Setter Property="Source" Value="{StaticResource SpellbaneDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WeaponCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource WeaponChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource DWE_UnleashIncarnationUseUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_ReclaimPotentialUse"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource DWE_ReclaimPotentialUseUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Trips_Aasimar_Smallcast"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Trips_Aasimar_SmallcastUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Trips_Aasimar_Bigcast"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Trips_Aasimar_BigcastUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1250,6 +1325,56 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Spellbreaker/Shared/Resources/ico_classRes_SpellbaneDie_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.WeaponChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponCharge.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponCharge.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponChargeUsed.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Wielder/Shared/Resources/ico_WeaponChargeUnavailable.png</ImageSource>
+		</ControlTemplate.Resources>
+	  <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.DWE_UnleashIncarnationUseGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_UnleashIncarnationUse_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.DWE_ReclaimPotentialUseGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/DEchoKnight/Shared/Resources/ico_classRes_DWE_ReclaimPotentialUse_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.Trips_Aasimar_SmallcastGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsSmallcast_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsSmallcast_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsSmallcast_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsSmallcast_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.Trips_Aasimar_BigcastGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsBigcast_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsBigcast_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsBigcast_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Trips_Aasimar/Shared/Resources/ico_classRes_TripsBigcast_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
 
@@ -1877,6 +2002,75 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="SpellbaneDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+      <DataTrigger Binding="{Binding TypeId}" Value="WeaponCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WeaponChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WeaponCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DWE_UnleashIncarnationUseGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_UnleashIncarnationUse"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_ReclaimPotentialUse">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DWE_ReclaimPotentialUseGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_ReclaimPotentialUse"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Trips_Aasimar_Smallcast">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.Trips_Aasimar_SmallcastGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Trips_Aasimar_Smallcast"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Trips_Aasimar_Bigcast">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.Trips_Aasimar_BigcastGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Trips_Aasimar_Bigcast"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
