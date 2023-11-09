@@ -20,6 +20,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Unlocks edit appearance option for all Origin characters in Character Creation.
 - Character Creation Layout tweaks: Redesigned Origin layout (the first screen you see when entering CC).
 - Hireling tweaks: Redesigned Hireling layout (makes better use of the dead space).
+- (Controller only) Character Creation Layout tweaks: Hides appearance options when not available, adds "all colours" tickbox for highlights.
 - <b>OPTIONAL FILE REQUIRED</b> Switches "Show all items" (highlighting all interactables, default left ALT key/right stick) from requiring a held input to an on/off switch. Works for both Keyboard and Controller - switching between the two input methods when enabled would cause an additional toggle to be required. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
 
 <b>OPTIONAL FILE REQUIRED</b> Keyboard-only tweaks:
