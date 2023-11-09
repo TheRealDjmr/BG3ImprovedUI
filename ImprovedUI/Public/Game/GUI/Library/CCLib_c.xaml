@@ -4990,6 +4990,9 @@
             <Trigger Property="ls:AttachedProperties.InheritedTag" Value="lipColorIntensity">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='hc93c40a6gf955g459bg835eg11152b6f0683', Converter={StaticResource TranslatedStringConverter}}"/>
             </Trigger>
+            <Trigger Property="ls:AttachedProperties.InheritedTag" Value="tattooColorIntensity">
+                <Setter TargetName="title" Property="Text" Value="{Binding Source='h95f7bb65gd02dg4e1fg814fg9c97df4a8ce2', Converter={StaticResource TranslatedStringConverter}}"/>
+            </Trigger>
             <Trigger Property="ls:AttachedProperties.InheritedTag" Value="glossyIntensity">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h3f60bd19gd12bg47d9g8f1dg710885f13edc', Converter={StaticResource TranslatedStringConverter}}"/>
             </Trigger>
@@ -5474,10 +5477,10 @@
 
             <StackPanel x:Name="tattooChoices" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}">
                 <ListBox Tag="tattoos" ItemsSource="{Binding SelectableTattoos}" SelectedItem="{Binding SelectedTattoo}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableTattoos.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
-				<!-- MOD START - Add makeup color sliders -->
+				<!-- MOD START - Hide tattoo options if no tattoo has been selected -->
 				<StackPanel Visibility="{Binding AppearanceTattoos.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}">
 					<ListBox Tag="tattooColors" ItemsSource="{Binding SelectableTattooColours}" SelectedItem="{Binding SelectedTattooColour}" Template="{StaticResource AppearanceCarousel}" Style="{StaticResource sliderListBoxStyle}"/>
-					<ListBox x:Name="tattooIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="highlightIntensity" DataContext="{Binding AppearanceTattoos.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
+					<ListBox Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="tattooColorIntensity" DataContext="{Binding AppearanceTattoos.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
 				</StackPanel>
 				<!-- MOD END -->
             </StackPanel>
@@ -5493,7 +5496,7 @@
             <ListBox Tag="makeupColors" ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
 			<!-- MOD START - Add makeup color sliders -->
 			<StackPanel Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}">
-				<ListBox x:Name="makeupColorIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="highlightIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
+				<ListBox x:Name="makeupColorIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="lipColorIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
 				<ListBox x:Name="makeupMetallicIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="metallicIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[1]}" Template="{StaticResource AppearanceSliderCarousel}"/>
 				<ListBox x:Name="makeupGlossyIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="glossyIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[2]}" Template="{StaticResource AppearanceSliderCarousel}"/>
 			</StackPanel>
