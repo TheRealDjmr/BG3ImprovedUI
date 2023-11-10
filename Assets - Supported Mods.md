@@ -8,15 +8,15 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 #### Class/Subclass Icons - Guide https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Artificer - https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter - https://www.nexusmods.com/baldursgate3/mods/2151
-- Harlequin - https://www.nexusmods.com/baldursgate3/mods/2120
-- Magus - https://www.nexusmods.com/baldursgate3/mods/422
 - Cleric Subclasses - https://www.nexusmods.com/baldursgate3/mods/432
 - Death Domain Subclass - https://www.nexusmods.com/baldursgate3/mods/1552
 - Death Knight Class - https://www.nexusmods.com/baldursgate3/mods/1725
 - Demon Hunter Class - https://www.nexusmods.com/baldursgate3/mods/3165
 - Drakewarden Subclass - https://www.nexusmods.com/baldursgate3/mods/2838
 - Expansion (Bladesinger only) - https://www.nexusmods.com/baldursgate3/mods/279
+- Harlequin - https://www.nexusmods.com/baldursgate3/mods/2120
 - Hexblade - https://www.nexusmods.com/baldursgate3/mods/1100
+- Magus - https://www.nexusmods.com/baldursgate3/mods/422
 - Raven Queen Patron for Warlock - https://www.nexusmods.com/baldursgate3/mods/1895
 - Rogues Extra - https://www.nexusmods.com/baldursgate3/mods/189
 - Samurai - https://www.nexusmods.com/baldursgate3/mods/2245
@@ -30,6 +30,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Alternate Monk - https://www.nexusmods.com/baldursgate3/mods/2266
 - Echo Knight Fighter Subclass - https://www.nexusmods.com/baldursgate3/mods/3939
 - Monk Subclass - Way of the Kensei - https://www.nexusmods.com/baldursgate3/mods/1330
+- Monk - Way of Springtime - https://www.nexusmods.com/baldursgate3/mods/3605
 - Mystic - https://www.nexusmods.com/baldursgate3/mods/2786
 - Pirate (Homebrew Rogue Subclass) - https://www.nexusmods.com/baldursgate3/mods/3070
 - Red Mage / White Mage - https://www.nexusmods.com/baldursgate3/mods/2056 / https://www.nexusmods.com/baldursgate3/mods/2961
@@ -48,8 +49,8 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 
 
 #### Background Icons
-- Was a Goat - https://www.nexusmods.com/baldursgate3/mods/552
 - Additional Backgrounds - https://www.nexusmods.com/baldursgate3/mods/1874
+- Was a Goat - https://www.nexusmods.com/baldursgate3/mods/552
 
 #### Deity Icons
 - Faithful and Faithless - https://www.nexusmods.com/baldursgate3/mods/1512
