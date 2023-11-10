@@ -15,28 +15,37 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Death Knight Class - https://www.nexusmods.com/baldursgate3/mods/1725
 - Demon Hunter Class - https://www.nexusmods.com/baldursgate3/mods/3165
 - Drakewarden Subclass - https://www.nexusmods.com/baldursgate3/mods/2838
-- The Way of the Drunken Master Subclass - https://www.nexusmods.com/baldursgate3/mods/1832
 - Expansion (Bladesinger only) - https://www.nexusmods.com/baldursgate3/mods/279
 - Hexblade - https://www.nexusmods.com/baldursgate3/mods/1100
+- Raven Queen Patron for Warlock - https://www.nexusmods.com/baldursgate3/mods/1895
 - Rogues Extra - https://www.nexusmods.com/baldursgate3/mods/189
 - Samurai - https://www.nexusmods.com/baldursgate3/mods/2245
 - Shadow Sorcerer - https://www.nexusmods.com/baldursgate3/mods/923
+- Vanguard Class - https://www.nexusmods.com/baldursgate3/mods/3686
 - Wizard Traditions - https://www.nexusmods.com/baldursgate3/mods/924 / https://www.nexusmods.com/baldursgate3/mods/2563
+- Wielder Class - https://www.nexusmods.com/baldursgate3/mods/3829
+- The Way of the Drunken Master Subclass - https://www.nexusmods.com/baldursgate3/mods/1832
 
 (Via Dynamic support)
 - Alternate Monk - https://www.nexusmods.com/baldursgate3/mods/2266
+- Echo Knight Fighter Subclass - https://www.nexusmods.com/baldursgate3/mods/3939
 - Monk Subclass - Way of the Kensei - https://www.nexusmods.com/baldursgate3/mods/1330
+- Mystic - https://www.nexusmods.com/baldursgate3/mods/2786
 - Pirate (Homebrew Rogue Subclass) - https://www.nexusmods.com/baldursgate3/mods/3070
 - Red Mage / White Mage - https://www.nexusmods.com/baldursgate3/mods/2056 / https://www.nexusmods.com/baldursgate3/mods/2961
 - Thanator - https://www.nexusmods.com/baldursgate3/mods/2796
 
+
 #### Race Icons
 - Aasimar - https://www.nexusmods.com/baldursgate3/mods/1824
-- Shadar-Kai - https://www.nexusmods.com/baldursgate3/mods/1305
+- Astralities' Tiefling Compendium - https://www.nexusmods.com/baldursgate3/mods/2418
 - Embrace The Pain - Witch Elf - https://www.nexusmods.com/baldursgate3/mods/3490/
 - Fizbans Treasury of Dragons - https://www.nexusmods.com/baldursgate3/mods/1793
+- Plus Races - Rework - https://www.nexusmods.com/baldursgate3/mods/3865
+- Shadar-Kai - https://www.nexusmods.com/baldursgate3/mods/1305
 - Whispers of the Fey: Changelings Race - https://www.nexusmods.com/baldursgate3/mods/3110
 - Whispers of the Fey: Goblins Race - https://www.nexusmods.com/baldursgate3/mods/3254
+
 
 #### Background Icons
 - Was a Goat - https://www.nexusmods.com/baldursgate3/mods/552
@@ -47,15 +56,21 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Gods Extra - https://www.nexusmods.com/baldursgate3/mods/433
 
 #### Action Resource Icons
-- Alternate Monk (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2266
+- Alternate Monk *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer - https://www.nexusmods.com/baldursgate3/mods/1779
-- Blood Hunter (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2151
+- Blood Hunter *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/2151
 - Death Knight Class - https://www.nexusmods.com/baldursgate3/mods/1725
 - Demon Hunter Class - https://www.nexusmods.com/baldursgate3/mods/3165
-- Expansion (Bladesinger - Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/279
+- Echo Knight Fighter Subclass - https://www.nexusmods.com/baldursgate3/mods/3939
+- Expansion (Bladesinger Only) *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/279
 - Improved Breath Weapon - https://www.nexusmods.com/baldursgate3/mods/993
-- Magus (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/422
-- Mystic (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2786
+- Magus *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/422
+- Mystic - https://www.nexusmods.com/baldursgate3/mods/2786
+- Vanguard Class *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/3686
 - Warlock: The Undead subclass - https://www.nexusmods.com/baldursgate3/mods/3045
 - Whispers of the Fey: Goblins Race - https://www.nexusmods.com/baldursgate3/mods/3254
-- Wizard Traditions Runesmith (Keyboard only) - https://www.nexusmods.com/baldursgate3/mods/2563
+- Wielder Class *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/3829
+- Wizard Traditions Runesmith *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/2563
+
+### Other Mods
+- Stackable Items - https://www.nexusmods.com/baldursgate3/mods/1668
