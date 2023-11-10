@@ -167,6 +167,8 @@
 	<ImageSource x:Key="ElementalBladeResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/Shared/Resources/ico_classRes_ElementalBlade_missing.png</ImageSource>
 	<ImageSource x:Key="TESHealingPotency">pack://application:,,,/GustavNoesisGUI;component/Assets/ElderScrollsStartingSpells/Shared/Resources/c_ico_Ress_PotencyHeal_d.png</ImageSource>
 	<ImageSource x:Key="TESHealingPotencyUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElderScrollsStartingSpells/Shared/Resources/c_ico_Ress_PotencyHeal_missing.png</ImageSource>
+	<ImageSource x:Key="Glamour">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_d.png</ImageSource>
+	<ImageSource x:Key="GlamourUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -273,6 +275,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="TESHealingPotency">
 				<Setter Property="Source" Value="{StaticResource TESHealingPotency}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Glamour">
+				<Setter Property="Source" Value="{StaticResource Glamour}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1006,6 +1011,16 @@
 			        <Setter Property="Source" Value="{StaticResource TESHealingPotencyUnavailable}"/>
 			    </MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Glamour"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GlamourUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1449,6 +1464,15 @@
 	        <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElderScrollsStartingSpells/Shared/Resources/c_ico_Ress_PotencyHeal_missing.png</ImageSource>
 	    </ControlTemplate.Resources>
 	    <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GlamourGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
 
@@ -2189,6 +2213,19 @@
 			    <MultiDataTrigger.Setters>
 			        <Setter Property="Margin" Value="0,-15,0,0"/>
 			    </MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Glamour">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GlamourGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Glamour"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
