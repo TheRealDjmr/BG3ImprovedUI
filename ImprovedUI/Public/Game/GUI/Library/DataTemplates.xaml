@@ -1039,11 +1039,6 @@
         <Grid x:Name="rootGrid" Width="{DynamicResource ScaledNewSlotSize}" Height="{DynamicResource ScaledNewSlotSize}">
             <Image Style="{StaticResource RarityFrameBackgroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
             <Rectangle Fill="{Binding Icon}" Width="{DynamicResource ScaledNewItemIconSize}" Height="{DynamicResource ScaledNewItemIconSize}" IsHitTestVisible="False" />
-            <!-- Compatibility with "Stackable Items" Mod, displays stack amount for equipment stacks. Begin -->
-            <Viewbox x:Name="ItemAmountHolder" Width="{DynamicResource ScaledNewSlotSize}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}" StretchDirection="DownOnly">
-                <TextBlock x:Name="ItemAmount" Text="{Binding Count, Converter={StaticResource AbbreviateNumberConverter}}" Style="{StaticResource ItemAmountTextStyle}" Margin="8,0"/>
-            </Viewbox>
-            <!-- Compatibility with "Stackable Items" Mod. End -->
             <Image Style="{StaticResource RarityFrameForegroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
             <Image x:Name="WaresIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource InventoryWaresCellItemImageStyle}"/>
             <ContentPresenter ContentTemplate="{StaticResource EquippedTorchIcon}" Content="{Binding .}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,4,4,0"/>
@@ -1147,6 +1142,9 @@
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Object.Type}" Value="Item"/>
                     <Condition Binding="{Binding Object.IsEquipment}" Value="True"/>
+					<!--MOD START - Supporting stackable equipment -->
+					<Condition Binding="{Binding Count}" Value="1"/>
+					<!--MOD END -->
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.ItemEquipment}"/>
             </MultiDataTrigger>
@@ -1767,6 +1765,9 @@
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding GameObject.Type}" Value="Item"/>
                     <Condition Binding="{Binding GameObject.IsEquipment}" Value="True"/>
+					<!--MOD START - Supporting stackable equipment -->
+					<Condition Binding="{Binding Count}" Value="1"/>
+					<!--MOD END -->
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.ItemEquipment}"/>
             </MultiDataTrigger>
