@@ -20,6 +20,7 @@
 	<SolidColorBrush x:Key="ActionPoint" Color="#1ECC5B"/>
 	<SolidColorBrush x:Key="ActionResource.SorceryPoint" Color="#ff0066"/>-->
 	<SolidColorBrush x:Key="ActionResource.BreathWeaponCharge" Color="#7c0c60"/>
+	<SolidColorBrush x:Key="ActionResource.LivingFlameCharge" Color="#000000"/>
 	<!-- EDIT HERE -->
 
 	<!-- Setup default controller styles here, scroll down for custom entries -->
@@ -520,7 +521,7 @@
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 			</DataTrigger>
-			
+
 			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="Trips_Aasimar_Smallcast">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
@@ -561,6 +562,17 @@
 				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="LivingFlameCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/ActionResources_c/Icons/c_Icon_LivingFlame.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.LivingFlameCharge}/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.LivingFlameCharge}/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 
@@ -619,7 +631,7 @@
 			<!-- MOD NOTE - Revert to star icon if not defined here -->
 			<Rectangle x:Name="ResourceImage" Width="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=25}" Height="64" VerticalAlignment="Center">
 				<Rectangle.Fill>
-					<ImageBrush ImageSource="{StaticResource TypeIdToSourceFallback}" TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					<ImageBrush ImageSource="{StaticResource TypeIdToSourceFallback}" TileMode="Tile" Stretch="Uniform" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="RelativeToBoundingBox" Viewbox="0,0,1,1"/>
 				</Rectangle.Fill>
 			</Rectangle>
 			<TextBlock x:Name="ResourceName" Text="{Binding Name}" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="{DynamicResource ScaledSmallishFontSize}" Foreground="{StaticResource LS_tint100}" Style="{StaticResource HUD.DefaultTextStyle}"/>
@@ -1004,7 +1016,7 @@
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
-			
+
 			<DataTrigger Binding="{Binding TypeId}" Value="Trips_Aasimar_Bigcast">
 				<Setter TargetName="ResourceImage" Property="Fill">
 					<Setter.Value>
@@ -1027,6 +1039,15 @@
 				<Setter TargetName="ResourceImage" Property="Fill">
 					<Setter.Value>
 						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/ActionResources_c/Icons/c_ico_classRes_psionicmasteryresource_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="LivingFlameCharge">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/ActionResources_c/Icons/c_Icon_LivingFlame.png" Stretch="Uniform"/>
 					</Setter.Value>
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
