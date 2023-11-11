@@ -60,6 +60,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Alternate Monk *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer - https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/2151
+- Boots of Living Flames - https://www.nexusmods.com/baldursgate3/mods/3769
 - Death Knight Class - https://www.nexusmods.com/baldursgate3/mods/1725
 - Demon Hunter Class - https://www.nexusmods.com/baldursgate3/mods/3165
 - Echo Knight Fighter Subclass - https://www.nexusmods.com/baldursgate3/mods/3939
@@ -67,6 +68,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Improved Breath Weapon - https://www.nexusmods.com/baldursgate3/mods/993
 - Magus *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/422
 - Mystic - https://www.nexusmods.com/baldursgate3/mods/2786
+- The Elder Scrolls Starting Spells *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/4141
 - Vanguard Class *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/3686
 - Warlock: The Undead subclass - https://www.nexusmods.com/baldursgate3/mods/3045
 - Whispers of the Fey: Goblins Race - https://www.nexusmods.com/baldursgate3/mods/3254
