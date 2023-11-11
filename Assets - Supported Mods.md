@@ -35,6 +35,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Pirate (Homebrew Rogue Subclass) - https://www.nexusmods.com/baldursgate3/mods/3070
 - Red Mage / White Mage - https://www.nexusmods.com/baldursgate3/mods/2056 / https://www.nexusmods.com/baldursgate3/mods/2961
 - Thanator - https://www.nexusmods.com/baldursgate3/mods/2796
+- Vessel - https://www.nexusmods.com/baldursgate3/mods/4133
 
 
 #### Race Icons
@@ -70,6 +71,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Mystic - https://www.nexusmods.com/baldursgate3/mods/2786
 - The Elder Scrolls Starting Spells *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/4141
 - Vanguard Class *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/3686
+- Vessel *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/4133
 - Warlock: The Undead subclass - https://www.nexusmods.com/baldursgate3/mods/3045
 - Whispers of the Fey: Goblins Race - https://www.nexusmods.com/baldursgate3/mods/3254
 - Wielder Class *(Keyboard only)* - https://www.nexusmods.com/baldursgate3/mods/3829
