@@ -38,12 +38,13 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 
 
 #### Race Icons
-- Aasimar - https://www.nexusmods.com/baldursgate3/mods/1824
 - Astralities' Tiefling Compendium - https://www.nexusmods.com/baldursgate3/mods/2418
 - Embrace The Pain - Witch Elf - https://www.nexusmods.com/baldursgate3/mods/3490/
 - Fizbans Treasury of Dragons - https://www.nexusmods.com/baldursgate3/mods/1793
+- Half angel (Aasimar 5E) - https://www.nexusmods.com/baldursgate3/mods/1824
 - Plus Races - Rework - https://www.nexusmods.com/baldursgate3/mods/3865
 - Shadar-Kai - https://www.nexusmods.com/baldursgate3/mods/1305
+- Whispers of the Divine: Aasimar Race - https://www.nexusmods.com/baldursgate3/mods/4159
 - Whispers of the Fey: Changelings Race - https://www.nexusmods.com/baldursgate3/mods/3110
 - Whispers of the Fey: Goblins Race - https://www.nexusmods.com/baldursgate3/mods/3254
 
