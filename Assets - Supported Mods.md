@@ -23,6 +23,8 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Drakewarden Subclass - https://www.nexusmods.com/baldursgate3/mods/2838
 - Echo Knight Fighter Subclass - https://www.nexusmods.com/baldursgate3/mods/3939
 - Expansion (Bladesinger only) - https://www.nexusmods.com/baldursgate3/mods/279
+- FF14 Red Mage Class - https://www.nexusmods.com/baldursgate3/mods/2056
+- FF14 White Mage Class - https://www.nexusmods.com/baldursgate3/mods/2961
 - Harlequin - https://www.nexusmods.com/baldursgate3/mods/2120
 - Hexblade - https://www.nexusmods.com/baldursgate3/mods/1100
 - Magus - https://www.nexusmods.com/baldursgate3/mods/422
@@ -31,7 +33,6 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 - Mystic - https://www.nexusmods.com/baldursgate3/mods/2786
 - Pirate (Homebrew Rogue Subclass) - https://www.nexusmods.com/baldursgate3/mods/3070
 - Raven Queen Patron for Warlock - https://www.nexusmods.com/baldursgate3/mods/1895
-- Red Mage / White Mage - https://www.nexusmods.com/baldursgate3/mods/2056 / https://www.nexusmods.com/baldursgate3/mods/2961
 - Rogues Extra - https://www.nexusmods.com/baldursgate3/mods/189
 - Samurai - https://www.nexusmods.com/baldursgate3/mods/2245
 - Shadow Sorcerer - https://www.nexusmods.com/baldursgate3/mods/923
