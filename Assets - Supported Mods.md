@@ -34,7 +34,6 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Wielder Class — https://www.nexusmods.com/baldursgate3/mods/3829
 - Wizard Traditions - Runesmith — https://www.nexusmods.com/baldursgate3/mods/2563
 - Wizard Traditions - War Magic — https://www.nexusmods.com/baldursgate3/mods/924
-
 - Echo Knight Fighter Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3939
 - FF14 Red Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2056
 - FF14 White Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2961
