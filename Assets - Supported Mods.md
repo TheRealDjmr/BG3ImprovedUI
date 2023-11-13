@@ -85,6 +85,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | The Elder Scrolls Starting Spells | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
 | Vanguard Class | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
 | Warlock: The Undead subclass | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3045) |
+| Whispers of the Divine: Aasimar Race | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4159) |
 | Whispers of the Fey: Goblins Race | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3254) |
 | Wielder Class | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3829) |
 | Wizard Traditions - Runesmith | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2563) |
