@@ -13,7 +13,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 ### Class/Subclass Icons
 How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 
-#### — via direct support:
+- Alternate Monk <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer — https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter — https://www.nexusmods.com/baldursgate3/mods/2151
 - Cleric Subclasses — https://www.nexusmods.com/baldursgate3/mods/432
@@ -35,16 +35,14 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Wizard Traditions - Runesmith — https://www.nexusmods.com/baldursgate3/mods/2563
 - Wizard Traditions - War Magic — https://www.nexusmods.com/baldursgate3/mods/924
 
-#### — via dynamic support:
-- Alternate Monk — https://www.nexusmods.com/baldursgate3/mods/2266
-- Echo Knight Fighter Subclass — https://www.nexusmods.com/baldursgate3/mods/3939
-- FF14 Red Mage Class — https://www.nexusmods.com/baldursgate3/mods/2056
-- FF14 White Mage Class — https://www.nexusmods.com/baldursgate3/mods/2961
-- Monk Subclass - Way of the Kensei — https://www.nexusmods.com/baldursgate3/mods/1330
-- Monk - Way of Springtime — https://www.nexusmods.com/baldursgate3/mods/3605
-- Mystic — https://www.nexusmods.com/baldursgate3/mods/2786
-- Pirate (Homebrew Rogue Subclass) — https://www.nexusmods.com/baldursgate3/mods/3070
-- Thanator — https://www.nexusmods.com/baldursgate3/mods/2796
+- Echo Knight Fighter Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3939
+- FF14 Red Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2056
+- FF14 White Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2961
+- Monk Subclass - Way of the Kensei <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/1330
+- Monk - Way of Springtime <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3605
+- Mystic <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2786
+- Pirate (Homebrew Rogue Subclass) <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3070
+- Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
 
 
 ### Race Icons
@@ -69,25 +67,25 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 
 ### Action Resource Icons
 
-| Mod Name | Support Note | Mod Link |
-| :--- | :--- | :---: |
-| Alternate Monk | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2266) |
-| Artificer | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1779) |
-| Blood Hunter | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) |
-| Boots of Living Flames | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3769) |
-| Death Knight Class | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1725) |
-| Demon Hunter Class | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3165) |
-| Echo Knight Fighter Subclass | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3939) |
-| Expansion (Bladesinger Only) | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
-| Improved Breath Weapon | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
-| Magus | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
-| Mystic | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
-| The Elder Scrolls Starting Spells | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
-| Vanguard Class | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
-| Warlock: The Undead subclass | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3045) |
-| Whispers of the Fey: Goblins Race | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3254) |
-| Wielder Class | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3829) |
-| Wizard Traditions - Runesmith | *Keyboard*: ✔<br/>*Controller*: Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2563) |
+| Mod Name | Keyboard | Controller | Mod Link |
+| :--- | :--- | :--- | :---: |
+| Alternate Monk | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2266) |
+| Artificer | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1779) |
+| Blood Hunter | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) |
+| Boots of Living Flames | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3769) |
+| Death Knight Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1725) |
+| Demon Hunter Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3165) |
+| Echo Knight Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3939) |
+| Expansion (Bladesinger Only) | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
+| Improved Breath Weapon | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
+| Magus | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
+| Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
+| The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
+| Vanguard Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
+| Warlock: The Undead subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3045) |
+| Whispers of the Fey: Goblins Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3254) |
+| Wielder Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3829) |
+| Wizard Traditions - Runesmith | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2563) |
 
 ### Other Mods
 - Stackable Items — https://www.nexusmods.com/baldursgate3/mods/1668
