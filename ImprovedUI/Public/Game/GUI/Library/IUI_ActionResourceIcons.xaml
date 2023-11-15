@@ -177,7 +177,9 @@
 	<ImageSource x:Key="LivingFlameChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame_missing.png</ImageSource>
 	<ImageSource x:Key="GZI_Knowledge" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_d.png</ImageSource>
 	<ImageSource x:Key="GZI_KnowledgeUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_missing.png</ImageSource>
-	<!-- EDIT HERE --> 
+	<ImageSource x:Key="Glamour">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_d.png</ImageSource>
+	<ImageSource x:Key="GlamourUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_missing.png</ImageSource>
+	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
@@ -299,7 +301,10 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Knowledge">
 				<Setter Property="Source" Value="{StaticResource GZI_Knowledge}"/>
 			</DataTrigger>
-			<!-- EDIT HERE --> 
+			<DataTrigger Binding="{Binding TypeId}" Value="Glamour">
+				<Setter Property="Source" Value="{StaticResource Glamour}"/>
+			</DataTrigger>
+			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
 
@@ -1081,7 +1086,17 @@
 					<Setter Property="Source" Value="{StaticResource GZI_KnowledgeUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<!-- EDIT HERE --> 
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Glamour"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GlamourUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
 
@@ -1407,6 +1422,7 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.CunningDieGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_h.png</ImageSource>
@@ -1546,6 +1562,7 @@
 		</ControlTemplate.Resources>
 			<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.TESHealingPotencyGroup" TargetType="ls:LSActionPoint">
 	    <ControlTemplate.Resources>
 	        <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ElderScrollsStartingSpells/Shared/Resources/c_ico_Ress_PotencyHeal_h.png</ImageSource>
@@ -1565,6 +1582,7 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.GZI_KnowledgeGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_h.png</ImageSource>
@@ -1574,7 +1592,17 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-	<!-- EDIT HERE --> 
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GlamourGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<!-- EDIT HERE -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
@@ -2375,6 +2403,19 @@
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="GZI_Knowledge"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Glamour">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GlamourGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Glamour"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
