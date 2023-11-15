@@ -135,6 +135,12 @@
 	<ImageSource x:Key="LuminousBurstUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_missing.png</ImageSource>
 	<ImageSource x:Key="PracticedStrike">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike.png</ImageSource>
 	<ImageSource x:Key="PracticedStrikeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_missing.png</ImageSource>
+	<ImageSource x:Key="VesselSpellSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot.png</ImageSource>
+	<ImageSource x:Key="VesselSpellSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot_missing.png</ImageSource>
+	<ImageSource x:Key="ArchonForm">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm.png</ImageSource>
+	<ImageSource x:Key="ArchonFormUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm_missing.png</ImageSource>
+	<ImageSource x:Key="TwinConsciousness">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness.png</ImageSource>
+	<ImageSource x:Key="TwinConsciousnessUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness_missing.png</ImageSource>
 	<ImageSource x:Key="PsionicDie">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_d.png</ImageSource>
 	<ImageSource x:Key="PsionicDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_missing.png</ImageSource>
 	<ImageSource x:Key="CunningDie">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_d.png</ImageSource>
@@ -169,6 +175,8 @@
 	<ImageSource x:Key="TESHealingPotencyUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElderScrollsStartingSpells/Shared/Resources/c_ico_Ress_PotencyHeal_missing.png</ImageSource>
 	<ImageSource x:Key="LivingFlameCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame.png</ImageSource>
 	<ImageSource x:Key="LivingFlameChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame_missing.png</ImageSource>
+	<ImageSource x:Key="GZI_Knowledge" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_d.png</ImageSource>
+	<ImageSource x:Key="GZI_KnowledgeUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_missing.png</ImageSource>
 	<ImageSource x:Key="Glamour">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_d.png</ImageSource>
 	<ImageSource x:Key="GlamourUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_missing.png</ImageSource>
 	<!-- EDIT HERE -->
@@ -230,6 +238,15 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="LuminousBurst">
 				<Setter Property="Source" Value="{StaticResource LuminousBurst}"/>
 			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="VesselSpellSlot">
+				<Setter Property="Source" Value="{StaticResource VesselSpellSlot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArchonForm">
+				<Setter Property="Source" Value="{StaticResource ArchonForm}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TwinConsciousness">
+				<Setter Property="Source" Value="{StaticResource TwinConsciousness}"/>
+			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="PsionicDie">
 				<Setter Property="Source" Value="{StaticResource PsionicDie}"/>
 			</DataTrigger>
@@ -277,6 +294,12 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="TESHealingPotency">
 				<Setter Property="Source" Value="{StaticResource TESHealingPotency}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LivingFlameCharge">
+				<Setter Property="Source" Value="{StaticResource LivingFlameCharge}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Knowledge">
+				<Setter Property="Source" Value="{StaticResource GZI_Knowledge}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="Glamour">
 				<Setter Property="Source" Value="{StaticResource Glamour}"/>
@@ -855,6 +878,36 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="VesselSpellSlot"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource VesselSpellSlotUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ArchonForm"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ArchonFormUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="TwinConsciousness"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource TwinConsciousnessUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="PsionicDie"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
@@ -1021,6 +1074,16 @@
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Source" Value="{StaticResource LivingFlameChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GZI_Knowledge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GZI_KnowledgeUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<MultiDataTrigger>
@@ -1320,6 +1383,36 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="ActionResources.ActionGroup.VesselSpellSlotGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.ArchonFormGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.TwinConsciousnessGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.PsionicDieGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_h.png</ImageSource>
@@ -1329,6 +1422,7 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.CunningDieGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_h.png</ImageSource>
@@ -1468,6 +1562,7 @@
 		</ControlTemplate.Resources>
 			<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.TESHealingPotencyGroup" TargetType="ls:LSActionPoint">
 	    <ControlTemplate.Resources>
 	        <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ElderScrollsStartingSpells/Shared/Resources/c_ico_Ress_PotencyHeal_h.png</ImageSource>
@@ -1477,6 +1572,7 @@
 	    </ControlTemplate.Resources>
 	    <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.LivingFlameChargeGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
           		<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame_highlight.png</ImageSource>
@@ -1486,6 +1582,17 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GZI_KnowledgeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.GlamourGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_h.png</ImageSource>
@@ -2021,6 +2128,45 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="VesselSpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.VesselSpellSlotGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="VesselSpellSlot"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArchonForm">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArchonFormGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ArchonForm"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TwinConsciousness">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.TwinConsciousnessGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="TwinConsciousness"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="PsionicDie">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.PsionicDieGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -2235,10 +2381,6 @@
 			        <Setter Property="Margin" Value="0,-15,0,0"/>
 			    </MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="Glamour">
-				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GlamourGroup}"/>
-				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="LivingFlameCharge">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LivingFlameChargeGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -2252,6 +2394,24 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Knowledge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GZI_KnowledgeGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GZI_Knowledge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Glamour">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GlamourGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="Glamour"/>
