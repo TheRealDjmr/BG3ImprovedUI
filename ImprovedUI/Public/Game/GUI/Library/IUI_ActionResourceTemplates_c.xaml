@@ -20,6 +20,7 @@
 	<SolidColorBrush x:Key="ActionPoint" Color="#1ECC5B"/>
 	<SolidColorBrush x:Key="ActionResource.SorceryPoint" Color="#ff0066"/>-->
 	<SolidColorBrush x:Key="ActionResource.BreathWeaponCharge" Color="#7c0c60"/>
+	<SolidColorBrush x:Key="ActionResource.LivingFlameCharge" Color="#000000"/>
 	<!-- EDIT HERE -->
 
 	<!-- Setup default controller styles here, scroll down for custom entries -->
@@ -651,7 +652,7 @@
 			<!-- MOD NOTE - Revert to star icon if not defined here -->
 			<Rectangle x:Name="ResourceImage" Width="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=25}" Height="64" VerticalAlignment="Center">
 				<Rectangle.Fill>
-					<ImageBrush ImageSource="{StaticResource TypeIdToSourceFallback}" TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					<ImageBrush ImageSource="{StaticResource TypeIdToSourceFallback}" TileMode="Tile" Stretch="Uniform" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="RelativeToBoundingBox" Viewbox="0,0,1,1"/>
 				</Rectangle.Fill>
 			</Rectangle>
 			<TextBlock x:Name="ResourceName" Text="{Binding Name}" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="{DynamicResource ScaledSmallishFontSize}" Foreground="{StaticResource LS_tint100}" Style="{StaticResource HUD.DefaultTextStyle}"/>
