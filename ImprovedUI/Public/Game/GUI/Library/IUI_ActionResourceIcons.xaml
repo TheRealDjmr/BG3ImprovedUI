@@ -135,6 +135,12 @@
 	<ImageSource x:Key="LuminousBurstUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_missing.png</ImageSource>
 	<ImageSource x:Key="PracticedStrike">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike.png</ImageSource>
 	<ImageSource x:Key="PracticedStrikeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_PracticedStrike_missing.png</ImageSource>
+	<ImageSource x:Key="VesselSpellSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot.png</ImageSource>
+	<ImageSource x:Key="VesselSpellSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot_missing.png</ImageSource>
+	<ImageSource x:Key="ArchonForm">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm.png</ImageSource>
+	<ImageSource x:Key="ArchonFormUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm_missing.png</ImageSource>
+	<ImageSource x:Key="TwinConsciousness">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness.png</ImageSource>
+	<ImageSource x:Key="TwinConsciousnessUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness_missing.png</ImageSource>
 	<ImageSource x:Key="PsionicDie">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_d.png</ImageSource>
 	<ImageSource x:Key="PsionicDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/PsiKnight/Shared/Resources/ico_classRes_PsionicDie_missing.png</ImageSource>
 	<ImageSource x:Key="CunningDie">pack://application:,,,/GustavNoesisGUI;component/Assets/RogueRework/Shared/Resources/ico_classRes_CunningDie_d.png</ImageSource>
@@ -229,6 +235,15 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="LuminousBurst">
 				<Setter Property="Source" Value="{StaticResource LuminousBurst}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="VesselSpellSlot">
+				<Setter Property="Source" Value="{StaticResource VesselSpellSlot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArchonForm">
+				<Setter Property="Source" Value="{StaticResource ArchonForm}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TwinConsciousness">
+				<Setter Property="Source" Value="{StaticResource TwinConsciousness}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="PsionicDie">
 				<Setter Property="Source" Value="{StaticResource PsionicDie}"/>
@@ -858,6 +873,36 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="VesselSpellSlot"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource VesselSpellSlotUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ArchonForm"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ArchonFormUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="TwinConsciousness"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource TwinConsciousnessUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="PsionicDie"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
@@ -1319,6 +1364,36 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/AlternateMonk/Shared/Resources/c_ico_res_LuminousBurst_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.VesselSpellSlotGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_VesselSpellSlot_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.ArchonFormGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_ArchonForm_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.TwinConsciousnessGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Vessel/Shared/Resources/c_ico_res_TwinConsciousness_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -2019,6 +2094,45 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="PracticedStrike"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="VesselSpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.VesselSpellSlotGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="VesselSpellSlot"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArchonForm">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArchonFormGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ArchonForm"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TwinConsciousness">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.TwinConsciousnessGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="TwinConsciousness"/>
 					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>

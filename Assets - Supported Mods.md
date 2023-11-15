@@ -38,6 +38,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Shadow Sorcerer — https://www.nexusmods.com/baldursgate3/mods/923
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
 - Vanguard Class — https://www.nexusmods.com/baldursgate3/mods/3686
+- Vessel Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/4133/
 - Way of the Drunken Master Subclass — https://www.nexusmods.com/baldursgate3/mods/1832
 - Wielder Class — https://www.nexusmods.com/baldursgate3/mods/3829
 - Wizard Traditions - Runesmith — https://www.nexusmods.com/baldursgate3/mods/2563
@@ -81,6 +82,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
 | Vanguard Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
+| Vessel Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4133/) |
 | Warlock: The Undead subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3045) |
 | Whispers of the Divine: Aasimar Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4159) |
 | Whispers of the Fey: Goblins Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3254) |
