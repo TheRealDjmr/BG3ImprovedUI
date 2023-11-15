@@ -175,7 +175,9 @@
 	<ImageSource x:Key="TESHealingPotencyUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElderScrollsStartingSpells/Shared/Resources/c_ico_Ress_PotencyHeal_missing.png</ImageSource>
 	<ImageSource x:Key="LivingFlameCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame.png</ImageSource>
 	<ImageSource x:Key="LivingFlameChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/FireBoots/Shared/Resources/Icon_LivingFlame_missing.png</ImageSource>
-	<!-- EDIT HERE -->
+	<ImageSource x:Key="GZI_Knowledge" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_d.png</ImageSource>
+	<ImageSource x:Key="GZI_KnowledgeUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_missing.png</ImageSource>
+	<!-- EDIT HERE --> 
 
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
@@ -294,7 +296,10 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="LivingFlameCharge">
 				<Setter Property="Source" Value="{StaticResource LivingFlameCharge}"/>
 			</DataTrigger>
-			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Knowledge">
+				<Setter Property="Source" Value="{StaticResource GZI_Knowledge}"/>
+			</DataTrigger>
+			<!-- EDIT HERE --> 
 		</Style.Triggers>
 	</Style>
 
@@ -1066,7 +1071,17 @@
 					<Setter Property="Source" Value="{StaticResource LivingFlameChargeUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<!-- EDIT HERE -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GZI_Knowledge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GZI_KnowledgeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<!-- EDIT HERE --> 
 		</Style.Triggers>
 	</Style>
 
@@ -1550,7 +1565,16 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-	<!-- EDIT HERE -->
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GZI_KnowledgeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<!-- EDIT HERE --> 
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
@@ -2342,7 +2366,21 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Knowledge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GZI_KnowledgeGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GZI_Knowledge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<!-- EDIT HERE --> 
 		</Style.Triggers>
 	</Style>
 </ResourceDictionary>
