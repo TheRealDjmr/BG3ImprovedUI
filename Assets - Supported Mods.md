@@ -50,6 +50,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Embrace The Pain - Witch Elf — https://www.nexusmods.com/baldursgate3/mods/3490/
 - Fizbans Treasury of Dragons — https://www.nexusmods.com/baldursgate3/mods/1793
 - Half angel (Aasimar 5E) — https://www.nexusmods.com/baldursgate3/mods/1824
+- Plus Races - Gnoll — https://www.nexusmods.com/baldursgate3/mods/3872
 - Plus Races - Rework — https://www.nexusmods.com/baldursgate3/mods/3865
 - Shadar-Kai — https://www.nexusmods.com/baldursgate3/mods/1305
 - Whispers of the Divine: Aasimar Race — https://www.nexusmods.com/baldursgate3/mods/4159
