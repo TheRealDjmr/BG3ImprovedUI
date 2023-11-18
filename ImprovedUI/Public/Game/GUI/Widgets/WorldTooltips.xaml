@@ -8,9 +8,8 @@
 	<ls:UIWidget.ContentTemplate>
 		<DataTemplate DataType="{x:Type ls:Widget}">
 			<DataTemplate.Resources>
-			<!-- MOD START - Add toggled tooltips indicator icon-->
-				<BitmapImage x:Key="IconSpyglass" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD/ico_spyglass.png" />
-			<!-- MOD END -->
+				<SolidColorBrush x:Key="GreenScreen" Color="#00B140"/>
+				<SolidColorBrush x:Key="BlueScreen" Color="#150DF7"/>
 				<DataTemplate x:Key="CommonTooltipTemplate">
 					<Canvas  >
 						<b:Interaction.Triggers>
@@ -80,8 +79,69 @@
 			</DataTemplate.Resources>
 
 			<Grid>
+				<Control x:Name="WTCMouseInputChecker" Visibility="Collapsed" Opacity="1.0">
+					<Control.Template>
+						<ControlTemplate TargetType="Control">
+							<Border Width="3840" Height="2160" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{StaticResource GreenScreen}"/>
+						</ControlTemplate>
+					</Control.Template>
+					<b:Interaction.Triggers>
+						<b:EventTrigger EventName="MouseMove">
+							<!--<b:ChangePropertyAction TargetName="WTCMouseInputChecker" PropertyName="Visibility" Value="Collapsed"/>-->
+							<!--<b:Interaction.Behaviors>
+								<b:ConditionBehavior>
+									<b:ConditionalExpression>
+										<b:ComparisonCondition LeftOperand="{Binding ElementName=SpyglassHolder, Path=Visibility}" Operator="Equal" RightOperand="Visible"/>
+									</b:ConditionalExpression>
+								</b:ConditionBehavior>
+							</b:Interaction.Behaviors>-->
+							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
+							<b:ChangePropertyAction TargetName="WTCMouseInputChecker" PropertyName="Opacity" Value="0.5"/>
+							<!--<b:ChangePropertyAction TargetName="WTCZeroItemsChecker" PropertyName="Visibility" Value="Visible"/>-->
+						</b:EventTrigger>
+						<b:PropertyChangedTrigger Binding="{Binding ElementName=SpyglassHolder, Path=Opacity}">
+							<b:Interaction.Behaviors>
+								<b:ConditionBehavior>
+									<b:ConditionalExpression>
+										<b:ComparisonCondition LeftOperand="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Operator="Equal" RightOperand="True"/>
+									</b:ConditionalExpression>
+								</b:ConditionBehavior>
+							</b:Interaction.Behaviors>
+							<b:ChangePropertyAction TargetName="WTCMouseInputChecker" PropertyName="Opacity" Value="1.0"/>
+						</b:PropertyChangedTrigger>
+						<!--<b:PropertyChangedTrigger Binding="{Binding Path=WTCMouseInputChecker, ElementName=Visibility}">
+							<b:Interaction.Behaviors>
+								<b:ConditionBehavior>
+									<b:ConditionalExpression>
+										<b:ComparisonCondition LeftOperand="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Operator="Equal" RightOperand="False"/>
+									</b:ConditionalExpression>
+								</b:ConditionBehavior>
+							</b:Interaction.Behaviors>
+						</b:PropertyChangedTrigger>
+						<b:ChangePropertyAction TargetName="WTCZeroItemsChecker" PropertyName="Visibility" Value="Visible"/>-->
+					</b:Interaction.Triggers>
+				</Control>
+				<Control x:Name="WTCZeroItemsChecker" Visibility="Collapsed" IsHitTestVisible="False">
+					<Control.Template>
+						<ControlTemplate TargetType="Control">
+							<Border Width="3840" Height="2160" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{StaticResource BlueScreen}"/>
+						</ControlTemplate>
+					</Control.Template>
+					<!--<b:Interaction.Triggers>
+						<b:PropertyChangedTrigger Binding="{Binding Path=WTCZeroItemsChecker, ElementName=Visibility}">
+							<b:Interaction.Behaviors>
+								<b:ConditionBehavior>
+									<b:ConditionalExpression>
+										<b:ComparisonCondition LeftOperand="{Binding ElementName=WTCZeroItemsChecker, Path=Visibility}" Operator="Equal" RightOperand="True"/>
+									</b:ConditionalExpression>
+								</b:ConditionBehavior>
+							</b:Interaction.Behaviors>
+						</b:PropertyChangedTrigger>
+						<b:ChangePropertyAction TargetName="WTCZeroItemsChecker" PropertyName="Visibility" Value="Visible"/>
+					</b:Interaction.Triggers>-->
+				</Control>
 				<!-- Show all the world tooltips for this player -->
-				<ItemsControl ItemsSource="{Binding CurrentPlayer.WorldTooltips}" ItemTemplate="{StaticResource CommonTooltipTemplate}" x:Name="WorldTooltipContainer" IsHitTestVisible="True">
+				<ItemsControl ItemsSource="{Binding CurrentPlayer.WorldTooltips}" ItemTemplate="{StaticResource CommonTooltipTemplate}" x:Name="WorldTooltipContainer">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<ls:LSWorldTooltipsCanvas ClipToBounds="True"/>
@@ -101,42 +161,66 @@
 					</ItemsControl.ItemContainerStyle>
 				</ItemsControl>
 
-				<!-- MOD START - Show tooltips without requiring input held down -->
-				<Image x:Name="IconSpyglass" Source="{StaticResource IconSpyglass}" Visibility="Hidden" Height="120" Width="120" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-
-				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" IsEnabled="{Binding ElementName=WorldTooltipContainer, Path=IsVisible}" EatInput="True">
+				<Grid x:Name="SpyglassHolder" Visibility="Collapsed">
+					<Image x:Name="IconSpyglass" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD/ico_spyglass.png" Height="120" Width="120" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 					<b:Interaction.Triggers>
-						<b:EventTrigger EventName="LSInputBindingPressed">
-							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}" CommandParameter="{StaticResource FalseValue}"/>
-							<b:ChangePropertyAction TargetName="WorldTooltipContainer" PropertyName="Visibility" Value="Collapsed" />
-							<b:ChangePropertyAction TargetName="IconSpyglass" PropertyName="Visibility" Value="Hidden" />
-						</b:EventTrigger>
-					</b:Interaction.Triggers>
-				</ls:LSInputBinding>
-				
-				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" EatInput="True">
-					<b:Interaction.Triggers>
-						<b:EventTrigger EventName="LSInputBindingPressed">
+						<b:EventTrigger EventName="MouseEnter">
 							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
-							<b:ChangePropertyAction TargetName="WorldTooltipContainer" PropertyName="Visibility" Value="Visible" />
-							<b:ChangePropertyAction TargetName="IconSpyglass" PropertyName="Visibility" Value="Visible" />
+						</b:EventTrigger>
+					</b:Interaction.Triggers>
+				</Grid>
+
+				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" IsEnabled="{Binding ElementName=SpyglassHolder, Path=IsVisible}" EatInput="True">
+					<b:Interaction.Triggers>
+						<b:EventTrigger EventName="LSInputBindingPressed">
+							<b:ChangePropertyAction TargetName="WorldTooltipContainer" PropertyName="Visibility" Value="Collapsed"/>
+							<b:ChangePropertyAction TargetName="SpyglassHolder" PropertyName="Visibility" Value="Collapsed" />
+							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}" CommandParameter="{StaticResource FalseValue}"/>
 						</b:EventTrigger>
 					</b:Interaction.Triggers>
 				</ls:LSInputBinding>
-				<!-- MOD END -->
+
+				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" IsEnabled="{Binding ElementName=SpyglassHolder, Path=IsVisible, Converter={StaticResource InvertBoolConverter}}" EatInput="True">
+					<b:Interaction.Triggers>
+						<b:EventTrigger EventName="LSInputBindingPressed">
+							<b:ChangePropertyAction TargetName="WorldTooltipContainer" PropertyName="Visibility" Value="Visible"/>
+							<b:ChangePropertyAction TargetName="SpyglassHolder" PropertyName="Visibility" Value="Visible" />
+							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
+						</b:EventTrigger>
+					</b:Interaction.Triggers>
+				</ls:LSInputBinding>
 			</Grid>
-      <DataTemplate.Triggers>
-          <DataTrigger Binding="{Binding CurrentPlayer.WorldTooltips.Count}" Value="0">
-			<Setter TargetName="WorldTooltipContainer" Property="IsHitTestVisible" Value="False"/>
-          </DataTrigger>
-      </DataTemplate.Triggers>
+			<DataTemplate.Triggers>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Value="False"/>
+						<Condition Binding="{Binding ElementName=SpyglassHolder, Path=IsVisible}" Value="True"/>
+						<Condition Binding="{Binding ElementName=WTCMouseInputChecker, Path=Opacity}" Value="0.5"/>
+					</MultiDataTrigger.Conditions>
+					<MultiDataTrigger.Setters>
+						<Setter TargetName="SpyglassHolder" Property="Opacity" Value="0.5"/>
+						<Setter TargetName="WTCMouseInputChecker" Property="Visibility" Value="Collapsed"/>
+					</MultiDataTrigger.Setters>
+				</MultiDataTrigger>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Value="False"/>
+						<Condition Binding="{Binding ElementName=SpyglassHolder, Path=IsVisible}" Value="True"/>
+						<Condition Binding="{Binding ElementName=WTCMouseInputChecker, Path=Opacity}" Value="1.0"/>
+					</MultiDataTrigger.Conditions>
+					<Setter TargetName="WTCMouseInputChecker" Property="Visibility" Value="Visible"/>
+				</MultiDataTrigger>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Value="True"/>
+						<Condition Binding="{Binding ElementName=SpyglassHolder, Path=IsVisible}" Value="True"/>
+					</MultiDataTrigger.Conditions>
+					<MultiDataTrigger.Setters>
+						<Setter TargetName="WTCMouseInputChecker" Property="Visibility" Value="Collapsed"/>
+						<Setter TargetName="SpyglassHolder" Property="Opacity" Value="1.0"/>
+					</MultiDataTrigger.Setters>
+				</MultiDataTrigger>
+			</DataTemplate.Triggers>
 		</DataTemplate>
 	</ls:UIWidget.ContentTemplate>
-	<!-- MOD START - Show tooltips when UI changes -->
-    <!-- <b:Interaction.Triggers>
-        <b:PropertyChangedTrigger Binding="{Binding CurrentPlayer.UIData.ActiveState}">
-            <b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}" CommandParameter="{StaticResource FalseValue}"/>
-        </b:PropertyChangedTrigger>
-    </b:Interaction.Triggers> -->
-	<!-- MOD END -->
 </ls:UIWidget>
