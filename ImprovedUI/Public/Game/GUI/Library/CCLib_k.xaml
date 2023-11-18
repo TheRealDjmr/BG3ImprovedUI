@@ -5799,34 +5799,47 @@
 
             </DockPanel>
 
-            <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchHairButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0">
-                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/overPane_appearance.png" Stretch="None"/>
+			<!-- MOD START - Fixed Facial Hair panels -->
+			<Grid Visibility="{Binding Path=IsChecked, ElementName=swatchHairButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
 
-                <StackPanel HorizontalAlignment="Center" Margin="0,64,0,0">
-                    <ContentControl Template="{StaticResource decoratedHeader}">
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                    </ContentControl>
-                    <ListBox Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding HairColorOptions}" Margin="0,20,0,0"/>
-                    <ListBox ItemsSource="{Binding SelectableHairColours}" SelectedItem="{Binding SelectedHairColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="0,20,0,0"/>
-                </StackPanel>
+				<ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
+					<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
+				</ContentControl>
 
-                <ls:LSToggleButton IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchHairButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" VerticalAlignment="Bottom" Margin="0,0,0,-16" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-            </Grid>
+				<ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding HairColorOptions}" Margin="0,20,0,0"/>
 
-            <Grid Visibility="{Binding Path=IsChecked, ElementName=swatchGrayButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0">
-                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/overPane_appearance.png" Stretch="None"/>
+				<ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableHairColours}" SelectedItem="{Binding SelectedHairColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
 
-                <StackPanel DataContext="{Binding AppearanceHairGraying}" VerticalAlignment="Top" Margin="0,64,0,0">
-                    <ContentControl Template="{StaticResource decoratedHeader}">
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                    </ContentControl>
-                    <ListBox Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding ColorOptions}" Margin="0,20,0,0"/>
-                    <ItemsControl Style="{StaticResource ColorSwatchStyle}" Margin="0,20,0,0"/>
-                </StackPanel>
+				<ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchHairButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
+			</Grid>
 
-                <ls:LSToggleButton IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchGrayButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" VerticalAlignment="Bottom" Margin="0,0,0,-16" SoundID="UI_HUD_CC_OpenCloseToggle"/>
-            </Grid>
+			<Grid Visibility="{Binding Path=IsChecked, ElementName=swatchGrayButton, Converter={StaticResource BoolToVisibleConverter}}" VerticalAlignment="Top" Margin="0,220,0,0" Height="1298" Width="820">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Image Grid.Row="0" Grid.RowSpan="4" Source="{StaticResource swatchColourBackground}" Stretch="None"/>
 
+				<ContentControl Grid.Row="0" VerticalAlignment="Top" Margin="0, 64, 0, 0" Template="{StaticResource decoratedHeader}">
+					<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
+				</ContentControl>
+
+				<ListBox Grid.Row="1" VerticalAlignment="Top" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHairGraying.ColorOptions}" Margin="0,20,0,0"/>
+
+				<ListBox Grid.Row="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectableGrayingColours}" SelectedItem="{Binding SelectedGrayingColour}" ItemsPanel="{StaticResource selectableColourPanel}" ItemTemplate="{StaticResource selectableColourTemplate}" Margin="10,20,10,20"/>
+
+				<ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchGrayButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
+			</Grid>
+			<!-- MOD END -->
         </Grid>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchHairButton}" Value="True">
