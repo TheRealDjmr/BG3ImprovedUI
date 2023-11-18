@@ -10,6 +10,12 @@
 			<DataTemplate.Resources>
 				<SolidColorBrush x:Key="GreenScreen" Color="#00B140"/>
 				<SolidColorBrush x:Key="BlueScreen" Color="#150DF7"/>
+				<Storyboard x:Key="IUIScanningAnim" AutoReverse="True">
+					<DoubleAnimation Storyboard.TargetName="SpyglassBorder" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:1"/>
+				</Storyboard>
+				<Storyboard x:Key="IUIIdleAnim" AutoReverse="True">
+					<DoubleAnimation Storyboard.TargetName="SpyglassBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.1"/>
+				</Storyboard>
 				<DataTemplate x:Key="CommonTooltipTemplate">
 					<Canvas  >
 						<b:Interaction.Triggers>
@@ -79,6 +85,7 @@
 			</DataTemplate.Resources>
 
 			<Grid>
+				<!-- Detects mouse movement, if there are no world items listed -->
 				<Control x:Name="WTCMouseInputChecker" Visibility="Collapsed" Opacity="1.0">
 					<Control.Template>
 						<ControlTemplate TargetType="Control">
@@ -87,17 +94,8 @@
 					</Control.Template>
 					<b:Interaction.Triggers>
 						<b:EventTrigger EventName="MouseMove">
-							<!--<b:ChangePropertyAction TargetName="WTCMouseInputChecker" PropertyName="Visibility" Value="Collapsed"/>-->
-							<!--<b:Interaction.Behaviors>
-								<b:ConditionBehavior>
-									<b:ConditionalExpression>
-										<b:ComparisonCondition LeftOperand="{Binding ElementName=SpyglassHolder, Path=Visibility}" Operator="Equal" RightOperand="Visible"/>
-									</b:ConditionalExpression>
-								</b:ConditionBehavior>
-							</b:Interaction.Behaviors>-->
 							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
 							<b:ChangePropertyAction TargetName="WTCMouseInputChecker" PropertyName="Opacity" Value="0.5"/>
-							<!--<b:ChangePropertyAction TargetName="WTCZeroItemsChecker" PropertyName="Visibility" Value="Visible"/>-->
 						</b:EventTrigger>
 						<b:PropertyChangedTrigger Binding="{Binding ElementName=SpyglassHolder, Path=Opacity}">
 							<b:Interaction.Behaviors>
@@ -109,37 +107,9 @@
 							</b:Interaction.Behaviors>
 							<b:ChangePropertyAction TargetName="WTCMouseInputChecker" PropertyName="Opacity" Value="1.0"/>
 						</b:PropertyChangedTrigger>
-						<!--<b:PropertyChangedTrigger Binding="{Binding Path=WTCMouseInputChecker, ElementName=Visibility}">
-							<b:Interaction.Behaviors>
-								<b:ConditionBehavior>
-									<b:ConditionalExpression>
-										<b:ComparisonCondition LeftOperand="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Operator="Equal" RightOperand="False"/>
-									</b:ConditionalExpression>
-								</b:ConditionBehavior>
-							</b:Interaction.Behaviors>
-						</b:PropertyChangedTrigger>
-						<b:ChangePropertyAction TargetName="WTCZeroItemsChecker" PropertyName="Visibility" Value="Visible"/>-->
 					</b:Interaction.Triggers>
 				</Control>
-				<Control x:Name="WTCZeroItemsChecker" Visibility="Collapsed" IsHitTestVisible="False">
-					<Control.Template>
-						<ControlTemplate TargetType="Control">
-							<Border Width="3840" Height="2160" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{StaticResource BlueScreen}"/>
-						</ControlTemplate>
-					</Control.Template>
-					<!--<b:Interaction.Triggers>
-						<b:PropertyChangedTrigger Binding="{Binding Path=WTCZeroItemsChecker, ElementName=Visibility}">
-							<b:Interaction.Behaviors>
-								<b:ConditionBehavior>
-									<b:ConditionalExpression>
-										<b:ComparisonCondition LeftOperand="{Binding ElementName=WTCZeroItemsChecker, Path=Visibility}" Operator="Equal" RightOperand="True"/>
-									</b:ConditionalExpression>
-								</b:ConditionBehavior>
-							</b:Interaction.Behaviors>
-						</b:PropertyChangedTrigger>
-						<b:ChangePropertyAction TargetName="WTCZeroItemsChecker" PropertyName="Visibility" Value="Visible"/>
-					</b:Interaction.Triggers>-->
-				</Control>
+
 				<!-- Show all the world tooltips for this player -->
 				<ItemsControl ItemsSource="{Binding CurrentPlayer.WorldTooltips}" ItemTemplate="{StaticResource CommonTooltipTemplate}" x:Name="WorldTooltipContainer">
 					<ItemsControl.ItemsPanel>
@@ -161,15 +131,40 @@
 					</ItemsControl.ItemContainerStyle>
 				</ItemsControl>
 
-				<Grid x:Name="SpyglassHolder" Visibility="Collapsed">
-					<Image x:Name="IconSpyglass" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD/ico_spyglass.png" Height="120" Width="120" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+				<!-- Indicates if "Show all items" is turned on, and scanning when no entries are showing -->
+				<Grid x:Name="SpyglassHolder" Visibility="Collapsed" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+					<Border x:Name="SpyglassBorder" Height="120" Width="120" Background="{StaticResource BlueScreen}" Opacity="1">
+						<Image x:Name="IconSpyglass" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD/ico_spyglass.png" Height="120" Width="120"/>
+					</Border>
 					<b:Interaction.Triggers>
+						<b:DataTrigger Binding="{Binding ElementName=SpyglassHolder, Path=Opacity}" Value="0.5">
+							<b:ControlStoryboardAction Storyboard="{StaticResource IUIScanningAnim}" ControlStoryboardOption="Play"/>
+						</b:DataTrigger>
+						<b:DataTrigger Binding="{Binding ElementName=SpyglassHolder, Path=Opacity}" Value="1">
+							<b:ControlStoryboardAction Storyboard="{Binding ElementName=SpyglassHolder,Path=(b:Interaction.Triggers)[0].Actions[0].Storyboard}" ControlStoryboardOption="Stop" />
+							<b:ChangePropertyAction TargetName="SpyglassBorder" PropertyName="Opacity" Value="1"/>
+						</b:DataTrigger>
+						<b:StoryboardCompletedTrigger Storyboard="{StaticResource IUIScanningAnim}">
+							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
+							<b:ControlStoryboardAction Storyboard="{StaticResource IUIIdleAnim}" ControlStoryboardOption="Play"/>
+						</b:StoryboardCompletedTrigger>
+						<b:StoryboardCompletedTrigger Storyboard="{StaticResource IUIIdleAnim}">
+							<b:Interaction.Behaviors>
+								<b:ConditionBehavior>
+									<b:ConditionalExpression>
+										<b:ComparisonCondition LeftOperand="{Binding ElementName=SpyglassHolder, Path=Opacity}" Operator="Equal" RightOperand="0.5"/>
+									</b:ConditionalExpression>
+								</b:ConditionBehavior>
+							</b:Interaction.Behaviors>
+							<b:ControlStoryboardAction Storyboard="{StaticResource IUIScanningAnim}" ControlStoryboardOption="Play"/>
+						</b:StoryboardCompletedTrigger>
 						<b:EventTrigger EventName="MouseEnter">
 							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
 						</b:EventTrigger>
 					</b:Interaction.Triggers>
 				</Grid>
 
+				<!-- controls toggle option for both keyboard and controller -->
 				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" IsEnabled="{Binding ElementName=SpyglassHolder, Path=IsVisible}" EatInput="True">
 					<b:Interaction.Triggers>
 						<b:EventTrigger EventName="LSInputBindingPressed">
@@ -179,7 +174,6 @@
 						</b:EventTrigger>
 					</b:Interaction.Triggers>
 				</ls:LSInputBinding>
-
 				<ls:LSInputBinding BoundEvent="ShowWorldTooltips" IsEnabled="{Binding ElementName=SpyglassHolder, Path=IsVisible, Converter={StaticResource InvertBoolConverter}}" EatInput="True">
 					<b:Interaction.Triggers>
 						<b:EventTrigger EventName="LSInputBindingPressed">
@@ -191,6 +185,7 @@
 				</ls:LSInputBinding>
 			</Grid>
 			<DataTemplate.Triggers>
+				<!-- Enables/disables the mouse or zero item checks in place -->
 				<MultiDataTrigger>
 					<MultiDataTrigger.Conditions>
 						<Condition Binding="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Value="False"/>
