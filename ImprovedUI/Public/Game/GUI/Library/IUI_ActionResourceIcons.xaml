@@ -179,6 +179,8 @@
 	<ImageSource x:Key="GZI_KnowledgeUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Knowledge_missing.png</ImageSource>
 	<ImageSource x:Key="Glamour">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_d.png</ImageSource>
 	<ImageSource x:Key="GlamourUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_missing.png</ImageSource>
+	<ImageSource x:Key="GZI_Psionic_Focus" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_d.png</ImageSource>
+	<ImageSource x:Key="GZI_Psionic_FocusUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_missing.png</ImageSource>	
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -304,6 +306,9 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="Glamour">
 				<Setter Property="Source" Value="{StaticResource Glamour}"/>
 			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Psionic_Focus">
+				<Setter Property="Source" Value="{StaticResource GZI_Psionic_Focus}"/>
+			</DataTrigger>			
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1096,6 +1101,16 @@
 					<Setter Property="Source" Value="{StaticResource GlamourUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GZI_Psionic_Focus"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GZI_Psionic_FocusUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>			
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1602,6 +1617,16 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GZI_Psionic_FocusGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>	
 	<!-- EDIT HERE -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
@@ -2421,6 +2446,21 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			
+			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Psionic_Focus">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GZI_Psionic_FocusGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GZI_Psionic_Focus"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>			
 			<!-- EDIT HERE --> 
 		</Style.Triggers>
 	</Style>
