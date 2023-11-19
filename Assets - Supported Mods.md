@@ -49,6 +49,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Astralities' Tiefling Compendium — https://www.nexusmods.com/baldursgate3/mods/2418
 - Embrace The Pain - Witch Elf — https://www.nexusmods.com/baldursgate3/mods/3490/
 - Fizbans Treasury of Dragons — https://www.nexusmods.com/baldursgate3/mods/1793
+- Followers of Zerthimon - Githzerai - https://www.nexusmods.com/baldursgate3/mods/3460
 - Half angel (Aasimar 5E) — https://www.nexusmods.com/baldursgate3/mods/1824
 - Plus Races - Gnoll — https://www.nexusmods.com/baldursgate3/mods/3872
 - Plus Races - Rework — https://www.nexusmods.com/baldursgate3/mods/3865
@@ -78,6 +79,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | Demon Hunter Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3165) |
 | Echo Knight Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3939) |
 | Expansion (Bladesinger Only) | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
+| Followers of Zerthimon - Githzerai | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Improved Breath Weapon | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Magus | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |

@@ -19,12 +19,13 @@ This mod is aimed at making changes to the overall user interface to improve usa
 
 - Unlocks edit appearance option for all Origin characters in Character Creation.
 - Character Creation Layout tweaks: Redesigned Origin layout (the first screen you see when entering CC).
-- Hireling tweaks: Redesigned Hireling layout (makes better use of the dead space).
+- Character Creation Layout tweaks: Adds full Facial Hair Colour selection.
 - (Controller only) Character Creation Layout tweaks: Hides appearance options when not available, adds "all colours" tickbox for highlights.
-- <b>OPTIONAL FILE REQUIRED</b> Switches "Show all items" (highlighting all interactables, default left ALT key/right stick) from requiring a held input to an on/off switch. Works for both Keyboard and Controller - switching between the two input methods when enabled would cause an additional toggle to be required. Stays on UI change (such as game menu/dialogue) except when showing other tooltips. (Credit: Violet-Vibes)
+- Hireling tweaks: Redesigned Hireling layout (makes better use of the dead space).
 
-<b>OPTIONAL FILE REQUIRED</b> Keyboard-only tweaks:
-- Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslan)
+<b>OPTIONAL FILE REQUIRED</b>
+- Switches "Show all items" (highlighting all interactables, default left ALT key/right stick) from requiring a held input to an on/off switch. Works for both Keyboard and Controller - switching between the two input methods when enabled would cause an additional toggle to be required. Stays on UI change (such as game menu/dialogue), when examining items and when showing other tooltips - toggle only needed in new instances (region change, loaded save). (Credit: Violet-Vibes)
+- (Keyboard-only) Dialogue Tweaks - Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslan)
 - Replaces existing Minimap with smaller version (75% zoom, takes up less space on screen) or no Minimap (leaving the relevant buttons).
 <p float="left" align="middle">
   <img src="https://i.imgur.com/cMii97G.jpg"><img src="https://i.imgur.com/hElvnJR.jpg">
@@ -34,9 +35,9 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Character Creation Layout tweaks: Removes head scroll limit (Credit: Alana)
 - Character Creation Layout tweaks: Removes appearance tab restrictions allowing for modded slot use. (ex: Origin Hairstyles, Humans with tails)
 - Character Creation Layout tweaks: Changes Dragonborn Sorcerer Draconic Ancestry to allow for additional scale types.
-- Character Creation Layout tweaks: Allows for Feat selection once unlocked by another mod. Tip - "Allowimprovement" doesn't work on its own.
 - CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
-- CC/Level up Layout tweaks: Changes passive selection to turn into a scroll option when modded options are added - such as modded Eldritch Invocations. (Credit: Winterbrick)
+- CC/Level up Layout tweaks: Changes passive and equipment selection to turn into a scroll option when enough modded options are added - such as modded Eldritch Invocations. (Credit: Winterbrick)
+- CC/Level up Layout tweaks: Adds passive and equipment selection to Races (previously limited to Class only) (Credit: TrumanHarp)
 - CC/Level up Layout tweaks: Changes Feat panel to have additional scroll options to support modded Feats with long descriptions and multiple options. (Credit: Lostsoul)
 - Hireling tweaks: Adds multiple scroll bars to Hireling selection for better support with modded options.
 
