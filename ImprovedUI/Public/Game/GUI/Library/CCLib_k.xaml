@@ -2506,20 +2506,24 @@
                             <Run Text="{Binding MaxSelectedEquipmentCount, StringFormat='/{0})'}"/>
             </TextBlock>
             <TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
-            <ItemsControl ItemsSource="{Binding Equipments}" HorizontalAlignment="Center" Margin="0,50,0,0">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type ls:VMCharacterCreationEquipment}">
-                        <ContentControl Template="{StaticResource SelectableEnhancement}">
-                            <b:Interaction.Triggers>
-                                <b:EventTrigger EventName="MouseLeftButtonUp">
-                                    <b:InvokeCommandAction Command="{Binding DataContext.ToggleEquipment,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-                                    <ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
-                                </b:EventTrigger>
-                            </b:Interaction.Triggers>
-                        </ContentControl>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+			<!-- MOD START - Restrict equipment max height-->
+			<ls:LSScrollViewer Template="{StaticResource NoForcedStyleScrollViewerTemplate}" MaxHeight="1300" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,50,88,0">
+				<ItemsControl ItemsSource="{Binding Equipments}" HorizontalAlignment="Center">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type ls:VMCharacterCreationEquipment}">
+							<ContentControl Template="{StaticResource SelectableEnhancement}">
+								<b:Interaction.Triggers>
+									<b:EventTrigger EventName="MouseLeftButtonUp">
+										<b:InvokeCommandAction Command="{Binding DataContext.ToggleEquipment,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+										<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
+									</b:EventTrigger>
+								</b:Interaction.Triggers>
+							</ContentControl>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</ls:LSScrollViewer>
+			<!-- MOD END -->
         </StackPanel>
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding Description.Text, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="True">
