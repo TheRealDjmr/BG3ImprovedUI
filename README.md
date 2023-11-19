@@ -37,7 +37,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Character Creation Layout tweaks: Changes Dragonborn Sorcerer Draconic Ancestry to allow for additional scale types.
 - CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
 - CC/Level up Layout tweaks: Changes passive and equipment selection to turn into a scroll option when enough modded options are added - such as modded Eldritch Invocations. (Credit: Winterbrick)
-- CC/Level up Layout tweaks: Adds passive and equipment selection to Races (previously limited to Class only) (Credit: TrumanHarp)
+- CC/Level up Layout tweaks: Adds passive and spell selection to Races (previously limited to Class only) (Credit: TrumanHarp)
 - CC/Level up Layout tweaks: Changes Feat panel to have additional scroll options to support modded Feats with long descriptions and multiple options. (Credit: Lostsoul)
 - Hireling tweaks: Adds multiple scroll bars to Hireling selection for better support with modded options.
 
