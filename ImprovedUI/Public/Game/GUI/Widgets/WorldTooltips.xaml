@@ -8,14 +8,14 @@
 	<ls:UIWidget.ContentTemplate>
 		<DataTemplate DataType="{x:Type ls:Widget}">
 			<DataTemplate.Resources>
-				<SolidColorBrush x:Key="GreenScreen" Color="#00B140"/>
-				<SolidColorBrush x:Key="BlueScreen" Color="#150DF7"/>
+				<!-- MOD START - Custom animation -->
 				<Storyboard x:Key="IUIScanningAnim" AutoReverse="True">
 					<DoubleAnimation Storyboard.TargetName="SpyglassBorder" Storyboard.TargetProperty="Opacity" To="0.1" Duration="0:0:1"/>
 				</Storyboard>
-				<Storyboard x:Key="IUIIdleAnim" AutoReverse="True">
+				<Storyboard x:Key="IUIIdleAnim">
 					<DoubleAnimation Storyboard.TargetName="SpyglassBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.1"/>
 				</Storyboard>
+				<!-- MOD END -->
 				<DataTemplate x:Key="CommonTooltipTemplate">
 					<Canvas  >
 						<b:Interaction.Triggers>
@@ -85,15 +85,16 @@
 			</DataTemplate.Resources>
 
 			<Grid>
+				<!-- MOD START - show all items auto re-toggle -->
 				<!-- Detects mouse movement, if there are no world items listed -->
 				<Control x:Name="WTCMouseInputChecker" Visibility="Collapsed" Opacity="1.0">
 					<Control.Template>
 						<ControlTemplate TargetType="Control">
-							<Border Width="3840" Height="2160" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{StaticResource GreenScreen}"/>
+							<Border Width="3840" Height="2160" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent"/>
 						</ControlTemplate>
 					</Control.Template>
 					<b:Interaction.Triggers>
-						<b:EventTrigger EventName="MouseMove">
+						<b:EventTrigger EventName="MouseEnter">
 							<b:InvokeCommandAction Command="{Binding SetShowWorldTooltipsCommand}"/>
 							<b:ChangePropertyAction TargetName="WTCMouseInputChecker" PropertyName="Opacity" Value="0.5"/>
 						</b:EventTrigger>
@@ -133,7 +134,7 @@
 
 				<!-- Indicates if "Show all items" is turned on, and scanning when no entries are showing -->
 				<Grid x:Name="SpyglassHolder" Visibility="Collapsed" Margin="20,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-					<Border x:Name="SpyglassBorder" Height="120" Width="120" Background="{StaticResource BlueScreen}" Opacity="1">
+					<Border x:Name="SpyglassBorder" Height="120" Width="120" Background="Transparent" Opacity="1">
 						<Image x:Name="IconSpyglass" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD/ico_spyglass.png" Height="120" Width="120"/>
 					</Border>
 					<b:Interaction.Triggers>
@@ -186,10 +187,13 @@
 			</Grid>
 			<DataTemplate.Triggers>
 				<!-- Enables/disables the mouse or zero item checks in place -->
+				<DataTrigger Binding="{Binding ElementName=SpyglassHolder, Path=IsVisible}" Value="False">
+					<Setter TargetName="WTCMouseInputChecker" Property="Visibility" Value="Collapsed"/>
+				</DataTrigger>
 				<MultiDataTrigger>
 					<MultiDataTrigger.Conditions>
-						<Condition Binding="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Value="False"/>
 						<Condition Binding="{Binding ElementName=SpyglassHolder, Path=IsVisible}" Value="True"/>
+						<Condition Binding="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Value="False"/>
 						<Condition Binding="{Binding ElementName=WTCMouseInputChecker, Path=Opacity}" Value="0.5"/>
 					</MultiDataTrigger.Conditions>
 					<MultiDataTrigger.Setters>
@@ -199,8 +203,8 @@
 				</MultiDataTrigger>
 				<MultiDataTrigger>
 					<MultiDataTrigger.Conditions>
-						<Condition Binding="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Value="False"/>
 						<Condition Binding="{Binding ElementName=SpyglassHolder, Path=IsVisible}" Value="True"/>
+						<Condition Binding="{Binding ElementName=WorldTooltipContainer, Path=HasItems}" Value="False"/>
 						<Condition Binding="{Binding ElementName=WTCMouseInputChecker, Path=Opacity}" Value="1.0"/>
 					</MultiDataTrigger.Conditions>
 					<Setter TargetName="WTCMouseInputChecker" Property="Visibility" Value="Visible"/>
@@ -218,4 +222,5 @@
 			</DataTemplate.Triggers>
 		</DataTemplate>
 	</ls:UIWidget.ContentTemplate>
+	<!-- MOD END -->
 </ls:UIWidget>
