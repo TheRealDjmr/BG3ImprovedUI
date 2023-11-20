@@ -1253,6 +1253,7 @@
             <!-- MOD START - Spell subtabs for racial spells on LevelUp -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
                     <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
                     <Condition Binding="{Binding RaceProgressionDetails.SpellSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
                 </MultiDataTrigger.Conditions>
@@ -1318,6 +1319,7 @@
             <!-- MOD NOTE - Racial passive selection in LevelUp -->
             <MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
 					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
 					<Condition Binding="{Binding Path=RaceProgressionDetails.NotSubPassiveSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
 				</MultiDataTrigger.Conditions>
@@ -1326,6 +1328,7 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
 					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
 					<Condition Binding="{Binding Path=RaceProgressionDetails.SubPassiveSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
 				</MultiDataTrigger.Conditions>
