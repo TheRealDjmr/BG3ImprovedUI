@@ -181,6 +181,10 @@
 	<ImageSource x:Key="GlamourUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Briarguard/Shared/Resources/ico_classRes_Glamour_missing.png</ImageSource>
 	<ImageSource x:Key="GZI_Psionic_Focus" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_d.png</ImageSource>
 	<ImageSource x:Key="GZI_Psionic_FocusUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_missing.png</ImageSource>	
+	<ImageSource x:Key="SiaelIPORes">pack://application:,,,/GustavNoesisGUI;component/Assets/IllithidPowersOverhaul/Shared/Resources/c_ico_Ress_Siael_IPO_Resource_d.png</ImageSource>
+	<ImageSource x:Key="SiaelIPOResUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/IllithidPowersOverhaul/Shared/Resources/c_ico_Ress_Siael_IPO_Resource_missing.png</ImageSource>
+	<ImageSource x:Key="OffHandExtraAttackCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_d.png</ImageSource>
+	<ImageSource x:Key="OffHandExtraAttackChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_missing.png</ImageSource>	
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -308,7 +312,13 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Psionic_Focus">
 				<Setter Property="Source" Value="{StaticResource GZI_Psionic_Focus}"/>
-			</DataTrigger>			
+			</DataTrigger>	
+			<DataTrigger Binding="{Binding TypeId}" Value="SiaelIPORes">
+				<Setter Property="Source" Value="{StaticResource SiaelIPORes}"/>
+			</DataTrigger>		
+			<DataTrigger Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge">
+				<Setter Property="Source" Value="{StaticResource OffHandExtraAttackCharge}"/>
+			</DataTrigger>	
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1110,7 +1120,27 @@
 				<MultiDataTrigger.Setters>
 					<Setter Property="Source" Value="{StaticResource GZI_Psionic_FocusUnavailable}"/>
 				</MultiDataTrigger.Setters>
-			</MultiDataTrigger>			
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+			    <MultiDataTrigger.Conditions>
+			        <Condition Binding="{Binding TypeId}" Value="SiaelIPORes"/>
+			        <Condition Binding="{Binding Value}" Value="0"/>
+			        <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+			    </MultiDataTrigger.Conditions>
+			    <MultiDataTrigger.Setters>
+			        <Setter Property="Source" Value="{StaticResource SiaelIPOResUnavailable}"/>
+			    </MultiDataTrigger.Setters>
+			</MultiDataTrigger>	
+			<MultiDataTrigger>
+			    <MultiDataTrigger.Conditions>
+			        <Condition Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge"/>
+			        <Condition Binding="{Binding Value}" Value="0"/>
+			        <Condition Binding="{Binding IgnoreCost}" Value="False"/>
+			    </MultiDataTrigger.Conditions>
+			    <MultiDataTrigger.Setters>
+			        <Setter Property="Source" Value="{StaticResource OffHandExtraAttackChargeUnavailable}"/>
+			    </MultiDataTrigger.Setters>
+			</MultiDataTrigger>	
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1627,6 +1657,26 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>	
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.SiaelIPOResGroup" TargetType="ls:LSActionPoint">
+	    <ControlTemplate.Resources>
+	        <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/IllithidPowersOverhaul/Shared/Resources/c_ico_Ress_Siael_IPO_Resource_h.png</ImageSource>
+	        <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/IllithidPowersOverhaul/Shared/Resources/c_ico_Ress_Siael_IPO_Resource_d.png</ImageSource>
+	        <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/IllithidPowersOverhaul/Shared/Resources/c_ico_Ress_Siael_IPO_Resource_spent.png</ImageSource>
+	        <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/IllithidPowersOverhaul/Shared/Resources/c_ico_Ress_Siael_IPO_Resource_missing.png</ImageSource>
+	    </ControlTemplate.Resources>
+	    <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.OffHandExtraAttackChargeGroup" TargetType="ls:LSActionPoint">
+	    <ControlTemplate.Resources>
+	        <ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_h.png</ImageSource>
+	        <ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_d.png</ImageSource>
+	        <ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_spent.png</ImageSource>
+	        <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_missing.png</ImageSource>
+	    </ControlTemplate.Resources>
+	    <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	<!-- EDIT HERE -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
@@ -2460,7 +2510,35 @@
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
-			</MultiDataTrigger>			
+			</MultiDataTrigger>	
+
+			<DataTrigger Binding="{Binding TypeId}" Value="SiaelIPORes">
+			    <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SiaelIPOResGroup}"/>
+			    <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+			    <MultiDataTrigger.Conditions>
+			        <Condition Binding="{Binding TypeId}" Value="SiaelIPORes"/>
+			        <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+			    </MultiDataTrigger.Conditions>
+			    <MultiDataTrigger.Setters>
+			        <Setter Property="Margin" Value="0,-15,0,0"/>
+			    </MultiDataTrigger.Setters>
+			</MultiDataTrigger>	
+
+			<DataTrigger Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge">
+			    <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.OffHandExtraAttackChargeGroup}"/>
+			    <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+			    <MultiDataTrigger.Conditions>
+			        <Condition Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge"/>
+			        <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+			    </MultiDataTrigger.Conditions>
+			    <MultiDataTrigger.Setters>
+			        <Setter Property="Margin" Value="0,-15,0,0"/>
+			    </MultiDataTrigger.Setters>
+			</MultiDataTrigger>	
 			<!-- EDIT HERE --> 
 		</Style.Triggers>
 	</Style>
