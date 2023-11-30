@@ -19,6 +19,7 @@
 	<!-- MOD END -->
 
     <System:TimeSpan x:Key="DefaultButtonTapTime">0:0:0.3</System:TimeSpan>
+    <System:TimeSpan x:Key="DelayedButtonTapTime">0:0:0.4</System:TimeSpan>
     
     <System:Double x:Key="HotBarSlotWidth">88</System:Double>
     <System:Double x:Key="HotBarSlotHeight">88</System:Double>
@@ -40,6 +41,12 @@
     <BitmapImage x:Key="AvatarConcentrationBackground" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/TargetInfo/hud_target_AvatarConcentration.png"/>
     <BitmapImage x:Key="EnemyConcentrationBackground" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/TargetInfo/hud_target_EnemyConcentration.png"/>
     <BitmapImage x:Key="MapMarkerGlow" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Map/marker_glow.png"/>
+
+    <BitmapImage x:Key="NewItemImg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_new.png"/>
+    <BitmapImage x:Key="NewItemHImg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_new_h.png"/>
+    <BitmapImage x:Key="ContainerItemImg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_container_more_d.png"/>
+    <BitmapImage x:Key="ContainerItemNewItemInsideImg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_container_more_new1.png"/>
+    <BitmapImage x:Key="ContainerItemNewItemInsideAnimImg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_container_more_new2.png"/>
 
     <Style x:Key="ManagedTooltipStyle" TargetType="ls:LSTooltip" BasedOn="{StaticResource {x:Type ls:LSTooltip}}">
         <Setter Property="Content" Value="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
@@ -89,7 +96,7 @@
 
     <!-- Section styles -->
 
-    <!-- MOD START - Custom modded action resources -->
+	<!-- MOD START - Custom modded action resources -->
 	<Style TargetType="Image" x:Key="ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}"/>
 	<Style TargetType="Image" x:Key="SectionImageStyle" BasedOn="{StaticResource IUI_SectionImageStyle}"/>
 	<!-- MOD END -->
@@ -110,7 +117,7 @@
                         <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_backgrounds/Astarion.png"/>
                     </Setter.Value>
                 </Setter>
-            </DataTrigger>            
+            </DataTrigger>
             <DataTrigger Binding="{Binding Guid}" Value="76925f0b-3ec8-4f42-86a9-cd4f745af2ac">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -145,7 +152,7 @@
                         <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_backgrounds/Gale.png"/>
                     </Setter.Value>
                 </Setter>
-            </DataTrigger>            
+            </DataTrigger>
             <DataTrigger Binding="{Binding Guid}" Value="e9aeac40-6c4e-4d81-9a24-e9eeb6208e85">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -159,7 +166,7 @@
                         <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_backgrounds/Halsin.png"/>
                     </Setter.Value>
                 </Setter>
-            </DataTrigger>            
+            </DataTrigger>
             <DataTrigger Binding="{Binding Guid}" Value="20d865ea-03bd-47bf-97d3-777e1b36b073">
                 <Setter Property="OpacityMask">
                     <Setter.Value>
@@ -264,7 +271,7 @@
                         <ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_backgrounds/Wyll.png"/>
                     </Setter.Value>
                 </Setter>
-            </DataTrigger>            
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 	<!-- MOD END -->
@@ -330,9 +337,71 @@
 	<Style x:Key="ClassIconHotbarStyle" TargetType="Image" BasedOn="{StaticResource IUI_ClassIconHotbarStyle}"/>
 	<!-- MOD END -->
 
-    <!-- MOD START - Custom Race icons -->
+    <Style x:Key="SkillsIcon" TargetType="Image" >
+        <Setter Property="Stretch" Value="None"/>
+        <Style.Triggers>
+
+            <DataTrigger Binding="{Binding Skill}" Value="Deception">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_deception.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Intimidation">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_intimidation.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Performance">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_performance.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Persuasion">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_persuasion.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Acrobatics">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_acrobatics.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="SleightOfHand">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_sleightOfHand.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Stealth">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_stealth.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Arcana">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_arcana.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="History">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_history.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Investigation">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_investigation.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Nature">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_nature.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Religion">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_religion.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Athletics">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_athletics.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="AnimalHandling">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_animalHandling.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Insight">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_insight.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Medicine">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_medicine.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Perception">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_perception.png"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Skill}" Value="Survival">
+                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_SkillsIcons/skills_survival.png"/>
+            </DataTrigger>
+
+        </Style.Triggers>
+    </Style>
+
+	<!-- MOD START - Custom Race icons -->
 	<Style x:Key="RaceIconStyle" TargetType="Rectangle" BasedOn="{StaticResource IUI_RaceIconStyle}">
-    <!-- MOD END -->
+	<!-- MOD END -->
         <Style.Triggers>
             <DataTrigger Binding="{Binding Guid}" Value="9c61a74a-20df-4119-89c5-d996956b6c66">
                 <Setter Property="OpacityMask">
@@ -781,11 +850,24 @@
 			                <b:ConditionBehavior>
 				                <b:ConditionalExpression>
 					                <b:ComparisonCondition LeftOperand="{Binding DataContext.IsSubContainer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Operator="Equal" RightOperand="False"/>
+                                    <b:ComparisonCondition LeftOperand="{Binding DataContext.ContainerContext,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Operator="NotEqual" RightOperand="Trade"/>
 				                </b:ConditionalExpression>
 			                </b:ConditionBehavior>
 		                </b:Interaction.Behaviors>
 		                <b:InvokeCommandAction Command="{Binding DataContext.TakeItemCommand.ActionCommand,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Object}" />
 	                </b:EventTrigger>
+
+                    <b:EventTrigger EventName="MouseDoubleClick" >
+                        <b:Interaction.Behaviors>
+                            <b:ConditionBehavior>
+                                <b:ConditionalExpression>
+                                    <b:ComparisonCondition LeftOperand="{Binding DataContext.IsSubContainer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Operator="Equal" RightOperand="False"/>
+                                    <b:ComparisonCondition LeftOperand="{Binding DataContext.ContainerContext,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Operator="Equal" RightOperand="Trade"/>
+                                </b:ConditionalExpression>
+                            </b:ConditionBehavior>
+                        </b:Interaction.Behaviors>
+                        <b:InvokeCommandAction Command="{Binding DataContext.UseGameObject, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding Object}" />
+                    </b:EventTrigger>
 
 	                <b:EventTrigger EventName="MouseDoubleClick" >
 		                <b:Interaction.Behaviors>
@@ -857,8 +939,8 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Grid>
-                        <Image x:Name="NewItemIcon" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_new.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"/>
-                        <Image x:Name="AnimatedImage" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_new_h.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Visibility="Collapsed" Opacity="0"/>
+                        <Image x:Name="NewItemIcon"   Source="{StaticResource NewItemImg}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"/>
+                        <Image x:Name="AnimatedImage" Source="{StaticResource NewItemHImg}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Visibility="Collapsed" Opacity="0"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsNew}" Value="True">
@@ -922,9 +1004,9 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Grid>
-                        <Image x:Name="ContainerIcon" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_container_more_d.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"/>
-                        <Image x:Name="NewItemInsideIcon" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_container_more_new1.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Visibility="Collapsed"/>
-                        <Image x:Name="AnimatedImage" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_container_more_new2.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Visibility="Collapsed" Opacity="0"/>
+                        <Image x:Name="ContainerIcon" Source="{StaticResource ContainerItemImg}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"/>
+                        <Image x:Name="NewItemInsideIcon" Source="{StaticResource ContainerItemNewItemInsideImg}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Visibility="Collapsed"/>
+                        <Image x:Name="AnimatedImage" Source="{StaticResource ContainerItemNewItemInsideAnimImg}" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None" Visibility="Collapsed" Opacity="0"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding NewItemsInside, FallbackValue=False}" Value="True">
@@ -1001,7 +1083,7 @@
     <DataTemplate x:Key="Template.GameObject" DataType="ls:VMGameObject">
         <Grid x:Name="rootGrid" Width="{DynamicResource ScaledNewSlotSize}" Height="{DynamicResource ScaledNewSlotSize}" >
             <Image Style="{StaticResource ContainerItemBackgroundStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
-			<Image Style="{StaticResource RarityFrameBackgroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
+            <Image Style="{StaticResource RarityFrameBackgroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
             <Rectangle Fill="{Binding Icon}" Width="{DynamicResource ScaledNewItemIconSize}" Height="{DynamicResource ScaledNewItemIconSize}" IsHitTestVisible="False" />
             <Viewbox x:Name="ItemAmountHolder" Width="{DynamicResource ScaledNewSlotSize}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}" StretchDirection="DownOnly">
                 <TextBlock x:Name="ItemAmount" Text="{Binding Count, Converter={StaticResource AbbreviateNumberConverter}}" Style="{StaticResource ItemAmountTextStyle}" Margin="8,0"/>
@@ -1012,27 +1094,6 @@
             <Control Style="{StaticResource ContainerCellItemStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
             <Control Style="{StaticResource ContainerItemCountItemStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,3,9,0"/>
         </Grid>
-        <DataTemplate.Triggers>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext.IsInventoryLocked, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="True"/>
-                    <Condition Value="False">
-                        <Condition.Binding>
-                            <MultiBinding Converter="{StaticResource EqualConverter}">
-                                <Binding Path="DataContext.OwnerUserID" RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}"/>
-                                <Binding Path="DataContext.CurrentPlayer.UserId" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
-                            </MultiBinding>
-                        </Condition.Binding>
-                    </Condition>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="rootGrid" Property="Effect">
-                    <Setter.Value>
-                        <ls:SaturationEffect Saturation="0.3"/>
-                    </Setter.Value>
-                </Setter>
-            </MultiDataTrigger>
-            
-        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="Template.ItemEquipment" DataType="{x:Type ls:VMItem}">
@@ -1043,27 +1104,6 @@
             <Image x:Name="WaresIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource InventoryWaresCellItemImageStyle}"/>
             <ContentPresenter ContentTemplate="{StaticResource EquippedTorchIcon}" Content="{Binding .}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,4,4,0"/>
         </Grid>
-        <DataTemplate.Triggers>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext.IsInventoryLocked, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="True"/>
-                    <Condition Value="False">
-                        <Condition.Binding>
-                            <MultiBinding Converter="{StaticResource EqualConverter}">
-                                <Binding Path="DataContext.OwnerUserID" RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}"/>
-                                <Binding Path="DataContext.CurrentPlayer.UserId" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
-                            </MultiBinding>
-                        </Condition.Binding>
-                    </Condition>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="rootGrid" Property="Effect">
-                    <Setter.Value>
-                        <ls:SaturationEffect Saturation="0.3"/>
-                    </Setter.Value>
-                </Setter>
-            </MultiDataTrigger>
-
-        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="Template.ItemContainer" DataType="{x:Type ls:VMItem}">
@@ -1074,27 +1114,6 @@
             <Control Style="{StaticResource ContainerCellItemStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
             <Control Style="{StaticResource ContainerItemCountItemStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,3,9,0"/>
         </Grid>
-        <DataTemplate.Triggers>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext.IsInventoryLocked, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="True"/>
-                    <Condition Value="False">
-                        <Condition.Binding>
-                            <MultiBinding Converter="{StaticResource EqualConverter}">
-                                <Binding Path="DataContext.OwnerUserID" RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}"/>
-                                <Binding Path="DataContext.CurrentPlayer.UserId" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
-                            </MultiBinding>
-                        </Condition.Binding>
-                    </Condition>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="rootGrid" Property="Effect">
-                    <Setter.Value>
-                        <ls:SaturationEffect Saturation="0.3"/>
-                    </Setter.Value>
-                </Setter>
-            </MultiDataTrigger>
-
-        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="Template.Item" DataType="{x:Type ls:VMItem}">
@@ -1107,27 +1126,6 @@
             <Image Style="{StaticResource RarityFrameForegroundImageStyle}" Stretch="Fill" Width="{DynamicResource ScaledNewItemIconSizeHighlight}" Height="{DynamicResource ScaledNewItemIconSizeHighlight}"/>
             <Image x:Name="WaresIcon" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource InventoryWaresCellItemImageStyle}"/>
         </Grid>
-        <DataTemplate.Triggers>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext.IsInventoryLocked, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="True"/>
-                    <Condition Value="False">
-                        <Condition.Binding>
-                            <MultiBinding Converter="{StaticResource EqualConverter}">
-                                <Binding Path="DataContext.OwnerUserID" RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}"/>
-                                <Binding Path="DataContext.CurrentPlayer.UserId" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
-                            </MultiBinding>
-                        </Condition.Binding>
-                    </Condition>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="rootGrid" Property="Effect">
-                    <Setter.Value>
-                        <ls:SaturationEffect Saturation="0.3"/>
-                    </Setter.Value>
-                </Setter>
-            </MultiDataTrigger>
-
-        </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="Template.InventorySlot" DataType="ls:VMInventorySlot">
@@ -1759,6 +1757,10 @@
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding GameObject.Type}" Value="Item">
                 <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.Item}"/>
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding GameObject.Type}" Value="Character">
+                <Setter TargetName="EquipmentIcon" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
 
             <MultiDataTrigger>
@@ -2628,10 +2630,9 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <!-- MOD START - Custom modded action resources -->
+	<!-- MOD START - Custom modded action resources -->
 	<Style x:Key="ActionResourcesTemplateSelector" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource IUI_ActionResourcesTemplateSelector}"/>
 	<!-- MOD END -->
-
     <!-- Action resource UI END -->
 
     <!-- Map marker (outside viewport) -->
@@ -4535,5 +4536,181 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--=====================================-->
+    <!--======== CHARACTER PORTRAITS ========-->
+    <!--=====================================-->
+
+    <ImageSource x:Key="FrameImg_d">pack://application:,,,/GustavNoesisGUI;component/Assets/PlayerPortraits/portrait_frame_inactive_d.png</ImageSource>
+    <ImageSource x:Key="FrameImg_h">pack://application:,,,/GustavNoesisGUI;component/Assets/PlayerPortraits/portrait_frame_inactive_h.png</ImageSource>
+    <ImageSource x:Key="FrameImg_s">pack://application:,,,/GustavNoesisGUI;component/Assets/PlayerPortraits/portrait_frame_active_d.png</ImageSource>
+
+    <!--PORTRAIT SIZE-->
+    <Style x:Key="LargePortrait">
+        <Setter Property="FrameworkElement.Height" Value="220"/>
+        <Setter Property="FrameworkElement.Width" Value="152"/>
+    </Style>
+
+    <!--HEALTH OVERLAY PROGRESSBAR TEMPLATE-->
+    <ControlTemplate x:Key="DefaultProgressBarTemplate" TargetType="{x:Type ProgressBar}">
+        <Grid x:Name="TemplateRoot" MinHeight="{TemplateBinding MinHeight}">
+            <Border x:Name="PART_Track" Background="{TemplateBinding Background}"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1"/>
+            <Grid x:Name="PART_Indicator" HorizontalAlignment="Left">
+                <Border x:Name="IndicatorBorder" Margin="{TemplateBinding Padding}" Background="{TemplateBinding Foreground}"/>
+            </Grid>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="LayoutTransform" TargetName="TemplateRoot">
+                    <Setter.Value>
+                        <RotateTransform Angle="-90"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!--HEALTH OVERLAY PROGRESSBAR STYLE-->
+    <Style x:Key="CharacterPortraitBarStyle" TargetType="ProgressBar">
+        <Setter Property="Foreground" Value="{StaticResource LS_PortraitHealthBarColor}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Value" Value="{Binding Stats.Health.PercentValue, Mode=OneWay, Converter={StaticResource InvertPercConverter}}"/>
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="1"/>
+        <Setter Property="Orientation" Value="Vertical"/>
+    </Style>
+
+    <!--HEALTH TEXT LABEL TEMPLATE -->
+    <ControlTemplate x:Key="PortraitHealthTemplate">
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Bottom" HorizontalAlignment="Center" IsHitTestVisible="False" FontSize="{StaticResource ScaledSmallFontSize}" FontWeight="Bold" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="4" Visibility="{Binding Stats.Health.IsValid, Converter={StaticResource BoolToVisibleConverter}}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="{StaticResource LS_PrimaryColor}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Stats.Health.PercentValue, Mode=OneWay, Converter={StaticResource LessThanConverter}, ConverterParameter='0.6'}" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource LS_warning50TxtColor}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Stats.Health.PercentValue, Mode=OneWay, Converter={StaticResource LessThanConverter}, ConverterParameter='0.3'}" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource LS_alertTxtColor}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Stats.Health.PercentValue, Mode=OneWay, Converter={StaticResource LessThanConverter}, ConverterParameter='0.1'}" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource LS_tint60}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}/{1}">
+                        <Binding Path="Stats.Health.Value"/>
+                        <Binding Path="Stats.Health.Max"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock DockPanel.Dock="Bottom" IsHitTestVisible="False" FontSize="{StaticResource ScaledSmallFontSize}" FontWeight="Bold" noesis:Text.Stroke="Black" noesis:Text.StrokeThickness="4" HorizontalAlignment="Center" Margin="0,-4,12,-4"
+                           Visibility="{Binding Stats.TemporaryHealth.PercentValue, Converter={StaticResource CountToVisibilityConverter}}" Foreground="{StaticResource LS_tempHPColor}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="+{0}/{1}">
+                        <Binding Path="Stats.TemporaryHealth.Value"/>
+                        <Binding Path="Stats.TemporaryHealth.Max"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DockPanel>
+        <ControlTemplate.Triggers>
+            <!--Hide HP if ruleset enabled-->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPlayableCharacter}" Value="False"/>
+                    <Condition Binding="{Binding DataContext.Data.CurrentRuleSetModifiers, Converter={StaticResource RuleSetModifierValueConverter}, ConverterParameter='HIDE_NPC_HP', RelativeSource={RelativeSource AncestorType=ls:UIWidget}}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </MultiDataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <!--CHARACTER PORTRAIT TEMPLATE-->
+    <DataTemplate x:Key="CharacterPortraitTemplate">
+        <DataTemplate.Resources>
+            <Style TargetType="Border" >
+                <Setter Property="Background" Value="{Binding Icon}"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Stretch"/>
+                <Setter Property="Margin" Value="4"/>
+            </Style>
+        </DataTemplate.Resources>
+        <Grid>
+            <Border Name="PortraitImage"/>
+            <ProgressBar Name="HealthBar" Template="{StaticResource DefaultProgressBarTemplate}" Style="{StaticResource CharacterPortraitBarStyle}" ClipToBounds="True" Margin="4"/>
+            <Control x:Name="HealthText" Template="{StaticResource PortraitHealthTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,12"/>
+            <!--attach context menu-->
+            <ls:LSEntityObject EntityRef="{Binding EntityHandle}" Background="Transparent"/>
+        </Grid>
+        <DataTemplate.Triggers>
+            <!--If character is dead-->
+            <DataTrigger Binding="{Binding Stats.IsAlive}" Value="False">
+                <Setter TargetName="PortraitImage" Property="Effect">
+                    <Setter.Value>
+                        <ls:SaturationEffect Saturation="0.1"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="HealthBar" Property="Foreground" Value="{StaticResource LS_PortraitDeadRadialColor}"/>
+            </DataTrigger>
+
+            <!-- Hide NPC HP -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsPlayableCharacter}" Value="False"/>
+                    <Condition Binding="{Binding DataContext.Data.CurrentRuleSetModifiers, Converter={StaticResource RuleSetModifierValueConverter}, ConverterParameter='HIDE_NPC_HP', RelativeSource={RelativeSource AncestorType=ls:UIWidget}}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter TargetName="HealthText" Property="Visibility" Value="Hidden"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+
+            <!-- Hide Item HP -->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Type}" Value="Item"/>
+                    <Condition Binding="{Binding DataContext.Data.CurrentRuleSetModifiers, Converter={StaticResource RuleSetModifierValueConverter}, ConverterParameter='HIDE_NPC_HP', RelativeSource={RelativeSource AncestorType=ls:UIWidget}}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter TargetName="HealthText" Property="Visibility" Value="Hidden"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <!--PORTRAIT FRAME-->
+    <ControlTemplate x:Key="CharacterPortraitFrameTemplate"  TargetType="ContentControl">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource LargePortrait}">
+            <ContentPresenter/>
+            <Image x:Name="Frame" Source="{StaticResource FrameImg_d}" Stretch="Uniform" IsHitTestVisible="False"/>
+            <b:Interaction.Behaviors>
+                <ls:DropOnCharacterBehavior TargetCharacter="{Binding}"/>
+            </b:Interaction.Behaviors>
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="MouseEnter">
+                    <b:InvokeCommandAction Command="{Binding DataContext.SetDebugUIEntityCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding EntityHandle}"/>
+                </b:EventTrigger>
+                <b:EventTrigger EventName="MouseLeave">
+                    <b:InvokeCommandAction Command="{Binding DataContext.ClearDebugUIEntityCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="Frame" Property="Source" Value="{StaticResource FrameImg_h}"/>
+            </Trigger>
+            <Trigger Property="ListBoxItem.IsSelected" Value="True">
+                <Setter TargetName="Frame" Property="Source" Value="{StaticResource FrameImg_s}"/>
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="True">
+                <Setter TargetName="Frame" Property="Source" Value="{StaticResource FrameImg_s}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
 </ResourceDictionary>

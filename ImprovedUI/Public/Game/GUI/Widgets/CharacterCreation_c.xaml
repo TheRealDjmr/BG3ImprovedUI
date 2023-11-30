@@ -34,51 +34,65 @@
             </ls:LSMessageBoxData>
 
             <ControlTemplate x:Key="originControlsTemplate">
+                <ControlTemplate.Resources>
+                    <BitmapImage x:Key="originFrame" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_itemHolderAlt.png"/>
+                </ControlTemplate.Resources>
                 <StackPanel>
 
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h19e906f0g930ag4c5agaad9gd0413fc716c0, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" Margin="0,30,0,0"/>
 
-                    <ListBox x:Name="originCarousel" Template="{StaticResource IconCarouselTemplate}" ItemsSource="{Binding FilteredItems, ElementName=SelectablePresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" Margin="0,50,0,0">
+                    <ListBox x:Name="originCarousel" Template="{StaticResource IconCarouselTemplate}" ItemsSource="{Binding FilteredItems, ElementName=SelectablePresetOriginsCollection}" SelectedItem="{Binding SelectedOrigin}" Margin="0,30,0,0">
 
                         <ListBox.Resources>
                             <ControlTemplate x:Key="IconsTemplate">
                                 <Grid>
 
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <StackPanel.OpacityMask>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Offset="0" Color="Transparent" />
+                                                <GradientStop Offset="0.2" Color="White" />
+                                                <GradientStop Offset="0.8" Color="White" />
+                                                <GradientStop Offset="1" Color="Transparent" />
+                                            </LinearGradientBrush>
+                                        </StackPanel.OpacityMask>
+                                        <Border Margin="6,0,6,0" BorderThickness="4" Height="228" BorderBrush="#251e19" Padding="6,6,6,6" Opacity="0.7" Background="#80000000">
+                                            <Rectangle Fill="{Binding SelectedItem.Prev.Prev.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="162" Height="206"/>
+                                        </Border>
 
-                                        <Rectangle Fill="{Binding SelectedItem.Prev.Prev.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="132" Height="196">
-                                            <Rectangle.OpacityMask>
-                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                    <GradientStop Offset="0" Color="Transparent" />
-                                                    <GradientStop Offset="1" Color="White" />
-                                                </LinearGradientBrush>
-                                            </Rectangle.OpacityMask>
-                                        </Rectangle>
+                                        <Border Margin="6,0,6,0" BorderThickness="4" Height="228" BorderBrush="#251e19" Padding="6,6,6,6" Opacity="0.7" Background="#80000000">
+                                            <Grid>
 
-                                        <Grid Margin="20,0,20,0">
-                                            <Rectangle Fill="{Binding SelectedItem.Prev.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="132" Height="196"/>
-                                            <Image Visibility="{Binding SelectedItem.Prev.IsSelectable, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToCollapsedConverter}}" Source="{StaticResource IconLock}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
-                                        </Grid>
+                                                <Rectangle Fill="{Binding SelectedItem.Prev.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="162" Height="206"/>
+                                                <Image Visibility="{Binding SelectedItem.Prev.IsSelectable, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToCollapsedConverter}}" Source="{StaticResource IconLock}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
+                                            </Grid>
+                                        </Border>
 
-                                        <Grid Margin="50,0,50,0">
-                                            <Rectangle x:Name="selected" Fill="{Binding SelectedItem.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="202" Height="300"/>
-                                            <Image x:Name="lock" Visibility="Collapsed" Source="{StaticResource IconLock}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
-                                            <Ellipse x:Name="otherPlayer" Height="50" Width="50" Fill="{Binding SelectedItem.OtherPlayerChoice.CommunityIcon, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20"/>
-                                        </Grid>
 
-                                        <Grid Margin="20,0,20,0">
-                                            <Rectangle Fill="{Binding SelectedItem.Next.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="132" Height="196"/>
-                                            <Image Visibility="{Binding SelectedItem.Next.IsSelectable, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToCollapsedConverter}}" Source="{StaticResource IconLock}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
-                                        </Grid>
+                                        <ls:LSNineSliceImage x:Name="Img3" Margin="-8,-32,-8,-32" Padding="28,28,28,28"
+                                                         ImageSource="{StaticResource originFrame}" Slices="34" Opacity="1">
 
-                                        <Rectangle Fill="{Binding SelectedItem.Next.Next.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="132" Height="196">
-                                            <Rectangle.OpacityMask>
-                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                                    <GradientStop Offset="0" Color="White" />
-                                                    <GradientStop Offset="1" Color="Transparent" />
-                                                </LinearGradientBrush>
-                                            </Rectangle.OpacityMask>
-                                        </Rectangle>
+                                                <Grid>
+                                                    <Rectangle x:Name="selected" Fill="{Binding SelectedItem.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="202" Height="260"/>
+                                                    <Image x:Name="lock" Visibility="Collapsed" Source="{StaticResource IconLock}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
+                                                    <Ellipse x:Name="otherPlayer" Height="50" Width="50" Fill="{Binding SelectedItem.OtherPlayerChoice.CommunityIcon, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20"/>
+                                                </Grid>
+                                     
+                                        </ls:LSNineSliceImage>
+
+                                        <Border Margin="6,0,6,0" BorderThickness="4" Height="228" BorderBrush="#251e19" Padding="6,6,6,6" Opacity="0.7" Background="#80000000">
+                                            <Grid >
+
+                                                <Rectangle Fill="{Binding SelectedItem.Next.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="162" Height="206"/>
+                                                <Image Visibility="{Binding SelectedItem.Next.IsSelectable, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Converter={StaticResource BoolToCollapsedConverter}}" Source="{StaticResource IconLock}" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
+                                            </Grid>
+                                        </Border>
+
+                                        <Border Margin="6,0,6,0" BorderThickness="4" Height="228" BorderBrush="#251e19" Padding="6,6,6,6" Opacity="0.7" Background="#80000000">
+                                            <Rectangle Fill="{Binding SelectedItem.Next.Next.Portrait, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Width="162" Height="206" />
+                                        </Border>
+
+
 
                                     </StackPanel>
                                     <TextBlock x:Name="disableReason" Visibility="Collapsed" ls:TextBlockFormatter.SourceText="{Binding Path=SelectedItem.DisableReason, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" FontSize="{StaticResource ScaledDefaultFontSize}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -223,7 +237,7 @@
         <ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
-        <!-- MOD START - Racial passive selection -->
+		<!-- MOD START - Racial passive selection -->
 		<ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
 		<!-- MOD END -->
@@ -292,7 +306,7 @@
                                             </b:Interaction.Triggers>
                                         </ContentControl>
 
-                                        <Control x:Name="gameplayPanel" Height="{StaticResource gameplayPanelHeight}"/>
+                                        <Control x:Name="gameplayPanel" Height="{StaticResource gameplayPanelHeightSplit}"/>
                                                                              
                                     </Grid>
 
@@ -331,7 +345,7 @@
                                             </b:DataTrigger>
                                         </b:Interaction.Triggers>
 
-                                        <Rectangle x:Name="tabBarBackground" Width="3000" Height="{StaticResource TabsPanelHeight}" Fill="{StaticResource LeftSideShadingBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        <Rectangle x:Name="tabBarBackground" Width="3000" Height="{StaticResource TabsPanelHeight}" Fill="{StaticResource NavShadingBrush}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                                         <StackPanel x:Name="tabBar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="216,0,0,0" Width="3000" Tag="CanJumpToAppearance">
 
@@ -521,8 +535,8 @@
                                                     <ListBoxItem x:Name="spellPrepTab" Tag="spellprep" IsEnabled="{Binding SpellPrepare.Preparable.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}"/>
 
                                                     <ListBoxItem x:Name="backgroundTab" Tag="background"/>
-													
-                                                    <!-- MOD START - Add feat selection into CC -->
+
+													<!-- MOD START - Add feat selection into CC -->
 													<ListBoxItem x:Name="featTab" Tag="feat" Visibility="{Binding CanSelectFeat, Converter={StaticResource BoolToVisibleConverter}}"/>
 													<ListBoxItem x:Name="featDetailsTab" Tag="featdetails" Visibility="{Binding SelectedFeatDetails.HasFeat, Converter={StaticResource BoolToVisibleConverter}}"/>
 													<!-- MOD END -->
@@ -536,15 +550,6 @@
 
                                                 </ListBox>
 
-                                                <Rectangle x:Name="leftSideTabFade" Width="200" Height="{StaticResource TabsPanelHeight}" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                    <Rectangle.Fill>
-                                                        <LinearGradientBrush Opacity="1.0" StartPoint="0,0" EndPoint="1,0">
-                                                            <GradientStop Offset="0" Color="Black"/>
-                                                            <GradientStop Offset="0.25" Color="#a0000000"/>
-                                                            <GradientStop Offset="1.0" Color="{StaticResource transparentBlack}" />
-                                                        </LinearGradientBrush>
-                                                    </Rectangle.Fill>
-                                                </Rectangle>
 
                                             </Grid>
 
@@ -576,9 +581,8 @@
                                                          BoundEvent="UITabNext"
                                                          Margin="-20,0,-20,0"/>
                                         </StackPanel>
-
-                                        <Border Margin="{StaticResource ButtonHint.Margin.Left}" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                                            <ls:LSButton x:Name="backFromAppearanceButton" Margin="432,0,0,0"
+                                        <Border Margin="{StaticResource ButtonHint.Margin.Left}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                            <ls:LSButton x:Name="backFromAppearanceButton" Margin="-94,150,0,0"
                                                          ContentTemplate="{StaticResource ControllerButtonHint}" 
                                                          Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICreate, Converter={StaticResource FindInputEventConverter}}" 
                                                          BoundEvent="UICreate" 
@@ -596,9 +600,10 @@
                                         <ls:LSNineSliceImage x:Name="InvalidAppearanceError" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Style="{StaticResource MissingRequirementsErrorStyle}" Margin="0,0,0,430">
                                             <TextBlock Foreground="{StaticResource CCTabToDo}" Text="{Binding AppearanceValidationError}" VerticalAlignment="Center" />
                                         </ls:LSNineSliceImage>
-                                        <ls:LSNineSliceImage x:Name="MissingRequirementsMainError" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Style="{StaticResource MissingRequirementsErrorStyle}" Margin="0,0,0,290" ContentTemplate="{StaticResource MissingRequirementsErrorTemplate}" Content=""/>
 
-                                        <ContentControl x:Name="gotoNamingButton" Template="{StaticResource buttonBackplateTemplate}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,148">
+                                        <ls:LSNineSliceImage x:Name="MissingRequirementsMainError" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed" Style="{StaticResource MissingRequirementsErrorStyle}" ContentTemplate="{StaticResource MissingRequirementsErrorTemplate}" Margin="0,140,46,0"   Content=""/>
+
+                                            <ContentControl x:Name="gotoNamingButton" Template="{StaticResource buttonBackplateTemplate}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,148" >
                                             <ls:LSButton IsEnabled="{Binding IsCharacterCompleteExceptName}"
                                                         ContentTemplate="{StaticResource ControllerButtonHint}" 
                                                         Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIDelete, Converter={StaticResource FindInputEventConverter}}" 
@@ -612,7 +617,7 @@
                                                 </b:Interaction.Triggers>
                                             </ls:LSButton>
                                         </ContentControl>
-                                            
+
                                     </Grid>
 
                                 </Grid>
@@ -683,7 +688,7 @@
                                     </Grid>
                                 </Grid>
 
-                                <StackPanel Style="{StaticResource ButtonHint.Container.Right}">
+                                <StackPanel x:Name="bottomButtonsHolder" Margin="0,0,24,56" Style="{StaticResource ButtonHint.Container.Right}">
                                     <Control x:Name="bottomButtons" Template="{StaticResource StandardBottomButtonsTemplate2}"/>
                                 </StackPanel>
 
@@ -704,13 +709,19 @@
 
                                 <!-- Split Screen variation -->
                                 <DataTrigger Binding="{Binding Layout}" Value="Common">
-                                    <Setter TargetName="leftSidePanels" Property="Margin" Value="200,140,0,0"/>
+                                    <Setter TargetName="leftSidePanels" Property="Margin" Value="170,140,0,0"/>
                                     <Setter TargetName="tabBarClipper" Property="Tag" Value="580"/>
-                                    <Setter TargetName="tabBar" Property="Margin" Value="260,0,0,0"/>
+                                    <Setter TargetName="tabBar" Property="Margin" Value="226,0,0,0"/>
                                     <Setter TargetName="selectedTabUnderline" Property="Margin" Value="252,-54,0,0"/>
                                     <Setter TargetName="appearancePanel" Property="Height" Value="{StaticResource appearancePanelHeight}"/>
                                     <Setter TargetName="appearancePanel" Property="Margin" Value="0,212,200,0"/>
                                     <Setter TargetName="leftSideShading" Property="Width" Value="{StaticResource leftSidePanelBackgroundWidth}"/>
+                                    <Setter TargetName="gameplayPanel" Property="Height" Value="{StaticResource gameplayPanelHeight}" />
+                                    <Setter TargetName="MissingRequirementsMainError" Property="HorizontalAlignment" Value="Center" />
+                                    <Setter TargetName="MissingRequirementsMainError" Property="VerticalAlignment" Value="Bottom" />
+                                    <Setter TargetName="MissingRequirementsMainError" Property="Margin" Value="0,0,0,300" />
+
+                                    <Setter TargetName="bottomButtonsHolder" Property="Margin" Value="0,0,90,56"/>
                                 </DataTrigger>
 
                                 <!-- Animated Tabs Backplate Width matching -->
@@ -787,8 +798,8 @@
                                     <Setter TargetName="gameplayPanel" Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate>
-                                                <DockPanel Margin="0,0,0,50">
-                                                    <DockPanel DockPanel.Dock="Top" Width="1218">
+                                                <DockPanel Margin="0,0,0,0" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="{StaticResource gameplayPanelWidth}">
+                                                    <DockPanel DockPanel.Dock="Top" Height="Auto" HorizontalAlignment="Center" Width="{StaticResource gameplayPanelWidth}">
                                                         <b:Interaction.Triggers>
                                                             <b:EventTrigger EventName="Loaded">
                                                                 <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{StaticResource StandardBottomButtonsTemplate2}"/>
@@ -797,10 +808,11 @@
 
                                                         <Control Template="{StaticResource setOverviewCamera}"/>
 
+
                                                         <!-- Used to set the SelectedOrigin back to Custom Origin -->
                                                         <ListBox DockPanel.Dock="Top" x:Name="allOrigins" Visibility="Collapsed" ItemsSource="{Binding SelectableOrigins}" SelectedItem="{Binding SelectedOrigin}"/>
 
-                                                        <ListBox DockPanel.Dock="Top" x:Name="customCarousel" SelectedIndex="-1">
+                                                        <ListBox DockPanel.Dock="Top" x:Name="customCarousel" SelectedIndex="-1" >
                                                             <b:Interaction.Triggers>
                                                                 <b:DataTrigger Binding="{Binding ElementName=customCarousel, Path=SelectedIndex}" Value="0">
                                                                     <b:ChangePropertyAction TargetName="allOrigins" PropertyName="SelectedIndex" Value="0" />
@@ -816,23 +828,41 @@
                                                             </b:Interaction.Triggers>
                                                             <ListBox.Template>
                                                                 <ControlTemplate>
-                                                                    <Grid>
-                                                                        <Image Source="{StaticResource CarouselBg}" Opacity="0.8" Stretch="None" Margin="0,-180,-10,0"/>
-
-                                                                        <Grid Height="300" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                                                <Image x:Name="iconL" Width="200" Height="200" Opacity="{StaticResource DisabledOpacity}"/>
-                                                                                <Image x:Name="iconC" Width="300" Height="300"/>
-                                                                                <Image x:Name="iconR" Width="200" Height="200" Opacity="{StaticResource DisabledOpacity}"/>
-                                                                            </StackPanel>
-                                                                        </Grid>
-
-                                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,300,0,0">
+                                                                    <StackPanel Width="{StaticResource gameplayPanelWidth}">
+                                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,12,0,0">
                                                                             <Image x:Name="dot0" Source="{StaticResource DotOff}" Stretch="None" Width="44" Height="44" Margin="-7,0,-7,0"/>
                                                                             <Image x:Name="dot1" Source="{StaticResource DotOff}" Stretch="None" Width="44" Height="44" Margin="-7,0,-7,0"/>
                                                                         </StackPanel>
 
-                                                                        <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource ListButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0">
+                                                                        <Grid Height="540" Margin="22,-100,0,-140" HorizontalAlignment="Center" >
+                                                                            <ContentControl Template="{StaticResource animatedHalo}" />
+                                                                            <StackPanel Margin="-6,-64,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                                                                                <Rectangle x:Name="iconL" Fill="{StaticResource CCIconDefault}" Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Opacity="{StaticResource DisabledOpacity}">
+                                                                                    <Rectangle.OpacityMask>
+                                                                                        <ImageBrush x:Name="iconLimage" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/OriginCharacter.png" />
+                                                                                    </Rectangle.OpacityMask>
+                                                                                </Rectangle>
+
+                                                                                <Rectangle x:Name="iconC" Fill="{StaticResource CCIconSelectedPad}" Style="{DynamicResource CustomIconStyle}" Width="300" Height="300" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
+                                                                                    <Rectangle.OpacityMask>
+                                                                                        <ImageBrush x:Name="iconCimage" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/OriginCharacter.png" />
+                                                                                    </Rectangle.OpacityMask>
+                                                                                </Rectangle>
+
+                                                                                <Rectangle x:Name="iconR" Fill="{StaticResource CCIconDefault}" Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Opacity="{StaticResource DisabledOpacity}">
+                                                                                    <Rectangle.OpacityMask>
+                                                                                        <ImageBrush  x:Name="iconRimage" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/OriginCharacter.png"  />
+                                                                                    </Rectangle.OpacityMask>
+                                                                                </Rectangle>
+
+                                                                            </StackPanel>
+                                                                        </Grid>
+
+
+                                                                        <Image Source="{StaticResource CarouselDecoration}" Stretch="None" Margin="25,-60,0,0" Height="108" HorizontalAlignment="Center"/>
+
+                                                                        <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True"  Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Center" Tag="notEnabled">
                                                                             <Grid>
                                                                                 <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"
                                             Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
@@ -850,17 +880,39 @@
                                                                             </Grid>
                                                                         </ContentControl>
 
-                                                                    </Grid>
+                                                                        <Image Source="{StaticResource CarouselDecoration}" Stretch="None" Margin="25,98,0,-148" Height="108" HorizontalAlignment="Center">
+                                                                            <Image.RenderTransform>
+                                                                                <ScaleTransform ScaleY="-1"></ScaleTransform>
+                                                                            </Image.RenderTransform>
+                                                                        </Image>
+
+                                                                    </StackPanel>
                                                                     <ControlTemplate.Triggers>
                                                                         <DataTrigger Binding="{Binding ElementName=customCarousel, Path=SelectedIndex}" Value="0">
                                                                             <Setter TargetName="iconL" Property="Visibility" Value="Hidden"/>
-                                                                            <Setter TargetName="iconC" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/CustomCharacter.png"/>
-                                                                            <Setter TargetName="iconR" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/OriginCharacter.png"/>
+                                                                            <Setter TargetName="iconC" Property="OpacityMask">
+                                                                                <Setter.Value>
+                                                                                    <ImageBrush  ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/CustomCharacter.png"  />
+                                                                                </Setter.Value>
+                                                                            </Setter>
+                                                                            <Setter TargetName="iconR" Property="OpacityMask" >
+                                                                                <Setter.Value>
+                                                                                    <ImageBrush  ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/OriginCharacter.png"  />
+                                                                                </Setter.Value>
+                                                                            </Setter>
                                                                             <Setter TargetName="dot0" Property="Source" Value="{StaticResource DotOn}"/>
                                                                         </DataTrigger>
                                                                         <DataTrigger Binding="{Binding ElementName=customCarousel, Path=SelectedIndex}" Value="1">
-                                                                            <Setter TargetName="iconL" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/CustomCharacter.png"/>
-                                                                            <Setter TargetName="iconC" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/OriginCharacter.png"/>
+                                                                            <Setter TargetName="iconL" Property="OpacityMask" >
+                                                                                <Setter.Value>
+                                                                                    <ImageBrush  ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/CustomCharacter.png"  />
+                                                                                </Setter.Value>
+                                                                            </Setter>
+                                                                            <Setter TargetName="iconC" Property="OpacityMask" >
+                                                                                <Setter.Value>
+                                                                                    <ImageBrush  ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/OriginCharacter.png"  />
+                                                                                </Setter.Value>
+                                                                            </Setter>
                                                                             <Setter TargetName="iconR" Property="Visibility" Value="Hidden"/>
                                                                             <Setter TargetName="dot1" Property="Source" Value="{StaticResource DotOn}"/>
                                                                         </DataTrigger>
@@ -883,36 +935,38 @@
 
                                                         <Control DockPanel.Dock="Top" x:Name="originControls"/>
 
-                                                        <ls:LSButton DockPanel.Dock="Bottom" x:Name="PlayIntroduction" ContentTemplate="{StaticResource ControllerButtonHint}"
+                                                        <ContentControl x:Name="PlayIntroduction" DockPanel.Dock="Bottom" Template="{StaticResource buttonBackplateTemplate}" HorizontalAlignment="Center" Visibility="Collapsed">
+                                                            <ls:LSButton ContentTemplate="{StaticResource ControllerButtonHint}"
                                                                      Tag="{Binding Source='h0a5097d1g8471g4a05ga294gf9549ecf2151', Converter={StaticResource TranslatedStringConverter}}" 
                                                                      Command="{Binding PlayOriginTimeline}"
                                                                      Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}"
                                                                      BoundEvent="UIAccept"
                                                                      TapTime="{StaticResource DefaultButtonTapTime}"
-                                                                     Visibility="Collapsed"
-                                                                     Margin="0,32,0,0"/>
+                                                                     Margin="0,0,0,0"/>
+                                                        </ContentControl>
 
-                                                        <Viewbox StretchDirection="DownOnly" Stretch="Uniform">
-                                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.OriginDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,30,0,0"/>
+                                                        <Viewbox StretchDirection="DownOnly" Stretch="Uniform"  DockPanel.Dock="Top">
+                                                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.OriginDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,30,0,60"/>
                                                         </Viewbox>
+
+                                                      
 
                                                     </DockPanel>
 
 
-                                                    <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" ls:ScrollViewerHelper.VerticalScrollOffsetMargin="300">
+                                                    <ScrollViewer DockPanel.Dock="Top" Style="{StaticResource gameplayPanelScrollViewerStyle}" ls:ScrollViewerHelper.VerticalScrollOffsetMargin="300">
                                                         <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                                                             <StackPanel x:Name="customControls" Visibility="Collapsed">
-                                                                <Control x:Name="bodyType" Template="{StaticResource BodyTypeChoice}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
-                                                                <Control x:Name="identity" Template="{StaticResource IdentityChoice}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
+                                                                <Control x:Name="bodyType" Template="{StaticResource BodyTypeChoice}" HorizontalAlignment="Center" Margin="0,28,0,0"/>
+                                                                <Control x:Name="identity" Template="{StaticResource IdentityChoice}" HorizontalAlignment="Center" Margin="0,20,0,0"/>
 
                                                                 <!-- Randomisation controls -->
-                                                                <Control Template="{StaticResource ChangeRandomCharacterCarouselTemplate}" Margin="0,72,0,0"/>
+                                                                <Control Template="{StaticResource ChangeRandomCharacterCarouselTemplate}" Margin="0,92,0,0"/>
 
                                                             </StackPanel>
                                                         </StackPanel>
                                                     </ScrollViewer>
-
                                                 </DockPanel>
                                                 <ControlTemplate.Triggers>
 
@@ -959,12 +1013,13 @@
                                                         <ListBox x:Name="raceCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}">
                                                             <ListBox.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <Rectangle x:Name="raceIcon" Fill="{StaticResource CCIconSelected}" Style="{StaticResource RaceIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
+                                                                    <Rectangle x:Name="raceIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource RaceIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}" Opacity="1"/>
                                                                     <DataTemplate.Triggers>
                                                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
                                                                             <Setter TargetName="raceIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                             <Setter TargetName="raceIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                             <Setter TargetName="raceIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+                                                                            <Setter TargetName="raceIcon" Property="Opacity" Value="0.8"/>
                                                                         </DataTrigger>
                                                                     </DataTemplate.Triggers>
                                                                 </DataTemplate>
@@ -985,8 +1040,8 @@
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
 
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-                                                            
-                                                            <!-- MOD START - Racial passive selection -->
+
+															<!-- MOD START - Racial passive selection -->
 															<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
 															<!-- MOD END -->
 
@@ -1020,12 +1075,13 @@
                                                         <ListBox x:Name="subraceCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}">
                                                             <ListBox.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <Rectangle x:Name="raceIcon" Fill="{StaticResource CCIconSelected}" Style="{StaticResource RaceIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
+                                                                    <Rectangle x:Name="raceIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource RaceIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
                                                                     <DataTemplate.Triggers>
                                                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
                                                                             <Setter TargetName="raceIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                             <Setter TargetName="raceIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                             <Setter TargetName="raceIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+                                                                            <Setter TargetName="raceIcon" Property="Opacity" Value="0.8"/>
                                                                         </DataTrigger>
                                                                     </DataTemplate.Triggers>
                                                                 </DataTemplate>
@@ -1046,8 +1102,8 @@
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
 
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-                                                            
-                                                            <!-- MOD START - Racial passive selection -->
+
+															<!-- MOD START - Racial passive selection -->
 															<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
 															<!-- MOD END -->
 
@@ -1081,29 +1137,36 @@
                                                         <ListBox x:Name="classCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableClasses}" SelectedItem="{Binding SelectedClass}">
                                                             <ListBox.ItemTemplate>
                                                                 <DataTemplate>
-                                                                    <!-- MOD START - Use main class instead of subclass icon -->
-																	<Image x:Name="classIcon" Style="{StaticResource MainClassIconStyle}" Stretch="None"/>
+																	<!-- MOD START - Use main class instead of subclass icon -->
+																	<Image x:Name="classIcon" Style="{StaticResource MainClassIconStyle}" Stretch="None" Opacity="1" />
 																	<!-- MOD END -->
+
                                                                     <DataTemplate.Triggers>
                                                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
                                                                             <Setter TargetName="classIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                             <Setter TargetName="classIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                             <Setter TargetName="classIcon" Property="Stretch" Value="Uniform"/>
+                                                                            <Setter TargetName="classIcon" Property="Opacity" Value="0.9"/>
+                                                                            <Setter TargetName="classIcon" Property="Effect">
+                                                                                <Setter.Value>
+                                                                                    <ls:SaturationEffect Saturation="0.6"/>
+                                                                                </Setter.Value>
+                                                                            </Setter>
                                                                         </DataTrigger>
                                                                     </DataTemplate.Triggers>
                                                                 </DataTemplate>
                                                             </ListBox.ItemTemplate>
                                                         </ListBox>
 
-                                                        <ContentControl Template="{StaticResource PanelSideDescription}" VerticalAlignment="Top" Margin="-50,90,0,0">
+                                                        <ContentControl Template="{StaticResource PanelSideDescription}" VerticalAlignment="Top" Margin="-50,70,0,0">
                                                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedClass.Description}" Style="{StaticResource CarouselSideDescriptionText}"/>
                                                         </ContentControl>
 
                                                     </StackPanel>
 
-                                                    <Control Template="{StaticResource featuresGainedSubHeader}" HorizontalAlignment="Left" DockPanel.Dock="Top"/>
+                                                    <Control Template="{StaticResource featuresGainedSubHeader}" HorizontalAlignment="Left" DockPanel.Dock="Top" />
 
-                                                    <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+                                                    <ScrollViewer x:Name="scrollBar" Style="{StaticResource gameplayPanelScrollViewerStyle}" ls:ScrollViewerHelper.VerticalScrollOffsetMargin="124">
                                                         <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                                                             <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=ClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
@@ -1145,6 +1208,12 @@
                                                                             <Setter TargetName="classIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                             <Setter TargetName="classIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                             <Setter TargetName="classIcon" Property="Stretch" Value="Uniform"/>
+                                                                            <Setter TargetName="classIcon" Property="Opacity" Value="0.9"/>
+                                                                            <Setter TargetName="classIcon" Property="Effect">
+                                                                                <Setter.Value>
+                                                                                    <ls:SaturationEffect Saturation="0.6"/>
+                                                                                </Setter.Value>
+                                                                            </Setter>
                                                                         </DataTrigger>
                                                                     </DataTemplate.Triggers>
                                                                 </DataTemplate>
@@ -1203,12 +1272,13 @@
                                                             <ListBox x:Name="deityCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableDeities}" SelectedItem="{Binding SelectedDeity}">
                                                                 <ListBox.ItemTemplate>
                                                                     <DataTemplate>
-                                                                        <Rectangle x:Name="deityIcon" Fill="{StaticResource CCIconSelected}" Style="{StaticResource DeityIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
+                                                                        <Rectangle x:Name="deityIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource DeityIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
                                                                         <DataTemplate.Triggers>
                                                                             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
                                                                                 <Setter TargetName="deityIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                                 <Setter TargetName="deityIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                                 <Setter TargetName="deityIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+                                                                                <Setter TargetName="deityIcon" Property="Opacity" Value="0.8"/>
                                                                             </DataTrigger>
                                                                         </DataTemplate.Triggers>
                                                                     </DataTemplate>
@@ -1258,12 +1328,13 @@
                                                     <ListBox x:Name="backgroundCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}">
                                                         <ListBox.ItemTemplate>
                                                             <DataTemplate>
-                                                                <Rectangle x:Name="backgroundIcon" Fill="{StaticResource CCIconSelected}" Style="{StaticResource BackgroundIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
+                                                                <Rectangle x:Name="backgroundIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource BackgroundIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
                                                                 <DataTemplate.Triggers>
                                                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
                                                                         <Setter TargetName="backgroundIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                         <Setter TargetName="backgroundIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
                                                                         <Setter TargetName="backgroundIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+                                                                        <Setter TargetName="backgroundIcon" Property="Opacity" Value="0.8"/>
                                                                     </DataTrigger>
                                                                 </DataTemplate.Triggers>
                                                             </DataTemplate>
@@ -1295,7 +1366,7 @@
                                             <ControlTemplate>
                                                 <Grid>
 
-                                                    <StackPanel VerticalAlignment="Top">
+                                                    <DockPanel VerticalAlignment="Top">
                                                         <b:Interaction.Triggers>
                                                             <b:EventTrigger EventName="Loaded">
                                                                 <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
@@ -1304,44 +1375,19 @@
 
                                                         <Control Template="{StaticResource setGameplayCameraOffsets}"/>
 
-                                                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h711b5e8bgb67bg43f7gac08g36b2e2466acd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+                                                        <TextBlock DockPanel.Dock="Top" ls:TextBlockFormatter.SourceText="{Binding Source='h711b5e8bgb67bg43f7gac08g36b2e2466acd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
-                                                            <TextBlock x:Name="AssignAbilityPointsTitle" ls:TextBlockFormatter.SourceText="{Binding Source='h72161eb0g8981g45cfgba63ga76e152e1fe9', Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextNormal}"/>
-                                                            <TextBlock x:Name="AssignAbilityPointsValue" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}" Margin="20,0,0,0">
-                                                    <Run Text="{Binding UsedAbilityPoints}"/><Run Text="{Binding TotalAbilityPoints, StringFormat='/{0}'}"/>
-                                                            </TextBlock>
-                                                        </StackPanel>
+                                                        <TextBlock DockPanel.Dock="Top"  ls:TextBlockFormatter.SourceText="{Binding Source='hf135a2ddg8e74g44b6gb899ga96c2410d384', Converter={StaticResource TranslatedStringConverter}}"  Style="{StaticResource PanelDescriptionText}" MaxWidth="1100"  Margin="0,0,0,0"/>
 
-                                                        <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+                                                        <TextBlock DockPanel.Dock="Top"  ls:TextBlockFormatter.SourceText="{Binding Source='h0e1cbf9ege86fg4bebgb6e6g34aae0ab4460', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" MaxWidth="1100"  Margin="0,20,0,0"/>
+
+                                                        <ScrollViewer x:Name="scrollBar" Style="{StaticResource gameplayPanelScrollViewerStyle}" ls:ScrollViewerHelper.VerticalScrollOffsetMargin="124">
                                                             <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-
-                                                                <ItemsControl x:Name="abilities" ItemsSource="{Binding DummyCharacter.Stats.Abilities}" ItemTemplate="{StaticResource changeAbilityTemplate}" Margin="0,50,0,0">
-                                                                    <ItemsControl.Resources>
-                                                                        <ControlTemplate x:Key="buttonsAndValue">
-                                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="400,0,0,0">
-                                                                                <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" IsEnabled="{Binding CanDecrease}" Command="{Binding DataContext.DecreaseAbility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Bottom" SoundID="UI_HUD_CC_DecreaseAbility">
-                                                                                    <ls:LSButton.RenderTransform>
-                                                                                        <ScaleTransform ScaleX="-1" CenterX="32"/>
-                                                                                    </ls:LSButton.RenderTransform>
-                                                                                </ls:LSButton>
-
-                                                                                <Grid VerticalAlignment="Center" MinWidth="80">
-                                                                                    <TextBlock x:Name="value" ls:TextBlockFormatter.SourceText="{Binding Value}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}" HorizontalAlignment="Center"/>
-                                                                                </Grid>
-
-                                                                                <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" IsEnabled="{Binding CanIncrease}" Command="{Binding DataContext.IncreaseAbility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Bottom" SoundID="UI_HUD_CC_IncreaseAbility"/>
-                                                                            </StackPanel>
-                                                                        </ControlTemplate>
-                                                                    </ItemsControl.Resources>
-                                                                </ItemsControl>
-
-                                                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hbf77d20fgab50g4611g9e95gbb3de258ae75', Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextNormal}" Margin="0,50,0,0"/>
-
-                                                                <ItemsControl ItemsSource="{Binding RaceProgressionDetails.AbilityBonusSelection}" Margin="0,50,0,0">
+                                                            
+                                                                <ItemsControl ItemsSource="{Binding RaceProgressionDetails.AbilityBonusSelection}" Margin="0,24,0,0">
                                                                     <ItemsControl.ItemTemplate>
                                                                         <DataTemplate>
-                                                                            <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True">
+                                                                            <ContentControl Template="{StaticResource CarouselButtonTemplate}" Tag="notEnabled" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True">
                                                                                 <Grid VerticalAlignment="Center" Margin="50,0,50,0">
 
                                                                                     <TextBlock x:Name="bonus" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextNormal}" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -1378,19 +1424,46 @@
                                                                                         </ListBox.Template>
                                                                                     </ListBox>
                                                                                 </Grid>
+
                                                                             </ContentControl>
                                                                         </DataTemplate>
                                                                     </ItemsControl.ItemTemplate>
                                                                 </ItemsControl>
 
+                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
+                                                                    <TextBlock x:Name="AssignAbilityPointsTitle" ls:TextBlockFormatter.SourceText="{Binding Source='h72161eb0g8981g45cfgba63ga76e152e1fe9', Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextNormal}"/>
+                                                                    <TextBlock x:Name="AssignAbilityPointsValue" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}" Margin="20,0,0,0">
+                                                    <Run Text="{Binding UsedAbilityPoints}"/><Run Text="{Binding TotalAbilityPoints, StringFormat='/{0}'}"/>
+                                                                    </TextBlock>
+                                                                </StackPanel>
+
+                                                                <ItemsControl x:Name="abilities" ItemsSource="{Binding DummyCharacter.Stats.Abilities}" ItemTemplate="{StaticResource changeAbilityTemplate}" Margin="0,20,0,0">
+                                                                    <ItemsControl.Resources>
+                                                                        <ControlTemplate x:Key="buttonsAndValue">
+                                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="400,0,0,0">
+                                                                                <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" IsEnabled="{Binding CanDecrease}" Command="{Binding DataContext.DecreaseAbility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Bottom" SoundID="UI_HUD_CC_DecreaseAbility">
+                                                                                    <ls:LSButton.RenderTransform>
+                                                                                        <ScaleTransform ScaleX="-1" CenterX="32"/>
+                                                                                    </ls:LSButton.RenderTransform>
+                                                                                </ls:LSButton>
+
+                                                                                <Grid VerticalAlignment="Center" MinWidth="80">
+                                                                                    <TextBlock x:Name="value" ls:TextBlockFormatter.SourceText="{Binding Value}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}" HorizontalAlignment="Center"/>
+                                                                                </Grid>
+
+                                                                                <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" IsEnabled="{Binding CanIncrease}" Command="{Binding DataContext.IncreaseAbility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Bottom" SoundID="UI_HUD_CC_IncreaseAbility"/>
+                                                                            </StackPanel>
+                                                                        </ControlTemplate>
+                                                                    </ItemsControl.Resources>
+                                                                </ItemsControl>
+
                                                                 <!-- Add Use Recommended as a button -->
-                                                                <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" IsEnabled="{Binding CanUseRecommendedAbilities}" Margin="0,50,0,0">
+                                                                <ContentControl Template="{StaticResource InteractiveListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" IsEnabled="{Binding CanUseRecommendedAbilities}" Margin="0,24,0,0">
                                                                     <Grid>
 
                                                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                                            <Control x:Name="img" Visibility="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base, Converter={StaticResource BoolToVisibleConverter}}"  DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Template="{StaticResource ControllerButton.ImageSwitcher}" Width="{DynamicResource ScaledControllerHintSize}" Height="{DynamicResource ScaledControllerHintSize}" VerticalAlignment="Center" Margin="26,0,-10,0"/>
-
-                                                                            <TextBlock x:Name="useRecommendedText" Text="{Binding Source='h44d84d6fg14d8g4606gb563gf458f155defa', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource IconCarouselText}"/>
+                                                                            
+                                                                            <TextBlock x:Name="useRecommendedText" Text="{Binding Source='h44d84d6fg14d8g4606gb563gf458f155defa', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource CarouselText}" FontSize="{StaticResource DefaultFontSize}" Margin="0,1,0,0"/>
                                                                         </StackPanel>
 
                                                                         <ls:LSInputBinding IsEnabled="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" BoundEvent="UIAccept">
@@ -1408,14 +1481,16 @@
                                                             </StackPanel>
                                                         </ScrollViewer>
 
-                                                    </StackPanel>
+                                                    </DockPanel>
                                                 </Grid>
 
                                                 <ControlTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                                                        <Setter TargetName="useRecommendedText" Property="Foreground" Value="{StaticResource LS_selectedTextPad}"/>
+                                                    </DataTrigger>
                                                     <DataTrigger Binding="{Binding CanUseRecommendedAbilities}" Value="False">
                                                         <Setter TargetName="useRecommendedText" Property="Opacity" Value="{StaticResource DisabledOpacity}"/>
                                                     </DataTrigger>
-
                                                     <DataTrigger Binding="{Binding UnusedAbilityPoints, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                                                         <Setter TargetName="AssignAbilityPointsTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
                                                         <Setter TargetName="AssignAbilityPointsValue" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
@@ -1469,13 +1544,13 @@
                                     </Setter>
                                 </DataTrigger>
 
-                                <!-- MOD START - Add feat selection into CC -->
+								<!-- MOD START - Add feat selection into CC -->
 								<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="feat">
-                                    <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource featsPanel}"/>
+									<Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource featsPanel}"/>
 								</DataTrigger>
 
 								<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="featdetails">
-                                    <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource featDetailsPanel}"/>
+									<Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource featDetailsPanel}"/>
 								</DataTrigger>
 								<!-- MOD END -->
 
@@ -1878,7 +1953,7 @@
                                 <Rectangle x:Name="upperShading" Height="200" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                                     <Rectangle.Fill>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
-                                            <GradientStop Color="Black" Offset="0"/>
+                                            <GradientStop Color="Black" Offset="0" />
                                             <GradientStop Color="{StaticResource transparentBlack}" Offset="1"/>
                                         </LinearGradientBrush>
                                     </Rectangle.Fill>
