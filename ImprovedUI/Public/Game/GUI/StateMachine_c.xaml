@@ -787,12 +787,17 @@
                         <ls:SetSubstate Name="ActionRadials" Metadata="CallAllies"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "OpenActionRadialsEnd">
+                    <ls:StateEvent.Actions>
+                        <ls:SetSubstate Name="ActionRadials" Metadata="MoveToEnd"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
         <ls:State Name="ActionRadials" Layout="Player" Owner="Player" IsModal="True" TutorialLayer="ActionRadials">
             <ls:State.Widgets>
-                <ls:StateWidget Filename="ActionRadials.xaml" Layer="Panels"/>
+                <ls:StateWidget Filename="ActionRadials.xaml" Layer="Panels" AllowCreationDelay="True"/>
             </ls:State.Widgets>
 
             <ls:State.InitialSubstates>
@@ -1039,6 +1044,11 @@
                         <ls:AddSubstate Name="PlayerPortraitsActive" Metadata="InHUD"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPlayerPortraitsCharacterPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PlayerPortraitsActive" Metadata="InCharacterPanel"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -1198,12 +1208,6 @@
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
 
-                <ls:StateEvent Name = "OpenCharacterPanel">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="MainPanels" OnCreateStateEvent="OpenCharacterPanel"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-
                 <ls:StateEvent Name = "OpenInventoryPanel">
                     <ls:StateEvent.Actions>
                         <ls:SetSubstate Name="MainPanels" OnCreateStateEvent="OpenCharacterInventoryPanel"/>
@@ -1323,10 +1327,6 @@
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
             </ls:State.Widgets>
 
-            <ls:State.InitialSubstates>
-                <ls:InitialSubstate Name="CharacterPanel"/>
-            </ls:State.InitialSubstates>
-
             <ls:State.Events>
                 <ls:StateEvent Name = "CloseAll">
                     <ls:StateEvent.Actions>
@@ -1436,11 +1436,6 @@
                         <ls:SetSubstate Name="JournalMap" Metadata="Waypoints"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <ls:StateEvent Name = "OpenCharacterPanel">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="CharacterPanel"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
                 <ls:StateEvent Name = "ToggleWaypoints">
                     <ls:StateEvent.Actions>
                         <ls:SetSubstate Name="JournalMap" Metadata="Waypoints"/>
@@ -1495,7 +1490,7 @@
 
                 <ls:StateEvent Name = "OpenCharacterStats">
                     <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="CharacterStats" Metadata="CoreStats"/>
+                        <ls:SetSubstate Name="CharacterPanel" Metadata="CoreStats"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
 
@@ -1574,22 +1569,17 @@
         <!-- States of character panel with different metadata -->
         <ls:State Name="CharacterPanel" Layout="Player" Owner="Player">
             <ls:State.Widgets>
-                <ls:StateWidget Filename="CharacterPanel_c.xaml" Layer="Panels"/>
+                <ls:StateWidget Filename="CharacterPanel_c.xaml" Layer="Panels" AllowCreationDelay="True"/>
             </ls:State.Widgets>
 
             <ls:State.InitialSubstates>
-                <ls:InitialSubstate Name="PlayerPortraits"/>
+                <ls:InitialSubstate Name="PlayerPortraits" Metadata="InCharacterPanel"/>
             </ls:State.InitialSubstates>
 
             <ls:State.Events>
                 <ls:StateEvent Name = "OpenPinnedTooltips">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="PinnedTooltips"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-                <ls:StateEvent Name = "ShowInterrupts">
-                    <ls:StateEvent.Actions>
-                        <ls:SetSubstate Name="CharacterPanel" Metadata="Interrupts"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
             </ls:State.Events>
@@ -1640,25 +1630,6 @@
             </ls:State.Widgets>
             <ls:State.Events>
   
-                <ls:StateEvent Name = "OpenPinnedTooltips">
-                    <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="PinnedTooltips"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
-            </ls:State.Events>
-        </ls:State>
-
-        <ls:State Name="CharacterStats" Layout="Player" Owner="Player" HideStatesBelow="False" DisableStatesBelow="False" IsModal="False">
-            <ls:State.Widgets>
-                <ls:StateWidget Filename="CharacterPanel_c.xaml" Layer="Panels"/>
-            </ls:State.Widgets>
-
-            <ls:State.InitialSubstates>
-                <ls:InitialSubstate Name="PlayerPortraits"/>
-            </ls:State.InitialSubstates>
-
-            <ls:State.Events>
-                <ls:StateEvent Name = "OpenCharacterStats"/>
                 <ls:StateEvent Name = "OpenPinnedTooltips">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="PinnedTooltips"/>
@@ -1759,6 +1730,20 @@
                 <ls:StateEvent Name = "OpenMessageBox">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: ProofOfHonour-->
+        <ls:State Name = "ProofOfHonour" DisableStatesBelow = "True" IsModal = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ProofOfHonour_c.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
             </ls:State.Events>
@@ -1868,6 +1853,12 @@
                 <ls:StateEvent Name = "LoadGameOpen">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="Paused.LoadGame"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenProofOfHonour">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ProofOfHonour"/>
+                        <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
             </ls:State.Events>
@@ -2071,6 +2062,32 @@
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name= "OpenMoreInfo">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="GameSettingsMoreInfo"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: GameSettingsMoreInfo-->
+        <ls:State Name="GameSettingsMoreInfo" IsModal="True" DisableStatesBelow="True" Layout="Common" Owner="All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="NewGameSettingsInformationPopup_c.xaml" Layer="HUDTop"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -2122,6 +2139,7 @@
         <!--STATE: Paused.LoadGame-->
         <ls:State Name = "Paused.LoadGame" Layout = "Common" Owner = "All" DisableStatesBelow = "True" HideStatesBelow = "True" IsModal="True">
             <ls:State.Widgets>
+                <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
                 <ls:StateWidget Filename="LoadGame_c.xaml" Layer="Pause"/>
             </ls:State.Widgets>
@@ -2222,9 +2240,19 @@
             </ls:State.Widgets>
 
             <ls:State.Events>
+                <ls:StateEvent Name = "OpenContainerInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ContainerInventory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <ls:StateEvent Name = "SplitItemToggle">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="SplitItem"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenExamine">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Examine"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "OpenMessageBox">
@@ -2294,6 +2322,7 @@
                 <ls:StateEvent Name = "IE.ToggleInGameMenu">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="Paused"/>
+                        <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "CloseWidget">
@@ -2691,6 +2720,11 @@
                         <ls:AddSubstate Name="Book"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "OpenCombine">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Combine"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <ls:StateEvent Name = "OpenExamine">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="Examine"/>
@@ -2966,18 +3000,13 @@
             </ls:State.Events>
         </ls:State>
 
-        <ls:State Name="PinnedTooltips" Layout="Player" Owner="Player" DisableStatesBelow="True" IsModal="True">
+        <ls:State Name="PinnedTooltips" Layout="Player" Owner="Player" DisableStatesBelow="False" IsModal="True">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="PinnedTooltips_c.xaml" Layer="Notifications" BlockedLoading="True"/>
             </ls:State.Widgets>
 
 
             <ls:State.Events>
-                <ls:StateEvent Name = "IE.ToggleInGameMenu">
-                    <ls:StateEvent.Actions>
-                        <ls:PushState Name="Paused"/>
-                    </ls:StateEvent.Actions>
-                </ls:StateEvent>
                 <ls:StateEvent Name="ClosePinnedTooltips">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
