@@ -3612,7 +3612,9 @@
                     <ListBox x:Name="classCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableClasses}" SelectedItem="{Binding SelectedClass}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Image x:Name="classIcon" Style="{StaticResource ClassIconStyle}" Stretch="None" Opacity="1" />
+								<!-- MOD START - Use main class instead of subclass icon -->
+								<Image x:Name="classIcon" Style="{StaticResource MainClassIconStyle}" Stretch="None" Opacity="1"/>
+								<!-- MOD END -->
 
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
