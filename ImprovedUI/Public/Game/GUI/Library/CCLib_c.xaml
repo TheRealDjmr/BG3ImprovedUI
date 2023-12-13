@@ -31,7 +31,7 @@
     <Duration x:Key="BackplateSlideAnimationDuration">0:0:0.2</Duration>
 
     <!-- Properties of the background shadow for CC type menus -->
-    <System:Single x:Key="leftSidePanelBackgroundWidth">1840</System:Single>
+    <System:Single x:Key="leftSidePanelBackgroundWidth">2040</System:Single>
     <System:Single x:Key="leftSidePanelBackgroundWidthSplitscreen">1640</System:Single>
     <System:Single x:Key="summaryPanelWidth">800</System:Single>
     <System:Single x:Key="summaryPanelBackgroundWidth">920</System:Single>
@@ -44,7 +44,8 @@
     <System:Single x:Key="gridIconFrameSize">274</System:Single>
     <System:Single x:Key="gameplaySideWidth">1580</System:Single>
     <System:Single x:Key="gameplayPanelWidth">1218</System:Single>
-    <System:Single x:Key="gameplayPanelHeight">1750</System:Single>
+    <System:Single x:Key="gameplayPanelHeight">1800</System:Single>
+    <System:Single x:Key="gameplayPanelHeightSplit">1720</System:Single>
     <System:Single x:Key="appearancePanelWidth">760</System:Single>
     <System:Single x:Key="appearancePanelHeight">1700</System:Single>
     <System:Single x:Key="appearancePanelHeight_SplitScreen">1600</System:Single>
@@ -83,9 +84,13 @@
     <BitmapImage x:Key="CameraActionStickIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ControllerHints/shared/ico_rs.png"/>
 
     <BitmapImage x:Key="CarouselBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_carousel_BG.png"/>
+    <BitmapImage x:Key="CarouselHaloBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_halo.png"/>
     <BitmapImage x:Key="CarouselArrow_d" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_carousel_arrow_d.png"/>
     <BitmapImage x:Key="CarouselArrowDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_carousel_arrow_disabled.png"/>
+    <BitmapImage x:Key="CarouselDecoration" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_carousel_surround.png"/>
+    <BitmapImage x:Key="CarouselButtonBG" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_carouselButton_bg.png"/>
 
+    <BitmapImage x:Key="ListButtonBgDisabledNew" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_list_buttonBG_nonInteractive.png"/>
     <BitmapImage x:Key="ListButtonBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_list_buttonBG_generalAlt.png"/>
     <BitmapImage x:Key="ListButtonBg_h" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_list_buttonBG_h.png"/>
 
@@ -165,7 +170,6 @@
     <Style x:Key="gameplayPanelScrollViewerStyle" TargetType="ScrollViewer" BasedOn="{StaticResource {x:Type ScrollViewer}}">
         <Setter Property="Width" Value="{StaticResource gameplayPanelWidth}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Margin" Value="20,0,0,0"/>
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
     </Style>
 
@@ -329,7 +333,7 @@
     </Style>
 
     <Style x:Key="gameplayScrolledStackPanelStyle" TargetType="StackPanel">
-        <Setter Property="Margin" Value="0,0,18,0"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
     </Style>
 
     <Style x:Key="CCBaseText" TargetType="TextBlock">
@@ -346,6 +350,7 @@
         <Setter Property="Foreground" Value="{StaticResource LS_extraspecialTxtColor}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,52,0,0" />
     </Style>
 
     <Style x:Key="PanelSubHeaderText" TargetType="TextBlock" BasedOn="{StaticResource CCBaseText}">
@@ -367,11 +372,22 @@
 
     <Style x:Key="IconCarouselText" TargetType="TextBlock" BasedOn="{StaticResource CCBaseText}">
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="FontSize" Value="{StaticResource ScaledTitleFontSize}"/>
+        <Setter Property="FontSize" Value="{StaticResource ScaledHugeFontSize}"/>
         <Setter Property="Foreground" Value="{StaticResource LS_extraspecialTxtColor}"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,-10,0,0" />
+    </Style>
+
+    <Style x:Key="CarouselText" TargetType="TextBlock" BasedOn="{StaticResource CCBaseText}">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="{StaticResource ScaledTitleFontSize}"/>
+        <Setter Property="Foreground" Value="{StaticResource LS_baseTxtColor}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,-10,0,0" />
     </Style>
 
     <Style x:Key="PanelDescriptionText" TargetType="TextBlock" BasedOn="{StaticResource CCBaseText}">
@@ -408,17 +424,38 @@
 
     <Style x:Key="FeatureListItemIconHolder" TargetType="Grid">
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Width" Value="100"/>
-        <Setter Property="Margin" Value="30,0,0,0"/>
+        <Setter Property="Width" Value="96"/>
+        <Setter Property="Margin" Value="12,12,0,12"/>
     </Style>
 
     <Style x:Key="FeatureListItemName" TargetType="TextBlock" BasedOn="{StaticResource CCBaseText}">
         <Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource LS_accent75TxtColor}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="140,0,0,0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource LS_selectedTextPad}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="FeatureListItemNameControl" TargetType="Control">
+        <Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="noesis:Text.Stroke" Value="{StaticResource LS_textStrokeColor}"/>
+        <Setter Property="noesis:Text.StrokeThickness" Value="4"/>
         <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="160,0,0,0"/>
+        <Setter Property="Margin" Value="140,0,0,0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="FeatureListItemKind" TargetType="TextBlock" BasedOn="{StaticResource CCBaseText}">
@@ -430,6 +467,11 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="Margin" Value="0,0,50,0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource LS_accent75TxtColor}"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="AppearanceCarouselTitleText" TargetType="TextBlock" BasedOn="{StaticResource CCBaseText}">
@@ -554,24 +596,53 @@
         </Grid>
     </ControlTemplate>
 
-
     <ControlTemplate x:Key="ListButtonTemplate" TargetType="ContentControl">
-        <Grid Margin="0,-6,0,-18">
-            <Image x:Name="box" Source="{StaticResource ListButtonBg}" Stretch="None" Opacity="0.8"/>
-
-            <ContentPresenter x:Name="content" IsEnabled="False" Margin="10,0,0,0"/>
-
-            <Control x:Name="frame" Width="1180" Height="152"/>
+        <Grid Margin="0,0,0,4" Width="1180">
+            <Image x:Name="box" Source="{StaticResource ListButtonBgDisabledNew}" Stretch="Fill"/>
+            <Control x:Name="Frame" Visibility="Collapsed" Style="{StaticResource FocusableBorderStyle}" />
+            <ContentPresenter x:Name="content" IsEnabled="False"/>
         </Grid>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
                 <Setter TargetName="box" Property="Source" Value="{StaticResource ListButtonBg_h}"/>
                 <Setter TargetName="content" Property="IsEnabled" Value="True"/>
-                <Setter TargetName="frame" Property="Template" Value="{StaticResource FocusedListItemIndicatorTemplate}"/>
+                <Setter TargetName="Frame" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="box" Property="Opacity" Value="0.6"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding DataContext.LevelUpStep, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Started">
-                <Setter TargetName="box" Property="Source" Value="{StaticResource ListButtonBg}"/>
-                <Setter TargetName="frame" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="box" Property="Source" Value="{StaticResource ListButtonBgDisabledNew}"/>
+                <Setter TargetName="Frame" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="box" Property="Opacity" Value="1"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="InteractiveListButtonTemplate" TargetType="ContentControl">
+        <ls:LSNineSliceImage x:Name="interactiveButtonBG" Margin="0,0,0,4" ImageSource="{StaticResource ListButtonBg}" Slices="20,20" Width="1180" MinHeight="100">
+            <Grid>
+
+                <Rectangle x:Name="highlight" Fill="#87fde7c1" Visibility="Collapsed" Stretch="Fill" Opacity="1"/>
+                <Control x:Name="Frame" Visibility="Collapsed" Style="{StaticResource FocusableBorderInteractiveStyle}" />
+                <ContentPresenter x:Name="content" IsEnabled="False"/>
+            </Grid>
+        </ls:LSNineSliceImage>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                <Setter TargetName="highlight" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="content" Property="IsEnabled" Value="True"/>
+                <Setter TargetName="Frame" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="highlight" Property="Opacity" Value="1"/>
+            </DataTrigger>
+            
+            <DataTrigger Binding="{Binding Enabled}" Value="False">
+                <Setter TargetName="interactiveButtonBG" Property="ImageSource" Value="{StaticResource ListButtonBgDisabledNew}"/>
+                <Setter TargetName="highlight" Property="Opacity" Value="0.7"/>
+
+                <Setter TargetName="Frame" Property="Style" Value="{StaticResource FocusableBorderStyle}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding DataContext.LevelUpStep, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Started">
+                <Setter TargetName="highlight" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="Frame" Property="Visibility" Value="Hidden"/>
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -606,6 +677,32 @@
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <ControlTemplate x:Key="CarouselButtonTemplate" TargetType="ContentControl">
+        <Grid Width="1180" MinHeight="125" Margin="{StaticResource CClistPadding}">
+            <Image x:Name="box" Source="{StaticResource CarouselButtonBG}" Stretch="Fill" Height="125"/>
+            <Rectangle x:Name="focusedFill" Fill="{StaticResource focusedFillGradiant}" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            <Control x:Name="Frame" Visibility="Collapsed" Style="{StaticResource FocusableBorderCarouselStyle}" />
+            
+            <ContentPresenter x:Name="content" IsEnabled="True"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Tag, ElementName=base}" Value="notEnabled">
+                <Setter TargetName="content" Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                <Setter TargetName="content" Property="IsEnabled" Value="True"/>
+                <Setter TargetName="Frame" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="focusedFill" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding DataContext.LevelUpStep, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Started">
+                <Setter TargetName="box" Property="Source" Value="{StaticResource ListButtonBg}"/>
+                <Setter TargetName="Frame" Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+
 
     <DataTemplate x:Key="FeatureIcon">
         <Grid x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource CCSpellTooltip}" Margin="-20">
@@ -697,19 +794,20 @@
         <ItemsControl ItemsSource="{Binding .}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="ls:VMCharacterCreationSpell">
-                    <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource CCSpellTooltip}" ToolTipService.Placement="Right">
+                    <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.HorizontalOffset="40" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="-10">
                         <Grid>
                             <Grid Style="{StaticResource FeatureListItemIconHolder}">
                                 <Image x:Name="SlotHolder" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel/features_slot_d.png" Stretch="None"/>
                                 <Rectangle x:Name="icon" Fill="{Binding Icon}" Width="96" Height="96"/>
                             </Grid>
 
-                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource FeatureListItemName}" TextWrapping="NoWrap" MaxWidth="780" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock x:Name="text"  ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource FeatureListItemName}" TextWrapping="NoWrap" MaxWidth="780" TextTrimming="CharacterEllipsis"/>
 
-                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}, AncestorLevel=2}}" Style="{StaticResource FeatureListItemKind}"/>
+                            <TextBlock x:Name="featureType" ls:TextBlockFormatter.SourceText="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentControl}, AncestorLevel=2}}" Style="{StaticResource FeatureListItemKind}"/>
                         </Grid>
                     </ContentControl>
                 </DataTemplate>
+                
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </ControlTemplate>
@@ -802,7 +900,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type ls:VMSpellSelector}">
-        <DockPanel x:Name="base" Width="1180" Height="{StaticResource gameplayPanelHeight}">
+        <DockPanel x:Name="base" Width="1180" Height="{StaticResource gameplayPanelHeightSplit}">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="Loaded">
                     <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
@@ -834,6 +932,10 @@
         <DataTemplate.Triggers>
             <DataTrigger Binding="{Binding IsComplete}" Value="False">
                 <Setter TargetName="SelectedTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
+            </DataTrigger>
+            <!-- Split Screen variation -->
+            <DataTrigger Binding="{Binding Layout}" Value="Common">
+                <Setter TargetName="base" Property="Height" Value="{StaticResource gameplayPanelHeight}" />
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
@@ -1870,19 +1972,6 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-
-    <ControlTemplate x:Key="CarouselButtonTemplate" TargetType="ls:LSButton">
-        <Grid Width="160" Height="80" Background="Transparent">
-            <Image x:Name="arrow" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/input_arrow_d.png" Stretch="None"/>
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsPressed" Value="True">
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
     <Style x:Key="CarouselTextStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="{DynamicResource ScaledIntermediateFontSize}"/>
         <Setter Property="FontWeight" Value="Regular"/>
@@ -1959,7 +2048,7 @@
                     <Image x:Name="arrow" Source="{StaticResource CarouselArrow_d}" Stretch="None"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="arrow" Property="Source" Value="{StaticResource CarouselArrowDisabled}"/>
+                            <Setter TargetName="arrow" Property="Opacity" Value="0.2"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -1974,7 +2063,7 @@
                     <Image x:Name="arrow" Source="{StaticResource CarouselArrow_d}" Stretch="None"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="arrow" Property="Source" Value="{StaticResource CarouselArrowDisabled}"/>
+                            <Setter TargetName="arrow" Property="Opacity" Value="0.2"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -1986,15 +2075,29 @@
         <TextBlock x:Name="cTxt" Text="{Binding SelectedItem.Name, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Style="{StaticResource IconCarouselText}" TextWrapping="NoWrap" MaxWidth="960" TextTrimming="CharacterEllipsis"/>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="IconCarouselTextLevelUpTemplate">
+        <TextBlock x:Name="cTxt" Style="{StaticResource IconCarouselText}" TextWrapping="NoWrap" MaxWidth="960" TextTrimming="CharacterEllipsis">
+            <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                    <Binding Source="h1a47a847g893eg4cb2ga87bgaa23ee47055b"/>
+                    <Binding Path="SelectedItem.Name" RelativeSource="{RelativeSource AncestorType={x:Type ListBox}}"/>
+                    <Binding Path="SelectedItem.Level" RelativeSource="{RelativeSource AncestorType={x:Type ListBox}}" Converter="{StaticResource AddConverter}" ConverterParameter="1"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </ControlTemplate>
+
+
+
     <ControlTemplate x:Key="IconCarouselTemplate" TargetType="ListBox">
         <Grid>
-            <Image Source="{StaticResource CarouselBg}" Opacity="0.8" Stretch="None" Margin="0,-180,-10,0"/>
+            <Image Source="{StaticResource CarouselBg}" Opacity="0.5" Stretch="None" Margin="0,-180,-10,0"/>
 
             <Grid Height="300" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Control Template="{DynamicResource IconsTemplate}" VerticalAlignment="Center"/>
             </Grid>
 
-            <ListBox x:Name="dots" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,300,0,0">
+            <ListBox x:Name="dots" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,308,0,0">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
@@ -2012,7 +2115,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource ListButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0">
+            <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,359,0,0" Tag="notEnabled">
                 <Grid>
 
                     <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
@@ -2096,13 +2199,9 @@
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
 			<Image Style="{StaticResource MainClassIconStyle}" OpacityMask="{StaticResource leftFadeBrush}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
 			<Image Style="{StaticResource MainClassIconStyle}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
 			<Image Style="{StaticResource MainClassIconStyle}" Stretch="None" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
 			<Image Style="{StaticResource MainClassIconStyle}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
 			<Image Style="{StaticResource MainClassIconStyle}" OpacityMask="{StaticResource rightFadeBrush}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Next.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
 			<!-- MOD END -->
         </StackPanel>
@@ -2162,7 +2261,7 @@
                 </Rectangle.Fill>
             </Rectangle>
 
-            <Rectangle Fill="{StaticResource CCIconSelected}" Style="{DynamicResource CustomIconStyle}" Width="300" Height="300" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+            <Rectangle Fill="{StaticResource CCIconSelectedPad}" Style="{DynamicResource CustomIconStyle}" Width="300" Height="300" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
 
             <Rectangle Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
                 <Rectangle.Fill>
@@ -2187,7 +2286,7 @@
             </Rectangle>
 
             <Rectangle Fill="{StaticResource CCIconDefault}" Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-            <Rectangle Fill="{StaticResource CCIconSelected}" Style="{DynamicResource CustomIconStyle}" Width="300" Height="300" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+            <Rectangle Fill="{StaticResource CCIconSelectedPad}" Style="{DynamicResource CustomIconStyle}" Width="300" Height="300" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
             <Rectangle Fill="{StaticResource CCIconDefault}" Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
 
             <Rectangle Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Next.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
@@ -2221,6 +2320,37 @@
     <ControlTemplate x:Key="noScrollViewerListBoxTemplate" TargetType="ListBox">
         <!-- No ScrollViewer -->
         <ItemsPresenter/>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="animatedHalo" TargetType="ContentControl">
+        <ControlTemplate.Resources>
+            <Storyboard x:Key="HaloStoryboardImageMask">
+                <DoubleAnimation Storyboard.TargetName="haloImageMask" Storyboard.TargetProperty="(ImageBrush.RelativeTransform).(TransformGroup.Children)[1].(RotateTransform.Angle)" To="360" Duration="0:0:6" RepeatBehavior="Forever" />
+            </Storyboard>
+        </ControlTemplate.Resources>
+        <Grid>
+            <Grid.OpacityMask >
+                <ImageBrush x:Name="haloImageMask"  ImageSource="{StaticResource ButtonMask}" Stretch="Fill">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
+                            <RotateTransform Angle="0" CenterX="0.7" CenterY="0.5"  />
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Grid.OpacityMask>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard Name="FocusHalo" Storyboard="{StaticResource HaloStoryboardImageMask}"/>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
+                    <StopStoryboard BeginStoryboardName="FocusHalo"/>
+                </EventTrigger>
+            </Grid.Triggers>
+
+            <Image Source="{StaticResource CarouselHaloBg}" Stretch="None" HorizontalAlignment="center" Margin="-12,-66,0,0"/>
+            <Image Source="{StaticResource CarouselHaloBg}" Stretch="None" HorizontalAlignment="center" Margin="-12,-66,0,0"/>
+        </Grid>
     </ControlTemplate>
 
     <ItemsPanelTemplate x:Key="animatedCarouselItemPanelTemplate">
@@ -2283,9 +2413,9 @@
 
 
     <ControlTemplate x:Key="AnimatedIconCarouselTemplate" TargetType="ListBox">
-        <StackPanel>
-
-            <ListBox x:Name="dots" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" HorizontalAlignment="Center">
+      
+        <StackPanel Width="{StaticResource gameplayPanelWidth}">
+            <ListBox x:Name="dots" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" HorizontalAlignment="Center" Margin="0,12,0,0">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
@@ -2303,14 +2433,18 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Grid Margin="0,-50,0,0">
-                <Image Source="{StaticResource CarouselBg}" Opacity="0.8" Stretch="None" Margin="-30,0,0,0"/>
-                <Grid x:Name="carouselClipper" Style="{StaticResource carouselClipperStyle}">
-                    <ListBox x:Name="AnimatedCarousel" Template="{StaticResource noScrollViewerListBoxTemplate}" ItemsPanel="{StaticResource animatedCarouselItemPanelTemplate}" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" ItemTemplate="{TemplateBinding ItemTemplate}" Width="5000"/>
+            <Grid Margin="22,-100,0,-140" HorizontalAlignment="Center" Height="540" >
+
+                <ContentControl Template="{StaticResource animatedHalo}" />
+               
+                <Grid x:Name="carouselClipper" Style="{StaticResource carouselClipperStyle}" Margin="-4,0,0,0">
+                    <ListBox x:Name="AnimatedCarousel" Template="{StaticResource noScrollViewerListBoxTemplate}" ItemsPanel="{StaticResource animatedCarouselItemPanelTemplate}" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" ItemTemplate="{TemplateBinding ItemTemplate}" Width="5000" Margin="0,-60,0,0"/>
                 </Grid>
             </Grid>
 
-            <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource ListButtonTemplate}" HorizontalAlignment="Center">
+            <Image Source="{StaticResource CarouselDecoration}" Stretch="None" Margin="25,-60,0,0" Height="108" HorizontalAlignment="Center"/>
+            
+            <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Center" >
                 <Grid>
 
                     <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
@@ -2321,17 +2455,25 @@
 
                     <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.NextItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
 
-                    <Control Template="{DynamicResource IconCarouselTextTemplate}"/>
+                    <Control x:Name="buttonText" Template="{DynamicResource IconCarouselTextTemplate}"/>
 
                 </Grid>
             </ContentControl>
-
+            
+            <Image Source="{StaticResource CarouselDecoration}" Stretch="None" Margin="25,98,0,-148" Height="108" HorizontalAlignment="Center">
+                <Image.RenderTransform>
+                    <ScaleTransform ScaleY="-1"></ScaleTransform>
+                </Image.RenderTransform>
+            </Image>
         </StackPanel>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding ItemsSource.Count, ElementName=dots}" Value="1">
                 <Setter TargetName="leftBtn" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="rightBtn" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
+            <Trigger Property="Tag" Value="multiClassCarousel">
+                <Setter TargetName="buttonText" Property="Template" Value="{DynamicResource IconCarouselTextLevelUpTemplate}"/>
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -2379,10 +2521,10 @@
 
             <TextBlock Text="{Binding Source='hc4f5c05bgc2feg4333ga08fg229b33c42437', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
 
-            <ListBox x:Name="bodyTypeCarousel" Margin="0,30,0,0">
+            <ListBox x:Name="bodyTypeCarousel" Margin="0,12,0,0">
                 <ListBox.Template>
                     <ControlTemplate>
-                        <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource ListButtonTemplate}" HorizontalAlignment="Center">
+                        <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Center" Tag="notEnabled">
                             <Grid>
                                 <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"
                                         Command="{Binding DataContext.SelectPreviousBodyType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
@@ -2393,10 +2535,15 @@
                                 <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0"
                                         Command="{Binding DataContext.SelectNextBodyType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
 
-                                <TextBlock x:Name="cTxt" Text="{Binding SelectedItem.Content, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Style="{StaticResource IconCarouselText}"/>
+                                <TextBlock x:Name="cTxt" Text="{Binding SelectedItem.Content, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Style="{StaticResource CarouselText}"/>
 
                             </Grid>
                         </ContentControl>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                                <Setter TargetName="cTxt" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </ListBox.Template>
 
@@ -2426,10 +2573,10 @@
 
             <TextBlock Text="{Binding Source='hcc23cfaagbc1eg4bb0gafb9g9f720497b786', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" />
 
-            <ListBox x:Name="identityCarousel" IsEnabled="{Binding IsIdentityEnabled}" Margin="0,30,0,0">
+            <ListBox x:Name="identityCarousel" IsEnabled="{Binding IsIdentityEnabled}" Margin="0,12,0,0">
                 <ListBox.Template>
                     <ControlTemplate>
-                        <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource ListButtonTemplate}" HorizontalAlignment="Center">
+                        <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Center" Tag="notEnabled">
                             <Grid>
                                 <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.SelectPreviousIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_Gender">
                                     <ls:LSRepeatButton.RenderTransform>
@@ -2438,10 +2585,15 @@
                                 </ls:LSRepeatButton>
                                 <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.SelectNextIdentity, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SoundID="UI_HUD_CC_Gender"/>
 
-                                <TextBlock x:Name="cTxt" Text="{Binding SelectedItem.Content, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Style="{StaticResource IconCarouselText}"/>
+                                <TextBlock x:Name="cTxt" Text="{Binding SelectedItem.Content, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Style="{StaticResource CarouselText}"/>
 
                             </Grid>
                         </ContentControl>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                                <Setter TargetName="cTxt" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </ListBox.Template>
 
@@ -2551,7 +2703,7 @@
         <DataTemplate.Triggers>
 
             <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
-                <Setter TargetName="icon" Property="Fill" Value="{StaticResource CCIconSelected}"/>
+                <Setter TargetName="icon" Property="Fill" Value="{StaticResource CCIconSelectedPad}"/>
                 <Setter TargetName="frame" Property="Template" Value="{StaticResource SelectedOnlyIndicatorTemplate}"/>
                 <Setter TargetName="tick" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="label" Property="Foreground" Value="{StaticResource LS_specialTxtColor}"/>
@@ -2568,7 +2720,7 @@
                     <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True"/>
                     <Condition Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter TargetName="icon" Property="Fill" Value="{StaticResource CCIconSelected}"/>
+                <Setter TargetName="icon" Property="Fill" Value="{StaticResource CCIconSelectedPad}"/>
                 <Setter TargetName="frame" Property="Template" Value="{StaticResource FocusedAndSelectedIndicatorTemplate}"/>
                 <Setter TargetName="label" Property="Foreground" Value="{StaticResource LS_specialTxtColor}"/>
             </MultiDataTrigger>
@@ -2620,7 +2772,7 @@
 
 
     <DataTemplate x:Key="changeAbilityTemplate" DataType="ls:VMAbility">
-        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}">
+        <ContentControl Template="{StaticResource CarouselButtonTemplate}" Tag="notEnabled" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.VerticalOffset="-10" ToolTipService.HorizontalOffset="20">
             <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0">
                 <StackPanel Orientation="Horizontal">
                     <Control Template="{StaticResource AbilityDisplayName}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextNormal}" VerticalAlignment="Center"/>
@@ -3194,7 +3346,7 @@
         <ItemsControl x:Name="items" ItemsSource="{Binding Additions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="ls:VMSpellReference">
-                    <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource CCSpellRefTooltip}" ToolTipService.Placement="Right">
+                    <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource CCSpellRefTooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10"> 
                         <Grid>
                             <Grid Style="{StaticResource FeatureListItemIconHolder}">
                                 <ContentControl ContentTemplate="{StaticResource SpellRefIcon}" Content="{Binding}" ls:AttachedProperties.InheritedTag="{StaticResource FalseValue}"/>
@@ -3255,7 +3407,7 @@
                     <DataTemplate DataType="ls:VMCharacterCreationPassive">
                         <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
                             <Grid>
-                                <Grid Style="{StaticResource FeatureListItemIconHolder}">
+                                <Grid Style="{StaticResource FeatureListItemIconHolder}" Margin="12,12,0,12">
                                     <Image x:Name="iconImage" Width="96" Height="96">
                                         <Image.Source>
                                             <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" ConverterParameter="{StaticResource FallBackPassiveIconPath}">
@@ -3304,7 +3456,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="progressionFeatureBoost" DataType="ls:VMFeatureBoost">
-        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10">
             <Grid>
                 <Grid Style="{StaticResource FeatureListItemIconHolder}">
                     <Rectangle x:Name="icon" Width="96" Height="96" Fill="{Binding Icon}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -3329,7 +3481,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="progressionFeatureAbility" DataType="ls:VMAbility">
-        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10">
             <Grid>
                 <Grid Style="{StaticResource FeatureListItemIconHolder}">
                     <Image Style="{StaticResource abilityIconStyle}" Stretch="UniformToFill" Width="96" Height="96"/>
@@ -3346,21 +3498,21 @@
 
     <ControlTemplate x:Key="progressionFeaturesList">
         <StackPanel>
-
             <ItemsControl ItemsSource="{Binding Skills}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="ls:VMSkill">
-                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10" ToolTipService.Placement="Right">
                             <Grid>
                                 <Grid Style="{StaticResource FeatureListItemIconHolder}">
                                     <Image x:Name="skillIcon" Style="{StaticResource SkillsIcon}" Stretch="Uniform" />
                                 </Grid>
 
-                                <Control Template="{StaticResource SkillDisplayName}" FontSize="{StaticResource ScaledDefaultFontSize}" FontWeight="SemiBold" Foreground="{StaticResource LS_accent100TxtColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="160,0,0,0"/>
+                                <Control x:Name="buttonLabel" Template="{StaticResource SkillDisplayName}" Style="{StaticResource FeatureListItemNameControl}" />
 
                                 <TextBlock x:Name="featureType" Text="{Binding Source='h6df70972gfd55g4f29g9431g0a1530858ccf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource FeatureListItemKind}"/>
 
                             </Grid>
+
                         </ContentControl>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -3371,7 +3523,7 @@
             <ItemsControl ItemsSource="{Binding AbilityBonuses}" Visibility="{Binding AbilityBonuses.Count, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="ls:VMAbility">
-                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10">
                             <Grid>
                                 <Grid Style="{StaticResource FeatureListItemIconHolder}"/>
 
@@ -3389,11 +3541,11 @@
             <ItemsControl ItemsSource="{Binding SaveProficiencies}" Visibility="{Binding SaveProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="ls:VMFeatureBoost">
-                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right">
+                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10">
                             <Grid>
                                 <Grid Style="{StaticResource FeatureListItemIconHolder}"/>
 
-                                <TextBlock Style="{StaticResource FeatureListItemName}">
+                                <TextBlock x:Name="buttonLabel" Style="{StaticResource FeatureListItemName}">
                                     <b:Interaction.Behaviors>
                                         <ls:CtxTransStringRunGeneratorBehavior Source="{Binding NameCTS}"/>
                                     </b:Interaction.Behaviors>
@@ -3457,18 +3609,28 @@
 
                 <StackPanel x:Name="classList" Visibility="{Binding SelectableClasses.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}">
 
-                    <ListBox x:Name="classCarousel" Template="{StaticResource IconCarouselTemplate}" ItemsSource="{Binding SelectableClasses}" SelectedItem="{Binding SelectedClass}">
-                        <ListBox.Resources>
-                            <ControlTemplate x:Key="IconsTemplate">
-                                <Control x:Name="icons" Template="{StaticResource CarouselClassIconsFewTemplate}"/>
-                                <ControlTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=CurrentMultiClasses, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}">
-                                        <Setter TargetName="icons" Property="Template" Value="{StaticResource CarouselClassIconsTemplate}"/>
-                                    </DataTrigger>
-                                </ControlTemplate.Triggers>
+                    <ListBox x:Name="classCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableClasses}" SelectedItem="{Binding SelectedClass}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+								<!-- MOD START - Use main class instead of subclass icon -->
+								<Image x:Name="classIcon" Style="{StaticResource MainClassIconStyle}" Stretch="None" Opacity="1"/>
+								<!-- MOD END -->
 
-                            </ControlTemplate>
-                        </ListBox.Resources>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+                                        <Setter TargetName="classIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                        <Setter TargetName="classIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                        <Setter TargetName="classIcon" Property="Stretch" Value="Uniform"/>
+                                        <Setter TargetName="classIcon" Property="Opacity" Value="0.9"/>
+                                        <Setter TargetName="classIcon" Property="Effect">
+                                            <Setter.Value>
+                                                <ls:SaturationEffect Saturation="0.6"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
 
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,30,0,0"/>
@@ -3522,19 +3684,25 @@
             <StackPanel DockPanel.Dock="Top">
                 <TextBlock x:Name="subclassTitle" Text="{Binding Source=h1e67bc9cg0f53g4218g8ce8geb6a6636f141, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
-                <ListBox x:Name="subclassCarousel" Template="{StaticResource IconCarouselTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}">
-                    <ListBox.Resources>
-                        <ControlTemplate x:Key="IconsTemplate">
-						<!-- MOD START - Use duplicate subclass template -->
-							<Control x:Name="icons" Template="{StaticResource CarouselSubclassIconsFewTemplate}"/>
-							<ControlTemplate.Triggers>
-								<DataTrigger Binding="{Binding SelectableSubClasses.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}">
-									<Setter TargetName="icons" Property="Template" Value="{StaticResource CarouselSubclassIconsTemplate}"/>
-									<!-- MOD END -->
+                <ListBox x:Name="subclassCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Image x:Name="classIcon" Style="{StaticResource ClassIconStyle}" Stretch="None"/>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+                                    <Setter TargetName="classIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                    <Setter TargetName="classIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                    <Setter TargetName="classIcon" Property="Stretch" Value="Uniform"/>
+                                    <Setter TargetName="classIcon" Property="Opacity" Value="0.9"/>
+                                    <Setter TargetName="classIcon" Property="Effect">
+                                        <Setter.Value>
+                                            <ls:SaturationEffect Saturation="0.6"/>
+                                        </Setter.Value>
+                                    </Setter>
                                 </DataTrigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </ListBox.Resources>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
 
                 <TextBlock x:Name="subClassName" Visibility="Collapsed" ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,60,0,0"/>
@@ -3679,7 +3847,7 @@
     </ControlTemplate>
 
     <DataTemplate x:Key="SelectablePassiveTemplate" DataType="ls:VMCharacterCreationPassive">
-        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}">
+        <ContentControl Template="{StaticResource InteractiveListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}">
             <Grid>
                 <Grid Style="{StaticResource FeatureListItemIconHolder}">
                     <Image x:Name="iconImage" Width="96" Height="96">
@@ -3694,15 +3862,16 @@
 
                 <TextBlock x:Name="text" Text="{Binding Name}" Style="{StaticResource FeatureListItemName}"/>
 
-                <Image x:Name="tick" Visibility="Collapsed" Source="{StaticResource IconTick}" Stretch="None" HorizontalAlignment="Right" Margin="0,0,30,0"/>
+                <Image x:Name="tick" Visibility="Collapsed" Source="{StaticResource IconTick}" Stretch="None" HorizontalAlignment="Right" Margin="0,0,110,0"/>
 
-                <ls:LSInputBinding x:Name="toggleValue" BoundEvent="UIAccept" TriggerOnRelease="True" IsEnabled="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Command="{Binding DataContext.TogglePassive, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}">
+
+                <ls:LSButton x:Name="toggleValue" ContentTemplate="{StaticResource ControllerButtonHintImageOnly}" Visibility="Collapsed" BoundEvent="UIAccept" IsEnabled="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Command="{Binding DataContext.TogglePassive, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Content="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="-50,-50,0,-50">
                     <b:Interaction.Triggers>
                         <b:EventTrigger EventName="LSInputBindingPressed">
                             <ls:LSPlaySound Sound="UI_DefaultButton_Click" />
                         </b:EventTrigger>
                     </b:Interaction.Triggers>
-                </ls:LSInputBinding>
+                </ls:LSButton>
 
             </Grid>
         </ContentControl>
@@ -3715,11 +3884,19 @@
                 <Setter TargetName="tick" Property="Opacity" Value="{StaticResource DisabledOpacity}"/>
                 <Setter TargetName="text" Property="Foreground" Value="{StaticResource LS_baseTxtColor}"/>
             </DataTrigger>
+            
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Enabled}" Value="True"/>
+                    <Condition Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="toggleValue" Property="Visibility" Value="Visible"/>
+            </MultiDataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 
     <DataTemplate x:Key="PassiveSelectorItemTemplate">
-        <DockPanel Height="{StaticResource gameplayPanelHeight}">
+        <DockPanel x:Name="Base" Height="{StaticResource gameplayPanelHeightSplit}">
             <StackPanel DockPanel.Dock="Top">
                 <TextBlock x:Name="title" ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource PanelHeaderText}"/>
 
@@ -3745,6 +3922,10 @@
         </DockPanel>
 
         <DataTemplate.Triggers>
+            <!-- Split Screen variation -->
+            <DataTrigger Binding="{Binding Layout}" Value="Common">
+                <Setter TargetName="Base" Property="Height" Value="{StaticResource gameplayPanelHeight}" />
+            </DataTrigger>
             <DataTrigger Binding="{Binding Description.Text, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="True">
                 <Setter TargetName="description" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
@@ -3783,9 +3964,9 @@
             <ItemsControl ItemsSource="{Binding Equipments}" Margin="0,40,0,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="ls:VMCharacterCreationEquipment">
-                        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}">
+                        <ContentControl Template="{StaticResource InteractiveListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}">
                             <Grid>
-                                <Grid Style="{StaticResource FeatureListItemIconHolder}">
+                                <Grid Margin="24,12,0,12" Style="{StaticResource FeatureListItemIconHolder}">
                                     <Image x:Name="iconImage" Width="96" Height="96">
                                         <Image.Source>
                                             <MultiBinding Converter="{StaticResource IconIdToSourceConverter}" ConverterParameter="{StaticResource FallBackPassiveIconPath}">
@@ -3798,15 +3979,15 @@
 
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource FeatureListItemName}"/>
 
-                                <Image x:Name="tick" Visibility="Collapsed" Source="{StaticResource IconTick}" Stretch="None" HorizontalAlignment="Right" Margin="0,0,30,0"/>
+                                <Image x:Name="tick" Visibility="Collapsed" Source="{StaticResource IconTick}" Stretch="None" HorizontalAlignment="Right" Margin="0,0,130,0"/>
 
-                                <ls:LSInputBinding x:Name="toggleValue" BoundEvent="UIAccept" TriggerOnRelease="True" IsEnabled="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Command="{Binding DataContext.ToggleEquipment, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}">
+                                <ls:LSButton x:Name="toggleSkill" BoundEvent="UIAccept" Visibility="Collapsed" IsEnabled="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" ContentTemplate="{StaticResource ControllerButtonHintImageOnly}" Command="{Binding DataContext.ToggleEquipment, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" Content="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="-50,-50,0,-50">
                                     <b:Interaction.Triggers>
                                         <b:EventTrigger EventName="LSInputBindingPressed">
                                             <ls:LSPlaySound Sound="UI_DefaultButton_Click" />
                                         </b:EventTrigger>
                                     </b:Interaction.Triggers>
-                                </ls:LSInputBinding>
+                                </ls:LSButton>
 
                             </Grid>
                         </ContentControl>
@@ -3814,6 +3995,15 @@
                             <DataTrigger Binding="{Binding Value}" Value="1.0">
                                 <Setter TargetName="tick" Property="Visibility" Value="Visible"/>
                             </DataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Enabled}" Value="True"/>
+                                    <Condition Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="toggleSkill" Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+
                         </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -3828,24 +4018,29 @@
     </DataTemplate>
 
     <DataTemplate x:Key="selectableSkillTemplate" DataType="ls:VMCharacterCreationSkill">
-        <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}">
-            <Grid VerticalAlignment="Center" Margin="50,0,50,0">
+        <ContentControl Template="{StaticResource InteractiveListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10">
+          
+            <Grid VerticalAlignment="Center" >
 
-                <Control x:Name="skillName" Template="{StaticResource SkillDisplayName}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextSpecial}" HorizontalAlignment="Left"/>
+                <Grid Style="{StaticResource FeatureListItemIconHolder}">
+                    <Image x:Name="skillIcon" Style="{StaticResource SkillsIcon}" Stretch="Uniform" Opacity="0.6" />
+                </Grid>
 
-                <TextBlock x:Name="skillRollBonus" Text="{Binding Value, StringFormat={}{0:+#;-#;+0}}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextSpecial}" HorizontalAlignment="Right" Margin="0,0,200,0"/>
+                <Control x:Name="skillName" Template="{StaticResource SkillDisplayName}" Foreground="{StaticResource CCTextSpecial}" Style="{StaticResource FeatureListItemNameControl}"/>
 
-                <Grid HorizontalAlignment="Right" Margin="0,0,100,0">
+                <TextBlock x:Name="skillRollBonus" Text="{Binding Value, StringFormat={}{0:+#;-#;+0}}" FontWeight="DemiBold" FontSize="{StaticResource ScaledLargeFontSize}" Foreground="{StaticResource CCTextSpecial}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,200,0"/>
+
+                <Grid HorizontalAlignment="Right" Margin="0,0,140,0">
                     <Image x:Name="pointIcon" Stretch="None" Width="48" Height="48" />
                 </Grid>
 
-                <ls:LSInputBinding x:Name="toggleSkill" BoundEvent="UIAccept" TriggerOnRelease="True" IsEnabled="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Command="{Binding DataContext.ToggleSkill,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}">
+                <ls:LSButton x:Name="toggleSkill" BoundEvent="UIAccept" Visibility="Collapsed" IsEnabled="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" ContentTemplate="{StaticResource ControllerButtonHintImageOnly}" Command="{Binding DataContext.ToggleSkill,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"  Content="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="-50,-50,0,-50">
                     <b:Interaction.Triggers>
                         <b:EventTrigger EventName="LSInputBindingPressed">
                             <ls:LSPlaySound Sound="UI_DefaultButton_Click" />
                         </b:EventTrigger>
                     </b:Interaction.Triggers>
-                </ls:LSInputBinding>
+                </ls:LSButton>
             </Grid>
         </ContentControl>
         <DataTemplate.Triggers>
@@ -3853,7 +4048,9 @@
                 <Setter TargetName="skillName" Property="Foreground" Value="{StaticResource CCTextLight}"/>
                 <Setter TargetName="skillRollBonus" Property="Foreground" Value="{StaticResource CCTextLight}"/>
                 <Setter TargetName="pointIcon" Property="Source" Value="{StaticResource tabDotOff}"/>
+                <Setter TargetName="skillIcon" Property="Opacity" Value="1"/>
             </DataTrigger>
+
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Enabled}" Value="True"/>
@@ -3863,6 +4060,20 @@
                 <Setter TargetName="skillRollBonus" Property="Foreground" Value="{StaticResource LS_specialTxtColor}"/>
                 <Setter TargetName="pointIcon" Property="Source" Value="{StaticResource tabDotOn}"/>
             </MultiDataTrigger>
+            
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Enabled}" Value="True"/>
+                    <Condition Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="toggleSkill" Property="Visibility" Value="Visible"/>
+            </MultiDataTrigger>
+            
+            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                <Setter TargetName="skillName" Property="Foreground" Value="{StaticResource LS_selectedTextPad}"/>
+                <Setter TargetName="skillRollBonus" Property="Foreground" Value="{StaticResource LS_selectedTextPad}"/>
+                <Setter TargetName="skillIcon" Property="Opacity" Value="1"/>
+            </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
 
@@ -3873,22 +4084,27 @@
 
             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h5238a9c6gb90fg40bbg9335gfb37d6e91b94, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
+
+            <ListBox x:Name="deityCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableDeities}" SelectedItem="{Binding SelectedDeity}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle x:Name="CustomIconStyle" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource DeityIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}" Opacity="1"/>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+                                <Setter TargetName="CustomIconStyle" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                <Setter TargetName="CustomIconStyle" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                <Setter TargetName="CustomIconStyle" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+                                <Setter TargetName="CustomIconStyle" Property="Opacity" Value="0.8"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+
             <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-
-                    <ListBox x:Name="deityCarousel" Template="{StaticResource IconCarouselTemplate}" ItemsSource="{Binding SelectableDeities}" SelectedItem="{Binding SelectedDeity}">
-                        <ListBox.Resources>
-                            <Style x:Key="CustomIconStyle" BasedOn="{StaticResource DeityIconStyle}" TargetType="Rectangle"/>
-                            <ControlTemplate x:Key="IconsTemplate">
-                                <Control x:Name="icons" Template="{StaticResource CarouselCustomIconsFewTemplate}"/>
-                                <ControlTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding SelectableDeities.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}" Value="True">
-                                        <Setter TargetName="icons" Property="Template" Value="{StaticResource CarouselCustomIconsTemplate}"/>
-                                    </DataTrigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </ListBox.Resources>
-                    </ListBox>
 
                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedDeity.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,30,0,0"/>
 
@@ -3905,7 +4121,7 @@
                 <DataTemplate>
                     <StackPanel>
                         <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplateShort}" HorizontalAlignment="Center">
-                            <Control Template="{StaticResource ColorOptionTickBoxTemplate}" />
+                            <Control  Template="{StaticResource ColorOptionTickBoxTemplate}" />
                         </ContentControl>
                     </StackPanel>
 					<!-- MOD START - Hide all sliders since sliders are now added to the main page -->
@@ -3922,7 +4138,7 @@
 
 
     <ControlTemplate x:Key="skillsSelectionTemplate">
-        <DockPanel x:Name="skillsPanel" Height="{StaticResource gameplayPanelHeight}">
+        <DockPanel x:Name="skillsPanel" Height="{StaticResource gameplayPanelHeightSplit}">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="Loaded">
                     <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
@@ -3962,7 +4178,7 @@
 
             </StackPanel>
 
-            <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+            <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" >
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
                     <Control Template="{DynamicResource selectableSkills}"/>
@@ -3973,7 +4189,10 @@
         </DockPanel>
 
         <ControlTemplate.Triggers>
-
+            <!-- Split Screen variation -->
+            <DataTrigger Binding="{Binding Layout}" Value="Common">
+                <Setter TargetName="skillsPanel" Property="Height" Value="{StaticResource gameplayPanelHeight}" />
+            </DataTrigger>
             <DataTrigger Binding="{Binding MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                 <Setter TargetName="point0" Property="Visibility" Value="Visible"/>
             </DataTrigger>
@@ -4195,6 +4414,8 @@
 
         <StackPanel Orientation="Horizontal">
 
+            <ls:LSButton x:Name="selectButton" Visibility="Collapsed" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=h04f38549g65b8g4b72g834eg87ee8863fdc5,Converter={StaticResource TranslatedStringConverter}}" OverwriteClickSound="UI_Shared_Accept"/>
+            
             <!-- Add a new class (multiclass) in LevelUp -->
             <ls:LSButton x:Name="addClassButton" Visibility="Collapsed" Command="{Binding DataContext.SelectFirstUnusedClass, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAddClass, Converter={StaticResource FindInputEventConverter}}" BoundEvent="UIAddClass" Tag="{Binding Source=hcbc3c9a8g9e80g4139g952bga971015c1f41,Converter={StaticResource TranslatedStringConverter}}"/>
 
@@ -4249,6 +4470,24 @@
                 <Setter TargetName="showSummary" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="hideSummary" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="gotoAppearanceButton" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="raceskills">
+                <Setter TargetName="selectButton" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="skills">
+                <Setter TargetName="selectButton" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="equipment">
+                <Setter TargetName="selectButton" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="expertise">
+                <Setter TargetName="selectButton" Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Layout}" Value="Left">
+                <Setter TargetName="selectButton" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Layout}" Value="Right">
+                <Setter TargetName="selectButton" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="daisy">
                 <Setter TargetName="showSummary" Property="Visibility" Value="Collapsed"/>
@@ -4520,7 +4759,7 @@
 
                             <ListBox.ItemTemplate>
                                 <DataTemplate DataType="ls:VMSelectableFeat">
-                                    <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True">
+                                    <ContentControl Template="{StaticResource InteractiveListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True">
                                         <ContentControl.ToolTip>
                                             <ls:LSTooltip Content="{Binding DataContext, ElementName=base}">
                                                 <ToolTip.ContentTemplate>
@@ -4563,8 +4802,10 @@
 
                                             <TextBlock x:Name="text" ls:TextBlockFormatter.SourceText="{Binding Name}" Style="{StaticResource FeatureListItemName}"/>
 
-                                            <Image x:Name="tick" Visibility="Collapsed" Source="{StaticResource IconTick}" Stretch="None" HorizontalAlignment="Right" Margin="0,0,30,0"/>
+                                            <Image x:Name="tick" Visibility="Collapsed" Source="{StaticResource IconTick}" Stretch="None" HorizontalAlignment="Right" Margin="0,0,110,0"/>
                                             <Image x:Name="lock" Visibility="Collapsed" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterLevelup/ico_locked.png" Stretch="None" HorizontalAlignment="Right" Margin="0,0,40,0"/>
+
+                                            <ls:LSButton x:Name="selectFeatIcon" ContentTemplate="{StaticResource ControllerButtonHintImageOnly}" Visibility="Collapsed" Content="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="-50,-50,0,-50" />
 
                                             <ls:LSInputBinding x:Name="selectFeat" BoundEvent="UIAccept" IsEnabled="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}">
                                                 <b:Interaction.Triggers>
@@ -4588,14 +4829,24 @@
                                             <Setter TargetName="tick" Property="Visibility" Value="Visible"/>
                                             <Setter TargetName="tick" Property="Opacity" Value="{StaticResource DisabledOpacity}"/>
                                             <Setter TargetName="text" Property="Foreground" Value="{StaticResource LS_baseTxtColor}"/>
+                                            <Setter TargetName="base" Property="Template" Value="{StaticResource ListButtonTemplate}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding IsRequirementsMet}" Value="False">
                                             <Setter TargetName="selectFeat" Property="IsEnabled" Value="False"/>
                                             <Setter TargetName="lock" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="base" Property="Template" Value="{StaticResource ListButtonTemplate}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Icon}" Value="{x:Null}">
                                             <Setter TargetName="icon" Property="Fill" Value="{StaticResource IconFeatDefaultBrush}"/>
                                         </DataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsRequirementsMet}" Value="True"/>
+                                                <Condition Binding="{Binding IsAlreadyTaken}" Value="False"/>
+                                                <Condition Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter TargetName="selectFeatIcon" Property="Visibility" Value="Visible"/>
+                                        </MultiDataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -4620,7 +4871,7 @@
 
     <ControlTemplate x:Key="ChangeRandomCharacterCarouselTemplate">
         <StackPanel>
-            <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True">
+            <ContentControl Template="{StaticResource CarouselButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True">
                 <Grid>
                     <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" IsEnabled="{Binding HasPreviousCharacter}" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.RandomCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="prev">
                         <ls:LSButton.RenderTransform>
@@ -4629,7 +4880,7 @@
                     </ls:LSButton>
                     <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" IsEnabled="{Binding HasNextCharacter}" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.RandomCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="next"/>
 
-                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1595c068g30a1g4efegbd7fg072665991b3b', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource IconCarouselText}"/>
+                    <TextBlock x:Name="cTxt" ls:TextBlockFormatter.SourceText="{Binding Source='h1595c068g30a1g4efegbd7fg072665991b3b', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource CarouselText}"/>
                 </Grid>
             </ContentControl>
 
@@ -4640,9 +4891,14 @@
                                  Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}"
                                  Tag="{Binding Source=h726d54dcg32b8g4d47g95cega8ff28505e85, Converter={StaticResource TranslatedStringConverter}}"
                                  BoundEvent="UIAccept"
-                                 Margin="0,32,0,0"
+                                 Margin="0,0,0,0"
                                  Visibility="{Binding ElementName=base, Path=(ls:MoveFocus.IsFocused), Converter={StaticResource BoolToVisibleConverter}}"/>
         </StackPanel>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
+                <Setter TargetName="cTxt" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <ControlTemplate x:Key="setAppearanceCamera">
@@ -4751,6 +5007,12 @@
                 </StackPanel>
 
             </Grid>
+
+            <b:Interaction.Triggers>
+                <b:PropertyChangedTrigger Binding="{Binding SelectedValue, RelativeSource={RelativeSource TemplatedParent}}">
+                    <ls:LSPlaySound Sound="UI_Controller_DefaultSlider_Step"/>
+                </b:PropertyChangedTrigger>
+            </b:Interaction.Triggers>
         </ContentControl>
         <ControlTemplate.Triggers>
 
@@ -4946,29 +5208,23 @@
     <ControlTemplate x:Key="AppearanceSliderCarousel" TargetType="ListBox">
         <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
             <Grid VerticalAlignment="Center">
-                <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="{StaticResource LeftCarouselMargin}" Command="{Binding DataContext.PrevSliderCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
+                <ls:LSRepeatButton x:Name="leftBtn" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="{StaticResource LeftCarouselMargin}" EatInput="False">
                     <ls:LSRepeatButton.RenderTransform>
                         <ScaleTransform ScaleX="-1" CenterX="32"/>
                     </ls:LSRepeatButton.RenderTransform>
-                    <b:Interaction.Triggers>
-                        <b:EventTrigger EventName="Click">
-                            <b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
-                        </b:EventTrigger>
-                    </b:Interaction.Triggers>
                 </ls:LSRepeatButton>
-                <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="{StaticResource RightCarouselMargin}" Command="{Binding DataContext.NextSliderCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
-                    <b:Interaction.Triggers>
-                        <b:EventTrigger EventName="Click">
-                            <b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
-                        </b:EventTrigger>
-                    </b:Interaction.Triggers>
-                </ls:LSRepeatButton>
+                <ls:LSRepeatButton x:Name="rightBtn" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="{StaticResource RightCarouselMargin}" EatInput="False"/>
 
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock x:Name="title" Text="{Binding Source='hfcbe9131g86b0g46d7ga4afg5c3301c070bf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceCarouselTitleText}" />
                     <Control x:Name="content" IsEnabled="False" VerticalAlignment="Center" HorizontalAlignment="Center" Focusable="False" Template="{StaticResource SliderTemplate}" Margin="0,8,0,0"/>
                 </StackPanel>
 
+                <b:Interaction.Triggers>
+                    <b:PropertyChangedTrigger Binding="{Binding Value}">
+                        <b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                    </b:PropertyChangedTrigger>
+                </b:Interaction.Triggers>
             </Grid>
         </ContentControl>
         <ControlTemplate.Triggers>
@@ -5032,10 +5288,11 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Rectangle Grid.Column="0" Fill="{StaticResource CCTextSpecial}" Opacity="0.8" Height="90"/>
-
-                                        <ls:LSTextBox Grid.Column="0" x:Name="characterName" Text="{Binding CharacterName}" IsEnabled="{Binding CanEditName}" MaxLength="20" TextImmediateSourceUpdate="True"
+                                        <Viewbox MaxWidth="720" StretchDirection="DownOnly">
+                                            <ls:LSTextBox Grid.Column="0" x:Name="characterName" Text="{Binding CharacterName}" IsEnabled="{Binding CanEditName}" MaxLength="20" TextImmediateSourceUpdate="True"
                                                       Foreground="{StaticResource CCTextPrimary}" FontSize="{StaticResource ScaledDefaultFontSize}" TextAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" ProfanityFilter="True"
                                                       Margin="16,0"/>
+                                        </Viewbox>
                                     </Grid>
 
                                 </StackPanel>
@@ -5138,7 +5395,8 @@
             </ListBox>
 
             <!-- GENERAL -->
-                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h3003476bg9facg4159g87e1gd9f70aee88eb', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceSubHeaderText}"/>
+            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h3003476bg9facg4159g87e1gd9f70aee88eb', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceSubHeaderText}"/>
+            
             <ListBox x:Name="daisyRace" Tag="daisyrace" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" Template="{StaticResource AppearanceCarousel}" Style="{StaticResource paginatedListBoxStyle}" />
 
             <ListBox x:Name="daisySubRace" Tag="daisysubrace" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding Path=SelectableSubRaces.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource paginatedListBoxStyleFixed}" />
@@ -5156,10 +5414,6 @@
                     </b:DataTrigger>
                     <b:DataTrigger Binding="{Binding BodyTypeAndShape}" Value="MaleStrong">
                         <b:ChangePropertyAction TargetName="bodyTypeCarousel" PropertyName="SelectedIndex" Value="3"/>
-                    </b:DataTrigger>
-                    <b:DataTrigger Binding="{Binding DataContext.SelectedRace.HasAdditionalBodyShapes, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="False">
-                        <b:ChangePropertyAction TargetName="femaleStrong" PropertyName="Visibility" Value="Collapsed"/>
-                        <b:ChangePropertyAction TargetName="maleStrong" PropertyName="Visibility" Value="Collapsed"/>
                     </b:DataTrigger>
                 </b:Interaction.Triggers>
 
@@ -5388,6 +5642,12 @@
                                 </StackPanel>
 
                             </Grid>
+
+                            <b:Interaction.Triggers>
+                                <b:PropertyChangedTrigger Binding="{Binding Tag, ElementName=displayGenitalsToggle}">
+                                    <ls:LSPlaySound Sound="UI_Controller_DefaultSlider_Step"/>
+                                </b:PropertyChangedTrigger>
+                            </b:Interaction.Triggers>
                         </ContentControl>
                         <ControlTemplate.Triggers>
                             <DataTrigger Binding="{Binding Tag, ElementName=displayGenitalsToggle}" Value="True">
@@ -5457,6 +5717,11 @@
                                     <TextBlock x:Name="enableHeterochromiaValueText" Style="{StaticResource AppearanceCarouselValueText}"/>
                                 </StackPanel>
 
+                                <b:Interaction.Triggers>
+                                    <b:PropertyChangedTrigger Binding="{Binding HeterochromiaEnabled}">
+                                        <ls:LSPlaySound Sound="UI_Controller_DefaultSlider_Step"/>
+                                    </b:PropertyChangedTrigger>
+                                </b:Interaction.Triggers>
                             </Grid>
                         </ContentControl>
                         <ControlTemplate.Triggers>
@@ -5594,7 +5859,18 @@
         </StackPanel>
 
         <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.TadpoledState}" Value="HalfIllithid">
+                <Setter TargetName="scarChoices" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.TadpoledState}" Value="FullIllithid">
+                <Setter TargetName="scarChoices" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
 
+            <DataTrigger Binding="{Binding SelectedRace.HasAdditionalBodyShapes}" Value="False">
+                <Setter TargetName="femaleStrong" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="maleStrong" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            
             <DataTrigger Binding="{Binding HasNewRandomAppearance}" Value="True">
                 <Setter TargetName="newRandomAppearance" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="randomAppearancesCarousel" Property="Visibility" Value="Visible"/>
@@ -5662,6 +5938,8 @@
             <DataTrigger Binding="{Binding IsDragonborn}" Value="True">
                 <Setter TargetName="metallicIntensity" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="glossyIntensity" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="eyeMetallicIntensity" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="eyeGlossyIntensity" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
 
             <MultiDataTrigger>
@@ -5752,16 +6030,8 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="AppearanceItemSelectableBottomButtons">
-        <StackPanel Orientation="Horizontal">
-            <ls:LSButton x:Name="selectButton" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=h0dab6b33gf8f3g4d26g8426g23d2d6da3b3a,Converter={StaticResource TranslatedStringConverter}}">
-                <b:Interaction.Triggers>
-                    <b:EventTrigger EventName="LSInputBindingPressed" >
-                        <ls:LSPlaySound Sound="UI_DefaultButton_Click"/>
-                    </b:EventTrigger>
-                </b:Interaction.Triggers>
-            </ls:LSButton>
+        <ls:LSButton x:Name="selectButton" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=h0dab6b33gf8f3g4d26g8426g23d2d6da3b3a,Converter={StaticResource TranslatedStringConverter}}" OverwriteClickSound="UI_DefaultButton_Click"/>
 
-        </StackPanel>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding FocusedElement.Tag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="True">
                 <Setter TargetName="selectButton" Property="IsEnabled" Value="True"/>
@@ -5776,13 +6046,7 @@
     <ControlTemplate x:Key="AppearanceItemSelectedBottomButtons">
         <StackPanel Orientation="Horizontal">
 
-            <ls:LSButton x:Name="selectButton" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=hd0c08193ga7f2g4a7eg8225g63748c7b3096,Converter={StaticResource TranslatedStringConverter}}">
-                <b:Interaction.Triggers>
-                    <b:EventTrigger EventName="LSInputBindingPressed" >
-                        <ls:LSPlaySound Sound="UI_DefaultButton_Click"/>
-                    </b:EventTrigger>
-                </b:Interaction.Triggers>
-            </ls:LSButton>
+            <ls:LSButton x:Name="selectButton" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=hd0c08193ga7f2g4a7eg8225g63748c7b3096,Converter={StaticResource TranslatedStringConverter}}" OverwriteClickSound="UI_DefaultButton_Click"/>
 
             <!-- Toggle tooltips -->
             <ls:LSButton x:Name="ToggleTooltips"
@@ -5793,13 +6057,7 @@
                                  Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIShowInfo, Converter={StaticResource FindInputEventConverter}}"
                                  Tag="{Binding Source='hf8dd4c2fg97e0g4ccdgac1ag3cd1fe5060ef', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
 
-            <ls:LSButton x:Name="backButton" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICancel, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=h77fec760g866dg4e47g8e81g467c9c05e447,Converter={StaticResource TranslatedStringConverter}}">
-                <b:Interaction.Triggers>
-                    <b:EventTrigger EventName="LSInputBindingPressed" >
-                        <ls:LSPlaySound Sound="UI_DefaultButton_Click"/>
-                    </b:EventTrigger>
-                </b:Interaction.Triggers>
-            </ls:LSButton>
+            <ls:LSButton x:Name="backButton" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICancel, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=h77fec760g866dg4e47g8e81g467c9c05e447,Converter={StaticResource TranslatedStringConverter}}" OverwriteClickSound="UI_DefaultButton_Click"/>
         </StackPanel>
 
         <ControlTemplate.Triggers>
@@ -5811,10 +6069,11 @@
 
     <ControlTemplate x:Key="AppearancePanelTemplate">
         <DockPanel HorizontalAlignment="Right">
-            <TextBlock x:Name="headerText" DockPanel.Dock="Top" ls:TextBlockFormatter.SourceText="{Binding Source=h261cce55g1d1eg4c09g9675ge5c1be13e820, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"  Margin="0,0,76,0"/>
-            <!-- ls:ScrollViewerHelper.VerticalScrollOffsetMargin="185"-->
+            <TextBlock x:Name="headerText" DockPanel.Dock="Top" ls:TextBlockFormatter.SourceText="{Binding Source=h261cce55g1d1eg4c09g9675ge5c1be13e820, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"  Margin="0,0,60,0"/>
 
-            <ScrollViewer Margin="0,50,0,0" VerticalScrollBarVisibility="Auto" >
+            <TextBlock x:Name="subTitleText"  ls:TextBlockFormatter.SourceText="" Style="{StaticResource OverPanelHeaderText}" Margin="0,12,56,-20" DockPanel.Dock="Top" Visibility="Collapsed"/>
+
+            <ScrollViewer Margin="0,50,0,0" VerticalScrollBarVisibility="Auto" Width="800" >
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
                     <b:Interaction.Triggers>
                         <b:DataTrigger Binding="{Binding FocusedElement.Tag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="True">
@@ -5871,6 +6130,8 @@
         <ControlTemplate.Triggers>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="daisyrace">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h6020727bge0e3g4de7gaf3ag469c3b32b3d2', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -5880,8 +6141,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6020727bge0e3g4de7gaf3ag469c3b32b3d2', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" Style="{StaticResource gameplayIconGridStyle}">
                                     <ListBox.Resources>
@@ -5896,6 +6155,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="daisysubrace">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h29d1d637g94bbg4f11g9bdfgbe0042b60e40', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -5905,8 +6166,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h29d1d637g94bbg4f11g9bdfgbe0042b60e40', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" Style="{StaticResource gameplayIconGridStyle}">
                                     <ListBox.Resources>
@@ -5940,6 +6199,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="skinColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hc81ba7bcgb2ccg4423ga050g253fd53ce2c9', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -5950,8 +6211,6 @@
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
 
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hc81ba7bcgb2ccg4423ga050g253fd53ce2c9', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-                                
                                 <ItemsControl Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding SkinColorOptions}" Margin="0,21,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableSkinColours}" SelectedItem="{Binding SelectedSkinColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,21,0,0"/>
@@ -5963,6 +6222,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="eyeColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h1203122ag1146g4759ga531g57ccd5ef36da', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -5972,8 +6233,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1203122ag1146g4759ga531g57ccd5ef36da', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ItemsControl Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding EyeColorOptions}" Margin="0,21,0,0"/>
 
@@ -5986,6 +6245,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="heterochromiaEyeColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hc6bfd120gde63g4c3ag99eag43e8f905a7d4', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -5995,8 +6256,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hc6bfd120gde63g4c3ag99eag43e8f905a7d4', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ItemsControl Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding EyeColorOptions}" Margin="0,21,0,0"/>
 
@@ -6028,6 +6287,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="tattooColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h0c6d2890g6a16g4e20ga2a1gcb15afa6e8d3', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6037,8 +6298,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0c6d2890g6a16g4e20ga2a1gcb15afa6e8d3', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ListBox ItemsSource="{Binding SelectableTattooColours}" SelectedItem="{Binding SelectedTattooColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6068,6 +6327,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="makeupColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hd98545bbg8f42g437dg8f70gcb5f7a1bda8b', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6081,8 +6342,6 @@
                                     <ls:CollectionFilterBehavior x:Name="IsDragonbornMakeupFilter" ItemsSource="{Binding AppearanceMakeup.ColorOptions}" Predicate="{Binding IsDragonbornPredicate}"/>
                                 </b:Interaction.Behaviors>
 
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hd98545bbg8f42g437dg8f70gcb5f7a1bda8b', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-
                                 <ListBox ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
                             </StackPanel>
@@ -6092,6 +6351,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="lipMakeupColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='ha96c9b3bg5d8dg4ebbgb7a8gbefe66c7b781', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6101,8 +6362,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='ha96c9b3bg5d8dg4ebbgb7a8gbefe66c7b781', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ListBox ItemsSource="{Binding SelectableLipsMakeupColours}" SelectedItem="{Binding SelectedLipsMakeupColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6113,6 +6372,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="scars">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h408d8f2bgca7eg4d20gb0bag4d4a3318f1c5', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6122,8 +6383,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h408d8f2bgca7eg4d20gb0bag4d4a3318f1c5', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ListBox ItemsSource="{Binding SelectableScars}" SelectedItem="{Binding SelectedScar}" Style="{StaticResource appearanceIconGridStyle}"/>
 
@@ -6153,6 +6412,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="hairColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6162,10 +6423,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-<!-- MOD NOTE - Re-add color options -->
-                                <ItemsControl Style="{DynamicResource ColorOptionsStyle}" ItemsSource="{Binding HairColorOptions}" Margin="0,50,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHairColours}" SelectedItem="{Binding SelectedHairColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6176,6 +6433,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="hairHighlights">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h9d4a4e08g81cdg4259g8bd1g80b47dbda3f3', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6185,10 +6444,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h9d4a4e08g81cdg4259g8bd1g80b47dbda3f3', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-<!-- MOD NOTE - Re-add color options -->
-                                <ItemsControl Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHairHighlights.ColorOptions}" Margin="0,50,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHighlightColours}" SelectedItem="{Binding SelectedHighlightColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6199,6 +6454,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="hairGrays">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6208,8 +6465,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ListBox ItemsSource="{Binding SelectableGrayingColours}" SelectedItem="{Binding SelectedGrayingColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6239,6 +6494,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="horns">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h290f2542g9702g4651g8afdgdae1f08a12eb', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6248,8 +6505,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h290f2542g9702g4651g8afdgdae1f08a12eb', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHorns}" SelectedItem="{Binding SelectedHorn}" Style="{StaticResource appearanceIconGridStyle}"/>
 
@@ -6261,6 +6516,8 @@
 
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="hornColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8f9581e8g4440g4cf5g8752g220535346a50', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6270,10 +6527,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8f9581e8g4440g4cf5g8752g220535346a50', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-<!-- MOD NOTE - Re-add color options -->
-                                <ItemsControl Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHornColor.ColorOptions}" Margin="0,50,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHornColours}" SelectedItem="{Binding SelectedHornColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6284,6 +6537,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="hornTipColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h33ea2bd3g91cag471cg8242gef7327983dbf', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6293,10 +6548,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h33ea2bd3g91cag471cg8242gef7327983dbf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
-<!-- MOD NOTE - Re-add color options -->
-                                <ItemsControl Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearanceHornTipColor.ColorOptions}" Margin="0,50,0,0"/>
 
                                 <ListBox ItemsSource="{Binding SelectableHornTipColours}" SelectedItem="{Binding SelectedHornTipColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
 
@@ -6307,6 +6558,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="scales">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6316,8 +6569,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ListBox ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
 
@@ -6328,6 +6579,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="scaleColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6337,8 +6590,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ItemsControl Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearancePassive.ColorOptions}" Margin="0,50,0,0"/>
 
@@ -6351,6 +6602,8 @@
             </DataTrigger>
 
             <DataTrigger Binding="{Binding Tag, ElementName=appearanceSelectedContents}" Value="draconicLineColors">
+                <Setter TargetName="subTitleText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h7202f8ebgaa5dg411dgac62g3bf8986e28b3', Converter={StaticResource TranslatedStringConverter}}" />
+                <Setter TargetName="subTitleText" Property="Visibility" Value="Visible" />
                 <Setter TargetName="appearanceSelectedContents" Property="Template">
                     <Setter.Value>
                         <ControlTemplate>
@@ -6360,8 +6613,6 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-
-                                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h7202f8ebgaa5dg411dgac62g3bf8986e28b3', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource OverPanelHeaderText}"/>
 
                                 <ItemsControl Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearancePassive.ColorOptions}" Margin="0,50,0,0"/>
 

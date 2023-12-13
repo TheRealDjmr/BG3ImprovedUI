@@ -759,10 +759,10 @@
                 </ls:StateEvent>
                 <ls:StateEvent Name = "OpenExamine">
                     <ls:StateEvent.Actions>
-                        <ls:PushState Name="Examine"/>
+                        <ls:AddSubstate Name="Examine"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <ls:StateEvent Name = "ActiveRollOpen">
+                 <ls:StateEvent Name = "ActiveRollOpen">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="ActiveRoll"/>
                     </ls:StateEvent.Actions>
@@ -821,7 +821,12 @@
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="CharacterChangeAppearance"/>
                     </ls:StateEvent.Actions>
-                </ls:StateEvent>                
+                </ls:StateEvent>
+                <ls:StateEvent Name="ToggleCompanionsPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="CompanionsPanel"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -950,6 +955,8 @@
                         <ls:SetSubstate Name="JournalQuests"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                
+
                 <ls:StateEvent Name = "IE.ToggleInspiration">
                     <ls:StateEvent.Actions>
                         <ls:SetSubstate Name="JournalInspiration"/>
@@ -1050,6 +1057,7 @@
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
 
+               
                 <!-- Open if not already, but don't close if it is -->
                 <ls:StateEvent Name = "OpenInventory">
                     <ls:StateEvent.Actions>
@@ -1520,6 +1528,11 @@
                         <ls:AddSubstate Name="MessageBox"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "OpenContainerInventory">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="ContainerInventory"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
                 <ls:StateEvent Name = "SplitItemToggle">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="SplitItem"/>
@@ -1575,6 +1588,20 @@
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: ProofOfHonour-->
+        <ls:State Name = "ProofOfHonour" DisableStatesBelow = "True" IsModal = "True" Layout = "Common" Owner = "Player">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="ProofOfHonour.xaml" Layer="Pause"/>
+            </ls:State.Widgets>
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
@@ -1646,6 +1673,12 @@
                 <ls:StateEvent Name = "LoadGameOpen">
                     <ls:StateEvent.Actions>
                         <ls:PushState Name="Paused.LoadGame"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenProofOfHonour">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="ProofOfHonour"/>
+                        <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
             </ls:State.Events>
@@ -1831,6 +1864,27 @@
             </ls:State.Widgets>
 
             <ls:State.Events>
+                <ls:StateEvent Name= "OpenMoreInfo">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="GameSettingsMoreInfo"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+        <!--STATE: GameSettingsMoreInfo-->
+        <ls:State Name="GameSettingsMoreInfo" IsModal="True" DisableStatesBelow="True" Layout="Common" Owner="All">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="NewGameSettingsInformationPopup.xaml" Layer="Default"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
                 <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
@@ -1872,6 +1926,7 @@
         <!--STATE: Paused.LoadGame-->
         <ls:State Name = "Paused.LoadGame" DisableStatesBelow = "True" IsModal="True" Layout = "Player" Owner = "Player" HideStatesBelow = "True" ForceSplitscreen="True">
             <ls:State.Widgets>
+                <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
                 <ls:StateWidget Filename="LoadGame.xaml" Layer="Pause" SoundLayer="EscapeMenu"/>
             </ls:State.Widgets>
@@ -2050,6 +2105,30 @@
                 </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
+
+
+        <!--STATE: CompanionsPanel-->
+        <ls:State Name="CompanionsPanel" Layout="Player" Owner="Player" HideStatesBelow="False">
+            <ls:State.Widgets>
+                <ls:StateWidget Filename="CompanionsPanel.xaml" Layer="PopupPanels" SoundLayer="NonHUDWidget"/>
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleCompanionsPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+            </ls:State.Events>
+        </ls:State>
+
+
+
 
         <!--STATE: Options-->
         <ls:State Name = "Options" Layout = "Common" Owner = "All" DisableStatesBelow = "True" IsModal="True" HideStatesBelow = "True">

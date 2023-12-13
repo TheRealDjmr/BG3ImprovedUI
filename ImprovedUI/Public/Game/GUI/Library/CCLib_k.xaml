@@ -1299,43 +1299,43 @@
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding ClassProgressionDetails.NotSubPassiveSelectors}"/>
             </MultiDataTrigger>
-            <!-- MOD START - Racial passive selection in CC -->
-		<MultiDataTrigger>
-			<MultiDataTrigger.Conditions>
-				<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
-				<Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-			</MultiDataTrigger.Conditions>
-			<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-			<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
-		</MultiDataTrigger>
-		<MultiDataTrigger>
-			<MultiDataTrigger.Conditions>
-				<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
-				<Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-			</MultiDataTrigger.Conditions>
-			<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-			<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
-		</MultiDataTrigger>
-            <!-- MOD NOTE - Racial passive selection in LevelUp -->
-		<MultiDataTrigger>
-			<MultiDataTrigger.Conditions>
-				<Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
-				<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
-				<Condition Binding="{Binding Path=RaceProgressionDetails.NotSubPassiveSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-			</MultiDataTrigger.Conditions>
-			<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-			<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
-		</MultiDataTrigger>
-		<MultiDataTrigger>
-			<MultiDataTrigger.Conditions>
-				<Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
-				<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
-				<Condition Binding="{Binding Path=RaceProgressionDetails.SubPassiveSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-			</MultiDataTrigger.Conditions>
-			<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-			<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
-		</MultiDataTrigger>
-		<!-- MOD END -->
+			<!-- MOD START - Racial passive selection in CC -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+					<Condition Binding="{Binding Path=DataContext.RacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="subrace"/>
+					<Condition Binding="{Binding Path=DataContext.SubRacePassives.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+			</MultiDataTrigger>
+			<!-- MOD NOTE - Racial passive selection in LevelUp -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
+					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+					<Condition Binding="{Binding Path=RaceProgressionDetails.NotSubPassiveSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
+					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+					<Condition Binding="{Binding Path=RaceProgressionDetails.SubPassiveSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+			</MultiDataTrigger>
+			<!-- MOD END -->
 
             <!-- Equipment subtabs -->
             <MultiDataTrigger>
@@ -3578,7 +3578,7 @@
                             </TextBlock.Text>
                         </TextBlock>
                     </StackPanel>
-                    <ItemsControl Grid.Row="1" Grid.Column="2" Width="100" ItemsSource="{Binding SortedItems, ElementName=SortedRaceSkills}" ItemTemplate="{StaticResource AllSkillTemplate}" Tag="Race" Visibility="{Binding RaceSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
+                    <ItemsControl x:Name="selectableRaceCheckboxes" Grid.Row="1" Grid.Column="2" Width="100" ItemsSource="{Binding SortedItems, ElementName=SortedRaceSkills}" ItemTemplate="{StaticResource AllSkillTemplate}" Tag="Race" Visibility="{Binding RaceSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
 
                     <StackPanel x:Name="selectableClassSkills" Grid.Row="0" Grid.Column="3" Width="100" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}">
                         <StackPanel.ToolTip>
@@ -3637,6 +3637,18 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.IsComplete}" Value="False">
                 <Setter TargetName="ExpertiseSkillsTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="Respec">
+                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="FullRespec">
+                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="LevelUp">
+                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -3876,29 +3888,19 @@
 
             </DockPanel>
 
-            <ls:LSButton x:Name="CancelButton" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60"
-                         Command="{Binding DataContext.SelectFirstUsedClass, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Visibility="Collapsed">
+            <ls:LSButton x:Name="CancelButton" 
+                         HorizontalAlignment="Center" 
+                         VerticalAlignment="Bottom" 
+                         Margin="0,0,0,60"
+                         Command="{Binding DataContext.SelectFirstUsedClass, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+                         Visibility="Collapsed"
+                         Style="{StaticResource SmallRedButtonStyle}"
+                         Content="{Binding Source=h675a55aegd07cg4ab0g862dg0c564197d478, Converter={StaticResource TranslatedStringConverter}}">
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="Click">
                         <b:ChangePropertyAction TargetName="gameplayTabs" PropertyName="SelectedItem" Value="{Binding ElementName=levelupTab}" />
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
-                <ls:LSButton.Template>
-                    <ControlTemplate TargetType="{x:Type ls:LSButton}">
-                        <Grid Background="Transparent">
-                            <Image x:Name="bg" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/Btn_small_red_d.png" Stretch="None"/>
-                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h675a55aegd07cg4ab0g862dg0c564197d478, Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/Btn_small_red_h.png" TargetName="bg"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Buttons/Btn_small_red_p.png" TargetName="bg"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </ls:LSButton.Template>
             </ls:LSButton>
 
         </Grid>
@@ -5371,6 +5373,12 @@
         </Grid>
 
         <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.TadpoledState}" Value="HalfIllithid">
+                <Setter TargetName="scars" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.TadpoledState}" Value="FullIllithid">
+                <Setter TargetName="scars" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
             <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchSkinColourButton}" Value="True">
                 <Setter TargetName="scrollSection" Property="Visibility" Value="Hidden"/>
             </DataTrigger>
