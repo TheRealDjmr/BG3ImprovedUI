@@ -185,6 +185,10 @@
 	<ImageSource x:Key="SiaelIPOResUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/IllithidPowersOverhaul/Shared/Resources/ico_Ress_Siael_IPO_missing.png</ImageSource>
 	<ImageSource x:Key="OffHandExtraAttackCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_d.png</ImageSource>
 	<ImageSource x:Key="OffHandExtraAttackChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_missing.png</ImageSource>	
+	<ImageSource x:Key="EM_Elemental_Essence" >pack://application:,,,/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_d.png</ImageSource>
+	<ImageSource x:Key="EM_Elemental_EssenceUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_missing.png</ImageSource>	
+	<ImageSource x:Key="Z_TheurgyChannelArcana">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana.png</ImageSource>
+	<ImageSource x:Key="Z_TheurgyChannelArcanaUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -312,13 +316,19 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Psionic_Focus">
 				<Setter Property="Source" Value="{StaticResource GZI_Psionic_Focus}"/>
-			</DataTrigger>	
+			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SiaelIPORes">
 				<Setter Property="Source" Value="{StaticResource SiaelIPORes}"/>
-			</DataTrigger>		
+			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge">
 				<Setter Property="Source" Value="{StaticResource OffHandExtraAttackCharge}"/>
-			</DataTrigger>	
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="EM_Elemental_Essence">
+				<Setter Property="Source" Value="{StaticResource EM_Elemental_Essence}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana">
+				<Setter Property="Source" Value="{StaticResource Z_TheurgyChannelArcana}"/>
+			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1141,6 +1151,26 @@
 			        <Setter Property="Source" Value="{StaticResource OffHandExtraAttackChargeUnavailable}"/>
 			    </MultiDataTrigger.Setters>
 			</MultiDataTrigger>	
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="EM_Elemental_Essence"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource EM_Elemental_EssenceUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Z_TheurgyChannelArcanaUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1656,6 +1686,16 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/FollowersOfZerthimon/Shared/Resources/ico_classRes_GZI_Psionic_Focus_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.EM_Elemental_EssenceGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>	
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.SiaelIPOResGroup" TargetType="ls:LSActionPoint">
@@ -1676,6 +1716,16 @@
 	        <ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/OffHandExtraAttack/Shared/Resources/ico_extraAtt_missing.png</ImageSource>
 	    </ControlTemplate.Resources>
 	    <ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.Z_TheurgyChannelArcanaGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
 
@@ -2496,7 +2546,6 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			
 			<DataTrigger Binding="{Binding TypeId}" Value="GZI_Psionic_Focus">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GZI_Psionic_FocusGroup}"/>
 				<Setter Property="MaxGroupActionPoints" Value="1"/>
@@ -2510,8 +2559,7 @@
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
-			</MultiDataTrigger>	
-
+			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SiaelIPORes">
 			    <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SiaelIPOResGroup}"/>
 			    <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -2525,7 +2573,6 @@
 			        <Setter Property="Margin" Value="0,-15,0,0"/>
 			    </MultiDataTrigger.Setters>
 			</MultiDataTrigger>	
-
 			<DataTrigger Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge">
 			    <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.OffHandExtraAttackChargeGroup}"/>
 			    <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -2538,7 +2585,35 @@
 			    <MultiDataTrigger.Setters>
 			        <Setter Property="Margin" Value="0,-15,0,0"/>
 			    </MultiDataTrigger.Setters>
-			</MultiDataTrigger>	
+			</MultiDataTrigger>
+      <DataTrigger Binding="{Binding TypeId}" Value="EM_Elemental_Essence">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.EM_Elemental_EssenceGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="EM_Elemental_Essence"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+      <DataTrigger Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.Z_TheurgyChannelArcanaGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE --> 
 		</Style.Triggers>
 	</Style>

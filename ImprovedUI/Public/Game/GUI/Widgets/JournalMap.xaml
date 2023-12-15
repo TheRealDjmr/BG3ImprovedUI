@@ -1,0 +1,385 @@
+<ls:UIWidget x:Name="JournalMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             ls:UIWidget.ContextName="JournalMap" d:DataContext="{d:DesignInstance {x:Type ls:JournalMap}, IsDesignTimeCreatable=True}"
+             d:DesignHeight="2160" d:DesignWidth="3840">
+
+    <ls:UIWidget.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Library/JournalTemplates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BitmapImage x:Key="IconMouseLeftClick" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Options/ico_mouse_LMB.png"/>
+
+            <BitmapImage x:Key="MapLegend" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Map/map_legend.png"/>
+            <BitmapImage x:Key="MapBannerBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Map/map_banner.png"/>
+            <BitmapImage x:Key="MapBanner" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Map/map_banner_2.png"/>
+            <BitmapImage x:Key="MapSidePane" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Map/map_sidePane.png"/>
+            <BitmapImage x:Key="WaypointHeader" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Map/waypointHeader.png"/>
+
+            <BitmapImage x:Key="MapListItemBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Map/listItem_bg_d.png"/>
+
+            <!-- Waypoint item -->
+            <ControlTemplate x:Key="Map.Sidebar.WaypointItem" TargetType="ls:LSButton">
+                <Grid Background="Transparent">
+                    <Image x:Name="img" Source="{StaticResource MapListItemBg}" Stretch="None"/>
+                    <TextBlock x:Name="txt" Text="{Binding Name}" Foreground="{StaticResource LS_InactivePanelFontColor}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+                <ControlTemplate.Triggers>
+
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="{StaticResource LS_ActivePanelFontColor}" TargetName="txt"/>
+                        <Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Map/listItem_bg_h.png" TargetName="img"/>
+                    </Trigger>
+
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="IsHitTestVisible" Value="False"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
+            <ls:LSMessageBoxData x:Key="MessageBoxAddCustomMarker"
+                     Text=""
+                     Title="{Binding Source='h8ac040dbgc149g4ceagae80g797adccd1f71', Converter ={StaticResource TranslatedStringConverter}}"
+                     UUID="AddCustomMarkerMsgBox"
+                     InputBox="True"
+                     DefaultInputText="{Binding Source='haa251798gb2a5g4818gb15dgfaf7aa1c79ed', Converter ={StaticResource TranslatedStringConverter}}">
+                <ls:LSMessageBoxData.Actions>
+                    <ls:LSGameCommandData ActionName="{Binding Source='h22f5ce71g26aeg4bc8g9a65g99585fc7eb6b', Converter={StaticResource TranslatedStringConverter}}"
+                              Command="{Binding DataContext.AddCustomMarker, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                              ControlTemplate="{StaticResource BlueButton}" />
+                    <ls:LSGameCommandData ActionName="{Binding Source='he9fced45gde55g4de9g910cg0fe252620556', Converter={StaticResource TranslatedStringConverter}}"
+                              Command="{Binding DataContext.CustomEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                              CommandParameter="CloseMessageBox"
+                              ControlTemplate="{StaticResource RedButton}" />
+                </ls:LSMessageBoxData.Actions>
+            </ls:LSMessageBoxData>
+
+            <ls:LSMessageBoxData x:Key="MessageBoxRemoveCustomMarker"
+                     Text="{Binding Source='he52a7dfcgfd23g4f6dgb048g083f184f5122', Converter ={StaticResource TranslatedStringConverter}}"
+                     Title="{Binding Source='hc7f32431g54c1g4816g9fbeg279c92e3136b', Converter ={StaticResource TranslatedStringConverter}}"
+                     UUID="RemoveCustomMarkerMsgBox">
+                <ls:LSMessageBoxData.Actions>
+                    <ls:LSGameCommandData ActionName="{Binding Source='h02b7988ege04cg4fffgb3bcgfe57b07dac80', Converter={StaticResource TranslatedStringConverter}}"
+                                            Command="{Binding DataContext.RemoveCustomMarker, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+                                            CommandParameter="{Binding DataContext.CurrentPlayer.SelectedMapMarker, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                                            ControlTemplate="{StaticResource BlueButton}"/>
+                    <ls:LSGameCommandData ActionName="{Binding Source='he9fced45gde55g4de9g910cg0fe252620556', Converter={StaticResource TranslatedStringConverter}}"
+                                            Command="{Binding DataContext.CustomEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+                                            CommandParameter="CloseMessageBox"
+                                           ControlTemplate="{StaticResource RedButton}"/>
+                </ls:LSMessageBoxData.Actions>
+            </ls:LSMessageBoxData>
+        </ResourceDictionary>
+    </ls:UIWidget.Resources>
+    
+    <ls:UIWidget.Template>
+        <ControlTemplate>
+            <Grid Background="{StaticResource LS_tint00}">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Loaded">
+                        <ls:LSPlaySound Sound="UI_HUD_Map_Open"/>
+                        <b:InvokeCommandAction  Command="{Binding CurrentPlayer.QuestJournalLoaded.ActionCommand}"/>
+                        <!-- Tutorial UI Event - World Map-->
+                        <b:InvokeCommandAction Command="{Binding TutorialEvent}" CommandParameter="d98a41b1-baa3-4fa8-a17a-6d286a80c700"/>
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="Unloaded">
+                        <ls:LSPlaySound Sound="UI_HUD_Map_Close"/>
+                        <b:InvokeCommandAction  Command="{Binding CurrentPlayer.QuestJournalUnloaded.ActionCommand}"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Map -->
+                <ls:LSWorldMap x:Name="WorldMap" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,-74,0,0" Scale="8.0" MinScale="4.0" MaxScale="40.0" ScaleSteps="4.0"
+                               WorldMapData="{Binding CurrentPlayer.WorldMap}" MarkerTrajectory ="Rectangle" MarkerViewportMargin="10" MarkerScale="1.2" EnableDrag="True" FollowCameraRotation="False" IsMouseWorldCoordinatesEnabled="True">
+                    <ls:LSWorldMap.TweenStoryboard>
+                        <Storyboard>
+                            <PointAnimation Duration="0:0:0.5">
+                                <PointAnimation.EasingFunction>
+                                    <CubicEase EasingMode="EaseOut"/>
+                                </PointAnimation.EasingFunction>
+                            </PointAnimation>
+                        </Storyboard>
+                    </ls:LSWorldMap.TweenStoryboard>
+
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="Click">
+                            <b:ChangePropertyAction TargetName="CloseWidgetBinding" PropertyName="IsEnabled" Value="True"/>
+                            <b:InvokeCommandAction Command="{Binding OpenMessageBox}" CommandParameter="{StaticResource MessageBoxAddCustomMarker}" />
+                            <b:InvokeCommandAction Command="{Binding SetNewCustomMarkerPosCommand}" CommandParameter="{Binding MouseWorldCoordinates, ElementName=WorldMap}"/>
+                        </b:EventTrigger>
+
+                        <b:TimerTrigger SourceName="WorldMap" EventName="Click" MillisecondsPerTick="700" TotalTicks="1">
+                            <b:ChangePropertyAction TargetName="CloseWidgetBinding" PropertyName="IsEnabled" Value="False" />
+                        </b:TimerTrigger>
+                    </b:Interaction.Triggers>
+                </ls:LSWorldMap>
+
+                <!--Header and close button MUST be over the map control-->
+                <Control Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Template="{StaticResource JournalHeader}"/>
+
+                <!-- Close button -->
+                <ls:LSButton Grid.Row="0" BoundEvent="UICancel" Style="{StaticResource SmallCloseButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="{StaticResource Journal.CloseButtonMargin}"
+                             Command="{Binding CustomEvent}" CommandParameter="CloseAll" SoundID="UI_HUD_Panel_Close"/>
+
+                <!--CloseWidget binding to prevent widget from closing, when message box requested-->
+                <ls:LSInputBinding x:Name="CloseWidgetBinding" BoundEvent="ToggleInGameMenu" EatInput="True" IsEnabled="False"/>
+
+                <!-- zone name -->
+                <Grid x:Name="ZoneName" Margin="60,22,0,0" IsHitTestVisible="False" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Visibility="{Binding DataContext.CurrentPlayer.SelectedCharacter.CurrentSubregionName, Converter={StaticResource StringToVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+                    <Image Source="{StaticResource MapBannerBg}" Stretch="None" VerticalAlignment="Top"/>
+                    <ls:LSNineSliceImage ImageSource="{StaticResource MapBanner}" Slices="0,50,0,90" Width="580" MinHeight="144" Padding="80,28,80,80" Margin="0,56" VerticalAlignment="Top">
+                        <TextBlock Text="{Binding DataContext.CurrentPlayer.SelectedCharacter.CurrentSubregionName, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+                                   Foreground="{StaticResource LS_PaperColor}"
+                                   TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="44" TextAlignment="Center" HorizontalAlignment="Stretch"/>
+                    </ls:LSNineSliceImage>
+                </Grid>
+
+                <!-- legend -->
+                <Grid x:Name="Legend" Margin="60,0,0,88" IsHitTestVisible="False" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    <Image Source="{StaticResource MapLegend}" Margin="-26" Stretch="None"/>
+
+                    <Grid Margin="180,0,0,132" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- location -->
+                        <Image Grid.Row="0" Grid.Column="0" Source="{StaticResource MarkerPoI}" Stretch="None" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Source='hbdf03d69g4510g4132ga6b9g9954ea3bf29b', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+
+                        <!-- party member -->
+                        <Image Grid.Row="1" Grid.Column="0" Source="{StaticResource MarkerFollower}" Stretch="None"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Source='h5afeb434g0770g4002g87e3gf1968baa10ae', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}"/>
+
+                        <!-- ally -->
+                        <Image Grid.Row="2" Grid.Column="0" Source="{StaticResource MarkerAlly}" Stretch="None"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Source='h2b3750f8gafacg4320g85d3gc39e0eaa3712', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+
+                        <!-- neutral -->
+                        <Image Grid.Row="3" Grid.Column="0" Source="{StaticResource MarkerNeutral}" Stretch="None"/>
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Source='h557baa31gfb89g4addg97fege669e89c1e3a', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+
+                        <!-- enemy -->
+                        <Image Grid.Row="4" Grid.Column="0" Source="{StaticResource MarkerEnemy}" Stretch="None"/>
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Source='h17310606ga5c4g4650gaaf7g6fda279b5b9c', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+
+                        <!-- someone wants to talk -->
+                        <Image Grid.Row="5" Grid.Column="0" Source="{StaticResource MarkerDialog}" Stretch="None"/>
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Source='h74c31028g5d5dg4220gbcefg60aaa53cc23c', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+
+                        <!-- quest marker -->
+                        <Image Grid.Row="6" Grid.Column="0" Source="{StaticResource MarkerQuest}" Stretch="None"/>
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Source='h01e85b06g85bdg4626g83ccgb35104b04cd1', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+
+                        <!-- custom marker -->
+                        <Image Grid.Row="7" Grid.Column="0" Source="{StaticResource MarkerCustom}" Stretch="None"/>
+                        <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Source='hf572eae2gafe6g469bgae65g83698a3aeb6c', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+                        
+                        <!-- secret marker -->
+                        <Image Grid.Row="8" Grid.Column="0" Source="{StaticResource MarkerSecret}" Stretch="None"/>
+                        <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Source='h6e7300c7ge312g48a0gaf7bgef7aba11e811', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+
+                        <!-- waypoint -->
+                        <Image Grid.Row="9" Grid.Column="0" Source="{StaticResource MarkerWaypoint}" Stretch="None"/>
+                        <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding Source='h2020fdf6g224eg40cfg80ecg91fed5d32d11', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+
+                        <!-- Create custom marker -->
+                        <Image Grid.Row="10" Grid.Column="0" Source="{StaticResource IconMouseLeftClick}" Stretch="None"/>
+                        <TextBlock Grid.Row="10" Grid.Column="1" Text="{Binding Source='hff68e9dag8503g48fbg8029g5c951cf9f744', Converter ={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" Foreground="{StaticResource LS_PrimaryColor}" />
+                    </Grid>
+                </Grid>
+
+                <!-- waypoints -->
+                <!-- contains the scroll viewer, and the frame overlay -->
+                <Grid Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-40,12,0" Width="714">
+                    <Image Source="{StaticResource MapSidePane}" VerticalAlignment="Top" Width="688" Stretch="None" />
+
+                    <StackPanel>
+                        <Image Source="{StaticResource WaypointHeader}" Stretch="None" HorizontalAlignment="Center" Margin="-10,90,0,0"/>
+                        <TextBlock Text="{Binding Source='h4dd789bfg24f5g40f6gadccg5a6e39287311', Converter ={StaticResource TranslatedStringConverter}}" Margin="0,-16,0,0" Foreground="{StaticResource LS_ActivePanelFontColor}" HorizontalAlignment="Center"/>
+                        <Grid>
+                            <ScrollViewer x:Name="WaypointsScroll" HorizontalAlignment="Left" Margin="70,50,0,0" VerticalScrollBarVisibility="Auto" Height="1400" Template="{StaticResource ScrollViewerTemplate}" IsEnabled="False" Opacity="{StaticResource DisabledWaypointsOpacity}">
+                                <ScrollViewer.Resources>
+                                    <GridLength x:Key="Top">100</GridLength>
+                                    <GridLength x:Key="Bottom">100</GridLength>
+                                </ScrollViewer.Resources>
+
+                                <ItemsControl x:Name="Waypoints" ItemsSource="{Binding CurrentPlayer.Waypoints}" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Center" >
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBlock Text="{Binding RegionName, Converter={StaticResource TranslatedStringConverter}, ConverterParameter='LocaKey'}" FontSize="{StaticResource ScaledLargeFontSize}" Foreground="{StaticResource LS_specialTxtColor}" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Visibility="{Binding RegionName, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}"/>
+                                                <ItemsControl x:Name="RegionWaypoints" ItemsSource="{Binding WaypointList}" Background="Transparent" BorderBrush="Transparent"  >
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate DataType="{x:Type ls:VMWaypoint}">
+                                                            <ls:LSButton x:Name="WaypointEntryButton" Template="{StaticResource Map.Sidebar.WaypointItem}" SoundID="UI_HUD_FastTravel_Action"
+                                                                         Command="{Binding Path=DataContext.GotoWaypoint, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ls:UIWidget}}}"  
+                                                                         CommandParameter="{Binding }">
+                                                                <b:Interaction.Triggers>
+                                                                    <b:EventTrigger EventName="MouseEnter">
+                                                                        <b:ChangePropertyAction TargetName="WorldMap" PropertyName="WaypointFocus" Value="{Binding .}"/>
+                                                                    </b:EventTrigger>
+                                                                </b:Interaction.Triggers>
+                                                            </ls:LSButton>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <!--<ItemsControl.ItemContainerStyle>
+                                        <Style TargetType="ContentPresenter">
+                                            <Setter Property="Margin" Value="0,0,0,20"/>
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>-->
+                                </ItemsControl>
+                            </ScrollViewer>
+
+                            <ContentPresenter Content="{Binding CurrentPlayer.TravelError}" ContentTemplate="{StaticResource WaypointErrorMessage}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+
+                <!--Zoom & pan buttons - Hiding these as the interaction setup needs fixing -->
+                <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,80" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ls:LSButton Grid.Column="0" Template="{StaticResource IconButtonTemplate}" Command="ls:LSWorldMap.ZoomInCommand" CommandTarget="{Binding ElementName=WorldMap}" SoundID="UI_HUD_Map_Zoom" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                 Margin="0,40,0,0">
+                        <ls:LSButton.Resources>
+                            <System:Double x:Key="IconDisabledOpacity">0.5</System:Double>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_zoomIn_d.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_zoomIn_h.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_zoomIn_h.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_zoomIn_d.png</ImageSource>
+                            <System:Double x:Key="IconWidth">100</System:Double>
+                            <System:Double x:Key="IconHeight">100</System:Double>
+                        </ls:LSButton.Resources>
+                    </ls:LSButton>
+                    <ls:LSButton Grid.Column="0" Template="{StaticResource IconButtonTemplate}" Command="ls:LSWorldMap.ZoomOutCommand" CommandTarget="{Binding ElementName=WorldMap}" IsEnabled="True" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                 Margin="0,0,-30,10" SoundID="UI_HUD_Map_Dezoom">
+                        <ls:LSButton.Resources>
+                            <System:Double x:Key="IconDisabledOpacity">0.5</System:Double>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_zoomOut_d.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_zoomOut_h.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_zoomOut_h.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_zoomOut_d.png</ImageSource>
+                            <System:Double x:Key="IconWidth">100</System:Double>
+                            <System:Double x:Key="IconHeight">100</System:Double>
+                        </ls:LSButton.Resources>
+                    </ls:LSButton>
+                    <!-- navigation arrows -->
+                    <ls:LSButton Grid.Column="1" Template="{StaticResource IconButtonTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,80,0">
+                        <ls:LSButton.Resources>
+                            <System:Double x:Key="IconDisabledOpacity">1.0</System:Double>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_left_d.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_left_h.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_left_d.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_left_disabled.png</ImageSource>
+                            <System:Double x:Key="IconWidth">100</System:Double>
+                            <System:Double x:Key="IconHeight">100</System:Double>
+                        </ls:LSButton.Resources>
+                        <b:Interaction.Behaviors>
+                            <ls:TickBehavior TickEnabled="{Binding Path=IsPressed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:LSButton}}}" Command="ls:LSWorldMap.PanCommand" CommandTarget="{Binding ElementName=WorldMap}">
+                                <ls:TickBehavior.CommandParameter>
+                                    <ls:LSFloat2Data X="-400.0" Y="0.0" />
+                                </ls:TickBehavior.CommandParameter>
+                            </ls:TickBehavior>
+                        </b:Interaction.Behaviors>
+                    </ls:LSButton>
+                    <ls:LSButton Grid.Column="1" Template="{StaticResource IconButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,80">
+                        <ls:LSButton.Resources>
+                            <System:Double x:Key="IconDisabledOpacity">1.0</System:Double>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_up_d.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_up_h.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_up_d.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_up_disabled.png</ImageSource>
+                            <System:Double x:Key="IconWidth">100</System:Double>
+                            <System:Double x:Key="IconHeight">100</System:Double>
+                        </ls:LSButton.Resources>
+                        <b:Interaction.Behaviors>
+                            <ls:TickBehavior TickEnabled="{Binding Path=IsPressed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:LSButton}}}" Command="ls:LSWorldMap.PanCommand" CommandTarget="{Binding ElementName=WorldMap}">
+                                <ls:TickBehavior.CommandParameter>
+                                    <ls:LSFloat2Data X="0.0" Y="-400.0" />
+                                </ls:TickBehavior.CommandParameter>
+                            </ls:TickBehavior>
+                        </b:Interaction.Behaviors>
+                    </ls:LSButton>
+                    <ls:LSButton Grid.Column="1" Template="{StaticResource IconButtonTemplate}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="80,0,0,0">
+                        <ls:LSButton.Resources>
+                            <System:Double x:Key="IconDisabledOpacity">1.0</System:Double>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_right_d.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_right_h.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_right_d.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_right_disabled.png</ImageSource>
+                            <System:Double x:Key="IconWidth">100</System:Double>
+                            <System:Double x:Key="IconHeight">100</System:Double>
+                        </ls:LSButton.Resources>
+                        <b:Interaction.Behaviors>
+                            <ls:TickBehavior TickEnabled="{Binding Path=IsPressed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:LSButton}}}" Command="ls:LSWorldMap.PanCommand" CommandTarget="{Binding ElementName=WorldMap}">
+                                <ls:TickBehavior.CommandParameter>
+                                    <ls:LSFloat2Data X="400.0" Y="0.0" />
+                                </ls:TickBehavior.CommandParameter>
+                            </ls:TickBehavior>
+                        </b:Interaction.Behaviors>
+                    </ls:LSButton>
+                    <ls:LSButton Grid.Column="1" Template="{StaticResource IconButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,80,0,0">
+                        <ls:LSButton.Resources>
+                            <System:Double x:Key="IconDisabledOpacity">1.0</System:Double>
+                            <ImageSource x:Key="IconNormal">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_down_d.png</ImageSource>
+                            <ImageSource x:Key="IconHighlight">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_down_h.png</ImageSource>
+                            <ImageSource x:Key="IconPressed">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_down_d.png</ImageSource>
+                            <ImageSource x:Key="IconDisabled">pack://application:,,,/GustavNoesisGUI;component/Assets/Map/panner_down_disabled.png</ImageSource>
+                            <System:Double x:Key="IconWidth">100</System:Double>
+                            <System:Double x:Key="IconHeight">100</System:Double>
+                        </ls:LSButton.Resources>
+                        <b:Interaction.Behaviors>
+                            <ls:TickBehavior TickEnabled="{Binding Path=IsPressed, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:LSButton}}}" Command="ls:LSWorldMap.PanCommand" CommandTarget="{Binding ElementName=WorldMap}">
+                                <ls:TickBehavior.CommandParameter>
+                                    <ls:LSFloat2Data X="0.0" Y="400.0" />
+                                </ls:TickBehavior.CommandParameter>
+                            </ls:TickBehavior>
+                        </b:Interaction.Behaviors>
+                    </ls:LSButton>
+                </Grid>
+            </Grid>
+
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding CurrentPlayer.TravelError}" Value="None">
+                    <Setter TargetName="WaypointsScroll" Property="IsEnabled" Value="True"/>
+                    <Setter TargetName="WaypointsScroll" Property="Opacity" Value="1"/>
+                </DataTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </ls:UIWidget.Template>
+</ls:UIWidget>

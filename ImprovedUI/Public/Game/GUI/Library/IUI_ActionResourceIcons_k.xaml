@@ -1,4 +1,4 @@
-<!-- This is a null file that will be overridden by ImprovedUI Assets. The same entries are still required here to populate on CC without ImprovedUI Assets. -->
+<!-- This is a file that is overwritten in ImprovedUI for Action Resources in CC/Levelup Keyboard UI. Entries here are optional as the tooltip action resource will be used if no entry exists here -->
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,94 +10,148 @@
                     xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
 					mc:Ignorable="d">
 
-	<!-- Action Resource Decorative Icons-->
-	<BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />
-	<BitmapImage x:Key="BonusActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/bap_d.png" />
-	<BitmapImage x:Key="ReactionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_reaction_d.png" />
-	<BitmapImage x:Key="MovementSpeedIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_speed.png" />
-	<BitmapImage x:Key="WarlockSpellslotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_warlock.png" />
-	<BitmapImage x:Key="SpellSlotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot.png" />
-	<BitmapImage x:Key="SorceryPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_sorc_d.png" />
-	<BitmapImage x:Key="KiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_ki.png" />
-	<BitmapImage x:Key="LayOnHandsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_LayOnHands.png" />
-	<BitmapImage x:Key="RagePointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_rage.png" />
-	<BitmapImage x:Key="BardicInspirationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_inspiration.png" />
-	<BitmapImage x:Key="ChannelDivinityIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_channelDivinity_d.png" />
-	<BitmapImage x:Key="ChannelOathIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_channelOath.png" />
-	<BitmapImage x:Key="SuperiorityDieIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_superiorityDice_d.png" />
-	<BitmapImage x:Key="ArcaneRecoveryIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_arcaneRecovery_d.png" />
-	<BitmapImage x:Key="NaturalRecoveryIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_NaturalRecovery.png" />
-	<BitmapImage x:Key="WildshapeIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_wildshape.png" />
-	<BitmapImage x:Key="TidesOfChaosIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_tidesOfChaos_d.png" />
-	<BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
-	<BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
-	<BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
+	<ResourceDictionary.MergedDictionaries>
+		<!-- Revert to Action Resource icon when icon is missing -->
+		<ResourceDictionary Source="../Library/IUI_ActionResourceIcons.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+	
+	<!-- This is the icon that appears when the action resource is given during CC/level up -->
+	<!-- The icon is slightly different, and is placed in a different folder -->
+    <BitmapImage x:Key="ActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ap_d.png" />
+    <BitmapImage x:Key="BonusActionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/bap_d.png" />
+    <BitmapImage x:Key="ReactionPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_reaction_d.png" />
+    <BitmapImage x:Key="MovementSpeedIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_speed.png" />
+    <BitmapImage x:Key="WarlockSpellslotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot_warlock.png" />
+    <BitmapImage x:Key="SpellSlotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_mini_spellSlot.png" />
+    <BitmapImage x:Key="SorceryPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_sorc_d.png" />
+    <BitmapImage x:Key="KiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_ki.png" />
+    <BitmapImage x:Key="LayOnHandsIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_LayOnHands.png" />
+    <BitmapImage x:Key="RagePointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_rage.png" />
+    <BitmapImage x:Key="BardicInspirationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_inspiration.png" />
+    <BitmapImage x:Key="ChannelDivinityIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_channelDivinity_d.png" />
+    <BitmapImage x:Key="ChannelOathIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_channelOath.png" />
+    <BitmapImage x:Key="SuperiorityDieIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_superiorityDice_d.png" />
+    <BitmapImage x:Key="ArcaneRecoveryIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_arcaneRecovery_d.png" />
+    <BitmapImage x:Key="NaturalRecoveryIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_NaturalRecovery.png" />
+    <BitmapImage x:Key="WildshapeIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_wildshape.png" />
+    <BitmapImage x:Key="TidesOfChaosIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_tidesOfChaos_d.png" />
+    <BitmapImage x:Key="WarPriestPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_warPriest.png" />
+    <BitmapImage x:Key="FungalInfestationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_FungalInfestationCharge.png" />
+    <BitmapImage x:Key="LuckPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_luck.png" />
+	<!-- Custom icons from here -->
+	<!-- <BitmapImage x:Key="ADIFFERENTUNIQUENAMEFORIMAGE" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/CC/icons_resources/NAMEOFDDSFILEFORTHEICON.png" /> -->
+	<BitmapImage x:Key="PsiPointIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/icons_resources/ico_classRes_psipoint.png" />
+	<BitmapImage x:Key="BladesongIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/CC/icons_resources/ico_classRes_bladesong.png" />
+	<BitmapImage x:Key="BloodMaledictIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/CC/icons_resources/ico_classRes_BloodMaledict.png" />
+	<BitmapImage x:Key="HybridTransformationIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/CC/icons_resources/ico_classRes_HybridTransformation.png" />
+	<BitmapImage x:Key="WuJenSpellSlotIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/AlternateMonk/CC/icons_resources/ico_classRes_WuJenSpellSlot.png" />
+	<BitmapImage x:Key="MysticPsiPointsResourceIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/CC/icons_resources/ico_classRes_PsiPointsResource.png" />
+	<BitmapImage x:Key="MysticPsionicMasteryResourceIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Mystic/CC/icons_resources/ico_classRes_PsionicMasteryResource.png" />
+	<BitmapImage x:Key="SpellbaneDiceIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Spellbreaker/CC/icons_resources/ico_classRes_SpellbaneDie_d.png" />
+	<!-- EDIT HERE -->
 
-	<Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIcon">
-		<Style.Triggers>
-			<DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
-				<Setter Property="Source" Value="{StaticResource ActionPointIcon}"/>
+    <!-- Reference entries below -->
+    <!-- Revert to Tooltip icon if CC icon is not defined here -->
+    <Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIconDefault" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSource}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
+                <Setter Property="Source" Value="{StaticResource ActionPointIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
+                <Setter Property="Source" Value="{StaticResource BonusActionPointIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
+                <Setter Property="Source" Value="{StaticResource ReactionPointIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="Movement">
+                <Setter Property="Source" Value="{StaticResource MovementSpeedIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
+                <Setter Property="Source" Value="{StaticResource WarlockSpellslotIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
+                <Setter Property="Source" Value="{StaticResource SpellSlotIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
+                <Setter Property="Source" Value="{StaticResource SorceryPointIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
+                <Setter Property="Source" Value="{StaticResource KiPointIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
+                <Setter Property="Source" Value="{StaticResource LayOnHandsIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="Rage">
+                <Setter Property="Source" Value="{StaticResource RagePointIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
+                <Setter Property="Source" Value="{StaticResource BardicInspirationIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
+                <Setter Property="Source" Value="{StaticResource ChannelDivinityIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
+                <Setter Property="Source" Value="{StaticResource ChannelOathIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
+                <Setter Property="Source" Value="{StaticResource SuperiorityDieIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
+                <Setter Property="Source" Value="{StaticResource ArcaneRecoveryIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
+                <Setter Property="Source" Value="{StaticResource NaturalRecoveryIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="WildShape">
+                <Setter Property="Source" Value="{StaticResource WildshapeIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
+                <Setter Property="Source" Value="{StaticResource TidesOfChaosIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
+                <Setter Property="Source" Value="{StaticResource WarPriestPointIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
+                <Setter Property="Source" Value="{StaticResource FungalInfestationIcon}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
+                <Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- This is the section for custom icons now -->
+    <Style TargetType="Image" x:Key="IUI_ActionResourceDecorativeIcon" BasedOn="{StaticResource IUI_ActionResourceDecorativeIconDefault}">
+        <Style.Triggers>
+			<!--<DataTrigger Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME">
+				<Setter Property="Source" Value="{StaticResource ADIFFERENTUNIQUENAMEFORIMAGE}"/>
+			</DataTrigger>-->
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
+				<Setter Property="Source" Value="{StaticResource PsiPointIcon}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
-				<Setter Property="Source" Value="{StaticResource BonusActionPointIcon}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
+				<Setter Property="Source" Value="{StaticResource BladesongIcon}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
-				<Setter Property="Source" Value="{StaticResource ReactionPointIcon}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodMaledict">
+				<Setter Property="Source" Value="{StaticResource BloodMaledictIcon}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="Movement">
-				<Setter Property="Source" Value="{StaticResource MovementSpeedIcon}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="HybridTransformation">
+				<Setter Property="Source" Value="{StaticResource HybridTransformationIcon}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
-				<Setter Property="Source" Value="{StaticResource WarlockSpellslotIcon}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="WuJenSpellSlot">
+				<Setter Property="Source" Value="{StaticResource WuJenSpellSlotIcon}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
-				<Setter Property="Source" Value="{StaticResource SpellSlotIcon}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPointsResource">
+				<Setter Property="Source" Value="{StaticResource MysticPsiPointsResourceIcon}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
-				<Setter Property="Source" Value="{StaticResource SorceryPointIcon}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="PsionicMasteryResource">
+				<Setter Property="Source" Value="{StaticResource MysticPsionicMasteryResourceIcon}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
-				<Setter Property="Source" Value="{StaticResource KiPointIcon}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellbaneDie">
+				<Setter Property="Source" Value="{StaticResource SpellbaneDiceIcon}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
-				<Setter Property="Source" Value="{StaticResource LayOnHandsIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="Rage">
-				<Setter Property="Source" Value="{StaticResource RagePointIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
-				<Setter Property="Source" Value="{StaticResource BardicInspirationIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
-				<Setter Property="Source" Value="{StaticResource ChannelDivinityIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
-				<Setter Property="Source" Value="{StaticResource ChannelOathIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
-				<Setter Property="Source" Value="{StaticResource SuperiorityDieIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
-				<Setter Property="Source" Value="{StaticResource ArcaneRecoveryIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
-				<Setter Property="Source" Value="{StaticResource NaturalRecoveryIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="WildShape">
-				<Setter Property="Source" Value="{StaticResource WildshapeIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
-				<Setter Property="Source" Value="{StaticResource TidesOfChaosIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
-				<Setter Property="Source" Value="{StaticResource WarPriestPointIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
-				<Setter Property="Source" Value="{StaticResource FungalInfestationIcon}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
-				<Setter Property="Source" Value="{StaticResource LuckPointIcon}"/>
-			</DataTrigger>
-		</Style.Triggers>
-	</Style>
+			<!-- EDIT HERE -->
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

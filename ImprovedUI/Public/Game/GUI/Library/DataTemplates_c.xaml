@@ -30,7 +30,7 @@
     
     <System:Double x:Key="CharacterPanelWidth">900</System:Double>
 
-    <!-- MOD START - Moved to IUI files -->
+	<!-- MOD START - Moved to IUI files -->
 	<!-- MOD END -->
 
     <Storyboard x:Key="ConcentrationFadeIn">
@@ -76,7 +76,7 @@
             </EasingDoubleKeyFrame>
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
-	
+
 	<!-- MOD START - Moved to IUI files -->
 	<!-- MOD END -->
 
@@ -269,28 +269,6 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
-    <DataTemplate x:Key="CharacterPortraitTemplate">
-        <Grid Margin="0,49,0,0">
-            <Image VerticalAlignment="Top" HorizontalAlignment="Center" Style="{DynamicResource AvatarCrownImageStyle}" IsHitTestVisible="False" Margin="0,-100,0,0"/>
-            <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
-                <Path Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Center" Width="134" Height="200" Fill="{Binding Icon}" RenderTransformOrigin="0.5,0.534">
-                    <Path.Data>
-                        <Geometry >M0,27 A90,90 0 0 1 27,0 H105 A90,90 0 0 1 134,27 V171 A90,90 0 0 1 105,200 H27 A90,90 0 0 1 0,171 V42 Z</Geometry>
-                    </Path.Data>
-                </Path>
-                <!-- For the moment, we fill the portrait of dead characters as the shaders effect are not available in Noesis yet.
-                         TODO : See GUS-153582-->
-                <Path Stretch="None" VerticalAlignment="Center" HorizontalAlignment="Center" Width="134" Height="200" Visibility="{Binding Stats.IsAlive, Converter={StaticResource BoolToCollapsedConverter}}"
-                          Fill="{DynamicResource LS_PortraitDeadColor}" RenderTransformOrigin="0.5,0.534">
-                    <Path.Data>
-                        <Geometry >M0,27 A90,90 0 0 1 27,0 H105 A90,90 0 0 1 134,27 V171 A90,90 0 0 1 105,200 H27 A90,90 0 0 1 0,171 V42 Z</Geometry>
-                    </Path.Data>
-                </Path>
-                <Image Source="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/character_image_frame.png" Stretch="None" VerticalAlignment="Top" Margin="0,-16,0,0" ClipToBounds="False"/>
-            </Grid>
-        </Grid>
-    </DataTemplate>
 
     <DataTemplate x:Key="FrameAttachedCharacterPortraitTemplate">
         <ContentControl>
@@ -960,17 +938,10 @@
                             </b:Interaction.Behaviors>
                             <b:ChangePropertyAction TargetName="TabContentPresenter" PropertyName="Tag" Value="Features"/>
                         </b:EventTrigger>
-                        <b:EventTrigger EventName="Loaded">
-                            <b:Interaction.Behaviors>
-                                <b:ConditionBehavior>
-                                    <b:ConditionalExpression>
-                                        <b:ComparisonCondition LeftOperand="{Binding Path=Tag, ElementName=CharSheetPanelRoot}" Operator="Equal" RightOperand="False"/>
-                                        <b:ComparisonCondition LeftOperand="{Binding Path=Metadata, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ls:UIWidget}}" Operator="Equal" RightOperand="Interrupts"/>
-                                    </b:ConditionalExpression>
-                                </b:ConditionBehavior>
-                            </b:Interaction.Behaviors>
+                        <b:DataTrigger Binding="{Binding Path=Metadata, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ls:UIWidget}}" Value="Interrupts">
+                            
                             <b:ChangePropertyAction TargetName="TabContentPresenter" PropertyName="Tag" Value="Reactions"/>
-                        </b:EventTrigger>
+                        </b:DataTrigger>
                     </b:Interaction.Triggers>
                 </StackPanel>
 
@@ -1200,404 +1171,285 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- MOD START - Moved to IUI files -->
+	<!-- MOD START - Moved to IUI files -->
 	<!-- MOD END -->
 
     <ControlTemplate x:Key="ActionDetailsTemplate">
-        <Grid x:Name="ActionInfoProperties" HorizontalAlignment="Center" ls:TooltipExtender.IsOpen="True" ls:TooltipExtender.Content="{Binding .}">
-            <Grid.Resources>
-                <BitmapImage x:Key="ACIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD_c/actionDetails/c_ico_AC.png" />
-                <BitmapImage x:Key="SeparatorIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD_c/actionDetails/c_ico_dividiingDot.png" />
+        <ControlTemplate.Resources>
+            <BitmapImage x:Key="ACIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD_c/actionDetails/c_ico_AC.png" />
+            <BitmapImage x:Key="SeparatorIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/HUD_c/actionDetails/c_ico_dividiingDot.png" />
 
-                <Style x:Key="ActionDetailNameTextStyle" TargetType="TextBlock" BasedOn="{StaticResource HUD.DefaultTextStyle}">
-                    <Setter Property="FontSize" Value="{DynamicResource ScaledMediumFontSize}"/>
-                    <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
-                </Style>
+            <Style x:Key="ActionDetailNameTextStyle" TargetType="TextBlock" BasedOn="{StaticResource HUD.DefaultTextStyle}">
+                <Setter Property="FontSize" Value="{DynamicResource ScaledMediumFontSize}"/>
+                <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
+            </Style>
 
-                <Style x:Key="ActionDetailValueTextStyle" TargetType="TextBlock" BasedOn="{StaticResource HUD.DefaultTextStyle}">
-                    <Setter Property="FontSize" Value="{DynamicResource ScaledMediumFontSize}"/>
-                    <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
-                    <Setter Property="VerticalAlignment" Value="Top"/>
-                </Style>
+            <Style x:Key="ActionDetailValueTextStyle" TargetType="TextBlock" BasedOn="{StaticResource HUD.DefaultTextStyle}">
+                <Setter Property="FontSize" Value="{DynamicResource ScaledMediumFontSize}"/>
+                <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+            </Style>
 
-                <Style x:Key="ActionDetailBigTextStyle" TargetType="TextBlock" BasedOn="{StaticResource HUD.DefaultTextStyle}">
-                    <Setter Property="FontSize" Value="{DynamicResource ScaledMediumFontSize}"/>
-                    <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
-                    <Setter Property="VerticalAlignment" Value="Top"/>
-                </Style>
+            <Style x:Key="ActionDetailBigTextStyle" TargetType="TextBlock" BasedOn="{StaticResource HUD.DefaultTextStyle}">
+                <Setter Property="FontSize" Value="{DynamicResource ScaledMediumFontSize}"/>
+                <Setter Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+            </Style>
 
-                <Style x:Key="ActionDetailSeparatorIconStyle" TargetType="Image">
-                    <Setter Property="Stretch" Value="Uniform"/>
-                    <Setter Property="MaxHeight" Value="60"/>
-                    <Setter Property="Source" Value="{DynamicResource SeparatorIcon}"/>
-                    <Setter Property="Margin" Value="8,0,8,0"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </Style>
+            <Style x:Key="ActionDetailSeparatorIconStyle" TargetType="Image">
+                <Setter Property="Stretch" Value="Uniform"/>
+                <Setter Property="MaxHeight" Value="60"/>
+                <Setter Property="Source" Value="{DynamicResource SeparatorIcon}"/>
+                <Setter Property="Margin" Value="8,0,8,0"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
 
-                <Style x:Key="ActionDetailIconStyle" TargetType="Image">
-                    <Setter Property="Stretch" Value="Uniform"/>
-                    <Setter Property="MaxHeight" Value="60"/>
-                    <Setter Property="VerticalAlignment" Value="Bottom"/>
-                </Style>
-            </Grid.Resources>
+            <Style x:Key="ActionDetailIconStyle" TargetType="Image">
+                <Setter Property="Stretch" Value="UniformToFill"/>
+                <Setter Property="MaxHeight" Value="72"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+            </Style>
 
-
-            <ls:LSWrapPanel x:Name="ActionInfoPropertiesList" Orientation="Horizontal" Width="1320" HorizontalAlignment="Center" HorizontalContentAlignment="Center">
-                <!-- AC -->
-                <StackPanel x:Name="ACProperty" FlowDirection="LeftToRight" Orientation="Horizontal"  Visibility="Collapsed" DataContext="{Binding AttachedStatus}">
-                    <StackPanel x:Name="ACPropertyValues" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,-1,5,1">
-                        <TextBlock x:Name="ACValue" Style="{StaticResource ActionDetailValueTextStyle}" Text="{Binding ACModifier, StringFormat='{}{0:+#;-#;}'}" VerticalAlignment="Center"/>
-                        <Image Style="{StaticResource ActionDetailIconStyle}" Source="{StaticResource ACIcon}"/>
-                    </StackPanel>
-
-                    <TextBlock Style="{StaticResource ActionDetailNameTextStyle}" Text="{Binding Source='hc2ca2d88gc99cg4361g801fgd34ecdb85f19', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <Image x:Name="Separator1" Style="{StaticResource ActionDetailSeparatorIconStyle}"/>
-
-                <!-- Turns -->
-                <StackPanel x:Name="TurnsProperty" FlowDirection="LeftToRight" Orientation="Horizontal" Visibility="Collapsed" DataContext="{Binding AttachedStatus}">
-                    <TextBlock x:Name="TurnsAppliedName" Style="{StaticResource ActionDetailNameTextStyle}" Text="{Binding Source='hd46ad4d5gaaa1g4289g99eeg2b87c99962db', Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0}:'}" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="TurnsConditionName" Margin="20,0,0,0" Style="{StaticResource ActionDetailValueTextStyle}" Text="{Binding Name}" VerticalAlignment="Center"/>
-                    <Ellipse x:Name="iconStatus" Margin="16,0,0,0" Width="80" Height="80" Fill="{Binding Icon}"/>
-                    <StackPanel x:Name="TurnsPropertyValues" Orientation="Horizontal" FlowDirection="RightToLeft" Margin="20,0,0,0">
-                        <TextBlock x:Name="TurnsValue" Style="{StaticResource ActionDetailBigTextStyle}" Text="{Binding Duration, StringFormat='{}{0:#;#;}'}" Margin="0,-2,0,2" VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <TextBlock Style="{StaticResource ActionDetailValueTextStyle}" Text="{Binding Source='hf73c2851gb063g4fc0ga581g1b432443846d', Converter={StaticResource TranslatedStringConverter}}" Margin="12,0,0,0" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <Image x:Name="Separator2" Style="{StaticResource ActionDetailSeparatorIconStyle}"/>
-
-                <!-- Damages -->
-                <StackPanel x:Name="DamagesProperty" FlowDirection="LeftToRight" Orientation="Horizontal"
-                            DataContext="{Binding (ls:TooltipExtender.Data).Damages, ElementName=ActionInfoProperties}"
-                            Visibility="{Binding DataContext.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}" 
-                            ls:AttachedProperties.InheritedTag="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource RollOutcomeConverter}, ConverterParameter='minmax'}">
-                    <TextBlock x:Name="DamagePropertyName" Style="{StaticResource ActionDetailNameTextStyle}" Text="{Binding Source='h53477166gd2ebg4769gad58gc949e73e89c4', Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0}:'}" Margin="0,-2,0,2" VerticalAlignment="Center"/>
-                    <StackPanel x:Name="DamagesPropertyValues" Orientation="Horizontal" FlowDirection="LeftToRight" Margin="20,0,0,0">
-                        <Image x:Name="DamagePropertyIcon" Style="{StaticResource ActionDetailIconStyle}" Source="{x:Null}" Visibility="{Binding Source, RelativeSource={RelativeSource Self}, Converter={StaticResource NullToCollapsedConverter}}"/>
-                        <TextBlock x:Name="DamagesPropertyTextValues" Style="{StaticResource ActionDetailBigTextStyle}" HorizontalAlignment="Stretch" TextAlignment="Right" FlowDirection="LeftToRight" VerticalAlignment="Center">
-                            <Run x:Name="DamageMinValue" Text="{Binding (ls:AttachedProperties.InheritedTag).x, ElementName=DamagesProperty}" /><Run x:Name="DamageSeparator" 
+            <ControlTemplate x:Key="DamagesSection">
+                <!-- Tag is Vector2 with min and max possible damage of provided collection of VMDamageRoll -->
+                <StackPanel x:Name="DamagesProperty" Orientation="Horizontal" 
+                            Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" 
+                            Tag="{Binding ., Converter={StaticResource RollOutcomeConverter}, ConverterParameter='minmax'}">
+                    <TextBlock x:Name="DamagePropertyName" Style="{StaticResource ActionDetailNameTextStyle}" Text="{Binding Source='h53477166gd2ebg4769gad58gc949e73e89c4', Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0}:'}" Margin="0,0,14,0" VerticalAlignment="Center"/>
+                    <Image x:Name="DamagePropertyIcon" Style="{StaticResource ActionDetailIconStyle}" Source="{x:Null}" Visibility="{Binding Source, RelativeSource={RelativeSource Self}, Converter={StaticResource NullToCollapsedConverter}}" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                    <TextBlock x:Name="DamagesPropertyTextValues" Style="{StaticResource ActionDetailBigTextStyle}" FontSize="{StaticResource DefaultFontSize}" HorizontalAlignment="Stretch" TextAlignment="Right" FlowDirection="LeftToRight" VerticalAlignment="Center">
+                        <TextBlock.Tag>
+                            <!-- Tag True if min and max damage are the same. Binding doesn't work directly in trigger. -->
+                            <MultiBinding Converter="{StaticResource EqualConverter}">
+                                <Binding Path="Tag.x" ElementName="DamagesProperty"/>
+                                <Binding Path="Tag.y" ElementName="DamagesProperty"/>
+                            </MultiBinding>
+                        </TextBlock.Tag>
+                            <Run x:Name="DamageMinValue" Text="{Binding Tag.x, ElementName=DamagesProperty}" /><Run x:Name="DamageSeparator" 
                                 Text="~"/><Run x:Name="DamageMaxValue"
-                                Text="{Binding (ls:AttachedProperties.InheritedTag).y, ElementName=DamagesProperty}"/>
-                        </TextBlock>
-                    </StackPanel>
+                                Text="{Binding Tag.y, ElementName=DamagesProperty}"/>
+                    </TextBlock>
                 </StackPanel>
 
-                <Image x:Name="Separator3" Style="{StaticResource ActionDetailSeparatorIconStyle}"/>
+                <ControlTemplate.Triggers>
+                    <!-- Tag True if min and max damage are the same. Binding doesn't work directly in trigger. -->
+                    <DataTrigger Binding="{Binding Tag, ElementName=DamagesPropertyTextValues}" Value="True">
+                        <Setter TargetName="DamageSeparator" Property="Text" Value=""/>
+                        <Setter TargetName="DamageMinValue" Property="Text" Value=""/>
+                    </DataTrigger>
 
-                <!-- Targets / Projectiles -->
-                <StackPanel x:Name="TargetsProperty" FlowDirection="LeftToRight" Orientation="Horizontal" Visibility="{Binding MaxTargets, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1, FallbackValue=Collapsed}" >
-                    <TextBlock x:Name="TargetsPropertyName" Style="{StaticResource ActionDetailNameTextStyle}" Text="{Binding Source='hbb8e9b62gf09fg4568g89b3g1f63dafb5744', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="TargetsPropertyValues" Style="{StaticResource ActionDetailBigTextStyle}" HorizontalAlignment="Stretch" Margin="20,0,0,0" TextAlignment="Right" FlowDirection="LeftToRight" VerticalAlignment="Center">
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="HealAmount">
+                        <Setter TargetName="DamagePropertyName" Property="Text" Value="{Binding Source='hc3cd9b4eg4ea4g4438gbfbbg493c0abb6dd7_16',Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0}:'}"/>
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_healing.png"/>
+                        <Setter TargetName="DamagePropertyIcon" Property="Height" Value="80"/>
+                        <Setter TargetName="DamagePropertyIcon" Property="Width" Value="80"/>
+                        <Setter TargetName="DamagePropertyIcon" Property="Margin" Value="-10,-4,-2,4"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Slashing">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_slashing.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Piercing">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_piercing.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Bludgeoning">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_blunt.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Acid">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_acid.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Thunder">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_thunder.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Necrotic">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_necrotic.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Fire">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_fire.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Lightning">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_lightning.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Cold">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_cold.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Psychic">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_psychic.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Poison">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_poison.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Radiant">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_radiant.png"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Force">
+                        <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_force.png"/>
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            
+            <DataTemplate x:Key="SpellTemplate" DataType="{x:Type ls:VMCharacterAction}">
+                <ls:LSWrapPanel x:Name="Root" Orientation="Horizontal" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" ls:TooltipExtender.Content="{Binding .}" ls:TooltipExtender.IsOpen="{Binding IsVisible , RelativeSource={RelativeSource Self}}" ls:VisibleChildrenProperties.CountVisibleChildren="True">
+                    <!-- AC -->
+                    <StackPanel x:Name="ACProperty" Orientation="Horizontal" Visibility="{Binding Text, ElementName=ACValue, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}">
+                        <Image Style="{StaticResource ActionDetailIconStyle}" Source="{StaticResource ACIcon}" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="ACValue" Style="{StaticResource ActionDetailValueTextStyle}" Text="{Binding (ls:TooltipExtender.Data).ACModifier, ElementName=Root, StringFormat='{}{0:+#;-#;}'}" VerticalAlignment="Center"/>
+                        <TextBlock Style="{StaticResource ActionDetailNameTextStyle}" Text="{Binding Source='hc2ca2d88gc99cg4361g801fgd34ecdb85f19', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Statuses/surfaces -->
+                    <StackPanel x:Name="TurnsProperty"  Orientation="Horizontal" Visibility="{Binding AlternationCount, ElementName=StatusesList, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}">
+                        <Image x:Name="Separator1" Style="{StaticResource ActionDetailSeparatorIconStyle}" Visibility="{Binding (ls:VisibleChildrenProperties.VisibleIndex), ElementName=TurnsProperty, Converter={StaticResource CountToVisibilityConverter}}"/>
+                        <ItemsControl x:Name="StatusesList" ItemsSource="{Binding (ls:TooltipExtender.Data).InflictedStatusesSection.Details, ElementName=Root}" AlternationCount="{Binding ItemsSource.Count, RelativeSource={RelativeSource Mode=Self}}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type ls:VMTooltipSectionDetail}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock x:Name="Index" Margin="20,0,0,0" Style="{StaticResource ActionDetailValueTextStyle}" Text="+" VerticalAlignment="Center"/>
+                                        <TextBlock x:Name="TurnsConditionName" Margin="20,0,0,0" Style="{StaticResource ActionDetailValueTextStyle}" Text="{Binding Description}" VerticalAlignment="Center" Visibility="Collapsed"/>
+                                        <Ellipse x:Name="iconStatus" Margin="16,0,0,0" Width="80" Height="80" Fill="{Binding Brush}"/>
+
+                                        <TextBlock x:Name="TurnsValue" Style="{StaticResource ActionDetailBigTextStyle}" Text="{Binding Duration, StringFormat='{}{0:#;#;}'}" Margin="20,0,0,0" VerticalAlignment="Center" Visibility="{Binding Duration, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                        <TextBlock x:Name="TurnsType" Style="{StaticResource ActionDetailValueTextStyle}" Text="{Binding Source='hf73c2851gb063g4fc0ga581g1b432443846d', Converter={StaticResource TranslatedStringConverter}}" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding ., Converter={StaticResource TypeConverter}}" Value="ls.VMTooltipCharacterSectionDetail">
+                                            <Setter TargetName="TurnsConditionName" Property="Text" Value="{Binding Character.Name}"/>
+                                        </DataTrigger>
+
+                                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                            <Setter TargetName="Index" Property="Text" Value="{Binding Source='hd46ad4d5gaaa1g4289g99eeg2b87c99962db', Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0}:'}"/>
+                                            <Setter TargetName="Index" Property="Margin" Value="0"/>
+                                        </Trigger>
+
+                                        <DataTrigger Binding="{Binding ItemsSource.Count, ElementName=StatusesList}" Value="1">
+                                            <Setter TargetName="TurnsConditionName" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding Duration}" Value="0">
+                                            <Setter TargetName="TurnsType" Property="Text" Value="{Binding Source='hf5d92374g1f72g4b7bga1d5g178ff9c36ed5',Converter={StaticResource TranslatedStringConverter}}"/>
+                                        </DataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Duration}" Value="0"/>
+                                                <Condition Binding="{Binding DurationType}" Value="Timer"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter TargetName="TurnsType" Property="Text" Value="{Binding Source='h50ea69dagf61eg466fga47eg530c55933114',Converter={StaticResource TranslatedStringConverter}}"/>
+                                        </MultiDataTrigger>
+                                        <DataTrigger Binding="{Binding DurationType}" Value="Permanent">
+                                            <Setter TargetName="TurnsType" Property="Text" Value="{Binding Source='hf5d92374g1f72g4b7bga1d5g178ff9c36ed5',Converter={StaticResource TranslatedStringConverter}}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding DurationType}" Value="UntilRest">
+                                            <Setter TargetName="TurnsType" Property="Text" Value="{Binding Source='h50ea69dagf61eg466fga47eg530c55933114',Converter={StaticResource TranslatedStringConverter}}"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <!-- Damages -->
+                    <StackPanel x:Name="DamagesProperty" Visibility="{Binding DataContext.Count, ElementName=DamagesPresenter, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" Orientation="Horizontal">
+                        <Image x:Name="Separator2" Style="{StaticResource ActionDetailSeparatorIconStyle}" Visibility="{Binding (ls:VisibleChildrenProperties.VisibleIndex), ElementName=DamagesProperty, Converter={StaticResource CountToVisibilityConverter}}"/>
+                        <Control x:Name="DamagesPresenter" DataContext="{Binding (ls:TooltipExtender.Data).Damages,ElementName=Root}" Template="{StaticResource DamagesSection}"/>
+                    </StackPanel>
+
+                    <!-- Targets / Projectiles -->
+                    <StackPanel x:Name="TargetsProperty" FlowDirection="LeftToRight" Orientation="Horizontal" Visibility="{Binding MaxTargets, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1, FallbackValue=Collapsed}" >
+                        <Image x:Name="Separator3" Style="{StaticResource ActionDetailSeparatorIconStyle}" Visibility="{Binding (ls:VisibleChildrenProperties.VisibleIndex), ElementName=TargetsProperty, Converter={StaticResource CountToVisibilityConverter}}"/>
+                        <TextBlock x:Name="TargetsPropertyName" Style="{StaticResource ActionDetailNameTextStyle}" Text="{Binding Source='hbb8e9b62gf09fg4568g89b3g1f63dafb5744', Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0}:'}" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TargetsPropertyValues" Style="{StaticResource ActionDetailBigTextStyle}" HorizontalAlignment="Stretch" Margin="20,0,0,0" TextAlignment="Right" FlowDirection="LeftToRight" VerticalAlignment="Center">
                         <Run x:Name="TargetsMinValue" Text="{Binding DataContext.CurrentPlayer.UIData.ActiveTask.TargetValues.CurrentValue, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/><Run x:Name="TargetsSeparator"
                             Text="{Binding Source='hd64bfe4cgadadg4468g8b0ag70330ffc717c', Converter={StaticResource TranslatedStringConverter}}"/><Run x:Name="TargetsMaxValue"
                             Text="{Binding MaxTargets}"/>
-                    </TextBlock>
-                </StackPanel>
+                        </TextBlock>
+                    </StackPanel>
 
-                <Image x:Name="Separator4" Style="{StaticResource ActionDetailSeparatorIconStyle}"/>
-
-                <!-- HP -->
-                <StackPanel x:Name="HPProperty" FlowDirection="RightToLeft" Orientation="Horizontal" Visibility="{Binding MaxTargetingHP, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" >
-                    <TextBlock x:Name="HPPropertyValues" Style="{StaticResource ActionDetailBigTextStyle}" HorizontalAlignment="Stretch" Margin="20,0,0,0" TextAlignment="Right" FlowDirection="LeftToRight" VerticalAlignment="Center">
+                    <!-- HP -->
+                    <StackPanel x:Name="HPProperty" FlowDirection="LeftToRight" Orientation="Horizontal" Visibility="{Binding MaxTargetingHP, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}" >
+                        <Image x:Name="Separator4" Style="{StaticResource ActionDetailSeparatorIconStyle}" Visibility="{Binding (ls:VisibleChildrenProperties.VisibleIndex), ElementName=HPProperty, Converter={StaticResource CountToVisibilityConverter}}"/>
+                        <TextBlock  VerticalAlignment="Center" Style="{StaticResource ActionDetailNameTextStyle}" Margin="6,0,0,0" Text="{Binding Source='hc410bc67g130dg4ccdgbb36g42bb0a72c08e', Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0}:'}"/>
+                        <TextBlock x:Name="HPPropertyValues" Style="{StaticResource ActionDetailBigTextStyle}" HorizontalAlignment="Stretch" Margin="20,0,0,0" TextAlignment="Right" FlowDirection="LeftToRight" VerticalAlignment="Center">
                         <Run x:Name="HPMinValue" Text="{Binding DataContext.CurrentPlayer.UIData.ActiveTask.HPTargetValues.CurrentValue, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/><Run x:Name="HPSeparator"
                             Text="{Binding Source='hd64bfe4cgadadg4468g8b0ag70330ffc717c', Converter={StaticResource TranslatedStringConverter}}"/><Run x:Name="HPMaxValue"
                             Text="{Binding MaxTargetingHP}"/>
-                    </TextBlock>
+                        </TextBlock>
+                    </StackPanel>
 
-                    <TextBlock  VerticalAlignment="Center" Style="{StaticResource ActionDetailNameTextStyle}" Margin="6,0,0,0" Text="{Binding Source='hc410bc67g130dg4ccdgbb36g42bb0a72c08e', Converter={StaticResource TranslatedStringConverter}}"/>
-                </StackPanel>
-
-                <!-- Recharge time -->
-                <StackPanel x:Name="RechargeTime" Orientation="Horizontal">
-                    <Image Visibility="Visible" Style="{StaticResource ActionDetailSeparatorIconStyle}"/>
-                    <Image Source="{StaticResource IconCooldown}"/>
-                    <TextBlock x:Name="CooldownText" VerticalAlignment="Center"  Style="{StaticResource ActionDetailBigTextStyle}"/>
-                </StackPanel>
+                    <!-- Recharge time -->
+                    <StackPanel x:Name="RechargeTime" Orientation="Horizontal">
+                        <Image Style="{StaticResource ActionDetailSeparatorIconStyle}" Visibility="{Binding (ls:VisibleChildrenProperties.VisibleIndex), ElementName=RechargeTime, Converter={StaticResource CountToVisibilityConverter}}"/>
+                        <Image Source="{StaticResource IconCooldown}" Margin="-6,0,0,0"  />
+                        <TextBlock x:Name="CooldownText" VerticalAlignment="Center" Margin="8,0,0,0" Style="{StaticResource ActionDetailBigTextStyle}"/>
+                    </StackPanel>
+                </ls:LSWrapPanel>
                 
-            </ls:LSWrapPanel>
-        </Grid>
+                <DataTemplate.Triggers>
+                    <!-- Cooldown -->
+                    <DataTrigger Binding="{Binding CooldownType}" Value="None">
+                        <Setter TargetName="RechargeTime" Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <DataTrigger  Binding="{Binding CooldownType}" Value="OncePerCombat">
+                        <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h223d44e2g5654g496cg8997gb218f29eba0c',Converter={StaticResource TranslatedStringConverter}}" />
+                    </DataTrigger>
+                    <DataTrigger  Binding="{Binding CooldownType}" Value="OncePerTurn">
+                        <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8c45d8a5gf1b2g4723ga21ageacde38ba8cc',Converter={StaticResource TranslatedStringConverter}}" />
+                    </DataTrigger>
+                    <DataTrigger  Binding="{Binding CooldownType}" Value="OncePerTurnNoRealtime">
+                        <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8c45d8a5gf1b2g4723ga21ageacde38ba8cc',Converter={StaticResource TranslatedStringConverter}}" />
+                    </DataTrigger>
+                    <DataTrigger  Binding="{Binding CooldownType}" Value="UntilRest">
+                        <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8d993cfag30d7g474fgaf29gdcdc3cd67bdc',Converter={StaticResource TranslatedStringConverter}}" />
+                    </DataTrigger>
+                    <DataTrigger  Binding="{Binding CooldownType}" Value="UntilShortRest">
+                        <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h199b711fg12f1g49c1ga68dg576a864a1fc2',Converter={StaticResource TranslatedStringConverter}}" />
+                    </DataTrigger>
+                    <DataTrigger  Binding="{Binding CooldownType}" Value="UntilRestPerItem">
+                        <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8d993cfag30d7g474fgaf29gdcdc3cd67bdc',Converter={StaticResource TranslatedStringConverter}}" />
+                    </DataTrigger>
+                    <DataTrigger  Binding="{Binding CooldownType}" Value="UntilShortRestPerItem">
+                        <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h199b711fg12f1g49c1ga68dg576a864a1fc2',Converter={StaticResource TranslatedStringConverter}}" />
+                    </DataTrigger>
+
+                    <!-- Targets -->
+                    <DataTrigger Binding="{Binding DataContext.CurrentPlayer.UIData.AreRadialsOpen, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="True">
+                        <Setter TargetName="TargetsMinValue" Property="Text" Value=""/>
+                        <Setter TargetName="TargetsSeparator" Property="Text" Value=""/>
+                        <Setter TargetName="HPSeparator" Property="Text" Value=""/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext.TargetingType, ElementName=TargetsProperty}" Value="Target">
+                        <Setter TargetName="TargetsPropertyName" Property="Text" Value="{Binding Source='hf0352edfg4106g4ed7g9964gcf8eaa164fbf', Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0}:'}"/>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ItemTemplate" DataType="{x:Type ls:VMItem}">
+                <!-- Grid since we can't put the Content and TooltipExtender.Content properties on the same element here -->
+                <Grid x:Name="Root" ls:TooltipExtender.Content="{Binding .}" ls:TooltipExtender.IsOpen="{Binding IsVisible , RelativeSource={RelativeSource Self}}">
+                    <Control x:Name="DamagesPresenter" DataContext="{Binding (ls:TooltipExtender.Data).Status.Damages,ElementName=Root}" Template="{StaticResource DamagesSection}"/>
+                </Grid>
+            </DataTemplate>
+        </ControlTemplate.Resources>
+
+        <ContentPresenter x:Name="Presenter" Content="{Binding .}" ContentTemplate="{StaticResource SpellTemplate}" HorizontalAlignment="Center"/>
 
         <ControlTemplate.Triggers>
-            <DataTrigger  Binding="{Binding CooldownType}" Value="None">
-                <Setter TargetName="RechargeTime" Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-            <DataTrigger  Binding="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource TypeConverter}}" Value="ls.VMItem">
-                <Setter TargetName="RechargeTime" Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-            
-            <DataTrigger  Binding="{Binding CooldownType}" Value="OncePerTurn">
-                <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8c45d8a5gf1b2g4723ga21ageacde38ba8cc',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-            <DataTrigger  Binding="{Binding CooldownType}" Value="OncePerTurnNoRealtime">
-                <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8c45d8a5gf1b2g4723ga21ageacde38ba8cc',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-            <DataTrigger  Binding="{Binding CooldownType}" Value="OncePerCombat">
-                <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h223d44e2g5654g496cg8997gb218f29eba0c',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-            <DataTrigger  Binding="{Binding CooldownType}" Value="UntilRest">
-                <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h8d993cfag30d7g474fgaf29gdcdc3cd67bdc',Converter={StaticResource TranslatedStringConverter}}" />
-            </DataTrigger>
-            <DataTrigger  Binding="{Binding CooldownType}" Value="UntilShortRest">
-                <Setter TargetName="CooldownText" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h199b711fg12f1g49c1ga68dg576a864a1fc2',Converter={StaticResource TranslatedStringConverter}}" />
+            <DataTrigger Binding="{Binding ., Converter={StaticResource TypeConverter}}" Value="ls.VMItem">
+                <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource ItemTemplate}"/>
             </DataTrigger>
 
-            <DataTrigger Binding="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource TypeConverter}}" Value="ls.VMItem">
-                <Setter TargetName="TargetsProperty" Property="DataContext" Value="{Binding AttachedSpell}"/>
-                <Setter TargetName="HPProperty" Property="DataContext" Value="{Binding AttachedSpell}"/>
-            </DataTrigger>
-
-            <DataTrigger Binding="{Binding DataContext.CurrentPlayer.UIData.AreRadialsOpen, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="True">
-                <Setter TargetName="TargetsMinValue" Property="Text" Value=""/>
-                <Setter TargetName="TargetsSeparator" Property="Text" Value=""/>
-                <Setter TargetName="HPSeparator" Property="Text" Value=""/>
-            </DataTrigger>
-
-            <!-- Targets / Projectiles -->
-            <DataTrigger Binding="{Binding DataContext.TargetingType, ElementName=TargetsProperty}" Value="Target">
-                <Setter TargetName="TargetsPropertyName" Property="Text" Value="{Binding Source='hf0352edfg4106g4ed7g9964gcf8eaa164fbf', Converter={StaticResource TranslatedStringConverter}}"/>
-            </DataTrigger>
-
-            <!-- AC -->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource TypeConverter}}" Value="ls.VMItem"/>
-                    <Condition Binding="{Binding AttachedSpell.AttachedStatus.ACModifier, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="True"/>
+                    <Condition Binding="{Binding AttachedSpell, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter TargetName="ACProperty" Property="DataContext" Value="{Binding DataContext.AttachedSpell.AttachedStatus, ElementName=ActionInfoProperties}"/>
+                <Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource SpellTemplate}"/>
+                <Setter TargetName="Presenter" Property="Content" Value="{Binding AttachedSpell}"/>
             </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource TypeConverter}}" Value="ls.VMItem"/>
-                    <Condition Binding="{Binding AttachedSpell.AttachedStatus.ACModifier, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="False"/>
-                    <Condition Binding="{Binding AttachedStatus, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="ACProperty" Property="DataContext" Value="{Binding DataContext.AttachedStatus, ElementName=ActionInfoProperties}"/>
-            </MultiDataTrigger>
-
-            <DataTrigger Binding="{Binding Text, ElementName=ACValue, Converter={StaticResource NullToBoolFalseConverter}, ConverterParameter='EmptyString', FallbackValue=False}" Value="True">
-                <Setter TargetName="ACProperty" Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-
-            <!-- Turns -->
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource TypeConverter}}" Value="ls.VMCharacterAction"/>
-                    <Condition Binding="{Binding AttachedStatus.Duration, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="False"/>
-                    <Condition Binding="{Binding AttachedSurface.Duration, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="TurnsProperty" Property="DataContext" Value="{Binding DataContext.AttachedSurface, ElementName=ActionInfoProperties}"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource TypeConverter}}" Value="ls.VMItem"/>
-                    <Condition Binding="{Binding AttachedSpell.AttachedStatus.Duration, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="TurnsProperty" Property="DataContext" Value="{Binding DataContext.AttachedSpell.AttachedStatus, ElementName=ActionInfoProperties}"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource TypeConverter}}" Value="ls.VMItem"/>
-                    <Condition Binding="{Binding AttachedSpell.AttachedStatus.Duration, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="False"/>
-                    <Condition Binding="{Binding AttachedStatus.Duration, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="TurnsProperty" Property="DataContext" Value="{Binding DataContext.AttachedStatus, ElementName=ActionInfoProperties}"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext, RelativeSource={RelativeSource Self}, Converter={StaticResource TypeConverter}}" Value="ls.VMItem"/>
-                    <Condition Binding="{Binding AttachedSpell.AttachedStatus.Duration, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="False"/>
-                    <Condition Binding="{Binding AttachedStatus.Duration, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="False"/>
-                    <Condition Binding="{Binding AttachedSpell.AttachedSurface.Duration, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0, FallbackValue=False}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="TurnsProperty" Property="DataContext" Value="{Binding DataContext.AttachedSpell.AttachedSurface, ElementName=ActionInfoProperties}"/>
-            </MultiDataTrigger>
-
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Text, ElementName=TurnsValue, Converter={StaticResource NullToBoolFalseConverter}, ConverterParameter='EmptyString', FallbackValue=False}" Value="True"/>
-                    <Condition Binding="{Binding DataContext.DurationType, ElementName=TurnsProperty, FallbackValue='Timer'}" Value="Timer"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="TurnsProperty" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-                
-            <!-- Damages -->
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding (ls:TooltipExtender.Data).Damages.Count, ElementName=ActionInfoProperties, Converter={StaticResource LessThanConverter}, ConverterParameter=1}" Value="True"/>
-                    <Condition Binding="{Binding (ls:TooltipExtender.Data).Spell.Damages.Count, ElementName=ActionInfoProperties, Converter={StaticResource LessThanConverter}, ConverterParameter=1}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="DamagesProperty" Property="DataContext" Value="{Binding (ls:TooltipExtender.Data).Spell.Damages, ElementName=ActionInfoProperties}"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding (ls:TooltipExtender.Data).Damages.Count, ElementName=ActionInfoProperties, Converter={StaticResource LessThanConverter}, ConverterParameter=1}" Value="True"/>
-                    <Condition Binding="{Binding (ls:TooltipExtender.Data).Spell.Damages.Count, ElementName=ActionInfoProperties, Converter={StaticResource LessThanConverter}, ConverterParameter=1}" Value="True"/>
-                    <Condition Binding="{Binding (ls:TooltipExtender.Data).Status.Damages.Count, ElementName=ActionInfoProperties, Converter={StaticResource LessThanConverter}, ConverterParameter=1}" Value="False"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="DamagesProperty" Property="DataContext" Value="{Binding (ls:TooltipExtender.Data).Status.Damages, ElementName=ActionInfoProperties}"/>
-            </MultiDataTrigger>
-
-            <DataTrigger Value="True">
-                <DataTrigger.Binding>
-                    <MultiBinding Converter="{StaticResource EqualConverter}">
-                        <Binding Path="(ls:AttachedProperties.InheritedTag).x" ElementName="DamagesProperty"/>
-                        <Binding Path="(ls:AttachedProperties.InheritedTag).y" ElementName="DamagesProperty"/>
-                    </MultiBinding>
-                </DataTrigger.Binding>
-                <Setter TargetName="DamageSeparator" Property="Text" Value=""/>
-                <Setter TargetName="DamageMinValue" Property="Text" Value=""/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="HealAmount">
-                <Setter TargetName="DamagePropertyName" Property="Text" Value="{Binding Source='hc3cd9b4eg4ea4g4438gbfbbg493c0abb6dd7_16',Converter={StaticResource TranslatedStringConverter}}"/>
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/ico_healing.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Slashing">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_slashing.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Piercing">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_piercing.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Bludgeoning">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_blunt.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Acid">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_acid.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Thunder">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_thunder.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Necrotic">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_necrotic.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Fire">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_fire.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Lightning">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_lightning.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Cold">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_cold.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Psychic">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_psychic.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Poison">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_poison.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Radiant">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_radiant.png"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding DataContext[0].DamageType, ElementName=DamagesProperty}" Value="Force">
-                <Setter TargetName="DamagePropertyIcon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_damage_icons/c_ico_dmg_force.png"/>
-            </DataTrigger>
-
-            <!-- Separators -->
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=ACProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TurnsProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator1" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=DamagesProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TurnsProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator2" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=DamagesProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TurnsProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=ACProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator2" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=TargetsProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=DamagesProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator3" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=TargetsProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=DamagesProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TurnsProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator3" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=TargetsProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=DamagesProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TurnsProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=ACProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator3" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=HPProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TargetsProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator4" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=HPProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TargetsProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=DamagesProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator4" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=HPProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TargetsProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=DamagesProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TurnsProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator4" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Visibility, ElementName=HPProperty}" Value="Visible"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TargetsProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=DamagesProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=TurnsProperty}" Value="Collapsed"/>
-                    <Condition Binding="{Binding Visibility, ElementName=ACProperty}" Value="Visible"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="Separator4" Property="Visibility" Value="Visible"/>
-            </MultiDataTrigger>
-
-            <!-- Splitscreen -->
-            <DataTrigger Binding="{Binding DataContext.Layout, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Right">
-                <Setter TargetName="ActionInfoProperties" Property="HorizontalAlignment" Value="Left"/>
-                <Setter TargetName="ActionInfoPropertiesList" Property="Grid.Column" Value="1"/>
-                <Setter TargetName="ACProperty" Property="FlowDirection" Value="LeftToRight"/>
-                <Setter TargetName="TurnsProperty" Property="FlowDirection" Value="LeftToRight"/>
-                <Setter TargetName="DamagesProperty" Property="FlowDirection" Value="LeftToRight"/>
-                <Setter TargetName="TargetsProperty" Property="FlowDirection" Value="LeftToRight"/>
-                <Setter TargetName="HPProperty" Property="FlowDirection" Value="LeftToRight"/>
-                <Setter TargetName="ACPropertyValues" Property="HorizontalAlignment" Value="Left"/>
-                <Setter TargetName="TurnsPropertyValues" Property="HorizontalAlignment" Value="Left"/>
-                <Setter TargetName="DamagesPropertyValues" Property="HorizontalAlignment" Value="Left"/>
-                <!--<Setter TargetName="TargetsPropertyValues" Property="HorizontalAlignment" Value="Left"/>
-                <Setter TargetName="HPPropertyValues" Property="HorizontalAlignment" Value="Left"/>-->
-
-                <Setter TargetName="DamagesPropertyTextValues" Property="TextAlignment" Value="Left"/>
-                <Setter TargetName="TargetsPropertyValues" Property="TextAlignment" Value="Left"/>
-                <Setter TargetName="HPPropertyValues" Property="TextAlignment" Value="Left"/>
-            </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -1614,25 +1466,31 @@
     <LinearGradientBrush x:Key="BottomShadingBrush" Opacity="1.0" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0" Color="{StaticResource transparentBlack}"/>
         <GradientStop Offset="1.0" Color="#CC000000" />
-    </LinearGradientBrush>   
-    
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="NavShadingBrush" Opacity="1.0" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Offset="0" Color="#d40b0908"/>
+        <GradientStop Offset="0.5" Color="#d40b0908"/>
+        <GradientStop Offset="1.0" Color="{StaticResource transparentBlack}" />
+    </LinearGradientBrush>
+
     <LinearGradientBrush x:Key="LeftSideShadingBrush" Opacity="1.0" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Offset="0" Color="#FF000000"/>
-        <GradientStop Offset="0.7" Color="#FC000000"/>
+        <GradientStop Offset="0" Color="#E60b0908"/>
+        <GradientStop Offset="0.3" Color="#d40b0908"/>
         <GradientStop Offset="1.0" Color="{StaticResource transparentBlack}" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="RightSideShadingBrush" Opacity="1.0" StartPoint="1,0" EndPoint="0,0">
-        <GradientStop Offset="0" Color="#FF000000"/>
-        <GradientStop Offset="0.7" Color="#FC000000"/>
+        <GradientStop Offset="0" Color="#E60b0908"/>
+        <GradientStop Offset="0.3" Color="#d40b0908"/>
         <GradientStop Offset="1" Color="{StaticResource transparentBlack}" />
     </LinearGradientBrush> 
     
     <LinearGradientBrush x:Key="OpacityMaskShadingBrush" Opacity="1.0" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0" Color="#F1FFFFFF"/>
-        <GradientStop Offset="0.3" Color="#E1FFFFFF" />
-        <GradientStop Offset="0.8" Color="#BCFFFFFF" />
-        <GradientStop Offset="1" Color="Transparent" />
+        <GradientStop Offset="0" Color="#f7FFFFFF"/>
+        <GradientStop Offset="0.3" Color="#f7FFFFFF" />
+        <GradientStop Offset="0.8" Color="#e3FFFFFF" />
+        <GradientStop Offset="1" Color="#c2FFFFFF" />
     </LinearGradientBrush>
 
     <Style x:Key="MultiselectInactiveOverlay" TargetType="Rectangle">
@@ -1642,7 +1500,7 @@
     </Style>
 
     <ControlTemplate x:Key="Template.InventoryListBoxItem" TargetType="ListBoxItem">
-        <ls:LSEntityObject x:Name="CellRoot" Context="{Binding (ls:ContextMenuService.Context) , RelativeSource={RelativeSource Mode=TemplatedParent} }" ls:ContextMenuService.GenerateEnabled="False" DataContext="{Binding Object}" EntityRef="{Binding EntityHandle}" Background="{TemplateBinding Background}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="6" ToolTipService.VerticalOffset="120" Focusable="True" ls:MoveFocus.Focusable="True" Tag="">
+        <ls:LSEntityObject x:Name="CellRoot" Context="{Binding (ls:ContextMenuService.Context) , RelativeSource={RelativeSource Mode=TemplatedParent} }" ls:ContextMenuService.GenerateEnabled="False" DataContext="{Binding Object}" EntityRef="{Binding EntityHandle}" Background="{TemplateBinding Background}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="6" ToolTipService.VerticalOffset="120" Focusable="True" ls:MoveFocus.Focusable="True" Tag="" Visibility="Visible">
             <ls:LSEntityObject.ToolTip>
                 <ls:LSTooltip Content="{Binding DataContext.Object,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </ls:LSEntityObject.ToolTip>
@@ -1650,15 +1508,22 @@
                 <ls:ContextMenuFillBehavior Context="{Binding (ls:ContextMenuService.Context) , RelativeSource={RelativeSource Mode=TemplatedParent} }" Player="{Binding DataContext.CurrentPlayer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" TargetObject="{Binding .}" Source="{Binding SelectedItems,RelativeSource={RelativeSource AncestorType=ListBox}}" Command="{Binding DataContext.ContextActionPressed, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" MultiSelectThreshold="1" RequireTargetInList="False"/>
             </b:Interaction.Behaviors>
             <b:Interaction.Triggers>
+                <!-- Progressive line by line appearance to lessen stalling -->
+                <b:TimerTrigger EventName="Loaded" TotalTicks="1" MillisecondsPerTick="{Binding RelativeSource={RelativeSource TemplatedParent},Path=(ls:LSGrid.Row), Converter={StaticResource MultiplierConverter}, ConverterParameter=20}">
+                    <b:ChangePropertyAction TargetName="CellContent" PropertyName="Visibility" Value="Visible" />
+                </b:TimerTrigger>
                 <b:DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=CellRoot}" Value="True">
                     <b:InvokeCommandAction Command="{Binding DataContext.ClearItemNewFlag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding .}"/>
                 </b:DataTrigger>
             </b:Interaction.Triggers>
-            <ContentPresenter IsHitTestVisible="False"/>
-            <Image x:Name="SelectOverlay" Source="{StaticResource InvSlot_SelectionOverlay}" IsHitTestVisible="False" Visibility="Hidden" />
-            <Rectangle x:Name="InactiveOverlay" Visibility="{Binding Visibility, ElementName=SelectOverlay, Converter={StaticResource InvertVisibilityConverter}}" Style="{StaticResource MultiselectInactiveOverlay}"/>
-            <Control x:Name="FocusOverlay" Visibility="Collapsed" Template="{DynamicResource FocusableBorderTemplate}"/>
-            <Control Style="{StaticResource NewInventoryCellItemStyle}"/>
+            <Grid x:Name="CellContent" Visibility="Collapsed">
+                <ContentPresenter IsHitTestVisible="False"/>
+                <Image x:Name="SelectOverlay" Source="{StaticResource InvSlot_SelectionOverlay}" IsHitTestVisible="False" Visibility="Hidden" />
+                <Rectangle x:Name="InactiveOverlay" Visibility="{Binding Visibility, ElementName=SelectOverlay, Converter={StaticResource InvertVisibilityConverter}}" Style="{StaticResource MultiselectInactiveOverlay}"/>
+                <Control x:Name="FocusOverlay" Visibility="Collapsed" Template="{DynamicResource FocusableBorderTemplate}"/>
+                <Control Style="{StaticResource NewInventoryCellItemStyle}"/>
+            </Grid>
+
         </ls:LSEntityObject>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
@@ -1672,20 +1537,6 @@
             <Trigger SourceName="CellRoot" Property="ls:MoveFocus.IsFocused" Value="True">
                 <Setter TargetName="FocusOverlay" Property="Visibility" Value="Visible" />
             </Trigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext.IsInventoryLocked, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="True"/>
-                    <Condition Value="False">
-                        <Condition.Binding>
-                            <MultiBinding Converter="{StaticResource EqualConverter}">
-                                <Binding Path="DataContext.OwnerUserID" RelativeSource="{RelativeSource AncestorType={x:Type ItemsControl}}"/>
-                                <Binding Path="DataContext.CurrentPlayer.UserId" RelativeSource="{RelativeSource AncestorType={x:Type ls:UIWidget}}"/>
-                            </MultiBinding>
-                        </Condition.Binding>
-                    </Condition>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="CellRoot" Property="Tag" Value="InventoryLocked"/>
-            </MultiDataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>
