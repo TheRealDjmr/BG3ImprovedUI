@@ -47,16 +47,20 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 
 ### Race Icons
 - Astralities' Tiefling Compendium — https://www.nexusmods.com/baldursgate3/mods/2418
+- Elemental Power - Playable Genasi — https://www.nexusmods.com/baldursgate3/mods/4741
 - Embrace The Pain - Witch Elf — https://www.nexusmods.com/baldursgate3/mods/3490/
 - Fizbans Treasury of Dragons — https://www.nexusmods.com/baldursgate3/mods/1793
-- Followers of Zerthimon - Githzerai - https://www.nexusmods.com/baldursgate3/mods/3460
+- Followers of Zerthimon - Githzerai — https://www.nexusmods.com/baldursgate3/mods/3460
 - Half angel (Aasimar 5E) — https://www.nexusmods.com/baldursgate3/mods/1824
+- Half-Dragon — https://www.nexusmods.com/baldursgate3/mods/2634
 - Plus Races - Gnoll — https://www.nexusmods.com/baldursgate3/mods/3872
 - Plus Races - Rework — https://www.nexusmods.com/baldursgate3/mods/3865
 - Shadar-Kai — https://www.nexusmods.com/baldursgate3/mods/1305
+- Transient Guests Are We - Playable Dhampir — https://www.nexusmods.com/baldursgate3/mods/4750
 - Whispers of the Divine: Aasimar Race — https://www.nexusmods.com/baldursgate3/mods/4159
 - Whispers of the Fey: Changelings Race — https://www.nexusmods.com/baldursgate3/mods/3110
 - Whispers of the Fey: Goblins Race — https://www.nexusmods.com/baldursgate3/mods/3254
+- Wine and Revelry (Satyr Race) — https://www.nexusmods.com/baldursgate3/mods/428
 
 
 ### Background Icons
@@ -66,6 +70,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 ### Deity Icons
 - Faithful and Faithless — https://www.nexusmods.com/baldursgate3/mods/1512
 - Gods Extra — https://www.nexusmods.com/baldursgate3/mods/433
+- Plus Deities — https://www.nexusmods.com/baldursgate3/mods/5289
 
 ### Action Resource Icons
 
@@ -77,9 +82,11 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | Boots of Living Flames | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3769) |
 | Death Knight Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1725) |
 | Demon Hunter Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3165) |
+| Dual Wielding Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4500) |
 | Echo Knight Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3939) |
 | Expansion (Bladesinger Only) | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
 | Followers of Zerthimon - Githzerai | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
+| Illithid Powers Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4029) |
 | Improved Breath Weapon | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Magus | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
