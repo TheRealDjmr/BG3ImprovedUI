@@ -3473,7 +3473,6 @@
                         </DataTemplate.Triggers>
                     </DataTemplate>
 
-
                 </StackPanel.Resources>
                 <TextBlock x:Name="skillsTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h12abe296ga0fbg44feg9451gb10a0bf92acb, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}" Margin="0,20,0,0"/>
 
@@ -3578,7 +3577,7 @@
                             </TextBlock.Text>
                         </TextBlock>
                     </StackPanel>
-                    <ItemsControl x:Name="selectableRaceCheckboxes" Grid.Row="1" Grid.Column="2" Width="100" ItemsSource="{Binding SortedItems, ElementName=SortedRaceSkills}" ItemTemplate="{StaticResource AllSkillTemplate}" Tag="Race" Visibility="{Binding RaceSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
+                    <ItemsControl x:Name="selectableRaceCheckboxes" Grid.Row="1" Grid.Column="2" Width="100" ItemsSource="{Binding SortedItems, ElementName=SortedRaceSkills}" ItemTemplate="{StaticResource AllSkillTemplate}" Tag="Race" Opacity="1.0" Visibility="{Binding RaceSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
 
                     <StackPanel x:Name="selectableClassSkills" Grid.Row="0" Grid.Column="3" Width="100" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}">
                         <StackPanel.ToolTip>
@@ -3638,18 +3637,20 @@
             <DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.IsComplete}" Value="False">
                 <Setter TargetName="ExpertiseSkillsTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="Respec">
-                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="FullRespec">
-                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="LevelUp">
-                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
+			<!-- MOD START - Always show Race skills if applicable -->
+			<!--<DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="Respec">
+				<Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="FullRespec">
+				<Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="LevelUp">
+				<Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>-->
+			<!-- MOD END -->
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
