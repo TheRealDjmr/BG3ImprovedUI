@@ -477,6 +477,8 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding ProgressionData.RaceProgression.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                         <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+						<!-- MOD START - edit skills when given by proficiency and expertise -->
+						<Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
                     </DataTrigger>
 
                     <!-- Subclass has a selection -->
@@ -484,20 +486,17 @@
                         <Setter TargetName="subClassTab" Property="Visibility" Value="Visible"/>
                     </DataTrigger>
 
-                    <DataTrigger Binding="{Binding RaceSkills.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
-                        <Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding ClassSkills.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
-                        <Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
-                        <Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
-                    </DataTrigger>
-                    <!-- Only show a separate Ability Tab when starting a new multiclass -->
-                    <DataTrigger Binding="{Binding SelectedMultiClass.Level, Converter={StaticResource GreaterThanConverter}, 
-ConverterParameter=0}" Value="True">
-                        <Setter TargetName="abilityTab" Property="Visibility" Value="Collapsed"/>
-                    </DataTrigger>
+					<DataTrigger Binding="{Binding ProgressionData.ClassProgression.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<!-- Only show a separate Ability Tab when starting a new multiclass -->
+					<!--<DataTrigger Binding="{Binding SelectedMultiClass.Level, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="abilityTab" Property="Visibility" Value="Collapsed"/>
+					</DataTrigger>-->
+					<!-- MOD END -->
 
                     <!--
                 Gameplay Panel Content 
@@ -872,9 +871,11 @@ ConverterParameter=0}" Value="True"/>
                                                         <ContentControl Template="{DynamicResource LevelUpShowFeaturesTemplate}" DataContext="{Binding ProgressionData.ClassProgression.Other}" Content="{Binding Source='h4c3d6eacgf0adg4c31gb11ag3d4736a7fac3', Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center"/>
                                                     </ListBoxItem>
 
-                                                    <ListBoxItem Visibility="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}" Template="{StaticResource levelUpListBoxItemTemplate}">
-                                                        <!-- Skill Proficiency and Expertise -->
-                                                        <ContentControl Template="{StaticResource NewItemStripTemplate}" Visibility="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,50">
+													<!-- MOD START - edit skills when given by proficiency and expertise -->
+													<ListBoxItem x:Name="featureSkills" Visibility="Collapsed" Template="{StaticResource levelUpListBoxItemTemplate}">
+														<!-- Skill Proficiency and Expertise -->
+														<ContentControl Template="{StaticResource NewItemStripTemplate}" Margin="0,0,0,50">
+														<!-- MOD END -->
                                                             <Grid>
                                                                 <StackPanel HorizontalAlignment="Stretch">
                                                                     <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h12abe296ga0fbg44feg9451gb10a0bf92acb, Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center"/>
@@ -1040,6 +1041,17 @@ ConverterParameter=0}" Value="True"/>
                                         <DataTrigger Binding="{Binding ActualHeight, ElementName=featureSpells}" Value="0">
                                             <Setter TargetName="featureSpells" Property="Visibility" Value="Hidden"/>
                                         </DataTrigger>
+										<!-- MOD START - edit skills when given by proficiency and expertise -->
+										<DataTrigger Binding="{Binding AllSkills.RaceProficientSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+											<Setter TargetName="featureSkills" Property="Visibility" Value="Visible"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+											<Setter TargetName="featureSkills" Property="Visibility" Value="Visible"/>
+										</DataTrigger>
+										<DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+											<Setter TargetName="featureSkills" Property="Visibility" Value="Visible"/>
+										</DataTrigger>
+										<!-- MOD END -->
                                         <DataTrigger Binding="{Binding ActualHeight, ElementName=subClassFeatureSpells}" Value="0">
                                             <Setter TargetName="subClassFeatureSpells" Property="Visibility" Value="Hidden"/>
                                         </DataTrigger>                                        
