@@ -101,4 +101,5 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | Wizard Traditions - Runesmith | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2563) |
 
 ### Other Mods
+- Colorful Words — https://www.nexusmods.com/baldursgate3/mods/5327
 - Stackable Items — https://www.nexusmods.com/baldursgate3/mods/1668
