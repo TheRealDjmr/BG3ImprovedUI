@@ -479,14 +479,15 @@
                         <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
 						<!-- MOD START - edit skills when given by proficiency and expertise -->
 						<Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
-                    </DataTrigger>
-
-                    <!-- Subclass has a selection -->
-                    <DataTrigger Binding="{Binding SelectableSubClasses.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
-                        <Setter TargetName="subClassTab" Property="Visibility" Value="Visible"/>
-                    </DataTrigger>
-
-					<DataTrigger Binding="{Binding ProgressionData.ClassProgression.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+					</DataTrigger>
+					<!-- Subclass has a selection -->
+					<DataTrigger Binding="{Binding SelectableSubClasses.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="subClassTab" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding RaceSkills.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding ClassSkills.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
 						<Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
 					</DataTrigger>
 					<DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
