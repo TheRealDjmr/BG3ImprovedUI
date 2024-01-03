@@ -189,6 +189,8 @@
 	<ImageSource x:Key="EM_Elemental_EssenceUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_missing.png</ImageSource>	
 	<ImageSource x:Key="Z_TheurgyChannelArcana">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana.png</ImageSource>
 	<ImageSource x:Key="Z_TheurgyChannelArcanaUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
+	<ImageSource x:Key="BloodDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence.png</ImageSource>
+	<ImageSource x:Key="BloodDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -328,6 +330,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana">
 				<Setter Property="Source" Value="{StaticResource Z_TheurgyChannelArcana}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BoodDie">
+				<Setter Property="Source" Value="{StaticResource BloodDie}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1171,6 +1176,16 @@
 					<Setter Property="Source" Value="{StaticResource Z_TheurgyChannelArcanaUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BloodDie"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BloodDieUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1724,6 +1739,16 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodDieGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_used.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -2608,6 +2633,20 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+      <DataTrigger Binding="{Binding TypeId}" Value="BloodDie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BloodDieGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BloodDie"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
