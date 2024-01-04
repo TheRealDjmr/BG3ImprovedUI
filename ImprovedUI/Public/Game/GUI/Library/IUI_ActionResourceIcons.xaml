@@ -189,6 +189,12 @@
 	<ImageSource x:Key="EM_Elemental_EssenceUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_missing.png</ImageSource>	
 	<ImageSource x:Key="Z_TheurgyChannelArcana">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana.png</ImageSource>
 	<ImageSource x:Key="Z_TheurgyChannelArcanaUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
+    <ImageSource x:Key="KWEnergyPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki.png</ImageSource>
+	<ImageSource x:Key="KWEnergyPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki_missing.png</ImageSource>
+    <ImageSource x:Key="KWZenkaiPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_d.png</ImageSource>
+	<ImageSource x:Key="KWZenkaiPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_missing.png</ImageSource>
+    <ImageSource x:Key="KWSenzuPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery.png</ImageSource>
+	<ImageSource x:Key="KWSenzuPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -328,6 +334,15 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana">
 				<Setter Property="Source" Value="{StaticResource Z_TheurgyChannelArcana}"/>
+			</DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="KW_Energy">
+				<Setter Property="Source" Value="{StaticResource KWEnergyPoint}"/>
+			</DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="KW_ZenkaiCharge">
+				<Setter Property="Source" Value="{StaticResource KWZenkaiPoint}"/>
+			</DataTrigger>
+            <DataTrigger Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge">
+				<Setter Property="Source" Value="{StaticResource KWSenzuPoint}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1171,6 +1186,39 @@
 					<Setter Property="Source" Value="{StaticResource Z_TheurgyChannelArcanaUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+        
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_Energy"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource KWEnergyPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+        
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_ZenkaiCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource KWZenkaiPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+        
+      <MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource KWSenzuPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1724,6 +1772,36 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+    
+    <ControlTemplate x:Key="ActionResources.ActionGroup.KWEnergyActionGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_ki_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+    
+    <ControlTemplate x:Key="ActionResources.ActionGroup.KWZekaiActionGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_sorc_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+    
+    <ControlTemplate x:Key="ActionResources.ActionGroup.KWSenzuActionGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_NaturalRecovery_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -2608,6 +2686,50 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+        <DataTrigger Binding="{Binding TypeId}" Value="KW_Energy">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KWEnergyActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_Energy"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+        
+        <DataTrigger Binding="{Binding TypeId}" Value="KW_ZenkaiCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KWZekaiActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_ZenkaiCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+        
+        <DataTrigger Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KWSenzuActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>

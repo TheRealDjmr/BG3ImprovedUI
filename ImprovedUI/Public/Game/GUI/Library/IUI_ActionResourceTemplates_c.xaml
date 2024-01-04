@@ -646,6 +646,30 @@
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/OffHandExtraAttack/ActionResources_c/Icons/c_ico_extraAtt_d.png"/>
 			</DataTrigger>
+            
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="KW_Energy">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki.png"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.KiPoint}"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.KiPoint}"/>
+				<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h65345978g6d61g4572g87e0ga850a81ca9bc', Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+            
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="KW_SenzuBeanCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery.png"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.NaturalRecovery}"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.NaturalRecovery}"/>
+				<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h17002d15gd024g41f7ga17bg49b42c867b42', Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+            
+            <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="KW_ZenkaiCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc.png"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.SorceryPoint}"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.SorceryPoint}"/>
+				<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h2b304762g10e7g4f6cg96c4g1432137ef83e', Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
 			<!-- EDIT HERE -->
 
 			<!-- Please leave the below alone -->
@@ -1186,6 +1210,39 @@
 					</Setter.Value>
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+            
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_Energy">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+            
+            <DataTrigger Binding="{Binding TypeId}" Value="KW_ZenkaiCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+            
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 
