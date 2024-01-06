@@ -27,6 +27,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - FF14 White Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2961
 - Harlequin — https://www.nexusmods.com/baldursgate3/mods/2120
 - Hexblade — https://www.nexusmods.com/baldursgate3/mods/1100
+- Ki Warrior — https://www.nexusmods.com/baldursgate3/mods/5677
 - Magus — https://www.nexusmods.com/baldursgate3/mods/422
 - Monk - Way of Springtime <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3605
 - Monk Subclass - Way of the Kensei <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/1330
@@ -66,6 +67,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 
 ### Background Icons
 - Additional Backgrounds — https://www.nexusmods.com/baldursgate3/mods/1874
+- Crafting Skills Extra — https://www.nexusmods.com/baldursgate3/mods/299
 - Was a Goat — https://www.nexusmods.com/baldursgate3/mods/552
 
 ### Deity Icons
@@ -79,7 +81,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | :--- | :--- | :--- | :---: |
 | Alternate Monk | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2266) |
 | Artificer | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1779) |
-| Blood Hunter | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) |
+| Blood Hunter | * | * | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) | (known issue)
 | Boots of Living Flames | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3769) |
 | Death Knight Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1725) |
 | Demon Hunter Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3165) |
