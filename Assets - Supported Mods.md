@@ -21,7 +21,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Death Knight Class — https://www.nexusmods.com/baldursgate3/mods/1725
 - Demon Hunter Class — https://www.nexusmods.com/baldursgate3/mods/3165
 - Drakewarden Subclass — https://www.nexusmods.com/baldursgate3/mods/2838
-- Echo Knight Fighter Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3939
+- Echo Knight Fighter (and War Caster) <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3939
 - Expansion (Bladesinger only) — https://www.nexusmods.com/baldursgate3/mods/279
 - FF14 Red Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2056
 - FF14 White Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2961
@@ -84,7 +84,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | Death Knight Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1725) |
 | Demon Hunter Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3165) |
 | Dual Wielding Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4500) |
-| Echo Knight Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3939) |
+| Echo Knight Fighter (and War Caster) | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3939) |
 | Expansion (Bladesinger Only) | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
 | Followers of Zerthimon - Githzerai | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Illithid Powers Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4029) |
@@ -92,6 +92,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | Magus | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
+| UA7 Archfey Warlock | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5703) |
 | Vanguard Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
 | Vessel Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4133/) |
 | Warlock: The Undead subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3045) |
