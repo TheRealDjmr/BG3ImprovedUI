@@ -191,6 +191,8 @@
 	<ImageSource x:Key="Z_TheurgyChannelArcanaUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
 	<ImageSource x:Key="BloodDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence.dds</ImageSource>
 	<ImageSource x:Key="BloodDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_missing.dds</ImageSource>
+	<ImageSource x:Key="StowedSoul">pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_d.png</ImageSource>
+	<ImageSource x:Key="StowedSoulUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -342,6 +344,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="BloodDie">
 				<Setter Property="Source" Value="{StaticResource BloodDie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="StowedSoul">
+				<Setter Property="Source" Value="{StaticResource StowedSoul}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1225,6 +1230,16 @@
 					<Setter Property="Source" Value="{StaticResource BloodDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StowedSoul"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource StowedSoulUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1788,6 +1803,16 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence.dds</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_used.dds</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_missing.dds</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.StowedSoulGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -2726,6 +2751,20 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="BloodDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="StowedSoul">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.StowedSoulGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StowedSoul"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
