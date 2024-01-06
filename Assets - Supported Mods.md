@@ -102,7 +102,8 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | Whispers of the Fey: Goblins Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3254) |
 | Wielder Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3829) |
 | Wizard Traditions - Runesmith | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2563) |
-* (known issue)
+
+(*) (known issue)
 
 ### Other Mods
 - Colorful Words — https://www.nexusmods.com/baldursgate3/mods/5327
