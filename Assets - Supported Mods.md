@@ -16,6 +16,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Alternate Monk <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer — https://www.nexusmods.com/baldursgate3/mods/1779
 - Blood Hunter — https://www.nexusmods.com/baldursgate3/mods/2151
+- Bloodletter - A Rogue Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5018
 - Cleric Subclasses — https://www.nexusmods.com/baldursgate3/mods/432
 - Death Domain Subclass — https://www.nexusmods.com/baldursgate3/mods/1552
 - Death Knight Class — https://www.nexusmods.com/baldursgate3/mods/1725
@@ -82,6 +83,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 | Alternate Monk | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2266) |
 | Artificer | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1779) |
 | Blood Hunter | * | * | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) |
+| Bloodletter - A Rogue Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5018) |
 | Boots of Living Flames | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3769) |
 | Death Knight Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1725) |
 | Demon Hunter Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3165) |
