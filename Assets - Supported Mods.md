@@ -20,6 +20,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Cleric Subclasses — https://www.nexusmods.com/baldursgate3/mods/432
 - Death Domain Subclass — https://www.nexusmods.com/baldursgate3/mods/1552
 - Death Knight Class — https://www.nexusmods.com/baldursgate3/mods/1725
+- Death Soul - Sorcerer Subclass — https://www.nexusmods.com/baldursgate3/mods/5763
 - Demon Hunter Class — https://www.nexusmods.com/baldursgate3/mods/3165
 - Drakewarden Subclass — https://www.nexusmods.com/baldursgate3/mods/2838
 - Echo Knight Fighter (and War Caster) <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3939
