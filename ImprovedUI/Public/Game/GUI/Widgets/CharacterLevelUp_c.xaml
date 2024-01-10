@@ -313,6 +313,9 @@
                                     <ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="Collapsed"/>
                                     <ListBoxItem x:Name="draconicDragonbornTab" Tag="draconicDragonborn" Visibility="Collapsed"/>
 
+									<!-- MOD START - Add race skill selection into CC -->
+									<ListBoxItem x:Name="raceSkillsTab" Tag="raceskills" IsEnabled="{Binding AllSkills.RaceProficientSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}"/>
+									<!-- MOD END -->
                                     <ListBoxItem x:Name="skillsTab" Tag="skills" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
                                     <ListBoxItem x:Name="expertiseTab" Tag="expertise" Visibility="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
 
@@ -1477,6 +1480,12 @@ ConverterParameter=0}" Value="True"/>
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
+
+					<!-- MOD START - Add race skill selection into CC -->
+					<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="raceskills">
+						<Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource raceSkillProficiencyPanelTemplate}"/>
+					</DataTrigger>
+					<!-- MOD END -->
 
                     <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="skills">
                         <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource skillProficiencyPanelTemplate}"/>

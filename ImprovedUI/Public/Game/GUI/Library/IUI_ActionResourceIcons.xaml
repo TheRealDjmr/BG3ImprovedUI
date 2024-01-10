@@ -189,6 +189,12 @@
 	<ImageSource x:Key="EM_Elemental_EssenceUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Elemental_Mayhem/Shared/Resources/ico_classRes_EM_Elemental_Essence_missing.png</ImageSource>	
 	<ImageSource x:Key="Z_TheurgyChannelArcana">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana.png</ImageSource>
 	<ImageSource x:Key="Z_TheurgyChannelArcanaUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
+	<ImageSource x:Key="BloodDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence.dds</ImageSource>
+	<ImageSource x:Key="BloodDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_missing.dds</ImageSource>
+	<ImageSource x:Key="DWE_UAStepsOfTheFeyCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/UAArchfey/Shared/Resources/ico_classRes_DWE_UAStepsOfTheFeyCharge.png</ImageSource>
+	<ImageSource x:Key="DWE_UAStepsOfTheFeyChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/UAArchfey/Shared/Resources/ico_classRes_DWE_UAStepsOfTheFeyCharge_missing.png</ImageSource>
+	<ImageSource x:Key="StowedSoul">pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_d.png</ImageSource>
+	<ImageSource x:Key="StowedSoulUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -328,6 +334,24 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana">
 				<Setter Property="Source" Value="{StaticResource Z_TheurgyChannelArcana}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_Energy">
+				<Setter Property="Source" Value="{StaticResource KiPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_ZenkaiCharge">
+				<Setter Property="Source" Value="{StaticResource SorceryPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge">
+				<Setter Property="Source" Value="{StaticResource NaturalRecovery}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodDie">
+				<Setter Property="Source" Value="{StaticResource BloodDie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_UAStepsOfTheFeyCharge">
+				<Setter Property="Source" Value="{StaticResource DWE_UAStepsOfTheFeyCharge}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="StowedSoul">
+				<Setter Property="Source" Value="{StaticResource StowedSoul}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1151,7 +1175,7 @@
 			        <Setter Property="Source" Value="{StaticResource OffHandExtraAttackChargeUnavailable}"/>
 			    </MultiDataTrigger.Setters>
 			</MultiDataTrigger>	
-      <MultiDataTrigger>
+			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="EM_Elemental_Essence"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
@@ -1161,7 +1185,7 @@
 					<Setter Property="Source" Value="{StaticResource EM_Elemental_EssenceUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-      <MultiDataTrigger>
+			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
@@ -1169,6 +1193,66 @@
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Source" Value="{StaticResource Z_TheurgyChannelArcanaUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_Energy"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource KiPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_ZenkaiCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SorceryPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource NaturalRecoveryUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BloodDie"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BloodDieUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_UAStepsOfTheFeyCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource DWE_UAStepsOfTheFeyChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StowedSoul"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource StowedSoulUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
@@ -1724,6 +1808,36 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Z_TheurgyWizard/Shared/Resources/ico_theurgist_ChannelArcana_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodDieGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence.dds</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence.dds</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_used.dds</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Bloodletter/Shared/Resources/ico_classRes_BloodEssence_missing.dds</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.DWE_UAStepsOfTheFeyChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/UAArchfey/Shared/Resources/ico_classRes_DWE_UAStepsOfTheFeyCharge_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/UAArchfey/Shared/Resources/ico_classRes_DWE_UAStepsOfTheFeyCharge.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/UAArchfey/Shared/Resources/ico_classRes_DWE_UAStepsOfTheFeyCharge_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/UAArchfey/Shared/Resources/ico_classRes_DWE_UAStepsOfTheFeyCharge_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.StowedSoulGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -2561,32 +2675,32 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SiaelIPORes">
-			    <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SiaelIPOResGroup}"/>
-			    <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SiaelIPOResGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
 			</DataTrigger>
 			<MultiDataTrigger>
-			    <MultiDataTrigger.Conditions>
-			        <Condition Binding="{Binding TypeId}" Value="SiaelIPORes"/>
-			        <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-			    </MultiDataTrigger.Conditions>
-			    <MultiDataTrigger.Setters>
-			        <Setter Property="Margin" Value="0,-15,0,0"/>
-			    </MultiDataTrigger.Setters>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SiaelIPORes"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>	
 			<DataTrigger Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge">
-			    <Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.OffHandExtraAttackChargeGroup}"/>
-			    <Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.OffHandExtraAttackChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
 			</DataTrigger>
 			<MultiDataTrigger>
-			    <MultiDataTrigger.Conditions>
-			        <Condition Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge"/>
-			        <Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-			    </MultiDataTrigger.Conditions>
-			    <MultiDataTrigger.Setters>
-			        <Setter Property="Margin" Value="0,-15,0,0"/>
-			    </MultiDataTrigger.Setters>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="OffHandExtraAttackCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-      <DataTrigger Binding="{Binding TypeId}" Value="EM_Elemental_Essence">
+			<DataTrigger Binding="{Binding TypeId}" Value="EM_Elemental_Essence">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.EM_Elemental_EssenceGroup}"/>
 				<Setter Property="MaxGroupActionPoints" Value="1"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -2600,7 +2714,7 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-      <DataTrigger Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana">
+			<DataTrigger Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.Z_TheurgyChannelArcanaGroup}"/>
 				<Setter Property="MaxGroupActionPoints" Value="1"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -2608,6 +2722,88 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="Theurgist_Channel_Arcana"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_Energy">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KiActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_Energy"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_ZenkaiCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SorceryPointGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_ZenkaiCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.NaturalRecoveryPointActionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+				<Setter Property="Foreground" Value="{StaticResource ActionResource.NaturalRecovery}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-18,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodDie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BloodDieGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BloodDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_UAStepsOfTheFeyCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DWE_UAStepsOfTheFeyChargeGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DWE_UAStepsOfTheFeyCharge"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="StowedSoul">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.StowedSoulGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StowedSoul"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
