@@ -51,6 +51,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 
 ### Race Icons
 - Astralities' Tiefling Compendium — https://www.nexusmods.com/baldursgate3/mods/2418
+- The Dunmer - Playable Dark Elf Race — https://www.nexusmods.com/baldursgate3/mods/4076
 - Elemental Power - Playable Genasi — https://www.nexusmods.com/baldursgate3/mods/4741
 - Embrace The Pain - Witch Elf — https://www.nexusmods.com/baldursgate3/mods/3490/
 - Fizbans Treasury of Dragons — https://www.nexusmods.com/baldursgate3/mods/1793
