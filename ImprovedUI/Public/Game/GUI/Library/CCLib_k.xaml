@@ -1925,7 +1925,7 @@
         <StackPanel>
             <Grid HorizontalAlignment="Center">
 				<!-- MOD START - Use main class instead of subclass icon -->
-				<Image x:Name="icon" Style="{StaticResource MainClassIconHotbarStyle}" Stretch="None"/>
+				<Image x:Name="icon" Style="{StaticResource MainClassIconHotbarStyle}" MaxWidth="140" Stretch="Uniform"/>
 				<!-- MOD END -->
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Width="148" Height="148"/>
 
@@ -3686,13 +3686,15 @@
                                     </ls:LSTooltip>
                                 </StackPanel.ToolTip>
 
-                                <Image Style="{StaticResource ClassIconHotbarStyle}" Stretch="None"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+								<!-- MOD START - Resize subclass icon if too big -->
+								<Image Style="{StaticResource ClassIconHotbarStyle}" MaxWidth="150" Stretch="Uniform"/>
+							</StackPanel>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 
-                <Image x:Name="SelectedSubclassIcon" Style="{StaticResource ClassIconHotbarStyle}" Stretch="None" DataContext="{Binding SelectedSubclass}" Visibility="Collapsed"/>
+				<Image x:Name="SelectedSubclassIcon" Style="{StaticResource ClassIconHotbarStyle}" MaxWidth="150" Stretch="Uniform" DataContext="{Binding SelectedSubclass}" Visibility="Collapsed"/>
+				<!-- MOD END -->
             </StackPanel>
         </ContentControl>
 
