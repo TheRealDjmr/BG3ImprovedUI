@@ -203,6 +203,12 @@
 	<ImageSource x:Key="InvokeTheHellsResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_missing.png</ImageSource>
 	<ImageSource x:Key="BloodPriceDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_d.png</ImageSource>
 	<ImageSource x:Key="BloodPriceDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_missing.png</ImageSource>
+	<ImageSource x:Key="SB_ShamanSpellSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_d.png</ImageSource>
+	<ImageSource x:Key="SB_ShamanSpellSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_missing.png</ImageSource>
+	<ImageSource x:Key="SB_Shaman_EvilEyeCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_EvilEye_d.png</ImageSource>
+	<ImageSource x:Key="SB_Shaman_EvilEyeChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_EvilEye_missing.png</ImageSource>
+	<ImageSource x:Key="SB_Shaman_LifeCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_d.png</ImageSource>
+	<ImageSource x:Key="SB_Shaman_LifeChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -372,6 +378,15 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="BloodPriceDie">
 				<Setter Property="Source" Value="{StaticResource BloodPriceDie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SB_ShamanSpellSlot">
+				<Setter Property="Source" Value="{StaticResource SB_ShamanSpellSlot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SB_Shaman_LifeCharge">
+				<Setter Property="Source" Value="{StaticResource SB_Shaman_LifeCharge}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SB_Shaman_EvilEyeCharge">
+				<Setter Property="Source" Value="{StaticResource SB_Shaman_EvilEyeCharge}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1315,6 +1330,36 @@
 						<Setter Property="Source" Value="{StaticResource BloodPriceDieUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SB_ShamanSpellSlot"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SB_ShamanSpellSlotUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SB_Shaman_EvilEyeCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SB_Shaman_EvilEyeChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SB_Shaman_LifeCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SB_Shaman_LifeChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1940,6 +1985,34 @@
 				<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.SB_ShamanSpellSlotGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.SB_Shaman_EvilEyeChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_EvilEye_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_EvilEye_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_EvilEye_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_EvilEye_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.SB_Shaman_LifeChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
 	<!-- EDIT HERE -->
@@ -2962,6 +3035,45 @@
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="BloodPriceDie"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SB_ShamanSpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SB_ShamanSpellSlotGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SB_ShamanSpellSlot"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SB_Shaman_EvilEyeCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SB_Shaman_EvilEyeChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SB_Shaman_EvilEyeCharge"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SB_Shaman_LifeCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SB_Shaman_LifeChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SB_Shaman_LifeCharge"/>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
