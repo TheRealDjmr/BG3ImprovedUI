@@ -195,13 +195,21 @@
 	<ImageSource x:Key="DWE_UAStepsOfTheFeyChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/UAArchfey/Shared/Resources/ico_classRes_DWE_UAStepsOfTheFeyCharge_missing.png</ImageSource>
 	<ImageSource x:Key="StowedSoul">pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_d.png</ImageSource>
 	<ImageSource x:Key="StowedSoulUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_missing.png</ImageSource>
-	<!-- EDIT HERE -->
+	<ImageSource x:Key="InfernalConduitCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_d.png</ImageSource>
+	<ImageSource x:Key="InfernalConduitChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_missing.png</ImageSource>
+	<ImageSource x:Key="BalefulSealResource">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_d.png</ImageSource>
+	<ImageSource x:Key="BalefulSealResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_missing.png</ImageSource>
+	<ImageSource x:Key="InvokeTheHellsResource">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_d.png</ImageSource>
+	<ImageSource x:Key="InvokeTheHellsResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_missing.png</ImageSource>
+	<ImageSource x:Key="BloodPriceDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_d.png</ImageSource>
+	<ImageSource x:Key="BloodPriceDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_missing.png</ImageSource>
 	<ImageSource x:Key="SB_ShamanSpellSlot">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_d.png</ImageSource>
 	<ImageSource x:Key="SB_ShamanSpellSlotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_missing.png</ImageSource>
 	<ImageSource x:Key="SB_Shaman_EvilEyeCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_EvilEye_d.png</ImageSource>
 	<ImageSource x:Key="SB_Shaman_EvilEyeChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_EvilEye_missing.png</ImageSource>
 	<ImageSource x:Key="SB_Shaman_LifeCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_d.png</ImageSource>
 	<ImageSource x:Key="SB_Shaman_LifeChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_missing.png</ImageSource>
+	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
@@ -359,16 +367,28 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="StowedSoul">
 				<Setter Property="Source" Value="{StaticResource StowedSoul}"/>
 			</DataTrigger>
-			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="InfernalConduitCharge">
+				<Setter Property="Source" Value="{StaticResource InfernalConduitCharge}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BalefulSealResource">
+				<Setter Property="Source" Value="{StaticResource BalefulSealResource}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="InvokeTheHellsResource">
+				<Setter Property="Source" Value="{StaticResource InvokeTheHellsResource}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodPriceDie">
+				<Setter Property="Source" Value="{StaticResource BloodPriceDie}"/>
+			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SB_ShamanSpellSlot">
 				<Setter Property="Source" Value="{StaticResource SB_ShamanSpellSlot}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SB_Shaman_LifeCharge">
 				<Setter Property="Source" Value="{StaticResource SB_Shaman_LifeCharge}"/>
-			</DataTrigger>			
+			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SB_Shaman_EvilEyeCharge">
 				<Setter Property="Source" Value="{StaticResource SB_Shaman_EvilEyeCharge}"/>
 			</DataTrigger>
+			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
 
@@ -1270,7 +1290,46 @@
 					<Setter Property="Source" Value="{StaticResource StowedSoulUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<!-- EDIT HERE -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding TypeId}" Value="InfernalConduitCharge"/>
+						<Condition Binding="{Binding Value}" Value="0"/>
+						<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+						<Setter Property="Source" Value="{StaticResource InfernalConduitChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding TypeId}" Value="BalefulSealResource"/>
+						<Condition Binding="{Binding Value}" Value="0"/>
+						<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+						<Setter Property="Source" Value="{StaticResource BalefulSealResourceUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding TypeId}" Value="InvokeTheHellsResource"/>
+						<Condition Binding="{Binding Value}" Value="0"/>
+						<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+						<Setter Property="Source" Value="{StaticResource InvokeTheHellsResourceUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding TypeId}" Value="BloodPriceDie"/>
+						<Condition Binding="{Binding Value}" Value="0"/>
+						<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+						<Setter Property="Source" Value="{StaticResource BloodPriceDieUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="SB_ShamanSpellSlot"/>
@@ -1301,6 +1360,7 @@
 					<Setter Property="Source" Value="{StaticResource SB_Shaman_LifeChargeUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
 
@@ -1886,7 +1946,47 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-	<!-- EDIT HERE -->
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.InfernalConduitChargeActionGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+				<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_h.png</ImageSource>
+				<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_d.png</ImageSource>
+				<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_spent.png</ImageSource>
+				<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BalefulSealResourceActionGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+				<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_h.png</ImageSource>
+				<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_d.png</ImageSource>
+				<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_spent.png</ImageSource>
+				<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.InvokeTheHellsResourceActionGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+				<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_h.png</ImageSource>
+				<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_d.png</ImageSource>
+				<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_spent.png</ImageSource>
+				<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodPriceDieActionGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+				<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_h.png</ImageSource>
+				<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_d.png</ImageSource>
+				<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_spent.png</ImageSource>
+				<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.SB_ShamanSpellSlotGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_Spellslot_h.png</ImageSource>
@@ -1915,6 +2015,7 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
+	<!-- EDIT HERE -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
@@ -2883,7 +2984,62 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="InfernalConduitCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InfernalConduitChargeActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="InfernalConduitCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BalefulSealResource">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BalefulSealResourceActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BalefulSealResource"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="InvokeTheHellsResource">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InvokeTheHellsResourceActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="InvokeTheHellsResource"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodPriceDie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BloodPriceDieActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BloodPriceDie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SB_ShamanSpellSlot">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SB_ShamanSpellSlotGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -2923,6 +3079,7 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
 </ResourceDictionary>
