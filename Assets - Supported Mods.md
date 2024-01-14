@@ -11,7 +11,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 
 
 ### Class/Subclass Icons
-How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
+How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 
 - Alternate Monk <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer — https://www.nexusmods.com/baldursgate3/mods/1779
@@ -22,6 +22,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Death Knight Class — https://www.nexusmods.com/baldursgate3/mods/1725
 - Death Soul - Sorcerer Subclass — https://www.nexusmods.com/baldursgate3/mods/5763
 - Demon Hunter Class — https://www.nexusmods.com/baldursgate3/mods/3165
+- Devil Ascendant <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2541
 - Drakewarden Subclass — https://www.nexusmods.com/baldursgate3/mods/2838
 - Echo Knight Fighter Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3939
 - Expansion (Bladesinger only) — https://www.nexusmods.com/baldursgate3/mods/279
@@ -39,7 +40,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Rogues Extra — https://www.nexusmods.com/baldursgate3/mods/189
 - Samurai — https://www.nexusmods.com/baldursgate3/mods/2245
 - Shadow Sorcerer — https://www.nexusmods.com/baldursgate3/mods/923
-- Sword Dancer of Eilistraee — https://www.nexusmods.com/baldursgate3/mods/5307
+- Sword Dancer of Eilistraee <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5307
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
 - Vanguard Class — https://www.nexusmods.com/baldursgate3/mods/3686
 - Vessel Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/4133/
