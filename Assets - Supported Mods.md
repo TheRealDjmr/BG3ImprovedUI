@@ -39,7 +39,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Guide:Modding_Class_Icons
 - Rogues Extra — https://www.nexusmods.com/baldursgate3/mods/189
 - Samurai — https://www.nexusmods.com/baldursgate3/mods/2245
 - Shadow Sorcerer — https://www.nexusmods.com/baldursgate3/mods/923
-- Sword Dancer of Eilistraee — https://www.nexusmods.com/baldursgate3/mods/5307
+- Sword Dancer of Eilistraee <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5307
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
 - Vanguard Class — https://www.nexusmods.com/baldursgate3/mods/3686
 - Vessel Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/4133/
