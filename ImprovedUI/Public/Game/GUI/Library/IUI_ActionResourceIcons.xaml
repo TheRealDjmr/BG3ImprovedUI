@@ -196,6 +196,16 @@
 	<ImageSource x:Key="StowedSoul">pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_d.png</ImageSource>
 	<ImageSource x:Key="StowedSoulUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/Shared/Resources/ico_styxTiefling_stowedSoul_missing.png</ImageSource>
 	<!-- EDIT HERE -->
+	<!-- Illrigger mod additions for this section -->
+	<ImageSource x:Key="InfernalConduitCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_d.png</ImageSource>
+	<ImageSource x:Key="InfernalConduitChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_missing.png</ImageSource>
+	<ImageSource x:Key="BalefulSealResource">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_d.png</ImageSource>
+	<ImageSource x:Key="BalefulSealResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_missing.png</ImageSource>
+	<ImageSource x:Key="InvokeTheHellsResource">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_d.png</ImageSource>
+	<ImageSource x:Key="InvokeTheHellsResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_missing.png</ImageSource>
+	<ImageSource x:Key="BloodPriceDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_d.png</ImageSource>
+	<ImageSource x:Key="BloodPriceDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_missing.png</ImageSource>
+	<!-- End Illrigger mod additions for this section -->
 
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
@@ -354,6 +364,20 @@
 				<Setter Property="Source" Value="{StaticResource StowedSoul}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
+			<!-- Illrigger mod additions for this section -->
+			<DataTrigger Binding="{Binding TypeId}" Value="InfernalConduitCharge">
+                		<Setter Property="Source" Value="{StaticResource InfernalConduitCharge}"/>
+            		</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BalefulSealResource">
+                		<Setter Property="Source" Value="{StaticResource BalefulSealResource}"/>
+            		</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="InvokeTheHellsResource">
+                		<Setter Property="Source" Value="{StaticResource InvokeTheHellsResource}"/>
+            		</DataTrigger>
+            		<DataTrigger Binding="{Binding TypeId}" Value="BloodPriceDie">
+                		<Setter Property="Source" Value="{StaticResource BloodPriceDie}"/>
+            		</DataTrigger>
+			<!-- End Illrigger mod additions for this section -->
 		</Style.Triggers>
 	</Style>
 
@@ -1256,6 +1280,48 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
+			<!-- Illrigger mod additions for this section -->
+			<MultiDataTrigger>
+                		<MultiDataTrigger.Conditions>
+                    			<Condition Binding="{Binding TypeId}" Value="InfernalConduitCharge"/>
+                    			<Condition Binding="{Binding Value}" Value="0"/>
+                    			<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                		</MultiDataTrigger.Conditions>
+                		<MultiDataTrigger.Setters>
+                    			<Setter Property="Source" Value="{StaticResource InfernalConduitChargeUnavailable}"/>
+                		</MultiDataTrigger.Setters>
+            		</MultiDataTrigger>
+			<MultiDataTrigger>
+                		<MultiDataTrigger.Conditions>
+                    			<Condition Binding="{Binding TypeId}" Value="BalefulSealResource"/>
+                    			<Condition Binding="{Binding Value}" Value="0"/>
+                    			<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                		</MultiDataTrigger.Conditions>
+                		<MultiDataTrigger.Setters>
+                    			<Setter Property="Source" Value="{StaticResource BalefulSealResourceUnavailable}"/>
+                		</MultiDataTrigger.Setters>
+            		</MultiDataTrigger>
+			<MultiDataTrigger>
+                		<MultiDataTrigger.Conditions>
+                    			<Condition Binding="{Binding TypeId}" Value="InvokeTheHellsResource"/>
+                    			<Condition Binding="{Binding Value}" Value="0"/>
+                    			<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                		</MultiDataTrigger.Conditions>
+                		<MultiDataTrigger.Setters>
+                    			<Setter Property="Source" Value="{StaticResource InvokeTheHellsResourceUnavailable}"/>
+                		</MultiDataTrigger.Setters>
+            		</MultiDataTrigger>
+            		<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+                    			<Condition Binding="{Binding TypeId}" Value="BloodPriceDie"/>
+                    			<Condition Binding="{Binding Value}" Value="0"/>
+                    			<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+                		</MultiDataTrigger.Conditions>
+                		<MultiDataTrigger.Setters>
+                    			<Setter Property="Source" Value="{StaticResource BloodPriceDieUnavailable}"/>
+                		</MultiDataTrigger.Setters>
+            		</MultiDataTrigger>
+			<!-- End Illrigger mod additions for this section -->
 		</Style.Triggers>
 	</Style>
 
@@ -1842,6 +1908,47 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
+	<!-- Illrigger mod additions for this section -->
+	<ControlTemplate x:Key="ActionResources.ActionGroup.InfernalConduitChargeActionGroup" TargetType="ls:LSActionPoint">
+        	<ControlTemplate.Resources>
+            		<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_h.png</ImageSource>
+            		<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_d.png</ImageSource>
+            		<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_spent.png</ImageSource>
+            		<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InfernalConduitCharge_missing.png</ImageSource>
+        	</ControlTemplate.Resources>
+        	<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    	</ControlTemplate>
+	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BalefulSealResourceActionGroup" TargetType="ls:LSActionPoint">
+        	<ControlTemplate.Resources>
+            		<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_h.png</ImageSource>
+            		<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_d.png</ImageSource>
+            		<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_spent.png</ImageSource>
+            		<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_missing.png</ImageSource>
+        	</ControlTemplate.Resources>
+        	<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    	</ControlTemplate>
+	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.InvokeTheHellsResourceActionGroup" TargetType="ls:LSActionPoint">
+        	<ControlTemplate.Resources>
+            		<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_h.png</ImageSource>
+            		<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_d.png</ImageSource>
+            		<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_spent.png</ImageSource>
+            		<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_missing.png</ImageSource>
+        	</ControlTemplate.Resources>
+        	<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    	</ControlTemplate>
+
+    	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodPriceDieActionGroup" TargetType="ls:LSActionPoint">
+        	<ControlTemplate.Resources>
+            		<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_h.png</ImageSource>
+            		<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_d.png</ImageSource>
+            		<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_spent.png</ImageSource>
+            		<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_missing.png</ImageSource>
+        	</ControlTemplate.Resources>
+        	<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+    	</ControlTemplate>
+	<!-- End Illrigger mod additions for this section -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
@@ -2810,7 +2917,65 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<!-- EDIT HERE --> 
+			<!-- EDIT HERE -->
+			<!-- Illrigger mod additions for this section -->
+			<DataTrigger Binding="{Binding TypeId}" Value="InfernalConduitCharge">
+                		<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InfernalConduitChargeActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+                		<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            		</DataTrigger>
+            		<MultiDataTrigger>
+                		<MultiDataTrigger.Conditions>
+                    			<Condition Binding="{Binding TypeId}" Value="InfernalConduitCharge"/>
+                    			<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                		</MultiDataTrigger.Conditions>
+                		<MultiDataTrigger.Setters>
+                    			<Setter Property="Margin" Value="0,-15,0,0"/>
+                		</MultiDataTrigger.Setters>
+            		</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BalefulSealResource">
+                		<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BalefulSealResourceActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+                		<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            		</DataTrigger>
+            		<MultiDataTrigger>
+                		<MultiDataTrigger.Conditions>
+                    			<Condition Binding="{Binding TypeId}" Value="BalefulSealResource"/>
+                    			<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                		</MultiDataTrigger.Conditions>
+                		<MultiDataTrigger.Setters>
+                    			<Setter Property="Margin" Value="0,-15,0,0"/>
+                		</MultiDataTrigger.Setters>
+            		</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="InvokeTheHellsResource">
+                		<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InvokeTheHellsResourceActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+                		<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            		</DataTrigger>
+            		<MultiDataTrigger>
+                		<MultiDataTrigger.Conditions>
+                    			<Condition Binding="{Binding TypeId}" Value="InvokeTheHellsResource"/>
+                    			<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                		</MultiDataTrigger.Conditions>
+                		<MultiDataTrigger.Setters>
+                    			<Setter Property="Margin" Value="0,-15,0,0"/>
+                		</MultiDataTrigger.Setters>
+            		</MultiDataTrigger>
+            		<DataTrigger Binding="{Binding TypeId}" Value="BloodPriceDie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BloodPriceDieActionGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+                		<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+            		</DataTrigger>
+            		<MultiDataTrigger>
+                		<MultiDataTrigger.Conditions>
+                    			<Condition Binding="{Binding TypeId}" Value="BloodPriceDie"/>
+                    			<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+                		</MultiDataTrigger.Conditions>
+                		<MultiDataTrigger.Setters>
+                    			<Setter Property="Margin" Value="0,-15,0,0"/>
+                		</MultiDataTrigger.Setters>
+            		</MultiDataTrigger>
+			<!-- End Illrigger mod additions for this section -->
 		</Style.Triggers>
 	</Style>
 </ResourceDictionary>
