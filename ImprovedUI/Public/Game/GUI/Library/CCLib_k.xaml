@@ -1925,7 +1925,7 @@
         <StackPanel>
             <Grid HorizontalAlignment="Center">
 				<!-- MOD START - Use main class instead of subclass icon -->
-				<Image x:Name="icon" Style="{StaticResource MainClassIconHotbarStyle}" Stretch="None"/>
+				<Image x:Name="icon" Style="{StaticResource MainClassIconHotbarStyle}" MaxWidth="140" Stretch="Uniform"/>
 				<!-- MOD END -->
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Width="148" Height="148"/>
 
@@ -3473,7 +3473,6 @@
                         </DataTemplate.Triggers>
                     </DataTemplate>
 
-
                 </StackPanel.Resources>
                 <TextBlock x:Name="skillsTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h12abe296ga0fbg44feg9451gb10a0bf92acb, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}" Margin="0,20,0,0"/>
 
@@ -3638,18 +3637,20 @@
             <DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.IsComplete}" Value="False">
                 <Setter TargetName="ExpertiseSkillsTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="Respec">
-                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="FullRespec">
-                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="LevelUp">
-                <Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
+			<!-- MOD START - Always show Race skills if applicable -->
+			<!--<DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="Respec">
+				<Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="FullRespec">
+				<Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding CurrentPlayer.UIData.CharacterCreationMode}" Value="LevelUp">
+				<Setter TargetName="selectableRaceSkills" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="selectableRaceCheckboxes" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>-->
+			<!-- MOD END -->
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -3685,13 +3686,15 @@
                                     </ls:LSTooltip>
                                 </StackPanel.ToolTip>
 
-                                <Image Style="{StaticResource ClassIconHotbarStyle}" Stretch="None"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+								<!-- MOD START - Resize subclass icon if too big -->
+								<Image Style="{StaticResource ClassIconHotbarStyle}" MaxWidth="150" Stretch="Uniform"/>
+							</StackPanel>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 
-                <Image x:Name="SelectedSubclassIcon" Style="{StaticResource ClassIconHotbarStyle}" Stretch="None" DataContext="{Binding SelectedSubclass}" Visibility="Collapsed"/>
+				<Image x:Name="SelectedSubclassIcon" Style="{StaticResource ClassIconHotbarStyle}" MaxWidth="150" Stretch="Uniform" DataContext="{Binding SelectedSubclass}" Visibility="Collapsed"/>
+				<!-- MOD END -->
             </StackPanel>
         </ContentControl>
 
