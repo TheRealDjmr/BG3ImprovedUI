@@ -15,6 +15,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 
 - Alternate Monk <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2266
 - Artificer — https://www.nexusmods.com/baldursgate3/mods/1779
+- Asgorath Chaos Sorcerer <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5979
 - Blood Hunter — https://www.nexusmods.com/baldursgate3/mods/2151
 - Bloodletter - A Rogue Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5018
 - Cleric Subclasses — https://www.nexusmods.com/baldursgate3/mods/432
@@ -85,6 +86,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | :--- | :--- | :--- | :---: |
 | Alternate Monk | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2266) |
 | Artificer | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1779) |
+| Asgorath Chaos Sorcerer | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/5979) |
 | Blood Hunter | * | * | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) |
 | Bloodletter - A Rogue Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5018) |
 | Boots of Living Flames | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3769) |
