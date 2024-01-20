@@ -72,6 +72,7 @@
 					<Rectangle x:Name="ActionResourceBackgroundStrokeHighlight" HorizontalAlignment="Stretch" Height="72" Fill="Transparent" RadiusX="36" RadiusY="36" Stroke="{StaticResource LS_selectedTextPad}" StrokeThickness="4" Opacity="0">
 					</Rectangle>
 					<StackPanel x:Name="ResourcePointsStack" Orientation="Horizontal" Margin="16,0,0,0">
+						<Image x:Name="KeyboardImage" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource IUI_ActionResourceTypeIdToSource}" DataContext="{Binding ActionResource}"/>
 						<Image x:Name="LevelImage" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,0,0,0"/>
 						<!-- MOD NOTE - Added keyboard icons as fallback here. ActionPointInBetweenMargin is also set here -->
 						<ls:LSActionPointResources x:Name="ResourcePoints"
@@ -95,11 +96,19 @@
 			</StackPanel>
 		</Border>
 		<DataTemplate.Triggers>
-			<!-- Hide ResourcePoints if you have more than 5 and no explicit entry -->
+			<!-- Hide ResourcePoints if you have more than 5 -->
 			<DataTrigger Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=5}" Value="True">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
 			</DataTrigger>
+			<!-- Show KeyboardImage if you have more than 5 and no explicit entry -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=5}" Value="True"/>
+					<Condition Binding="{Binding ElementName=LevelImage, Path=Visibility}" Value="Collapsed"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="KeyboardImage" Property="Visibility" Value="Visible"/>
+			</MultiDataTrigger>
 
 			<DataTrigger Binding="{Binding ActionResource.Level}" Value="1">
 				<Setter TargetName="SpellSlotLabel" Property="Text" Value="{Binding Source='hbdeb8e2fg50e9g424fgbe6dg248268275452',Converter={StaticResource TranslatedStringConverter}}"/>
@@ -758,6 +767,7 @@
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 			</DataTrigger>
+
 			<!-- EDIT HERE -->
 
 			<!-- Please leave the below alone -->
@@ -1399,6 +1409,7 @@
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
+
 			<!-- EDIT HERE -->
 
 
