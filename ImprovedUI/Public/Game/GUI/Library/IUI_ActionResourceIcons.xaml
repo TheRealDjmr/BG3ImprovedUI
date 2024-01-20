@@ -211,6 +211,8 @@
 	<ImageSource x:Key="SB_Shaman_LifeChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/SB_ShamanLL/Shared/Resources/c_ico_classRes_SB_ShamanLL_LifeBringer_missing.png</ImageSource>
 	<ImageSource x:Key="ChaosPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/Asgorath_Chaos_Sorcerer_SHV/Shared/Resources/ico_ChaosPoints.png</ImageSource>
 	<ImageSource x:Key="ChaosPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Asgorath_Chaos_Sorcerer_SHV/Shared/Resources/ico_ChaosPoints_missing.png</ImageSource>
+	<ImageSource x:Key="POTS_EldritchShroud_Charge" >pack://application:,,,/GustavNoesisGUI;component/Assets/PactOfTheShroud/Shared/Resources/ico_pots_eldritchshroud_d.png</ImageSource>
+	<ImageSource x:Key="POTS_EldritchShroud_ChargeUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/PactOfTheShroud/Shared/Resources/ico_pots_eldritchshroud_missing.png</ImageSource>
 	<ImageSource x:Key="ArcaneShot">pack://application:,,,/GustavNoesisGUI;component/Assets/ArcaneArcher5e/Shared/Resources/ico_classRes_ArcaneShot_d.png</ImageSource>
 	<ImageSource x:Key="ArcaneShotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ArcaneArcher5e/Shared/Resources/ico_classRes_ArcaneShot_missing.png</ImageSource>
 	<!-- EDIT HERE -->
@@ -394,6 +396,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="ChaosPoints">
 				<Setter Property="Source" Value="{StaticResource ChaosPoints}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="POTS_EldritchShroudCharges">
+				<Setter Property="Source" Value="{StaticResource POTS_EldritchShroudCharge}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="ArcaneShot">
 				<Setter Property="Source" Value="{StaticResource ArcaneShot}"/>
@@ -1382,6 +1387,16 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="POTS_EldritchShroudCharges"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource POTS_EldritchShroud_ChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="ArcaneShot"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
@@ -1986,7 +2001,6 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BalefulSealResourceActionGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 				<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BalefulInterdict_h.png</ImageSource>
@@ -1996,7 +2010,6 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-
 	<ControlTemplate x:Key="ActionResources.ActionGroup.InvokeTheHellsResourceActionGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 				<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_InvokeTheHells_h.png</ImageSource>
@@ -2006,7 +2019,6 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-
 	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodPriceDieActionGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 				<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Illrigger/Shared/Resources/ico_classRes_BloodPriceDie_h.png</ImageSource>
@@ -2056,6 +2068,16 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="ActionResources.ActionGroup.POTS_EldritchShroudChargesGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/PactOfTheShroud/Shared/Resources/ico_pots_eldritchshroud_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/PactOfTheShroud/Shared/Resources/ico_pots_eldritchshroud_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/PactOfTheShroud/Shared/Resources/ico_pots_eldritchshroud_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/PactOfTheShroud/Shared/Resources/ico_pots_eldritchshroud_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.ArcaneShotGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ArcaneArcher5e/Shared/Resources/ico_classRes_ArcaneShot_h.png</ImageSource>
@@ -2065,7 +2087,7 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-	
+
 	<!-- EDIT HERE -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
@@ -3143,6 +3165,19 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="POTS_EldritchShroudCharges">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.POTS_EldritchShroudChargesGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="POTS_EldritchShroudCharges"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="ArcaneShot">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArcaneShotGroup}"/>
@@ -3157,7 +3192,6 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
