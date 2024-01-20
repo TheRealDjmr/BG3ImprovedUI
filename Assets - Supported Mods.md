@@ -14,6 +14,7 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 
 - Alternate Monk <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2266
+- Arcane Archer 5e Fighter Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/4769
 - Artificer — https://www.nexusmods.com/baldursgate3/mods/1779
 - Asgorath Chaos Sorcerer <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5979
 - Blood Hunter — https://www.nexusmods.com/baldursgate3/mods/2151
@@ -31,6 +32,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - FF14 White Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2961
 - Harlequin — https://www.nexusmods.com/baldursgate3/mods/2120
 - Hexblade — https://www.nexusmods.com/baldursgate3/mods/1100
+- Illrigger Class — https://www.nexusmods.com/baldursgate3/mods/5876
 - Ki Warrior — https://www.nexusmods.com/baldursgate3/mods/5677
 - Magus — https://www.nexusmods.com/baldursgate3/mods/422
 - Monk - Way of Springtime <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3605
@@ -55,11 +57,13 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Astralities' Tiefling Compendium — https://www.nexusmods.com/baldursgate3/mods/2418
 - The Dunmer - Playable Dark Elf Race — https://www.nexusmods.com/baldursgate3/mods/4076
 - Elemental Power - Playable Genasi — https://www.nexusmods.com/baldursgate3/mods/4741
-- Embrace The Pain - Witch Elf — https://www.nexusmods.com/baldursgate3/mods/3490/
+- Embrace The Pain - Witch Elf — https://www.nexusmods.com/baldursgate3/mods/3490
 - Fizbans Treasury of Dragons — https://www.nexusmods.com/baldursgate3/mods/1793
+- Flutter and Whimsy (Fairy Race) — https://www.nexusmods.com/baldursgate3/mods/5127
 - Followers of Zerthimon - Githzerai — https://www.nexusmods.com/baldursgate3/mods/3460
 - Half angel (Aasimar 5E) — https://www.nexusmods.com/baldursgate3/mods/1824
 - Half-Dragon — https://www.nexusmods.com/baldursgate3/mods/2634
+- Orc Half-Elf Subrace — https://www.nexusmods.com/baldursgate3/mods/5943
 - Plus Races - Gnoll — https://www.nexusmods.com/baldursgate3/mods/3872
 - Plus Races - Rework — https://www.nexusmods.com/baldursgate3/mods/3865
 - Shadar-Kai — https://www.nexusmods.com/baldursgate3/mods/1305
@@ -85,6 +89,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Mod Name | Keyboard | Controller | Mod Link |
 | :--- | :--- | :--- | :---: |
 | Alternate Monk | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2266) |
+| Arcane Archer 5e Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4769) |
 | Artificer | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1779) |
 | Asgorath Chaos Sorcerer | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/5979) |
 | Blood Hunter | * | * | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) |
@@ -97,6 +102,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Expansion (Bladesinger Only) | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
 | Followers of Zerthimon - Githzerai | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Illithid Powers Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4029) |
+| Illrigger Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5876) |
 | Improved Breath Weapon | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Magus | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
