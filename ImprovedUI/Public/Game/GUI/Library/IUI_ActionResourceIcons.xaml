@@ -107,6 +107,8 @@
 	<ImageSource x:Key="PsiPointMasteryUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_psi_missing.png</ImageSource>
 	<ImageSource x:Key="RampageDie">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_d.png</ImageSource>
 	<ImageSource x:Key="RampageDieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Shared/Resources/ico_classRes_rampagedie_missing.png</ImageSource>
+	<ImageSource x:Key="BladesongCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
+	<ImageSource x:Key="BladesongChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
 	<ImageSource x:Key="DivinePowerPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_divinepower_d.png</ImageSource>
 	<ImageSource x:Key="DivinePowerPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_divinepower_missing.png</ImageSource>
 	<ImageSource x:Key="FavoredFoePoint">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_favoredfoe.png</ImageSource>
@@ -149,8 +151,6 @@
 	<ImageSource x:Key="ArcanePointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ArcanePointUnavailable.png</ImageSource>
 	<ImageSource x:Key="ConfluxFocus">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
 	<ImageSource x:Key="ConfluxFocusUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConflusFocusUnavailable.png</ImageSource>
-	<ImageSource x:Key="BladesongCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
-	<ImageSource x:Key="BladesongChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
 	<ImageSource x:Key="BloodMaledict">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict.png</ImageSource>
 	<ImageSource x:Key="BloodMaledictUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_BloodMaledict_missing.png</ImageSource>
 	<ImageSource x:Key="HybridTransformation">pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/Shared/Resources/c_ico_res_HybridForm.png</ImageSource>
@@ -262,6 +262,9 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="RampageDie">
 				<Setter Property="Source" Value="{StaticResource RampageDie}"/>
 			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
+				<Setter Property="Source" Value="{StaticResource BladesongCharge}"/>
+			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="DivinePowerPoint">
 				<Setter Property="Source" Value="{StaticResource DivinePowerPoint}"/>
 			</DataTrigger>
@@ -324,9 +327,6 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="ConfluxFocus">
 				<Setter Property="Source" Value="{StaticResource ConfluxFocus}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
-				<Setter Property="Source" Value="{StaticResource BladesongCharge}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="BloodMaledict">
 				<Setter Property="Source" Value="{StaticResource BloodMaledict}"/>
@@ -912,6 +912,16 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BladesongCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BladesongChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="DivinePowerPoint"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
@@ -1118,16 +1128,6 @@
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Source" Value="{StaticResource ConfluxFocusUnavailable}"/>
-				</MultiDataTrigger.Setters>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="BladesongCharge"/>
-					<Condition Binding="{Binding Value}" Value="0"/>
-					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
-				</MultiDataTrigger.Conditions>
-				<MultiDataTrigger.Setters>
-					<Setter Property="Source" Value="{StaticResource BladesongChargeUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<MultiDataTrigger>
@@ -1767,6 +1767,15 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BladesongChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	<ControlTemplate x:Key="ActionResources.ActionGroup.DivinePowerPointGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_divinepower_h.png</ImageSource>
@@ -1962,16 +1971,6 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocus.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUsed.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Magus/Shared/Resources/ico_ConfluxFocusUnavailable.png</ImageSource>
-		</ControlTemplate.Resources>
-		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-	</ControlTemplate>
-
-	<ControlTemplate x:Key="ActionResources.ActionGroup.BladesongChargeGroup" TargetType="ls:LSActionPoint">
-		<ControlTemplate.Resources>
-			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_h.png</ImageSource>
-			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_d.png</ImageSource>
-			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_spent.png</ImageSource>
-			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_bladesong_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -2772,6 +2771,19 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BladesongChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BladesongCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="DivinePowerPoint">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DivinePowerPointGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
@@ -3040,19 +3052,6 @@
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="ConfluxFocus"/>
 					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
-				</MultiDataTrigger.Conditions>
-				<MultiDataTrigger.Setters>
-					<Setter Property="Margin" Value="0,-15,0,0"/>
-				</MultiDataTrigger.Setters>
-			</MultiDataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
-				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BladesongChargeGroup}"/>
-				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
-			</DataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="BladesongCharge"/>
-					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
