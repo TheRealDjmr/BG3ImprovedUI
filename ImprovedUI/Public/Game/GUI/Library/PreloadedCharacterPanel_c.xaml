@@ -40,6 +40,7 @@
 	<BitmapImage x:Key="SlotLightSource" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_slot_lightSource.png"/>
 	<BitmapImage x:Key="MeleeDualWieldLinkIco" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_ico_slotJoin.png"/>
 
+
 	<System:Double x:Key="GenericSlotSize">112</System:Double>
 	<System:Double x:Key="EquipmentSlotSize">112</System:Double>
 	<System:Double x:Key="RaritySlotSize">156</System:Double>
@@ -95,6 +96,7 @@
 				<Setter TargetName="NonMagicalArrow" Property="Visibility" Value="Visible"/>
 				<Setter TargetName="NonMagicalArrow" Property="Source" Value="{StaticResource Vulnerable}"/>
 			</DataTrigger>
+
 			<DataTrigger Binding="{Binding DamageType}" Value="Slashing">
 				<Setter TargetName="Icon" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_ico_resistance_slashing.png"/>
 			</DataTrigger>
@@ -360,9 +362,15 @@
 				</Grid.ColumnDefinitions>
 
 				<Image Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource StatsEntryBgStyle}"/>
-				<Image Grid.Column="0" Visibility="{Binding IsPrimary, Converter={StaticResource BoolToVisibleConverter},FallbackValue=Hidden}"  Stretch="Uniform" VerticalAlignment="Center" Height="60" Width="60" HorizontalAlignment="Right" Source="{StaticResource IconProficiencyStar}" Margin="0,0,0,10"/>
-				<Control x:Name="StatName" Grid.Column="1" Template="{StaticResource StatsDisplayName}" Style="{StaticResource StatsNameStyle}" FontSize="{StaticResource ScaledMediumFontSize}" FontWeight="DemiBold" Margin="2,4,0,0"/>
-				<TextBlock x:Name="ActionResourceName" Grid.Column="1" Text="{Binding Name}" HorizontalAlignment="Left" FontSize="{StaticResource ScaledMediumFontSize}" FontWeight="DemiBold" Margin="2,4,0,0" Visibility="Collapsed"/>
+
+				<Image Grid.Column="0" Visibility="{Binding IsPrimary, Converter={StaticResource BoolToVisibleConverter},FallbackValue=Hidden}"  Stretch="Uniform" VerticalAlignment="Center" Height="60" Width="60" HorizontalAlignment="Right"
+								   Source="{StaticResource IconProficiencyStar}" Margin="0,0,0,10"/>
+
+				<Control x:Name="StatName" Grid.Column="1" Template="{StaticResource StatsDisplayName}" Style="{StaticResource StatsNameStyle}" FontSize="{StaticResource ScaledMediumFontSize}"
+									 FontWeight="DemiBold" Margin="2,4,0,0"/>
+				<TextBlock x:Name="ActionResourceName" Grid.Column="1" Text="{Binding Name}" HorizontalAlignment="Left" FontSize="{StaticResource ScaledMediumFontSize}" FontWeight="DemiBold" Margin="2,4,0,0"
+									   Visibility="Collapsed"/>
+
 				<TextBlock x:Name="TxtValue" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,20,0" Text="{Binding Value}" FontWeight="Bold" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource LS_selectedTextPad}" />
 			</Grid>
 		</ls:LSButton>
@@ -514,7 +522,8 @@
 				</ls:LSTooltip>
 			</ContentControl.ToolTip>
 			<Grid>
-				<Image x:Name="CoverImage" Stretch="Fill" Source="{StaticResource EquipmentSlotCover}" Visibility="{Binding Item, Converter={StaticResource NullToCollapsedConverter}}" Width="{StaticResource CoverSlotSize}" Height="{StaticResource CoverSlotSize}"/>
+				<Image x:Name="CoverImage" Stretch="Fill" Source="{StaticResource EquipmentSlotCover}" Visibility="{Binding Item, Converter={StaticResource NullToCollapsedConverter}}"
+								   Width="{StaticResource CoverSlotSize}" Height="{StaticResource CoverSlotSize}" />
 
 				<Grid x:Name="EquipmentButtonContent" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}">
 					<Image x:Name="RarityBackground" Style="{StaticResource RarityFrameBackgroundImageStyle}" Width="{StaticResource RaritySlotSize}" Height="{StaticResource RaritySlotSize}"/>
@@ -1330,7 +1339,7 @@
 					<ControlTemplate TargetType="{x:Type Expander}">
 						<DockPanel x:Name="DockRoot" Margin="{StaticResource ListPadding}">
 							<Grid DockPanel.Dock="Top">
-								<ls:LSToggleButton x:Name="ExpanderButton" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ls:MoveFocus.Focusable="True" Style="{StaticResource FocusableContentControlNoBG}" Tag="ExpanderGroup" Margin="{StaticResource TextTopBottomMargin}">
+								<ls:LSToggleButton x:Name="ExpanderButton" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource FocusableContentControlNoBG}" Tag="ExpanderGroup" Margin="{StaticResource TextTopBottomMargin}">
 
 									<ls:LSToggleButton.ToolTip>
 										<ls:LSTooltip  ToolTipService.VerticalOffset="0"  ToolTipService.HorizontalOffset="70">
@@ -1341,7 +1350,8 @@
 									<DockPanel>
 										<Image x:Name="Arrow" DockPanel.Dock="Left" Source="{StaticResource ListArrowCollapsed}" Stretch="None" Margin="10,0" VerticalAlignment="Center"/>
 										<TextBlock x:Name="GroupName" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,16,0"/>
-										<TextBlock x:Name="GroupCount" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding DataContext.Count, ElementName=ExpandToggle, StringFormat='{}({0})'}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+										<TextBlock x:Name="GroupCount" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding DataContext.Count, ElementName=ExpandToggle, StringFormat='{}({0})'}"
+													   Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 									</DockPanel>
 									
 								</ls:LSToggleButton>
@@ -1385,9 +1395,12 @@
 					</ControlTemplate>
 				</Expander.Template>
 				<Grid x:Name="Content">
-					<ItemsControl x:Name="ProficiencyList" ItemsSource="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}" ItemTemplate="{StaticResource ProficiencyEntry}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" Tag="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}" Template="{StaticResource MinimalItemsControlTemplate}"/>
+					<ItemsControl x:Name="ProficiencyList" ItemsSource="{Binding Content, RelativeSource={RelativeSource Mode=TemplatedParent}}" ItemTemplate="{StaticResource ProficiencyEntry}"
+										  Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}"
+										  Tag="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}" Template="{StaticResource MinimalItemsControlTemplate}"/>
 
-					<TextBlock x:Name="NonProficient" Visibility="{Binding Visibility, ElementName=ProficiencyList, Converter={StaticResource InvertVisibilityConverter}}" Style="{StaticResource BaseTextStyle}" Margin="64,16,16,0" HorizontalAlignment="Left"/>
+					<TextBlock x:Name="NonProficient" Visibility="{Binding Visibility, ElementName=ProficiencyList, Converter={StaticResource InvertVisibilityConverter}}" Style="{StaticResource BaseTextStyle}"
+									   Margin="64,16,16,0" HorizontalAlignment="Left"/>
 				</Grid>
 			</Expander>
 		</StackPanel>
@@ -1438,7 +1451,8 @@
 		<Setter Property="ItemTemplate">
 			<Setter.Value>
 				<DataTemplate DataType="{x:Type ls:VMSkill}">
-					<ContentControl x:Name="FocusableContent" Style="{StaticResource FocusableContentControlNoBG}" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="-12" ToolTipService.HorizontalOffset="60" Margin="{StaticResource ListPadding}">
+					<ContentControl x:Name="FocusableContent" Style="{StaticResource FocusableContentControlNoBG}" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="-12" ToolTipService.HorizontalOffset="60"
+													Margin="{StaticResource ListPadding}">
 						<DockPanel LastChildFill="False" Margin="{StaticResource listMarginDefault}">
 							<Image DockPanel.Dock="Left" Width="80" Height="80" x:Name="ProficiencyIcon" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Right" Source="{StaticResource IconProficiencyStar}"/>
 
@@ -1519,7 +1533,7 @@
 				</b:DataTrigger>
 
 				<b:EventTrigger EventName="Loaded">
-					<ls:SetMoveFocusAction TargetName="CharacterPanel_c"/>
+					<!--<ls:SetMoveFocusAction TargetName="CharacterPanel_c" DeferFocusAction="True"/>-->
 					<b:InvokeCommandAction Command="{Binding EnableTooltipOnUIElement}"/>
 					<b:ChangePropertyAction TargetObject="{Binding CurrentPlayer}" PropertyName="ShowCampCharacter" Value="{x:Null}"/>
 				</b:EventTrigger>
@@ -1556,7 +1570,9 @@
 			<Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="{StaticResource CharacterSheetBackground}" Stretch="UniformToFill"/>
 
 			<!-- Subpanels -->
-			<Grid x:Name="SubPanelsRoot" ls:TooltipExtender.Owner="{Binding CurrentPlayer.SelectedCharacter}" MaxWidth="3840" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClipToBounds="True">
+
+			<AdornerDecorator>
+				<Grid x:Name="SubPanelsRoot" ls:TooltipExtender.Owner="{Binding CurrentPlayer.SelectedCharacter}" MaxWidth="3840" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClipToBounds="True">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition x:Name="LeftPadding" Width="288" />
 					<ColumnDefinition x:Name="ColumnOne" Width="1540" />
@@ -1644,7 +1660,8 @@
 												</b:EventTrigger>
 											</b:Interaction.Triggers>
 
-											<ContentControl x:Name="InventoryFilterIndicator" Template="{StaticResource FilterContainerTemplate}" Visibility="Collapsed" DataContext="{Binding DataContext.CurrentPlayer.SelectedCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-180,-10,0">
+											<ContentControl x:Name="InventoryFilterIndicator" Template="{StaticResource FilterContainerTemplate}" Visibility="Collapsed"
+													DataContext="{Binding DataContext.CurrentPlayer.SelectedCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-180,-10,0">
 												<ls:LSButton x:Name="OpenFiltersButton" Template="{StaticResource ControllerButton.ImageSwitcher}" DataContext="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIFilter'}" BoundEvent="UIFilter" Width="{StaticResource ScaledControllerHintSize}" Height="{StaticResource ScaledControllerHintSizeSmall}" VerticalAlignment="Center" Margin="0,-4,0,0" HorizontalAlignment="Right">
 													<b:Interaction.Triggers>
 														<b:EventTrigger EventName="LSButtonPressed">
@@ -1702,7 +1719,8 @@
 																		</ControlTemplate.Resources>
 
 																		<StackPanel x:Name="PanelRoot">
-																			<ls:LSToggleButton x:Name="ExpanderButton" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Tag="InventoryExpanderGroup" Style="{StaticResource FocusableContentControlStyle}">
+																			<ls:LSToggleButton x:Name="ExpanderButton" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+																				   Tag="InventoryExpanderGroup" Style="{StaticResource FocusableContentControlStyle}">
 																				<ls:LSNineSliceImage x:Name="GridHeader" Height="108" ImageSource="{StaticResource BackgroundHeader}" Slices="28" Padding="20" >
 																					<Grid>
 																						<Grid.ColumnDefinitions>
@@ -1786,7 +1804,11 @@
 																</Expander.Template>
 
 																<Grid>
-																	<ls:FilteringContainer x:Name="CharacterInventoryFilteringContainerHolder" FilterPredicate="{Binding InventoryPredicate}" CurrentFilter="{Binding DataContext.CurrentPlayer.UIData.GlobalSelectedFilter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Mode=OneWay}" ItemsList="{Binding InventoriesSlots, ElementName=CharacterInventoriesMerged}" DefaultViewItemsList="{Binding InventoriesSlots, ElementName=CharacterInventoriesMergedNoSubs}">
+																	<ls:FilteringContainer x:Name="CharacterInventoryFilteringContainerHolder" 
+																			   FilterPredicate="{Binding InventoryPredicate}" 
+																			   CurrentFilter="{Binding DataContext.CurrentPlayer.UIData.GlobalSelectedFilter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Mode=OneWay}"
+																			   ItemsList="{Binding InventoriesSlots, ElementName=CharacterInventoriesMerged}" 
+																			   DefaultViewItemsList="{Binding InventoriesSlots, ElementName=CharacterInventoriesMergedNoSubs}">
 																		<b:Interaction.Triggers>
 																			<b:EventTrigger EventName="FilterCleared">
 																				<b:InvokeCommandAction Command="{Binding DataContext.ClearFilterCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
@@ -1794,7 +1816,11 @@
 																		</b:Interaction.Triggers>
 																	</ls:FilteringContainer>
 
-																	<ListBox x:Name="PlayerInventory" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding Path=SortedItems, ElementName=CharacterInventorySorted}" ls:MultiSelect.IsEnabled="False" SelectionMode="Multiple" Margin="0,10,0,0" KeyboardNavigation.DirectionalNavigation="Continue" HorizontalAlignment="Left" VerticalAlignment="Top" ItemTemplate="{StaticResource InventorySlotDataTemplate}" AlternationCount="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}}">
+																	<ListBox x:Name="PlayerInventory" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel"
+																 ItemsSource="{Binding Path=SortedItems, ElementName=CharacterInventorySorted}"
+																 ls:MultiSelect.IsEnabled="False" SelectionMode="Multiple" Margin="0,10,0,0" KeyboardNavigation.DirectionalNavigation="Continue"
+																 HorizontalAlignment="Left" VerticalAlignment="Top" ItemTemplate="{StaticResource InventorySlotDataTemplate}"
+																			 AlternationCount="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}}">
 																		<ListBox.Template>
 																			<ControlTemplate TargetType="ListBox">
 																				<Border x:Name="Border" BorderThickness="2" BorderBrush="{StaticResource LS_InventoryGridSurround}" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -1837,7 +1863,10 @@
 																		</ListBox.Template>
 																		<ListBox.ItemsPanel>
 																			<ItemsPanelTemplate>
-																				<ls:LSGrid ContainerData="{Binding Inventory}" Rows="2" ClipToBounds="False" noesis:Element.PPAAMode="Disabled" SnapsToDevicePixels="True" ExtendedRows="False" Background="{StaticResource NavigableGridSlotBrush}" ls:MoveFocus.InternalFocusable="True" AutoIndex="True" CellWidth="{StaticResource GenericSlotSize}" CellHeight="{StaticResource GenericSlotSize}" ls:ElementCacheHelper.GroupId="PartyListInventory_c" ActionUpEvent="UIUp" ActionDownEvent="UIDown" ActionRightEvent="UIRight" ActionLeftEvent="UILeft" UseWidgetNavigation="True" WidgetNavigationMarkerBrush="{StaticResource NavigableGridMarkerBrush}" >
+																				<ls:LSGrid ContainerData="{Binding Inventory}" Rows="2" ClipToBounds="False" noesis:Element.PPAAMode="Disabled" SnapsToDevicePixels="True" 
+																			   ExtendedRows="False" Background="{StaticResource NavigableGridSlotBrush}" ls:MoveFocus.InternalFocusable="True" AutoIndex="True"
+																			   CellWidth="{StaticResource GenericSlotSize}" CellHeight="{StaticResource GenericSlotSize}" ls:ElementCacheHelper.GroupId="PartyListInventory_c"  
+																			   ActionUpEvent="UIUp" ActionDownEvent="UIDown" ActionRightEvent="UIRight" ActionLeftEvent="UILeft" UseWidgetNavigation="True" FocusElementVisualStyle="{StaticResource Style.FocusVisualStyle}" >
 																					<ls:LSGrid.Columns>
 																						<MultiBinding Converter="{StaticResource DivideMultiConverter}">
 																							<Binding Path="Width" ElementName="InventoryItemsPresenter"/>
@@ -1911,7 +1940,7 @@
 																		</Condition>
 																	</MultiDataTrigger.Conditions>
 																	<Setter TargetName="SingleInventoryRoot" Property="IsExpanded" Value="True"/>
-																</MultiDataTrigger>
+																</MultiDataTrigger>                                                                
 
 																<Trigger SourceName="PlayerInventory" Property="ls:MultiSelect.IsEnabled" Value="True">
 																	<Setter TargetName="PlayerInventory" Property="KeyboardNavigation.DirectionalNavigation" Value="Contained"/>
@@ -1937,10 +1966,15 @@
 													</ls:FilteringContainer>
 
 
-													<ItemsControl x:Name="PanelsContainer" Template="{StaticResource InventoryContainerTemplate}" ItemTemplate="{StaticResource InventoryItemTemplate}" ItemsPanel="{StaticResource InventoryItemsPanelTemplate}" ItemsSource="{Binding SortedItems, ElementName=SelectedCharacterSortBehavior}" AlternationCount="{Binding DataContext.Data.PartyCharacters.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+													<ItemsControl x:Name="PanelsContainer" 
+															  Template="{StaticResource InventoryContainerTemplate}" 
+															  ItemTemplate="{StaticResource InventoryItemTemplate}" 
+															  ItemsPanel="{StaticResource InventoryItemsPanelTemplate}"  
+															  ItemsSource="{Binding SortedItems, ElementName=SelectedCharacterSortBehavior}"
+												  AlternationCount="{Binding DataContext.Data.PartyCharacters.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
 														<b:Interaction.Triggers>
 															<b:EventTrigger EventName="Loaded">
-																<ls:SetMoveFocusAction TargetName="CharacterPanel_c"/>
+																	<ls:SetMoveFocusAction TargetName="CharacterPanel_c" DeferFocusAction="True" FocusElement="{Binding ElementName=PanelsContainer}"/>
 															</b:EventTrigger>
 														</b:Interaction.Triggers>
 													</ItemsControl>
@@ -1948,7 +1982,12 @@
 													<StackPanel x:Name="CampCompanionsSection" Visibility="Collapsed">
 														<TextBlock Text="{Binding Source='h0098cd11gc624g49fdgb404g596b3245f9ac',Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center" Margin="0,20,0,20"/>
 
-														<ItemsControl x:Name="NonPartyPanelsContainer" Template="{StaticResource InventoryContainerTemplate}" ItemTemplate="{StaticResource InventoryItemTemplate}" ItemsPanel="{StaticResource InventoryItemsPanelTemplate}" ItemsSource="{Binding DataContext.Data.CampNonPartyCharacters, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" AlternationCount="{Binding DataContext.Data.CampNonPartyCharacters.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+														<ItemsControl x:Name="NonPartyPanelsContainer" 
+															  Template="{StaticResource InventoryContainerTemplate}" 
+															  ItemTemplate="{StaticResource InventoryItemTemplate}" 
+															  ItemsPanel="{StaticResource InventoryItemsPanelTemplate}"  
+															  ItemsSource="{Binding DataContext.Data.CampNonPartyCharacters, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+												  AlternationCount="{Binding DataContext.Data.CampNonPartyCharacters.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
 													</StackPanel>
 
 												</StackPanel>
@@ -2088,7 +2127,8 @@
 														</ItemsControl.ItemsPanel>
 														<ItemsControl.ItemTemplate>
 															<DataTemplate>
-																<ContentControl x:Name="FocusableContent" Style="{StaticResource  FocusableContentControlNoBG}" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.Placement="Right" ToolTipService.VerticalOffset="0"  ToolTipService.HorizontalOffset="70" Margin="{StaticResource ListPadding}">
+																<ContentControl x:Name="FocusableContent" Style="{StaticResource  FocusableContentControlNoBG}" ToolTip="{StaticResource ManagedTooltip}"
+																		ToolTipService.Placement="Right" ToolTipService.VerticalOffset="0"  ToolTipService.HorizontalOffset="70" Margin="{StaticResource ListPadding}">
 																	<DockPanel Margin="10,10" LastChildFill="False">
 																		<Rectangle x:Name="Icon" DockPanel.Dock="Left" VerticalAlignment="Center" Width="{StaticResource ListIconSize}" Height="{StaticResource ListIconSize}" Fill="{Binding Icon}"/>
 																		<TextBlock x:Name="Name" DockPanel.Dock="Top" Foreground="{StaticResource LS_accent75TxtColor}" HorizontalAlignment="Left" TextAlignment="Left" Margin="28,10,0,0" FontSize="{StaticResource ScaledDefaultFontSize}" Text="{Binding Name}" />
@@ -2234,7 +2274,8 @@
 															<ls:CollectionFilterBehavior x:Name="SavingThrowProficiencyFilter" ItemsSource="{Binding Stats.Abilities}" Predicate="{Binding DataContext.Data.SavingThrowProficiencyPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
 														</b:Interaction.Behaviors>
 														<TextBlock Text="{Binding Source='h20f2c1b6g2815g402ag8549gd6042c56c6db', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillTextStyle}"/>
-														<ItemsControl ItemsSource="{Binding (b:Interaction.Behaviors)[0].FilteredItems, ElementName=SavingThrowProficiencyHolder}" AlternationCount="{Binding ItemsSource.Count,RelativeSource={RelativeSource Mode=Self}}" Template="{StaticResource MinimalItemsControlTemplate}">
+														<ItemsControl ItemsSource="{Binding (b:Interaction.Behaviors)[0].FilteredItems, ElementName=SavingThrowProficiencyHolder}" AlternationCount="{Binding ItemsSource.Count,RelativeSource={RelativeSource Mode=Self}}"
+														  Template="{StaticResource MinimalItemsControlTemplate}">
 															<ItemsControl.ItemsPanel>
 																<ItemsPanelTemplate>
 																	<WrapPanel HorizontalAlignment="Right" Margin="0,12,0,0"/>
@@ -2456,21 +2497,31 @@
 							<ls:InventoriesMergerBehavior x:Name="PartyEquipmentMerger" Inventories="{Binding DataContext.CurrentPlayer.PartyInventory, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
 						</b:Interaction.Behaviors>
 
-						<ls:FilteringContainer x:Name="EquipmentFilteringContainerHolder" FilterPredicate="{Binding DataContext.Data.EquipmentInventoryPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CurrentFilter="{Binding Inventory.EquipmentFlags}" ItemsList="{Binding InventoriesSlots, ElementName=EquipmentMerger}" ReferenceCharacter="{Binding DataContext.CurrentPlayer.SelectedCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+						<ls:FilteringContainer x:Name="EquipmentFilteringContainerHolder"
+											   FilterPredicate="{Binding DataContext.Data.EquipmentInventoryPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+											   CurrentFilter="{Binding Inventory.EquipmentFlags}"
+											   ItemsList="{Binding InventoriesSlots, ElementName=EquipmentMerger}"
+											   ReferenceCharacter="{Binding DataContext.CurrentPlayer.SelectedCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
 
 						<TextBlock Style="{StaticResource SelectedEquipmentSlotTextBlockStyle}" DataContext="{Binding Equipment}" VerticalAlignment="Top" Width="282" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Foreground="{StaticResource LS_specialTxtColor}"/>
 						<ls:LSNineSliceImage  Style="{StaticResource Selector9Slice}" VerticalAlignment="Top" HorizontalAlignment="Center">
 							<ScrollViewer x:Name="EquipmentSelectorScrollViewer" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" CanContentScroll="True" Height="1260"  ls:ScrollViewerHelper.VerticalScrollOffsetMargin="{StaticResource EquipmentSlotSize}" >
-								<ItemsControl x:Name="EquimentSelectionView" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding Path=(b:Interaction.Behaviors)[0].SortedItems, ElementName=EquipmentSelector}" Margin="12" Template="{StaticResource MinimalItemsControlTemplate}">
+								<ItemsControl x:Name="EquipmentSelectionView" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding Path=(b:Interaction.Behaviors)[0].SortedItems, ElementName=EquipmentSelector}" Margin="12" Template="{StaticResource MinimalItemsControlTemplate}">
 									<ItemsControl.ItemsPanel>
 										<ItemsPanelTemplate>
-											<ls:LSGrid ContainerData="{Binding Equipment.EquipmentView}" Rows="11" Columns="2" noesis:Element.PPAAMode="Disabled" SnapsToDevicePixels="True" ExtendedRows="False" CellWidth="{StaticResource EquipmentSlotSize}" CellHeight="{StaticResource EquipmentSlotSize}" ActionUpEvent="UIUp" ActionDownEvent="UIDown" ActionRightEvent="UIRight" ActionLeftEvent="UILeft" UseWidgetNavigation="True" AlwaysSelectFirst="True" AutoIndex="True" ls:MoveFocus.InternalFocusable="True" Background="{StaticResource NavigableGridSlotBrush}"/>
+											<ls:LSGrid ContainerData="{Binding Equipment.EquipmentView}" Rows="11" Columns="2"
+												   noesis:Element.PPAAMode="Disabled" SnapsToDevicePixels="True" ExtendedRows="False"
+												   CellWidth="{StaticResource EquipmentSlotSize}" CellHeight="{StaticResource EquipmentSlotSize}"
+												   ActionUpEvent="UIUp" ActionDownEvent="UIDown" ActionRightEvent="UIRight" ActionLeftEvent="UILeft"
+												   UseWidgetNavigation="True" AlwaysSelectFirst="True" AutoIndex="True"
+												   FocusElementVisualStyle="{StaticResource Style.FocusVisualStyle}"
+												   ls:MoveFocus.InternalFocusable="True" Background="{StaticResource NavigableGridSlotBrush}"/>
 										</ItemsPanelTemplate>
 									</ItemsControl.ItemsPanel>
 
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
-											<Grid x:Name="SlotRoot" DataContext="{Binding Object}" Focusable="True" ls:MoveFocus.Focusable="True" ToolTipService.IsEnabled="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Tag="EquipmentInventory" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Left" ToolTipService.VerticalOffset="60" ToolTipService.PlacementTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type ls:LSNineSliceImage}}}">
+												<Grid x:Name="SlotRoot" DataContext="{Binding Object}" Focusable="True" ls:MoveFocus.Focusable="True" ToolTipService.IsEnabled="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Tag="EquipmentInventory" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Left" ToolTipService.VerticalOffset="60" ToolTipService.PlacementTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type ls:LSNineSliceImage}}}" FocusVisualStyle="{StaticResource Style.FocusVisualStyle}">
 												<b:Interaction.Triggers>
 													<b:PropertyChangedTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=SlotRoot}">
 														<b:Interaction.Behaviors>
@@ -2489,7 +2540,8 @@
 												</Grid.ToolTip>
 
 												<Image x:Name="RarityBackground" Style="{StaticResource RarityFrameBackgroundImageStyle}" Width="{StaticResource RaritySlotSize}" Height="{StaticResource RaritySlotSize}"/>
-												<ls:LSEntityObject x:Name="ItemIcon" EntityRef="{Binding EntityHandle}" Context="Inventory" Background="{Binding Icon}" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}"/>
+												<ls:LSEntityObject x:Name="ItemIcon" EntityRef="{Binding EntityHandle}" Context="Inventory" Background="{Binding Icon}" Width="{StaticResource EquipmentSlotSize}"
+																   Height="{StaticResource EquipmentSlotSize}"/>
 
 												<Image x:Name="RarityForeground" Style="{StaticResource RarityFrameForegroundImageStyle}" Width="{StaticResource RaritySlotSize}" Height="{StaticResource RaritySlotSize}" Opacity="0.4"/>
 
@@ -2500,7 +2552,9 @@
 													</Control.Resources>
 												</Control>
 												<ContentPresenter x:Name="TorchIcon" ContentTemplate="{StaticResource EquippedTorchIcon}" Content="{Binding .}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,2,0"/>
-												<TextBlock x:Name="NumberOfItems" HorizontalAlignment="Right" Margin="0,0,16,0" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="{StaticResource LargeFontSize}" Foreground="{StaticResource LS_tint100}" FontWeight="Bold" Text="{Binding Count, Converter={StaticResource AbbreviateNumberConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}"/>
+												<TextBlock x:Name="NumberOfItems" HorizontalAlignment="Right" Margin="0,0,16,0" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="{StaticResource LargeFontSize}"
+														   Foreground="{StaticResource LS_tint100}" FontWeight="Bold" Text="{Binding Count, Converter={StaticResource AbbreviateNumberConverter}}"
+														   Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}"/>
 											</Grid>
 											<DataTemplate.Triggers>
 												<DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Equipment.ShowAvailableEquipment, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="False">
@@ -2527,11 +2581,11 @@
 						</ls:LSNineSliceImage>
 
 						<ContentControl Template="{StaticResource FilterContainerTemplate}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,-114,0,0" DataContext="{Binding Equipment}">
-							<ls:LSButton Template="{StaticResource ControllerButton.ImageSwitcher}" DataContext="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIMessageBoxY'}" BoundEvent="UIMessageBoxY" IsEnabled="{Binding IsEnabled, ElementName=EquimentSelectionView}" Width="{StaticResource ScaledControllerHintSize}" Height="{StaticResource ScaledControllerHintSize}" VerticalAlignment="Center">
+							<ls:LSButton Template="{StaticResource ControllerButton.ImageSwitcher}" DataContext="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIMessageBoxY'}" BoundEvent="UIMessageBoxY" IsEnabled="{Binding IsEnabled, ElementName=EquipmentSelectionView}" Width="{StaticResource ScaledControllerHintSize}" Height="{StaticResource ScaledControllerHintSize}" VerticalAlignment="Center">
 								<b:Interaction.Triggers>
 									<b:EventTrigger EventName="LSButtonPressed">
 										<b:ChangePropertyAction TargetName="EquipmentFilter" PropertyName="Visibility" Value="Visible"/>
-										<b:ChangePropertyAction TargetName="EquimentSelectionView" PropertyName="IsEnabled" Value="False"/>
+										<b:ChangePropertyAction TargetName="EquipmentSelectionView" PropertyName="IsEnabled" Value="False"/>
 										<b:ControlStoryboardAction x:Name="ShowEquipmentFilterSA">
 											<b:ControlStoryboardAction.Storyboard>
 												<Storyboard Children="{StaticResource ShowEquipmentFilterAnimation}"/>
@@ -2571,44 +2625,30 @@
 						</Grid>
 
 						<Grid Margin="0,0,0,0" >
-							<Grid.Resources>
-								<ControlTemplate x:Key="ExperienceStripTemplate" TargetType="ContentControl">
-									<Grid x:Name="ExperienceContainer" HorizontalAlignment="Center" VerticalAlignment="Center" >
-										<ContentPresenter x:Name="Content" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-										<Control x:Name="ExperienceFocusedFront" Visibility="Collapsed" Style="{StaticResource FocusableBorderStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="10" Width="620"/>
-									</Grid>
-								</ControlTemplate>
-							</Grid.Resources>
+							<Grid x:Name="ExperienceBarRoot" Margin="0,22,0,22" Focusable="True" ls:MoveFocus.Focusable="True" FocusVisualStyle="{StaticResource Style.FocusVisualStyle}">
+								<Grid.ToolTip>
+									<ls:LSTooltip DataContext="{Binding Stats}">
+										<TextBlock Style="{StaticResource TooltipBaseTextStyle}" MaxWidth="700">
+											<b:Interaction.Behaviors>
+												<ls:CtxTransStringRunGeneratorBehavior Source="{Binding DataContext.Stats.Level.Description, ElementName=ExperienceBarRoot}" ParamRunStyle="{StaticResource TooltipUnitParamRun}"/>
+											</b:Interaction.Behaviors>
+										</TextBlock>
+									</ls:LSTooltip>
+								</Grid.ToolTip>
+								<Image Source="{StaticResource xpBarDecor}" Stretch="None" Margin="0,12,0,0" HorizontalAlignment="Center"/>
+								<Grid Width="440" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center">
+									<ProgressBar Value="{Binding Stats.Level.FractionXPToNextLevel, Mode=OneWay}" Minimum="0" Maximum="1" BorderBrush="Transparent">
+										<ProgressBar.Foreground>
+											<ImageBrush ImageSource="{StaticResource XpBarFillColour}"/>
+										</ProgressBar.Foreground>
+										<ProgressBar.Background>
+											<ImageBrush ImageSource="{StaticResource XpBarBG}"/>
+										</ProgressBar.Background>
+									</ProgressBar>
+								</Grid>
+							</Grid>
 
-							<StackPanel>
-								<ContentControl x:Name="ExperienceBar" Template="{StaticResource ExperienceStripTemplate}" >
-									<ContentControl.ToolTip>
-										<ls:LSTooltip DataContext="{Binding Stats}">
-											<TextBlock Style="{StaticResource TooltipBaseTextStyle}" Width="700">
-												<b:Interaction.Behaviors>
-													<ls:CtxTransStringRunGeneratorBehavior Source="{Binding DataContext.Stats.Level.Description, ElementName=ExperienceBarRoot}" ParamRunStyle="{StaticResource TooltipUnitParamRun}"/>
-												</b:Interaction.Behaviors>
-											</TextBlock>
-										</ls:LSTooltip>
-									</ContentControl.ToolTip>
-
-									<Grid x:Name="ExperienceBarRoot" Margin="0,22,0,22">
-										<Image Source="{StaticResource xpBarDecor}" Stretch="None" Margin="0,12,0,0" HorizontalAlignment="Center" />
-										<Grid Width="440" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center">
-											<ProgressBar Value="{Binding Stats.Level.FractionXPToNextLevel, Mode=OneWay}" Minimum="0" Maximum="1" BorderBrush="Transparent">
-												<ProgressBar.Foreground>
-													<ImageBrush ImageSource="{StaticResource XpBarFillColour}"/>
-												</ProgressBar.Foreground>
-												<ProgressBar.Background>
-													<ImageBrush ImageSource="{StaticResource XpBarBG}"/>
-												</ProgressBar.Background>
-											</ProgressBar>
-										</Grid>
-									</Grid>
-								</ContentControl>
-
-							</StackPanel>
 						</Grid>
 						<ScrollViewer Height="Auto" MaxHeight="1400" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" Width="740">
 							<StackPanel>
@@ -2765,7 +2805,8 @@
 									</DockPanel>
 								</ContentControl>
 
-								<ItemsControl x:Name="RatingsList" ItemsSource="{Binding ApprovalRatings}" Margin="0,42,0,0" Visibility="{Binding ApprovalRatings.Count, Converter={StaticResource CountToVisibilityConverter}}" Template="{StaticResource MinimalItemsControlTemplate}">
+								<ItemsControl x:Name="RatingsList" ItemsSource="{Binding ApprovalRatings}" Margin="0,42,0,0" Visibility="{Binding ApprovalRatings.Count, Converter={StaticResource CountToVisibilityConverter}}"
+											  Template="{StaticResource MinimalItemsControlTemplate}">
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
 											<ls:LSButton x:Name="RatingsListRoot" ToolTip="{StaticResource ManagedTooltip}"  Style="{StaticResource FocusableButtonStyleMinimal}" ToolTipService.HorizontalOffset="20" ToolTipService.VerticalOffset="-12">
@@ -2797,7 +2838,7 @@
 
 				</StackPanel>
 			</Grid>
-
+			</AdornerDecorator>
 			<!-- Button hints -->
 			<StackPanel x:Name="LeftHints" Style="{StaticResource ButtonHint.Container.Left}">
 				<!-- EMPTY FOR NOW -->
@@ -2808,11 +2849,30 @@
 
 			<ls:AlignableWrapPanel x:Name="Hints" Style="{StaticResource ButtonHint.Container.CenterWrap}">
 				<!-- Edit Reaction -->
-				<ls:LSButton x:Name="ToggleReactionEnabledButton" ls:LSButton.BoundEvent="UIAccept" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Tag="{Binding Source='hd715eb4cg6069g4ebdg8eecg6be753a0d72a', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding ToggleEnabled}" CommandParameter="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Visibility="Collapsed"/>
-				<ls:LSButton x:Name="ToggleReactionAskButton" ls:LSButton.BoundEvent="UICreate" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UICreate'}" Tag="{Binding Source='h45a789ccg4fabg4a9dgbf40g29e125978f6d', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding ToggleAsk}" CommandParameter="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Visibility="Collapsed"/>
+				<ls:LSButton x:Name="ToggleReactionEnabledButton"
+							 ls:LSButton.BoundEvent="UIAccept"
+							 ContentTemplate="{StaticResource ControllerButtonHint}"
+							 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}"
+							 Tag="{Binding Source='hd715eb4cg6069g4ebdg8eecg6be753a0d72a', Converter={StaticResource TranslatedStringConverter}}"
+							 Command="{Binding ToggleEnabled}"
+							 CommandParameter="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+							 Visibility="Collapsed"/>
+				<ls:LSButton x:Name="ToggleReactionAskButton"
+							 ls:LSButton.BoundEvent="UICreate"
+							 ContentTemplate="{StaticResource ControllerButtonHint}"
+							 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UICreate'}"
+							 Tag="{Binding Source='h45a789ccg4fabg4a9dgbf40g29e125978f6d', Converter={StaticResource TranslatedStringConverter}}"
+							 Command="{Binding ToggleAsk}"
+							 CommandParameter="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+							 Visibility="Collapsed"/>
 
 				<!-- Proficiency Group -->
-				<ls:LSButton x:Name="ProficiencyGroupButton" ls:LSButton.BoundEvent="UIAccept" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Tag="{Binding Source='h73880dc7ga260g4f04gab87ga0afe4b0794e', Converter={StaticResource TranslatedStringConverter}}" Visibility="Collapsed">
+				<ls:LSButton x:Name="ProficiencyGroupButton"
+							ls:LSButton.BoundEvent="UIAccept"
+							ContentTemplate="{StaticResource ControllerButtonHint}"
+							Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}"
+							Tag="{Binding Source='h73880dc7ga260g4f04gab87ga0afe4b0794e', Converter={StaticResource TranslatedStringConverter}}"
+							Visibility="Collapsed">
 					<b:Interaction.Triggers>
 						<b:EventTrigger EventName="LSButtonPressed">
 							<b:ChangePropertyAction TargetObject="{Binding FocusedElement, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" PropertyName="IsChecked" Value="{Binding FocusedElement.IsChecked, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource InvertBoolConverter}}"/>
@@ -2821,10 +2881,23 @@
 				</ls:LSButton>
 
 				<!-- Action -->
-				<ls:LSButton x:Name="ItemActionButton" ls:LSButton.BoundEvent="UIAccept" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Tag="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GetUseActionConverter}}" Command="{Binding UseGameObject}" CommandParameter="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Visibility="Collapsed"/>
+				<ls:LSButton x:Name="ItemActionButton"
+							 ls:LSButton.BoundEvent="UIAccept"
+							 ContentTemplate="{StaticResource ControllerButtonHint}"
+							 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}"
+							 Tag="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GetUseActionConverter}}"
+							 Command="{Binding UseGameObject}"
+							 CommandParameter="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+							 Visibility="Collapsed"/>
 
 				<!-- Select equipment slot to open the equipment selector -->
-				<ls:LSToggleButton x:Name="ToggleEquipmentSelectorButton" BoundEvent="UIAccept" IsChecked="True" TapTime="{StaticResource DefaultButtonTapTime}" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Tag="{Binding Source='h04f38549g65b8g4b72g834eg87ee8863fdc5', Converter={StaticResource TranslatedStringConverter}}" CommandParameter="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Visibility="Collapsed">
+				<ls:LSToggleButton x:Name="ToggleEquipmentSelectorButton"
+								   BoundEvent="UIAccept" IsChecked="True" TapTime="{StaticResource DefaultButtonTapTime}"
+								   ContentTemplate="{StaticResource ControllerButtonHint}"
+								   Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}"
+								   Tag="{Binding Source='h04f38549g65b8g4b72g834eg87ee8863fdc5', Converter={StaticResource TranslatedStringConverter}}"
+								   CommandParameter="{Binding FocusedElement.DataContext, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+								   Visibility="Collapsed">
 					<b:Interaction.Triggers>
 						<b:PropertyChangedTrigger Binding="{Binding IsChecked, ElementName=ToggleEquipmentSelectorButton}">
 							<b:Interaction.Behaviors>
@@ -2862,17 +2935,40 @@
 				</ls:LSToggleButton>
 
 				<!-- Level Up -->
-				<ls:LSButton x:Name="LevelUpButton" ls:LSButton.BoundEvent="UIAccept" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Tag="{Binding Source='he3ccedd0gceaeg4b1fg8e74g9dfc6da58cd2', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding StartLevelUp}" CommandParameter="{Binding CurrentPlayer.SelectedCharacter}" Visibility="Collapsed"/>
+				<ls:LSButton x:Name="LevelUpButton"
+							 ls:LSButton.BoundEvent="UIAccept"
+							 ContentTemplate="{StaticResource ControllerButtonHint}"
+							 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}"
+							 Tag="{Binding Source='he3ccedd0gceaeg4b1fg8e74g9dfc6da58cd2', Converter={StaticResource TranslatedStringConverter}}"
+							 Command="{Binding StartLevelUp}"
+							 CommandParameter="{Binding CurrentPlayer.SelectedCharacter}"
+							 Visibility="Collapsed"/>
 				<ls:LSButton x:Name="ToggleMultiSelectButton" Style="{StaticResource ToggleMultiSelectButtonStyle}" Visibility="Collapsed"/>
 
 				<!-- Show Context Menu -->
-				<ls:LSButton x:Name="ShowContextMenu" Command="{Binding ShowContextMenu}" CommandParameter="{Binding FocusedElement, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ls:LSButton.BoundEvent="ContextMenu" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICreate, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source='heb4b592bgc665g4e17ga685g07e2eb5e25db', Converter={StaticResource TranslatedStringConverter}}" Visibility="Collapsed" TapTime="{StaticResource DelayedButtonTapTime}" EatInput="False"/>
+				<ls:LSButton x:Name="ShowContextMenu"
+							 Command="{Binding ShowContextMenu}"
+							 CommandParameter="{Binding FocusedElement, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+							 ls:LSButton.BoundEvent="ContextMenu"
+							 ContentTemplate="{StaticResource ControllerButtonHint}"
+							 Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICreate, Converter={StaticResource FindInputEventConverter}}"
+							 Tag="{Binding Source='heb4b592bgc665g4e17ga685g07e2eb5e25db', Converter={StaticResource TranslatedStringConverter}}"
+							 Visibility="Collapsed"
+							 TapTime="{StaticResource DelayedButtonTapTime}" EatInput="False"/>
 
 				<ls:LSButton x:Name="StartMultiSelectButton" Visibility="Collapsed" Style="{StaticResource StartMultiSelectButtonStyle}"/>
 
 				<!-- Toggle Inventory Lock -->
-				<ls:LSButton x:Name="ToggleInventoryLockButton" BoundEvent="UIMessageBoxY"  TapTime="{StaticResource DefaultButtonTapTime}" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIMessageBoxY'}" Tag="{Binding Source='h285d26a3ge78ag40d0ga7d3gfa9fc01e68cd', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding ToggleInventoryLockCommand}" CommandParameter="{Binding FocusedElement.DataContext.Inventory, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Visibility="Collapsed"/>
-
+				<ls:LSButton x:Name="ToggleInventoryLockButton"
+							 BoundEvent="UIMessageBoxY" 
+							 TapTime="{StaticResource DefaultButtonTapTime}"
+							 ContentTemplate="{StaticResource ControllerButtonHint}"
+							 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIMessageBoxY'}"
+							 Tag="{Binding Source='h285d26a3ge78ag40d0ga7d3gfa9fc01e68cd', Converter={StaticResource TranslatedStringConverter}}"
+							 Command="{Binding ToggleInventoryLockCommand}"
+							 CommandParameter="{Binding FocusedElement.DataContext.Inventory, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+							 Visibility="Collapsed"/>
+				
 				<!-- Toggle helmet -->
 				<ls:LSButton x:Name="ToggleHelmet"
 							 ls:LSButton.BoundEvent="UIMessageBoxY"
@@ -3052,7 +3148,7 @@
 							 Visibility="{Binding Visibility, ElementName=EquipmentFilter}">
 					<b:Interaction.Triggers>
 						<b:EventTrigger EventName="LSButtonPressed">
-							<b:ChangePropertyAction TargetName="EquimentSelectionView" PropertyName="IsEnabled" Value="True"/>
+							<b:ChangePropertyAction TargetName="EquipmentSelectionView" PropertyName="IsEnabled" Value="True"/>
 							<b:ControlStoryboardAction x:Name="HideEquipmentFilterSA">
 								<b:ControlStoryboardAction.Storyboard>
 									<Storyboard Children="{StaticResource HideEquipmentFilterAnimation}"/>
@@ -3339,7 +3435,7 @@
 
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding IsEnabled, ElementName=EquimentSelectionView}" Value="True"/>
+					<Condition Binding="{Binding IsEnabled, ElementName=EquipmentSelectionView}" Value="True"/>
 					<Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Equipment.ShowAvailableEquipment, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<Setter TargetName="ToggleEquipmentSelectorButton" Property="Visibility" Value="Visible"/>

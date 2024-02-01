@@ -72,6 +72,7 @@
 					<Rectangle x:Name="ActionResourceBackgroundStrokeHighlight" HorizontalAlignment="Stretch" Height="72" Fill="Transparent" RadiusX="36" RadiusY="36" Stroke="{StaticResource LS_selectedTextPad}" StrokeThickness="4" Opacity="0">
 					</Rectangle>
 					<StackPanel x:Name="ResourcePointsStack" Orientation="Horizontal" Margin="16,0,0,0">
+						<Image x:Name="KeyboardImage" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,0,0,0" Style="{StaticResource IUI_ActionResourceTypeIdToSource}" DataContext="{Binding ActionResource}"/>
 						<Image x:Name="LevelImage" Visibility="Collapsed" HorizontalAlignment="Center" Margin="0,0,0,0"/>
 						<!-- MOD NOTE - Added keyboard icons as fallback here. ActionPointInBetweenMargin is also set here -->
 						<ls:LSActionPointResources x:Name="ResourcePoints"
@@ -95,11 +96,19 @@
 			</StackPanel>
 		</Border>
 		<DataTemplate.Triggers>
-			<!-- Hide ResourcePoints if you have more than 5 and no explicit entry -->
+			<!-- Hide ResourcePoints if you have more than 5 -->
 			<DataTrigger Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=5}" Value="True">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
 			</DataTrigger>
+			<!-- Show KeyboardImage if you have more than 5 and no explicit entry -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=5}" Value="True"/>
+					<Condition Binding="{Binding ElementName=LevelImage, Path=Visibility}" Value="Collapsed"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="KeyboardImage" Property="Visibility" Value="Visible"/>
+			</MultiDataTrigger>
 
 			<DataTrigger Binding="{Binding ActionResource.Level}" Value="1">
 				<Setter TargetName="SpellSlotLabel" Property="Text" Value="{Binding Source='hbdeb8e2fg50e9g424fgbe6dg248268275452',Converter={StaticResource TranslatedStringConverter}}"/>
@@ -341,6 +350,137 @@
 				OPTIONAL BACKGROUND <Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource CUSTOMCOLOURNAME}"/>
 				OPTIONAL RESOURCE LABEL FOR EARLY LEVELS <Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='LOCALISATIONENTRYFORRESOURCE', Converter={StaticResource TranslatedStringConverter}}"/>
 			</DataTrigger>-->
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="PsiPoint">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ActionResources_c/Icons/ico_classRes_psi.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="PsiPointMastery">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ActionResources_c/Icons/ico_classRes_psi.png"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="BladesongCharge">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_bladesong.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="DivinePowerPoint">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_divinepower.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="FavoredFoePoint">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_favoredfoe.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="NaturesVeil">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_naturesveil.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="Tireless">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_tireless.png"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="MysticSongPoint">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_mysticsongpoint.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="PoemOfPossibility">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_poemofpossibility.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="RootcallerPoint">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_rootcaller.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SacredBenediction">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_sacredbenediction.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ScrollAndStaff">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_scrollandstaff.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SongsOfSorcery">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_songsofsorcery.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SongsOfWar">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_songsofwar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SorcerousShanty">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_sorcerousshanty.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="WildWandererPoint">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_wildwandererpoint.png"/>
+			</DataTrigger>
 
 			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="XCL_BreathWeaponCharge">
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
@@ -646,6 +786,130 @@
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/OffHandExtraAttack/ActionResources_c/Icons/c_ico_extraAtt_d.png"/>
 			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="KW_Energy">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki.png"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.KiPoint}"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.KiPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="KW_SenzuBeanCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery.png"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.NaturalRecovery}"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.NaturalRecovery}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="KW_ZenkaiCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc.png"/>
+				<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.SorceryPoint}"/>
+				<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.SorceryPoint}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="BloodDie">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/ico_classRes_BloodEssence.dds"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="DWE_UAStepsOfTheFeyCharge">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/UAArchfey/ActionResources_c/Icons/c_ico_classRes_DWE_UAStepsOfTheFeyCharge.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="StowedSoul">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/ActionResources_c/Icons/c_ico_styxTiefling_stowedSoul.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="BalefulSealResource">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ActionResources_c/Icons/c_ico_classRes_BalefulInterdict_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="BloodPriceDie">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ActionResources_c/Icons/c_ico_classRes_BloodPriceDie_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="InfernalConduitCharge">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ActionResources_c/Icons/c_ico_classRes_InfernalConduitCharge_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="InvokeTheHellsResource">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ActionResources_c/Icons/c_ico_classRes_InvokeTheHells_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ArcaneShotResource">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ArcaneArcher5e/ActionResources_c/Icons/c_ico_classRes_ArcaneShot_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="HuntersSense">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/MonsterSlayer5e/ActionResources_c/Icons/c_ico_classRes_HuntersSense_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
 			<!-- EDIT HERE -->
 
 			<!-- Please leave the below alone -->
@@ -948,10 +1212,10 @@
 				</Setter>
 			</DataTrigger>
 
-			<!--<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
+			<!--<DataTrigger Binding="{Binding TypeId}" Value="ACTIONRESOURCENAME"> This will show multiple icons when you have more than 1 resource used as a cost
 				<Setter TargetName="ResourceImage" Property="Fill">
 					<Setter.Value>
-						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_shadow_point.png"
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/ActionResources_c/Icons/CONTROLLERICON.png"
 															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
 					</Setter.Value>
 				</Setter>
@@ -975,6 +1239,122 @@
 					</Setter.Value>
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<!-- These entries will show a numerical amount of how much of each resource is used -->
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ActionResources_c/Icons/c_ico_classRes_psi_d.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="PsiPointMastery">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ActionResources_c/Icons/c_ico_classRes_psi_d.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="BladesongCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/c_ico_classRes_bladesong_d.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DivinePowerPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/c_ico_classRes_divinepower_d.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FavoredFoePoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/c_ico_classRes_favoredfoe.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="NaturesVeil">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_naturesveil.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Tireless">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_tireless.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="MysticSongPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_mysticsongpoint.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="PoemOfPossibility">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_poemofpossibility.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RootcallerPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_rootcaller.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SacredBenediction">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_sacredbenediction.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ScrollAndStaff">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_scrollandstaff.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SongsOfSorcery">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_songsofsorcery.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SongsOfWar">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_songsofwar.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SorcerousShanty">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_sorcerousshanty.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WildWandererPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Troubadour/ActionResources_c/Icons/ico_classRes_wildwandererpoint.png"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
 			</DataTrigger>
 
 			<DataTrigger Binding="{Binding TypeId}" Value="PsionicDie">
@@ -1187,8 +1567,116 @@
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
-			<!-- EDIT HERE -->
 
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_Energy">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_ki_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_ZenkaiCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_sorc_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KW_SenzuBeanCharge">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery.png"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_NaturalRecovery_point.png"
+															TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodDie">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/ico_classRes_BloodEssence.dds" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="DWE_UAStepsOfTheFeyCharge">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/UAArchfey/ActionResources_c/Icons/c_ico_classRes_DWE_UAStepsOfTheFeyCharge.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="StowedSoul">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/TieflingOfHades/ActionResources_c/Icons/c_ico_styxTiefling_stowedSoul.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="BalefulSealResource">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ActionResources_c/Icons/c_ico_classRes_BalefulInterdict_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodPriceDie">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ActionResources_c/Icons/c_ico_classRes_BloodPriceDie_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="InfernalConduitCharge">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ActionResources_c/Icons/c_ico_classRes_InfernalConduitCharge_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="InvokeTheHellsResource">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ActionResources_c/Icons/c_ico_classRes_InvokeTheHells_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcaneShot">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ArcaneArcher5e/ActionResources_c/Icons/c_ico_classRes_ArcaneShot_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="HuntersSense">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/MonsterSlayer5e/ActionResources_c/Icons/c_ico_classRes_HuntersSense_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
+			<!-- EDIT HERE -->
 
 			<DataTrigger Binding="{Binding Level}" Value="1">
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>

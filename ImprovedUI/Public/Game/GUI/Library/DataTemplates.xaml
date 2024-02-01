@@ -1184,64 +1184,6 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!--Inventory Grid-->
-    <Style TargetType="ListBox" x:Key="InventoryGrid" BasedOn="{StaticResource {x:Type ListBox}}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible" />
-        <Setter Property="ItemsPanel" >
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <ls:LSGrid x:Name="InvGrid" Background="{StaticResource InventoryCell2x2Brush}" noesis:Element.PPAAMode="Disabled" SnapsToDevicePixels="True" ContainerData="{Binding }" Columns="{DynamicResource invCols}" Rows="{DynamicResource invRows}" ScrollAmount="114" CellWidth="{DynamicResource InvSlotSize}" CellHeight="{DynamicResource InvSlotSize}" VerticalSpacing="{DynamicResource InvSpacing}" HorizontalSpacing="{DynamicResource InvSpacing}" ActionUpEvent="UIUp" ActionDownEvent="UIDown" ActionRightEvent="UIRight" ActionLeftEvent="UILeft">
-                        <ls:LSGrid.Style>
-                            <Style TargetType="ls:LSGrid">
-                                <Setter Property="Margin" Value="0,4,0,0" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Controller">
-                                        <Setter Property="Margin" Value="0,0,0,0" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ls:LSGrid.Style>
-                        <b:Interaction.Behaviors>
-                            <ls:DropOnInventoryGridBehavior DropCommand="{Binding DataContext.DropOnInventorySlotCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
-                            <ls:DragGameObjectGridBehavior/>
-                        </b:Interaction.Behaviors>
-                        <b:Interaction.Triggers>
-                            <b:EventTrigger EventName="WidgetClosing">
-                                <b:InvokeCommandAction Command="{Binding DataContext.ClearInventoryNewFlags, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding }"/>
-                            </b:EventTrigger>
-                        </b:Interaction.Triggers>
-                    </ls:LSGrid>
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Template" Value="{StaticResource InventoryCellTemplate}" />
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                    <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="Width" Value="{DynamicResource InvSlotSize}" />
-                    <Setter Property="Height" Value="{DynamicResource InvSlotSize}" />
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="BorderThickness" Value="0" />
-                    <Setter Property="VerticalContentAlignment" Value="Top"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="Background" Value="Transparent" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                            <Setter Property="Background" Value="Transparent" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <!--interrupts-->
     <BitmapImage x:Key="QuestionMarkIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Reactions_c/c_ico_reactionAsk_active.png"/>
 
@@ -1838,12 +1780,12 @@
 
                     <Grid x:Name="Slot" ToolTipService.Placement="Top" ToolTipService.IsEnabled="True" Tag="{Binding IsActive, FallbackValue=False}" ToolTipService.ShowOnDisabled="True" Background="Transparent">
                         <Grid.ToolTip>
-                            <ls:LSTooltip x:Name="hbTooltip" Content="{Binding DataContext.Spell, ElementName=Slot}" ls:TooltipExtender.Context="Hotbar" VerticalOffset="-60" />
+                            <ls:LSTooltip x:Name="hbTooltip" Content="{Binding DataContext.Spell, ElementName=Slot}" ls:TooltipExtender.Context="Hotbar" VerticalOffset="-60"/>
                         </Grid.ToolTip>
                         <b:Interaction.Triggers>
                             <b:EventTrigger EventName="MouseEnter">
-                                <b:InvokeCommandAction Command="{Binding DataContext.HighlightResourcesCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
-                                <b:InvokeCommandAction Command="{Binding DataContext.RemoveIsNewFlag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
+                                <b:InvokeCommandAction Command="{Binding (ls:WidgetData.DataContext).HighlightResourcesCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="{Binding}"/>
+                                <b:InvokeCommandAction Command="{Binding (ls:WidgetData.DataContext).RemoveIsNewFlag, RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="{Binding}"/>
                             </b:EventTrigger>
                             <b:EventTrigger EventName="MouseEnter">
                                 <b:Interaction.Behaviors>
@@ -1853,10 +1795,10 @@
                                         </b:ConditionalExpression>
                                     </b:ConditionBehavior>
                                 </b:Interaction.Behaviors>
-                                <b:InvokeCommandAction Command="{Binding DataContext.SetDebugUIEntityCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding GameObject.EntityHandle}"/>
+                                <b:InvokeCommandAction Command="{Binding (ls:WidgetData.DataContext).SetDebugUIEntityCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="{Binding GameObject.EntityHandle}"/>
                             </b:EventTrigger>
                             <b:EventTrigger EventName="MouseLeave">
-                                <b:InvokeCommandAction Command="{Binding DataContext.ClearResourceHighlightsCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}"/>
+                                <b:InvokeCommandAction Command="{Binding (ls:WidgetData.DataContext).ClearResourceHighlightsCommand, RelativeSource={RelativeSource TemplatedParent}}" CommandParameter="{Binding}"/>
                             </b:EventTrigger>
                             <b:EventTrigger EventName="MouseLeave">
                                 <b:Interaction.Behaviors>
@@ -1866,7 +1808,7 @@
                                         </b:ConditionalExpression>
                                     </b:ConditionBehavior>
                                 </b:Interaction.Behaviors>
-                                <b:InvokeCommandAction Command="{Binding DataContext.ClearDebugUIEntityCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                                <b:InvokeCommandAction Command="{Binding (ls:WidgetData.DataContext).ClearDebugUIEntityCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
                             </b:EventTrigger>
                             <b:EventTrigger EventName="Unloaded">
                                 <b:ChangePropertyAction TargetName="HotbarslotBtn" PropertyName="CommandParameter" Value="{x:Null}"/>
@@ -1919,7 +1861,7 @@
 
                         <!-- Icon glow animation slot (Metamagic, UnlockSpellVariant) -->
                         <Control x:Name="MetaMagicOverlay" IsHitTestVisible="False" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}" Template="{x:Null}"/>
-                        <TextBlock x:Name="HotKey" IsHitTestVisible="False" Text="{Binding HotKey}" Margin="4,0,0,-6" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="{StaticResource ScaledSmallFontSize}" Visibility="Collapsed" />
+                        <TextBlock x:Name="HotKey" IsHitTestVisible="False" Text="{Binding HotKey}" Margin="4,0,0,-6" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="{StaticResource ScaledSmallFontSize}"/>
 
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -1957,9 +1899,6 @@
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding DataContext.Data.UIInputMethod, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Keyboard">
-                            <Setter Property="Visibility" Value="Visible" TargetName="HotKey"/>
-                        </DataTrigger>
 
                         <DataTrigger Binding="{Binding Name}" Value="">
                             <Setter Property="IsEnabled" Value="False"/>
@@ -1975,7 +1914,7 @@
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding CanUse}" Value="False"/>
                                 <Condition Binding="{Binding Spell.IsContainer}" Value="True"/>
-                                <Condition Binding="{Binding DataContext.PanelContentType, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Spell"/>
+                                <Condition Binding="{Binding (ls:WidgetData.DataContext).PanelContentType, RelativeSource={RelativeSource TemplatedParent}}" Value="Spell"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Command" Value="{x:Null}"/>
                         </MultiDataTrigger>
@@ -2054,17 +1993,17 @@
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Spell.WeaponActionType}" Value="Melee"/>
-                    <Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Equipment.MeleeMainHand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
+                    <Condition Binding="{Binding (ls:WidgetData.DataContext).CurrentPlayer.SelectedCharacter.Equipment.MeleeMainHand, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Command" Value="{Binding DataContext.UseMeleeWeaponCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                <Setter Property="Command" Value="{Binding (ls:WidgetData.DataContext).UseMeleeWeaponCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
                 <Setter Property="CommandParameter" Value="{Binding .}"/>
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Spell.WeaponActionType}" Value="Ranged"/>
-                    <Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Equipment.RangedMainHand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
+                    <Condition Binding="{Binding (ls:WidgetData.DataContext).CurrentPlayer.SelectedCharacter.Equipment.RangedMainHand, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Command" Value="{Binding DataContext.UseRangedWeaponCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                <Setter Property="Command" Value="{Binding (ls:WidgetData.DataContext).UseRangedWeaponCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
                 <Setter Property="CommandParameter" Value="{Binding .}"/>
             </MultiDataTrigger>
 
@@ -2073,9 +2012,9 @@
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding SlotType}" Value="Item"/>
                     <Condition Binding="{Binding GameObject.UseType}" Value="Arrow"/>
-                    <Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Equipment.RangedMainHand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
+                    <Condition Binding="{Binding (ls:WidgetData.DataContext).CurrentPlayer.SelectedCharacter.Equipment.RangedMainHand, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Command" Value="{Binding DataContext.UseRangedWeaponCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                <Setter Property="Command" Value="{Binding (ls:WidgetData.DataContext).UseRangedWeaponCommand, RelativeSource={RelativeSource TemplatedParent}}"/>
                 <Setter Property="CommandParameter" Value="{Binding .}"/>
             </MultiDataTrigger>
         </Style.Triggers>

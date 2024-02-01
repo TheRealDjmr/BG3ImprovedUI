@@ -21,13 +21,6 @@
     <System:Single x:Key="LevelUpArrowAnimationFrameSmallSize">72</System:Single>
     <System:Single x:Key="LevelUpArrowAnimationFrameBigSize">90</System:Single>
 
-    <BitmapImage x:Key="ListArrowCollapsed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_arrowCollapsed_d.png"/>
-    <BitmapImage x:Key="ListArrowCollapsedH" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_arrowCollapsed_h.png"/>
-    <BitmapImage x:Key="ListArrowExpanded" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_arrowExpanded_d.png"/>
-    <BitmapImage x:Key="ListArrowExpandedH" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_arrowExpanded_h.png"/>
-    <BitmapImage x:Key="StatusBackground" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_HUD_statusBG.png"/>
-
-    
     <System:Double x:Key="CharacterPanelWidth">900</System:Double>
 
 	<!-- MOD START - Moved to IUI files -->
@@ -1476,16 +1469,23 @@
 
     <LinearGradientBrush x:Key="LeftSideShadingBrush" Opacity="1.0" StartPoint="0,0" EndPoint="1,0">
         <GradientStop Offset="0" Color="#E60b0908"/>
-        <GradientStop Offset="0.3" Color="#d40b0908"/>
+        <GradientStop Offset="0.5" Color="#E60b0908"/>
         <GradientStop Offset="1.0" Color="{StaticResource transparentBlack}" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="RightSideShadingBrush" Opacity="1.0" StartPoint="1,0" EndPoint="0,0">
         <GradientStop Offset="0" Color="#E60b0908"/>
-        <GradientStop Offset="0.3" Color="#d40b0908"/>
+        <GradientStop Offset="0.5" Color="#E60b0908"/>
         <GradientStop Offset="1" Color="{StaticResource transparentBlack}" />
-    </LinearGradientBrush> 
-    
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="CenterShadingBrush" Opacity="1.0" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Offset="0" Color="{StaticResource transparentBlack}"/>
+        <GradientStop Offset="0.2" Color="#E60b0908"/>
+        <GradientStop Offset="0.8" Color="#E60b0908"/>
+        <GradientStop Offset="1" Color="{StaticResource transparentBlack}" />
+    </LinearGradientBrush>
+
     <LinearGradientBrush x:Key="OpacityMaskShadingBrush" Opacity="1.0" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0" Color="#f7FFFFFF"/>
         <GradientStop Offset="0.3" Color="#f7FFFFFF" />
@@ -1500,7 +1500,7 @@
     </Style>
 
     <ControlTemplate x:Key="Template.InventoryListBoxItem" TargetType="ListBoxItem">
-        <ls:LSEntityObject x:Name="CellRoot" Context="{Binding (ls:ContextMenuService.Context) , RelativeSource={RelativeSource Mode=TemplatedParent} }" ls:ContextMenuService.GenerateEnabled="False" DataContext="{Binding Object}" EntityRef="{Binding EntityHandle}" Background="{TemplateBinding Background}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="6" ToolTipService.VerticalOffset="120" Focusable="True" ls:MoveFocus.Focusable="True" Tag="" Visibility="Visible">
+        <ls:LSEntityObject x:Name="CellRoot" Context="{Binding (ls:ContextMenuService.Context) , RelativeSource={RelativeSource Mode=TemplatedParent} }" ls:ContextMenuService.GenerateEnabled="False" DataContext="{Binding Object}" EntityRef="{Binding EntityHandle}" Background="{TemplateBinding Background}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="6" ToolTipService.VerticalOffset="120" Focusable="True" ls:MoveFocus.Focusable="True" Tag="" Visibility="Visible" FocusVisualStyle="{StaticResource Style.FocusVisualStyle}" >
             <ls:LSEntityObject.ToolTip>
                 <ls:LSTooltip Content="{Binding DataContext.Object,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </ls:LSEntityObject.ToolTip>
@@ -1520,7 +1520,6 @@
                 <ContentPresenter IsHitTestVisible="False"/>
                 <Image x:Name="SelectOverlay" Source="{StaticResource InvSlot_SelectionOverlay}" IsHitTestVisible="False" Visibility="Hidden" />
                 <Rectangle x:Name="InactiveOverlay" Visibility="{Binding Visibility, ElementName=SelectOverlay, Converter={StaticResource InvertVisibilityConverter}}" Style="{StaticResource MultiselectInactiveOverlay}"/>
-                <Control x:Name="FocusOverlay" Visibility="Collapsed" Template="{DynamicResource FocusableBorderTemplate}"/>
                 <Control Style="{StaticResource NewInventoryCellItemStyle}"/>
             </Grid>
 
@@ -1534,9 +1533,6 @@
             <DataTrigger Binding="{Binding (ls:MultiSelect.IsEnabled), RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Value="False">
                 <Setter TargetName="InactiveOverlay" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
-            <Trigger SourceName="CellRoot" Property="ls:MoveFocus.IsFocused" Value="True">
-                <Setter TargetName="FocusOverlay" Property="Visibility" Value="Visible" />
-            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>
