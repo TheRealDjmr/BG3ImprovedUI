@@ -246,6 +246,8 @@
 	<ImageSource x:Key="HuntersSense">pack://application:,,,/GustavNoesisGUI;component/Assets/MonsterSlayer5e/Shared/Resources/ico_classRes_HuntersSense_d.png</ImageSource>
 	<ImageSource x:Key="HuntersSenseUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MonsterSlayer5e/Shared/Resources/ico_classRes_HuntersSense_missing.png</ImageSource>
 	<!-- EDIT HERE -->
+	<ImageSource x:Key="GritPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/c_ico_classRes_GritPoint_d.png</ImageSource>
+	<ImageSource x:Key="GritPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/c_ico_classRes_GritPoint_missing.png</ImageSource>
 
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
@@ -479,6 +481,9 @@
 				<Setter Property="Source" Value="{StaticResource HuntersSense}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="GritPoint">
+				<Setter Property="Source" Value="{StaticResource GritPoint}"/>
+			</DataTrigger>
 		</Style.Triggers>
 	</Style>
 
@@ -1631,6 +1636,16 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GritPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GritPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 		</Style.Triggers>
 	</Style>
 
@@ -2441,6 +2456,15 @@
 	</ControlTemplate>
 
 	<!-- EDIT HERE -->
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GritPointGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
@@ -3727,6 +3751,19 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="GritPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GritPointGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GritPoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 		</Style.Triggers>
 	</Style>
 </ResourceDictionary>
