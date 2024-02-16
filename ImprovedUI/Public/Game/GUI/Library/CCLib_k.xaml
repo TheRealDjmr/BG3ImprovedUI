@@ -1,7 +1,7 @@
 <!--
 
     Resources for keyboard version of CC & LevelUp
-    
+
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -57,7 +57,6 @@
     <BitmapImage x:Key="IconSpellAttackBonus" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/SpellBook/ico_spellAttackBonus.png"/>
     <BitmapImage x:Key="TabBackground_d" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/tab_inactive_d.png"/>
     <BitmapImage x:Key="TabBackground_h" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/tab_inactive_h.png"/>
-    <BitmapImage x:Key="ButtonDecorativeBackground" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btnAppearance_bg.png"/>
     <BitmapImage x:Key="SpellSlot" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/spellslot.png"/>
     <BitmapImage x:Key="SelectorSpellSlot" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/selector_spellslot.png"/>
     <BitmapImage x:Key="RemoverSpellSlot" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterCreation/remover_spellslot.png"/>
@@ -162,21 +161,6 @@
         <Setter Property="FontSize" Value="{StaticResource ScaledMediumFontSize}"/>
     </Style>
 
-
-    <Style x:Key="companionHeaderStyle" TargetType="TextBlock">
-        <Setter Property="noesis:Text.Stroke" Value="{StaticResource LS_PrimaryColorOutlineColor}"/>
-        <Setter Property="noesis:Text.StrokeThickness" Value="4"/>
-        <Setter Property="TextAlignment" Value="Left"/>
-        <Setter Property="FontSize" Value="{StaticResource ScaledTitleFontSize}"/>
-        <Setter Property="Foreground" Value="{StaticResource LS_PrimaryColor}"/>
-        <Setter Property="TextWrapping" Value="Wrap"/>
-        <Setter Property="TextBlock.Effect">
-            <Setter.Value>
-                <DropShadowEffect Direction="270" Color="{StaticResource LS_PrimaryColorDropShadowColor}" ShadowDepth="3.0" BlurRadius="5.0"/>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
     <Style x:Key="gameplayPanelScrollViewerStyle" TargetType="ls:LSScrollViewer" BasedOn="{StaticResource {x:Type ls:LSScrollViewer}}">
         <Setter Property="Template" Value="{StaticResource NoForcedStyleScrollViewerTemplate}"/>
         <Setter Property="Height" Value="1600"/>
@@ -240,11 +224,11 @@
                     <Ellipse Fill="{StaticResource LS_HoverColor}" Visibility="{Binding Visibility, ElementName=hoverRect, Converter={StaticResource InvertVisibilityConverter}}" Width="80" Height="80"/>
                 </Grid>
 
-                <TextBlock x:Name="LevelText" 
-                           ls:TextBlockFormatter.SourceText="{Binding Level, Converter={StaticResource DecimalToRomanConverter}}" 
-                           FontSize="{StaticResource ScaledMediumFontSize}" 
-                           IsHitTestVisible="False" Foreground="{StaticResource LS_specialTxtColor}" 
-                           noesis:Text.Stroke="{StaticResource LS_PrimaryColorOutlineColor}" 
+                <TextBlock x:Name="LevelText"
+                           ls:TextBlockFormatter.SourceText="{Binding Level, Converter={StaticResource DecimalToRomanConverter}}"
+                           FontSize="{StaticResource ScaledMediumFontSize}"
+                           IsHitTestVisible="False" Foreground="{StaticResource LS_specialTxtColor}"
+                           noesis:Text.Stroke="{StaticResource LS_PrimaryColorOutlineColor}"
                            noesis:Text.StrokeThickness="6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,-4"
                            Visibility="Visible"/>
             </Grid>
@@ -642,46 +626,6 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding IsComplete}" Value="False">
                 <Setter TargetName="SelectionStripTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
-            </DataTrigger>
-        </DataTemplate.Triggers>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type ls:VMCharacterCreationPassives}">
-        <DockPanel Height="1700">
-
-            <StackPanel DockPanel.Dock="Top" Width="{StaticResource gameplayPanelWidth}" HorizontalAlignment="Left" Margin="142,-40,0,0">
-                <Image Source="{StaticResource IconClass}" Stretch="None"/>
-
-                <ContentControl DockPanel.Dock="Top" ContentTemplate="{DynamicResource PassiveSelectorItemTemplate}" Content="{Binding .}"/>
-            </StackPanel>
-
-            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
-                <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-
-                    <!-- Features that may depend on passive selection above -->
-                    <!-- ToDo: only show things that actually depend, also separate class/subclass -->
-                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-
-                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-
-					<!-- MOD START - Racial passive selection -->
-					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-					<!-- MOD END -->
-
-                    <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
-                        <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
-
-                        <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding DataContext.SelectablePiercings, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SelectedItem="{Binding DataContext.SelectedPiercing, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
-                    </StackPanel>
-
-                </StackPanel>
-            </ls:LSScrollViewer>
-
-        </DockPanel>
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True">
-                <Setter TargetName="PiercingSelector" Property="Visibility" Value="{Binding DataContext.SelectablePiercings.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource CountToVisibilityConverter}}"/>
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
@@ -1250,17 +1194,17 @@
                 <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="subTabsSpellsList" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=ClassSpellSelectors}"/>
             </MultiDataTrigger>
-            <!-- MOD START - Spell subtabs for racial spells on LevelUp -->
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
-                    <Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
-                    <Condition Binding="{Binding RaceProgressionDetails.SpellSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
-                </MultiDataTrigger.Conditions>
-                <Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="subTabsSpellsList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SpellSelectors}"/>
-            </MultiDataTrigger>
-            <!-- MOD END -->
+			<!-- MOD START - Spell subtabs for racial spells on LevelUp -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
+					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+					<Condition Binding="{Binding RaceProgressionDetails.SpellSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="subTabsSpellsList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SpellSelectors}"/>
+			</MultiDataTrigger>
+			<!-- MOD END -->
 
             <!-- Passive subtabs -->
             <MultiDataTrigger>
@@ -1833,11 +1777,11 @@
 
             <Grid HorizontalAlignment="Center">
 				<!-- MOD START - Use main class instead of subclass icon -->
-				<Image Style="{StaticResource MainClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
+				<Image Style="{StaticResource MainClassIconHotbarStyle}" Width="140" Stretch="Uniform"/>
 				<!-- MOD END -->
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
             </Grid>
-            <TextBlock x:Name="label" ls:TextBlockFormatter.SourceText="{Binding ShortName}" Foreground="{StaticResource CCTextNormal}" Width="{DynamicResource IconTextWidth}" 
+            <TextBlock x:Name="label" ls:TextBlockFormatter.SourceText="{Binding ShortName}" Foreground="{StaticResource CCTextNormal}" Width="{DynamicResource IconTextWidth}"
                        TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,12"/>
             <TextBlock x:Name="level" Foreground="{StaticResource CCTextNormal}" HorizontalAlignment="Center">
                 <TextBlock.Text>
@@ -1873,50 +1817,51 @@
 
 	<!-- MOD START - Duplicate for subclass icons -->
 	<DataTemplate x:Key="SubclassIconTemplate" DataType="ls:VMSelectableClass">
-        <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
-                </Style>
-            </StackPanel.Resources>
+		<StackPanel>
+			<StackPanel.Resources>
+				<Style TargetType="TextBlock">
+					<Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
+				</Style>
+			</StackPanel.Resources>
 
-            <Grid HorizontalAlignment="Center">
-                <Image Style="{StaticResource ClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
-                <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
-            </Grid>
-            <TextBlock x:Name="label" ls:TextBlockFormatter.SourceText="{Binding ShortName}" Foreground="{StaticResource CCTextNormal}" Width="{DynamicResource IconTextWidth}" 
-                       TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,12"/>
-            <TextBlock x:Name="level" Foreground="{StaticResource CCTextNormal}" HorizontalAlignment="Center">
-                <TextBlock.Text>
-                    <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
-                        <Binding Source="hd678d4eeg181fg499dg9e81g2146ab24e03a"/>
-                        <Binding Path="DataContext.Level" RelativeSource="{RelativeSource Mode=Self}"/>
-                        <Binding Source=""/>
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-        </StackPanel>
+			<Grid HorizontalAlignment="Center">
+				<Image Style="{StaticResource ClassIconHotbarStyle}" Width="144" Stretch="Uniform"/>
+				<ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
+			</Grid>
+			<TextBlock x:Name="label" ls:TextBlockFormatter.SourceText="{Binding ShortName}" Foreground="{StaticResource CCTextNormal}" Width="{DynamicResource IconTextWidth}" 
+					   TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+			<TextBlock x:Name="level" Foreground="{StaticResource CCTextNormal}" HorizontalAlignment="Center">
+				<TextBlock.Text>
+					<MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+						<Binding Source="hd678d4eeg181fg499dg9e81g2146ab24e03a"/>
+						<Binding Path="DataContext.Level" RelativeSource="{RelativeSource Mode=Self}"/>
+						<Binding Source=""/>
+					</MultiBinding>
+				</TextBlock.Text>
+			</TextBlock>
+		</StackPanel>
 
-        <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding ShortName}" Value="">
-                <Setter TargetName="label" Property="Text" Value="{Binding Name}"/>
-            </DataTrigger>
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding ShortName}" Value="">
+				<Setter TargetName="label" Property="Text" Value="{Binding Name}"/>
+			</DataTrigger>
 
-            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
-                <Setter TargetName="frame" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="label" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
-                <Setter TargetName="level" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
-                <Setter TargetName="frame" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="frame" Property="ImageSource" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/selector_CC_h.png"/>
-            </DataTrigger>
+			<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
+				<Setter TargetName="frame" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="label" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+				<Setter TargetName="level" Property="Foreground" Value="{StaticResource CCTextPrimary}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}},Path=IsMouseOver}" Value="True">
+				<Setter TargetName="frame" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="frame" Property="ImageSource" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/selector_CC_h.png"/>
+			</DataTrigger>
 
-            <DataTrigger Binding="{Binding Level}" Value="0">
-                <Setter TargetName="level" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
-        </DataTemplate.Triggers>
-    </DataTemplate>
+			<DataTrigger Binding="{Binding Level}" Value="0">
+				<Setter TargetName="level" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
+	<!-- MOD END -->
 
     <DataTemplate x:Key="ReducedClassIconTemplate" DataType="ls:VMSelectableClass">
         <DataTemplate.Resources>
@@ -1969,7 +1914,7 @@
                 <Rectangle x:Name="icon" Width="188" Height="188" Fill="{StaticResource CCIconDefault}" Style="{DynamicResource CustomIconStyle}"/>
                 <ls:LSNineSliceImage x:Name="frame" Visibility="Hidden" ImageSource="{StaticResource IconGridSelector}" Slices="32,32,32,32" Padding="16" Width="208" Height="208" Margin="-6"/>
             </Grid>
-            <TextBlock x:Name="label" ls:TextBlockFormatter.SourceText="{Binding Name}" Foreground="{StaticResource CCTextLightest}" Width="{DynamicResource IconTextWidth}" 
+            <TextBlock x:Name="label" ls:TextBlockFormatter.SourceText="{Binding Name}" Foreground="{StaticResource CCTextLightest}" Width="{DynamicResource IconTextWidth}"
                        TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" FontSize="{StaticResource ScaledDefaultFontSize}" Margin="0,0,0,12"/>
         </StackPanel>
 
@@ -2655,15 +2600,23 @@
         <Grid HorizontalAlignment="Center">
             <Image x:Name="box" Source="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/dropdownBox_d.png" Stretch="None"/>
 
-            <ls:LSButton Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-40,0,0,0" Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{StaticResource CarouselButtonSoundEvent}"/>
+            <ls:LSButton x:Name="leftBtn" Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="-40,0,0,0" SoundID="{StaticResource CarouselButtonSoundEvent}"/>
 
-            <ls:LSButton Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-40,0" Command="{Binding DataContext.NextItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{StaticResource CarouselButtonSoundEvent}">
+            <ls:LSButton x:Name="rightBtn" Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-40,0" SoundID="{StaticResource CarouselButtonSoundEvent}">
                 <ls:LSButton.RenderTransform>
                     <ScaleTransform ScaleX="-1" CenterX="80"/>
                 </ls:LSButton.RenderTransform>
             </ls:LSButton>
 
             <TextBlock x:Name="cTxt" Text="{Binding SelectedItem.Name, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Style="{StaticResource CarouselTextStyle}"/>
+            <b:Interaction.Triggers>
+                <b:EventTrigger SourceName="leftBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem Reversed="True" TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}"  ForceSelect="True"/>
+                </b:EventTrigger>
+                <b:EventTrigger SourceName="rightBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -2671,6 +2624,52 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <Style x:Key="SelectableCarouselStyle" TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
+        <Setter Property="Template" Value="{StaticResource SelectableCarouselTemplate}"/>
+        <Setter Property="KeyboardNavigation.DirectionalNavigation" Value="Cycle"/>
+    </Style>
+
+
+    <DataTemplate DataType="{x:Type ls:VMCharacterCreationPassives}">
+        <DockPanel Height="1700">
+
+            <StackPanel DockPanel.Dock="Top" Width="{StaticResource gameplayPanelWidth}" HorizontalAlignment="Left" Margin="142,-40,0,0">
+                <Image Source="{StaticResource IconClass}" Stretch="None"/>
+
+                <ContentControl DockPanel.Dock="Top" ContentTemplate="{DynamicResource PassiveSelectorItemTemplate}" Content="{Binding .}"/>
+            </StackPanel>
+
+            <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
+                <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+                    <!-- Features that may depend on passive selection above -->
+                    <!-- ToDo: only show things that actually depend, also separate class/subclass -->
+                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=ClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=ClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+
+                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+
+					<!-- MOD START - Racial passive selection -->
+					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
+					<!-- MOD END -->
+
+                    <StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
+                        <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
+
+                        <ListBox Style="{StaticResource SelectableCarouselStyle}" ItemsSource="{Binding DataContext.SelectablePiercings, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SelectedItem="{Binding DataContext.SelectedPiercing, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
+                    </StackPanel>
+
+                </StackPanel>
+            </ls:LSScrollViewer>
+
+        </DockPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True">
+                <Setter TargetName="PiercingSelector" Property="Visibility" Value="{Binding DataContext.SelectablePiercings.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource CountToVisibilityConverter}}"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
 
     <ControlTemplate x:Key="BodyTypeTemplate">
         <ControlTemplate.Resources>
@@ -2739,10 +2738,10 @@
     </ControlTemplate>
 
     <ControlTemplate x:Key="randomAppearanceNewButton">
-        <ls:LSButton x:Name="randomNew" Template="{StaticResource FramedIconWithTextButtonTemplate}" 
-                     Content="{Binding Source='hd4361310gda51g4eaegb195gf3ce49c2c210', Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnRight" 
+        <ls:LSButton x:Name="randomNew" Template="{StaticResource FramedIconWithTextButtonTemplate}"
+                     Content="{Binding Source='hd4361310gda51g4eaegb195gf3ce49c2c210', Converter={StaticResource TranslatedStringConverter}}" Tag="TextOnRight"
                      Command="{Binding RandomAppearance}"
-                     CommandParameter="new" 
+                     CommandParameter="new"
                      IsEnabled="{Binding HasNewRandomAppearance}"
                      IsHitTestVisible="{Binding HasNewRandomAppearance}"
                      HorizontalAlignment="Center">
@@ -2834,7 +2833,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
 
                     <Control Template="{StaticResource randomAppearanceNewButton}"/>
-                    <ls:LSButton x:Name="randomPrev" Template="{StaticResource FramedIconWithTextButtonTemplate}" 
+                    <ls:LSButton x:Name="randomPrev" Template="{StaticResource FramedIconWithTextButtonTemplate}"
                                  Command="{Binding RandomAppearance}"
                                  CommandParameter="prev"
                                  IsEnabled="{Binding HasPreviousAppearance}">
@@ -2857,9 +2856,9 @@
                         </ls:LSButton.Resources>
                     </ls:LSButton>
 
-                    <ls:LSButton x:Name="randomNext" Template="{StaticResource FramedIconWithTextButtonTemplate}" 
+                    <ls:LSButton x:Name="randomNext" Template="{StaticResource FramedIconWithTextButtonTemplate}"
                                  Command="{Binding RandomAppearance}"
-                                 CommandParameter="next" 
+                                 CommandParameter="next"
                                  IsEnabled="{Binding HasNextAppearance}"
                                  Margin="-10,0,0,0">
                         <ls:LSButton.ToolTip>
@@ -3046,11 +3045,8 @@
 
                         <!-- To Appearance -->
 						<!-- MOD START - Edit appearance for Origin characters -->
-                        <ls:LSButton x:Name="EditAppearanceButton" Style="{StaticResource BigBrownButtonStyle}" 
-                                     Content="{Binding Source='h072b13e4g302ag4575g85e8g5c0c26a5d45e', Converter={StaticResource TranslatedStringConverter}}" 
-                                     IsEnabled="{Binding Enabled}"
-                                     Width="{StaticResource ButtonWidth}">
-									 <!-- MOD END -->
+						<ls:LSButton x:Name="EditAppearanceButton" Style="{StaticResource BigBrownButtonStyle}" Content="{Binding Source='h072b13e4g302ag4575g85e8g5c0c26a5d45e', Converter={StaticResource TranslatedStringConverter}}" IsEnabled="{Binding Enabled}" Width="{StaticResource ButtonWidth}">
+						<!-- MOD END -->
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="Click" >
                                     <b:ChangePropertyAction TargetName="flowPage" PropertyName="SelectedIndex" Value="1" />
@@ -3060,8 +3056,8 @@
                         </ls:LSButton>
 
                         <!-- To Naming -->
-                        <ls:LSButton x:Name="GameplayProceedButton" Style="{StaticResource BigBlueButtonStyle}" 
-                                     Content="{Binding Source='hbd442b28g8fc5g4d34g9127g9ec0e917b9e7', Converter={StaticResource TranslatedStringConverter}}" 
+                        <ls:LSButton x:Name="GameplayProceedButton" Style="{StaticResource BigBlueButtonStyle}"
+                                     Content="{Binding Source='hbd442b28g8fc5g4d34g9127g9ec0e917b9e7', Converter={StaticResource TranslatedStringConverter}}"
                                      IsEnabled="{Binding IsCharacterCompleteExceptName}"
                                      Width="{StaticResource ButtonWidth}"
                                      SoundID="UI_HUD_CC_Proceed">
@@ -3075,9 +3071,9 @@
                         </ls:LSButton>
 
                         <!-- To Companion -->
-                        <ls:LSButton x:Name="GameplayToCompanionButton" Style="{StaticResource BigBlueButtonStyle}" 
-                                     Content="{Binding Source='hbd442b28g8fc5g4d34g9127g9ec0e917b9e7', Converter={StaticResource TranslatedStringConverter}}" 
-                                     IsEnabled="{Binding IsCharacterComplete}" 
+                        <ls:LSButton x:Name="GameplayToCompanionButton" Style="{StaticResource BigBlueButtonStyle}"
+                                     Content="{Binding Source='hbd442b28g8fc5g4d34g9127g9ec0e917b9e7', Converter={StaticResource TranslatedStringConverter}}"
+                                     IsEnabled="{Binding IsCharacterComplete}"
                                      Visibility="Collapsed"
                                      Width="{StaticResource ButtonWidth}"
                                      SoundID="UI_HUD_CC_Proceed">
@@ -3107,8 +3103,8 @@
                         </ls:LSButton>
 
                         <!-- To Naming -->
-                        <ls:LSButton Style="{StaticResource BigBlueButtonStyle}" 
-                                     Content="{Binding Source='hbd442b28g8fc5g4d34g9127g9ec0e917b9e7', Converter={StaticResource TranslatedStringConverter}}" 
+                        <ls:LSButton Style="{StaticResource BigBlueButtonStyle}"
+                                     Content="{Binding Source='hbd442b28g8fc5g4d34g9127g9ec0e917b9e7', Converter={StaticResource TranslatedStringConverter}}"
                                      IsEnabled="{Binding IsCharacterCompleteExceptName}"
                                      Width="{StaticResource ButtonWidth}"
                                      SoundID="UI_HUD_CC_Proceed">
@@ -3128,7 +3124,7 @@
 
                         <!-- To Gameplay -->
                         <ls:LSButton Style="{StaticResource BigBrownButtonStyle}"
-                                     Content="{Binding Source='h77fec760g866dg4e47g8e81g467c9c05e447', Converter={StaticResource TranslatedStringConverter}}" 
+                                     Content="{Binding Source='h77fec760g866dg4e47g8e81g467c9c05e447', Converter={StaticResource TranslatedStringConverter}}"
                                      Width="{StaticResource ButtonWidth}">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="Click" >
@@ -3138,9 +3134,9 @@
                         </ls:LSButton>
 
                         <!-- To Companion -->
-                        <ls:LSButton Style="{StaticResource BigBlueButtonStyle}" 
-                                     Content="{Binding Source='hbd442b28g8fc5g4d34g9127g9ec0e917b9e7', Converter={StaticResource TranslatedStringConverter}}" 
-                                     IsEnabled="{Binding IsCharacterComplete}" 
+                        <ls:LSButton Style="{StaticResource BigBlueButtonStyle}"
+                                     Content="{Binding Source='hbd442b28g8fc5g4d34g9127g9ec0e917b9e7', Converter={StaticResource TranslatedStringConverter}}"
+                                     IsEnabled="{Binding IsCharacterComplete}"
                                      Width="{StaticResource ButtonWidth}"
                                      SoundID="UI_HUD_CC_Proceed">
                             <b:Interaction.Triggers>
@@ -3158,7 +3154,7 @@
 
                         <!-- To Gameplay -->
                         <ls:LSButton Style="{StaticResource BigBrownButtonStyle}"
-                                     Content="{Binding Source='h77fec760g866dg4e47g8e81g467c9c05e447', Converter={StaticResource TranslatedStringConverter}}" 
+                                     Content="{Binding Source='h77fec760g866dg4e47g8e81g467c9c05e447', Converter={StaticResource TranslatedStringConverter}}"
                                      Width="{StaticResource ButtonWidth}">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="Click" >
@@ -3168,9 +3164,9 @@
                         </ls:LSButton>
 
                         <!-- Venture Forth -->
-                        <ls:LSButton Style="{StaticResource BigBlueButtonStyle}" 
-                                     Content="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}" 
-                                     IsEnabled="{Binding IsCharacterComplete}" Command="{Binding FinishCreating}" 
+                        <ls:LSButton Style="{StaticResource BigBlueButtonStyle}"
+                                     Content="{Binding Source='h06b74424gf3bdg4b6cgbe63g84b32198e162', Converter={StaticResource TranslatedStringConverter}}"
+                                     IsEnabled="{Binding IsCharacterComplete}" Command="{Binding FinishCreating}"
                                      Width="{StaticResource ButtonWidth}"
                                      SoundID="UI_HUD_CC_Proceed">
                             <b:Interaction.Triggers>
@@ -3187,7 +3183,7 @@
 
                         <!-- To Gameplay -->
                         <ls:LSButton Style="{StaticResource BigBrownButtonStyle}"
-                                     Content="{Binding Source='h77fec760g866dg4e47g8e81g467c9c05e447', Converter={StaticResource TranslatedStringConverter}}" 
+                                     Content="{Binding Source='h77fec760g866dg4e47g8e81g467c9c05e447', Converter={StaticResource TranslatedStringConverter}}"
                                      Width="{StaticResource ButtonWidth}">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="Click" >
@@ -3473,6 +3469,7 @@
                         </DataTemplate.Triggers>
                     </DataTemplate>
 
+
                 </StackPanel.Resources>
                 <TextBlock x:Name="skillsTitle" ls:TextBlockFormatter.SourceText="{Binding Source=h12abe296ga0fbg44feg9451gb10a0bf92acb, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}" Margin="0,20,0,0"/>
 
@@ -3623,7 +3620,6 @@
 
 
                 </Grid>
-
             </StackPanel>
         </ls:LSNineSliceImage>
 
@@ -3686,15 +3682,13 @@
                                     </ls:LSTooltip>
                                 </StackPanel.ToolTip>
 
-								<!-- MOD START - Resize subclass icon if too big -->
-								<Image Style="{StaticResource ClassIconHotbarStyle}" MaxWidth="150" Stretch="Uniform"/>
-							</StackPanel>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
+                                <Image Style="{StaticResource ClassIconHotbarStyle}" Stretch="Uniform" Width="140"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-				<Image x:Name="SelectedSubclassIcon" Style="{StaticResource ClassIconHotbarStyle}" MaxWidth="150" Stretch="Uniform" DataContext="{Binding SelectedSubclass}" Visibility="Collapsed"/>
-				<!-- MOD END -->
+                <Image x:Name="SelectedSubclassIcon" Style="{StaticResource ClassIconHotbarStyle}" Stretch="Uniform" Width="140" DataContext="{Binding SelectedSubclass}" Visibility="Collapsed"/>
             </StackPanel>
         </ContentControl>
 
@@ -3891,11 +3885,11 @@
 
             </DockPanel>
 
-            <ls:LSButton x:Name="CancelButton" 
-                         HorizontalAlignment="Center" 
-                         VerticalAlignment="Bottom" 
+            <ls:LSButton x:Name="CancelButton"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Bottom"
                          Margin="0,0,0,60"
-                         Command="{Binding DataContext.SelectFirstUsedClass, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+                         Command="{Binding DataContext.SelectFirstUsedClass, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
                          Visibility="Collapsed"
                          Style="{StaticResource SmallRedButtonStyle}"
                          Content="{Binding Source=h675a55aegd07cg4ab0g862dg0c564197d478, Converter={StaticResource TranslatedStringConverter}}">
@@ -4010,9 +4004,7 @@
 						<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,12,0,0"/>
 
 						<ItemsControl x:Name="SubclassSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource SpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-
 						<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Margin="0,12,0,0"/>
-
 						<ContentControl x:Name="SubclassFeatures" Template="{DynamicResource ShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,12,0,0"/>
 
 					</StackPanel>
@@ -4066,7 +4058,7 @@
 					<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
 						<ListBox ItemTemplate="{StaticResource SubclassIconTemplate}" ItemsSource="{Binding SelectableSubClasses}" SelectedItem="{Binding SelectedSubClass}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}" Margin="0,40,0,0"/>
-						
+
 					</StackPanel>
 				</ls:LSScrollViewer>
 				<ls:LSScrollViewer Grid.Row="3" VerticalAlignment="Top" Style="{StaticResource gameplayPanelScrollViewerStyle}" Height="Auto" VerticalScrollBarVisibility="Auto">
@@ -4076,11 +4068,8 @@
 						<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedSubClass.Description}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
 
 						<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource LevelUpSpellSelectorPreviewTemplate}"/>
-
 						<ItemsControl ItemsSource="{Binding ClassProgressionDetails.SubPassiveSelectors}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" ItemContainerStyle="{StaticResource UpdateStateItemStyle}"/>
-
 						<ContentControl Template="{DynamicResource LevelUpShowFeaturesTemplate}" DataContext="{Binding ProgressionData.SubClassProgression.Other}" Content="{Binding Source='ha3fe9fd2gcd03g4e0bgbb45gf60144f6aba6', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center"/>
-
 						<ItemsControl x:Name="featureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" />
 
 					</StackPanel>
@@ -4176,8 +4165,8 @@
                             <DataTemplate DataType="{x:Type ls:VMSpellReferenceByLevel}">
                                 <StackPanel>
                                     <b:Interaction.Behaviors>
-                                        <ls:CollectionSortBehavior x:Name="SortedSpellsBySchool" 
-                                                                    ItemsSource="{Binding Spells}" 
+                                        <ls:CollectionSortBehavior x:Name="SortedSpellsBySchool"
+                                                                    ItemsSource="{Binding Spells}"
                                                                     Comparer="{Binding DataContext.SpellBySchoolSortComparer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
                                     </b:Interaction.Behaviors>
                                     <TextBlock x:Name="level" FontSize="{StaticResource ScaledMediumFontSize}" Margin="0,40,0,15" HorizontalAlignment="Center">
@@ -4190,7 +4179,7 @@
                                         </TextBlock.Text>
                                     </TextBlock>
 
-                                    <ItemsControl ItemsSource="{Binding SortedItems, ElementName=SortedSpellsBySchool}" 
+                                    <ItemsControl ItemsSource="{Binding SortedItems, ElementName=SortedSpellsBySchool}"
                                                                           ls:AttachedProperties.InheritedTag="HideSpellLevel"
                                                                           ItemTemplate="{StaticResource SelectableSpell}"
                                                                           Style="{StaticResource spellSelectorSpellListStyle}"/>
@@ -4293,11 +4282,23 @@
         <Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
     </Style>
 
+    <Style x:Key="CCSliderStyle" TargetType="{x:Type Slider}">
+        <Setter Property="Template" Value="{StaticResource OptionsSliderTemplate}"/>
+        <Setter Property="Value" Value="{Binding Value}"/>
+        <Setter Property="Minimum" Value="{Binding Min}"/>
+        <Setter Property="Maximum" Value="{Binding Max}"/>
+        <Setter Property="IsSnapToTickEnabled" Value="False"/>
+        <Setter Property="SmallChange" Value="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"/>
+        <Setter Property="LargeChange" Value="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"/>
+        <Setter Property="IsEnabled" Value="{Binding Enabled}"/>
+        <Setter Property="Width" Value="600"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
     <ControlTemplate x:Key="SliderTemplate">
         <StackPanel>
             <TextBlock Text="{Binding Text}" HorizontalAlignment="Center"/>
-            <Slider DataContext="{Binding}" Template="{StaticResource OptionsSliderTemplate}" Value="{Binding Value}" Minimum="{Binding Min}" Maximum="{Binding Max}" IsSnapToTickEnabled="False" 
-                    SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}" LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}" IsEnabled="{Binding Enabled}">
+            <Slider DataContext="{Binding}" Style="{StaticResource CCSliderStyle}" Width="500">
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="ValueChanged">
                         <b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
@@ -4306,7 +4307,6 @@
             </Slider>
         </StackPanel>
     </ControlTemplate>
-
     <Style x:Key="ColorOptionsStyle" TargetType="ListBox">
         <Setter Property="Template">
             <Setter.Value>
@@ -4730,7 +4730,7 @@
                                                     </Image.ToolTip>
                                                 </Image>
 
-                                                <Control Template="{StaticResource AbilityDisplayName}" ToolTipService.Placement="Left" FontSize="{StaticResource LargeFontSize}" HorizontalAlignment="Left" 
+                                                <Control Template="{StaticResource AbilityDisplayName}" ToolTipService.Placement="Left" FontSize="{StaticResource LargeFontSize}" HorizontalAlignment="Left"
                                                          VerticalAlignment="Center" MaxWidth="300" Margin="132,0,0,0">
                                                     <Control.ToolTip>
                                                         <ls:LSTooltip Content="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
@@ -4969,7 +4969,7 @@
                             </ItemsControl>
                         </StackPanel>
                     </ls:LSScrollViewer>
-                </Grid>
+				</Grid>
 				<!-- MOD END -->
             </Grid>
 
@@ -5032,7 +5032,7 @@
                             <Image x:Name="icon" Source="{DynamicResource tabIcon}" Stretch="None"/>
                         </Grid>
 
-                        <TextBlock x:Name="label" 
+                        <TextBlock x:Name="label"
                             Foreground="{StaticResource CCTextNormal}"
                             TextAlignment="Right" TextWrapping="WrapWithOverflow" TextTrimming="CharacterEllipsis"
                             HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,92,0"/>
@@ -5180,7 +5180,7 @@
 
 						<!-- MOD START - Always show voices, even for Hirelings/Origins -->
 						<StackPanel x:Name="voiceSection">
-							<!-- MOD END -->
+						<!-- MOD END -->
                             <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h81102ec7gef4dg42edg85b5g60d7fb1d13f9', Converter={StaticResource TranslatedStringConverter}}"/>
                             </ContentControl>
@@ -5240,15 +5240,7 @@
 								<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
 									<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hfcbe9131g86b0g46d7ga4afg5c3301c070bf', Converter={StaticResource TranslatedStringConverter}}"/>
 								</ContentControl>
-								<Slider DataContext="{Binding ApperanceScalarAge}"
-																Template="{StaticResource OptionsSliderTemplate}"
-																Value="{Binding Value}"
-																Minimum="{Binding Min}"
-																Maximum="{Binding Max}"
-																IsSnapToTickEnabled="False"
-																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}">
+								<Slider DataContext="{Binding ApperanceScalarAge}" Style="{StaticResource CCSliderStyle}">
 									<b:Interaction.Triggers>
 										<b:EventTrigger EventName="ValueChanged">
 											<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
@@ -5261,15 +5253,7 @@
 								<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
 									<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6a8fb398g7b1ag443egb45eg53c46ebbe9a3', Converter={StaticResource TranslatedStringConverter}}"/>
 								</ContentControl>
-								<Slider DataContext="{Binding ApperanceScalarFreckles}"
-																Template="{StaticResource OptionsSliderTemplate}"
-																Value="{Binding Value}"
-																Minimum="{Binding Min}"
-																Maximum="{Binding Max}"
-																IsSnapToTickEnabled="False"
-																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}">
+								<Slider DataContext="{Binding ApperanceScalarFreckles}" Style="{StaticResource CCSliderStyle}">
 									<b:Interaction.Triggers>
 										<b:EventTrigger EventName="ValueChanged">
 											<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
@@ -5282,15 +5266,7 @@
 								<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
 									<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h63c9cb05g65f3g439dgb85bg9eb69a2cc894', Converter={StaticResource TranslatedStringConverter}}"/>
 								</ContentControl>
-								<Slider DataContext="{Binding ApperanceScalarFrecklesIntensity}"
-																Template="{StaticResource OptionsSliderTemplate}"
-																Value="{Binding Value}"
-																Minimum="{Binding Min}"
-																Maximum="{Binding Max}"
-																IsSnapToTickEnabled="False"
-																SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-																LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-																IsEnabled="{Binding Enabled}">
+								<Slider DataContext="{Binding ApperanceScalarFrecklesIntensity}" Style="{StaticResource CCSliderStyle}">
 									<b:Interaction.Triggers>
 										<b:EventTrigger EventName="ValueChanged">
 											<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
@@ -5303,15 +5279,7 @@
 								<ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
 									<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8f8d1cc6g57adg486agbb58gcba376102c37', Converter={StaticResource TranslatedStringConverter}}"/>
 								</ContentControl>
-								<Slider DataContext="{Binding ApperanceScalarVitiligo}"
-															Template="{StaticResource OptionsSliderTemplate}"
-															Value="{Binding Value}"
-															Minimum="{Binding Min}"
-															Maximum="{Binding Max}"
-															IsSnapToTickEnabled="False"
-															SmallChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='40'}"
-															LargeChange="{Binding Max, Converter={StaticResource DivideAndRoundConverter}, ConverterParameter='10'}"
-															IsEnabled="{Binding Enabled}">
+								<Slider DataContext="{Binding ApperanceScalarVitiligo}" Style="{StaticResource CCSliderStyle}">
 									<b:Interaction.Triggers>
 										<b:EventTrigger EventName="ValueChanged">
 											<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
@@ -5328,7 +5296,7 @@
                                 <TextBlock Text="{Binding Source='h72410e08g770dg48c8g98e8g5a5a933a2254', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
                             </ContentControl>
 
-                            <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding SelectableGenitals}" SelectedItem="{Binding SelectedGenitals}" Margin="0,20,0,0"/>
+                            <ListBox Style="{StaticResource SelectableCarouselStyle}" ItemsSource="{Binding SelectableGenitals}" SelectedItem="{Binding SelectedGenitals}" Margin="0,20,0,0"/>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                                 <ls:LSToggleButton x:Name="displayGenitalsToggle" Style="{StaticResource TickBox}" IsChecked="False" Command="{Binding DisplayEquipment}" CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource InvertBoolConverter}}">
@@ -5382,6 +5350,7 @@
             <DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.TadpoledState}" Value="FullIllithid">
                 <Setter TargetName="scars" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
+
             <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchSkinColourButton}" Value="True">
                 <Setter TargetName="scrollSection" Property="Visibility" Value="Hidden"/>
             </DataTrigger>
@@ -5441,7 +5410,7 @@
                     <ContentControl Template="{StaticResource decoratedHeader}" Margin="0,50,0,0">
                         <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h57dba953g6fd2g4a66g8155gc527b809a882', Converter={StaticResource TranslatedStringConverter}}"/>
                     </ContentControl>
-                    <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding SelectablePiercings}" SelectedItem="{Binding SelectedPiercing}"/>
+                    <ListBox Style="{StaticResource SelectableCarouselStyle}" ItemsSource="{Binding SelectablePiercings}" SelectedItem="{Binding SelectedPiercing}" />
                 </StackPanel>
 
                 <DockPanel x:Name="tattoos" Visibility="{Binding IsDragonborn, Converter={StaticResource BoolToCollapsedConverter}}" >
@@ -5885,6 +5854,7 @@
 				<ls:LSToggleButton Grid.Row="3" VerticalAlignment="Bottom" IsChecked="{Binding IsChecked, Mode=TwoWay, ElementName=swatchGrayButton}" Template="{StaticResource ToggleConfirmButtonTemplate}" SoundID="UI_HUD_CC_OpenCloseToggle"/>
 			</Grid>
 			<!-- MOD END -->
+
         </Grid>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding Path=IsChecked, ElementName=swatchHairButton}" Value="True">
