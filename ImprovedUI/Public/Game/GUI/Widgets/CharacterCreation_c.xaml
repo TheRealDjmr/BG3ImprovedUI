@@ -827,7 +827,7 @@
 
                                                             </b:Interaction.Triggers>
                                                             <ListBox.Template>
-                                                                <ControlTemplate>
+                                                                <ControlTemplate TargetType="ListBox">
                                                                     <StackPanel Width="{StaticResource gameplayPanelWidth}">
                                                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,12,0,0">
                                                                             <Image x:Name="dot0" Source="{StaticResource DotOff}" Stretch="None" Width="44" Height="44" Margin="-7,0,-7,0"/>
@@ -864,19 +864,22 @@
 
                                                                         <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True"  Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Center" Tag="notEnabled">
                                                                             <Grid>
-                                                                                <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"
-                                            Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                                                                                <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                                                                                     <ls:LSButton.RenderTransform>
                                                                                         <ScaleTransform ScaleX="-1" CenterX="32"/>
                                                                                     </ls:LSButton.RenderTransform>
                                                                                 </ls:LSButton>
-                                                                                <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0"
-                                            Command="{Binding DataContext.NextItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
+                                                                                <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
 
                                                                                 <TextBlock x:Name="cTxt" Text="{Binding SelectedItem.Content, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" Style="{StaticResource IconCarouselText}"/>
-
+                                                                                <b:Interaction.Triggers>
+                                                                                    <b:EventTrigger SourceName="leftBtn" EventName="Click">
+                                                                                        <ls:SelectNextListBoxItem Reversed="True" TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True" ForceMode="Cycle"/>
+                                                                                    </b:EventTrigger>
+                                                                                    <b:EventTrigger SourceName="rightBtn" EventName="Click">
+                                                                                        <ls:SelectNextListBoxItem TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True" ForceMode="Cycle"/>
+                                                                                    </b:EventTrigger>
+                                                                                </b:Interaction.Triggers>
                                                                             </Grid>
                                                                         </ContentControl>
 
