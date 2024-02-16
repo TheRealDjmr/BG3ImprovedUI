@@ -19,34 +19,6 @@
                 <ResourceDictionary Source="../Library/CCLib_k.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <ControlTemplate x:Key="FrameButtonTemplate" TargetType="Button">
-                <ControlTemplate.Resources>
-                    <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                    <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_h.png"/>
-                    <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                    <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/btn_roundBig_d.png"/>
-                </ControlTemplate.Resources>
-                <Grid x:Name="panel">
-                    <Image x:Name="frame" Source="{StaticResource FrameNormal}" Stretch="None"/>
-                    <Image x:Name="icon" Source="{DynamicResource IconNormal}" Stretch="None"/>
-                </Grid>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Source" Value="{StaticResource FrameHighlight}" TargetName="frame"/>
-                        <Setter Property="Source" Value="{DynamicResource IconHighlight}" TargetName="icon"/>
-                    </Trigger>
-                    <Trigger Property="IsPressed" Value="True">
-                        <Setter Property="Source" Value="{StaticResource FramePressed}" TargetName="frame"/>
-                        <Setter Property="Source" Value="{DynamicResource IconPressed}" TargetName="icon"/>
-                    </Trigger>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Source" Value="{StaticResource FrameDisabled}" TargetName="frame"/>
-                        <Setter Property="Source" Value="{DynamicResource IconDisabled}" TargetName="icon"/>
-                        <Setter Property="Opacity" Value="{StaticResource DisabledOpacity}" TargetName="panel"/>
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-
             <ControlTemplate x:Key="HenchmenSelectionTemplate">
                 <ControlTemplate.Resources>
                     <BitmapImage x:Key="OriginIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_origin.png"/>

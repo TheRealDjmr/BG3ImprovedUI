@@ -24,6 +24,22 @@
 		<!-- MOD END -->
     </ResourceDictionary.MergedDictionaries>
 
+    <!-- CC Grid Icons -->
+    <SolidColorBrush x:Key="CCIconDefault" Color="{StaticResource baseColor}"/>
+    <SolidColorBrush x:Key="CCIconSelected" Color="{StaticResource accent75Color}"/>
+    <SolidColorBrush x:Key="CCIconSelectedPad" Color="{StaticResource accent100Color}"/>
+    <SolidColorBrush x:Key="CCIconHovered" Color="{StaticResource accent75Color}"/>
+
+    <SolidColorBrush x:Key="CCTextPrimary" Color="{StaticResource tint100}"/>
+    <SolidColorBrush x:Key="CCTextNormal" Color="{StaticResource baseColor}"/>
+    <SolidColorBrush x:Key="CCTextLight" Color="{StaticResource accent75Color}"/>
+    <SolidColorBrush x:Key="CCTextLightest" Color="{StaticResource accent100Color}"/>
+    <SolidColorBrush x:Key="CCTextSpecial" Color="{StaticResource accent25Color}"/>
+
+    <SolidColorBrush x:Key="CCTabSelected" Color="{StaticResource tint100}"/>
+    <SolidColorBrush x:Key="CCTabToDo" Color="{StaticResource alertColor}"/>
+    <SolidColorBrush x:Key="CCTabDone" Color="{StaticResource baseColor}"/>
+
     <BitmapImage x:Key="LevelUpBanner" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/bannergame.png"/>
     <BitmapImage x:Key="IconRace" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_race.png"/>
     <BitmapImage x:Key="IconClass" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_class.png"/>
@@ -98,7 +114,7 @@
     </Style>    
     
 	<!-- MOD START - Custom Deity icons -->
-    <Style x:Key="DeityIconStyle" TargetType="Rectangle" BasedOn="{StaticResource IUI_DeityIconStyle}">
+	<Style x:Key="DeityIconStyle" TargetType="Rectangle" BasedOn="{StaticResource IUI_DeityIconStyle}">
 		<!-- MOD END -->
         <Style.Triggers>
             <DataTrigger Binding="{Binding Guid}" Value="182b6754-ca35-436a-a17a-8d30fe8e8179">
@@ -749,7 +765,7 @@
             <ItemsControl ItemsSource="{Binding DummyCharacter.Stats.ClassList}" AlternationCount="{Binding DummyCharacter.Stats.ClassList.Count}" HorizontalAlignment="Center">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel IsItemsHost="True" MaxWidth="610"/>
+                        <ls:AlignableWrapPanel HorizontalContentAlignment="Center" IsItemsHost="True" MaxWidth="610"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -772,7 +788,7 @@
                                     <Binding Path="DataContext.DummyCharacter.Stats.ClassList.Count" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}"/>
                                 </MultiBinding>
                             </StackPanel.Tag>
-
+ 
                             <TextBlock x:Name="classInfo">
                                 <TextBlock.Text>
                                     <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
@@ -794,6 +810,14 @@
 
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <TextBlock x:Name="SubclassLabel" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" Text="{Binding DummyCharacter.Stats.ClassList[0].SubclassDisplayName}" Style="{StaticResource StatsText}" Visibility="{Binding Text, RelativeSource={RelativeSource Self}, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}">
+                <TextBlock.ToolTip>
+                    <ls:LSTooltip>
+                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Path=DataContext.DummyCharacter.Stats.ClassList[0].SubclassDescription, ElementName=SubclassLabel}" TextWrapping="Wrap"/>
+                    </ls:LSTooltip>
+                </TextBlock.ToolTip>
+            </TextBlock>
 
             <TextBlock x:Name="deity" Text="{Binding DummyCharacter.Stats.God}" Style="{StaticResource StatsText}" Visibility="{Binding DummyCharacter.Stats.God, Converter={StaticResource StringToVisibilityConverter}}">
                 <TextBlock.ToolTip>
@@ -864,52 +888,52 @@
             <ls:LSScrollViewer Template="{StaticResource NoForcedStyleScrollViewerTemplate}" VerticalScrollBarVisibility="Auto" Margin="0,0,0,0"
                                Padding="0,0,0,20" MaxHeight="1080" Width="630">
                 <StackPanel HorizontalAlignment="Left">
-                    <StackPanel x:Name="Cantrips" Margin="0,20,0,0" Visibility="{Binding ProgressionCantrips.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h7d02199dg44ecg4a1egbcacg9cc1cec197b3', Converter={StaticResource TranslatedStringConverter}}" Foreground="{DynamicResource CCTextPrimary}"/>
-                        <Grid HorizontalAlignment="Center">
-                            <Image Style="{DynamicResource SummarySpellsDecorationStyle}"/>
-                            <ItemsControl Style="{StaticResource SpellSelectorItemControlStyle}" ItemsSource="{Binding ProgressionCantrips}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
-                    </StackPanel>
+            <StackPanel x:Name="Cantrips" Margin="0,20,0,0" Visibility="{Binding ProgressionCantrips.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h7d02199dg44ecg4a1egbcacg9cc1cec197b3', Converter={StaticResource TranslatedStringConverter}}" Foreground="{DynamicResource CCTextPrimary}"/>
+                <Grid HorizontalAlignment="Center">
+                    <Image Style="{DynamicResource SummarySpellsDecorationStyle}"/>
+                    <ItemsControl Style="{StaticResource SpellSelectorItemControlStyle}" ItemsSource="{Binding ProgressionCantrips}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
 
-                    <StackPanel x:Name="Spells" Visibility="{Binding ProgressionSpells.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h2975f9c0gc2aag47d9ga3b3g3dd5171b9bf4', Converter={StaticResource TranslatedStringConverter}}"/>
-                        <Grid HorizontalAlignment="Center">
-                            <Image Style="{DynamicResource SummarySpellsDecorationStyle}"/>
-                            <ItemsControl Style="{StaticResource SpellSelectorItemControlStyle}" ItemsSource="{Binding ProgressionSpells}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
-                    </StackPanel>
+            <StackPanel x:Name="Spells" Visibility="{Binding ProgressionSpells.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h2975f9c0gc2aag47d9ga3b3g3dd5171b9bf4', Converter={StaticResource TranslatedStringConverter}}"/>
+                <Grid HorizontalAlignment="Center">
+                    <Image Style="{DynamicResource SummarySpellsDecorationStyle}"/>
+                    <ItemsControl Style="{StaticResource SpellSelectorItemControlStyle}" ItemsSource="{Binding ProgressionSpells}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
 
-                    <StackPanel x:Name="Actions" Visibility="{Binding ProgressionActions.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                        <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h7ba895aaga020g4cf0g9ec0g6a98f5eaaa3c', Converter={StaticResource TranslatedStringConverter}}"/>
-                        <Grid HorizontalAlignment="Center">
-                            <Image Style="{DynamicResource SummarySpellsDecorationStyle}"/>
-                            <ItemsControl Style="{StaticResource SpellSelectorItemControlStyle}" ItemsSource="{Binding ProgressionActions}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
-                    </StackPanel>
+            <StackPanel x:Name="Actions" Visibility="{Binding ProgressionActions.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h7ba895aaga020g4cf0g9ec0g6a98f5eaaa3c', Converter={StaticResource TranslatedStringConverter}}"/>
+                <Grid HorizontalAlignment="Center">
+                    <Image Style="{DynamicResource SummarySpellsDecorationStyle}"/>
+                    <ItemsControl Style="{StaticResource SpellSelectorItemControlStyle}" ItemsSource="{Binding ProgressionActions}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
 
-                    <TextBlock x:Name="ProficienciesTitle" ls:TextBlockFormatter.SourceText="{Binding Source='hbdc95889g6f3fg46efg9993g036cf077a0e7', Converter={StaticResource TranslatedStringConverter}}" Margin="0,20,0,0"/>
-                    <StackPanel HorizontalAlignment="Center" Margin="0,10,0,20">
+            <TextBlock x:Name="ProficienciesTitle" ls:TextBlockFormatter.SourceText="{Binding Source='hbdc95889g6f3fg46efg9993g036cf077a0e7', Converter={StaticResource TranslatedStringConverter}}" Margin="0,20,0,0"/>
+            <StackPanel HorizontalAlignment="Center" Margin="0,10,0,20">
 
-                        <Control Template="{StaticResource boostList}" DataContext="{Binding ProgressionData.AllProgressions.WeaponProficiencies}" Visibility="{Binding ProgressionData.AllProgressions.WeaponProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                            <Control.Resources>
-                                <ControlTemplate x:Key="labelTemplate">
-                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h4a198683gedadg497dg9f15ga8606e44fc56, Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0} - '}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}"/>
-                                </ControlTemplate>
-                            </Control.Resources>
-                        </Control>
+                <Control Template="{StaticResource boostList}" DataContext="{Binding ProgressionData.AllProgressions.WeaponProficiencies}" Visibility="{Binding ProgressionData.AllProgressions.WeaponProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                    <Control.Resources>
+                        <ControlTemplate x:Key="labelTemplate">
+                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h4a198683gedadg497dg9f15ga8606e44fc56, Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0} - '}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}"/>
+                        </ControlTemplate>
+                    </Control.Resources>
+                </Control>
 
-                        <Control Template="{StaticResource boostList}" DataContext="{Binding ProgressionData.AllProgressions.ArmourProficiencies}" Visibility="{Binding ProgressionData.AllProgressions.ArmourProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                            <Control.Resources>
-                                <ControlTemplate x:Key="labelTemplate">
-                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=had29e589gd812g473bg90dfg66d1280fbbf1, Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0} - '}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}"/>
-                                </ControlTemplate>
-                            </Control.Resources>
-                        </Control>
+                <Control Template="{StaticResource boostList}" DataContext="{Binding ProgressionData.AllProgressions.ArmourProficiencies}" Visibility="{Binding ProgressionData.AllProgressions.ArmourProficiencies.Count, Converter={StaticResource CountToVisibilityConverter}}">
+                    <Control.Resources>
+                        <ControlTemplate x:Key="labelTemplate">
+                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=had29e589gd812g473bg90dfg66d1280fbbf1, Converter={StaticResource TranslatedStringConverter}, StringFormat='{}{0} - '}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}"/>
+                        </ControlTemplate>
+                    </Control.Resources>
+                </Control>
 
-                        <Control Template="{StaticResource skillProgressions}" DataContext="{Binding SortedItems, ElementName=SortedSummarySkills}"/>
+                <Control Template="{StaticResource skillProgressions}" DataContext="{Binding SortedItems, ElementName=SortedSummarySkills}"/>
 
-                     </StackPanel>
+            </StackPanel>
                 </StackPanel>
             </ls:LSScrollViewer>
 
@@ -943,6 +967,12 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="ProficienciesTitle" Property="Visibility" Value="Collapsed"/>
             </MultiDataTrigger>
+
+            <!--Hide subclass when Multiclassing-->
+            <DataTrigger Binding="{Binding DummyCharacter.stats.ClassList.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True" >
+                <Setter TargetName="SubclassLabel" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+
 
             <!-- ToDo: update with assets when avaiable -->
             <DataTrigger Binding="{Binding ElementName=statInitiative, Path=IsFocused}" Value="True">

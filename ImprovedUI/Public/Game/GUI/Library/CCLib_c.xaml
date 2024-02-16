@@ -1,7 +1,7 @@
 <!--
 
     Resources for controller version of CC & LevelUp
-    
+
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -86,7 +86,6 @@
     <BitmapImage x:Key="CarouselBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_carousel_BG.png"/>
     <BitmapImage x:Key="CarouselHaloBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_halo.png"/>
     <BitmapImage x:Key="CarouselArrow_d" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_carousel_arrow_d.png"/>
-    <BitmapImage x:Key="CarouselArrowDisabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_carousel_arrow_disabled.png"/>
     <BitmapImage x:Key="CarouselDecoration" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_carousel_surround.png"/>
     <BitmapImage x:Key="CarouselButtonBG" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_carouselButton_bg.png"/>
 
@@ -100,7 +99,6 @@
     <BitmapImage x:Key="NavTabSelector" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_nav_tab_selector.png"/>
 
     <BitmapImage x:Key="PrimaryButtonBG" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_primaryButtonBG.png"/>
-    <BitmapImage x:Key="PrimaryButtonBG_Disabled" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC_c/c_cc_primaryButtonBG_disabled.png"/>
 
     <ImageBrush x:Key="IconFeatDefaultBrush" ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Tooltips/Icons/PassiveFeature_Generic.png"/>
 
@@ -173,23 +171,6 @@
         <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
     </Style>
 
-    <ControlTemplate x:Key="paginatedListItemContainerStyle" TargetType="ListBox">
-        <Grid Width="{StaticResource appearancePanelWidth}" MinHeight="176" Margin="{StaticResource CClistPadding}">
-            <Control x:Name="Frame" Visibility="Collapsed" Style="{StaticResource FocusableBorderStyle}" />
-            <Image x:Name="box" Source="{StaticResource ListButtonBg}" Stretch="Fill"/>
-            <ContentPresenter x:Name="content" IsEnabled="False"/>
-
-        </Grid>
-        <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
-                <Setter TargetName="box" Property="Source" Value="{StaticResource ListButtonBg_h}"/>
-                <Setter TargetName="content" Property="IsEnabled" Value="True"/>
-                <Setter TargetName="Frame" Property="Visibility" Value="Visible"/>
-            </DataTrigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-
-
     <Style x:Key="paginatedListBoxStyleFixed" TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
@@ -205,7 +186,7 @@
                                         <Setter TargetName="dashLine" Property="Opacity" Value="1" />
                                         <Setter TargetName="dashLine" Property="Width" Value="80" />
                                     </Trigger>
-                                    
+
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition Binding="{Binding Opacity, ElementName=dashLine}" Value="1"/>
@@ -214,7 +195,7 @@
                                         <Setter TargetName="dashLine" Property="Height" Value="12" />
                                         <Setter TargetName="dashLine" Property="Fill" Value="White" />
                                     </MultiDataTrigger>
-                                    
+
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
@@ -281,22 +262,22 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Grid  VerticalAlignment="center" x:Name="dashLine" Height="8" Opacity="0.45" >
+                                <Grid VerticalAlignment="center" x:Name="dashLine" Height="8">
                                     <Grid.Width>
                                         <MultiBinding Converter="{StaticResource DivideMultiConverter}" ConverterParameter="Round" >
                                             <Binding Path="ActualWidth" ElementName="AppearanceCarouselSlider"/>
                                             <Binding Path="ItemsSource.Count" RelativeSource="{RelativeSource AncestorType={x:Type ListBox}}" Converter="{StaticResource AddConverter}" ConverterParameter="1"/>
                                         </MultiBinding>
                                     </Grid.Width>
-                                    <Rectangle x:Name="dashLineFill" Fill="{StaticResource LS_accent100TxtColor}" Margin="3,0" />
+                                    <Rectangle x:Name="dashLineFill" Fill="{StaticResource LS_accent100TxtColor}" Margin="3,0" Opacity="0.45"/>
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused),RelativeSource={RelativeSource AncestorType={x:Type ContentControl}}}" Value="True" >
-                                        <Setter TargetName="dashLine" Property="Opacity" Value="0.2" />
+                                        <Setter TargetName="dashLineFill" Property="Opacity" Value="0.2" />
                                     </DataTrigger>
 
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="dashLine" Property="Opacity" Value="1" />
+                                        <Setter TargetName="dashLineFill" Property="Opacity" Value="1" />
                                         <Setter TargetName="dashLine" Property="Width" >
                                             <Setter.Value>
                                                 <MultiBinding Converter="{StaticResource DivideMultiConverter}" ConverterParameter="Round" >
@@ -310,7 +291,7 @@
 
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Opacity, ElementName=dashLine}" Value="1"/>
+                                            <Condition Binding="{Binding Opacity, ElementName=dashLineFill}" Value="1"/>
                                             <Condition Binding="{Binding Path=(ls:MoveFocus.IsFocused),RelativeSource={RelativeSource AncestorType={x:Type ContentControl}}}" Value="True"/>
                                         </MultiDataTrigger.Conditions>
                                         <Setter TargetName="dashLine" Property="Height" Value="12" />
@@ -633,7 +614,7 @@
                 <Setter TargetName="Frame" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="highlight" Property="Opacity" Value="1"/>
             </DataTrigger>
-            
+
             <DataTrigger Binding="{Binding Enabled}" Value="False">
                 <Setter TargetName="interactiveButtonBG" Property="ImageSource" Value="{StaticResource ListButtonBgDisabledNew}"/>
                 <Setter TargetName="highlight" Property="Opacity" Value="0.7"/>
@@ -683,7 +664,7 @@
             <Image x:Name="box" Source="{StaticResource CarouselButtonBG}" Stretch="Fill" Height="125"/>
             <Rectangle x:Name="focusedFill" Fill="{StaticResource focusedFillGradiant}" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             <Control x:Name="Frame" Visibility="Collapsed" Style="{StaticResource FocusableBorderCarouselStyle}" />
-            
+
             <ContentPresenter x:Name="content" IsEnabled="True"/>
         </Grid>
         <ControlTemplate.Triggers>
@@ -701,7 +682,7 @@
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
 
 
     <DataTemplate x:Key="FeatureIcon">
@@ -807,7 +788,7 @@
                         </Grid>
                     </ContentControl>
                 </DataTemplate>
-                
+
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </ControlTemplate>
@@ -1024,7 +1005,7 @@
                 <!-- Note: does not work without HorizontalAlignment="Right" ? -->
                 <TextBlock x:Name="label" Text="{Binding Source='h2975f9c0gc2aag47d9ga3b3g3dd5171b9bf4', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource gameplayTabTextStyle}" HorizontalAlignment="Right">
                     <b:Interaction.Triggers>
-           
+
                         <!-- Set the DataContext for the sub panel -->
                         <b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
                             <b:ChangePropertyAction TargetName="gameplaySubPanel" PropertyName="DataContext" Value="{Binding .}" />
@@ -1033,7 +1014,7 @@
                             <b:ChangePropertyAction TargetName="subTabsPassivesList" PropertyName="SelectedIndex" Value="-1" />
                             <b:ChangePropertyAction TargetName="subTabsEquipmentList" PropertyName="SelectedIndex" Value="-1" />
                         </b:DataTrigger>
-                        
+
                         <!-- Set the tab underline asset width -->
                         <b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
                             <b:ControlStoryboardAction ControlStoryboardOption="Play">
@@ -1042,9 +1023,9 @@
                                         <DoubleAnimation Storyboard.TargetName="tabSelector" Storyboard.TargetProperty="Width" To="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter={StaticResource TabsSelectorWidthAddition}}" Duration="{StaticResource TabSelectorAnimationDuration}"/>
                                     </Storyboard>
                                 </b:ControlStoryboardAction.Storyboard>
-                            </b:ControlStoryboardAction>                          
-                        </b:DataTrigger>                    
-          
+                            </b:ControlStoryboardAction>
+                        </b:DataTrigger>
+
                         <b:DataTrigger Binding="{Binding UpdateState}" Value="New">
                             <b:ControlStoryboardAction ControlStoryboardOption="Play">
                                 <b:ControlStoryboardAction.Storyboard>
@@ -1054,24 +1035,24 @@
                                 </b:ControlStoryboardAction.Storyboard>
                             </b:ControlStoryboardAction>
                         </b:DataTrigger>
-                                                                            
+
                         <b:DataTrigger Binding="{Binding UpdateState}" Value="Replaced">
-                            <b:ChangePropertyAction TargetName="subTabItem" PropertyName="Width" Value="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter=40}" />        
+                            <b:ChangePropertyAction TargetName="subTabItem" PropertyName="Width" Value="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter=40}" />
                         </b:DataTrigger>
-                        
+
                         <b:DataTrigger Binding="{Binding UpdateState}" Value="Old">
                             <!-- From needs to be set as subtabs are re-created every time there is a change -->
                             <b:ControlStoryboardAction ControlStoryboardOption="Play">
                                 <b:ControlStoryboardAction.Storyboard>
                                     <Storyboard x:Name="subTabDisappear">
-                                        <DoubleAnimation Storyboard.TargetName="subTabItem" Storyboard.TargetProperty="Width" 
+                                        <DoubleAnimation Storyboard.TargetName="subTabItem" Storyboard.TargetProperty="Width"
                                                          From="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter={StaticResource TabsTextWidthAddition}}"
                                                          To="0" Duration="{StaticResource TabWidthAnimationDuration}"/>
                                     </Storyboard>
                                 </b:ControlStoryboardAction.Storyboard>
-                            </b:ControlStoryboardAction>   
-                        </b:DataTrigger>                  
-                        
+                            </b:ControlStoryboardAction>
+                        </b:DataTrigger>
+
                     </b:Interaction.Triggers>
                 </TextBlock>
 
@@ -1128,7 +1109,7 @@
             <!-- Note: does not work without HorizontalAlignment="Right" -->
             <TextBlock x:Name="label" Text="{Binding Source='hccb74959ga789g46f6g8cc2g73edf1536b6a', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource gameplayTabTextStyle}" HorizontalAlignment="Right">
             <b:Interaction.Triggers>
-                
+
                 <!-- Set the tab underline asset width -->
                 <b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
                     <b:ControlStoryboardAction ControlStoryboardOption="Play">
@@ -1137,8 +1118,8 @@
                                 <DoubleAnimation Storyboard.TargetName="tabSelector" Storyboard.TargetProperty="Width" To="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter={StaticResource TabsSelectorWidthAddition}}" Duration="{StaticResource TabSelectorAnimationDuration}"/>
                             </Storyboard>
                         </b:ControlStoryboardAction.Storyboard>
-                    </b:ControlStoryboardAction>                          
-                </b:DataTrigger>     
+                    </b:ControlStoryboardAction>
+                </b:DataTrigger>
 
                 <b:DataTrigger Binding="{Binding UpdateState}" Value="New">
                     <b:ControlStoryboardAction ControlStoryboardOption="Play">
@@ -1149,24 +1130,24 @@
                         </b:ControlStoryboardAction.Storyboard>
                     </b:ControlStoryboardAction>
                 </b:DataTrigger>
-                                                                    
+
                 <b:DataTrigger Binding="{Binding UpdateState}" Value="Replaced">
-                    <b:ChangePropertyAction TargetName="subTabItem" PropertyName="Width" Value="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter=40}" />        
+                    <b:ChangePropertyAction TargetName="subTabItem" PropertyName="Width" Value="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter=40}" />
                 </b:DataTrigger>
-                
+
                 <b:DataTrigger Binding="{Binding UpdateState}" Value="Old">
                     <b:ControlStoryboardAction ControlStoryboardOption="Play">
                         <b:ControlStoryboardAction.Storyboard>
                             <Storyboard x:Name="subTabDisappear">
                                 <!-- From needs to be set as subtabs are re-created every time there is a change -->
-                                <DoubleAnimation Storyboard.TargetName="subTabItem" Storyboard.TargetProperty="Width" 
+                                <DoubleAnimation Storyboard.TargetName="subTabItem" Storyboard.TargetProperty="Width"
                                                  From="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter={StaticResource TabsTextWidthAddition}}"
                                                  To="0" Duration="{StaticResource TabWidthAnimationDuration}"/>
                             </Storyboard>
                         </b:ControlStoryboardAction.Storyboard>
-                    </b:ControlStoryboardAction>               
-                </b:DataTrigger>                  
-                
+                    </b:ControlStoryboardAction>
+                </b:DataTrigger>
+
                 <!-- Set the DataContext for the sub panel -->
                 <b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
                     <b:ChangePropertyAction TargetName="gameplaySubPanel" PropertyName="DataContext" Value="{Binding .}" />
@@ -1218,7 +1199,7 @@
 
             <TextBlock x:Name="label" Text="{Binding Source='h02a6c879g1b7fg443ag9a1fg45e9ee7bb75e', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource gameplayTabTextStyle}" HorizontalAlignment="Right" Margin="20,52,20,0">
             <b:Interaction.Triggers>
-                
+
                 <!-- Set the tab underline asset width -->
                 <b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
                     <b:ControlStoryboardAction ControlStoryboardOption="Play">
@@ -1227,8 +1208,8 @@
                                 <DoubleAnimation Storyboard.TargetName="tabSelector" Storyboard.TargetProperty="Width" To="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter={StaticResource TabsSelectorWidthAddition}}" Duration="{StaticResource TabSelectorAnimationDuration}"/>
                             </Storyboard>
                         </b:ControlStoryboardAction.Storyboard>
-                    </b:ControlStoryboardAction>                          
-                </b:DataTrigger>     
+                    </b:ControlStoryboardAction>
+                </b:DataTrigger>
 
                 <b:DataTrigger Binding="{Binding UpdateState}" Value="New">
                     <b:ControlStoryboardAction ControlStoryboardOption="Play">
@@ -1239,23 +1220,23 @@
                         </b:ControlStoryboardAction.Storyboard>
                     </b:ControlStoryboardAction>
                 </b:DataTrigger>
-                                                                    
+
                 <b:DataTrigger Binding="{Binding UpdateState}" Value="Replaced">
-                    <b:ChangePropertyAction TargetName="subTabItem" PropertyName="Width" Value="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter=40}" />        
+                    <b:ChangePropertyAction TargetName="subTabItem" PropertyName="Width" Value="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter=40}" />
                 </b:DataTrigger>
-                
+
                 <b:DataTrigger Binding="{Binding UpdateState}" Value="Old">
                     <b:ControlStoryboardAction ControlStoryboardOption="Play">
                         <b:ControlStoryboardAction.Storyboard>
                             <Storyboard x:Name="subTabDisappear">
-                                <DoubleAnimation Storyboard.TargetName="subTabItem" Storyboard.TargetProperty="Width" 
+                                <DoubleAnimation Storyboard.TargetName="subTabItem" Storyboard.TargetProperty="Width"
                                                  From="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter={StaticResource TabsTextWidthAddition}}"
                                                  To="0" Duration="{StaticResource TabWidthAnimationDuration}"/>
                             </Storyboard>
                         </b:ControlStoryboardAction.Storyboard>
-                    </b:ControlStoryboardAction>               
-                </b:DataTrigger>                  
-                
+                    </b:ControlStoryboardAction>
+                </b:DataTrigger>
+
                 <!-- Set the DataContext for the sub panel -->
                 <b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
                     <b:ChangePropertyAction TargetName="gameplaySubPanel" PropertyName="DataContext" Value="{Binding .}" />
@@ -1641,18 +1622,18 @@
                 <Grid x:Name="tabItem" Width="0">
 
                     <TextBlock x:Name="label" Style="{StaticResource gameplayTabTextStyle}" HorizontalAlignment="Right">
-                    
+
                         <b:Interaction.Triggers>
-                            
+
                             <!-- Set the tab underline asset width -->
                             <b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
-                                <b:ControlStoryboardAction ControlStoryboardOption="Play"> 
+                                <b:ControlStoryboardAction ControlStoryboardOption="Play">
                                     <b:ControlStoryboardAction.Storyboard>
                                         <Storyboard x:Name="setSelectorWidth">
                                             <DoubleAnimation Storyboard.TargetName="tabSelector" Storyboard.TargetProperty="Width" To="{Binding ActualWidth, ElementName=label, Converter={StaticResource AddConverter}, ConverterParameter={StaticResource TabsSelectorWidthAddition}}" Duration="{StaticResource TabSelectorAnimationDuration}"/>
                                         </Storyboard>
                                     </b:ControlStoryboardAction.Storyboard>
-                                </b:ControlStoryboardAction>                            
+                                </b:ControlStoryboardAction>
                             </b:DataTrigger>
 
                             <b:DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
@@ -1664,7 +1645,7 @@
                                     </b:ControlStoryboardAction.Storyboard>
                                 </b:ControlStoryboardAction>
                             </b:DataTrigger>
-                                                                        
+
                             <b:DataTrigger Binding="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
                                 <b:ControlStoryboardAction ControlStoryboardOption="Play">
                                     <b:ControlStoryboardAction.Storyboard>
@@ -1672,9 +1653,9 @@
                                             <DoubleAnimation Storyboard.TargetName="tabItem" Storyboard.TargetProperty="Width" To="0" Duration="{StaticResource TabWidthAnimationDuration}"/>
                                         </Storyboard>
                                     </b:ControlStoryboardAction.Storyboard>
-                                </b:ControlStoryboardAction>                                                                         
-                            </b:DataTrigger>                        
-                            
+                                </b:ControlStoryboardAction>
+                            </b:DataTrigger>
+
                         </b:Interaction.Triggers>
 
                     </TextBlock>
@@ -2087,57 +2068,63 @@
         </TextBlock>
     </ControlTemplate>
 
-
-
     <ControlTemplate x:Key="IconCarouselTemplate" TargetType="ListBox">
         <Grid>
             <Image Source="{StaticResource CarouselBg}" Opacity="0.5" Stretch="None" Margin="0,-180,-10,0"/>
-
             <Grid Height="300" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Control Template="{DynamicResource IconsTemplate}" VerticalAlignment="Center"/>
             </Grid>
-
-            <ListBox x:Name="dots" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,308,0,0">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Image x:Name="dot" Source="{StaticResource DotOff}" Stretch="None" Width="44" Height="44" Margin="-7,0,-7,0"/>
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
-                                <Setter TargetName="dot" Property="Source" Value="{StaticResource DotOn}"/>
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
+            <ItemsPresenter x:Name="dots" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,308,0,0"  />
             <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,359,0,0" Tag="notEnabled">
-                <Grid>
-
-                    <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
-                        <ls:LSButton.RenderTransform>
-                            <ScaleTransform ScaleX="-1" CenterX="32"/>
-                        </ls:LSButton.RenderTransform>
-                    </ls:LSButton>
-                    <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.NextItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
-
-                    <Control Template="{DynamicResource IconCarouselTextTemplate}"/>
-
-                </Grid>
+            <Grid>
+                <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"  SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                    <ls:LSButton.RenderTransform>
+                        <ScaleTransform ScaleX="-1" CenterX="32"/>
+                    </ls:LSButton.RenderTransform>
+                </ls:LSButton>
+                <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0"  SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
+                <Control Template="{DynamicResource IconCarouselTextTemplate}"/>
+            </Grid>
             </ContentControl>
-
+            <b:Interaction.Triggers>
+                <b:EventTrigger SourceName="leftBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem Reversed="True" TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True" ForceMode="Cycle"/>
+                </b:EventTrigger>
+                <b:EventTrigger SourceName="rightBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True" ForceMode="Cycle"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
         </Grid>
         <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding ItemsSource.Count, ElementName=dots}" Value="1">
+            <DataTrigger Binding="{Binding ItemsSource.Count, RelativeSource={RelativeSource Self}}" Value="1">
                 <Setter TargetName="leftBtn" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="rightBtn" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <Style x:Key="IconCarouselStyle" TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
+        <Setter Property="Template" Value="{StaticResource IconCarouselTemplate}"/>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Image x:Name="dot" Source="{StaticResource DotOff}" Stretch="None" Width="44" Height="44" Margin="-7,0,-7,0"/>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent},Path=IsSelected}" Value="True">
+                            <Setter TargetName="dot" Property="Source" Value="{StaticResource DotOn}"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <ControlTemplate x:Key="PanelSideDescription">
 
@@ -2237,68 +2224,14 @@
 		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
 			<Image Style="{StaticResource ClassIconStyle}" OpacityMask="{StaticResource leftFadeBrush}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
 			<Image Style="{StaticResource ClassIconStyle}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
 			<Image Style="{StaticResource ClassIconStyle}" Stretch="None" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
 			<Image Style="{StaticResource ClassIconStyle}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
 			<Image Style="{StaticResource ClassIconStyle}" OpacityMask="{StaticResource rightFadeBrush}" Stretch="UniformToFill" Width="200" Height="200" DataContext="{Binding SelectedItem.Next.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
 
 		</StackPanel>
 	</ControlTemplate>
 	<!-- MOD END -->
-
-    <ControlTemplate x:Key="CarouselCustomIconsFewTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Rectangle Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
-                <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Offset="0" Color="Transparent" />
-                        <GradientStop Offset="1" Color="{StaticResource baseColor}" />
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle Fill="{StaticResource CCIconSelectedPad}" Style="{DynamicResource CustomIconStyle}" Width="300" Height="300" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
-            <Rectangle Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
-                <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Offset="0" Color="{StaticResource baseColor}" />
-                        <GradientStop Offset="1" Color="Transparent" />
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-        </StackPanel>
-    </ControlTemplate>
-
-    <ControlTemplate x:Key="CarouselCustomIconsTemplate">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Rectangle Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
-                <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Offset="0" Color="Transparent" />
-                        <GradientStop Offset="1" Color="{StaticResource baseColor}" />
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <Rectangle Fill="{StaticResource CCIconDefault}" Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Prev, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-            <Rectangle Fill="{StaticResource CCIconSelectedPad}" Style="{DynamicResource CustomIconStyle}" Width="300" Height="300" DataContext="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-            <Rectangle Fill="{StaticResource CCIconDefault}" Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
-
-            <Rectangle Style="{DynamicResource CustomIconStyle}" Width="200" Height="200" DataContext="{Binding SelectedItem.Next.Next, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
-                <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                        <GradientStop Offset="0" Color="{StaticResource baseColor}" />
-                        <GradientStop Offset="1" Color="Transparent" />
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-        </StackPanel>
-    </ControlTemplate>
 
     <!-- Animated Carousel -->
 
@@ -2413,9 +2346,9 @@
 
 
     <ControlTemplate x:Key="AnimatedIconCarouselTemplate" TargetType="ListBox">
-      
+
         <StackPanel Width="{StaticResource gameplayPanelWidth}">
-            <ListBox x:Name="dots" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" HorizontalAlignment="Center" Margin="0,12,0,0">
+            <ListBox x:Name="dots" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource TemplatedParent}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Center" Margin="0,12,0,0">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
@@ -2425,7 +2358,7 @@
                     <DataTemplate>
                         <Image x:Name="dot" Source="{StaticResource DotOff}" Stretch="None" Width="44" Height="44" Margin="-7,0,-7,0"/>
                         <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
+                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
                                 <Setter TargetName="dot" Property="Source" Value="{StaticResource DotOn}"/>
                             </DataTrigger>
                         </DataTemplate.Triggers>
@@ -2436,35 +2369,43 @@
             <Grid Margin="22,-100,0,-140" HorizontalAlignment="Center" Height="540" >
 
                 <ContentControl Template="{StaticResource animatedHalo}" />
-               
+
                 <Grid x:Name="carouselClipper" Style="{StaticResource carouselClipperStyle}" Margin="-4,0,0,0">
-                    <ListBox x:Name="AnimatedCarousel" Template="{StaticResource noScrollViewerListBoxTemplate}" ItemsPanel="{StaticResource animatedCarouselItemPanelTemplate}" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" ItemTemplate="{TemplateBinding ItemTemplate}" Width="5000" Margin="0,-60,0,0"/>
+                    <ListBox x:Name="AnimatedCarousel" Template="{StaticResource noScrollViewerListBoxTemplate}" ItemsPanel="{StaticResource animatedCarouselItemPanelTemplate}" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource TemplatedParent}}" SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}}" ItemTemplate="{TemplateBinding ItemTemplate}" Width="5000" Margin="0,-60,0,0"/>
                 </Grid>
             </Grid>
 
             <Image Source="{StaticResource CarouselDecoration}" Stretch="None" Margin="25,-60,0,0" Height="108" HorizontalAlignment="Center"/>
-            
+
             <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource CarouselButtonTemplate}" HorizontalAlignment="Center" >
                 <Grid>
 
-                    <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                    <ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                         <ls:LSButton.RenderTransform>
                             <ScaleTransform ScaleX="-1" CenterX="32"/>
                         </ls:LSButton.RenderTransform>
                     </ls:LSButton>
 
-                    <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.NextItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
+                    <ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
 
                     <Control x:Name="buttonText" Template="{DynamicResource IconCarouselTextTemplate}"/>
 
                 </Grid>
             </ContentControl>
-            
+
             <Image Source="{StaticResource CarouselDecoration}" Stretch="None" Margin="25,98,0,-148" Height="108" HorizontalAlignment="Center">
                 <Image.RenderTransform>
                     <ScaleTransform ScaleY="-1"></ScaleTransform>
                 </Image.RenderTransform>
             </Image>
+            <b:Interaction.Triggers>
+                <b:EventTrigger SourceName="leftBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem Reversed="True" TargetName="dots" ForceSelect="True" ForceMode="Cycle"/>
+                </b:EventTrigger>
+                <b:EventTrigger SourceName="rightBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem TargetName="dots" ForceSelect="True" ForceMode="Cycle"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
         </StackPanel>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding ItemsSource.Count, ElementName=dots}" Value="1">
@@ -2477,21 +2418,27 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-
     <ControlTemplate x:Key="SelectableCarouselTemplate" TargetType="ListBox">
         <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource ListButtonTemplate}">
             <Grid>
-
-                <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" Command="{Binding DataContext.PrevItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0" SoundID="{DynamicResource CarouselButtonSoundEvent}">
                     <ls:LSRepeatButton.RenderTransform>
                         <ScaleTransform ScaleX="-1" CenterX="32"/>
                     </ls:LSRepeatButton.RenderTransform>
                 </ls:LSRepeatButton>
-                <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" Command="{Binding DataContext.NextItemLooped, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
+                <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0" SoundID="{DynamicResource CarouselButtonSoundEvent}" />
 
                 <Control Template="{DynamicResource IconCarouselTextTemplate}"/>
 
             </Grid>
+            <b:Interaction.Triggers>
+                <b:EventTrigger SourceName="leftBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem Reversed="True" TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True"/>
+                </b:EventTrigger>
+                <b:EventTrigger SourceName="rightBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
         </ContentControl>
         <ControlTemplate.Triggers>
             <DataTrigger Binding="{Binding ItemsSource.Count, ElementName=dots}" Value="1">
@@ -3192,6 +3139,15 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
+                <ContentControl x:Name="SubclassLabel" Template="{StaticResource SummaryListItemTemplate}" ToolTipService.Placement="Left" Visibility="{Binding DummyCharacter.Stats.ClassList[0].SubclassDisplayName, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}">
+                    <ContentControl.ToolTip>
+                        <ls:LSTooltip>
+                            <TextBlock ls:TextBlockFormatter.SourceText="{Binding Path=DataContext.DummyCharacter.Stats.ClassList[0].SubclassDescription, ElementName=SubclassLabel}" FontSize="{StaticResource ScaledDefaultFontSize}" TextWrapping="Wrap"/>
+                        </ls:LSTooltip>
+                    </ContentControl.ToolTip>
+                    <TextBlock Text="{Binding DummyCharacter.Stats.ClassList[0].SubclassDisplayName}" Style="{StaticResource StatsText_c}" TextWrapping="NoWrap" MaxWidth="580" TextTrimming="CharacterEllipsis"/>
+                </ContentControl>
+
                 <ContentControl x:Name="deity" Template="{StaticResource SummaryListItemTemplate}" Visibility="{Binding DummyCharacter.Stats.God, Converter={StaticResource StringToVisibilityConverter}}" ToolTipService.Placement="Left">
                     <ContentControl.ToolTip>
                         <ls:LSTooltip>
@@ -3331,6 +3287,10 @@
 
         </ScrollViewer>
         <ControlTemplate.Triggers>
+            <!--Hide subclass when Multiclassing-->
+            <DataTrigger Binding="{Binding DummyCharacter.stats.ClassList.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True" >
+                <Setter TargetName="SubclassLabel" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
 
             <DataTrigger Binding="{Binding ProgressionData.AllProgressions.WeaponProficiencies.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                 <Setter TargetName="proficiencyHeader" Property="Visibility" Value="Visible"/>
@@ -3346,7 +3306,7 @@
         <ItemsControl x:Name="items" ItemsSource="{Binding Additions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="ls:VMSpellReference">
-                    <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource CCSpellRefTooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10"> 
+                    <ContentControl Template="{StaticResource ListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource CCSpellRefTooltip}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10">
                         <Grid>
                             <Grid Style="{StaticResource FeatureListItemIconHolder}">
                                 <ContentControl ContentTemplate="{StaticResource SpellRefIcon}" Content="{Binding}" ls:AttachedProperties.InheritedTag="{StaticResource FalseValue}"/>
@@ -3638,7 +3598,7 @@
 
                 <StackPanel x:Name="multiclassList" Visibility="{Binding SelectableAdditionalClasses.Count, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}">
 
-                    <ListBox x:Name="multiclassCarousel" Template="{StaticResource IconCarouselTemplate}" ItemsSource="{Binding SelectableAdditionalClasses}" SelectedItem="{Binding SelectedMultiClass}">
+                    <ListBox x:Name="multiclassCarousel" Style="{StaticResource IconCarouselStyle}" ItemsSource="{Binding SelectableAdditionalClasses}" SelectedItem="{Binding SelectedMultiClass}">
                         <ListBox.Resources>
                             <ControlTemplate x:Key="IconsTemplate">
                                 <Control Template="{StaticResource CarouselClassIconsTemplate}"/>
@@ -3715,6 +3675,7 @@
 
             <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+                    <Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.SubClassProgression}" HorizontalAlignment="Center"/>
 
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
 
@@ -3723,8 +3684,6 @@
                     <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 
                     <ItemsControl ItemsSource="{Binding ClassProgressionDetails.SubPassiveSelectors}" ItemTemplate="{StaticResource progressionPassiveSelectors}" ItemContainerStyle="{StaticResource UpdateStateItemStyle}"/>
-
-                    <Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.SubClassProgression}" HorizontalAlignment="Center"/>
 
                 </StackPanel>
             </ScrollViewer>
@@ -3811,7 +3770,7 @@
                             <DataTemplate DataType="{x:Type ls:VMSpellReferenceByLevel}">
                                 <StackPanel>
                                     <b:Interaction.Behaviors>
-                                        <ls:CollectionSortBehavior x:Name="SortedSpellsBySchool" ItemsSource="{Binding Spells}" 
+                                        <ls:CollectionSortBehavior x:Name="SortedSpellsBySchool" ItemsSource="{Binding Spells}"
                                                                     Comparer="{Binding DataContext.SpellBySchoolSortComparer, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
                                     </b:Interaction.Behaviors>
                                     <TextBlock Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0">
@@ -3823,8 +3782,8 @@
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
-                                    <ItemsControl x:Name="availableSpells" ItemsSource="{Binding SortedItems, ElementName=SortedSpellsBySchool}" 
-                                                                          ItemTemplate="{StaticResource selectableSpell}" 
+                                    <ItemsControl x:Name="availableSpells" ItemsSource="{Binding SortedItems, ElementName=SortedSpellsBySchool}"
+                                                                          ItemTemplate="{StaticResource selectableSpell}"
                                                                           Style="{StaticResource spellSelectorSpellListStyle}"
                                                                           Width="{Binding ActualWidth, ElementName=base}"
                                                                           Margin="-60,0,0,0"/>
@@ -3884,7 +3843,7 @@
                 <Setter TargetName="tick" Property="Opacity" Value="{StaticResource DisabledOpacity}"/>
                 <Setter TargetName="text" Property="Foreground" Value="{StaticResource LS_baseTxtColor}"/>
             </DataTrigger>
-            
+
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Enabled}" Value="True"/>
@@ -3939,7 +3898,7 @@
                         <ControlTemplate TargetType="Control">
                             <StackPanel>
                                 <TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
-                                <ListBox Template="{DynamicResource SelectableCarouselTemplate}" ItemsSource="{Binding DataContext.SelectablePiercings, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SelectedItem="{Binding DataContext.SelectedPiercing, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+                                <ListBox Template="{StaticResource SelectableCarouselTemplate}" ItemsSource="{Binding DataContext.SelectablePiercings, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" SelectedItem="{Binding DataContext.SelectedPiercing, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" />
                             </StackPanel>
                         </ControlTemplate>
                     </Setter.Value>
@@ -4019,7 +3978,7 @@
 
     <DataTemplate x:Key="selectableSkillTemplate" DataType="ls:VMCharacterCreationSkill">
         <ContentControl Template="{StaticResource InteractiveListButtonTemplate}" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}" ToolTipService.HorizontalOffset="40" ToolTipService.VerticalOffset="-10">
-          
+
             <Grid VerticalAlignment="Center" >
 
                 <Grid Style="{StaticResource FeatureListItemIconHolder}">
@@ -4060,7 +4019,7 @@
                 <Setter TargetName="skillRollBonus" Property="Foreground" Value="{StaticResource LS_specialTxtColor}"/>
                 <Setter TargetName="pointIcon" Property="Source" Value="{StaticResource tabDotOn}"/>
             </MultiDataTrigger>
-            
+
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding Enabled}" Value="True"/>
@@ -4068,7 +4027,7 @@
                 </MultiDataTrigger.Conditions>
                 <Setter TargetName="toggleSkill" Property="Visibility" Value="Visible"/>
             </MultiDataTrigger>
-            
+
             <DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=base}" Value="True">
                 <Setter TargetName="skillName" Property="Foreground" Value="{StaticResource LS_selectedTextPad}"/>
                 <Setter TargetName="skillRollBonus" Property="Foreground" Value="{StaticResource LS_selectedTextPad}"/>
@@ -4124,13 +4083,6 @@
                             <Control  Template="{StaticResource ColorOptionTickBoxTemplate}" />
                         </ContentControl>
                     </StackPanel>
-					<!-- MOD START - Hide all sliders since sliders are now added to the main page -->
-					<DataTemplate.Triggers>
-						<DataTrigger Binding="{Binding ListItemType}" Value="Slider">
-							<Setter TargetName="base" Property="Visibility" Value="Collapsed"/>
-						</DataTrigger>
-					</DataTemplate.Triggers>
-					<!-- MOD END -->
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -4306,7 +4258,7 @@
 
     <ControlTemplate x:Key="StandardBottomButtonsTemplate">
         <DockPanel>
-            <TextBlock x:Name="MulticlassDisabledDesc" DockPanel.Dock="Top" ls:TextBlockFormatter.SourceText="{Binding Source='h8fcb856ega2acg4a7fga12fg65567a18376e', Converter={StaticResource TranslatedStringConverter}}" 
+            <TextBlock x:Name="MulticlassDisabledDesc" DockPanel.Dock="Top" ls:TextBlockFormatter.SourceText="{Binding Source='h8fcb856ega2acg4a7fga12fg65567a18376e', Converter={StaticResource TranslatedStringConverter}}"
                        Style="{StaticResource PanelDescriptionText}" Foreground="{StaticResource LS_accent75TxtColor}" HorizontalAlignment="Right" Margin="0,0,0,12"/>
 
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
@@ -4415,7 +4367,7 @@
         <StackPanel Orientation="Horizontal">
 
             <ls:LSButton x:Name="selectButton" Visibility="Collapsed" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source=h04f38549g65b8g4b72g834eg87ee8863fdc5,Converter={StaticResource TranslatedStringConverter}}" OverwriteClickSound="UI_Shared_Accept"/>
-            
+
             <!-- Add a new class (multiclass) in LevelUp -->
             <ls:LSButton x:Name="addClassButton" Visibility="Collapsed" Command="{Binding DataContext.SelectFirstUnusedClass, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAddClass, Converter={StaticResource FindInputEventConverter}}" BoundEvent="UIAddClass" Tag="{Binding Source=hcbc3c9a8g9e80g4139g952bga971015c1f41,Converter={StaticResource TranslatedStringConverter}}"/>
 
@@ -4423,9 +4375,9 @@
 
             <ls:LSButton x:Name="gotoAppearanceButton"
                 Visibility="Collapsed"
-                ContentTemplate="{StaticResource ControllerButtonHint}" 
-                Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICreate, Converter={StaticResource FindInputEventConverter}}" 
-                BoundEvent="UICreate" 
+                ContentTemplate="{StaticResource ControllerButtonHint}"
+                Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICreate, Converter={StaticResource FindInputEventConverter}}"
+                BoundEvent="UICreate"
                 Tag="{Binding Source=h4d42df61g362eg4b5cg9ffcgd381a84c2930,Converter={StaticResource TranslatedStringConverter}}" >
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="Click">
@@ -4523,7 +4475,7 @@
             <DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="Henchmen">
                 <Setter TargetName="showSummary" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="hideSummary" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>            
+            </DataTrigger>
 
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -4539,10 +4491,10 @@
                          CommandParameter="{Binding FocusedElement, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ls:UIWidget}}"
                          BoundEvent="UIShowInfo"/>
 
-            <ls:LSButton x:Name="backButton" 
-                         ContentTemplate="{StaticResource ControllerButtonHint}" 
+            <ls:LSButton x:Name="backButton"
+                         ContentTemplate="{StaticResource ControllerButtonHint}"
                          Tag="{Binding Source=h77fec760g866dg4e47g8e81g467c9c05e447,Converter={StaticResource TranslatedStringConverter}}"
-                         Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICancel, Converter={StaticResource FindInputEventConverter}}" 
+                         Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICancel, Converter={StaticResource FindInputEventConverter}}"
                          CommandParameter="{Binding ElementName=gameplayTabs}"/>
         </StackPanel>
 
@@ -4884,8 +4836,8 @@
                 </Grid>
             </ContentControl>
 
-            <ls:LSButton x:Name="RandomiseCharacterButton" 
-                                 Command="{Binding DataContext.RandomCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+            <ls:LSButton x:Name="RandomiseCharacterButton"
+                                 Command="{Binding DataContext.RandomCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
                                  CommandParameter="new"
                                  ContentTemplate="{StaticResource ControllerButtonHint}"
                                  Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}"
@@ -4975,13 +4927,13 @@
                     <Control x:Name="img" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Template="{StaticResource ControllerButton.ImageSwitcher}" Width="80" Height="80"/>
                 </StackPanel>
 
-                <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="{StaticResource LeftCarouselMargin}" Command="{Binding DataContext.PrevItem, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}">
+                <ls:LSRepeatButton x:Name="leftBtn" BoundEvent="UILeft" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="{StaticResource LeftCarouselMargin}"  SoundID="{DynamicResource CarouselButtonSoundEvent}">
                     <ls:LSRepeatButton.RenderTransform>
                         <ScaleTransform ScaleX="-1" CenterX="32"/>
                     </ls:LSRepeatButton.RenderTransform>
                 </ls:LSRepeatButton>
 
-                <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="{StaticResource RightCarouselMargin}" Command="{Binding DataContext.NextItem, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
+                <ls:LSRepeatButton x:Name="rightBtn" BoundEvent="UIRight" Style="{StaticResource IconCarouselRepeatButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="{StaticResource RightCarouselMargin}"  SoundID="{DynamicResource CarouselButtonSoundEvent}"/>
 
                 <StackPanel VerticalAlignment="Center" >
                     <TextBlock x:Name="title" Text="{TemplateBinding Tag}" Style="{StaticResource AppearanceCarouselTitleText}" />
@@ -5009,6 +4961,12 @@
             </Grid>
 
             <b:Interaction.Triggers>
+                <b:EventTrigger SourceName="leftBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem Reversed="True" TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True"/>
+                </b:EventTrigger>
+                <b:EventTrigger SourceName="rightBtn" EventName="Click">
+                    <ls:SelectNextListBoxItem TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}" ForceSelect="True"/>
+                </b:EventTrigger>
                 <b:PropertyChangedTrigger Binding="{Binding SelectedValue, RelativeSource={RelativeSource TemplatedParent}}">
                     <ls:LSPlaySound Sound="UI_Controller_DefaultSlider_Step"/>
                 </b:PropertyChangedTrigger>
@@ -5089,29 +5047,29 @@
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="tattoos">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h3f96b6b8gd682g4b90ga8fdge34ccb965bbd', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="tattooColors">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h0c6d2890g6a16g4e20ga2a1gcb15afa6e8d3', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="makeup">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='hbd793d8fg4b19g4efdga071g112ba7af47dd', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="makeupColors">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='hd98545bbg8f42g437dg8f70gcb5f7a1bda8b', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="lipMakeupColors">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='ha96c9b3bg5d8dg4ebbgb7a8gbefe66c7b781', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
@@ -5128,19 +5086,19 @@
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='haaecd709ga04eg4c33gb2a3gd5be989e5146', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="hairColors">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h6ed36c54g1a3dg4c46g9987gd5882613ae05', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="hairHighlights">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h9d4a4e08g81cdg4259g8bd1g80b47dbda3f3', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="hairGrays">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='hb85e6761gd73bg4fc1g8ff3g4081ff97694a', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
@@ -5151,7 +5109,7 @@
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h5060d1edg2799g4388g9203gc42e380c68f8', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="horns">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h290f2542g9702g4651g8afdgdae1f08a12eb', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
@@ -5162,7 +5120,7 @@
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="hornTipColors">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h33ea2bd3g91cag471cg8242gef7327983dbf', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
@@ -5174,7 +5132,7 @@
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                 <Setter Property="Visibility" TargetName="sliderBG" Value="Collapsed" />
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="scaleColors">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
@@ -5185,7 +5143,7 @@
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h861a433dgcc20g452bg9b1agde89d14c85c9', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="base" Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </Trigger>
-            
+
             <Trigger Property="Tag" Value="draconicLineColors">
                 <Setter TargetName="title" Property="Text" Value="{Binding Source='h7202f8ebgaa5dg411dgac62g3bf8986e28b3', Converter={StaticResource TranslatedStringConverter}}"/>
                 <Setter TargetName="colourSwatch" Property="Visibility" Value="Visible"/>
@@ -5396,7 +5354,7 @@
 
             <!-- GENERAL -->
             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h3003476bg9facg4159g87e1gd9f70aee88eb', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceSubHeaderText}"/>
-            
+
             <ListBox x:Name="daisyRace" Tag="daisyrace" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" Template="{StaticResource AppearanceCarousel}" Style="{StaticResource paginatedListBoxStyle}" />
 
             <ListBox x:Name="daisySubRace" Tag="daisysubrace" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding Path=SelectableSubRaces.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource paginatedListBoxStyleFixed}" />
@@ -5514,7 +5472,7 @@
             <!-- ToDo: polish, press to hear voice -->
 			<!-- MOD START - Always show voices, even for Hirelings/Origins -->
 			<ListBox x:Name="voices" ItemsSource="{Binding Voices.ComboItems}" SelectedItem="{Binding Voices.SelectedItem}" Style="{StaticResource paginatedListBoxStyle}">
-				<!-- MOD END -->
+			<!-- MOD END -->
                 <ListBox.Template>
                     <ControlTemplate>
                         <ContentControl x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" Template="{StaticResource AppearanceListButtonTemplate}" HorizontalAlignment="Center">
@@ -5563,7 +5521,7 @@
             <ListBox Tag="chin" ItemsSource="{Binding SelectableChin}" SelectedItem="{Binding SelectedChin}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableChin.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource paginatedListBoxStyle}" />
 
             <ListBox Tag="jaw" ItemsSource="{Binding SelectableJaw}" SelectedItem="{Binding SelectedJaw}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableJaw.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource paginatedListBoxStyle}"/>
-            
+
             <ListBox Tag="tail" ItemsSource="{Binding SelectableTail}" SelectedItem="{Binding SelectedTail}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableTail.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource paginatedListBoxStyle}" />
 
             <ListBox Tag="skinColors" ItemsSource="{Binding SelectableSkinColours}" SelectedItem="{Binding SelectedSkinColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableSkinColours.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
@@ -5759,7 +5717,7 @@
             <ListBox Tag="makeup" ItemsSource="{Binding SelectableMakeup}" SelectedItem="{Binding SelectedMakeup}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
 
             <ListBox Tag="makeupColors" ItemsSource="{Binding SelectableMakeupColours}" SelectedItem="{Binding SelectedMakeupColour}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
-			<!-- MOD START - Add makeup color sliders -->
+			<!-- MOD START - Hide makeup color sliders with no makeup -->
 			<StackPanel Visibility="{Binding AppearanceMakeup.EmptyMaterialSelected, Converter={StaticResource BoolToCollapsedConverter}}">
 				<ListBox x:Name="makeupColorIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="lipColorIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[0]}" Template="{StaticResource AppearanceSliderCarousel}"/>
 				<ListBox x:Name="makeupMetallicIntensity" Tag="{StaticResource FalseValue}" ls:AttachedProperties.InheritedTag="metallicIntensity" DataContext="{Binding AppearanceMakeup.ColorOptions[1]}" Template="{StaticResource AppearanceSliderCarousel}"/>
@@ -5779,11 +5737,11 @@
             <!-- HAIR -->
 
             <StackPanel x:Name="hairChoices" Visibility="{Binding SelectableHair.Count, Converter={StaticResource CountToVisibilityConverter}}">
-                
+
                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6c6fae77g40f8g4c82gaabfg69655aae2293', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource AppearanceSubHeaderText}" />
 
                 <ListBox Tag="hair" ItemsSource="{Binding SelectableHair}" SelectedItem="{Binding SelectedHair}" Template="{StaticResource AppearanceCarousel}" Style="{StaticResource sliderListBoxStyle}"/>
-                
+
                 <ListBox Tag="beards" ItemsSource="{Binding SelectableBeards}" SelectedItem="{Binding SelectedBeard}" Template="{StaticResource AppearanceCarousel}" Visibility="{Binding SelectableBeards.Count, Converter={StaticResource CountToVisibilityConverter}}" Style="{StaticResource sliderListBoxStyle}"/>
 
                 <StackPanel x:Name="hairColoring" Visibility="Collapsed">
@@ -5870,7 +5828,7 @@
                 <Setter TargetName="femaleStrong" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="maleStrong" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
-            
+
             <DataTrigger Binding="{Binding HasNewRandomAppearance}" Value="True">
                 <Setter TargetName="newRandomAppearance" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="randomAppearancesCarousel" Property="Visibility" Value="Visible"/>
@@ -5900,7 +5858,7 @@
                 <Setter TargetName="daisySubRace" Property="Visibility" Value="Collapsed"/>
                 <Setter TargetName="bodyTypeCarousel" Property="Visibility" Value="Collapsed"/>
             </DataTrigger>
-            
+
             <DataTrigger Binding="{Binding Voices.ComboItems.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
                 <Setter TargetName="voices" Property="Visibility" Value="Visible"/>
             </DataTrigger>
@@ -6013,7 +5971,7 @@
 
             <DataTrigger Binding="{Binding CharacterCreationStep}" Value="Companion">
                 <Setter TargetName="voices" Property="Style" Value="{StaticResource paginatedListBoxStyleFixed}" />
-            </DataTrigger> 
+            </DataTrigger>
 
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -6073,36 +6031,40 @@
 
             <TextBlock x:Name="subTitleText"  ls:TextBlockFormatter.SourceText="" Style="{StaticResource OverPanelHeaderText}" Margin="0,12,56,-20" DockPanel.Dock="Top" Visibility="Collapsed"/>
 
-            <ScrollViewer Margin="0,50,0,0" VerticalScrollBarVisibility="Auto" Width="800" >
-                <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
-                    <b:Interaction.Triggers>
-                        <b:DataTrigger Binding="{Binding FocusedElement.Tag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="True">
-                            <b:ChangePropertyAction TargetName="selectApperanceItem" PropertyName="IsEnabled" Value="True"/>
-                         
-                        </b:DataTrigger>
-                        <b:DataTrigger Binding="{Binding FocusedElement.Tag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="False">
-                            <b:ChangePropertyAction TargetName="selectApperanceItem" PropertyName="IsEnabled" Value="False"/>
-                        </b:DataTrigger>
+            <Grid>
+                <b:Interaction.Triggers>
+                    <b:DataTrigger Binding="{Binding FocusedElement.Tag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="True">
+                        <b:ChangePropertyAction TargetName="selectApperanceItem" PropertyName="IsEnabled" Value="True"/>
 
-                        <b:EventTrigger EventName="Loaded">
-                            <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{DynamicResource AppearanceItemSelectableBottomButtons}"/>
-                        </b:EventTrigger>
-                        <!-- Only happens for appearance tab when tab changed -->
-                        <b:EventTrigger EventName="Unloaded">
-                            <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{DynamicResource StandardBottomButtonsTemplate2}"/>
-                        </b:EventTrigger>
-                    </b:Interaction.Triggers>
+                    </b:DataTrigger>
+                    <b:DataTrigger Binding="{Binding FocusedElement.Tag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="False">
+                        <b:ChangePropertyAction TargetName="selectApperanceItem" PropertyName="IsEnabled" Value="False"/>
+                    </b:DataTrigger>
 
+                    <b:EventTrigger EventName="Loaded">
+                        <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{DynamicResource AppearanceItemSelectableBottomButtons}"/>
+                    </b:EventTrigger>
+                    <!-- Only happens for appearance tab when tab changed -->
+                    <b:EventTrigger EventName="Unloaded">
+                        <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{DynamicResource StandardBottomButtonsTemplate2}"/>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+
+                <!-- Separate ScrollViewers to maintain scroll position in appearanceList -->
+                <ScrollViewer Margin="0,50,0,0" VerticalScrollBarVisibility="Auto" Width="800" >
                     <Control x:Name="appearanceList" Template="{StaticResource appearanceListTemplate}" ls:MoveFocus.IsMoveFocusScope="True"/>
-                    <Control x:Name="appearanceSelectedContents" Visibility="Collapsed" Tag="" Width="{StaticResource appearancePanelWidth}"/>
+                </ScrollViewer>
 
-                </StackPanel>
-            </ScrollViewer>
+                <ScrollViewer Margin="0,50,0,0" VerticalScrollBarVisibility="Auto" Width="800" >
+                    <Control x:Name="appearanceSelectedContents" Visibility="Collapsed" Tag="" Width="{StaticResource appearancePanelWidth}"/>
+                </ScrollViewer>
+    
+            </Grid>
 
             <ls:LSButton x:Name="selectApperanceItem" BoundEvent="UIAccept">
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="Click">
-                        <b:ChangePropertyAction TargetName="appearanceList" PropertyName="Visibility" Value="Collapsed"/>
+                        <b:ChangePropertyAction TargetName="appearanceList" PropertyName="Visibility" Value="Hidden"/>
                         <b:ChangePropertyAction TargetName="appearanceSelectedContents" PropertyName="Tag" Value="{Binding Path=FocusedElement.Tag, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
                         <b:ChangePropertyAction TargetName="appearanceSelectedContents" PropertyName="Visibility" Value="Visible"/>
                         <b:ChangePropertyAction TargetName="bottomButtons" PropertyName="Template" Value="{DynamicResource AppearanceItemSelectedBottomButtons}"/>
@@ -6670,7 +6632,7 @@
                                         <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
                                     </b:EventTrigger>
                                 </b:Interaction.Triggers>
-                                
+
                                 <ListBox ItemsSource="{Binding SelectableJaw}" SelectedItem="{Binding SelectedJaw}" Style="{StaticResource appearanceIconGridStyle}"/>
 
                             </StackPanel>

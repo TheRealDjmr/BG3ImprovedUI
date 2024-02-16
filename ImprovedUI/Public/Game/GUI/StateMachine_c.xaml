@@ -254,7 +254,7 @@
                 </ls:StateEvent>
                 <ls:StateEvent Name = "OpenMessageBox">
                     <ls:StateEvent.Actions>
-                        <ls:AddSubstate Name="MessageBox"/>
+                        <ls:AddSubstate Name="CommonMessageBox"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "LoadGameOpen">
@@ -1049,6 +1049,11 @@
                         <ls:AddSubstate Name="PlayerPortraitsActive" Metadata="InCharacterPanel"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPlayerPortraitsRewardPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PlayerPortraitsActive" Metadata="InRewardPanel"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -1132,8 +1137,11 @@
         <!--STATE: RewardPanel -->
         <ls:State Name = "RewardPanel" DisableStatesBelow = "False" Layout = "Player" Owner = "Player" IsModal = "True">
             <ls:State.Widgets>
-                <ls:StateWidget Filename="RewardPanel_c.xaml" Layer="PopupPanels"/>
+                <ls:StateWidget Filename="RewardPanel_c.xaml" Layer="HUDTop"/>
             </ls:State.Widgets>
+            <ls:State.InitialSubstates>
+                <ls:InitialSubstate Name="PlayerPortraits" Metadata="InRewardPanel"/>
+            </ls:State.InitialSubstates>
             <ls:State.Events>
                 <ls:StateEvent Name = "CloseRewardPanel">
                     <ls:StateEvent.Actions>
@@ -1851,6 +1859,11 @@
                 <ls:StateWidget Filename="MessageBox_c.xaml" Layer="Pause" />
             </ls:State.Widgets>
             <ls:State.Events>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
                 <ls:StateEvent Name = "CloseMessageBox">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
@@ -1895,6 +1908,11 @@
                 <ls:StateWidget Filename="Book_c.xaml" Layer="MessageBox"/>
             </ls:State.Widgets>
             <ls:State.Events>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
                 <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
@@ -2657,6 +2675,11 @@
                 <ls:StateWidget Filename="ActiveRoll_c.xaml" Layer="PopupPanels"/>
             </ls:State.Widgets>
             <ls:State.Events>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
                 <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
@@ -2830,6 +2853,7 @@
 
         <ls:State Name = "Lobby" Layout = "Common" Owner = "All" DisableStatesBelow = "True" HideStatesBelow = "True">
             <ls:State.Widgets>
+                <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Lobby_c.xaml" Layer="Panels"/>
             </ls:State.Widgets>
@@ -2850,6 +2874,15 @@
                 <ls:StateEvent Name = "OpenMessageBox">
                     <ls:StateEvent.Actions>
                         <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <!-- Compared to KBM, we open custom only when the player wants to-->
+                <ls:StateEvent Name="OpenCustom"/>
+
+                <ls:StateEvent Name="EditCustom">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="GameSettings" MetaData="Lobby"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
             </ls:State.Events>

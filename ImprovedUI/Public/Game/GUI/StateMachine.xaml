@@ -295,6 +295,7 @@
             <ls:State.Widgets>
 				<!-- MOD START - Remove CC tutorial message -->
 				<!--<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>-->
+				<!-- MOD END -->
                 <ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
                 <ls:StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
@@ -827,6 +828,11 @@
                         <ls:AddSubstate Name="CompanionsPanel"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+                <ls:StateEvent Name="OpenCompanionsPanel">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="CompanionsPanel"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -893,6 +899,11 @@
                 <ls:StateEvent Name = "CloseReactionsPopup">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenExamine">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Examine"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
                 <ls:StateEvent Name = "IE.ToggleInGameMenu">
@@ -1312,6 +1323,11 @@
                         <ls:AddSubstate Name="PinnedTooltips"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -1665,6 +1681,11 @@
                 <ls:StateWidget Filename="MessageBox.xaml" Layer="Pause" SoundLayer="NonHUDWidget"/>
             </ls:State.Widgets>
             <ls:State.Events>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
                 <ls:StateEvent Name = "CloseMessageBox">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
@@ -1709,6 +1730,11 @@
                 <ls:StateWidget Filename="Book.xaml" Layer="MessageBox" SoundLayer="NonHUDWidget"/>
             </ls:State.Widgets>
             <ls:State.Events>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
                 <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
@@ -1875,6 +1901,12 @@
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
@@ -2114,7 +2146,7 @@
             </ls:State.Widgets>
 
             <ls:State.Events>
-                <ls:StateEvent Name = "CloseWidget">
+                <ls:StateEvent Name = "CloseCompanionsPanel">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
@@ -2123,6 +2155,8 @@
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenCompanionsPanel">
                 </ls:StateEvent>
             </ls:State.Events>
         </ls:State>
@@ -2285,12 +2319,18 @@
                         <ls:AddSubstate Name="PinnedTooltips"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
         <!--STATE: LobbyBrowser-->
         <ls:State Name = "LobbyBrowser" HideStatesBelow="True" DisableStatesBelow = "True" Layout = "Common" Owner = "DefaultPlayer">
             <ls:State.Widgets>
+                <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
                 <ls:StateWidget Filename="LobbyBrowser.xaml" Layer="Panels"/>
             </ls:State.Widgets>
 
@@ -2305,11 +2345,17 @@
                         <ls:RemoveState/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
             </ls:State.Events>
         </ls:State>
 
         <ls:State Name = "Lobby" Layout = "Common" Owner = "All" DisableStatesBelow = "True" HideStatesBelow = "True">
             <ls:State.Widgets>
+                <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Lobby.xaml" Layer="Panels"/>
             </ls:State.Widgets>
@@ -2324,6 +2370,18 @@
                 <ls:StateEvent Name = "GE.Lobby">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name="OpenCustom">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="GameSettings" MetaData="Lobby"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name="OpenSettings">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Options"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
 
@@ -2371,6 +2429,11 @@
                 <ls:StateWidget Filename="ConnectivityMenu.xaml" Layer="Pause"/>
             </ls:State.Widgets>
             <ls:State.Events>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
                 <ls:StateEvent Name = "CloseWidget">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
