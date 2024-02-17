@@ -56,6 +56,8 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 
 ### Race Icons
 - Astralities' Tiefling Compendium — https://www.nexusmods.com/baldursgate3/mods/2418
+- Demon Player Race — https://www.nexusmods.com/baldursgate3/mods/3703
+- Displacer Player Race and Hireling — https://www.nexusmods.com/baldursgate3/mods/5002
 - The Dunmer - Playable Dark Elf Race — https://www.nexusmods.com/baldursgate3/mods/4076
 - Elemental Power - Playable Genasi — https://www.nexusmods.com/baldursgate3/mods/4741
 - Embrace The Pain - Witch Elf — https://www.nexusmods.com/baldursgate3/mods/3490
@@ -69,6 +71,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Plus Races - Gnoll — https://www.nexusmods.com/baldursgate3/mods/3872
 - Plus Races - Rework — https://www.nexusmods.com/baldursgate3/mods/3865
 - Shadar-Kai — https://www.nexusmods.com/baldursgate3/mods/1305
+- Solar Player Race — https://www.nexusmods.com/baldursgate3/mods/3861
 - Transient Guests Are We - Playable Dhampir — https://www.nexusmods.com/baldursgate3/mods/4750
 - Whispers of the Divine: Aasimar Race — https://www.nexusmods.com/baldursgate3/mods/4159
 - Whispers of the Fey: Changelings Race — https://www.nexusmods.com/baldursgate3/mods/3110
@@ -83,9 +86,11 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 
 ### Deity Icons
 - Baphomet Deity — https://www.nexusmods.com/baldursgate3/mods/6858
+- Demon Player Race — https://www.nexusmods.com/baldursgate3/mods/3703
 - Faithful and Faithless — https://www.nexusmods.com/baldursgate3/mods/1512
 - Gods Extra — https://www.nexusmods.com/baldursgate3/mods/433
 - Plus Deities — https://www.nexusmods.com/baldursgate3/mods/5289
+- Solar Player Race — https://www.nexusmods.com/baldursgate3/mods/3861
 
 ### Action Resource Icons
 
