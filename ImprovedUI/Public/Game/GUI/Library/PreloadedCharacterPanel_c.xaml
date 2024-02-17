@@ -19,6 +19,8 @@
 	<BitmapImage x:Key="equipmentDecorBottom" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_equipmentDecorBottom.png"/>
 	<BitmapImage x:Key="xpBarDecor" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_xp_barFrame.png"/>
 	<BitmapImage x:Key="icoProficiencyStar" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_ico_proficiencyStar.png"/>
+
+
 	<BitmapImage x:Key="LevelUpArrow" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Shared_c/c_ico_levelup_2.png"/>
 	<BitmapImage x:Key="CharSheetRadial" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_characterSheetRadial.png"/>
 	<BitmapImage x:Key="SlotHelmet" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_slot_helmet.png"/>
@@ -41,11 +43,11 @@
 	<BitmapImage x:Key="MeleeDualWieldLinkIco" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_ico_slotJoin.png"/>
 
 
-	<System:Double x:Key="GenericSlotSize">112</System:Double>
-	<System:Double x:Key="EquipmentSlotSize">112</System:Double>
-	<System:Double x:Key="RaritySlotSize">156</System:Double>
-	<System:Double x:Key="CoverSlotSize">110</System:Double>
-	<System:Double x:Key="EquipmentSlotContentSize">100</System:Double>
+	<System:Double x:Key="GenericSlotSize">116</System:Double>
+	<System:Double x:Key="EquipmentSlotSize">116</System:Double>
+	<System:Double x:Key="EquipmentFrameSize">110</System:Double>
+	<System:Double x:Key="EquipmentIconSize">100</System:Double>
+
 	<System:Double x:Key="ScrollViewerHeight">1324</System:Double>
 	<Thickness x:Key="equipmentSlotMargin">2,2,2,2</Thickness>
 
@@ -141,7 +143,7 @@
 			</DataTrigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
-	
+
 	<ImageBrush x:Key="NavigableGridSlotBrush"  ImageSource="{StaticResource InventoryGridBackground}" TileMode="Tile" Stretch="Uniform"  ViewportUnits="Absolute">
 		<ImageBrush.Viewport>
 			<MultiBinding Converter="{StaticResource CreateRectConverter}">
@@ -161,12 +163,6 @@
 
 	<Style x:Key="BaseTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextStyle}">
 		<Setter Property="Foreground" Value="{StaticResource LS_extraspecialTxtColor}"/>
-	</Style>
-
-	<Style x:Key="CharInfoTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTitleStyle}">
-		<Setter Property="HorizontalAlignment" Value="Center"/>
-
-		<Setter Property="VerticalAlignment" Value="Center"/>
 	</Style>
 
 	<Style x:Key="SkillTextStyle" TargetType="TextBlock">
@@ -475,21 +471,13 @@
 	<!-- Inventory Slot Template -->
 	<DataTemplate x:Key="InventorySlotDataTemplate" DataType="ls:VMInventorySlot">
 		<Grid>
-			<ContentPresenter x:Name="Presenter" Content="{Binding Object}" ContentTemplate="{StaticResource Template.GameObject}" />
-			<Control x:Name="EquipmentIcon" Template="{StaticResource EquippedItemIconIndicator}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" DataContext="{Binding Object}">
-				<Control.Resources>
-					<System:Double x:Key="IconHeight">42</System:Double>
-					<System:Double x:Key="IconWidth">54</System:Double>
-				</Control.Resources>
-			</Control>
+			<ContentPresenter x:Name="Presenter" Content="{Binding Object}" Style="{StaticResource Style.GameObject}" />
+			<Control x:Name="EquipmentIcon" Template="{StaticResource EquippedItemIconIndicator}" Height="42" Width="54" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" DataContext="{Binding Object}" Visibility="Collapsed" />
 		</Grid>
 
 		<DataTemplate.Triggers>
 			<DataTrigger Binding="{Binding Object.Type}" Value="Item">
 				<Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.Item}"/>
-			</DataTrigger>
-			<DataTrigger Binding="{Binding Object.Type}" Value="Character">
-				<Setter TargetName="EquipmentIcon" Property="Visibility" Value="Collapsed"/>
 			</DataTrigger>
 			<!--MOD START - Supporting stackable equipment -->
 			<MultiDataTrigger>
@@ -514,31 +502,117 @@
 		</DataTemplate.Resources>
 		<ContentControl x:Name="EquipmentButtonRoot" Style="{StaticResource FocusableContentControlNoBG}" ToolTipService.IsEnabled="True" ToolTipService.Placement="{Binding (ToolTipService.Placement), RelativeSource={RelativeSource Mode=TemplatedParent}}" Tag="Equipment" ls:MoveFocus.FocusMovementMode="{Binding (ls:MoveFocus.FocusMovementMode), RelativeSource={RelativeSource Mode=TemplatedParent}}">
 			<ContentControl.ToolTip>
-				<ls:LSTooltip x:Name="EquipmentSlotTooltip" Placement="Top" VerticalOffset="4" HorizontalOffset="{Binding (ToolTipService.HorizontalOffset), RelativeSource={RelativeSource Mode=TemplatedParent}}">
-					<StackPanel Orientation="Vertical">
-						<TextBlock x:Name="EquipmentEmptySlotText" Style="{StaticResource TooltipBaseTextStyle}"/>
-						<Control x:Name="EquipmentEmptySlotAdditionalContent"/>
-					</StackPanel>
+				<ls:LSTooltip x:Name="EquipmentSlotTooltip" Content="{Binding ElementName=EquipmentButtonRoot,Path=DataContext}" Placement="Top" VerticalOffset="4" HorizontalOffset="{Binding (ToolTipService.HorizontalOffset), RelativeSource={RelativeSource Mode=TemplatedParent}}">
 				</ls:LSTooltip>
 			</ContentControl.ToolTip>
 			<Grid>
 				<Image x:Name="CoverImage" Stretch="Fill" Source="{StaticResource EquipmentSlotCover}" Visibility="{Binding Item, Converter={StaticResource NullToCollapsedConverter}}"
-								   Width="{StaticResource CoverSlotSize}" Height="{StaticResource CoverSlotSize}" />
+					   Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" />
 
-				<Grid x:Name="EquipmentButtonContent" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}">
-					<Image x:Name="RarityBackground" Style="{StaticResource RarityFrameBackgroundImageStyle}" Width="{StaticResource RaritySlotSize}" Height="{StaticResource RaritySlotSize}"/>
-					<ls:LSEntityObject x:Name="ItemIcon" EntityRef="{Binding Item.EntityHandle}" Context="Inventory" Background="{Binding Item.Icon}" Width="{StaticResource EquipmentSlotContentSize}" Height="{StaticResource EquipmentSlotContentSize}"/>
-					<Image x:Name="RarityForeground" Style="{StaticResource RarityFrameForegroundImageStyle}" Width="{StaticResource RaritySlotSize}" Height="{StaticResource RaritySlotSize}" Opacity="0.4"/>
+				<ls:LSEntityObject x:Name="EquipmentButtonContent" DataContext="{Binding Item}" EntityRef="{Binding EntityHandle}" Background="{x:Null}" Context="Inventory" Width="{StaticResource EquipmentFrameSize}" Height="{StaticResource EquipmentFrameSize}">
+					<Image x:Name="RarityBackground" Style="{StaticResource RarityFrameBackgroundImageStyle}" Width="{StaticResource EquipmentIconSize}" Height="{StaticResource EquipmentIconSize}"/>
+					<Rectangle x:Name="ItemIcon" Fill="{Binding Icon}" Width="{StaticResource EquipmentIconSize}" Height="{StaticResource EquipmentIconSize}"/>
+					<Image x:Name="RarityForeground" Style="{StaticResource RarityFrameForegroundImageStyle}" Width="{StaticResource EquipmentIconSize}" Height="{StaticResource EquipmentIconSize}"/>
 					<Image x:Name="HelmetVisibility" Source="{StaticResource IconVisibility}" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="8,0,0,8" Visibility="Collapsed"/>
 					<Image x:Name="InstrumentVisibility" Source="{StaticResource IconVisibility}" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="8,0,0,8" Visibility="Collapsed"/>
 					<Image x:Name="VanityVisibility" Source="{StaticResource IconVisibility}" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="8,0,0,8" Visibility="Collapsed"/>
-				</Grid>
+				</ls:LSEntityObject>
 			</Grid>
 		</ContentControl>
 
 		<DataTemplate.Triggers>
 			<DataTrigger Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="True">
 				<Setter TargetName="EquipmentSlotTooltip" Property="Content" Value="{Binding Path=DataContext.Item, ElementName=EquipmentButtonRoot}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False">
+				<Setter TargetName="EquipmentSlotTooltip" Property="ContentTemplate" >
+					<Setter.Value>
+						<DataTemplate>
+							<StackPanel Orientation="Vertical">
+								<TextBlock x:Name="EquipmentEmptySlotText" Style="{StaticResource TooltipBaseTextStyle}"/>
+								<Control x:Name="EquipmentEmptySlotAdditionalContent"/>
+							</StackPanel>
+							<DataTemplate.Triggers>
+								<!-- Empty slot tooltip text -->
+								<DataTrigger Binding="{Binding SlotType}" Value="Helmet">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h58b71a66g5678g4147g937cg48c99e07c2d5',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger  Binding="{Binding SlotType}" Value="Breast">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h68f694c7g0fb3g4834gaac5gf97f2b38c8a7',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Cloak">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h964f4414g7c0bg4715g831eg39bf21ce2745',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger  Binding="{Binding SlotType}" Value="MeleeMainHand">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h0e518959g37d5g4e35gbf7egc6afda67a039',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger  Binding="{Binding SlotType}" Value="MeleeOffHand">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h7cdae3b4g06abg4a48g8823ge88f2a4780f4',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="RangedMainHand">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hc329f807gcc38g44ecgb42eg48c2cb68decf',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="RangedOffHand">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hfa1f065fgade6g4c9bg994dgb9878543c145',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Ring">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hc30ca60cgaa5cg40c5gad5dgd3f1d5857138',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Ring2">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h46199a04ga3a5g4e27g8d33g96a06b50041c',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Underwear">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h0f579c48g7258g4366g96e7g01c5b072eacc',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="VanityBody">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h0dc46cf0g765ag49a1gbdaeg8639e7d8051d',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="VanityBoots">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hf8bce7a9g3cebg4f76g947bgde059de59696',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Boots">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hf8bce7a9g3cebg4f76g947bgde059de59696',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Gloves">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h9f02bd2dg175fg4d2eg9c98gc24da803a7da',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Amulet">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hcfa38834g8bc7g4cfbg9ceag7fcea042f28f',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="MusicalInstrument">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hd29bbe68g0a7fg4861g8e94gf6e9ee63804d',Converter={StaticResource TranslatedStringConverter}}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="MAX">
+									<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hca818edeg944cg493egbeecg567fbdc92d04',Converter={StaticResource TranslatedStringConverter}}"/>
+									<Setter TargetName="EquipmentEmptySlotText" Property="Foreground" Value="{StaticResource LS_extraspecialTxtColor}"/>
+									<Setter TargetName="EquipmentEmptySlotText" Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
+									<Setter TargetName="EquipmentEmptySlotAdditionalContent" Property="Margin" Value="0,8,0,0"/>
+									<Setter TargetName="EquipmentEmptySlotAdditionalContent" Property="Template">
+										<Setter.Value>
+											<ControlTemplate>
+												<TextBlock x:Name="Description" Style="{StaticResource TooltipBaseTextStyle}" TextWrapping="Wrap">
+													<b:Interaction.Behaviors>
+														<ls:CtxTransStringRunGeneratorBehavior LocaSource="{Binding Source='h418b6862gef28g49c1gb180g642701762715',Converter={StaticResource TranslatedStringConverter}}" NamedParamInputEvents="{Binding Path=DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+															<ls:CtxTransStringRunGeneratorBehavior.NamedParamContentStyle>
+																<Style TargetType="ContentControl">
+																	<Setter Property="Margin" Value="-20,0,-20,-46" />
+																	<Setter Property="Template" Value="{StaticResource ControllerButton.ImageSwitcher}"/>
+																	<Setter Property="Width" Value="{StaticResource ScaledControllerHintSize}"/>
+																	<Setter Property="Height" Value="{StaticResource ScaledControllerHintSize}"/>
+																</Style>
+															</ls:CtxTransStringRunGeneratorBehavior.NamedParamContentStyle>
+														</ls:CtxTransStringRunGeneratorBehavior>
+													</b:Interaction.Behaviors>
+												</TextBlock>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</DataTrigger>
+							</DataTemplate.Triggers>
+						</DataTemplate>
+					</Setter.Value>
+				</Setter>
 			</DataTrigger>
 
 			<DataTrigger Binding="{Binding EquippedType}" Value="FromTwoHanded">
@@ -585,155 +659,10 @@
 				<Setter TargetName="InstrumentVisibility" Property="Visibility" Value="Visible"/>
 			</DataTrigger>
 
-
 			<!--Hide Helmet Toggle if Vanity-->
 			<DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.ArmorSetVisibility, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Vanity">
 				<Setter TargetName="HelmetVisibility" Property="Visibility" Value="Collapsed"/>
 			</DataTrigger>
-
-			<!-- Empty slot tooltip text -->
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Helmet"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h58b71a66g5678g4147g937cg48c99e07c2d5',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Breast"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h68f694c7g0fb3g4834gaac5gf97f2b38c8a7',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Cloak"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h964f4414g7c0bg4715g831eg39bf21ce2745',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="MeleeMainHand"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h0e518959g37d5g4e35gbf7egc6afda67a039',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="MeleeOffHand"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h7cdae3b4g06abg4a48g8823ge88f2a4780f4',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="RangedMainHand"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hc329f807gcc38g44ecgb42eg48c2cb68decf',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="RangedOffHand"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hfa1f065fgade6g4c9bg994dgb9878543c145',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Ring"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hc30ca60cgaa5cg40c5gad5dgd3f1d5857138',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Ring2"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h46199a04ga3a5g4e27g8d33g96a06b50041c',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Underwear"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h0f579c48g7258g4366g96e7g01c5b072eacc',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="VanityBody"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h0dc46cf0g765ag49a1gbdaeg8639e7d8051d',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="VanityBoots"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hf8bce7a9g3cebg4f76g947bgde059de59696',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Boots"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hf8bce7a9g3cebg4f76g947bgde059de59696',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Gloves"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='h9f02bd2dg175fg4d2eg9c98gc24da803a7da',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="Amulet"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hcfa38834g8bc7g4cfbg9ceag7fcea042f28f',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="MusicalInstrument"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hd29bbe68g0a7fg4861g8e94gf6e9ee63804d',Converter={StaticResource TranslatedStringConverter}}"/>
-			</MultiDataTrigger>
-			<MultiDataTrigger>
-				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Value="False"/>
-					<Condition Binding="{Binding SlotType}" Value="MAX"/>
-				</MultiDataTrigger.Conditions>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Text" Value="{Binding Source='hca818edeg944cg493egbeecg567fbdc92d04',Converter={StaticResource TranslatedStringConverter}}"/>
-				<Setter TargetName="EquipmentEmptySlotText" Property="Foreground" Value="{StaticResource LS_extraspecialTxtColor}"/>
-				<Setter TargetName="EquipmentEmptySlotText" Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
-				<Setter TargetName="EquipmentEmptySlotAdditionalContent" Property="Margin" Value="0,8,0,0"/>
-				<Setter TargetName="EquipmentEmptySlotAdditionalContent" Property="Template">
-					<Setter.Value>
-						<ControlTemplate>
-							<TextBlock x:Name="Description" Style="{StaticResource TooltipBaseTextStyle}" TextWrapping="Wrap">
-								<b:Interaction.Behaviors>
-									<ls:CtxTransStringRunGeneratorBehavior LocaSource="{Binding Source='h418b6862gef28g49c1gb180g642701762715',Converter={StaticResource TranslatedStringConverter}}" NamedParamInputEvents="{Binding Path=DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
-										<ls:CtxTransStringRunGeneratorBehavior.NamedParamContentStyle>
-											<Style TargetType="ContentControl">
-												<Setter Property="Margin" Value="-20,0,-20,-46" />
-												<Setter Property="Template" Value="{StaticResource ControllerButton.ImageSwitcher}"/>
-												<Setter Property="Width" Value="{StaticResource ScaledControllerHintSize}"/>
-												<Setter Property="Height" Value="{StaticResource ScaledControllerHintSize}"/>
-											</Style>
-										</ls:CtxTransStringRunGeneratorBehavior.NamedParamContentStyle>
-									</ls:CtxTransStringRunGeneratorBehavior>
-								</b:Interaction.Behaviors>
-							</TextBlock>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</MultiDataTrigger>
 		</DataTemplate.Triggers>
 	</DataTemplate>
 
@@ -911,7 +840,6 @@
 
 	<ControlTemplate x:Key="FilterContainerTemplate" TargetType="ContentControl">
 		<ControlTemplate.Resources>
-			<BitmapImage x:Key="FiltersBg" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_equipmentSelectionGrid_filtersBG.png" />
 			<BitmapImage x:Key="ProficiencyOff" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_ico_proficiencyFilter_off.png" />
 			<BitmapImage x:Key="ProficiencyOn" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_ico_proficiencyFilter_on.png" />
 			<BitmapImage x:Key="Divider" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CharacterPanel_c/c_equipmentSelectionGrid_filters_divider.png" />
@@ -1346,14 +1274,14 @@
 											<TextBlock x:Name="ProficiencyGroupTooltip" Style="{StaticResource TooltipBaseTextStyle}" ls:TextBlockFormatter.SourceText="{Binding Source='h92a7f788g9fd4g419eg9c88gebd9d9bd1667',Converter={StaticResource TranslatedStringConverter}}" />
 										</ls:LSTooltip>
 									</ls:LSToggleButton.ToolTip>
-									
+
 									<DockPanel>
 										<Image x:Name="Arrow" DockPanel.Dock="Left" Source="{StaticResource ListArrowCollapsed}" Stretch="None" Margin="10,0" VerticalAlignment="Center"/>
 										<TextBlock x:Name="GroupName" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,16,0"/>
 										<TextBlock x:Name="GroupCount" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding DataContext.Count, ElementName=ExpandToggle, StringFormat='{}({0})'}"
 													   Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 									</DockPanel>
-									
+
 								</ls:LSToggleButton>
 							</Grid>
 							<ContentPresenter Name="Content"/>
@@ -1707,10 +1635,6 @@
 																<Expander.Resources>
 																	<System:UInt32 x:Key="invCols">12</System:UInt32>
 																	<System:UInt32 x:Key="invRows">1</System:UInt32>
-																	<!--overriding these to keep the old sizes since this ui doesn't support cell scaling yet-->
-																	<System:Double x:Key="ScaledNewItemIconSize">90</System:Double>
-																	<System:Double x:Key="ScaledNewItemIconSizeHighlight">108</System:Double>
-																	<System:Double x:Key="ScaledNewSlotSize">116</System:Double>
 																</Expander.Resources>
 																<Expander.Template>
 																	<ControlTemplate TargetType="{x:Type Expander}" >
@@ -1804,10 +1728,10 @@
 																</Expander.Template>
 
 																<Grid>
-																	<ls:FilteringContainer x:Name="CharacterInventoryFilteringContainerHolder" 
-																			   FilterPredicate="{Binding InventoryPredicate}" 
+																	<ls:FilteringContainer x:Name="CharacterInventoryFilteringContainerHolder"
+																			   FilterPredicate="{Binding InventoryPredicate}"
 																			   CurrentFilter="{Binding DataContext.CurrentPlayer.UIData.GlobalSelectedFilter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Mode=OneWay}"
-																			   ItemsList="{Binding InventoriesSlots, ElementName=CharacterInventoriesMerged}" 
+																			   ItemsList="{Binding InventoriesSlots, ElementName=CharacterInventoriesMerged}"
 																			   DefaultViewItemsList="{Binding InventoriesSlots, ElementName=CharacterInventoriesMergedNoSubs}">
 																		<b:Interaction.Triggers>
 																			<b:EventTrigger EventName="FilterCleared">
@@ -1863,9 +1787,9 @@
 																		</ListBox.Template>
 																		<ListBox.ItemsPanel>
 																			<ItemsPanelTemplate>
-																				<ls:LSGrid ContainerData="{Binding Inventory}" Rows="2" ClipToBounds="False" noesis:Element.PPAAMode="Disabled" SnapsToDevicePixels="True" 
+																				<ls:LSGrid ContainerData="{Binding Inventory}" Rows="2" ClipToBounds="False" noesis:Element.PPAAMode="Disabled" SnapsToDevicePixels="True"
 																			   ExtendedRows="False" Background="{StaticResource NavigableGridSlotBrush}" ls:MoveFocus.InternalFocusable="True" AutoIndex="True"
-																			   CellWidth="{StaticResource GenericSlotSize}" CellHeight="{StaticResource GenericSlotSize}" ls:ElementCacheHelper.GroupId="PartyListInventory_c"  
+																			   CellWidth="{StaticResource GenericSlotSize}" CellHeight="{StaticResource GenericSlotSize}" ls:ElementCacheHelper.GroupId="PartyListInventory_c"
 																			   ActionUpEvent="UIUp" ActionDownEvent="UIDown" ActionRightEvent="UIRight" ActionLeftEvent="UILeft" UseWidgetNavigation="True" FocusElementVisualStyle="{StaticResource Style.FocusVisualStyle}" >
 																					<ls:LSGrid.Columns>
 																						<MultiBinding Converter="{StaticResource DivideMultiConverter}">
@@ -1940,7 +1864,7 @@
 																		</Condition>
 																	</MultiDataTrigger.Conditions>
 																	<Setter TargetName="SingleInventoryRoot" Property="IsExpanded" Value="True"/>
-																</MultiDataTrigger>                                                                
+																</MultiDataTrigger>
 
 																<Trigger SourceName="PlayerInventory" Property="ls:MultiSelect.IsEnabled" Value="True">
 																	<Setter TargetName="PlayerInventory" Property="KeyboardNavigation.DirectionalNavigation" Value="Contained"/>
@@ -1966,10 +1890,10 @@
 													</ls:FilteringContainer>
 
 
-													<ItemsControl x:Name="PanelsContainer" 
-															  Template="{StaticResource InventoryContainerTemplate}" 
-															  ItemTemplate="{StaticResource InventoryItemTemplate}" 
-															  ItemsPanel="{StaticResource InventoryItemsPanelTemplate}"  
+													<ItemsControl x:Name="PanelsContainer"
+															  Template="{StaticResource InventoryContainerTemplate}"
+															  ItemTemplate="{StaticResource InventoryItemTemplate}"
+															  ItemsPanel="{StaticResource InventoryItemsPanelTemplate}"
 															  ItemsSource="{Binding SortedItems, ElementName=SelectedCharacterSortBehavior}"
 												  AlternationCount="{Binding DataContext.Data.PartyCharacters.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
 														<b:Interaction.Triggers>
@@ -1982,10 +1906,10 @@
 													<StackPanel x:Name="CampCompanionsSection" Visibility="Collapsed">
 														<TextBlock Text="{Binding Source='h0098cd11gc624g49fdgb404g596b3245f9ac',Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center" Margin="0,20,0,20"/>
 
-														<ItemsControl x:Name="NonPartyPanelsContainer" 
-															  Template="{StaticResource InventoryContainerTemplate}" 
-															  ItemTemplate="{StaticResource InventoryItemTemplate}" 
-															  ItemsPanel="{StaticResource InventoryItemsPanelTemplate}"  
+														<ItemsControl x:Name="NonPartyPanelsContainer"
+															  Template="{StaticResource InventoryContainerTemplate}"
+															  ItemTemplate="{StaticResource InventoryItemTemplate}"
+															  ItemsPanel="{StaticResource InventoryItemsPanelTemplate}"
 															  ItemsSource="{Binding DataContext.Data.CampNonPartyCharacters, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
 												  AlternationCount="{Binding DataContext.Data.CampNonPartyCharacters.Count, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
 													</StackPanel>
@@ -2213,7 +2137,7 @@
 															<TextBlock TextWrapping="Wrap" MaxWidth="700" HorizontalAlignment="Center" Foreground="{StaticResource TooltipColor.Primary}" >
 																<b:Interaction.Behaviors>
 																	<ls:CtxTransStringRunGeneratorBehavior Source="{Binding Path=Content.Stats.Level.Description, ElementName=StatsContent}" ParamRunStyle="{StaticResource TooltipUnitParamRun}"/>
-																</b:Interaction.Behaviors>  
+																</b:Interaction.Behaviors>
 															</TextBlock>
 														</ls:LSTooltip>
 													</ContentControl.ToolTip>
@@ -2409,25 +2333,25 @@
 
 								<Image Grid.Column="0" Grid.Row="4" Source="{StaticResource SlotNecklace}" Style="{StaticResource EquipmentSlotImage}"/>
 								<ContentPresenter x:Name="AmuletSlot" Grid.Column="0" Grid.Row="4" ContentTemplate="{StaticResource EquipmentSlotDataTemplate}" Content="{Binding Equipment.Amulet}" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="150" Margin="{StaticResource equipmentSlotMargin}"/>
-								
+
 								<Image Grid.Column="1" Grid.Row="0" Source="{StaticResource SlotCloak}" Style="{StaticResource EquipmentSlotImage}"/>
 								<ContentPresenter x:Name="CloakSlot" Grid.Column="1" Grid.Row="0" ContentTemplate="{StaticResource EquipmentSlotDataTemplate}" Content="{Binding Equipment.Cloak}" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="38" ls:MoveFocus.FocusMovementBlockUpDirection="True" Margin="{StaticResource equipmentSlotMargin}"/>
-								
+
 								<Image Grid.Column="1" Grid.Row="1" Source="{StaticResource SlotBoots}" Style="{StaticResource EquipmentSlotImage}"/>
 								<ContentPresenter x:Name="BootsSlot" Grid.Column="1" Grid.Row="1" ContentTemplate="{StaticResource EquipmentSlotDataTemplate}" Content="{Binding Equipment.Boots}" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="38" Margin="{StaticResource equipmentSlotMargin}"/>
-								
+
 								<Image Grid.Column="1" Grid.Row="2" Source="{StaticResource SlotGloves}" Style="{StaticResource EquipmentSlotImage}"/>
 								<ContentPresenter x:Name="GlovesSlot" Grid.Column="1" Grid.Row="2" ContentTemplate="{StaticResource EquipmentSlotDataTemplate}" Content="{Binding Equipment.Gloves}" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="38" Margin="{StaticResource equipmentSlotMargin}"/>
-								
+
 								<Image Grid.Column="1" Grid.Row="3" Source="{StaticResource SlotRing2}" Style="{StaticResource EquipmentSlotImage}"/>
 								<ContentPresenter x:Name="RingTwoSlot" Grid.Column="1" Grid.Row="3" ContentTemplate="{StaticResource EquipmentSlotDataTemplate}" Content="{Binding Equipment.Ring2}" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="38" Margin="{StaticResource equipmentSlotMargin}"/>
-								
+
 								<Image Grid.Column="1" Grid.Row="4" Source="{StaticResource SlotInstrument}" Style="{StaticResource EquipmentSlotImage}"/>
 								<ContentPresenter x:Name="InstrumentSlot" Grid.Column="1" Grid.Row="4" ContentTemplate="{StaticResource EquipmentSlotDataTemplate}" Content="{Binding Equipment.MusicalInstrument}" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="38" Margin="{StaticResource equipmentSlotMargin}"/>
-								
+
 							</Grid>
 							</Border>
-							
+
 							<!-- Vanity Slots-->
 							<TextBlock Text="{Binding Source='hd0ce1dceg17fcg427cga007gad73bae7e0ab',Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource equipmentSlotLabelStyle}"/>
 							<Border BorderThickness="2" BorderBrush="{StaticResource LS_equipmentStroke}" Background="{StaticResource LS_equipmentStroke}" HorizontalAlignment="Center">
@@ -2442,7 +2366,7 @@
 									<ContentPresenter x:Name="VanityBootsSlot" Grid.Column="1" ContentTemplate="{StaticResource EquipmentSlotDataTemplate}" Content="{Binding Equipment.VanityBoots}" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Right" ToolTipService.HorizontalOffset="38" Margin="{StaticResource equipmentSlotMargin}"/>
 								</Grid>
 							</Border>
-							
+
 							<!-- Melee Attack Slots-->
 							<TextBlock Text="{Binding Source='hde2dafecgf6f5g489ag9baeg23d0610570f5',Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource equipmentSlotLabelStyle}"/>
 							<Border BorderThickness="2" BorderBrush="{StaticResource LS_equipmentStroke}" Background="{StaticResource LS_equipmentStroke}"  HorizontalAlignment="Center">
@@ -2458,7 +2382,7 @@
 									<Image Grid.ColumnSpan="2" x:Name="MeleeDualWieldLink" Source="{StaticResource MeleeDualWieldLinkIco}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
 								</Grid>
 							</Border>
-							
+
 							<!-- Ranged Slots -->
 							<TextBlock Text="{Binding Source='h52df2583g5fc1g4182g9511g36238e4e0c19',Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource equipmentSlotLabelStyle}"/>
 							<Border BorderThickness="2" BorderBrush="{StaticResource LS_equipmentStroke}" Background="{StaticResource LS_equipmentStroke}" HorizontalAlignment="Center">
@@ -2474,7 +2398,7 @@
 									<Image Grid.ColumnSpan="2" x:Name="RangedDualWieldLink" Source="{StaticResource MeleeDualWieldLinkIco}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
 								</Grid>
 							</Border>
-							
+
 							<!-- Lightsource Slot -->
 							<TextBlock Text="{Binding Source='h9e813583g1a66g47aeg9d3cg4bb5ee402f04',Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource equipmentSlotLabelStyle}"/>
 
@@ -2521,7 +2445,7 @@
 
 									<ItemsControl.ItemTemplate>
 										<DataTemplate>
-												<Grid x:Name="SlotRoot" DataContext="{Binding Object}" Focusable="True" ls:MoveFocus.Focusable="True" ToolTipService.IsEnabled="{Binding Item, Converter={StaticResource NullToBoolFalseConverter}}" Tag="EquipmentInventory" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Left" ToolTipService.VerticalOffset="60" ToolTipService.PlacementTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type ls:LSNineSliceImage}}}" FocusVisualStyle="{StaticResource Style.FocusVisualStyle}">
+											<ls:LSEntityObject x:Name="SlotRoot" DataContext="{Binding Object}" Background="{x:Null}" Focusable="True" ls:MoveFocus.Focusable="True" ToolTipService.IsEnabled="{Binding ., Converter={StaticResource NullToBoolFalseConverter}}" Tag="EquipmentInventory" Width="{StaticResource EquipmentSlotSize}" Height="{StaticResource EquipmentSlotSize}" ToolTipService.Placement="Left" ToolTipService.VerticalOffset="60" ToolTipService.PlacementTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type ls:LSNineSliceImage}}}" FocusVisualStyle="{StaticResource Style.FocusVisualStyle}" EntityRef="{Binding EntityHandle}" Context="Inventory">
 												<b:Interaction.Triggers>
 													<b:PropertyChangedTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=SlotRoot}">
 														<b:Interaction.Behaviors>
@@ -2535,27 +2459,21 @@
 													</b:PropertyChangedTrigger>
 												</b:Interaction.Triggers>
 
-												<Grid.ToolTip>
+												<ls:LSEntityObject.ToolTip>
 													<ls:LSTooltip x:Name="SlotTooltip" Content="{Binding Path=DataContext, ElementName=SlotRoot}"  />
-												</Grid.ToolTip>
+												</ls:LSEntityObject.ToolTip>
 
-												<Image x:Name="RarityBackground" Style="{StaticResource RarityFrameBackgroundImageStyle}" Width="{StaticResource RaritySlotSize}" Height="{StaticResource RaritySlotSize}"/>
-												<ls:LSEntityObject x:Name="ItemIcon" EntityRef="{Binding EntityHandle}" Context="Inventory" Background="{Binding Icon}" Width="{StaticResource EquipmentSlotSize}"
-																   Height="{StaticResource EquipmentSlotSize}"/>
+												<Image x:Name="RarityBackground" Style="{StaticResource RarityFrameBackgroundImageStyle}" Width="{StaticResource EquipmentIconSize}" Height="{StaticResource EquipmentIconSize}"/>
+												<Rectangle x:Name="ItemIcon" Fill="{Binding Icon}" Width="{StaticResource EquipmentIconSize}" Height="{StaticResource EquipmentIconSize}"/>
 
-												<Image x:Name="RarityForeground" Style="{StaticResource RarityFrameForegroundImageStyle}" Width="{StaticResource RaritySlotSize}" Height="{StaticResource RaritySlotSize}" Opacity="0.4"/>
+												<Image x:Name="RarityForeground" Style="{StaticResource RarityFrameForegroundImageStyle}" Width="{StaticResource EquipmentIconSize}" Height="{StaticResource EquipmentIconSize}"/>
 
-												<Control x:Name="EquipmentIcon" Template="{StaticResource EquippedItemIconIndicator}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-8,0,0,4">
-													<Control.Resources>
-														<System:Double x:Key="IconHeight">42</System:Double>
-														<System:Double x:Key="IconWidth">54</System:Double>
-													</Control.Resources>
-												</Control>
+												<Control x:Name="EquipmentIcon" Template="{StaticResource EquippedItemIconIndicator}" Height="42" Width="54"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-8,0,0,4" />
 												<ContentPresenter x:Name="TorchIcon" ContentTemplate="{StaticResource EquippedTorchIcon}" Content="{Binding .}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,2,0"/>
 												<TextBlock x:Name="NumberOfItems" HorizontalAlignment="Right" Margin="0,0,16,0" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="{StaticResource LargeFontSize}"
-														   Foreground="{StaticResource LS_tint100}" FontWeight="Bold" Text="{Binding Count, Converter={StaticResource AbbreviateNumberConverter}}"
-														   Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}"/>
-											</Grid>
+													   Foreground="{StaticResource LS_tint100}" FontWeight="Bold" Text="{Binding Count, Converter={StaticResource AbbreviateNumberConverter}}"
+													   Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=1}"/>
+											</ls:LSEntityObject>
 											<DataTemplate.Triggers>
 												<DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Equipment.ShowAvailableEquipment, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="False">
 													<Setter TargetName="SlotRoot" Property="ToolTipService.IsEnabled" Value="False"/>
@@ -2606,7 +2524,12 @@
 							<b:InvokeCommandAction Command="{Binding DataContext.TutorialEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="56affdac-faef-448a-94fb-55182779b482"/>
 						</b:EventTrigger>
 
+						<!-- Close Equipment Filter if SelectedCharacter or ShowCampCharacter changes -->
 						<b:PropertyChangedTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
+							<b:ChangePropertyAction TargetName="ToggleEquipmentSelectorButton" PropertyName="IsChecked" Value="True"/>
+						</b:PropertyChangedTrigger>
+
+						<b:PropertyChangedTrigger Binding="{Binding Path=DataContext.CurrentPlayer.ShowCampCharacter, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}">
 							<b:ChangePropertyAction TargetName="ToggleEquipmentSelectorButton" PropertyName="IsChecked" Value="True"/>
 						</b:PropertyChangedTrigger>
 					</b:Interaction.Triggers>
@@ -2769,7 +2692,7 @@
 										<TextBlock Text="{Binding Value}" Style="{StaticResource StatsValueStyle}"/>
 									</DockPanel>
 								</ContentControl>
-								
+
 								<!--TempHealth-->
 								<ContentControl Style="{StaticResource FocusableContentControlNoBG}" DataContext="{Binding Stats.TemporaryHealth}" ToolTip="{StaticResource PlacementParentDCTooltip}" ToolTipService.HorizontalOffset="20" ToolTipService.VerticalOffset="-12" Visibility="{Binding Value, Converter={StaticResource CountToVisibilityConverter}}">
 									<DockPanel Margin="20,0,20,0">
@@ -2778,7 +2701,7 @@
 										<TextBlock Text="{Binding Value}" Style="{StaticResource StatsValueStyle}"/>
 									</DockPanel>
 								</ContentControl>
-								
+
 								<!--Armour Class-->
 								<ContentControl Style="{StaticResource FocusableContentControlNoBG}" DataContext="{Binding Stats.ArmorClass}" ToolTip="{StaticResource PlacementParentDCTooltip}" ToolTipService.HorizontalOffset="20" ToolTipService.VerticalOffset="-12">
 									<DockPanel Margin="20,0,20,0">
@@ -2960,7 +2883,7 @@
 
 				<!-- Toggle Inventory Lock -->
 				<ls:LSButton x:Name="ToggleInventoryLockButton"
-							 BoundEvent="UIMessageBoxY" 
+							 BoundEvent="UIMessageBoxY"
 							 TapTime="{StaticResource DefaultButtonTapTime}"
 							 ContentTemplate="{StaticResource ControllerButtonHint}"
 							 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIMessageBoxY'}"
@@ -2968,7 +2891,7 @@
 							 Command="{Binding ToggleInventoryLockCommand}"
 							 CommandParameter="{Binding FocusedElement.DataContext.Inventory, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
 							 Visibility="Collapsed"/>
-				
+
 				<!-- Toggle helmet -->
 				<ls:LSButton x:Name="ToggleHelmet"
 							 ls:LSButton.BoundEvent="UIMessageBoxY"
@@ -3042,7 +2965,7 @@
 				</ls:LSButton>
 
 				<!-- Toggle tooltips -->
-				<ls:LSButton x:Name="ToggleTooltips" VerticalAlignment="Bottom" Margin="10,0" EatInput="False" 
+				<ls:LSButton x:Name="ToggleTooltips" VerticalAlignment="Bottom" Margin="10,0" EatInput="False"
 								 Command="{Binding ToggleTooltipOnUIElement}"
 								 CommandParameter="{Binding FocusedElement, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ls:UIWidget}}"
 								 ls:LSButton.BoundEvent="UIShowInfo"
@@ -3701,7 +3624,7 @@
 				<Setter TargetName="LeftPadding" Property="Width" Value="40"/>
 
 				<Setter TargetName="PaperDollGrid" Property="Margin" Value="100,-200,0,0" />
-			  
+
 				<Setter TargetName="Equipment" Property="Width" Value="Auto" />
 				<Setter TargetName="Equipment" Property="Grid.ColumnSpan" Value="3" />
 				<Setter TargetName="Equipment" Property="Margin" Value="0,220,-150,0" />
@@ -3781,7 +3704,7 @@
 				<Setter TargetName="StatsContent" Property="Content" Value="{Binding CurrentPlayer.ShowCampCharacter}"/>
 				<Setter TargetName="ReactionsContent" Property="Content" Value="{Binding CurrentPlayer.ShowCampCharacter}"/>
 			</DataTrigger>
-			
+
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding Path=Tag, ElementName=CharSheetPanelRoot}" Value="True"/>
