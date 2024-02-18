@@ -472,14 +472,14 @@
 	<DataTemplate x:Key="InventorySlotDataTemplate" DataType="ls:VMInventorySlot">
 		<Grid>
 			<ContentPresenter x:Name="Presenter" Content="{Binding Object}" Style="{StaticResource Style.GameObject}" />
-			<Control x:Name="EquipmentIcon" Template="{StaticResource EquippedItemIconIndicator}" Height="42" Width="54" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" DataContext="{Binding Object}" Visibility="Collapsed" />
+			<!-- MOD START - Supporting stackable equipment -->
+			<Control x:Name="EquipmentIcon" Template="{StaticResource EquippedItemIconIndicator}" Height="42" Width="54" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,8" DataContext="{Binding Object}" />
 		</Grid>
 
 		<DataTemplate.Triggers>
 			<DataTrigger Binding="{Binding Object.Type}" Value="Item">
 				<Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.Item}"/>
 			</DataTrigger>
-			<!--MOD START - Supporting stackable equipment -->
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding Object.IsEquipment}" Value="True"/>
@@ -487,10 +487,10 @@
 				</MultiDataTrigger.Conditions>
 				<Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.ItemEquipment}"/>
 			</MultiDataTrigger>
-			<!--MOD END -->
 			<DataTrigger Binding="{Binding Object.IsContainer}" Value="True">
 				<Setter TargetName="Presenter" Property="ContentTemplate" Value="{StaticResource Template.ItemContainer}"/>
 			</DataTrigger>
+			<!-- MOD END -->
 		</DataTemplate.Triggers>
 	</DataTemplate>
 
