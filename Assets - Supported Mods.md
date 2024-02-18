@@ -105,6 +105,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Boots of Living Flames | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3769) |
 | Death Knight Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1725) |
 | Demon Hunter Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3165) |
+| Dragonborn Breath Weapon Tweaks | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1504) |
 | Dual Wielding Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4500) |
 | Echo Knight Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3939) |
 | Expansion (Bladesinger Only) | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
