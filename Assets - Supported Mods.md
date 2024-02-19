@@ -45,6 +45,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Shadow Sorcerer — https://www.nexusmods.com/baldursgate3/mods/923
 - Sword Dancer of Eilistraee <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5307
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
+- Theurgy Wizard Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6922
 - Troubadour <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/472
 - Vanguard Class — https://www.nexusmods.com/baldursgate3/mods/3686
 - Vessel Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/4133/
@@ -116,6 +117,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Magus | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
+| Theurgy Wizard Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6922) |
 | Troubadour | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/472) |
 | UA7 Archfey Warlock | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5703) |
 | Vanguard Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
