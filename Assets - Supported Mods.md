@@ -37,12 +37,15 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Magus — https://www.nexusmods.com/baldursgate3/mods/422
 - Monk - Way of Springtime <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3605
 - Monk Subclass - Way of the Kensei <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/1330
+- Monster Slayer 5e Ranger Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5842
 - Mystic <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2786
 - Pirate (Homebrew Rogue Subclass) <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3070
+- Rat King Ranger <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5514
 - Raven Queen Patron for Warlock — https://www.nexusmods.com/baldursgate3/mods/1895
 - Rogues Extra — https://www.nexusmods.com/baldursgate3/mods/189
 - Samurai — https://www.nexusmods.com/baldursgate3/mods/2245
 - Shadow Sorcerer — https://www.nexusmods.com/baldursgate3/mods/923
+- Shaman Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6081
 - Sword Dancer of Eilistraee <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5307
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
 - Theurgy Wizard Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6922
@@ -82,6 +85,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 
 ### Background Icons
 - Additional Backgrounds — https://www.nexusmods.com/baldursgate3/mods/1874
+- AGTT - Birthsigns — https://www.nexusmods.com/baldursgate3/mods/6242
 - Crafting Skills Extra — https://www.nexusmods.com/baldursgate3/mods/299
 - Was a Goat — https://www.nexusmods.com/baldursgate3/mods/552
 
@@ -115,7 +119,10 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Illrigger Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5876) |
 | Improved Breath Weapon | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Magus | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
+| Monster Slayer 5e Ranger Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5842) |
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
+| Pact of the Shroud | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6001) |
+| Shaman Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6081)) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
 | Theurgy Wizard Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6922) |
 | Troubadour | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/472) |
