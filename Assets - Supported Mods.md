@@ -25,6 +25,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Death Soul - Sorcerer Subclass — https://www.nexusmods.com/baldursgate3/mods/5763
 - Demon Hunter Class — https://www.nexusmods.com/baldursgate3/mods/3165
 - Devil Ascendant <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2541
+- Disciple of Shar <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5965
 - Drakewarden Subclass — https://www.nexusmods.com/baldursgate3/mods/2838
 - Echo Knight Fighter Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3939
 - Expansion (Bladesinger only) — https://www.nexusmods.com/baldursgate3/mods/279
