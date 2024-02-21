@@ -19,6 +19,8 @@ This mod is aimed at making changes to the overall user interface to improve usa
 
 - Character Creation Layout tweaks: Redesigned Origin layout (the first screen you see when entering CC).
 - Character Creation Layout tweaks: Adds full Facial Hair Colour selection.
+- (Keyboard only) CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
+- (Keyboard only) Character Creation Layout tweaks: Adds numeric value to appearance sliders removed in Patch 6.
 - (Controller only) Character Creation Layout tweaks: Hides appearance options when not available, adds "all colours" tickbox for highlights.
 - Hireling tweaks: Redesigned Hireling layout (makes better use of the dead space).
 
@@ -33,7 +35,6 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Character Creation Layout tweaks: Removes head scroll limit (Credit: Alana)
 - Character Creation Layout tweaks: Removes appearance tab restrictions allowing for modded slot use. (ex: Origin Hairstyles, Humans with tails)
 - Character Creation Layout tweaks: Changes Dragonborn Sorcerer Draconic Ancestry to allow for additional scale types.
-- CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
 - CC/Level up Layout tweaks: Changes passive and equipment selection to turn into a scroll option when enough modded options are added - such as modded Eldritch Invocations. (Credit: Winterbrick)
 - CC/Level up Layout tweaks: Adds passive and spell selection to Races (previously limited to Class only) (Credit: TrumanHarp)
 - CC/Level up Layout tweaks: Changes Feat panel to have additional scroll options to support modded Feats with long descriptions and multiple options. (Credit: Lostsoul)
