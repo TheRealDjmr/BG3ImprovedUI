@@ -4277,8 +4277,50 @@
 		<Setter Property="FontSize" Value="{StaticResource ScaledDefaultFontSize}"/>
 	</Style>
 
+	<!-- MOD START - Overwrite Slider Template for CC only -->
+	<ControlTemplate x:Key="CCOptionsSliderTemplate" TargetType="Slider">
+		<ControlTemplate.Resources>
+			<BitmapImage x:Key="SliderBackground" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Options/sliderBox_wide_d.png"/>
+		</ControlTemplate.Resources>
+		<StackPanel Orientation="Horizontal">
+			<Grid HorizontalAlignment="Center">
+				<ls:LSNineSliceImage x:Name="bg" HorizontalAlignment="Center" VerticalAlignment="Center" ImageSource="{StaticResource SliderBackground}" Width="{TemplateBinding Width}" Height="80" Slices="106,20"/>
+
+				<ls:LSRepeatButton x:Name="PART_DecreaseRepeatButton" HorizontalAlignment="Left" ContentTemplate="{StaticResource SliderRepeatButtonTemplate}" SoundID="UI_HUD_Shared_Slider_LeftButton" Command="Slider.DecreaseLarge" />
+				<ls:LSRepeatButton x:Name="PART_IncreaseRepeatButton" HorizontalAlignment="Right" ContentTemplate="{StaticResource SliderRepeatButtonTemplate}" SoundID="UI_HUD_Shared_Slider_RightButton"  Command="Slider.IncreaseLarge" RenderTransformOrigin="0.5, 0.5">
+					<ls:LSRepeatButton.RenderTransform>
+						<ScaleTransform ScaleX="-1"/>
+					</ls:LSRepeatButton.RenderTransform>
+				</ls:LSRepeatButton>
+
+				<Track Name="PART_Track" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="56,0" Height="{TemplateBinding Height}">
+					<Track.DecreaseRepeatButton>
+						<ls:LSRepeatButton x:Name="PART_TrackBefore" Style="{StaticResource Style.Slider.RepeatButton}" Command="Slider.DecreaseLarge"/>
+					</Track.DecreaseRepeatButton>
+					<Track.Thumb>
+						<ls:LSThumb Style="{StaticResource OptionSliderThumbStyle}" />
+					</Track.Thumb>
+					<Track.IncreaseRepeatButton>
+						<ls:LSRepeatButton x:Name="PART_TrackAfter" Style="{StaticResource Style.Slider.RepeatButton}" Command="Slider.IncreaseLarge"/>
+					</Track.IncreaseRepeatButton>
+				</Track>
+				<TextBlock x:Name="PART_ValueLabel" Style="{StaticResource DefaultSliderValueStyle}" Margin="0,0,-60,0" Foreground="{StaticResource LS_accent100TxtColor}" FontSize="{StaticResource ScaledLargeFontSize}" Visibility="Visible"/>
+			</Grid>
+		</StackPanel>
+		<ControlTemplate.Triggers>
+			<DataTrigger Binding="{Binding Enabled}" Value="False">
+				<Setter Property="Opacity" Value="{StaticResource DisabledOpacity}" />
+			</DataTrigger>
+
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter TargetName="bg" Property="ImageSource" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Options/sliderBox_wide_h.png"/>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+	<!-- MOD END -->
+
 	<Style x:Key="CCSliderStyle" TargetType="{x:Type Slider}">
-		<Setter Property="Template" Value="{StaticResource OptionsSliderTemplate}"/>
+		<Setter Property="Template" Value="{StaticResource CCOptionsSliderTemplate}"/>
 		<Setter Property="Value" Value="{Binding Value}"/>
 		<Setter Property="Minimum" Value="{Binding Min}"/>
 		<Setter Property="Maximum" Value="{Binding Max}"/>
