@@ -248,7 +248,8 @@
 	<ImageSource x:Key="DraconicPowerCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/BreathWeaponTweaks/Shared/Resources/ico_res_draconicPower_d.png</ImageSource>
 	<ImageSource x:Key="DraconicPowerChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BreathWeaponTweaks/Shared/Resources/ico_res_draconicPower_missing.png</ImageSource>
 	<!-- EDIT HERE -->
-
+	<ImageSource x:Key="HolyPower" >pack://application:,,,/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower.png</ImageSource>
+	<ImageSource x:Key="HolyPowerUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Missing.png</ImageSource>
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
 		<Style.Triggers>
@@ -484,6 +485,9 @@
 				<Setter Property="Source" Value="{StaticResource DraconicPowerCharge}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="HolyPower">
+				<Setter Property="Source" Value="{StaticResource HolyPower}"/> 
+			</DataTrigger>
 		</Style.Triggers>
 	</Style>
 
@@ -1646,6 +1650,16 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="HolyPower"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource HolyPowerUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 		</Style.Triggers>
 	</Style>
 
@@ -2465,7 +2479,15 @@
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
-
+<ControlTemplate x:Key="ActionResources.ActionGroup.HolyPowerGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Hover.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
 		<ControlTemplate.Resources>
@@ -3764,6 +3786,11 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="HolyPower">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.HolyPowerGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
 		</Style.Triggers>
 	</Style>
 </ResourceDictionary>
