@@ -47,6 +47,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Samurai — https://www.nexusmods.com/baldursgate3/mods/2245
 - Shadow Sorcerer — https://www.nexusmods.com/baldursgate3/mods/923
 - Shaman Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6081
+- Surgeon Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6111
 - Sword Dancer of Eilistraee <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5307
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
 - Theurgy Wizard Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6922
