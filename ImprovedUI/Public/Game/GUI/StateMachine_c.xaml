@@ -591,11 +591,6 @@
 						<ls:SetSubstate Name="CharacterAssign"/>
 					</ls:StateEvent.Actions>
 				</ls:StateEvent>
-				<ls:StateEvent Name = "ConnectivityMenuOpen">
-					<ls:StateEvent.Actions>
-						<ls:SetSubstate Name="ConnectivityMenu"/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
 
 				<ls:StateEvent Name = "IE.ToggleInGameMenu">
 					<ls:StateEvent.Actions>
@@ -618,22 +613,6 @@
 					</ls:StateEvent.Actions>
 				</ls:StateEvent>
 
-				<ls:StateEvent Name = "GE.OnDialogueShow">
-					<ls:StateEvent.Actions>
-						<ls:RemoveState/>
-						<ls:PushState Name="Dialogue"/>
-						<ls:PushState Name="Paused"/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
-
-				<ls:StateEvent Name = "OpenReactionsPopup">
-					<ls:StateEvent.Actions>
-						<ls:RemoveState/>
-						<ls:PushState Name="ReactionsPopup"/>
-						<ls:PushState Name="Paused"/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
-
 				<ls:StateEvent Name = "CloseGameMenu">
 					<ls:StateEvent.Actions>
 						<ls:RemoveState/>
@@ -641,12 +620,6 @@
 				</ls:StateEvent>
 
 				<ls:StateEvent Name = "CloseWidget">
-					<ls:StateEvent.Actions>
-						<ls:RemoveState/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
-
-				<ls:StateEvent Name = "CloseAllFullscreen">
 					<ls:StateEvent.Actions>
 						<ls:RemoveState/>
 					</ls:StateEvent.Actions>
@@ -858,7 +831,7 @@
 				</ls:StateEvent>
 				<ls:StateEvent Name = "GE.OnDialogueShow">
 					<ls:StateEvent.Actions>
-						<ls:PushState Name="Dialogue"/>
+						<ls:AddSubstate Name="Dialogue"/>
 					</ls:StateEvent.Actions>
 				</ls:StateEvent>
 				<ls:StateEvent Name = "PreloadDialogue">
@@ -963,7 +936,7 @@
 				</ls:StateEvent>
 				<ls:StateEvent Name = "OpenReactionsPopup">
 					<ls:StateEvent.Actions>
-						<ls:PushState Name="ReactionsPopup"/>
+						<ls:AddSubstate Name="ReactionsPopup"/>
 					</ls:StateEvent.Actions>
 				</ls:StateEvent>
 				<ls:StateEvent Name = "OpenCharacterChangeAppearance">
@@ -3026,11 +2999,6 @@
 			</ls:State.Widgets>
 
 			<ls:State.Events>
-				<ls:StateEvent Name = "IE.ToggleInGameMenu">
-					<ls:StateEvent.Actions>
-						<ls:PushState Name="Paused"/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
 				<ls:StateEvent Name = "CloseCursor">
 					<ls:StateEvent.Actions>
 						<ls:RemoveState/>
