@@ -596,7 +596,7 @@
 				</ls:StateEvent>
 				<ls:StateEvent Name = "OpenOptions">
 					<ls:StateEvent.Actions>
-						<ls:PushState Name="Options"/>
+						<ls:AddSubstate Name="Options"/>
 					</ls:StateEvent.Actions>
 				</ls:StateEvent>
 				<ls:StateEvent Name = "OpenDifficultySettings">
@@ -616,26 +616,7 @@
 				</ls:StateEvent>
 				<ls:StateEvent Name = "CharacterAssignOpen">
 					<ls:StateEvent.Actions>
-						<ls:PushState Name="CharacterAssign"/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
-				<ls:StateEvent Name = "ConnectivityMenuOpen">
-					<ls:StateEvent.Actions>
-						<ls:PushState Name="ConnectivityMenu"/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
-				<ls:StateEvent Name = "GE.OnDialogueShow">
-					<ls:StateEvent.Actions>
-						<ls:RemoveState/>
-						<ls:PushState Name="Dialogue"/>
-						<ls:PushState Name="Paused"/>
-					</ls:StateEvent.Actions>
-				</ls:StateEvent>
-				<ls:StateEvent Name = "OpenReactionsPopup">
-					<ls:StateEvent.Actions>
-						<ls:RemoveState/>
-						<ls:PushState Name="ReactionsPopup"/>
-						<ls:PushState Name="Paused"/>
+						<ls:AddSubstate Name="CharacterAssign"/>
 					</ls:StateEvent.Actions>
 				</ls:StateEvent>
 				<ls:StateEvent Name = "OpenCharacterCreation">
@@ -725,7 +706,7 @@
 				</ls:StateEvent>
 				<ls:StateEvent Name = "GE.OnDialogueShow">
 					<ls:StateEvent.Actions>
-						<ls:PushState Name="Dialogue"/>
+						<ls:AddSubstate Name="Dialogue"/>
 					</ls:StateEvent.Actions>
 				</ls:StateEvent>
 				<ls:StateEvent Name = "PreloadDialogue">
