@@ -246,13 +246,17 @@
 	<ImageSource x:Key="HuntersSense">pack://application:,,,/GustavNoesisGUI;component/Assets/MonsterSlayer5e/Shared/Resources/ico_classRes_HuntersSense_d.png</ImageSource>
 	<ImageSource x:Key="HuntersSenseUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MonsterSlayer5e/Shared/Resources/ico_classRes_HuntersSense_missing.png</ImageSource>
 	<ImageSource x:Key="DraconicPowerCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/BreathWeaponTweaks/Shared/Resources/ico_res_draconicPower_d.png</ImageSource>
-	<ImageSource x:Key="DraconicPowerChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BreathWeaponTweaks/Shared/Resources/ico_res_draconicPower_missing.png</ImageSource>
+	<ImageSource x:Key="DraconicPowerChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BreathWeaponTweaks/Shared/Resources/ico_res_draconicPower_missing.png</ImageSource>	
+	<ImageSource x:Key="HolyPower" >pack://application:,,,/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower.png</ImageSource>
+	<ImageSource x:Key="HolyPowerUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Missing.png</ImageSource>
+  	<ImageSource x:Key="GritPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_d.png</ImageSource>
+	<ImageSource x:Key="GritPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_missing.png</ImageSource>
 	<ImageSource x:Key="GiantsMight">pack://application:,,,/GustavNoesisGUI;component/Assets/RuneKnight5e/Shared/Resources/ico_classRes_GiantsMight_d.png</ImageSource>
 	<ImageSource x:Key="GiantsMightUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/RuneKnight5e/Shared/Resources/ico_classRes_GiantsMight_missing.png</ImageSource>
 	<ImageSource x:Key="FightingSpirit">pack://application:,,,/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_d.png</ImageSource>
 	<ImageSource x:Key="FightingSpiritUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_missing.png</ImageSource>
 	<!-- EDIT HERE -->
-
+  
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
 		<Style.Triggers>
@@ -487,12 +491,18 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="DraconicPowerCharge">
 				<Setter Property="Source" Value="{StaticResource DraconicPowerCharge}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="GiantsMight">
-				<Setter Property="Source" Value="{StaticResource GiantsMight}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="HolyPower">
+				<Setter Property="Source" Value="{StaticResource HolyPower}"/> 
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="FightingSpirit">
+			<DataTrigger Binding="{Binding TypeId}" Value="GritPoint">
+				<Setter Property="Source" Value="{StaticResource GritPoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GiantMightUse">
+				<Setter Property="Source" Value="{StaticResource GiantMight}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FightingSpiritUse">
 				<Setter Property="Source" Value="{StaticResource FightingSpirit}"/>
-			</DataTrigger>		
+			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1657,7 +1667,27 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="GiantsMight"/>
+					<Condition Binding="{Binding TypeId}" Value="HolyPower"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource HolyPowerUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GritPoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GritPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GiantsMightUse"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
 				</MultiDataTrigger.Conditions>
@@ -1667,14 +1697,14 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="FightingSpirit"/>
+					<Condition Binding="{Binding TypeId}" Value="FightingSpiritUse"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Source" Value="{StaticResource FightingSpiritUnavailable}"/>
 				</MultiDataTrigger.Setters>
-			</MultiDataTrigger>				
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2494,7 +2524,27 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+  
+  <ControlTemplate x:Key="ActionResources.ActionGroup.HolyPowerGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Hover.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GritPointGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.GiantsMightGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/RuneKnight5e/Shared/Resources/ico_classRes_GiantsMight_h.png</ImageSource>
@@ -2504,7 +2554,7 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>	
-	
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FightingSpiritGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_h.png</ImageSource>
@@ -2513,9 +2563,9 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
-	</ControlTemplate>			
+	</ControlTemplate>
 	<!-- EDIT HERE -->
-
+  
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
 		<ControlTemplate.Resources>
@@ -3813,26 +3863,44 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="GiantsMight">
-				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GiantsMightGroup}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="HolyPower">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.HolyPowerGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GritPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GritPointGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
 			</DataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="GiantsMight"/>
+					<Condition Binding="{Binding TypeId}" Value="GritPoint"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="FightingSpirit">
+			<DataTrigger Binding="{Binding TypeId}" Value="GiantMightUse">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GiantsMightGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GiantMightUse"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FightingSpiritUse">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FightingSpiritGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
 			</DataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="FightingSpirit"/>
+					<Condition Binding="{Binding TypeId}" Value="FightingSpiritUse"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
