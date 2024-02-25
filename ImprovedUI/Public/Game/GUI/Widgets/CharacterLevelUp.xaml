@@ -452,7 +452,7 @@
 					<DataTrigger Binding="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
 						<Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
 					</DataTrigger>
-					<!-- MOD START - Race tab should also be enabled on LevelUp if there are subrace spell selections and equipment available -->
+					<!-- MOD START - Race tab should also be enabled on LevelUp if there are (sub)race selections available -->
 					<DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
 						<Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
 					</DataTrigger>
@@ -460,6 +460,12 @@
 						<Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
 					</DataTrigger>
 					<DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRaceEquipments, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding FilteredItems.Count, ElementName=RacePassiveSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRacePassiveSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
 						<Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
 					</DataTrigger>
 					<!-- MOD END -->
@@ -1102,9 +1108,9 @@ ConverterParameter=0}" Value="True"/>
 										<!-- MOD END -->
 
 										<!-- MOD START - Race tab shows preview of racial passive if available -->
-										<ItemsControl x:Name="racePassiveFeatures" ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
+										<ItemsControl x:Name="racePassiveSelectors" ItemsSource="{Binding FilteredItems, ElementName=RacePassiveSelectors}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
 
-										<ItemsControl x:Name="subRacePassiveFeatures" ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
+										<ItemsControl x:Name="subRacePassiveSelectors" ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveSelectors}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
 										<!-- MOD END -->
 
 										<ContentControl Template="{DynamicResource LevelUpShowFeaturesTemplate}" DataContext="{Binding ProgressionData.RaceProgression.Other}" Content="{Binding Source='hd0d992ebg43f8g429bgbf11g0cbf54d84d4e', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,0,0,20"/>
@@ -1436,8 +1442,8 @@ ConverterParameter=0}" Value="True"/>
 		<ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
 		<!-- MOD START - Filter racial passives and racial equipment -->
-		<ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
-		<ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="RacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+		<ls:CollectionFilterBehavior x:Name="SubRacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
 		<ls:CollectionFilterBehavior x:Name="RaceEquipments" ItemsSource="{Binding RaceProgressionDetails.NotSubEquipmentSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubRaceEquipments" ItemsSource="{Binding RaceProgressionDetails.SubEquipmentSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
 		<!-- MOD END -->

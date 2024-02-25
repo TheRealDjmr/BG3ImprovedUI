@@ -2649,11 +2649,6 @@
 
 					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubClassPassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubClassPassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
 
-					<!-- MOD START - Racial passive selection -->
-					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-					<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,20,0,0"/>
-					<!-- MOD END -->
-
 					<StackPanel x:Name="PiercingSelector" Visibility="Collapsed" Margin="0,50,0,0">
 						<TextBlock Text="{Binding Source='h261cce55g1d1eg4c09g9675ge5c1be13e820', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}"/>
 
@@ -4293,12 +4288,13 @@
 		<Setter Property="IsEnabled" Value="{Binding Enabled}"/>
 		<Setter Property="Width" Value="600"/>
 		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="Margin" Value="50,0,-50,0"/>
 	</Style>
 
 	<ControlTemplate x:Key="SliderTemplate">
 		<StackPanel>
 			<TextBlock Text="{Binding Text}" HorizontalAlignment="Center"/>
-			<Slider DataContext="{Binding}" Style="{StaticResource CCSliderStyle}" Width="500">
+			<Slider DataContext="{Binding}" Style="{StaticResource CCSliderStyle}">
 				<b:Interaction.Triggers>
 					<b:EventTrigger EventName="ValueChanged">
 						<b:InvokeCommandAction Command="{Binding DataContext.AppearanceValueChanged, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
