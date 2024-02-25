@@ -249,12 +249,14 @@
 	<ImageSource x:Key="DraconicPowerChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/BreathWeaponTweaks/Shared/Resources/ico_res_draconicPower_missing.png</ImageSource>	
 	<ImageSource x:Key="HolyPower" >pack://application:,,,/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower.png</ImageSource>
 	<ImageSource x:Key="HolyPowerUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Priest/Shared/Resources/Icon_Priest_HolyPower_Missing.png</ImageSource>
-  <ImageSource x:Key="GritPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_d.png</ImageSource>
+	<ImageSource x:Key="GritPoint">pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_d.png</ImageSource>
 	<ImageSource x:Key="GritPointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GritPoint_missing.png</ImageSource>
 	<ImageSource x:Key="GiantsMight">pack://application:,,,/GustavNoesisGUI;component/Assets/RuneKnight5e/Shared/Resources/ico_classRes_GiantsMight_d.png</ImageSource>
 	<ImageSource x:Key="GiantsMightUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/RuneKnight5e/Shared/Resources/ico_classRes_GiantsMight_missing.png</ImageSource>
 	<ImageSource x:Key="FightingSpirit">pack://application:,,,/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_d.png</ImageSource>
 	<ImageSource x:Key="FightingSpiritUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_missing.png</ImageSource>
+	<ImageSource x:Key="ReRolls">pack://application:,,,/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_d.png</ImageSource>
+	<ImageSource x:Key="ReRollsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_missing.png</ImageSource>	
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -502,6 +504,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="FightingSpiritUse">
 				<Setter Property="Source" Value="{StaticResource FightingSpirit}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ReRolls">
+				<Setter Property="Source" Value="{StaticResource ReRolls}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1705,6 +1710,16 @@
 					<Setter Property="Source" Value="{StaticResource FightingSpiritUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ReRolls"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ReRollsUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2544,7 +2559,7 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-
+  
 	<ControlTemplate x:Key="ActionResources.ActionGroup.GiantsMightGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/RuneKnight5e/Shared/Resources/ico_classRes_GiantsMight_h.png</ImageSource>
@@ -2563,6 +2578,16 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+  
+	<ControlTemplate x:Key="ActionResources.ActionGroup.ReRollsGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
   
@@ -3901,6 +3926,19 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="FightingSpiritUse"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ReRolls">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ReRollsGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ReRolls"/>	
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
