@@ -914,7 +914,19 @@
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 			</DataTrigger>
 			
-			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="GiantsMightResource">
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="GritPoint">
+				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/ActionResources_c/Icons/c_ico_classRes_GritPoint_d.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
+				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="GiantsMightUse">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
 				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
@@ -925,8 +937,8 @@
 				<Setter TargetName="LevelImage" Property="Width" Value="50"/>
 				<Setter TargetName="LevelImage" Property="Stretch" Value="Fill"/>
 			</DataTrigger>
-			
-			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="FightingSpiritResource">
+
+			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="FightingSpiritUse">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
 				<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
@@ -1719,8 +1731,17 @@
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
+			
+			<DataTrigger Binding="{Binding TypeId}" Value="GritPoint">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/MWCRGunslinger/ActionResources_c/Icons/c_ico_classRes_GritPoint_d.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
 
-			<DataTrigger Binding="{Binding TypeId}" Value="GiantsMight">
+			<DataTrigger Binding="{Binding TypeId}" Value="GiantsMightUse">
 				<Setter TargetName="ResourceImage" Property="Fill">
 					<Setter.Value>
 						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/RuneKnight5e/ActionResources_c/Icons/c_ico_classRes_GiantsMight_d.png" Stretch="Uniform"/>
@@ -1728,8 +1749,8 @@
 				</Setter>
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
-			
-			<DataTrigger Binding="{Binding TypeId}" Value="FightingSpirit">
+
+			<DataTrigger Binding="{Binding TypeId}" Value="FightingSpiritUse">
 				<Setter TargetName="ResourceImage" Property="Fill">
 					<Setter.Value>
 						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Samurai5e/ActionResources_c/Icons/c_ico_classRes_FightingSpirit_d.png" Stretch="Uniform"/>
