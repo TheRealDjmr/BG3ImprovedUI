@@ -328,6 +328,11 @@
 						<ls:PushState Name="IUI_CharacterCreationMainMenuPrompt"/>
 					</ls:StateEvent.Actions>
 				</ls:StateEvent>
+				<ls:StateEvent Name = "IUI_OpenMultiplayerPrompt">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="IUI_CharacterCreationMultiplayerPrompt"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
 				<ls:StateEvent Name = "OpenSplashScreen">
 					<ls:StateEvent.Actions>
 						<ls:PushState Name="SplashScreen"/>
@@ -348,6 +353,25 @@
 			<ls:State.Widgets>
 				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
 				<ls:StateWidget Filename="IUI_CharacterCreationMainMenuPrompt.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>
+
+			<ls:State.Events>
+				<ls:StateEvent Name = "CloseWidget">
+					<ls:StateEvent.Actions>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "OpenMessageBox">
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="MessageBox"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+			</ls:State.Events>
+		</ls:State>
+		<ls:State Name = "IUI_CharacterCreationMultiplayerPrompt" DisableStatesBelow = "False" HideStatesBelow = "False" Layout="Player" Owner="Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
 				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
 			</ls:State.Widgets>
 

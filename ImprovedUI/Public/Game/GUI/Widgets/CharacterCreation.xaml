@@ -1244,8 +1244,29 @@
 			</ls:LSButton.ToolTip>
 		</ls:LSButton>
 
-		<Control x:Name="multiplayer" Template="{StaticResource MultiplayerPanelTemplate}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20"/>
-
+		<!-- MOD START - Toggle Multiplayer -->
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+			<Control x:Name="multiplayer" Template="{StaticResource MultiplayerPanelTemplate}" Margin="20,0,0,20" Visibility="{Binding Path=IsChecked, ElementName=IUI_MultiplayerToggleButton, Converter={StaticResource BoolToVisibleConverter}}"/>
+			<ls:LSToggleButton x:Name="IUI_MultiplayerToggleButton" IsChecked="False" VerticalAlignment="Bottom" SoundID="UI_HUD_CC_OpenCloseToggle">
+				<Grid Background="Transparent">
+					<Image x:Name="bg" Source="{StaticResource BtnNormal}" Stretch="None"/>
+					<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h908649e6gdfe9g4a44g8bf3ga66cc295f28e', Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</Grid>
+				<ControlTemplate.Triggers>
+					<Trigger Property="IsMouseOver" Value="True">
+						<Setter Property="Source" Value="{StaticResource BtnNormal_h}" TargetName="bg"/>
+					</Trigger>
+					<Trigger Property="IsPressed" Value="True">
+						<Setter Property="Source" Value="{StaticResource BtnNormal_p}" TargetName="bg"/>
+					</Trigger>
+				</ControlTemplate.Triggers>
+			</ls:LSToggleButton>
+			<b:Interaction.Triggers>
+				<b:DataTrigger Binding="{Binding ElementName=IUI_MultiplayerToggleButton, Path=IsChecked}" Value="True">
+					<b:InvokeCommandAction Command="{Binding CustomEvent}" CommandParameter="IUI_OpenMultiplayerPrompt"/>
+				</b:DataTrigger>
+			</b:Interaction.Triggers>
+		</StackPanel>
+		<!-- MOD END -->
 	</Grid>
-
 </ls:UIWidget>
