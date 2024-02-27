@@ -19,8 +19,10 @@ This mod is aimed at making changes to the overall user interface to improve usa
 
 - Character Creation Layout tweaks: Redesigned Origin layout (the first screen you see when entering CC).
 - Character Creation Layout tweaks: Adds full Facial Hair Colour selection.
+- (Keyboard only) Character Creation Layout tweaks: Adds multiplayer tab that nests the multiplayer UI for Single Player, and allows the joining pop-up to appear for hosts when opened.
 - (Keyboard only) CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
 - (Controller only) Character Creation Layout tweaks: Hides appearance options when not available, adds "all colours" tickbox for highlights.
+- (Controller only) Character Creation Layout tweaks: Adds slider values to options that have a numeric representation in the keyboard layout (Age, intensity).
 - Hireling tweaks: Redesigned Hireling layout (makes better use of the dead space).
 
 <b>OPTIONAL FILE REQUIRED</b>
