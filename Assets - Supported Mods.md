@@ -73,6 +73,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Half angel (Aasimar 5E) — https://www.nexusmods.com/baldursgate3/mods/1824
 - Half-Dragon — https://www.nexusmods.com/baldursgate3/mods/2634
 - Heart Of The Forest - Playable Dryad Race — https://www.nexusmods.com/baldursgate3/mods/6443
+- Legacy of Death — https://www.nexusmods.com/baldursgate3/mods/7030
 - Orc Half-Elf Subrace — https://www.nexusmods.com/baldursgate3/mods/5943
 - Plus Races - Gnoll — https://www.nexusmods.com/baldursgate3/mods/3872
 - Plus Races - Rework — https://www.nexusmods.com/baldursgate3/mods/3865
@@ -89,15 +90,18 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Additional Backgrounds — https://www.nexusmods.com/baldursgate3/mods/1874
 - AGTT - Birthsigns — https://www.nexusmods.com/baldursgate3/mods/6242
 - Crafting Skills Extra — https://www.nexusmods.com/baldursgate3/mods/299
+- JWL Histories and Occupations — https://www.nexusmods.com/baldursgate3/mods/1839
 - Was a Goat — https://www.nexusmods.com/baldursgate3/mods/552
 
 ### Deity Icons
 - Baphomet Deity — https://www.nexusmods.com/baldursgate3/mods/6858
 - Demon Player Race — https://www.nexusmods.com/baldursgate3/mods/3703
 - Faithful and Faithless — https://www.nexusmods.com/baldursgate3/mods/1512
+- The Fox God Deity — https://www.nexusmods.com/baldursgate3/mods/6986
 - Gods Extra — https://www.nexusmods.com/baldursgate3/mods/433
 - Plus Deities — https://www.nexusmods.com/baldursgate3/mods/5289
 - Solar Player Race — https://www.nexusmods.com/baldursgate3/mods/3861
+- Verenestra Deity — https://www.nexusmods.com/baldursgate3/mods/6834
 
 ### Action Resource Icons
 
@@ -107,7 +111,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Arcane Archer 5e Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4769) |
 | Artificer | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1779) |
 | Asgorath Chaos Sorcerer | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/5979) |
-| Blood Hunter | * | * | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) |
+| Blood Hunter | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2151) |
 | Bloodletter - A Rogue Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5018) |
 | Boots of Living Flames | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3769) |
 | Death Knight Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1725) |
@@ -115,6 +119,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Dragonborn Breath Weapon Tweaks | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1504) |
 | Dual Wielding Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4500) |
 | Echo Knight Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3939) |
+| Exandrian Gunslinger | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6848) |
 | Expansion (Bladesinger Only) | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
 | Followers of Zerthimon - Githzerai | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Illithid Powers Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4029) |
@@ -124,7 +129,10 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Monster Slayer 5e Ranger Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5842) |
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
 | Pact of the Shroud | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6001) |
-| Shaman Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6081)) |
+| Priest Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6288) |
+| ReRoller | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6692) |
+| Rune Knight 5e Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6831) |
+| Shaman Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6081) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
 | Theurgy Wizard Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6922) |
 | Troubadour | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/472) |
@@ -136,8 +144,6 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Whispers of the Fey: Goblins Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3254) |
 | Wielder Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3829) |
 | Wizard Traditions - Runesmith | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2563) |
-
-(*) (known issue)
 
 ### Other Mods
 - Colorful Words — https://www.nexusmods.com/baldursgate3/mods/5327
