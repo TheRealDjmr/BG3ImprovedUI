@@ -256,7 +256,11 @@
 	<ImageSource x:Key="FightingSpirit">pack://application:,,,/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_d.png</ImageSource>
 	<ImageSource x:Key="FightingSpiritUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_missing.png</ImageSource>
 	<ImageSource x:Key="ReRolls">pack://application:,,,/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_d.png</ImageSource>
-	<ImageSource x:Key="ReRollsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_missing.png</ImageSource>	
+	<ImageSource x:Key="ReRollsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_missing.png</ImageSource>
+	<ImageSource x:Key="GSAmmo">pack://application:,,,/GustavNoesisGUI;component/Assets/Gunslinger/Shared/Resources/ico_classRes_GSAmmo_d.png</ImageSource>
+	<ImageSource x:Key="GSAmmoUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Gunslinger/Shared/Resources/ico_classRes_GSAmmo_missing.png</ImageSource>
+	<ImageSource x:Key="GSAmmoOffhand">pack://application:,,,/GustavNoesisGUI;component/Assets/Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_d.png</ImageSource>
+	<ImageSource x:Key="GSAmmoOffhandUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -507,6 +511,12 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="ReRolls">
 				<Setter Property="Source" Value="{StaticResource ReRolls}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmo">
+				<Setter Property="Source" Value="{StaticResource GSAmmo}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmoOffhand">
+				<Setter Property="Source" Value="{StaticResource GSAmmoOffhand}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1720,6 +1730,16 @@
 					<Setter Property="Source" Value="{StaticResource ReRollsUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+					<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GSAmmo"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GSAmmoPointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2588,6 +2608,24 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+		<ControlTemplate x:Key="ActionResources.ActionGroup.GSAmmoGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GSAmmo_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GSAmmo_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GSAmmo_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GSAmmo_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GSAmmoOffhandGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MWCRGunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
   
@@ -3945,6 +3983,30 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmo">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GSAmmoGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GSAmmo"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+				<DataTrigger Binding="{Binding TypeId}" Value="GSAmmoOffhand">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GSAmmoOffhandGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GSAmmoOffhand"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
