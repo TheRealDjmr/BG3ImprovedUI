@@ -70,6 +70,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Fizbans Treasury of Dragons — https://www.nexusmods.com/baldursgate3/mods/1793
 - Flutter and Whimsy (Fairy Race) — https://www.nexusmods.com/baldursgate3/mods/5127
 - Followers of Zerthimon - Githzerai — https://www.nexusmods.com/baldursgate3/mods/3460
+- Ghastly Ghouls - Playable Undead Race — https://www.nexusmods.com/baldursgate3/mods/5895
 - Half angel (Aasimar 5E) — https://www.nexusmods.com/baldursgate3/mods/1824
 - Half-Dragon — https://www.nexusmods.com/baldursgate3/mods/2634
 - Heart Of The Forest - Playable Dryad Race — https://www.nexusmods.com/baldursgate3/mods/6443
