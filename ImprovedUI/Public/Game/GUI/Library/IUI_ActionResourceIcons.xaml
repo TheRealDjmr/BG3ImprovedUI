@@ -257,6 +257,8 @@
 	<ImageSource x:Key="FightingSpiritUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Samurai5e/Shared/Resources/ico_classRes_FightingSpirit_missing.png</ImageSource>
 	<ImageSource x:Key="ReRolls">pack://application:,,,/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_d.png</ImageSource>
 	<ImageSource x:Key="ReRollsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_missing.png</ImageSource>	
+	<ImageSource x:Key="Ghastly_Wight_MFD">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_d.png</ImageSource>
+	<ImageSource x:Key="Ghastly_Wight_MFDUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -507,6 +509,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="ReRolls">
 				<Setter Property="Source" Value="{StaticResource ReRolls}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MarkPoints">
+				<Setter Property="Source" Value="{StaticResource Ghastly_Wight_MFD}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1720,6 +1725,16 @@
 					<Setter Property="Source" Value="{StaticResource ReRollsUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="MarkPoints"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Ghastly_Wight_MFDUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2490,7 +2505,6 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
-
 	<ControlTemplate x:Key="ActionResources.ActionGroup.ChaosPointsGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Asgorath_Chaos_Sorcerer_SHV/Shared/Resources/ico_ChaosPoints.png</ImageSource>
@@ -2586,6 +2600,16 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_d.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ReRoller/Shared/Resources/ico_ReRolls_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.Ghastly_Wight_MFDGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -3939,6 +3963,20 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="ReRolls"/>	
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MarkPoints">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.Ghastly_Wight_MFDGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="MarkPoints"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
