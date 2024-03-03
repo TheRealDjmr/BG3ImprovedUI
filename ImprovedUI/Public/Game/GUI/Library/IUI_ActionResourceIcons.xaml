@@ -3019,15 +3019,17 @@
 			</MultiDataTrigger>
 
 			<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
+				<Setter Property="MaxGroupActionPoints" Value="4"/>
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ShadowSpellSlotGroup}"/>
-				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}"/>
 			</DataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="ShadowSpellSlot"/>
-					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+					<Condition Binding="{Binding Value}" Value="1"/>
 				</MultiDataTrigger.Conditions>
-				<Setter Property="Margin" Value="0,-15,0,0"/>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,0,0,0"/>
+				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 		</Style.Triggers>
 	</Style>
