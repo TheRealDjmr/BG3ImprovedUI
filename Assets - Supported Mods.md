@@ -13,6 +13,8 @@ Since it's gotten bigger, here's a list of custom icons currently supported:
 ### Class/Subclass Icons
 How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 
+- 5e Rune Knight <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6831
+- 5e Samurai <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/7236
 - Alternate Monk <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2266
 - Arcane Archer 5e Fighter Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/4769
 - Artificer — https://www.nexusmods.com/baldursgate3/mods/1779
@@ -70,6 +72,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Fizbans Treasury of Dragons — https://www.nexusmods.com/baldursgate3/mods/1793
 - Flutter and Whimsy (Fairy Race) — https://www.nexusmods.com/baldursgate3/mods/5127
 - Followers of Zerthimon - Githzerai — https://www.nexusmods.com/baldursgate3/mods/3460
+- Ghastly Ghouls - Playable Undead Race — https://www.nexusmods.com/baldursgate3/mods/5895
 - Half angel (Aasimar 5E) — https://www.nexusmods.com/baldursgate3/mods/1824
 - Half-Dragon — https://www.nexusmods.com/baldursgate3/mods/2634
 - Heart Of The Forest - Playable Dryad Race — https://www.nexusmods.com/baldursgate3/mods/6443
@@ -107,6 +110,8 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 
 | Mod Name | Keyboard | Controller | Mod Link |
 | :--- | :--- | :--- | :---: |
+| 5e Samurai | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7236) |
+| 5e Rune Knight | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6831) |
 | Alternate Monk | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/2266) |
 | Arcane Archer 5e Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4769) |
 | Artificer | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/1779) |
@@ -131,7 +136,6 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Pact of the Shroud | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6001) |
 | Priest Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6288) |
 | ReRoller | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6692) |
-| Rune Knight 5e Fighter Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6831) |
 | Shaman Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6081) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
 | Theurgy Wizard Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6922) |
