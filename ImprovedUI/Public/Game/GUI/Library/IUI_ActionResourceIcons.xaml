@@ -269,6 +269,8 @@
 	<ImageSource x:Key="Punish_Annihilate_SignUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Punish/Shared/Resources/Annihilate_Sign_Missing.png</ImageSource>
 	<ImageSource x:Key="Punish_End_Power">pack://application:,,,/GustavNoesisGUI;component/Assets/Punish/Shared/Resources/End_Power.png</ImageSource>
 	<ImageSource x:Key="Punish_End_PowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Punish/Shared/Resources/End_Power_Missing.png</ImageSource>
+	<ImageSource x:Key="Ghastly_Wight_MFD">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_d.png</ImageSource>
+	<ImageSource x:Key="Ghastly_Wight_MFDUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -537,6 +539,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="Punish_End_Power">
 				<Setter Property="Source" Value="{StaticResource Punish_End_Power}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="MarkPoints">
+				<Setter Property="Source" Value="{StaticResource Ghastly_Wight_MFD}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1810,6 +1815,16 @@
 					<Setter Property="Source" Value="{StaticResource Punish_End_PowerUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="MarkPoints"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Ghastly_Wight_MFDUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2580,7 +2595,6 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
-
 	<ControlTemplate x:Key="ActionResources.ActionGroup.ChaosPointsGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Asgorath_Chaos_Sorcerer_SHV/Shared/Resources/ico_ChaosPoints.png</ImageSource>
@@ -2733,6 +2747,16 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Punish/Shared/Resources/End_Power_Missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.Ghastly_Wight_MFDGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
   
@@ -4169,6 +4193,21 @@
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="Punish_End_Power"/>
 					<Condition Binding="{Binding ActionResource.Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="MarkPoints">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.Ghastly_Wight_MFDGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="MarkPoints"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
