@@ -275,8 +275,9 @@
 	<ImageSource x:Key="GSAmmoUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmo_missing.png</ImageSource>
 	<ImageSource x:Key="GSAmmoOffhand">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_d.png</ImageSource>
 	<ImageSource x:Key="GSAmmoOffhandUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_missing.png</ImageSource>
-	<!-- EDIT HERE -->
-  
+  	<ImageSource x:Key="StarlightStepCharges">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_d.png</ImageSource>
+	<ImageSource x:Key="StarlightStepChargesUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_missing.png</ImageSource>
+	<!-- EDIT HERE -->	
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
 		<Style.Triggers>
@@ -552,6 +553,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmoOffhand">
 				<Setter Property="Source" Value="{StaticResource GSAmmoOffhand}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="StarlightStepCharges">
+				<Setter Property="Source" Value="{StaticResource StarlightStepCharges}"/>												   
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1855,6 +1859,16 @@
 					<Setter Property="Source" Value="{StaticResource GSAmmoOffhandUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StarlightStepCharges"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource StarlightStepChargesUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2804,6 +2818,15 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_d.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.StarlightStepChargesGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -4285,6 +4308,19 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="GSAmmoOffhand"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="StarlightStepCharges">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.StarlightStepChargesGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StarlightStepCharges"/>	
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
