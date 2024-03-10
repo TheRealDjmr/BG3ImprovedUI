@@ -275,9 +275,12 @@
 	<ImageSource x:Key="GSAmmoUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmo_missing.png</ImageSource>
 	<ImageSource x:Key="GSAmmoOffhand">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_d.png</ImageSource>
 	<ImageSource x:Key="GSAmmoOffhandUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_missing.png</ImageSource>
-  	<ImageSource x:Key="StarlightStepCharges">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_d.png</ImageSource>
+	<ImageSource x:Key="757_Moxie">pack://application:,,,/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_d.png</ImageSource>
+  	<ImageSource x:Key="757_MoxieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_missing.png</ImageSource>
+	<ImageSource x:Key="StarlightStepCharges">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_d.png</ImageSource>
 	<ImageSource x:Key="StarlightStepChargesUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_missing.png</ImageSource>
-	<!-- EDIT HERE -->	
+	<!-- EDIT HERE -->
+  
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
 		<Style.Triggers>
@@ -553,6 +556,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmoOffhand">
 				<Setter Property="Source" Value="{StaticResource GSAmmoOffhand}"/>
+			</DataTrigger>
+	 		<DataTrigger Binding="{Binding TypeId}" Value="757_Moxie">
+				<Setter Property="Source" Value="{StaticResource 757_Moxie}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="StarlightStepCharges">
 				<Setter Property="Source" Value="{StaticResource StarlightStepCharges}"/>												   
@@ -1861,6 +1867,16 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="757_Moxie"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+						<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource 757_MoxieUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="StarlightStepCharges"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
@@ -2818,6 +2834,15 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_d.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.757_MoxieGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -4314,6 +4339,22 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+
+   			<DataTrigger Binding="{Binding TypeId}" Value="757_Moxie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.757_MoxieGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="757_Moxie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			
 			<DataTrigger Binding="{Binding TypeId}" Value="StarlightStepCharges">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.StarlightStepChargesGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
