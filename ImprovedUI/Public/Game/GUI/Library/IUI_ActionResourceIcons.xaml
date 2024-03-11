@@ -279,6 +279,8 @@
   	<ImageSource x:Key="757_MoxieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_missing.png</ImageSource>
 	<ImageSource x:Key="StarlightStepCharges">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_d.png</ImageSource>
 	<ImageSource x:Key="StarlightStepChargesUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_missing.png</ImageSource>
+	<ImageSource x:Key="Ghastly_Lich_Profanity">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_d.png</ImageSource>
+	<ImageSource x:Key="Ghastly_Lich_ProfanityUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -562,6 +564,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="StarlightStepCharges">
 				<Setter Property="Source" Value="{StaticResource StarlightStepCharges}"/>												   
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ProfaneSlots">
+				<Setter Property="Source" Value="{StaticResource Ghastly_Lich_Profanity}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1885,6 +1890,16 @@
 					<Setter Property="Source" Value="{StaticResource StarlightStepChargesUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ProfaneSlots"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Ghastly_Lich_ProfanityUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2837,6 +2852,7 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.757_MoxieGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_h.png</ImageSource>
@@ -2846,6 +2862,7 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
 	<ControlTemplate x:Key="ActionResources.ActionGroup.StarlightStepChargesGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_h.png</ImageSource>
@@ -2854,6 +2871,16 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.Ghastly_Lich_ProfanityGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
   
@@ -4362,6 +4389,21 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="StarlightStepCharges"/>	
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="ProfaneSlots">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.Ghastly_Lich_ProfanityGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ProfaneSlots"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
