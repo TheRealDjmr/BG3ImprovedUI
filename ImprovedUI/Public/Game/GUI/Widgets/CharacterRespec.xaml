@@ -22,6 +22,10 @@
 	</ls:UIWidget.Resources>
 
 	<b:Interaction.Behaviors>
+		<!-- MOD START - Racial progressions -->
+		<ls:CollectionFilterBehavior x:Name="RaceProgressions" ItemsSource="{Binding RaceProgressionDetails.Progressions}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="SubRaceProgressions" ItemsSource="{Binding RaceProgressionDetails.Progressions}" Predicate="{Binding IsSubProgressionPredicate}"/>
+		<!-- MOD END -->
 		<ls:CollectionFilterBehavior x:Name="ClassProgressions" ItemsSource="{Binding ClassProgressionDetails.Progressions}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubClassProgressions" ItemsSource="{Binding ClassProgressionDetails.Progressions}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
@@ -30,6 +34,10 @@
 		<ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
+		<!-- MOD START - Racial passive selection -->
+		<ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
+		<!-- MOD END -->
 		<ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
@@ -131,6 +139,13 @@
 									<ListBoxItem.Resources>
 										<BitmapImage x:Key="tabIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_class.png"/>
 										<BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_class_h.png"/>
+									</ListBoxItem.Resources>
+								</ListBoxItem>
+								
+								<ListBoxItem x:Name="backgroundTab" Tag="background">
+									<ListBoxItem.Resources>
+										<BitmapImage x:Key="tabIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_origin.png"/>
+										<BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/CC/ico_origin_h.png"/>
 									</ListBoxItem.Resources>
 								</ListBoxItem>
 
@@ -301,6 +316,39 @@
 						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="deity">
 							<Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource deityTabPanelTemplate}"/>
 						</DataTrigger>
+
+						<!-- MOD START - Background tab at respec -->
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="background">
+
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<StackPanel>
+											<Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
+											<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h1d2631e2g78fdg4de2gadceg1a724c2f7d9b, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+											<!-- MOD NOTE - Two scroll viewers to support multiple background selection -->
+											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
+												<ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+													<ListBox.Resources>
+														<Style x:Key="CustomIconStyle" BasedOn="{StaticResource BackgroundIconStyle}" TargetType="Rectangle"/>
+													</ListBox.Resources>
+												</ListBox>
+											</ls:LSScrollViewer>
+
+											<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" VerticalScrollBarVisibility="Auto" MaxHeight="770" Height="Auto"><!-- This is just in case of some really long description-->
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding SelectedBackground.Name}" Style="{StaticResource PanelHeaderText}" TextAlignment="Center" Margin="0,20,0,0"/>
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.BackgroundDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,10,0,0"/>
+													<Control Template="{StaticResource progressionInfo}" DataContext="{Binding ProgressionData.BackgroundProgression}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
+												</StackPanel>
+											</ls:LSScrollViewer>
+										</StackPanel>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+						<!-- MOD END -->
 
 						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="ability">
 							<Setter TargetName="gameplayPanel" Property="Template">
