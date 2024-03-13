@@ -52,6 +52,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Surgeon Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6111
 - Sword Dancer of Eilistraee <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5307
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
+- The Pugilist <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/7753
 - Theurgy Wizard Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6922
 - Troubadour <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/472
 - Vanguard Class — https://www.nexusmods.com/baldursgate3/mods/3686
@@ -143,6 +144,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Shaman Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6081) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
 | The Gunslingers | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7223) |
+| The Pugilist | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7753) |
 | Theurgy Wizard Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6922) |
 | Troubadour | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/472) |
 | UA7 Archfey Warlock | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5703) |
