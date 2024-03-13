@@ -240,6 +240,8 @@
 		<!-- MOD START - Racial passive selection -->
 		<ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="RacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+		<ls:CollectionFilterBehavior x:Name="SubRacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
 		<!-- MOD END -->
 		<ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
 		<ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
@@ -1046,6 +1048,7 @@
 
 															<!-- MOD START - Racial passive selection -->
 															<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
+															<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveSelectors}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 															<!-- MOD END -->
 
 															<Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.RaceProgression}" HorizontalAlignment="Center"/>
@@ -1108,6 +1111,7 @@
 
 															<!-- MOD START - Racial passive selection -->
 															<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
+															<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveSelectors}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
 															<!-- MOD END -->
 
 															<Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.SubRaceProgression}" HorizontalAlignment="Center"/>
