@@ -1594,6 +1594,17 @@
 				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
 				<Setter TargetName="subTabsPassivesList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
 			</MultiDataTrigger>
+
+			<!-- MOD NOTE - Spell subtabs for racial spell selection on LevelUp -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding DataContext.IsLevelUp, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, FallbackValue=False}" Value="True"/>
+					<Condition Binding="{Binding Path=Tag, RelativeSource={RelativeSource Mode=Self}}" Value="race"/>
+					<Condition Binding="{Binding RaceProgressionDetails.SpellSelectors.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="subTabs" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="subTabsSpellsList" Property="ItemsSource" Value="{Binding RaceProgressionDetails.SpellSelectors}"/>
+			</MultiDataTrigger>
 			<!-- MOD END -->
 
 			<!-- Equipment subtabs -->
