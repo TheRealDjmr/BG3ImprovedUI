@@ -52,6 +52,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Surgeon Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6111
 - Sword Dancer of Eilistraee <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5307
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
+- The Pugilist <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/7753
 - Theurgy Wizard Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6922
 - Troubadour <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/472
 - Vanguard Class — https://www.nexusmods.com/baldursgate3/mods/3686
@@ -77,12 +78,14 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Half-Dragon — https://www.nexusmods.com/baldursgate3/mods/2634
 - Heart Of The Forest - Playable Dryad Race — https://www.nexusmods.com/baldursgate3/mods/6443
 - Legacy of Death — https://www.nexusmods.com/baldursgate3/mods/7030
+- Mori's Astral Elves — https://www.nexusmods.com/baldursgate3/mods/7718
 - Orc Half-Elf Subrace — https://www.nexusmods.com/baldursgate3/mods/5943
 - Plus Races - Gnoll — https://www.nexusmods.com/baldursgate3/mods/3872
 - Plus Races - Rework — https://www.nexusmods.com/baldursgate3/mods/3865
 - Shadar-Kai — https://www.nexusmods.com/baldursgate3/mods/1305
 - Solar Player Race — https://www.nexusmods.com/baldursgate3/mods/3861
 - Transient Guests Are We - Playable Dhampir — https://www.nexusmods.com/baldursgate3/mods/4750
+- Ulitharid - Playable Mind Flayers's Race — https://www.nexusmods.com/baldursgate3/mods/7610/
 - Whispers of the Divine: Aasimar Race — https://www.nexusmods.com/baldursgate3/mods/4159
 - Whispers of the Fey: Changelings Race — https://www.nexusmods.com/baldursgate3/mods/3110
 - Whispers of the Fey: Goblins Race — https://www.nexusmods.com/baldursgate3/mods/3254
@@ -127,21 +130,25 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Exandrian Gunslinger | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6848) |
 | Expansion (Bladesinger Only) | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
 | Followers of Zerthimon - Githzerai | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
+| Ghastly Ghouls - Playable Undead Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5895) |
 | Illithid Powers Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4029) |
 | Illrigger Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5876) |
 | Improved Breath Weapon | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Magus | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/422) |
 | Monster Slayer 5e Ranger Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5842) |
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
+| NewClass-Punish | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7175) |
 | Pact of the Shroud | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6001) |
 | Priest Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6288) |
 | ReRoller | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6692) |
 | Shaman Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6081) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
+| The Gunslingers | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7223) |
+| The Pugilist | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7753) |
 | Theurgy Wizard Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6922) |
 | Troubadour | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/472) |
 | UA7 Archfey Warlock | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5703) |
-| Vanguard Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
+| Vanguard Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
 | Vessel Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4133/) |
 | Warlock: The Undead subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3045) |
 | Whispers of the Divine: Aasimar Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4159) |
@@ -152,3 +159,4 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 ### Other Mods
 - Colorful Words — https://www.nexusmods.com/baldursgate3/mods/5327
 - Stackable Items — https://www.nexusmods.com/baldursgate3/mods/1668
+- Grid display of shadow spell slots, used by Disciple of Shar — https://www.nexusmods.com/baldursgate3/mods/5965

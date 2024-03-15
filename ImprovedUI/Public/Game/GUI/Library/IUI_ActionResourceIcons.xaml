@@ -271,6 +271,22 @@
 	<ImageSource x:Key="Punish_End_PowerUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Punish/Shared/Resources/End_Power_Missing.png</ImageSource>
 	<ImageSource x:Key="Ghastly_Wight_MFD">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_d.png</ImageSource>
 	<ImageSource x:Key="Ghastly_Wight_MFDUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_mfd_missing.png</ImageSource>
+	<ImageSource x:Key="GSAmmo">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmo_d.png</ImageSource>
+	<ImageSource x:Key="GSAmmoUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmo_missing.png</ImageSource>
+	<ImageSource x:Key="GSAmmoOffhand">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_d.png</ImageSource>
+	<ImageSource x:Key="GSAmmoOffhandUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_missing.png</ImageSource>
+	<ImageSource x:Key="757_Moxie">pack://application:,,,/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_d.png</ImageSource>
+  	<ImageSource x:Key="757_MoxieUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_missing.png</ImageSource>
+	<ImageSource x:Key="StarlightStepCharges">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_d.png</ImageSource>
+	<ImageSource x:Key="StarlightStepChargesUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_missing.png</ImageSource>
+	<ImageSource x:Key="Ghastly_Lich_Profanity">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_d.png</ImageSource>
+	<ImageSource x:Key="Ghastly_Lich_ProfanityUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_missing.png</ImageSource>
+	<ImageSource x:Key="GB_Ammo_Mainhand">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Mainhand_d.png</ImageSource>
+	<ImageSource x:Key="GB_Ammo_MainhandUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Mainhand_missing.png</ImageSource>
+	<ImageSource x:Key="GB_Ammo_Offhand">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Offhand_d.png</ImageSource>
+	<ImageSource x:Key="GB_Ammo_OffhandUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Offhand_missing.png</ImageSource>
+	<ImageSource x:Key="Ka">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_d.png</ImageSource>
+	<ImageSource x:Key="KaUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -542,6 +558,30 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="MarkPoints">
 				<Setter Property="Source" Value="{StaticResource Ghastly_Wight_MFD}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmo">
+				<Setter Property="Source" Value="{StaticResource GSAmmo}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmoOffhand">
+				<Setter Property="Source" Value="{StaticResource GSAmmoOffhand}"/>
+			</DataTrigger>
+	 		<DataTrigger Binding="{Binding TypeId}" Value="757_Moxie">
+				<Setter Property="Source" Value="{StaticResource 757_Moxie}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="StarlightStepCharges">
+				<Setter Property="Source" Value="{StaticResource StarlightStepCharges}"/>												   
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ProfaneSlots">
+				<Setter Property="Source" Value="{StaticResource Ghastly_Lich_Profanity}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GB_Ammo_Mainhand">
+				<Setter Property="Source" Value="{StaticResource GB_Ammo_Mainhand}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GB_Ammo_Offhand">
+				<Setter Property="Source" Value="{StaticResource GB_Ammo_Offhand}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Ka">
+				<Setter Property="Source" Value="{StaticResource Ka}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1825,6 +1865,86 @@
 					<Setter Property="Source" Value="{StaticResource Ghastly_Wight_MFDUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GSAmmo"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GSAmmoUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GSAmmoOffhand"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GSAmmoOffhandUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="757_Moxie"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+						<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource 757_MoxieUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StarlightStepCharges"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource StarlightStepChargesUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ProfaneSlots"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Ghastly_Lich_ProfanityUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GB_Ammo_Mainhand"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GB_Ammo_MainhandUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GB_Ammo_Offhand"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource GB_Ammo_OffhandUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Ka"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource KaUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2758,6 +2878,83 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GSAmmoGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmo_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmo_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmo_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmo_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GSAmmoOffhandGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GSAmmoOffhand_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.757_MoxieGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/757_Pugilist/Shared/Resources/ico_classRes_757_Moxie_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.StarlightStepChargesGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MoriAstralElf/Shared/Resources/ico_StarlightStepCharges_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.Ghastly_Lich_ProfanityGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/GhastlyGhouls/icon_pks_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GB_Ammo_MainhandGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Mainhand_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Mainhand_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Mainhand_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Mainhand_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.GB_Ammo_OffhandGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Offhand_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Offhand_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Offhand_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Offhand_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.KaGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	<!-- EDIT HERE -->
   
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
@@ -3019,15 +3216,17 @@
 			</MultiDataTrigger>
 
 			<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
+				<Setter Property="MaxGroupActionPoints" Value="4"/>
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ShadowSpellSlotGroup}"/>
-				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}"/>
 			</DataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="ShadowSpellSlot"/>
-					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+					<Condition Binding="{Binding Value}" Value="1"/>
 				</MultiDataTrigger.Conditions>
-				<Setter Property="Margin" Value="0,-15,0,0"/>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,0,0,0"/>
+				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 		</Style.Triggers>
 	</Style>
@@ -4207,6 +4406,104 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="MarkPoints"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmo">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GSAmmoGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GSAmmo"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="GSAmmoOffhand">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GSAmmoOffhandGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GSAmmoOffhand"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+   			<DataTrigger Binding="{Binding TypeId}" Value="757_Moxie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.757_MoxieGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="757_Moxie"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			
+			<DataTrigger Binding="{Binding TypeId}" Value="StarlightStepCharges">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.StarlightStepChargesGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StarlightStepCharges"/>	
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="ProfaneSlots">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.Ghastly_Lich_ProfanityGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="ProfaneSlots"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="GB_Ammo_Mainhand">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GB_Ammo_MainhandGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="GB_Ammo_Mainhand"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Ka">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KaGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Ka"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
