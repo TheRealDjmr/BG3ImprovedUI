@@ -2456,23 +2456,20 @@
 				<Run x:Name="PassiveSelectorMaxText" Text="{Binding MaxSelectedPassiveCount, StringFormat='/{0})'}"/>
 			</TextBlock>
 			<TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
-			<!-- MOD NOTE - Restrict passive list max height -->
-			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="1000" Height="Auto" VerticalScrollBarVisibility="Auto">
-				<ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,32,0,0">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate DataType="{x:Type ls:VMCharacterCreationPassive}">
-							<ContentControl Template="{StaticResource SelectableEnhancement}">
-								<b:Interaction.Triggers>
-									<b:EventTrigger EventName="MouseLeftButtonUp">
-										<b:InvokeCommandAction Command="{Binding DataContext.TogglePassive,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-										<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
-									</b:EventTrigger>
-								</b:Interaction.Triggers>
-							</ContentControl>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
-			</ls:LSScrollViewer>
+			<ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,32,0,0">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="{x:Type ls:VMCharacterCreationPassive}">
+						<ContentControl Template="{StaticResource SelectableEnhancement}">
+							<b:Interaction.Triggers>
+								<b:EventTrigger EventName="MouseLeftButtonUp">
+									<b:InvokeCommandAction Command="{Binding DataContext.TogglePassive,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+									<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
+								</b:EventTrigger>
+							</b:Interaction.Triggers>
+						</ContentControl>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 		</StackPanel>
 		<DataTemplate.Triggers>
 			<DataTrigger Binding="{Binding Description.Text, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="True">
