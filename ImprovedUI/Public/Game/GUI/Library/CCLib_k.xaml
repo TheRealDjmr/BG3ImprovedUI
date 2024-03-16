@@ -2399,21 +2399,23 @@
 			<TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
 
 			<!-- MOD START - Restrict passive list max height -->
-			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="1000" Height="Auto" VerticalScrollBarVisibility="Auto">
-				<ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,32,0,0">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate DataType="{x:Type ls:VMCharacterCreationPassive}">
-							<ContentControl Template="{StaticResource SelectableEnhancement}">
-								<b:Interaction.Triggers>
-									<b:EventTrigger EventName="MouseLeftButtonUp">
-										<b:InvokeCommandAction Command="{Binding DataContext.TogglePassive,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-										<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
-									</b:EventTrigger>
-								</b:Interaction.Triggers>
-							</ContentControl>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
+			<ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="1000" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="-20,32,-20,0" Padding="0,0,0,60">
+				<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+					<ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,0,0,0">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="{x:Type ls:VMCharacterCreationPassive}">
+								<ContentControl Template="{StaticResource SelectableEnhancement}">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="MouseLeftButtonUp">
+											<b:InvokeCommandAction Command="{Binding DataContext.TogglePassive,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+											<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</ContentControl>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</StackPanel>
 			</ls:LSScrollViewer>
 			<!-- MOD END -->
 
@@ -2445,6 +2447,55 @@
 		</DataTemplate.Triggers>
 	</DataTemplate>
 
+	<!-- MOD START - Different passive selector for feats - this stops class/race passives and feat passives to be treated as the same -->
+	<DataTemplate x:Key="FeatPassiveSelectorItemTemplate">
+		<StackPanel Margin="0,32,0,0">
+			<TextBlock x:Name="SelectionTitle" Style="{StaticResource PanelHeaderText}" FontSize="{StaticResource ScaledDefaultFontSize}" MaxWidth="700" TextWrapping="Wrap" TextAlignment="Center">
+				<Run Text="{Binding Name}"/>
+				<Run Text="{Binding SelectedPassiveCount, StringFormat=' ({0}'}"/>
+				<Run x:Name="PassiveSelectorMaxText" Text="{Binding MaxSelectedPassiveCount, StringFormat='/{0})'}"/>
+			</TextBlock>
+			<TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
+			<ItemsControl ItemsSource="{Binding Passives}" HorizontalAlignment="Center" Margin="-32,32,0,0">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="{x:Type ls:VMCharacterCreationPassive}">
+						<ContentControl Template="{StaticResource SelectableEnhancement}">
+							<b:Interaction.Triggers>
+								<b:EventTrigger EventName="MouseLeftButtonUp">
+									<b:InvokeCommandAction Command="{Binding DataContext.TogglePassive,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+									<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
+								</b:EventTrigger>
+							</b:Interaction.Triggers>
+						</ContentControl>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding Description.Text, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="True">
+				<Setter TargetName="description" Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IsComplete}" Value="False">
+				<Setter TargetName="SelectionTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding IsComplete}" Value="True"/>
+					<Condition Value="True">
+						<Condition.Binding>
+							<MultiBinding Converter="{StaticResource GreaterOrEqualThanMultiConverter}">
+								<Binding Path="MaxSelectedPassiveCount"/>
+								<Binding Path="SelectedPassiveCount"/>
+							</MultiBinding>
+						</Condition.Binding>
+					</Condition>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="PassiveSelectorMaxText" Property="Text" Value="{Binding SelectedPassiveCount, StringFormat='/{0})'}"/>
+			</MultiDataTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
+	<!-- MOD END -->
+
 	<!-- Old UI design, will be replaced when new design is ready -->
 	<DataTemplate x:Key="EquipmentSelectorItemTemplate">
 		<StackPanel>
@@ -2455,21 +2506,23 @@
 			</TextBlock>
 			<TextBlock x:Name="description" ls:TextBlockFormatter.SourceText="{Binding Description.Text}" Style="{StaticResource PanelDescriptionText}" Margin="0,50,0,0"/>
 			<!-- MOD START - Restrict equipment max height-->
-			<ls:LSScrollViewer Template="{StaticResource NoForcedStyleScrollViewerTemplate}" MaxHeight="1300" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,50,88,0">
-				<ItemsControl ItemsSource="{Binding Equipments}" HorizontalAlignment="Center">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate DataType="{x:Type ls:VMCharacterCreationEquipment}">
-							<ContentControl Template="{StaticResource SelectableEnhancement}">
-								<b:Interaction.Triggers>
-									<b:EventTrigger EventName="MouseLeftButtonUp">
-										<b:InvokeCommandAction Command="{Binding DataContext.ToggleEquipment,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
-										<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
-									</b:EventTrigger>
-								</b:Interaction.Triggers>
-							</ContentControl>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
+			<ls:LSScrollViewer Template="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="1300" Height="Auto" VerticalScrollBarVisibility="Auto" Margin="100,50,88,0">
+				<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+					<ItemsControl ItemsSource="{Binding Equipments}" HorizontalAlignment="Center">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="{x:Type ls:VMCharacterCreationEquipment}">
+								<ContentControl Template="{StaticResource SelectableEnhancement}">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="MouseLeftButtonUp">
+											<b:InvokeCommandAction Command="{Binding DataContext.ToggleEquipment,RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" />
+											<ls:LSPlaySound Sound="UI_HUD_CC_ClassSubOption"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</ContentControl>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</StackPanel>
 			</ls:LSScrollViewer>
 			<!-- MOD END -->
 		</StackPanel>
@@ -4873,7 +4926,9 @@
 							<ItemsControl ItemsSource="{Binding FeatPassives}" Visibility="{Binding FeatPassives.Count, Converter={StaticResource CountToVisibilityConverter}}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate DataType="ls:VMCharacterCreationPassives">
-										<ContentControl ContentTemplate="{StaticResource PassiveSelectorItemTemplate}" Content="{Binding}"/>
+										<!-- MOD START - Different passive selector for feats -->
+										<ContentControl ContentTemplate="{StaticResource FeatPassiveSelectorItemTemplate}" Content="{Binding}"/>
+										<!-- MOD END -->
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
