@@ -19,6 +19,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 
 - Character Creation Layout tweaks: Redesigned Origin layout (the first screen you see when entering CC).
 - Character Creation Layout tweaks: Adds full Facial Hair Colour selection.
+- Character Respec tweaks: Adds Race and Background tabs, including racial passives that can be unselected then changed, and racial spells that can be switched.
 - (Keyboard only) Character Creation Layout tweaks: Adds multiplayer tab that nests the multiplayer UI for Single Player, and allows the joining pop-up to appear for hosts when opened.
 - (Keyboard only) CC/Level up Layout tweaks: Adds multiple scroll bars to Origins, Races, Subraces, Classes, Subclasses, Deity and Background selection for better support with modded options.
 - (Controller only) Character Creation Layout tweaks: Hides appearance options when not available, adds "all colours" tickbox for highlights.
@@ -26,7 +27,6 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Hireling tweaks: Redesigned Hireling layout (makes better use of the dead space).
 
 <b>OPTIONAL FILE REQUIRED</b>
-- (Keyboard-only) Dialogue Tweaks - Hides the bottom-left buttons when in dialogue with companions and NPCs where Attack/Trade are not relevant. Can still be accessed by placing your mouse in the bottom-left area. This cleans up the UI when experiencing intimate scenes. (Credit: Wesslan)
 - Replaces existing Minimap with smaller version (75% zoom, takes up less space on screen) or no Minimap (leaving the relevant buttons).
 <p float="left" align="middle">
   <img src="https://i.imgur.com/cMii97G.jpg"><img src="https://i.imgur.com/hElvnJR.jpg">
@@ -88,4 +88,4 @@ Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios)
 The latest mod updates will be available from GitHub first - https://github.com/TheRealDjmr/BG3ImprovedUI/releases
 
 #### Notes for Paking:
-Use [LSLib](https://github.com/Norbyte/lslib); set Priority to 20
+Use [LSLib](https://github.com/Norbyte/lslib); set Priority to 25
