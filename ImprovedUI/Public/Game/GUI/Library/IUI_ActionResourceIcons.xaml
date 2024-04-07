@@ -289,6 +289,13 @@
 	<ImageSource x:Key="KaUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
+	<ImageSource x:Key="Bravery" >pack://application:,,,/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Bravery.png</ImageSource>
+	<ImageSource x:Key="BraveryUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Bravery_Missing.png</ImageSource>
+	<ImageSource x:Key="Heroism" >pack://application:,,,/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Heroism.png</ImageSource>
+	<ImageSource x:Key="HeroismUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Heroism_Missing.png</ImageSource>
+	<ImageSource x:Key="WRage" >pack://application:,,,/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_WRage.png</ImageSource>
+	<ImageSource x:Key="WRageUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_WRage.png</ImageSource>
+  
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
 		<Style.Triggers>
@@ -584,6 +591,15 @@
 				<Setter Property="Source" Value="{StaticResource Ka}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="Bravery">
+				<Setter Property="Source" Value="{StaticResource Bravery}"/> 
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Heroism">
+				<Setter Property="Source" Value="{StaticResource Heroism}"/> 
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WRage">
+				<Setter Property="Source" Value="{StaticResource WRage}"/> 
+			</DataTrigger>
 		</Style.Triggers>
 	</Style>
 
@@ -1946,6 +1962,36 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Bravery"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BraveryUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Heroism"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource HeroismUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WRage"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource WRageUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 		</Style.Triggers>
 	</Style>
 
@@ -2956,7 +3002,35 @@
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
+	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BraveryGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Bravery.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Bravery.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Bravery_Spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Bravery_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
   
+	<ControlTemplate x:Key="ActionResources.ActionGroup.HeroismGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Heroism.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Heroism.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Heroism_Spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_Heroism_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.WRageGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_WRage.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_WRage.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_WRage_Spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Warrior/Shared/Resources/Icon_Warrior_WRage_Missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
 		<ControlTemplate.Resources>
@@ -4511,6 +4585,21 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
+			<DataTrigger Binding="{Binding TypeId}" Value="Bravery">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BraveryGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Heroism">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.HeroismGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WRage">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WRageGroup}"/>
+				<Setter Property="MaxGroupActionPoints" Value="1"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
 		</Style.Triggers>
 	</Style>
 </ResourceDictionary>
