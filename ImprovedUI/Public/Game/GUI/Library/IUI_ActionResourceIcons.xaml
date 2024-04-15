@@ -287,6 +287,11 @@
 	<ImageSource x:Key="GB_Ammo_OffhandUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_GB_Ammo_Offhand_missing.png</ImageSource>
 	<ImageSource x:Key="Ka">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_d.png</ImageSource>
 	<ImageSource x:Key="KaUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_Gunslinger/Shared/Resources/ico_classRes_Ka_missing.png</ImageSource>
+	<ImageSource x:Key="BMist">pack://application:,,,/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_BMist_d.png</ImageSource>
+	<ImageSource x:Key="BMistUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_BMist_missing.png</ImageSource>
+	
+	<ImageSource x:Key="VSoul">pack://application:,,,/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_VSoul_d.png</ImageSource>
+	<ImageSource x:Key="VSoulUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_VSoul_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -583,6 +588,13 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="Ka">
 				<Setter Property="Source" Value="{StaticResource Ka}"/>
 			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BMist">
+				<Setter Property="Source" Value="{StaticResource BMist}"/>				
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="VSoul">
+				<Setter Property="Source" Value="{StaticResource VSoul}"/>				
+			</DataTrigger>
+			
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1945,6 +1957,28 @@
 					<Setter Property="Source" Value="{StaticResource KaUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BMist"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BMistUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="VSoul"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource VSoulUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2955,8 +2989,32 @@
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
+	
+	
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BMistGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_BMist_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_BMist_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_BMist_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_BMist_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.VSoulGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_VSoul_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_VSoul_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_VSoul_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Ruined_King/Shared/Resources/ico_VSoul_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	
+	
 	<!-- EDIT HERE -->
-  
+	  
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
 	<ControlTemplate x:Key="ActionResources.ActionGroup.FallbackActionPointGroup">
 		<ControlTemplate.Resources>
@@ -4510,6 +4568,34 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BMist">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BMistGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BMist"/>	
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			
+			<DataTrigger Binding="{Binding TypeId}" Value="VSoul">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.VSoulGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="VSoul"/>	
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
