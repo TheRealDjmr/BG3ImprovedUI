@@ -587,6 +587,12 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="Ka">
 				<Setter Property="Source" Value="{StaticResource Ka}"/>
 			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Tet42_GF_GhostShot">
+				<Setter Property="Source" Value="{StaticResource Tet42_GF_GhostShot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Tet42_GF_Resolve">
+				<Setter Property="Source" Value="{StaticResource Tet42_GF_Resolve}"/>
+			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -1947,6 +1953,26 @@
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Source" Value="{StaticResource KaUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Tet42_GF_GhostShot"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Tet42_GF_GhostShotUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Tet42_GF_Resolve"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource Tet42_GF_ResolveUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
