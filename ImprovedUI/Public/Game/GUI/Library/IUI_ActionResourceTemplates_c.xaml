@@ -1294,7 +1294,6 @@
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_cleansingtouch.png"/>
 			</DataTrigger>
-
 			<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="StrokeOfLuck">
 				<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
 				<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
@@ -1303,6 +1302,7 @@
 				<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
 				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/ico_classRes_strokeofluck.png"/>
 			</DataTrigger>
+
 			<!-- EDIT HERE -->
 
 			<!-- Please leave the below alone -->
@@ -2263,6 +2263,15 @@
 				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
 
+			<DataTrigger Binding="{Binding TypeId}" Value="CleansingTouchCharge">
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/MoriAstralElf/ActionResources_c/Icons/c_ico_mini_spellSlot_starlightstepcharges.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
+			</DataTrigger>
+
 			<DataTrigger Binding="{Binding TypeId}" Value="HolyPower">
 				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
 				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Priest/ActionResources_c/Icons/Icon_Priest_HolyPower.png"/>
@@ -2331,20 +2340,23 @@
 			</DataTrigger>
 
 			<DataTrigger Binding="{Binding TypeId}" Value="CleansingTouchCharge">
-				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/c_ico_classRes_cleansingtouch.png"/>
-				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
-				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
-				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/c_ico_classRes_cleansingtouch.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
 
 			<DataTrigger Binding="{Binding TypeId}" Value="StrokeOfLuck">
-				<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
-				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/c_ico_classRes_strokeofluck.png"/>
-				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
-				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
-				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ActionResources_c/Icons/c_ico_classRes_strokeofluck.png" Stretch="Uniform"/>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="ResourceImage" Property="Width" Value="50"/>
 			</DataTrigger>
+
 			<!-- EDIT HERE -->
 
 			<DataTrigger Binding="{Binding Level}" Value="1">
