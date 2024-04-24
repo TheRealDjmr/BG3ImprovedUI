@@ -301,9 +301,10 @@
 	<ImageSource x:Key="Tet42_GF_GhostShotUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_GhostOfFaerun/Shared/Resources/ico_classRes_Tet42_GF_GhostShot_missing.png</ImageSource>
 	<ImageSource x:Key="Tet42_GF_Resolve">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_GhostOfFaerun/Shared/Resources/ico_classRes_Tet42_GF_Resolve_d.png</ImageSource>
 	<ImageSource x:Key="Tet42_GF_ResolveUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Tet42_GhostOfFaerun/Shared/Resources/ico_classRes_Tet42_GF_Resolve_missing.png</ImageSource>
-	<ImageSource x:Key="SneakAttack_Charge">pack://application:,,,/GustavNoesisGUI;component/Assets/SneakAttackChargesUI/Shared/Resources/ico_classRes_SneakAttack_Charge_d.png</ImageSource>
-	<ImageSource x:Key="SneakAttack_ChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/SneakAttackChargesUI/Shared/Resources/ico_classRes_SneakAttack_Charge_missing.png</ImageSource>
-
+	<ImageSource x:Key="CleansingTouchCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch.png</ImageSource>
+	<ImageSource x:Key="CleansingTouchChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch_missing.png</ImageSource>
+	<ImageSource x:Key="StrokeOfLuck">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck.png</ImageSource>
+	<ImageSource x:Key="StrokeOfLuckUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -621,10 +622,12 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="Tet42_GF_Resolve">
 				<Setter Property="Source" Value="{StaticResource Tet42_GF_Resolve}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="SneakAttack_Charge">
-				<Setter Property="Source" Value="{StaticResource SneakAttack_Charge}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="CleansingTouchCharge">
+				<Setter Property="Source" Value="{StaticResource CleansingTouchCharge}"/>
 			</DataTrigger>
-
+			<DataTrigger Binding="{Binding TypeId}" Value="StrokeOfLuck">
+				<Setter Property="Source" Value="{StaticResource StrokeOfLuck}"/>
+			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2059,12 +2062,22 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="SneakAttack_Charge"/>
+					<Condition Binding="{Binding TypeId}" Value="CleansingTouchCharge"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
-					<Setter Property="Source" Value="{StaticResource SneakAttack_ChargeUnavailable}"/>
+					<Setter Property="Source" Value="{StaticResource CleansingTouchChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StrokeOfLuck"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource StrokeOfLuckUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
@@ -3141,12 +3154,22 @@
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
-	<ControlTemplate x:Key="ActionResources.ActionGroup.SneakAttack_ChargeGroup" TargetType="ls:LSActionPoint">
+	<ControlTemplate x:Key="ActionResources.ActionGroup.CleansingTouchChargeGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
-			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/SneakAttackChargesUI/Shared/Resources/ico_classRes_SneakAttack_Charge_h.png</ImageSource>
-			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/SneakAttackChargesUI/Shared/Resources/ico_classRes_SneakAttack_Charge_d.png</ImageSource>
-			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/SneakAttackChargesUI/Shared/Resources/ico_classRes_SneakAttack_Charge_spent.png</ImageSource>
-			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/SneakAttackChargesUI/Shared/Resources/ico_classRes_SneakAttack_Charge_missing.png</ImageSource>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.StrokeOfLuckGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -4788,21 +4811,32 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-
-			<DataTrigger Binding="{Binding TypeId}" Value="SneakAttack_Charge">
-				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SneakAttack_ChargeGroup}"/>
+			<DataTrigger Binding="{Binding TypeId}" Value="CleansingTouchCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.CleansingTouchChargeGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
 			</DataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="SneakAttack_Charge"/>
+					<Condition Binding="{Binding TypeId}" Value="CleansingTouchCharge"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-
+			<DataTrigger Binding="{Binding TypeId}" Value="StrokeOfLuck">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.StrokeOfLuckGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StrokeOfLuck"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
