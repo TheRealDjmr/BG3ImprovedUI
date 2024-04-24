@@ -628,6 +628,7 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="StrokeOfLuck">
 				<Setter Property="Source" Value="{StaticResource StrokeOfLuck}"/>
 			</DataTrigger>
+
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -2080,6 +2081,27 @@
 					<Setter Property="Source" Value="{StaticResource StrokeOfLuckUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="CleansingTouchCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource CleansingTouchChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="StrokeOfLuck"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource StrokeOfLuckUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -3152,6 +3174,26 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Tet42_GhostOfFaerun/Shared/Resources/ico_classRes_Tet42_GF_Resolve_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.CleansingTouchChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.StrokeOfLuckGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
 	<ControlTemplate x:Key="ActionResources.ActionGroup.CleansingTouchChargeGroup" TargetType="ls:LSActionPoint">
@@ -4837,6 +4879,7 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
