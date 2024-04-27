@@ -19,6 +19,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Arcane Archer 5e Fighter Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/4769
 - Artificer — https://www.nexusmods.com/baldursgate3/mods/1779
 - Asgorath Chaos Sorcerer <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5979
+- Bhaalist Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6444
 - Blood Hunter — https://www.nexusmods.com/baldursgate3/mods/2151
 - Bloodletter - A Rogue Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5018
 - Cleric Subclasses — https://www.nexusmods.com/baldursgate3/mods/432
@@ -33,6 +34,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Expansion (Bladesinger only) — https://www.nexusmods.com/baldursgate3/mods/279
 - FF14 Red Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2056
 - FF14 White Mage Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2961
+- Ghost of Faerun <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/8395
 - Harlequin — https://www.nexusmods.com/baldursgate3/mods/2120
 - Hexblade — https://www.nexusmods.com/baldursgate3/mods/1100
 - Illrigger Class — https://www.nexusmods.com/baldursgate3/mods/5876
@@ -43,6 +45,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Monster Slayer 5e Ranger Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5842
 - Mystic <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2786
 - Pirate (Homebrew Rogue Subclass) <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/3070
+- Priest Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6288
 - Rat King Ranger <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5514
 - Raven Queen Patron for Warlock — https://www.nexusmods.com/baldursgate3/mods/1895
 - Rogues Extra — https://www.nexusmods.com/baldursgate3/mods/189
@@ -53,10 +56,12 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 - Sword Dancer of Eilistraee <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/5307
 - Thanator <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/2796
 - The Pugilist <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/7753
+- The Ruined King <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/8869
 - Theurgy Wizard Subclass <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/6922
 - Troubadour <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/472
 - Vanguard Class — https://www.nexusmods.com/baldursgate3/mods/3686
 - Vessel Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/4133/
+- Warrior Class <sup>d</sup> — https://www.nexusmods.com/baldursgate3/mods/8540/
 - Way of the Drunken Master Subclass — https://www.nexusmods.com/baldursgate3/mods/1832
 - Wielder Class — https://www.nexusmods.com/baldursgate3/mods/3829
 - Wizard Traditions - Runesmith — https://www.nexusmods.com/baldursgate3/mods/2563
@@ -131,6 +136,7 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Expansion (Bladesinger Only) | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/279) |
 | Followers of Zerthimon - Githzerai | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
 | Ghastly Ghouls - Playable Undead Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5895) |
+| Ghost of Faerun | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/8395) |
 | Illithid Powers Overhaul | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4029) |
 | Illrigger Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5876) |
 | Improved Breath Weapon | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/993) |
@@ -139,18 +145,20 @@ How-To Guide (for modders): https://bg3.wiki/wiki/Modding:Modding_class_icons
 | Mystic | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/2786) |
 | NewClass-Punish | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7175) |
 | Pact of the Shroud | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6001) |
-| Priest Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6288) |
+| Priest Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6288) |
 | ReRoller | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6692) |
 | Shaman Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/6081) |
 | The Elder Scrolls Starting Spells | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4141) |
 | The Gunslingers | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7223) |
 | The Pugilist | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/7753) |
+| The Ruined King | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/8869) |
 | Theurgy Wizard Subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/6922) |
 | Troubadour | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/472) |
 | UA7 Archfey Warlock | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/5703) |
 | Vanguard Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3686) |
 | Vessel Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/4133/) |
 | Warlock: The Undead subclass | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3045) |
+| Warrior Class | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/8540) |
 | Whispers of the Divine: Aasimar Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/4159) |
 | Whispers of the Fey: Goblins Race | ✔ | ✔ | [🔗](https://www.nexusmods.com/baldursgate3/mods/3254) |
 | Wielder Class | ✔ | Partial | [🔗](https://www.nexusmods.com/baldursgate3/mods/3829) |
