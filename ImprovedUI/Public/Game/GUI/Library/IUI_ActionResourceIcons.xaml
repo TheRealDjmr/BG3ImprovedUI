@@ -307,6 +307,16 @@
 	<ImageSource x:Key="CleansingTouchChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_cleansingtouch_missing.png</ImageSource>
 	<ImageSource x:Key="StrokeOfLuck">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck.png</ImageSource>
 	<ImageSource x:Key="StrokeOfLuckUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_missing.png</ImageSource>
+	<ImageSource x:Key="Chi">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_Chi_d.png</ImageSource>
+	<ImageSource x:Key="ChiUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_Chi_missing.png</ImageSource>
+	<ImageSource x:Key="AirBendingPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_AirBendingPoints_d.png</ImageSource>
+	<ImageSource x:Key="AirBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_AirBendingPoints_missing.png</ImageSource>
+	<ImageSource x:Key="WaterBendingPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_WaterBendingPoints_d.png</ImageSource>
+	<ImageSource x:Key="WaterBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_WaterBendingPoints_missing.png</ImageSource>
+	<ImageSource x:Key="EarthBendingPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_d.png</ImageSource>
+	<ImageSource x:Key="EarthBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_missing.png</ImageSource>
+	<ImageSource x:Key="FireBendingPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_d.png</ImageSource>
+	<ImageSource x:Key="FireBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -632,6 +642,21 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="StrokeOfLuck">
 				<Setter Property="Source" Value="{StaticResource StrokeOfLuck}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Chi">
+				<Setter Property="Source" Value="{StaticResource Chi}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="AirBendingPoints">
+				<Setter Property="Source" Value="{StaticResource AirBendingPoints}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WaterBendingPoints">
+				<Setter Property="Source" Value="{StaticResource WaterBendingPoints}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="EarthBendingPoints">
+				<Setter Property="Source" Value="{StaticResource EarthBendingPoints}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FireBendingPoints">
+				<Setter Property="Source" Value="{StaticResource FireBendingPoints}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -2095,6 +2120,56 @@
 					<Setter Property="Source" Value="{StaticResource StrokeOfLuckUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Chi"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource ChiUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="AirBendingPoints"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource AirBendingPointsUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WaterBendingPoints"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource WaterBendingPointsUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="EarthBendingPoints"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource EarthBendingPointsUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FireBendingPoints"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource FireBendingPointsUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -3188,7 +3263,6 @@
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
-
 	<ControlTemplate x:Key="ActionResources.ActionGroup.StrokeOfLuckGroup" TargetType="ls:LSActionPoint">
 		<ControlTemplate.Resources>
 			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Expansion/Shared/Resources/ico_classRes_strokeofluck_h.png</ImageSource>
@@ -3199,6 +3273,51 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="ActionResources.ActionGroup.ChiGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_Chi_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_Chi_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_Chi_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_Chi_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	 <ControlTemplate x:Key="ActionResources.ActionGroup.AirBendingPointsGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_AirBendingPoints_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_AirBendingPoints_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_AirBendingPoints_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_AirBendingPoints_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	 <ControlTemplate x:Key="ActionResources.ActionGroup.WaterBendingPointsGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_WaterBendingPoints_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_WaterBendingPoints_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_WaterBendingPoints_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_WaterBendingPoints_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	 <ControlTemplate x:Key="ActionResources.ActionGroup.EarthBendingPointsGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	 <ControlTemplate x:Key="ActionResources.ActionGroup.FireBendingPointsGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	<!-- EDIT HERE -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
@@ -4871,6 +4990,72 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="StrokeOfLuck"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="Chi">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ChiGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="Chi"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="AirBendingPoints">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.AirBendingPointsGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="AirBendingPoints"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WaterBendingPoints">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WaterBendingPointsGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WaterBendingPoints"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="EarthBendingPoints">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.EarthBendingPointsGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="EarthBendingPoints"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FireBendingPoints">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FireBendingPointsGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FireBendingPoints"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
