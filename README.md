@@ -1,3 +1,6 @@
+Announcement:
+I've been busy with work recently, and also going on holiday for 2 weeks shortly, so won't be able to do much until I'm back
+
 
 <p align="middle">
   <img src="https://i.imgur.com/6Zso95t.png"> 
