@@ -317,6 +317,8 @@
 	<ImageSource x:Key="EarthBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_missing.png</ImageSource>
 	<ImageSource x:Key="FireBendingPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_d.png</ImageSource>
 	<ImageSource x:Key="FireBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_missing.png</ImageSource>
+	<ImageSource x:Key="SpellPointsResource" >pack://application:,,,/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_d.png</ImageSource>
+	<ImageSource x:Key="SpellPointsResourceUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -657,6 +659,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="FireBendingPoints">
 				<Setter Property="Source" Value="{StaticResource FireBendingPoints}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellPointsResource">
+				<Setter Property="Source" Value="{StaticResource SpellPointsResource}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -2170,6 +2175,16 @@
 					<Setter Property="Source" Value="{StaticResource FireBendingPointsUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellPointsResource"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SpellPointsResourceUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -3317,6 +3332,15 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.SpellPointsResourceGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
 
@@ -5063,6 +5087,19 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellPointsResource">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SpellPointsResourceGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellPointsResource"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>	
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
