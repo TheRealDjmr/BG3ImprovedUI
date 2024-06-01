@@ -1,0 +1,935 @@
+<!-- This is a file for storing Class/Subclass icon entries. The idea is to put Class/Subclass icons here instead of updating multiple files -->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:System="clr-namespace:System;assembly=mscorlib"
+					xmlns:ls="clr-namespace:ls;assembly=SharedGUI"
+					xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+					mc:Ignorable="d">
+
+	<!-- Generic icons for mods without a class icon -->
+	<BitmapImage x:Key="IUI_GenericClassMainIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/generic.png"/>
+	<BitmapImage x:Key="IUI_GenericClassHotbarIcon" UriSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/generic.png"/>
+
+	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
+	<Style x:Key="IUI_MainClassIconStyleDefault" TargetType="Image">
+		<Setter Property="Stretch" Value="None"/>
+		<Style.Triggers>
+			<!-- Dynamically try and find an image by the Class ID in the regular Larian folder -->
+			<DataTrigger Binding="{Binding IDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+				<Setter Property="Source">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
+							<Binding Source="Assets/ClassIcons/"/>
+							<Binding Path="IDString"/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Barbarian">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Bard">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/bard.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Cleric">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Druid">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Fighter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/fighter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Monk">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/monk.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Paladin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/paladin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Ranger">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/ranger.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Rogue">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/rogue.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Sorcerer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/sorcerer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Warlock">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/warlock.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Wizard">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard.png"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="IUI_MainClassIconHotbarStyleDefault" TargetType="Image" >
+		<Setter Property="Stretch" Value="None"/>
+		<Setter Property="Source" Value="{StaticResource IUI_GenericClassHotbarIcon}"/>
+		<Style.Triggers>
+			<!-- Dynamically try and find an image by the Class ID in the regular Larian folder -->
+			<DataTrigger Binding="{Binding IDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+				<Setter Property="Source">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
+							<Binding Source="Assets/ClassIcons/hotbar/"/>
+							<Binding Path="IDString"/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Barbarian">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Bard">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/bard.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Cleric">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/cleric.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Druid">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/druid.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Fighter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/fighter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Monk">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/monk.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Paladin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/paladin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Ranger">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/ranger.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Rogue">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/rogue.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Sorcerer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/sorcerer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Warlock">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/warlock.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Wizard">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/wizard.png"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+	<!-- Leave the above alone please -->
+
+	<!-- CLASS ICONS (For subclass see further down) -->
+	<!-- This is the icon that appears in the top right of the CC screen/shows in character sheet when the class is selected -->
+	<Style x:Key="IUI_MainClassIconStyle" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconStyleDefault}">
+		<Style.Triggers>
+			<!--<DataTrigger Binding="{Binding IDString}" Value="CLASSNAME">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/ClassIcons/NAMEOFDDSFILEFORTHECLASSICON.png"/>
+			</DataTrigger>-->
+			<DataTrigger Binding="{Binding IDString}" Value="Artificer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/artificer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="BloodHunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/ClassIcons/bloodhunter.dds"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Diemnocturnum">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Diemnocturnum/ClassIcons/Diemnocturnum.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Harlequin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/harlequin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Arcaneblade">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/Arcaneblade.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="ElementalWarrior">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/ElementalWarrior.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="HomebrewFighter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/HomebrewFighter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="ShadowPaladin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/ShadowPaladin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Illrigger">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ClassIcons/illrigger.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Magus">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/Magus.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Psion">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ClassIcons/Icon_Class_Psion.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Vanguard">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/ClassIcons/Vanguard.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Wielder">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/ClassIcons/Wielder.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="WoWDeathKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ClassIcons/Icon_WoWDeathKnightClass.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="WoWDemonHunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ClassIcons/Icon_WoWDemonHunterClass.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="possessed_main_class">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/possessed_main_class.png"/>
+			</DataTrigger>
+			<!--EDIT HERE-->
+		</Style.Triggers>
+	</Style>
+
+	<!-- This is the icon that appears as an option when choosing class in CC/shows in bottom left of hotbar -->
+	<Style x:Key="IUI_MainClassIconHotbarStyle" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconHotbarStyleDefault}">
+		<Style.Triggers>
+			<!--<DataTrigger Binding="{Binding IDString}" Value="CLASSNAME">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/ClassIcons/hotbar/NAMEOFDDSFILEFORTHECLASSHOTBARICON.png"/>
+			</DataTrigger>-->
+			<DataTrigger Binding="{Binding IDString}" Value="Artificer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/artificer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="BloodHunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/ClassIcons/hotbar/bloodhunter.dds"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Diemnocturnum">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Diemnocturnum/ClassIcons/hotbar/Diemnocturnum_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Harlequin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/hotbar/harlequin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Arcaneblade">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/hotbar/Arcaneblade.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="ElementalWarrior">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/hotbar/ElementalWarrior.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="HomebrewFighter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/hotbar/HomebrewFighter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="ShadowPaladin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/hotbar/ShadowPaladin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Illrigger">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ClassIcons/hotbar/illrigger.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Magus">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/hotbar/Magus_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Psion">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Psion/ClassIcons/hotbar/Icon_Class_Psion_Hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Vanguard">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/ClassIcons/hotbar/Vanguard_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="Wielder">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/ClassIcons/hotbar/Wielder_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="WoWDeathKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ClassIcons/hotbar/Icon_WoWDeathKnightClass.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="WoWDemonHunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ClassIcons/hotbar/Icon_WoWDemonHunterClass.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IDString}" Value="possessed_main_class">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/hotbar/possessed_main_class.png"/>
+			</DataTrigger>
+			<!--EDIT HERE-->
+		</Style.Triggers>
+	</Style>
+
+	<!-- Leave the below alone please -->
+	<Style x:Key="IUI_ClassIconStyleDefault" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconStyle}">
+		<Style.Triggers>
+			<!-- Dynamically try and find an image by the Subclass ID in the regular Larian folder -->
+			<DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+				<Setter Property="Source">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassMainIcon}">
+							<Binding Source="Assets/ClassIcons/"/>
+							<Binding Path="SubclassIDString"/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<!-- Subclass -->
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BerserkerPath">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian_berserker.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TotemWarriorPath">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian_totemWarrior.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="WildMagicPath">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/barbarian_wildMagic.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LoreCollege">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/bard_lore.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="SwordsCollege">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/bard_sword.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ValorCollege">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/bard_valor.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="FourElements">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/monk_four_elements.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="OpenHand">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/monk_open_hand.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Shadow">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/monk_shadow.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Ancients">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/paladin_ancients.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Devotion">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/paladin_devotion.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Oathbreaker">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/paladin_oathbreaker.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Vengeance">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/paladin_vengeance.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="KnowledgeDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric_knowledge.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LifeDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric_life.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LightDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric_light.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="NatureDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric_nature.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TempestDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric_tempest.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TrickeryDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric_trickery.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="WarDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/cleric_war.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Archfey">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/warlock_archfey.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Fiend">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/warlock_fiend.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="GreatOldOne">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/warlock_greatOldOne.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="AbjurationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard_abjuration.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="EvocationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard_evocation.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ConjurationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard_conjuration.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DivinationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard_divination.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="EnchantmentSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard_enchantment.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="NecromancySchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard_necromancy.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="IllusionSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard_illusion.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TransmutationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/wizard_transmutation.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Thief">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/rogue_thief.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ArcaneTrickster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/rogue_trickster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Assassin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/rogue_assassin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Hunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/ranger_hunter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BeastMaster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/ranger_beastmaster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="GloomStalker">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/ranger_gloomStalker.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BattleMaster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/fighter_battlemaster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="EldritchKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/fighter_eldritchKnight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Champion">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/fighter_champion.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheLand">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid_circleOfLand.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheMoon">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid_circleOfMoon.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheSpores">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/druid_circleOfSpores.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DraconicBloodline">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/sorcerer_dragoniceBloodline.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="StormSorcery">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/sorcerer_stormSorcery.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="WildMagic">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/sorcerer_wildMagic.png"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="IUI_ClassIconHotbarStyleDefault" TargetType="Image" BasedOn="{StaticResource IUI_MainClassIconHotbarStyle}">
+		<Style.Triggers>
+			<!-- Dynamically try and find an image by the Subclass ID in the regular Larian folder -->
+			<DataTrigger Binding="{Binding SubclassIDString, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+				<Setter Property="Source">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource IUI_GenericClassHotbarIcon}">
+							<Binding Source="Assets/ClassIcons/hotbar/"/>
+							<Binding Path="SubclassIDString"/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<!-- Subclass -->
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BerserkerPath">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian_berserker.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TotemWarriorPath">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian_totemWarrior.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="WildMagicPath">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/barbarian_wildMagic.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LoreCollege">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/bard_lore.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ValorCollege">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/bard_valor.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="SwordsCollege">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Bard_Sword_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="KnowledgeDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Cleric_Knowledge_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LifeDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/cleric_life.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LightDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/cleric_light.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="NatureDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Cleric_Nature_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TempestDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Cleric_Tempest_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TrickeryDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/cleric_trickery.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="WarDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Cleric_War_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="FourElements">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/monk_four_elements.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="OpenHand">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/monk_open_hand.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Shadow">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/monk_shadow.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Archfey">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Warlock_Archfey_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Fiend">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/warlock_fiend.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="GreatOldOne">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/warlock_greatOldOne.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="EvocationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/wizard_evocation.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="AbjurationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/wizard_abjuration.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ConjurationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Wizard_ConjurationSimplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DivinationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Wizard_Divination_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="EnchantmentSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Wizard_Enchantment_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="NecromancySchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Wizard_Necromancy_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="IllusionSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Wizard_Illusion_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TransmutationSchool">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Wizard_Transmutation_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Assassin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Rogue_Assassin_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Thief">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/rogue_thief.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ArcaneTrickster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/rogue_trickster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Hunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/ranger_hunter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BeastMaster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/ranger_beastmaster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="GloomStalker">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Ranger_GloomStalker_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BattleMaster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/fighter_battlemaster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="EldritchKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/fighter_eldritchKnight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Champion">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Fighter_Champion_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheLand">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/druid_circleOfLand.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheMoon">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/druid_circleOfMoon.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="CircleOfTheSpores">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/Druid_CircleOfSpores_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DraconicBloodline">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/sorcerer_dragoniceBloodline.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="StormSorcery">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/hotbar/sorcerer_stormSorcery.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="WildMagic">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/sorcerer_wildMagic.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Ancients">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/paladin_oath_of_ancients.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Devotion">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/paladin_oath_of_devotion.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Oathbreaker">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/paladin_oathbreaker.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Vengeance">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/ClassIcons/hotbar/paladin_oath_of_vengeance.png"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+	<!-- Leave the above alone please -->
+
+	<!-- SUBCLASS ICONS -->
+	<!-- This is the icon that appears in the top right of the CC screen/shows in character sheet when the subclass is selected -->
+	<Style x:Key="IUI_ClassIconStyle" TargetType="Image" BasedOn="{StaticResource IUI_ClassIconStyleDefault}">
+		<Style.Triggers>
+			<!--<DataTrigger Binding="{Binding SubclassIDString}" Value="SUBCLASSNAME">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/ClassIcons/NAMEOFDDSFILEFORTHESUBCLASSICON.png"/>
+			</DataTrigger>-->
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Armorer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/armorer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Artillerist">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/artillerist.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Alchemist">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/alchemist.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BattleSmith">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/battlesmith.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="OrderOfTheLycan">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/ClassIcons/bloodHunter_orderOfTheLycan.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="OrderOfTheGhostslayer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/ClassIcons/bloodHunter_orderOfTheGhostslayer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Bloodletter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Bloodletter/ClassIcons/Bloodletter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ArcanaDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsarcana.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BloodDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsblood.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ForgeDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsforge.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DeathDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsdeath.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="GraveDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsgrave.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="MoonDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsmoon.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="OrderDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericsorder.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TwilightDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericstwilight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="PeaceDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/cleric_clericspeace.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DeathDomainSA">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/DeathDomain/ClassIcons/cleric_death_sa.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DeathSoul">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/DeathSoul/ClassIcons/sorcerer_DeathSoul.dds"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Drakewarden">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Drakewarden/ClassIcons/drakewarden.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DrunkenMaster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/drunkenmaster/ClassIcons/monk_drunkenmaster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Bladesinging">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ClassIcons/wizard_bladesinging.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Jester">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/jester.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Acrobat">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/acrobat.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LanternBearer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/lanternbearer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Hexblade">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Hexblade/ClassIcons/warlock_Hexblade.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="CraftyArcher">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/CraftyArcher.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="HellFire">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/HellFire.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Illrigger_ArchitectOfRuin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ClassIcons/illrigger_ArchitectOfRuin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Illrigger_Painkiller">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ClassIcons/illrigger_Painkiller.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Illrigger_Shadowmaster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ClassIcons/illrigger_Shadowmaster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="InexorableIron">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/InexorableIron.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LaughingShadow">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/LaughingShadow.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="SparklingTarge">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/SparklingTarge.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TwistingTree">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/TwistingTree.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="StarlitSpan">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/StarlitSpan.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TheRavenQueen">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/TheRavenQueen/ClassIcons/warlock_ravenqueen.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Inquisitive">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/Inquisitive.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Mastermind">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/Mastermind.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Phantom">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/Phantom.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Scout">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/Scout.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Soulknife">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/Soulknife.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Swashbuckler">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/Swashbuckler.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Samurai">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/newsamurai/ClassIcons/Icon_newsamurai.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ShadowMagic">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/BG3ShadowSorcerer/ClassIcons/Sorcerer_ShadowSorcery.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Elementalist">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/ClassIcons/Elementalist.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Blinkbonded">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/ClassIcons/Blinkbonded.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Shadowadept">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/ClassIcons/Shadowadept.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Excalibur">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/ClassIcons/Excalibur.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Perun">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/ClassIcons/Perun.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Nekhakha">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/ClassIcons/Nekhakha.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="WarMagic">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WarMagic/ClassIcons/ftt_wizardtraditions_warmagic.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Runesmith">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/ClassIcons/FFT_Icon_Runesmith.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BloodDeathKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ClassIcons/Icon_BloodDeathKnight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="FrostDeathKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ClassIcons/Icon_FrostDeathKnight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="UnholyDeathKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ClassIcons/Icon_UnholyDeathKnight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="HavocDemonHunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ClassIcons/Icon_HavocDemonHunter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="VengeanceDemonHunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ClassIcons/Icon_VengeanceDemonHunter.png"/>
+			</DataTrigger>	
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="departed_subclass">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/departed_subclass.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="tainted_warlord_subclass">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/tainted_warlord_subclass.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="deliriums_screech_subclass">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/deliriums_screech_subclass.png"/>
+			</DataTrigger>
+			<!--EDIT HERE-->
+		</Style.Triggers>
+	</Style>
+
+	<!-- This is the icon that appears as an option when choosing subclass in CC/shows in bottom left of hotbar -->
+	<Style x:Key="IUI_ClassIconHotbarStyle" TargetType="Image" BasedOn="{StaticResource IUI_ClassIconHotbarStyleDefault}">
+		<Style.Triggers>
+			<!--<DataTrigger Binding="{Binding SubclassIDString}" Value="SUBCLASSNAME">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/MODNAME/ClassIcons/hotbar/NAMEOFDDSFILEFORTHESUBCLASSHOTBARICON.png"/>
+			</DataTrigger>-->
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Armorer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/armorer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Artillerist">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/artillerist.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Alchemist">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/alchemist.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BattleSmith">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Artificer/ClassIcons/hotbar/battlesmith.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="OrderOfTheLycan">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/ClassIcons/hotbar/bloodHunter_orderOfTheLycan.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="OrderOfTheGhostslayer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/BloodHunter/ClassIcons/hotbar/bloodHunter_orderOfTheGhostslayer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Bloodletter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Bloodletter/ClassIcons/hotbar/Bloodletter_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ArcanaDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsarcana.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BloodDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsblood.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ForgeDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsforge.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DeathDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsdeath.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="GraveDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsgrave.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="MoonDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsmoon.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="OrderDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericsorder.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TwilightDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericstwilight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="PeaceDomain">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Clerics/ClassIcons/hotbar/cleric_clericspeace.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DeathDomainSA">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/DeathDomain/ClassIcons/hotbar/cleric_death_sa.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DeathSoul">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/DeathSoul/ClassIcons/hotbar/sorcerer_DeathSoul.dds"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Drakewarden">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Drakewarden/ClassIcons/hotbar/drakewarden.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="DrunkenMaster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/drunkenmaster/ClassIcons/hotbar/monk_drunkenmaster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Bladesinging">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Expansion/ClassIcons/hotbar/wizard_bladesinging.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Jester">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/hotbar/jester.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Acrobat">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/hotbar/acrobat.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LanternBearer">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Harlequin/ClassIcons/hotbar/lanternbearer.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Hexblade">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Hexblade/ClassIcons/hotbar/warlock_Hexblade.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="CraftyArcher">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/hotbar/CraftyArcher.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="HellFire">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/homebrewfeatures/ClassIcons/hotbar/HellFire.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Illrigger_ArchitectOfRuin">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ClassIcons/hotbar/illrigger_ArchitectOfRuin.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Illrigger_Painkiller">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ClassIcons/hotbar/illrigger_Painkiller.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Illrigger_Shadowmaster">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Illrigger/ClassIcons/hotbar/illrigger_Shadowmaster.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="InexorableIron">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/hotbar/InexorableIron_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="LaughingShadow">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/hotbar/LaughingShadow_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="SparklingTarge">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/hotbar/SparklingTarge_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TwistingTree">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/hotbar/TwistingTree_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="StarlitSpan">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Magus/ClassIcons/hotbar/StarlitSpan_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="TheRavenQueen">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/TheRavenQueen/ClassIcons/hotbar/warlock_ravenqueen_simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Inquisitive">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/hotbar/Inquisitive.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Mastermind">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/hotbar/Mastermind.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Phantom">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/hotbar/Phantom.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Scout">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/hotbar/Scout.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Soulknife">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/hotbar/Soulknife.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Swashbuckler">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/roguesextra/ClassIcons/hotbar/Swashbuckler.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Samurai">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/newsamurai/ClassIcons/hotbar/Icon_newsamurai.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="ShadowMagic">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/BG3ShadowSorcerer/ClassIcons/hotbar/Sorcerer_ShadowSorcery_Simplified.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Elementalist">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/ClassIcons/hotbar/Elementalist_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Blinkbonded">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/ClassIcons/hotbar/Blinkbonded_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Shadowadept">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/VanguardClass/ClassIcons/hotbar/Shadowadept_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Excalibur">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/ClassIcons/hotbar/Excalibur_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Perun">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/ClassIcons/hotbar/Perun_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Nekhakha">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Wielder/ClassIcons/hotbar/Nekhakha_hotbar.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="WarMagic">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WarMagic/ClassIcons/hotbar/ftt_wizardtraditions_warmagic.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="Runesmith">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/FFT_Runesmith/ClassIcons/hotbar/FFT_Icon_Runesmith.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="BloodDeathKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ClassIcons/hotbar/Icon_BloodDeathKnight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="FrostDeathKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ClassIcons/hotbar/Icon_FrostDeathKnight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="UnholyDeathKnight">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDeathKnightClass/ClassIcons/hotbar/Icon_UnholyDeathKnight.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="HavocDemonHunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ClassIcons/hotbar/Icon_HavocDemonHunter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="VengeanceDemonHunter">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/WoWDemonHunterClass/ClassIcons/hotbar/Icon_VengeanceDemonHunter.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="departed_subclass">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/hotbar/departed_subclass.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="tainted_warlord_subclass">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/hotbar/tainted_warlord_subclass.png"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SubclassIDString}" Value="deliriums_screech_subclass">
+				<Setter Property="Source" Value="pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/ClassIcons/hotbar/deliriums_screech_subclass.png"/>
+			</DataTrigger>
+			<!--EDIT HERE-->
+		</Style.Triggers>
+	</Style>
+</ResourceDictionary>
