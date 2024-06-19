@@ -317,6 +317,8 @@
 	<ImageSource x:Key="EarthBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_missing.png</ImageSource>
 	<ImageSource x:Key="FireBendingPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_d.png</ImageSource>
 	<ImageSource x:Key="FireBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_missing.png</ImageSource>
+	<ImageSource x:Key="FuryPointMerciless">pack://application:,,,/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_d.png</ImageSource>
+	<ImageSource x:Key="FuryPointMercilessUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_missing.png</ImageSource>
 	<!-- EDIT HERE -->
   
 	<!-- This is the icon that appears on the tooltip -->
@@ -657,6 +659,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="FireBendingPoints">
 				<Setter Property="Source" Value="{StaticResource FireBendingPoints}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FuryPointMerciless">
+				<Setter Property="Source" Value="{StaticResource FuryPointMerciless}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -2170,6 +2175,16 @@
 					<Setter Property="Source" Value="{StaticResource FireBendingPointsUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FuryPointMerciless"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource FuryPointMercilessUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -3315,6 +3330,15 @@
 			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_d.png</ImageSource>
 			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_spent.png</ImageSource>
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.FuryPointMercilessGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
@@ -5056,6 +5080,19 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="FireBendingPoints"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FuryPointMerciless">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FuryPointMercilessGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FuryPointMerciless"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
