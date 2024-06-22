@@ -317,8 +317,14 @@
 	<ImageSource x:Key="EarthBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_EarthBendingPoints_missing.png</ImageSource>
 	<ImageSource x:Key="FireBendingPoints">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_d.png</ImageSource>
 	<ImageSource x:Key="FireBendingPointsUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_missing.png</ImageSource>
+	<ImageSource x:Key="BloodlinePoint">pack://application:,,,/GustavNoesisGUI;component/Assets/HalfDragon/Shared/Resources/ico_BloodlinePoint_d.png</ImageSource>
+	<ImageSource x:Key="BloodlinePointUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/HalfDragon/Shared/Resources/ico_BloodlinePoint_missing.png</ImageSource>
+	<ImageSource x:Key="FormlessFlowCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_formlessFlowCharge_d.png</ImageSource>
+	<ImageSource x:Key="FormlessFlowChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_formlessFlowCharge_missing.png</ImageSource>
+	<ImageSource x:Key="SoheiBombCharge">pack://application:,,,/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_soheiBombCharge_d.png</ImageSource>
+	<ImageSource x:Key="SoheiBombChargeUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_soheiBombCharge_missing.png</ImageSource>
 	<!-- EDIT HERE -->
-  
+
 	<!-- This is the icon that appears on the tooltip -->
 	<Style TargetType="Image" x:Key="IUI_ActionResourceTypeIdToSource" BasedOn="{StaticResource IUI_ActionResourceTypeIdToSourceDefault}">
 		<Style.Triggers>
@@ -559,7 +565,7 @@
 			<DataTrigger Binding="{Binding TypeId}" Value="GritPoint">
 				<Setter Property="Source" Value="{StaticResource GritPoint}"/>
 			</DataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="GiantsMightUse">
+			<DataTrigger Binding="{Binding TypeId}" Value="GiantMightUse">
 				<Setter Property="Source" Value="{StaticResource GiantsMight}"/>
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="FightingSpiritUse">
@@ -657,6 +663,15 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="FireBendingPoints">
 				<Setter Property="Source" Value="{StaticResource FireBendingPoints}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodlinePoint">
+				<Setter Property="Source" Value="{StaticResource BloodlinePoint}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FormlessFlowCharge">
+				<Setter Property="Source" Value="{StaticResource FormlessFlowCharge}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SoheiBombCharge">
+				<Setter Property="Source" Value="{StaticResource SoheiBombCharge}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -1842,7 +1857,7 @@
 			</MultiDataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="GiantsMightUse"/>
+					<Condition Binding="{Binding TypeId}" Value="GiantMightUse"/>
 					<Condition Binding="{Binding Value}" Value="0"/>
 					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
 				</MultiDataTrigger.Conditions>
@@ -2168,6 +2183,38 @@
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
 					<Setter Property="Source" Value="{StaticResource FireBendingPointsUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BloodlinePoint"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BloodlinePointUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FormlessFlowCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource FormlessFlowChargeUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SoheiBombCharge"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource SoheiBombChargeUnavailable}"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 			<!-- EDIT HERE -->
@@ -3317,6 +3364,35 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/ElementalBender/Shared/Resources/ico_FireBendingPoints_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BloodlinePointGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/HalfDragon/Shared/Resources/ico_BloodlinePoint_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/HalfDragon/Shared/Resources/ico_BloodlinePoint_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/HalfDragon/Shared/Resources/ico_BloodlinePoint_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/HalfDragon/Shared/Resources/ico_BloodlinePoint_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.FormlessFlowChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_formlessFlowCharge_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_formlessFlowCharge_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_formlessFlowCharge_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_formlessFlowCharge_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+	<ControlTemplate x:Key="ActionResources.ActionGroup.SoheiBombChargeGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_soheiBombCharge_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_soheiBombCharge_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_soheiBombCharge_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/5eEMonkRework/Shared/Resources/ico_res_soheiBombCharge_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 	<!-- EDIT HERE -->
 
@@ -4637,13 +4713,13 @@
 					<Setter Property="Margin" Value="0,-15,0,0"/>
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
-			<DataTrigger Binding="{Binding TypeId}" Value="GiantsMightUse">
+			<DataTrigger Binding="{Binding TypeId}" Value="GiantMightUse">
 				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.GiantsMightGroup}"/>
 				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
 			</DataTrigger>
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
-					<Condition Binding="{Binding TypeId}" Value="GiantsMightUse"/>
+					<Condition Binding="{Binding TypeId}" Value="GiantMightUse"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
@@ -5063,6 +5139,46 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 
+			<DataTrigger Binding="{Binding TypeId}" Value="BloodlinePoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BloodlinePointGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BloodlinePoint"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="FormlessFlowCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FormlessFlowChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FormlessFlowCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SoheiBombCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SoheiBombChargeGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SoheiBombCharge"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
