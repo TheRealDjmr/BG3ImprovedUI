@@ -343,6 +343,10 @@
 	<ImageSource x:Key="Rune_Sharper_ResourceUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/featsextra/Shared/Resources/ico_Rune_Sharper_Resource_missing.png</ImageSource>
 	<ImageSource x:Key="SpellPointsResource" >pack://application:,,,/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_d.png</ImageSource>
 	<ImageSource x:Key="SpellPointsResourceUnavailable" >pack://application:,,,/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_missing.png</ImageSource>
+	<ImageSource x:Key="DarkCommunion">pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/Shared/Resources/ico_DarkCommunion_d.png</ImageSource>
+	<ImageSource x:Key="DarkCommunionUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/Shared/Resources/ico_DarkCommunion_missing.png</ImageSource>
+	<ImageSource x:Key="FuryPointMerciless">pack://application:,,,/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_d.png</ImageSource>
+	<ImageSource x:Key="FuryPointMercilessUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -722,6 +726,12 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="SpellPointsResource">
 				<Setter Property="Source" Value="{StaticResource SpellPointsResource}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="DarkCommunion">
+				<Setter Property="Source" Value="{StaticResource DarkCommunion}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FuryPointMerciless">
+				<Setter Property="Source" Value="{StaticResource FuryPointMerciless}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -2370,6 +2380,28 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DarkCommunion"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource DarkCommunionUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FuryPointMerciless"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource FuryPointMercilessUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -3638,6 +3670,26 @@
 			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/WizardSpellPointVariant/Shared/Resources/ico_spellpointsresource_missing.png</ImageSource>
 		</ControlTemplate.Resources>
 		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.DarkCommunionGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/Possessed/Shared/Resources/ico_DarkCommunion_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/Possessed/Shared/Resources/ico_DarkCommunion_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/Possessed/Shared/Resources/ico_DarkCommunion_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/Possessed/Shared/Resources/ico_DarkCommunion_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.FuryPointMercilessGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
 	<!-- EDIT HERE -->
@@ -5551,6 +5603,34 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="SpellPointsResource"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="DarkCommunion">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DarkCommunionGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="DarkCommunion"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="FuryPointMerciless">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FuryPointMercilessGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="FuryPointMerciless"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
