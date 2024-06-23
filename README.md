@@ -1,3 +1,4 @@
+Announcement - no further PRs will be accepted until Patch 7
 
 <p align="middle">
   <img src="https://i.imgur.com/6Zso95t.png"> 
