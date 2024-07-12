@@ -347,6 +347,8 @@
 	<ImageSource x:Key="DarkCommunionUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/Possessed/Shared/Resources/ico_DarkCommunion_missing.png</ImageSource>
 	<ImageSource x:Key="FuryPointMerciless">pack://application:,,,/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_d.png</ImageSource>
 	<ImageSource x:Key="FuryPointMercilessUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/MercilessBarbarianOverhaul/Shared/Resources/ico_classRes_FuryPointMerciless_missing.png</ImageSource>
+	<ImageSource x:Key="BreathoftheDragon">pack://application:,,,/GustavNoesisGUI;component/Assets/AscendantDragon5e/Shared/Resources/ico_classRes_BreathoftheDragon_d.png</ImageSource>
+	<ImageSource x:Key="BreathoftheDragonUnavailable">pack://application:,,,/GustavNoesisGUI;component/Assets/AscendantDragon5e/Shared/Resources/ico_classRes_BreathoftheDragon_missing.png</ImageSource>
 	<!-- EDIT HERE -->
 
 	<!-- This is the icon that appears on the tooltip -->
@@ -735,6 +737,9 @@
 			</DataTrigger>
 			<DataTrigger Binding="{Binding TypeId}" Value="FuryPointMerciless">
 				<Setter Property="Source" Value="{StaticResource FuryPointMerciless}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BreathoftheDragonUse">
+				<Setter Property="Source" Value="{StaticResource BreathoftheDragon}"/>
 			</DataTrigger>
 			<!-- EDIT HERE -->
 		</Style.Triggers>
@@ -2405,6 +2410,17 @@
 				</MultiDataTrigger.Setters>
 			</MultiDataTrigger>
 
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BreathoftheDragonUse"/>
+					<Condition Binding="{Binding Value}" Value="0"/>
+					<Condition Binding="{Binding IgnoreCost}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Source" Value="{StaticResource BreathoftheDragonUnavailable}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
 			<!-- EDIT HERE -->
 		</Style.Triggers>
 	</Style>
@@ -3695,6 +3711,15 @@
 		<ContentControl ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
 	</ControlTemplate>
 
+	<ControlTemplate x:Key="ActionResources.ActionGroup.BreathoftheDragonGroup" TargetType="ls:LSActionPoint">
+		<ControlTemplate.Resources>
+			<ImageSource x:Key="Highlight">/GustavNoesisGUI;component/Assets/AscendantDragon5e/Shared/Resources/ico_classRes_BreathoftheDragon_h.png</ImageSource>
+			<ImageSource x:Key="Available">/GustavNoesisGUI;component/Assets/AscendantDragon5e/Shared/Resources/ico_classRes_BreathoftheDragon_d.png</ImageSource>
+			<ImageSource x:Key="Used">/GustavNoesisGUI;component/Assets/AscendantDragon5e/Shared/Resources/ico_classRes_BreathoftheDragon_spent.png</ImageSource>
+			<ImageSource x:Key="Missing">/GustavNoesisGUI;component/Assets/AscendantDragon5e/Shared/Resources/ico_classRes_BreathoftheDragon_missing.png</ImageSource>
+		</ControlTemplate.Resources>
+		<ContentPresenter ContentTemplate="{StaticResource ActionResources.ActionGroup.ActionPoint}"/>
+	</ControlTemplate>
 	<!-- EDIT HERE -->
 
 	<!-- Setup default styles that are inherited before changes are applied, do not touch these -->
@@ -5637,6 +5662,20 @@
 			<MultiDataTrigger>
 				<MultiDataTrigger.Conditions>
 					<Condition Binding="{Binding TypeId}" Value="FuryPointMerciless"/>
+					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter Property="Margin" Value="0,-15,0,0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding TypeId}" Value="BreathoftheDragonUse">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BreathoftheDragonGroup}"/>
+				<Setter Property="ActionPointSize" Value="{DynamicResource ActionResources.ActionPointSize}" />
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="BreathoftheDragonUse"/>
 					<Condition Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
 				</MultiDataTrigger.Conditions>
 				<MultiDataTrigger.Setters>
