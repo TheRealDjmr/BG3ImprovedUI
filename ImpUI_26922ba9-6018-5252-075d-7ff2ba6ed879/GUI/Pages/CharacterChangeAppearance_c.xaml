@@ -1,0 +1,98 @@
+<ls:UIWidget x:Name="CharacterChangeAppearance_c"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ls="clr-namespace:ls;assembly=Code"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d"
+    d:DesignHeight="2160" d:DesignWidth="3840"
+    ls:UIWidget.ContextName="CharacterCreation"
+    ls:TooltipExtender.Owner="{Binding DummyCharacter}"
+    FocusDown="UIDown" FocusLeft="UILeft" FocusRight="UIRight" FocusUp="UIUp" ls:MoveFocus.FocusMovementMode="Closest" CanCacheFocusSurroundingElements="False">
+
+    <ls:UIWidget.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Core;component/Library/CCLib_c.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ls:UIWidget.Resources>
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding SetCharacterCreationStep}" CommandParameter="Appearance"/>
+        </b:EventTrigger>
+
+        <b:EventTrigger EventName="GotKeyboardFocus">
+            <b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElementCommand, ElementName=CharacterChangeAppearance_c}" CommandParameter="{Binding Path=FocusedElement, ElementName=CharacterChangeAppearance_c}"/>
+        </b:EventTrigger>
+        <b:DataTrigger Binding="{Binding HasInputEnabled, ElementName=CharacterChangeAppearance_c}" Value="True">
+            <b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElementCommand, ElementName=CharacterChangeAppearance_c}" CommandParameter="{Binding FocusedElement, ElementName=CharacterChangeAppearance_c}"/>
+        </b:DataTrigger>
+
+        <b:EventTrigger EventName="MoveFocusUp">
+            <ls:LSPlaySound Sound="UI_Shared_Hover" />
+        </b:EventTrigger>
+
+        <b:EventTrigger EventName="MoveFocusDown">
+            <ls:LSPlaySound Sound="UI_Shared_Hover" />
+        </b:EventTrigger>
+
+        <b:EventTrigger EventName="MoveFocusRight">
+            <ls:LSPlaySound Sound="UI_Shared_Hover" />
+        </b:EventTrigger>
+
+        <b:EventTrigger EventName="MoveFocusLeft">
+            <ls:LSPlaySound Sound="UI_Shared_Hover" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
+    <ls:UIWidget.ContentTemplate>
+        <DataTemplate>
+            <Grid IsEnabled="{Binding IsLocked, Converter={StaticResource InvertBoolConverter}}">
+                <Control x:Name="setCameras" Template="{StaticResource setAppearanceCamera_Splitscreen}"/>
+                <Control Template="{StaticResource AppearanceBackgroundTemplate}"/>
+                <Control x:Name="appearancePanel" Template="{StaticResource AppearancePanelTemplate}" Height="{StaticResource appearancePanelHeight_SplitScreen}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,212,50,0"/>
+
+                <Grid x:Name="dummyMotionKey" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,0,200">
+                    <Image Source="{StaticResource CameraActionIndication}" Stretch="None"/>
+                    <Image Source="{StaticResource CameraActionStickIcon}" Stretch="None" Margin="0,8,0,0"/>
+                </Grid>
+
+                <ContentControl Template="{StaticResource buttonBackplateTemplate}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,148">
+
+                    <ls:LSButton x:Name="confirmButton" Style="{StaticResource ControllerHoldButtonStyle}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}" Tag="{Binding Source='h7a174735g0099g4ca9ga1f7ga53ad66b1aa4', Converter={StaticResource TranslatedStringConverter}}" Command="{Binding DataContext.FinishHenchmenCreating, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Margin="2,0,0,0"/>
+
+                </ContentControl>
+
+                <StackPanel Style="{StaticResource ButtonHint.Container.Right}">
+                    <Control x:Name="bottomButtons" Template="{StaticResource StandardBottomButtonsTemplate2}"/>
+
+                    <ls:LSButton x:Name="CancelButton" 
+                                         Tag="{Binding Source='hbc80c075g1c12g45a7gb006gfdc65eea207d', Converter={StaticResource TranslatedStringConverter}}"  
+                                         Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UICancel'}" 
+                                         Command="{Binding DataContext.CancelHenchmenCreating, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+                                         EatInput="False"
+                                         Style="{StaticResource ControllerHoldButtonStyle}" 
+                                         VerticalAlignment="Bottom"/>
+                </StackPanel>
+
+            </Grid>
+
+            <DataTemplate.Triggers>
+                <!-- Split Screen variation -->
+                <DataTrigger Binding="{Binding Layout}" Value="Common">
+                    <Setter TargetName="setCameras" Property="Template" Value="{StaticResource setAppearanceCamera}"/>
+
+                    <Setter TargetName="appearancePanel" Property="Height" Value="{StaticResource appearancePanelHeight}"/>
+                    <Setter TargetName="appearancePanel" Property="Margin" Value="0,212,200,0"/>
+                </DataTrigger>
+
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </ls:UIWidget.ContentTemplate>
+
+</ls:UIWidget>

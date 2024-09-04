@@ -1,0 +1,313 @@
+<ls:UIWidget x:Name="SelectionFlyOut_c"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:System="clr-namespace:System;assembly=mscorlib"
+			 xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+			 xmlns:ls="clr-namespace:ls;assembly=Code"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 mc:Ignorable="d"
+			 d:DataContext="{d:DesignInstance {x:Type ls:DCSelectionFlyOut}, IsDesignTimeCreatable=True}"
+			 xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+			 d:DesignHeight="2160" d:DesignWidth="3840"
+			 ls:UIWidget.UseCustomDC="true"
+			 ls:UIWidget.ContextName="SelectionFlyOut">
+
+	<ls:UIWidget.Resources>
+		<Style x:Key="ItemsGridStyle" TargetType="ls:LSGrid">
+			<Setter Property="AutoIndex" Value="True"/>
+			<Setter Property="Columns" Value="6"/>
+			<Setter Property="Rows" Value="1" />
+			<Setter Property="ExtendedRows" Value="False"/>
+			<Setter Property="CellWidth" Value="{StaticResource InvSlotSize}"/>
+			<Setter Property="CellHeight" Value="{StaticResource InvSlotSize}"/>
+			<Setter Property="EmptyCellTemplate" Value="{DynamicResource EmptyCellTemplate}"/>
+		</Style>
+
+		<ControlTemplate x:Key="ArrowedSelectorTemplate" TargetType="Control">
+			<ls:LSNineSliceImage Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Padding="{TemplateBinding Padding}" ImageSource="pack://application:,,,/Core;component/Assets/Shared_c/c_itemSelector.png" Slices="16" Focusable="False">
+				<Image x:Name="arrowImg" Source="pack://application:,,,/Core;component/Assets/ActiveRoll/addArrow.png" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-90,0,0" Visibility="Visible"/>
+			</ls:LSNineSliceImage>
+		</ControlTemplate>
+
+	</ls:UIWidget.Resources>
+
+	<b:Interaction.Triggers>
+		<b:EventTrigger EventName="Loaded">
+			<b:InvokeCommandAction Command="{Binding EnableTooltipOnUIElementCommand, ElementName=SelectionFlyOut_c}"/>
+		</b:EventTrigger>
+	</b:Interaction.Triggers>
+
+	<Grid Width="3840" Height="2160" ls:TooltipExtender.Owner="{Binding CurrentPlayer.SelectedCharacter}">
+		<ls:LSSelectionFlyOut ParentControl="{Binding ParentControl}" Orientation="{Binding Orientation}" HorizontalAlignment="Left" VerticalAlignment="Top">
+			<Grid>
+				<ContentControl>
+					<ContentControl.Template>
+						<ControlTemplate>
+							<ls:LSNineSliceImage x:Name="Background" ImageSource="pack://application:,,,/Core;component/Assets/SelectionFlyOut/spellSubSelect_pane.png" IconWidth="92" Slices="56,96,56,96">
+								<Grid MinHeight="192" MinWidth="204">
+									<Image x:Name="Icon" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,24,0,0">
+										<Image.Style>
+											<Style TargetType="Image">
+												<Setter Property="Source" Value="pack://application:,,,/Core;component/Assets/BottomBar/ico_spells_d.png"/>
+												<Style.Triggers>
+													<DataTrigger Binding="{Binding PanelContentType}" Value="Item">
+														<Setter Property="Source" Value="pack://application:,,,/Core;component/Assets/BottomBar/ico_inventory_d.png"/>
+													</DataTrigger>
+												</Style.Triggers>
+											</Style>
+										</Image.Style>
+									</Image>
+									<ContentPresenter/>
+								</Grid>
+							</ls:LSNineSliceImage>
+
+							<ControlTemplate.Triggers>
+								<DataTrigger Binding="{Binding ShowExtendedInfo}" Value="True">
+									<Setter TargetName="Background" Property="ImageSource" Value="pack://application:,,,/Core;component/Assets/SelectionFlyOut/spellContainer.png" />
+									<Setter TargetName="Background" Property="IconWidth" Value="0" />
+									<Setter TargetName="Background" Property="Slices" Value="56" />
+									<Setter TargetName="Icon" Property="Visibility" Value="Collapsed" />
+								</DataTrigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</ContentControl.Template>
+
+					<ls:LSListBox x:Name="OptionsContainer"
+								  VerticalAlignment="Top" HorizontalAlignment="Left"
+								  ItemsSource="{Binding ObjectCollectionList}"
+								  AlternationCount="{Binding ObjectCollectionList.Count}"
+								  ActionNextEvent="UIDown" ActionPrevEvent="UIUp" KeyboardNavigation.DirectionalNavigation="Continue"
+								  SelectedIndex="0"
+								  LocalFocusSelector="{Binding ElementName=Selector,Mode=OneWay}"
+								  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingPanel.VirtualizationMode="Recycling"
+								  ls:AttachedProperties.InheritedTag="{Binding .}">
+
+						<ls:LSListBox.Template>
+							<ControlTemplate TargetType="{x:Type ls:LSListBox}">
+								<ls:LSScrollViewer x:Name="Background" Style="{DynamicResource BookmarkScrollViewer}" BookmarkSource="{Binding ElementName=ContainerList}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" MaxHeight="720">
+									<ls:LSScrollViewer.Resources>
+										<GridLength x:Key="Top">0</GridLength>
+										<GridLength x:Key="Bottom">0</GridLength>
+									</ls:LSScrollViewer.Resources>
+									<ItemsPresenter/>
+								</ls:LSScrollViewer>
+							</ControlTemplate>
+						</ls:LSListBox.Template>
+
+						<ls:LSListBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" MaxWidth="720" Visibility="{Binding ObjectCollection.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter=0}">
+									<TextBlock ls:TextBlockFormatter.SourceText="{Binding Title}" Visibility="{Binding Title, Converter={StaticResource StringToVisibilityConverter}}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+
+									<ls:LSListBox x:Name="ContainerList" ItemsSource="{Binding ObjectCollection}" AlternationCount="{Binding ObjectCollection.Count}">
+										<ls:LSListBox.Template>
+											<ControlTemplate TargetType="{x:Type ls:LSListBox}">
+												<ItemsPresenter/>
+											</ControlTemplate>
+										</ls:LSListBox.Template>
+
+										<ls:LSListBox.ItemContainerStyle>
+											<Style TargetType="ls:LSListBoxItem" BasedOn="{StaticResource {x:Type ls:LSListBoxItem}}">
+												<Setter Property="BorderThickness" Value="0" />
+												<Setter Property="Padding" Value="0" />
+											</Style>
+										</ls:LSListBox.ItemContainerStyle>
+
+										<ls:LSListBox.ItemTemplate>
+											<DataTemplate DataType="{x:Type ls:VMHotBarSlot}">
+												<StackPanel x:Name="ItemContainer">
+													<b:Interaction.Behaviors>
+														<ls:CollectionFilterBehavior x:Name="FilteredActionResourcesCostPreview" ItemsSource="{Binding DataContext.CurrentPlayer.UIData.ActionResourcesCostPreview, ElementName=SelectionFlyOut_c}" Predicate="{Binding FlyOutActionResourcesPredicate}"/>
+													</b:Interaction.Behaviors>
+
+													<ls:LSButton x:Name="BonusBtn" Style="{StaticResource HotBarSlotStyle}" Content="{Binding .}" Margin="6" Width="{StaticResource HotBarSlotWidth}" Height="{StaticResource HotBarSlotHeight}">
+														<ls:LSButton.ToolTip>
+															<ls:LSTooltip x:Name="hbTooltip" Content="" ls:TooltipExtender.Context="Hotbar" Margin="60,0,-80,160" />
+														</ls:LSButton.ToolTip>
+													</ls:LSButton>
+
+													<ItemsControl ItemsSource="{Binding (b:Interaction.Behaviors)[0].FilteredItems, ElementName=ItemContainer}" Visibility="{Binding Path=(ls:AttachedProperties.InheritedTag).ShowExtendedInfo, ElementName=OptionsContainer, Converter={StaticResource BoolToVisibleConverter}}" Margin="0,-11,0,-32" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+														<ItemsControl.Style>
+															<Style TargetType="ItemsControl">
+																<Setter Property="ItemsPanel">
+																	<Setter.Value>
+																		<ItemsPanelTemplate>
+																			<StackPanel Orientation="Horizontal" Height="100"/>
+																		</ItemsPanelTemplate>
+																	</Setter.Value>
+																</Setter>
+															</Style>
+														</ItemsControl.Style>
+														<ItemsControl.ItemContainerStyle>
+															<Style TargetType="ContentPresenter">
+																<Setter Property="Visibility" Value="Collapsed"/>
+																<Style.Triggers>
+																	<DataTrigger Binding="{Binding ActionResource.ReplenishType}" Value="Rest">
+																		<Setter Property="Visibility" Value="Visible"/>
+																	</DataTrigger>
+																	<DataTrigger Binding="{Binding ActionResource.ReplenishType}" Value="ShortRest">
+																		<Setter Property="Visibility" Value="Visible"/>
+																	</DataTrigger>
+																</Style.Triggers>
+															</Style>
+														</ItemsControl.ItemContainerStyle>
+
+														<ItemsControl.ItemTemplate>
+															<DataTemplate DataType="ls:VMActionResourceCostPreview">
+
+																<!-- MOD START - Tidy up action resource code -->
+																<ls:LSActionPointResources x:Name="ResourcePoints"
+																	DataContext="{Binding ActionResource}"
+																	Background="Transparent"
+																	HorizontalAlignment="Center"
+																	MaxActionPoints="{Binding MaxValue}"
+																	AvailableActionPoints="{Binding Value}"
+																	HighlightedActionPoints="{Binding DataContext.Cost, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}}"
+																	MaxActionPointGroups="0"
+																	MaxGroupActionPoints="4"
+																	SmallActionPointSize="24"
+																	ActionPointGroupSize="48"
+																	Style="{StaticResource ActionResourcesTemplateSelector}"/>
+
+																<DataTemplate.Triggers>
+																	<DataTrigger Binding="{Binding ActionResource.MaxValue}" Value="0">
+																		<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+																	</DataTrigger>
+
+																	<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SpellSlot">
+																		<Setter TargetName="ResourcePoints" Property="Opacity" Value="0.5"/>
+																	</DataTrigger>
+																</DataTemplate.Triggers>
+															</DataTemplate>
+														</ItemsControl.ItemTemplate>
+													</ItemsControl>
+												</StackPanel>
+
+												<DataTemplate.Triggers>
+													<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag).ShowExtendedInfo, ElementName=OptionsContainer}" Value="True">
+														<Setter TargetName="BonusBtn" Property="Margin" Value="0"/>
+														<Setter TargetName="BonusBtn" Property="Width" Value="Auto"/>
+														<Setter TargetName="BonusBtn" Property="Height" Value="Auto"/>
+													</DataTrigger>
+
+
+													<DataTrigger Binding="{Binding SlotType}" Value="Item">
+														<Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Item,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+													</DataTrigger>
+													<DataTrigger Binding="{Binding SlotType}" Value="Passive">
+														<Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Passive,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+													</DataTrigger>
+													<DataTrigger Binding="{Binding SlotType}" Value="Spell">
+														<Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Spell,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+													</DataTrigger>
+													<DataTrigger Binding="{Binding SlotType}" Value="Action">
+														<Setter TargetName="hbTooltip" Property="Content" Value="{Binding DataContext.Spell,RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+													</DataTrigger>
+												</DataTemplate.Triggers>
+											</DataTemplate>
+										</ls:LSListBox.ItemTemplate>
+
+										<ls:LSListBox.ItemsPanel>
+											<ItemsPanelTemplate>
+												<ls:LSGrid Style="{StaticResource ItemsGridStyle}" ContainerData="{Binding }" ActionUpEvent="UISelectionUp" ActionDownEvent="UISelectionDown" ActionRightEvent="UISelectionRight" ActionLeftEvent="UISelectionLeft"/>
+											</ItemsPanelTemplate>
+										</ls:LSListBox.ItemsPanel>
+
+									</ls:LSListBox>
+								</StackPanel>
+
+								<DataTemplate.Triggers>
+									<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag).ShowExtendedInfo, ElementName=OptionsContainer}" Value="True">
+										<Setter TargetName="ContainerList" Property="ItemsPanel">
+											<Setter.Value>
+												<ItemsPanelTemplate>
+													<ls:LSGrid Style="{StaticResource ItemsGridStyle}" ContainerData="{Binding }" ActionUpEvent="UIUp" ActionDownEvent="UIDown" ActionRightEvent="UIRight" ActionLeftEvent="UILeft"
+														CellHeight="170" EmptyCellTemplate="{x:Null}" Columns="{Binding (ItemsControl.AlternationCount), RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+												</ItemsPanelTemplate>
+											</Setter.Value>
+										</Setter>
+									</DataTrigger>
+								</DataTemplate.Triggers>
+							</DataTemplate>
+						</ls:LSListBox.ItemTemplate>
+
+						<ls:LSListBox.ItemsPanel>
+							<ItemsPanelTemplate>
+								<ls:LSVirtualizingStackPanel Orientation="Vertical"/>
+							</ItemsPanelTemplate>
+						</ls:LSListBox.ItemsPanel>
+
+						<b:Interaction.Triggers>
+							<b:EventTrigger EventName="LocalFocusChanged">
+								<ls:LSPlaySound Sound="UI_Shared_Hover" />
+								<b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElementCommand, ElementName=SelectionFlyOut_c}" CommandParameter="{Binding LocalFocus, ElementName=OptionsContainer}"/>
+								<b:InvokeCommandAction Command="{Binding HighlightResourcesCommand}" CommandParameter="{Binding LocalFocus.DataContext, ElementName=OptionsContainer}"/>
+							</b:EventTrigger>
+							<b:DataTrigger Binding="{Binding HasInputEnabled, ElementName=SelectionFlyOut_c}" Value="True">
+								<b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElementCommand, ElementName=SelectionFlyOut_c}" CommandParameter="{Binding LocalFocus, ElementName=OptionsContainer}"/>
+							</b:DataTrigger>
+						</b:Interaction.Triggers>
+
+						<ls:LSListBox.Style>
+							<Style TargetType="ls:LSListBox">
+								<Setter Property="MinHeight" Value="390"/>
+								<Setter Property="Margin" Value="40,80,20,40"/>
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag).ShowExtendedInfo, ElementName=OptionsContainer}" Value="True">
+										<Setter Property="MinHeight" Value="0"/>
+										<Setter Property="Margin" Value="40,40,20,20"/>
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</ls:LSListBox.Style>
+
+					</ls:LSListBox>
+				</ContentControl>
+
+				<ContentControl x:Name="Selector" IsHitTestVisible="False" VerticalAlignment="Top" HorizontalAlignment="Left">
+					<ContentControl.Style>
+						<Style TargetType="ContentControl">
+							<Setter Property="Margin" Value="40,80,20,40"/>
+							<Setter Property="Template" Value="{StaticResource SelectorTemplate}" />
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag).ShowExtendedInfo, ElementName=OptionsContainer}" Value="True">
+									<Setter Property="Margin" Value="40,30,0,0"/>
+									<Setter Property="Template" Value="{StaticResource ArrowedSelectorTemplate}" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ContentControl.Style>
+				</ContentControl>
+
+				<ls:LSInputBinding x:Name="AcceptBinding" BoundEvent="UIAccept" Visibility="Collapsed" TriggerOnRelease="True"
+								   Command="{Binding UseSlotCommand}"
+								   CommandParameter="{Binding Path=LocalFocus.DataContext, ElementName=OptionsContainer}">
+					<ls:LSInputBinding.Style>
+						<Style TargetType="ls:LSInputBinding">
+							<Setter Property="EatInput" Value="False"/>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding PanelContentType}" Value="Spell">
+									<Setter Property="EatInput" Value="True"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ls:LSInputBinding.Style>
+				</ls:LSInputBinding>
+
+				<ls:LSInputBinding x:Name="CancelBinding" BoundEvent="UICancel" Visibility="Collapsed" Command="{Binding CloseFlyOutCommand}" TriggerOnRelease="True">
+					<ls:LSInputBinding.Style>
+						<Style TargetType="ls:LSInputBinding">
+							<Setter Property="EatInput" Value="False"/>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding PanelContentType}" Value="Spell">
+									<Setter Property="EatInput" Value="True"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ls:LSInputBinding.Style>
+				</ls:LSInputBinding>
+			</Grid>
+		</ls:LSSelectionFlyOut>
+	</Grid>
+</ls:UIWidget>

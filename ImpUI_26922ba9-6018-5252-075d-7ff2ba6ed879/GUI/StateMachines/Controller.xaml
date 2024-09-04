@@ -1,0 +1,232 @@
+<ls:StateMachine xmlns:ls="clr-namespace:ls;assembly=Code"
+				 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<ls:StateMachine.States>
+		<!--STATE: CharacterCreation -->
+		<ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/> - Has to be included in the mod, even though we're making no changes
+				<ls:StateWidget Filename="CharacterCreation_c.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!--STATE: CharacterLevelUp -->
+		<ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" ForceSplitscreen="True" Layout = "Player" Owner = "Player">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
+				<ls:StateWidget Filename="CharacterLevelUp_c.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!--STATE: CharacterRespec -->
+		<ls:State Name = "CharacterRespec" HideStatesBelow = "True" DisableStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
+				<ls:StateWidget Filename="CharacterRespec_c.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!--STATE: CharacterChangeAppearance -->
+		<ls:State Name = "CharacterChangeAppearance" HideStatesBelow = "True" DisableStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
+				<ls:StateWidget Filename="CharacterChangeAppearance_c.xaml" Layer="HUD"/> - Unedited, has to be included for loading the custom CCLib_c
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!--STATE: Henchmen -->
+		<ls:State Name = "Henchmen" HideStatesBelow = "True" DisableStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" Layout="Player" Owner="Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
+				<ls:StateWidget Filename="Henchmen_c.xaml" Layer="HUD"/> - Unedited, has to be included for loading the custom CCLib_c
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!-- MOD START - Support for Custom Action Resources -->
+		<ls:State Name="ActionRadials" Layout="Adaptive" Owner="Player" IsModal="True" TutorialLayer="ActionRadials" ModType="Override">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/ActionRadials.xaml" Layer="PopupPanels" AllowCreationDelay="True"/>
+			</ls:State.Widgets>
+			<ls:State.InitialSubstates>
+				<ls:InitialSubstate Name="PlayerPortraits" Metadata="InRadials" />
+			</ls:State.InitialSubstates>
+			<ls:State.Events>
+				<ls:StateEvent Name = "CloseWidget">
+					<ls:StateEvent.Actions>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "IE.ToggleInGameMenu">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="Paused"/>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "OpenPinnedTooltips">
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="PinnedTooltips"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "ToggleShortcutMenu">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="ShortcutMenu"/>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "CloseRadials">
+					<ls:StateEvent.Actions>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+			</ls:State.Events>
+		</ls:State>
+
+		<!--STATE: SelectionFlyOut-->
+		<ls:State Name= "SelectionFlyOut" Layout="Player" Owner="Player" IsModal = "True" ModType="Override">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="SelectionFlyOut_c.xaml" Layer="DragAndDrop"/>
+			</ls:State.Widgets>
+			<ls:State.Events>
+				<ls:StateEvent Name = "CloseSelectionFlyOut">
+					<ls:StateEvent.Actions>
+						<ls:RemoveState/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+			</ls:State.Events>
+		</ls:State>
+		<!-- MOD END -->
+
+		<!-- MOD START - Split into different substates for better mod support -->
+		<!--STATE: PlayerHUD-->
+		<ls:State Name = "PlayerHUD" Layout = "Adaptive" Owner = "Player" ModType="Override">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/Overlay_c.xaml" Layer="Notifications"/>
+				<!-- <ls:StateWidget Filename="HudIndicator.xaml" Layer="HUD" IgnoreHitTest="True"/>
+				<ls:StateWidget Filename="OverheadInfo_c.xaml" Layer="HUD" IgnoreHitTest="True"/>
+				<ls:StateWidget Filename="ActionResources_c.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="Minimap_c.xaml" Layer="HUDTop"/>
+				<ls:StateWidget Filename="TargetInfo_c.xaml" Layer="HUDTop"/>
+				<ls:StateWidget Filename="TurnModeInfo.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="CombatLog_c.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="CombatantsOverlay.xaml" Layer="HUDTop"/>
+				<ls:StateWidget Filename="CursorText_c.xaml" Layer="HUDTop"/>
+				<ls:StateWidget Filename="PassiveRoll.xaml" Layer="PopupPanels"/> -->
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+			</ls:State.Widgets>
+
+			<ls:State.InitialSubstates>
+				<ls:InitialSubstate Name="PlayerPortraits" Metadata="InHUD"/>
+				<ls:InitialSubstate Name="IUI_HudIndicator"/>
+				<ls:InitialSubstate Name="IUI_OverheadInfo"/>
+				<ls:InitialSubstate Name="IUI_HotBar"/>
+				<ls:InitialSubstate Name="IUI_ActionResources_c"/>
+				<ls:InitialSubstate Name="IUI_Minimap"/>
+				<ls:InitialSubstate Name="IUI_TargetInfo"/>
+				<ls:InitialSubstate Name="IUI_TurnModeInfo"/>
+				<ls:InitialSubstate Name="IUI_CombatLog"/>
+				<ls:InitialSubstate Name="IUI_CombatantsOverlay"/>
+				<ls:InitialSubstate Name="IUI_CursorText"/>
+				<ls:InitialSubstate Name="IUI_DragAndDropPreview"/>
+				<ls:InitialSubstate Name="IUI_PassiveRoll"/>
+			</ls:State.InitialSubstates>
+
+			<ls:State.Events>
+				<ls:StateEvent Name = "OpenSelectionFlyOut">
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="SelectionFlyOut"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "ToggleCombatLog">
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="CombatLog"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "OpenCursor">
+					<ls:StateEvent.Actions>
+						<ls:PushState Name="ControllerCursor"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+				<ls:StateEvent Name = "OpenPinnedTooltips">
+					<ls:StateEvent.Actions>
+						<ls:AddSubstate Name="PinnedTooltips"/>
+					</ls:StateEvent.Actions>
+				</ls:StateEvent>
+			</ls:State.Events>
+		</ls:State>
+
+		<ls:State Name = "IUI_HudIndicator" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/HudIndicator.xaml" Layer="HUD" IgnoreHitTest="True"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_OverheadInfo" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/OverheadInfo_c.xaml" Layer="HUD" IgnoreHitTest="True"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_ActionResources_c" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/ActionResources_c.xaml" Layer="HUD"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_Minimap" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/Minimap_c.xaml" Layer="HUDTop"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_TargetInfo" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/TargetInfo_c.xaml" Layer="HUDTop"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_TurnModeInfo" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/TurnModeInfo.xaml" Layer="HUD"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_CombatLog" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/CombatLog_c.xaml" Layer="HUD"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_CombatantsOverlay" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/CombatantsOverlay.xaml" Layer="HUDTop"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_CursorText" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/CursorText_c.xaml" Layer="HUDTop"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<ls:State Name = "IUI_PassiveRoll" Layout = "Adaptive" Owner = "Player">
+			<ls:State.Widgets>
+				<ls:StateWidget Filename="/MainUI;component/Pages/PassiveRoll.xaml" Layer="PopupPanels"/>
+			</ls:State.Widgets>
+		</ls:State>
+
+		<!-- Empty states where switching between kb & c -->
+		<ls:State Name = "IUI_HotBar" Layout = "Player" Owner = "Player"/>
+		<ls:State Name = "IUI_DragAndDropPreview" Layout = "Player" Owner = "Player"/>
+		<!-- MOD END -->
+	</ls:StateMachine.States>
+</ls:StateMachine>
