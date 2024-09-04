@@ -1,0 +1,1158 @@
+<ls:UIWidget x:Name="CharacterRespec_c"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ls="clr-namespace:ls;assembly=Code"
+	xmlns:System="clr-namespace:System;assembly=mscorlib"
+	xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+	
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	mc:Ignorable="d"
+	d:DesignHeight="2160" d:DesignWidth="3840"
+	ls:UIWidget.ContextName="CharacterCreation"
+	FocusDown="UIDown" FocusLeft="UILeft" FocusRight="UIRight" FocusUp="UIUp" ls:MoveFocus.FocusMovementMode="Closest" CanCacheFocusSurroundingElements="False">
+
+	<ls:UIWidget.Resources>
+		<ResourceDictionary>
+
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Core;component/Library/CCLib_c.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+
+			<ControlTemplate x:Key="skillsSelectionTemplate">
+				<DockPanel Height="{StaticResource gameplayPanelHeight}">
+					<b:Interaction.Triggers>
+						<b:EventTrigger EventName="Loaded">
+							<ls:SetMoveFocusAction TargetName="CharacterRespec_c"/>
+						</b:EventTrigger>
+					</b:Interaction.Triggers>
+
+					<TextBlock DockPanel.Dock="Bottom" Visibility="{Binding IsEnabled, ElementName=nextButton, Converter={StaticResource BoolToCollapsedConverter}}" ls:TextBlockFormatter.SourceText="{Binding Source='h99d22567g8b26g4d70gbe0dgb275f4968652', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource gameplayPanelContinueTextStyle}"/>
+
+					<StackPanel DockPanel.Dock="Top">
+						<Control Template="{StaticResource setOverviewCamera}"/>
+
+						<Control Template="{DynamicResource skillsSelectionHeader}"/>
+						<Control Template="{DynamicResource skillsSelectionDescription}"/>
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
+							<Control Template="{DynamicResource skillsSelectedLabel}"/>
+							<TextBlock x:Name="AssignedValue" FontSize="{StaticResource ScaledDefaultFontSize}" HorizontalAlignment="Center" Margin="20,0,0,0">
+								<TextBlock.Text>
+									<MultiBinding StringFormat="{}{0}/{1}">
+										<Binding Path="SelectedSkillCount"/>
+										<Binding Path="MaxSelectedSkillCount"/>
+									</MultiBinding>
+								</TextBlock.Text>
+							</TextBlock>
+						</StackPanel>
+
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+							<StackPanel.Resources>
+								<Style TargetType="Image">
+									<Setter Property="Visibility" Value="Collapsed"/>
+									<Setter Property="Stretch" Value="None"/>
+									<Setter Property="Width" Value="48"/>
+									<Setter Property="Height" Value="48"/>
+								</Style>
+							</StackPanel.Resources>
+							<Image x:Name="point0" Source="{StaticResource tabDotOff}"/>
+							<Image x:Name="point1" Source="{StaticResource tabDotOff}"/>
+							<Image x:Name="point2" Source="{StaticResource tabDotOff}"/>
+							<Image x:Name="point3" Source="{StaticResource tabDotOff}"/>
+						</StackPanel>
+
+					</StackPanel>
+
+					<ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+						<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+							<Control Template="{DynamicResource selectableSkills}"/>
+
+						</StackPanel>
+					</ScrollViewer>
+				</DockPanel>
+
+				<ControlTemplate.Triggers>
+					<DataTrigger Binding="{Binding MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="point0" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+						<Setter TargetName="point1" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=2}" Value="True">
+						<Setter TargetName="point2" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}" Value="True">
+						<Setter TargetName="point3" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+
+					<DataTrigger Binding="{Binding SelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+						<Setter TargetName="point0" Property="Source" Value="{StaticResource tabDotOn}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding SelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True">
+						<Setter TargetName="point1" Property="Source" Value="{StaticResource tabDotOn}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding SelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=2}" Value="True">
+						<Setter TargetName="point2" Property="Source" Value="{StaticResource tabDotOn}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding SelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=3}" Value="True">
+						<Setter TargetName="point3" Property="Source" Value="{StaticResource tabDotOn}"/>
+					</DataTrigger>
+
+					<DataTrigger Value="False">
+						<DataTrigger.Binding>
+							<MultiBinding Converter="{StaticResource EqualConverter}">
+								<Binding Path="SelectedSkillCount"/>
+								<Binding Path="MaxSelectedSkillCount"/>
+							</MultiBinding>
+						</DataTrigger.Binding>
+						<Setter TargetName="AssignedValue" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
+					</DataTrigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+
+			<ControlTemplate x:Key="RespecBottomButtonsTemplate">
+				<StackPanel Orientation="Horizontal">
+					<!-- Toggle tooltips -->
+					<ls:LSButton x:Name="ToggleTooltips" Margin="50,0,0,0"
+								 Command="ls:UIWidget.ToggleTooltipOnUIElementCommand"
+								 CommandParameter="{Binding FocusedElement, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ls:UIWidget}}"
+								 BoundEvent="UIShowInfo"
+								 ContentTemplate="{StaticResource ControllerButtonHint}"
+								 Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIShowInfo, Converter={StaticResource FindInputEventConverter}}"
+								 Tag="{Binding Source='hf8dd4c2fg97e0g4ccdgac1ag3cd1fe5060ef', Converter={StaticResource TranslatedStringConverter}}" TapTime="{StaticResource DefaultButtonTapTime}"/>
+					
+					<ls:LSButton x:Name="useRecommended" Visibility="Collapsed" Command="{Binding DataContext.UseRecommendedAbilities, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"
+								 ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UITabPrev, Converter={StaticResource FindInputEventConverter}}"
+								 BoundEvent="UITabPrev" Tag="{Binding Source=h44d84d6fg14d8g4606gb563gf458f155defa,Converter={StaticResource TranslatedStringConverter}}" Margin="50,0,0,0"/>
+
+					<ls:LSButton x:Name="showSummary" Visibility="{Binding ElementName=summary, Path=Visibility, Converter={StaticResource InvertVisibilityConverter}}"
+								 ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UISort, Converter={StaticResource FindInputEventConverter}}"
+								 BoundEvent="UISort" Tag="{Binding Source=h890f4cddg2bdcg4bb2gb73eg43fe16b11b08,Converter={StaticResource TranslatedStringConverter}}" EatInput="False" TapTime="{StaticResource DefaultButtonTapTime}">
+						<b:Interaction.Triggers>
+							<b:EventTrigger EventName="Click">
+								<b:ChangePropertyAction TargetName="summary" PropertyName="Visibility" Value="Visible"/>
+							</b:EventTrigger>
+						</b:Interaction.Triggers>
+					</ls:LSButton>
+					<ls:LSButton x:Name="hideSummary" Visibility="{Binding ElementName=summary, Path=Visibility}" ContentTemplate="{StaticResource ControllerButtonHint}"
+								 Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UISort, Converter={StaticResource FindInputEventConverter}}"
+								 BoundEvent="UISort" Tag="{Binding Source=h70ec62ddg0cfcg4512ga0c6gbc591945b75b,Converter={StaticResource TranslatedStringConverter}}" EatInput="False" TapTime="{StaticResource DefaultButtonTapTime}">
+						<b:Interaction.Triggers>
+							<b:EventTrigger EventName="Click">
+								<b:ChangePropertyAction TargetName="summary" PropertyName="Visibility" Value="Collapsed"/>
+							</b:EventTrigger>
+						</b:Interaction.Triggers>
+					</ls:LSButton>
+
+					<ls:LSButton x:Name="backButton" Command="{Binding DataContext.PrevGameplayTab, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding ElementName=gameplayTabs}"
+								 ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICancel, Converter={StaticResource FindInputEventConverter}}"
+								 BoundEvent="UICancel" Tag="{Binding Source=h77fec760g866dg4e47g8e81g467c9c05e447,Converter={StaticResource TranslatedStringConverter}}" Margin="50,0,0,0"/>
+					
+					<ls:LSInputBinding x:Name="PinTooltipBinding" Style="{StaticResource PinTooltipBindingStyle}"/>
+				</StackPanel>
+				<ControlTemplate.Triggers>
+					<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedIndex}" Value="0">
+						<Setter TargetName="backButton" Property="Command" Value="{Binding DataContext.ExitCharacterRespec, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="ability">
+						<Setter TargetName="useRecommended" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding ShowUIElementTooltip, ElementName=CharacterRespec_c}" Value="True">
+						<Setter TargetName="ToggleTooltips" Property="Tag" Value="{Binding Source='hb33ec471gd611g4ee3gbbffg699af8f79167', Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+
+			<ControlTemplate x:Key="confirmButtonTemplate" TargetType="Button">
+				<ls:LSNineSliceImage x:Name="bg" ImageSource="pack://application:,,,/Core;component/Assets/CC_c/c_cc_primaryButtonBG.png" Slices="84,84,84,84" MinWidth="168" MinHeight="172">
+					<StackPanel x:Name="contents" Orientation="Horizontal" VerticalAlignment="Center">
+						<Control x:Name="img" DataContext="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIDelete'}"
+								 Template="{StaticResource ControllerButton.ImageSwitcher}" Width="{DynamicResource ScaledControllerHintSize}" Height="{DynamicResource ScaledControllerHintSize}"
+								 Focusable="False" VerticalAlignment="Center" Margin="26,0,-10,0"/>
+
+						<TextBlock x:Name="text" ls:TextBlockFormatter.SourceText="{Binding Source='h7a174735g0099g4ca9ga1f7ga53ad66b1aa4', Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledMediumFontSize}"
+								   VerticalAlignment="Center" Margin="0,0,60,0"/>
+					</StackPanel>
+				</ls:LSNineSliceImage>
+				<ControlTemplate.Triggers>
+					<Trigger Property="IsEnabled" Value="False">
+						<Setter TargetName="bg" Property="ImageSource" Value="pack://application:,,,/Core;component/Assets/CC_c/c_cc_primaryButtonBG_disabled.png"/>
+						<Setter TargetName="contents" Property="Opacity" Value="{StaticResource DisabledOpacity}"/>
+					</Trigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+
+			<Style x:Key="confirmRespecButtonStyle" TargetType="ls:LSButton">
+				<Setter Property="Template" Value="{StaticResource confirmButtonTemplate}"/>
+				<Setter Property="BoundEvent" Value="UIDelete"/>
+				<Setter Property="Command" Value="{Binding DataContext.FinishCreating, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+			</Style>
+		</ResourceDictionary>
+	</ls:UIWidget.Resources>
+
+
+	<b:Interaction.Triggers>
+		<b:EventTrigger EventName="Loaded">
+			<!-- Start with Tooltips enabled -->
+			<b:InvokeCommandAction Command="{Binding EnableTooltipOnUIElementCommand, ElementName=CharacterRespec_c}"/>
+			<b:InvokeCommandAction Command="{Binding SetCharacterCreationStep}" CommandParameter="Class"/>
+		</b:EventTrigger>
+
+		<b:EventTrigger EventName="GotKeyboardFocus">
+			<b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElementCommand, ElementName=CharacterRespec_c}" CommandParameter="{Binding Path=FocusedElement, ElementName=CharacterRespec_c}"/>
+		</b:EventTrigger>
+		<b:DataTrigger Binding="{Binding HasInputEnabled, ElementName=CharacterRespec_c}" Value="True">
+			<b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElementCommand, ElementName=CharacterRespec_c}" CommandParameter="{Binding FocusedElement, ElementName=CharacterRespec_c}"/>
+		</b:DataTrigger>
+
+		<b:EventTrigger EventName="MoveFocusUp">
+			<ls:LSPlaySound Sound="UI_Shared_Hover" />
+		</b:EventTrigger>
+
+		<b:EventTrigger EventName="MoveFocusDown">
+			<ls:LSPlaySound Sound="UI_Shared_Hover" />
+		</b:EventTrigger>
+
+		<b:EventTrigger EventName="MoveFocusRight">
+			<ls:LSPlaySound Sound="UI_Shared_Hover" />
+		</b:EventTrigger>
+
+		<b:EventTrigger EventName="MoveFocusLeft">
+			<ls:LSPlaySound Sound="UI_Shared_Hover" />
+		</b:EventTrigger>
+	</b:Interaction.Triggers>
+
+	<b:Interaction.Behaviors>
+		<ls:CollectionFilterBehavior x:Name="ClassProgressions" ItemsSource="{Binding ClassProgressionDetails.Progressions}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="SubClassProgressions" ItemsSource="{Binding ClassProgressionDetails.Progressions}" Predicate="{Binding IsSubProgressionPredicate}"/>
+
+		<ls:CollectionFilterBehavior x:Name="RaceSpellSelectors" ItemsSource="{Binding RaceProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="SubRaceSpellSelectors" ItemsSource="{Binding RaceProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
+
+		<!-- MOD START - Racial passive selection -->
+		<ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="RacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+		<ls:CollectionFilterBehavior x:Name="SubRacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+		<!-- MOD END -->
+		<ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+		<ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
+
+		<ls:CollectionSortBehavior x:Name="SortedRaceSkills" ItemsSource="{Binding AllSkills.RaceProficientSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
+		<ls:CollectionSortBehavior x:Name="SortedClassSkills" ItemsSource="{Binding AllSkills.ClassProficientSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
+		<ls:CollectionSortBehavior x:Name="SortedExpertiseSkills" ItemsSource="{Binding AllSkills.ExpertiseSkills.Skills}" Comparer="{Binding SkillSortComparer}" />
+
+		<ls:CollectionSortBehavior x:Name="SortedSummarySkills" ItemsSource="{Binding ProgressionData.AllProgressions.Skills}" Comparer="{Binding SkillSortComparer}" />
+
+	</b:Interaction.Behaviors>
+
+	<Grid ls:TooltipExtender.Owner="{Binding DummyCharacter}" IsEnabled="{Binding IsLocked, Converter={StaticResource InvertBoolConverter}}">
+
+		<Control Template="{StaticResource setOverviewCamera}"/>
+
+		<Control x:Name="gamePlayPage">
+			<Control.Template>
+				<ControlTemplate TargetType="Control">
+					<Grid>
+						<Grid>
+							<Rectangle x:Name="bottomShading" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="{StaticResource bottomBackgroundHeight}" Fill="{StaticResource BottomShadingBrush}"/>
+							<Rectangle x:Name="leftSideShading" HorizontalAlignment="Left" Width="{StaticResource leftSidePanelBackgroundWidth}" Fill="{StaticResource LeftSideShadingBrush}" OpacityMask="{StaticResource OpacityMaskShadingBrush}"/>
+
+								<!-- FocusScope for returning from Summary -->
+							<Grid x:Name="leftSidePanels" ls:MoveFocus.IsMoveFocusScope="True" MaxWidth="1218" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,50,0,0">
+
+								<ContentControl x:Name="gameplaySubPanel" Content="{Binding .}">
+									<b:Interaction.Triggers>
+										<b:PropertyChangedTrigger Binding="{Binding Path=SelectedIndex, ElementName=gameplayTabs}">
+											<b:Interaction.Behaviors>
+												<b:ConditionBehavior>
+													<b:ConditionalExpression>
+														<b:ComparisonCondition LeftOperand="{Binding Path=SelectedIndex, ElementName=gameplayTabs}" Operator="NotEqual" RightOperand="-1"/>
+													</b:ConditionalExpression>
+												</b:ConditionBehavior>
+											</b:Interaction.Behaviors>
+											<!-- clear subtab panel -->
+											<b:ChangePropertyAction TargetName="gameplaySubPanel" PropertyName="DataContext" Value="{x:Null}"/>
+										</b:PropertyChangedTrigger>
+									</b:Interaction.Triggers>
+								</ContentControl>
+
+								<Control x:Name="gameplayPanel" Height="{StaticResource gameplayPanelHeight}"/>
+							</Grid>
+
+							<Control x:Name="namingBackground"/>
+
+							<Grid x:Name="tabNavigation" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,110" Width="{StaticResource gameplaySideWidth}">
+								<StackPanel HorizontalAlignment="Center">
+									<Grid x:Name="dummyMotionKey" Visibility="Collapsed" HorizontalAlignment="Center">
+										<Image Source="{StaticResource CameraActionIndication}" Stretch="None"/>
+										<Image Source="{StaticResource CameraActionStickIcon}" Stretch="None" Margin="0,8,0,0"/>
+									</Grid>
+
+									<ContentPresenter x:Name="MissingRequirementsError" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0,0,0,-20" ContentTemplate="{StaticResource MissingRequirementsErrorTemplate}" Content=""/>
+
+									<!-- forward navigation only here, back is in bottombuttons -->
+									<ls:LSButton x:Name="nextButton" Style="{StaticResource nextGameplayTabNavButtonStyle}" HorizontalAlignment="Center"/>
+
+									<ListBox x:Name="gameplayTabs" ItemsPanel="{StaticResource gameplayTabListPanel}" HorizontalAlignment="Center" Margin="0,-20,0,50">
+										<ListBox.ItemContainerStyle>
+											<Style TargetType="ListBoxItem">
+												<Setter Property="Template" Value="{StaticResource gameplayTabTemplate}"/>
+											</Style>
+										</ListBox.ItemContainerStyle>
+
+										<!-- MOD START - Race tab at respec -->
+										<ListBoxItem x:Name="raceTab" Tag="race"/>
+										<ListBoxItem x:Name="subRaceTab" Tag="subrace" IsEnabled="{Binding SelectableSubRaces.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}"/>
+										<!-- MOD END -->
+										<ListBoxItem x:Name="classTab" Tag="class" IsSelected="True"/>
+										<ListBoxItem x:Name="subClassTab" Tag="subclass" Visibility="{Binding SelectableSubClasses.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+										<ListBoxItem x:Name="deityTab" Tag="deity" Visibility="{Binding SelectableDeities.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+										<ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="Collapsed"/>
+										<ListBoxItem x:Name="draconicDragonbornTab" Tag="draconicDragonborn" Visibility="Collapsed"/>
+										<!-- MOD START - Background tab at respec -->
+										<ListBoxItem x:Name="backgroundTab" Tag="background"/>
+										<!-- MOD END -->
+										<ListBoxItem x:Name="abilityTab" Tag="ability"/>
+										<ListBoxItem x:Name="skillsTab" Tag="skills" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
+										<ListBoxItem x:Name="expertiseTab" Tag="expertise" Visibility="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
+										<ListBoxItem x:Name="namingTab" Tag="naming"/>
+									</ListBox>
+								</StackPanel>
+							</Grid>
+
+						</Grid>
+
+						<Grid x:Name="summary" Visibility="Visible" HorizontalAlignment="Right">
+							<Rectangle x:Name="summaryBackground" HorizontalAlignment="Right" Width="{StaticResource summaryPanelBackgroundWidth}" RenderTransformOrigin="1,0.5" Fill="{StaticResource RightSideShadingBrush}" OpacityMask="{StaticResource OpacityMaskShadingBrush}">
+								<Rectangle.RenderTransform>
+									<ScaleTransform/>
+								</Rectangle.RenderTransform>
+							</Rectangle>
+
+							<Grid x:Name="summaryAnimPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,230,34,0">
+								<Grid.RenderTransform>
+									<TranslateTransform X="0"/>
+								</Grid.RenderTransform>
+
+								<Control x:Name="summaryPanel" IsEnabled="False" ls:MoveFocus.IsMoveFocusScope="True" Template="{StaticResource summaryPanelTemplate}"  HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,70,16,0"/>
+
+								<ls:LSInputBinding x:Name="backFromFocusedSummary" IsEnabled="{Binding IsEnabled, ElementName=summaryPanel}" BoundEvent="UICancel">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="LSInputBindingReleased" >
+											<b:ChangePropertyAction TargetName="leftSidePanels" PropertyName="IsEnabled" Value="True" />
+											<b:ChangePropertyAction TargetName="summaryPanel" PropertyName="IsEnabled" Value="False" />
+											<b:ChangePropertyAction TargetName="focusSummaryPanelButton" PropertyName="Visibility" Value="Visible" />
+											<b:ChangePropertyAction TargetName="focusGameplayPanelButton" PropertyName="Visibility" Value="Hidden" />
+											<ls:SetMoveFocusAction TargetName="CharacterRespec_c" FocusElement="{Binding ElementName=leftSidePanels}"/>
+											<b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource unfocusSummaryPanelStoryboard}"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>                                    
+								</ls:LSInputBinding>
+
+								<ls:LSButton x:Name="focusGameplayPanelButton"
+											 Visibility="Hidden" 
+											 Tag=" " 
+											 ContentTemplate="{StaticResource ControllerButtonHint}"
+											 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UITabNext'}"
+											 BoundEvent="UITabNext"
+											 HorizontalAlignment="Right"
+											 VerticalAlignment="Top">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="Click" >
+											<b:ChangePropertyAction TargetName="leftSidePanels" PropertyName="IsEnabled" Value="True" />
+											<b:ChangePropertyAction TargetName="summaryPanel" PropertyName="IsEnabled" Value="False" />
+											<b:ChangePropertyAction TargetName="focusSummaryPanelButton" PropertyName="Visibility" Value="Visible" />
+											<b:ChangePropertyAction TargetName="focusGameplayPanelButton" PropertyName="Visibility" Value="Hidden" />
+											<ls:SetMoveFocusAction TargetName="CharacterRespec_c" FocusElement="{Binding ElementName=leftSidePanels}"/>
+											<b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource unfocusSummaryPanelStoryboard}"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</ls:LSButton>
+
+								<ls:LSButton x:Name="focusSummaryPanelButton"
+											 Tag=" " 
+											 ContentTemplate="{StaticResource ControllerButtonHint}"
+											 Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UITabNext'}"
+											 BoundEvent="UITabNext"
+											 HorizontalAlignment="Right"
+											 VerticalAlignment="Top">
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="Click" >
+											<b:ChangePropertyAction TargetName="leftSidePanels" PropertyName="IsEnabled" Value="False" />
+											<b:ChangePropertyAction TargetName="summaryPanel" PropertyName="IsEnabled" Value="True" />
+											<b:ChangePropertyAction TargetName="focusSummaryPanelButton" PropertyName="Visibility" Value="Hidden" />
+											<b:ChangePropertyAction TargetName="focusGameplayPanelButton" PropertyName="Visibility" Value="Visible" />
+											<ls:SetMoveFocusAction TargetName="CharacterRespec_c" FocusElement="{Binding ElementName=summaryPanel}"/>
+											<b:ControlStoryboardAction ControlStoryboardOption="Play" Storyboard="{StaticResource focusSummaryPanelStoryboard}"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</ls:LSButton>
+
+							</Grid>
+						</Grid>
+
+						<StackPanel Style="{StaticResource ButtonHint.Container.Right}">
+							<Control x:Name="bottomButtons" Template="{StaticResource RespecBottomButtonsTemplate}"/>
+						</StackPanel>
+
+					</Grid>
+
+					<ControlTemplate.Triggers>
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="naming">
+							<Setter TargetName="nextButton" Property="Visibility" Value="Collapsed"/>
+						</DataTrigger>
+
+						<!-- Split Screen variation -->
+						<DataTrigger Binding="{Binding Layout}" Value="Common">
+							<Setter TargetName="leftSidePanels" Property="Margin" Value="200,50,0,0"/>
+							<Setter TargetName="tabNavigation" Property="Margin" Value="0,0,0,0"/>
+						</DataTrigger>
+
+						<!-- Disabled next/continue button if current subtab panel is incomplete -->
+						<DataTrigger Binding="{Binding DataContext.IsComplete, ElementName=gameplaySubPanel}" Value="False">
+							<Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+						</DataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="ability"/>
+								<Condition Binding="{Binding UnusedAbilityPoints, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+							</MultiDataTrigger.Conditions>
+							<Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+						</MultiDataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="ability"/>
+								<Condition Binding="{Binding Validity.RacialSelectors.AbilityBonusSelectors}" Value="False"/>
+							</MultiDataTrigger.Conditions>
+							<Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+						</MultiDataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="skills"/>
+								<Condition Binding="{Binding Validity.ClassSelectors.SkillProficiencySelectors}" Value="False"/>
+							</MultiDataTrigger.Conditions>
+							<Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+						</MultiDataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="expertise"/>
+								<Condition Binding="{Binding Validity.ClassSelectors.SkillExpertiseSelectors}" Value="False"/>
+							</MultiDataTrigger.Conditions>
+							<Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+						</MultiDataTrigger>
+
+						<DataTrigger Binding="{Binding IsEnabled, ElementName=leftSidePanels}" Value="False">
+							<Setter TargetName="nextButton" Property="IsEnabled" Value="False"/>
+						</DataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding IsEnabled, ElementName=nextButton}" Value="False"/>
+								<Condition Binding="{Binding Visibility, ElementName=nextButton}" Value="Visible"/>
+								<Condition Binding="{Binding IsEnabled, ElementName=leftSidePanels}" Value="True"/>
+							</MultiDataTrigger.Conditions>
+							<Setter TargetName="MissingRequirementsError" Property="Visibility" Value="Visible"/>
+						</MultiDataTrigger>
+
+						<!--
+						Gameplay Panel Content 
+						-->
+
+						<!-- MOD START - Racial passives on respec -->
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="race">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<DockPanel>
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+
+											<Control Template="{StaticResource setGameplayCameraOffsets}"/>
+
+											<StackPanel x:Name="raceCarouselAndDescription" Orientation="Horizontal" DockPanel.Dock="Top">
+
+												<ListBox x:Name="raceCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}">
+													<ListBox.ItemTemplate>
+														<DataTemplate>
+															<Rectangle x:Name="raceIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource RaceIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}" Opacity="1"/>
+															<DataTemplate.Triggers>
+																<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+																	<Setter TargetName="raceIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+																	<Setter TargetName="raceIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+																	<Setter TargetName="raceIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+																	<Setter TargetName="raceIcon" Property="Opacity" Value="0.8"/>
+																</DataTrigger>
+															</DataTemplate.Triggers>
+														</DataTemplate>
+													</ListBox.ItemTemplate>
+												</ListBox>
+
+												<ContentControl Template="{StaticResource PanelSideDescription}" VerticalAlignment="Top" Margin="-50,90,0,0">
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding InfoRaceDescription}" Style="{StaticResource CarouselSideDescriptionText}"/>
+												</ContentControl>
+
+											</StackPanel>
+
+											<Control Template="{StaticResource featuresGainedSubHeader}" HorizontalAlignment="Left" DockPanel.Dock="Top"/>
+
+											<ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+													<!-- MOD NOTE - Racial passive selection -->
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveSelectors}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+													<Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.RaceProgression}" HorizontalAlignment="Center"/>
+
+												</StackPanel>
+
+											</ScrollViewer>
+
+										</DockPanel>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="subrace">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<DockPanel>
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+
+											<Control Template="{StaticResource setGameplayCameraOffsets}"/>
+
+											<StackPanel x:Name="subraceCarouselAndDescription" Orientation="Horizontal" DockPanel.Dock="Top">
+
+												<ListBox x:Name="subraceCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}">
+													<ListBox.ItemTemplate>
+														<DataTemplate>
+															<Rectangle x:Name="raceIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource RaceIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
+															<DataTemplate.Triggers>
+																<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+																	<Setter TargetName="raceIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+																	<Setter TargetName="raceIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+																	<Setter TargetName="raceIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+																	<Setter TargetName="raceIcon" Property="Opacity" Value="0.8"/>
+																</DataTrigger>
+															</DataTemplate.Triggers>
+														</DataTemplate>
+													</ListBox.ItemTemplate>
+												</ListBox>
+
+												<ContentControl Template="{StaticResource PanelSideDescription}" VerticalAlignment="Top" Margin="-50,90,0,0">
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Race.Description}" Style="{StaticResource CarouselSideDescriptionText}"/>
+												</ContentControl>
+
+											</StackPanel>
+
+											<Control Template="{StaticResource featuresGainedSubHeader}" HorizontalAlignment="Left" DockPanel.Dock="Top"/>
+
+											<ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+													<!-- MOD NOTE - Racial passive selection -->
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
+													<ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveSelectors}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+													<Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.SubRaceProgression}" HorizontalAlignment="Center"/>
+
+												</StackPanel>
+											</ScrollViewer>
+
+										</DockPanel>
+
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+						
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="class">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Control Template="{StaticResource classPanelTemplate}">
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<ls:SetMoveFocusAction TargetName="CharacterRespec_c"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+										</Control>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="subclass">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Control Template="{StaticResource subClassPanelTemplate}">
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<ls:SetMoveFocusAction TargetName="CharacterRespec_c"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+										</Control>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="draconic">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Grid>
+											<ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0e1fded7g681ag4e5fgb0a2gc5928ab399a1', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h381a6c0bg214fg4968gae5cg9e5b8a8ffc20', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
+
+													<ListBox ItemsSource="{Binding SelectableScales}" SelectedItem="{Binding SelectedScales}" Style="{StaticResource appearanceIconGridStyle}"/>
+
+													<TextBlock x:Name="draconicColourHeader" ls:TextBlockFormatter.SourceText="{Binding Source='h85555614g40b2g459dgbfbfg76291036aebe', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,100,0,0"/>
+
+													<ItemsControl x:Name="draconicColourOptionList" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearancePassive.ColorOptions}"/>
+
+													<ListBox x:Name="draconicColourOptionGrid" ItemsSource="{Binding SelectablePassiveColours}" SelectedItem="{Binding SelectedPassiveColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
+
+												</StackPanel>
+											</ScrollViewer>
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<ls:SetMoveFocusAction TargetName="CharacterRespec_c"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+										</Grid>
+										<ControlTemplate.Triggers>
+											<DataTrigger Binding="{Binding AppearancePassive.EmptyMaterialSelected}" Value="True">
+												<Setter TargetName="draconicColourHeader" Property="Visibility" Value="Collapsed"/>
+												<Setter TargetName="draconicColourOptionList" Property="Visibility" Value="Collapsed"/>
+												<Setter TargetName="draconicColourOptionGrid" Property="Visibility" Value="Collapsed"/>
+											</DataTrigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="draconicDragonborn">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Grid>
+											<ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h0e1fded7g681ag4e5fgb0a2gc5928ab399a1', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h861a433dgcc20g452bg9b1agde89d14c85c9', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,50,0,0"/>
+
+													<ls:LSToggleButton x:Name="draconicDragonbornToggle" Template="{StaticResource DraconicDragonbornTickBoxTemplate}" HorizontalAlignment="Center" ls:MoveFocus.Focusable="True" IsChecked="{Binding AppearancePassive.EmptyMaterialSelected, Mode=TwoWay, Converter={StaticResource InvertBoolConverter}}" Command="{Binding DragonbornDraconicLinesToggleCommand}"/>
+
+													<TextBlock x:Name="draconicDragonbornColourHeader" ls:TextBlockFormatter.SourceText="{Binding Source='h7202f8ebgaa5dg411dgac62g3bf8986e28b3', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelSubHeaderText}" Margin="0,100,0,0"/>
+
+													<ItemsControl x:Name="draconicDragonbornColourOptionList" Style="{StaticResource ColorOptionsStyle}" ItemsSource="{Binding AppearancePassive.ColorOptions}"/>
+
+													<ListBox x:Name="draconicDragonbornColourOptionGrid" ItemsSource="{Binding SelectablePassiveColours}" SelectedItem="{Binding SelectedPassiveColour}" ItemTemplate="{StaticResource selectableColourTemplate}" Style="{StaticResource appearanceOverpanelListBoxStyle}" Margin="0,50,0,0"/>
+
+												</StackPanel>
+											</ScrollViewer>
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<ls:SetMoveFocusAction TargetName="CharacterRespec_c"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+										</Grid>
+										<ControlTemplate.Triggers>
+											<DataTrigger Binding="{Binding ElementName=draconicDragonbornToggle, Path=(ls:MoveFocus.IsFocused)}" Value="True">
+												<Setter TargetName="draconicDragonbornToggle" Property="BoundEvent" Value="UIAccept"/>
+											</DataTrigger>
+											<DataTrigger Binding="{Binding ElementName=draconicDragonbornToggle, Path=(ls:MoveFocus.IsFocused)}" Value="True">
+												<Setter TargetName="draconicDragonbornToggle" Property="BoundEvent" Value="UIAccept"/>
+											</DataTrigger>
+											<DataTrigger Binding="{Binding AppearancePassive.EmptyMaterialSelected}" Value="True">
+												<Setter TargetName="draconicDragonbornColourHeader" Property="Visibility" Value="Collapsed"/>
+												<Setter TargetName="draconicDragonbornColourOptionList" Property="Visibility" Value="Collapsed"/>
+												<Setter TargetName="draconicDragonbornColourOptionGrid" Property="Visibility" Value="Collapsed"/>
+											</DataTrigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="deity">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Control Template="{StaticResource deityTabPanelTemplate}">
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<ls:SetMoveFocusAction TargetName="CharacterRespec_c"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+										</Control>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+
+						<!-- MOD START - Background in respec -->
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="background">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<StackPanel>
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+
+											<Control Template="{StaticResource setGameplayCameraOffsets}"/>
+
+											<ListBox x:Name="backgroundCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}">
+												<ListBox.ItemTemplate>
+													<DataTemplate>
+														<Rectangle x:Name="backgroundIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource BackgroundIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
+														<DataTemplate.Triggers>
+															<DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+																<Setter TargetName="backgroundIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+																<Setter TargetName="backgroundIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+																<Setter TargetName="backgroundIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+																<Setter TargetName="backgroundIcon" Property="Opacity" Value="0.8"/>
+															</DataTrigger>
+														</DataTemplate.Triggers>
+													</DataTemplate>
+												</ListBox.ItemTemplate>
+											</ListBox>
+
+											<ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+												<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.BackgroundDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,30,0,0"/>
+
+													<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h230f60c6g161fg481bgbe52g42bc264618dd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource FeatureListHeaderText}"/>
+
+													<Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.BackgroundProgression}" HorizontalAlignment="Center"/>
+
+												</StackPanel>
+											</ScrollViewer>
+
+										</StackPanel>
+
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+						<!-- MOD END -->
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="ability">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Grid>
+											<TextBlock VerticalAlignment="Bottom" Visibility="{Binding IsEnabled, ElementName=nextButton, Converter={StaticResource BoolToCollapsedConverter}}"
+													   ls:TextBlockFormatter.SourceText="{Binding Source='hda071eb3g6ac5g4ed2g992ag67fc4e472be3', Converter={StaticResource TranslatedStringConverter}}"
+													   Style="{StaticResource gameplayPanelContinueTextStyle}"/>
+
+											<StackPanel VerticalAlignment="Top">
+												<StackPanel.Resources>
+													<BitmapImage x:Key="IconProficiency" UriSource="pack://application:,,,/Core;component/Assets/CharacterCreation/ico_proficiency.png"/>
+												</StackPanel.Resources>
+												<b:Interaction.Triggers>
+													<b:EventTrigger EventName="Loaded">
+														<ls:SetMoveFocusAction TargetName="CharacterRespec_c"/>
+													</b:EventTrigger>
+												</b:Interaction.Triggers>
+
+												<Control Template="{StaticResource setOverviewCamera}"/>
+
+												<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h711b5e8bgb67bg43f7gac08g36b2e2466acd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+
+												<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
+													<TextBlock x:Name="AssignAbilityPointsTitle" ls:TextBlockFormatter.SourceText="{Binding Source='h72161eb0g8981g45cfgba63ga76e152e1fe9', Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextNormal}"/>
+													<TextBlock x:Name="AssignAbilityPointsValue" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}" Margin="20,0,0,0">
+													<Run Text="{Binding UsedAbilityPoints}"/><Run Text="{Binding TotalAbilityPoints, StringFormat='/{0}'}"/>
+													</TextBlock>
+												</StackPanel>
+
+												<ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+													<StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+														<ItemsControl ItemsSource="{Binding DummyCharacter.Stats.Abilities}" Margin="0,50,0,0">
+															<ItemsControl.ItemTemplate>
+																<DataTemplate DataType="ls:VMAbility">
+																	<ContentControl Template="{StaticResource CarouselButtonTemplate}" Tag="notEnabled" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True" ToolTip="{StaticResource ManagedTooltip}">
+																		<Grid HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0">
+																			<StackPanel Orientation="Horizontal">
+																				<Control Template="{StaticResource AbilityDisplayName}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextNormal}" VerticalAlignment="Center"/>
+																				<Image Source="{StaticResource IconProficiency}" Stretch="None" Visibility="{Binding IsPrimary, Converter={StaticResource BoolToVisibleConverter}, ConverterParameter=True}" Margin="20,0,0,0"/>
+																			</StackPanel>
+
+
+																			<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="400,0,0,0">
+																				<ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" IsEnabled="{Binding CanDecrease}" Command="{Binding DataContext.DecreaseAbility, ElementName=CharacterRespec_c}" CommandParameter="{Binding}"  Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Center" SoundID="UI_HUD_CC_DecreaseAbility">
+																					<ls:LSButton.RenderTransform>
+																						<ScaleTransform ScaleX="-1" CenterX="32"/>
+																					</ls:LSButton.RenderTransform>
+																				</ls:LSButton>
+
+																				<Grid VerticalAlignment="Center" MinWidth="80">
+																					<TextBlock x:Name="value" ls:TextBlockFormatter.SourceText="{Binding Value}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}" HorizontalAlignment="Center"/>
+																				</Grid>
+
+																				<ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" IsEnabled="{Binding CanIncrease}" Command="{Binding DataContext.IncreaseAbility, ElementName=CharacterRespec_c}" CommandParameter="{Binding}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Center" SoundID="UI_HUD_CC_IncreaseAbility"/>
+																			</StackPanel>
+
+																			<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="650,0,0,0">
+																				<StackPanel.Resources>
+																					<Style TargetType="Image">
+																						<Setter Property="Source" Value="{StaticResource DotOff}"/>
+																						<Setter Property="Stretch" Value="None"/>
+																						<Setter Property="Width" Value="44"/>
+																						<Setter Property="Height" Value="44"/>
+																						<Setter Property="Margin" Value="-7,0,-7,0"/>
+																					</Style>
+																				</StackPanel.Resources>
+																				<Image x:Name="dot8"/>
+																				<Image x:Name="dot9"/>
+																				<Image x:Name="dot10"/>
+																				<Image x:Name="dot11"/>
+																				<Image x:Name="dot12"/>
+																				<Image x:Name="dot13"/>
+																				<Image x:Name="dot14"/>
+																				<Image x:Name="dot15"/>
+																				<Image x:Name="dot16"/>
+																				<Image x:Name="dot17"/>
+																				<Image x:Name="dot18"/>
+																				<Image x:Name="dot19"/>
+																				<Image x:Name="dot20"/>
+																			</StackPanel>
+
+																		</Grid>
+																	</ContentControl>
+																	<DataTemplate.Triggers>
+
+																		<!-- With Bonuses Value -->
+
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=7}" Value="True">
+																			<Setter TargetName="dot8" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=8}" Value="True">
+																			<Setter TargetName="dot9" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=9}" Value="True">
+																			<Setter TargetName="dot10" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=10}" Value="True">
+																			<Setter TargetName="dot11" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=11}" Value="True">
+																			<Setter TargetName="dot12" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=12}" Value="True">
+																			<Setter TargetName="dot13" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=13}" Value="True">
+																			<Setter TargetName="dot14" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=14}" Value="True">
+																			<Setter TargetName="dot15" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=15}" Value="True">
+																			<Setter TargetName="dot16" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=16}" Value="True">
+																			<Setter TargetName="dot17" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=17}" Value="True">
+																			<Setter TargetName="dot18" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=18}" Value="True">
+																			<Setter TargetName="dot19" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+
+																		<DataTrigger Binding="{Binding Value, Converter={StaticResource GreaterThanConverter}, ConverterParameter=19}" Value="True">
+																			<Setter TargetName="dot20" Property="Source" Value="{StaticResource DotBonus}"/>
+																		</DataTrigger>
+
+																		<!-- Base Value -->
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=7}" Value="True">
+																			<Setter TargetName="dot8" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=8}" Value="True">
+																			<Setter TargetName="dot9" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=9}" Value="True">
+																			<Setter TargetName="dot10" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=10}" Value="True">
+																			<Setter TargetName="dot11" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=11}" Value="True">
+																			<Setter TargetName="dot12" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=12}" Value="True">
+																			<Setter TargetName="dot13" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=13}" Value="True">
+																			<Setter TargetName="dot14" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=14}" Value="True">
+																			<Setter TargetName="dot15" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=15}" Value="True">
+																			<Setter TargetName="dot16" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=16}" Value="True">
+																			<Setter TargetName="dot17" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=17}" Value="True">
+																			<Setter TargetName="dot18" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=18}" Value="True">
+																			<Setter TargetName="dot19" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+
+																		<DataTrigger Binding="{Binding BaseValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=19}" Value="True">
+																			<Setter TargetName="dot20" Property="Source" Value="{StaticResource DotOn}"/>
+																		</DataTrigger>
+
+
+																	</DataTemplate.Triggers>
+																</DataTemplate>
+															</ItemsControl.ItemTemplate>
+														</ItemsControl>
+
+														<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hbf77d20fgab50g4611g9e95gbb3de258ae75', Converter={StaticResource TranslatedStringConverter}}" FontSize="{StaticResource ScaledDefaultFontSize}" HorizontalAlignment="Center" Foreground="{StaticResource CCTextNormal}" Margin="0,50,0,0"/>
+
+														<ItemsControl ItemsSource="{Binding RaceProgressionDetails.AbilityBonusSelection}" Margin="0,24,0,0">
+															<ItemsControl.ItemTemplate>
+																<DataTemplate>
+																	<ContentControl Template="{StaticResource CarouselButtonTemplate}" Tag="notEnabled" x:Name="base" ls:MoveFocus.Focusable="True" Focusable="True">
+																		<Grid VerticalAlignment="Center" Margin="50,0,50,0">
+
+																			<TextBlock x:Name="bonus" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextNormal}" HorizontalAlignment="Left" VerticalAlignment="Center">
+																				<TextBlock.Text>
+																					<MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+																						<Binding Source="hcb0e1e92ga5eeg4823g8e03gee3c7bdf9b58"/>
+																						<Binding Path="AbilityBonus"/>
+																					</MultiBinding>
+																				</TextBlock.Text>
+																			</TextBlock>
+
+																			<ListBox x:Name="abilityBonuses" ItemsSource="{Binding BonusAbilities}" SelectedIndex="{Binding SelectedIndex}">
+
+																				<ListBox.Template>
+																					<ControlTemplate>
+																						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+																							<ls:LSButton x:Name="leftBtn" BoundEvent="UILeft" Command="{Binding DataContext.SelectPrevAbilityBonus, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" SoundID="{DynamicResource CarouselButtonSoundEvent}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Center">
+																								<ls:LSButton.RenderTransform>
+																									<ScaleTransform ScaleX="-1" CenterX="32"/>
+																								</ls:LSButton.RenderTransform>
+																							</ls:LSButton>
+
+																							<Grid VerticalAlignment="Center" MinWidth="400">
+
+																								<Control Template="{StaticResource AbilityDisplayName}" DataContext="{Binding SelectedItem, ElementName=abilityBonuses}" FontSize="{StaticResource ScaledDefaultFontSize}" Foreground="{StaticResource CCTextPrimary}" HorizontalAlignment="Center"/>
+
+																							</Grid>
+
+																							<ls:LSButton x:Name="rightBtn" BoundEvent="UIRight" Command="{Binding DataContext.SelectNextAbilityBonus, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" SoundID="{DynamicResource CarouselButtonSoundEvent}" Style="{StaticResource IconCarouselButtonStyle}" VerticalAlignment="Center"/>
+
+																						</StackPanel>
+																					</ControlTemplate>
+																				</ListBox.Template>
+																			</ListBox>
+																		</Grid>
+																	</ContentControl>
+																</DataTemplate>
+															</ItemsControl.ItemTemplate>
+														</ItemsControl>
+
+													</StackPanel>
+												</ScrollViewer>
+
+											</StackPanel>
+										</Grid>
+
+										<ControlTemplate.Triggers>
+											<DataTrigger Binding="{Binding UnusedAbilityPoints, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+												<Setter TargetName="AssignAbilityPointsTitle" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
+												<Setter TargetName="AssignAbilityPointsValue" Property="Foreground" Value="{StaticResource CCTabToDo}"/>
+											</DataTrigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="skills">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<StackPanel>
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<b:InvokeCommandAction Command="{Binding EnableTooltipOnUIElementCommand, ElementName=CharacterRespec_c}"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+											<Control Template="{StaticResource setOverviewCamera}"/>
+											
+											<Control Template="{StaticResource skillsSelectionTemplate}" DataContext="{Binding AllSkills.ClassProficientSkills}">
+												<Control.Resources>
+													<ControlTemplate x:Key="skillsSelectionHeader">
+														<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h6df70972gfd55g4f29g9431g0a1530858ccf', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+													</ControlTemplate>
+													<ControlTemplate x:Key="skillsSelectionDescription">
+														<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h50102d2egd75ag447dgba88gf64cd903a457', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" MaxWidth="1100" TextWrapping="Wrap"/>
+													</ControlTemplate>
+													<ControlTemplate x:Key="skillsSelectedLabel">
+														<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h8931179bg03ebg45bdg8dbbg824c1178ccbd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillsTitleStyle}"/>
+													</ControlTemplate>
+													<ControlTemplate x:Key="selectableSkills">
+														<ItemsControl ItemsSource="{Binding SortedItems, ElementName=SortedClassSkills}" ItemTemplate="{StaticResource selectableSkillTemplate}"/>
+													</ControlTemplate>
+												</Control.Resources>
+											</Control>
+										</StackPanel>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="expertise">
+							<Setter TargetName="gameplayPanel" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<StackPanel>
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<b:InvokeCommandAction Command="{Binding EnableTooltipOnUIElementCommand, ElementName=CharacterRespec_c}"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+											<Control Template="{StaticResource setOverviewCamera}"/>
+											
+											<Control Template="{StaticResource skillsSelectionTemplate}" DataContext="{Binding AllSkills.ExpertiseSkills}">
+												<Control.Resources>
+													<ControlTemplate x:Key="skillsSelectionHeader">
+														<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hb05a8953g3596g4e62g91c4gb1a8f8babd71', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
+													</ControlTemplate>
+													<ControlTemplate x:Key="skillsSelectionDescription">
+														<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='hcaaf5b44gc727g4765gb347g4aad3cce1837', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelDescriptionText}" MaxWidth="1100" TextWrapping="Wrap"/>
+													</ControlTemplate>
+													<ControlTemplate x:Key="skillsSelectedLabel">
+														<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h863c91fbg1f42g4969gb7b1ga1245440b043', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource SkillsTitleStyle}"/>
+													</ControlTemplate>
+													<ControlTemplate x:Key="selectableSkills">
+														<ItemsControl ItemsSource="{Binding SortedItems, ElementName=SortedExpertiseSkills}" ItemTemplate="{StaticResource selectableSkillTemplate}"/>
+													</ControlTemplate>
+												</Control.Resources>
+											</Control>
+										</StackPanel>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="naming">
+							<Setter TargetName="leftSideShading" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="gameplayPanel" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="tabNavigation" Property="HorizontalAlignment" Value="Stretch"/>
+							<Setter TargetName="namingBackground" Property="Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Grid>
+											<b:Interaction.Triggers>
+												<b:EventTrigger EventName="Loaded">
+													<b:InvokeCommandAction Command="{Binding HideTooltipOnUIElementCommand, ElementName=CharacterRespec_c}"/>
+												</b:EventTrigger>
+											</b:Interaction.Triggers>
+
+											<Control Template="{StaticResource setNamingCamera}"/>
+
+											<Rectangle x:Name="lowerShading" Height="800" VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+												<Rectangle.Fill>
+													<LinearGradientBrush StartPoint="0,0" EndPoint="0,1" >
+														<GradientStop Color="{StaticResource transparentBlack}" Offset="0"/>
+														<GradientStop Color="Black" Offset="1"/>
+													</LinearGradientBrush>
+												</Rectangle.Fill>
+											</Rectangle>
+
+											<Grid MinWidth="1100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,350">
+												<Grid Background="{StaticResource CCTextSpecial}" Opacity="0.8" Height="100"/>
+
+												<TextBlock x:Name="characterName" Text="{Binding CharacterName}" IsEnabled="False" Foreground="{StaticResource CCTextPrimary}"
+														   FontSize="{StaticResource ScaledMassiveFontSize}" TextAlignment="Center" VerticalAlignment="Center"/>
+											</Grid>
+
+											<ls:LSButton x:Name="confirmButton" Style="{StaticResource confirmRespecButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,200"/>
+										</Grid>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</DataTrigger>
+						
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding SelectedSubClass.IsDraconicSorcerer}" Value="True"/>
+								<Condition Binding="{Binding IsDragonborn}" Value="False"/>
+							</MultiDataTrigger.Conditions>
+							<MultiDataTrigger.Setters>
+								<Setter TargetName="draconicTab" Property="Visibility" Value="Visible"/>
+							</MultiDataTrigger.Setters>
+						</MultiDataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding SelectedSubClass.IsDraconicSorcerer}" Value="True"/>
+								<Condition Binding="{Binding IsDragonborn}" Value="True"/>
+							</MultiDataTrigger.Conditions>
+							<MultiDataTrigger.Setters>
+								<Setter TargetName="draconicDragonbornTab" Property="Visibility" Value="Visible"/>
+							</MultiDataTrigger.Setters>
+						</MultiDataTrigger>
+
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Control.Template>
+		</Control>
+
+	</Grid>
+
+</ls:UIWidget>
