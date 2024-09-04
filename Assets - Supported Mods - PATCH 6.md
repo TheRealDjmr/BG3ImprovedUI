@@ -1,3 +1,4 @@
+This is no longer required for custom icons due to changes in Patch 7. If a mod on this list is having issues with custom icons, the modding guides via this link will help - https://baldursgate3.game/mods/#/r
 
 <p align="middle">
   <img src="https://i.imgur.com/6Zso95t.png">
