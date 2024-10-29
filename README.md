@@ -3,6 +3,8 @@
   <img src="https://i.imgur.com/6Zso95t.png"> 
 </p>
 
+29/10/24 - I've been struggling to write this but something is better than nothing. I'm not going to continue modding for the time being. Feel free to reach out if you want to work on ImpUI or any other UI mods. I just can't maintain mods on top of everything.
+
 #### Description
 This mod is aimed at making changes to the overall user interface to improve usability as well as opening options to more potential mods.
 
