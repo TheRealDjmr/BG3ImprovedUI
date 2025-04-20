@@ -1,0 +1,2105 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:ls="clr-namespace:ls;assembly=Code"
+					xmlns:System="clr-namespace:System;assembly=mscorlib"
+					xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+					xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					mc:Ignorable="d">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="IUI_ActionResources.xaml"/>
+		<ResourceDictionary Source="RedeclaredTooltips.xaml"/>
+		<!--<ResourceDictionary Source="CharacterSheetTemplates_k.xaml"/>-->
+	</ResourceDictionary.MergedDictionaries>
+
+	<!-- From CharacterSheetTemplates_k.xaml -->
+	<!--===== MULTICLASS SPELLBOOK TEMPLATE =====-->
+	<ControlTemplate x:Key="MultiClassSpellbookTemplate">
+		<!-- DataContext of this should be a VMCharacter -->
+		<ControlTemplate.Resources>
+			<BitmapImage x:Key="SpellbookBg_Small" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/spellbook_bg_small.png"/>
+
+			<BitmapImage x:Key="SpellsBorder_Small" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/knownSpells_frame_small.png" />
+
+			<BitmapImage x:Key="ClassBorder_Small" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/spellbookTop_frame_small.png" />
+			<ImageBrush x:Key="ClassBorderEdges_Small" ImageSource="{StaticResource ClassBorder_Small}" Stretch="None" ViewboxUnits="Absolute" Viewbox="0,0,668,22"/>
+			<ImageBrush x:Key="ClassBorderCenter_Small" ImageSource="{StaticResource ClassBorder_Small}" Stretch="Fill" TileMode="Tile" AlignmentY="Top" ViewboxUnits="Absolute" Viewbox="0,22,668,28" ViewportUnits="Absolute" Viewport="0,22,668,28"/>
+
+			<BitmapImage x:Key="PreparedSpellsTop_Small" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/preparedBoxTile_small_top.png" />
+			<BitmapImage x:Key="PreparedSpellsCenter_Small" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/preparedBoxTile_small_middle.png" />
+			<BitmapImage x:Key="PreparedSpellsBottom_Small" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/preparedBoxTile_small_bottom.png" />
+
+			<System:Double x:Key="PageIconSize">200</System:Double>
+			<System:Double x:Key="SpellCellSize">72</System:Double>
+			<System:Double x:Key="SpellCellContentSize">68</System:Double>
+
+			<System:Double x:Key="TopBarHeight">76</System:Double>
+			<GridLength x:Key="TopBarHeightGridLength">76</GridLength>
+
+			<System:Int32 x:Key="InitialTab">0</System:Int32>
+
+			<BitmapImage x:Key="SpellbookBg" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/spellbook_bg.png"/>
+
+			<BitmapImage x:Key="CantripsIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_classCantrip.png" />
+			<BitmapImage x:Key="ClassActionIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_classAction.png" />
+			<BitmapImage x:Key="TadpoleActionIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_illithid.png" />
+			<BitmapImage x:Key="MetamagicIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_sorcerer.png" />
+			<BitmapImage x:Key="AlwaysPreparedSpellsIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_alwaysPrepared.png" />
+			<BitmapImage x:Key="PreparedSpellsIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_preparedList.png" />
+			<BitmapImage x:Key="WarlockSpellsIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_warlock.png" />
+			<BitmapImage x:Key="SpellsLv1Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_01.png" />
+			<BitmapImage x:Key="SpellsLv2Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_02.png" />
+			<BitmapImage x:Key="SpellsLv3Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_03.png" />
+			<BitmapImage x:Key="SpellsLv4Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_04.png" />
+			<BitmapImage x:Key="SpellsLv5Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_05.png" />
+			<BitmapImage x:Key="SpellsLv6Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_06.png" />
+			<BitmapImage x:Key="SpellsLv7Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_07.png" />
+			<BitmapImage x:Key="SpellsLv8Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_08.png" />
+			<BitmapImage x:Key="SpellsLv9Icon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_knownSpells_lvl_09.png" />
+			<BitmapImage x:Key="CastSavingIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_cast_saving.png" />
+			<BitmapImage x:Key="CastRollIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_cast_roll.png" />
+			<BitmapImage x:Key="ProficientIcon" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/ico_proficient.png" />
+			<BitmapImage x:Key="LongRestIcon" UriSource="pack://application:,,,/Core;component/Assets/BottomBar/ico_camp_d.png" />
+
+			<BitmapImage x:Key="KnownSpellsBg" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/knownSpells_bgStrip.png" />
+
+			<BitmapImage x:Key="MainIconBg" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/spellbook_classFrame.png" />
+			<BitmapImage x:Key="HeaderEntryBg" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/spellbook_headerBox.png" />
+
+			<BitmapImage x:Key="ClassBorder" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/spellbookTop_frame.png" />
+			<ImageBrush x:Key="ClassBorderEdges" ImageSource="{StaticResource ClassBorder}" Stretch="None" ViewboxUnits="Absolute" Viewbox="0,0,1124,23"/>
+			<ImageBrush x:Key="ClassBorderCenter" ImageSource="{StaticResource ClassBorder}" Stretch="Fill" TileMode="Tile" AlignmentY="Top" ViewboxUnits="Absolute" Viewbox="0,23,1124,29" ViewportUnits="Absolute" Viewport="0,23,1124,29"/>
+
+			<BitmapImage x:Key="SpellsBorder" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/knownSpells_frame.png" />
+			<BitmapImage x:Key="SpellsBorderHalf" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/dashedBox_full.png" />
+
+			<BitmapImage x:Key="PreparedSpellsTop" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/preparedBoxTile_top.png" />
+			<BitmapImage x:Key="PreparedSpellsCenter" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/preparedBoxTile_middle.png" />
+			<BitmapImage x:Key="PreparedSpellsBottom" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/preparedBoxTile_bottom.png" />
+			<BitmapImage x:Key="FreeSlotBg" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/preparedBox_OpenSlot.png" />
+
+			<BitmapImage x:Key="SearchBarBg_d" UriSource="pack://application:,,,/Core;component/Assets/Buttons/btn_body_d.png" />
+			<BitmapImage x:Key="SearchBarBg_h" UriSource="pack://application:,,,/Core;component/Assets/Buttons/btn_body_h.png" />
+			<BitmapImage x:Key="SearchIcon" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/ico_search.png" />
+			<BitmapImage x:Key="SearchSortingBg" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/sorting_bg.png" />
+			<BitmapImage x:Key="SearchFilterIcon" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/ico_filter.png" />
+			<BitmapImage x:Key="SearchSelector_d" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/selector_listitem_d.png" />
+			<BitmapImage x:Key="SearchSelector_h" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/selector_listitem_h.png" />
+
+			<BitmapImage x:Key="Tab_d" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/tab_body_inactive_d.png" />
+			<BitmapImage x:Key="Tab_h" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/tab_body_inactive_h.png" />
+			<BitmapImage x:Key="Tab_p" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/tab_body_inactive_p.png" />
+			<BitmapImage x:Key="TabSelected_d" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/tab_body_active_d.png" />
+			<BitmapImage x:Key="TabSelected_h" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/tab_body_active_h.png" />
+			<BitmapImage x:Key="TabSelected_p" UriSource="pack://application:,,,/Core;component/Assets/CharacterPanel/tab_body_active_p.png" />
+
+			<BitmapImage x:Key="RemoveSpellIcon" UriSource="pack://application:,,,/Core;component/Assets/CharacterCreation/remover_spellslot.png" />
+			<BitmapImage x:Key="PreparedSpellIcon" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_prepared.png" />
+			<BitmapImage x:Key="PreparedSpellBorder" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/frame_perpared.png" />
+
+			<Style TargetType="TextBlock">
+				<Setter Property="Foreground" Value="{StaticResource LS_tint100}"/>
+				<Setter Property="FontFamily" Value="{StaticResource DefaultFont}"/>
+				<Setter Property="FontSize" Value="{DynamicResource ScaledMediumFontSize}"/>
+				<Setter Property="TextWrapping" Value="Wrap"/>
+			</Style>
+
+			<Style x:Key="ActionGroupTitleStyle" TargetType="TextBlock">
+				<Setter Property="Foreground" Value="{StaticResource LS_extraspecialTxtColor}"/>
+				<Setter Property="FontSize" Value="{DynamicResource ScaledSmallFontSize}"/>
+				<Setter Property="Visibility" Value="{Binding (ls:TextBlockFormatter.SourceText), RelativeSource={RelativeSource Self}, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}"/>
+				<Setter Property="Margin" Value="0,22,0,0"/>
+			</Style>
+
+			<Style x:Key="CastInfoControlStyle" TargetType="ContentControl">
+				<Setter Property="MinWidth" Value="150"/>
+				<Setter Property="Margin" Value="2,0"/>
+				<Setter Property="VerticalAlignment" Value="Center"/>
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate>
+							<ls:LSNineSliceImage ImageSource="{StaticResource HeaderEntryBg}" Slices="16" Padding="20,10" Height="60" MinWidth="128" >
+								<ContentPresenter HorizontalAlignment="Center"/>
+							</ls:LSNineSliceImage>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="PartyPanel">
+						<Setter Property="MinWidth" Value="136"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<ItemsPanelTemplate x:Key="SpellbookItemsPanelTemplate">
+				<WrapPanel HorizontalAlignment="Left"/>
+			</ItemsPanelTemplate>
+
+			<ControlTemplate x:Key="SpellbookActionGroup">
+				<Grid x:Name="ActionGroupRoot">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition x:Name="Column0" Width="120"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition x:Name="Column2" Width="120"/>
+					</Grid.ColumnDefinitions>
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<TextBlock x:Name="GroupName" Grid.Column="1" Grid.Row="0" ls:TextBlockFormatter.SourceText="" Style="{StaticResource ActionGroupTitleStyle}"/>
+
+					<Border x:Name="IconContainer" Grid.Column="0" Grid.Row="1" Height="48" VerticalAlignment="Top" Margin="0,12,0,0">
+						<Image x:Name="Icon" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="None" />
+					</Border>
+
+					<Border x:Name="Actions" Grid.Column="1" Grid.Row="1">
+						<ItemsPresenter x:Name="Presenter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+							<ItemsPresenter.Width>
+								<MultiBinding Converter="{StaticResource RoundDownMultiConverter}">
+									<Binding Path="ActualWidth" ElementName="Actions"/>
+									<Binding Source="{StaticResource SpellCellSize}"/>
+								</MultiBinding>
+							</ItemsPresenter.Width>
+						</ItemsPresenter>
+					</Border>
+
+					<ItemsControl x:Name="Resources" Grid.Column="2" Grid.Row="1"
+													  ItemsSource="{Binding GroupResources}" 
+													  VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,48,0" 
+													  Visibility="{Binding GroupResources.Count, Converter={StaticResource CountToVisibilityConverter}}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="ls:VMGroupResource">
+								<Grid x:Name="GroupResourceRoot" Visibility="{Binding MaxValue, Converter={StaticResource CountToVisibilityConverter}}">
+									<ls:LSActionPointResources x:Name="ResourcePoints" 
+																			   ToolTipService.Placement="Top" ToolTip="{StaticResource ManagedTooltip}" 
+																			   VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,18,0,-18"
+																			   MaxActionPoints="{Binding MaxValue}" 
+																			   AvailableActionPoints="{Binding Value}"
+																			   ActionPointSize="48" SmallActionPointSize="25" ActionPointGroupSize="50" 
+																			   HighlightedActionPoints="0" 
+																			   Style="{DynamicResource ActionResourcesTemplateSelector}"
+																			   ls:AttachedProperties.InheritedTag="NoAnimation"/>
+
+									<TextBlock x:Name="SpellSlotLevel" 
+															   Text="{Binding Level, Converter={StaticResource DecimalToRomanConverter}}" 
+															   Foreground="{StaticResource LS_tint100}" 
+															   VerticalAlignment="Top" HorizontalAlignment="Center"
+															   IsHitTestVisible="False" 
+															   FontSize="{StaticResource MiniFontSize}" 
+															   FontWeight="Bold" noesis:Text.Stroke="{StaticResource LS_tint00}" noesis:Text.StrokeThickness="5"/>
+								</Grid>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</Grid>
+
+				<ControlTemplate.Triggers>
+					<!-- MetaMagic -->
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="MetaMagic">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h007741f2ge0abg4842g99f1gcfa286352e4a', Converter={StaticResource TranslatedStringConverter}}"/>
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource MetamagicIcon}"/>
+						<Setter TargetName="GroupName" Property="Foreground" Value="{StaticResource Sorcerer.Metamagic}"/>
+					</DataTrigger>
+
+					<!-- Passives -->
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="Passives">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hccb74959ga789g46f6g8cc2g73edf1536b6a', Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="TadpolePassives">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hb34891acg5c1dg4c00gbdffg28f4611d661a', Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+
+					<!-- Always prepared -->
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="AlwaysPrepared">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource AlwaysPreparedSpellsIcon}"/>
+					</DataTrigger>
+
+					<!-- Prepared -->
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="Prepared">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource PreparedSpellsIcon}"/>
+					</DataTrigger>
+
+					<!-- Feats -->
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="CharacterFeats">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source=h0903b2a0g1e63g4553ga7e5gb60812ee4364, Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="ClassFeats">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source=hf0ecb46dgcfb5g4979gbdf5g1c48ca834de8, Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="TadpoleFeats">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source=h97b3e255g3188g4739g9e16ge08349058868, Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+
+					<!-- Cantrips -->
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Cantrip">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h85581f8bg866cg4da4g9d7agffb21a8cfade', Converter={StaticResource TranslatedStringConverter}}"/>
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource CantripsIcon}"/>
+						<Setter TargetName="Resources" Property="Visibility" Value="Collapsed"/>
+					</DataTrigger>
+
+					<!-- Spell levels -->
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level1">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv1Icon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level2">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv2Icon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level3">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv3Icon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level4">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv4Icon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level5">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv5Icon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level6">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv6Icon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level7">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv7Icon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level8">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv8Icon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="Level9">
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource SpellsLv9Icon}"/>
+					</DataTrigger>
+
+					<!-- Actions -->
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="SpecialActions">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h66448586g6071g4b12g8e48g27cd0d5715ab', Converter={StaticResource TranslatedStringConverter}}"/>
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource ClassActionIcon}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="WeaponActions">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h37cf9a7bge200g4d99g8cf8gaf035b189c60', Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding GroupType.GroupType}" Value="CommonActions">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='hb4d6c027ge6c2g4ebag8d04g6d5f7febd91d', Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="TadpoleActions">
+						<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source=hceaee723g15d8g47adg99edg436618d1e149, Converter={StaticResource TranslatedStringConverter}}"/>
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource TadpoleActionIcon}"/>
+					</DataTrigger>
+
+					<!-- Warlock spells -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding GroupResources[0].MaxValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter='0'}" Value="False"/>
+							<Condition Binding="{Binding GroupResources[1].MaxValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter='0'}" Value="True"/>
+							<Condition Binding="{Binding GroupResources[1].TypeId}" Value="WarlockSpellSlot"/>
+						</MultiDataTrigger.Conditions>
+						<Setter TargetName="Icon" Property="Source" Value="{StaticResource WarlockSpellsIcon}"/>
+					</MultiDataTrigger>
+
+					<!-- Compact View -->
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="HideResources">
+						<Setter TargetName="Column2" Property="Width" Value="0"/>
+						<Setter TargetName="Resources" Property="Visibility" Value="Collapsed"/>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="HideFeatsAndResources">
+						<Setter TargetName="Column2" Property="Width" Value="0"/>
+						<Setter TargetName="Resources" Property="Visibility" Value="Collapsed"/>
+					</DataTrigger>
+
+					<DataTrigger Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="CompactView">
+						<Setter TargetName="Column2" Property="Width" Value="0"/>
+						<Setter TargetName="GroupName" Property="Margin" Value="0"/>
+					</DataTrigger>
+
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="CompactView"/>
+							<Condition Binding="{Binding GroupType.GroupType}" Value="Level1"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter TargetName="GroupName" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source='h062f5cf9gb2e5g4c0dgadc9g68898c250650', Converter={StaticResource TranslatedStringConverter}}"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+
+			<ControlTemplate x:Key="SpellCellTemplate">
+				<Grid x:Name="Container" Background="Transparent" Width="{StaticResource SpellCellContentSize}" Height="{StaticResource SpellCellContentSize}" >
+					<Rectangle x:Name="Icon" Fill="{Binding Icon}" Width="{StaticResource SpellCellContentSize}" Height="{StaticResource SpellCellContentSize}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Rectangle x:Name="hover" Fill="{StaticResource LS_HoverColor}" Visibility="Hidden"/>
+					<Image x:Name="hoverIcon" Source="{StaticResource RemoveSpellIcon}" Stretch="Fill" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden"/>
+					<Image x:Name="Border" Source="{StaticResource PreparedSpellBorder}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden" Width="{StaticResource SpellCellContentSize}" Height="{StaticResource SpellCellContentSize}"/>
+					<Image x:Name="Checkmark" Source="{StaticResource PreparedSpellIcon}" Stretch="None" VerticalAlignment="Bottom" HorizontalAlignment="Right" Visibility="Collapsed" Margin="0,0,-6,-6"/>
+				</Grid>
+
+				<ControlTemplate.Triggers>
+					<DataTrigger Binding="{Binding Datacontext, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource NullToBoolTrueConverter}}" Value="True">
+						<Setter Property="IsEnabled" Value="False"/>
+					</DataTrigger>
+
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
+							<Condition Binding="{Binding Datacontext, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource NullToBoolTrueConverter}}" Value="False"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter TargetName="hover" Property="Visibility" Value="Visible"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding Path=IsMouseOver, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
+							<Condition Binding="{Binding Datacontext, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource NullToBoolTrueConverter}}" Value="False"/>
+							<Condition Binding="{Binding NeedsActivation}" Value="True"/>
+							<Condition Binding="{Binding Activated}" Value="True"/>
+							<Condition Binding="{Binding DataContext.CurrentPlayer.UIData.AllowInteraction, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="True"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter TargetName="hoverIcon" Property="Visibility" Value="Visible"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding SelectedItem.Class.MustPrepareSpells, ElementName=Tabs, FallbackValue=False}" Value="True"/>
+							<Condition Binding="{Binding SpellSlotLevel, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+							<Condition Binding="{Binding Activated}" Value="True"/>
+							<Condition Binding="{Binding NeedsActivation}" Value="True"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter TargetName="Checkmark" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="Border" Property="Visibility" Value="Visible"/>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+
+					<DataTrigger Binding="{Binding (ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="PreparedSpell">
+						<Setter TargetName="Checkmark" Property="Visibility" Value="Collapsed"/>
+						<Setter TargetName="Border" Property="Visibility" Value="Collapsed"/>
+					</DataTrigger>
+
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding (ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="PreparedSpell"/>
+							<Condition Binding="{Binding Datacontext, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource NullToBoolTrueConverter}}" Value="True"/>
+						</MultiDataTrigger.Conditions>
+						<MultiDataTrigger.Setters>
+							<Setter TargetName="Icon" Property="Fill">
+								<Setter.Value>
+									<ImageBrush ImageSource="{StaticResource FreeSlotBg}" Stretch="None"/>
+								</Setter.Value>
+							</Setter>
+						</MultiDataTrigger.Setters>
+					</MultiDataTrigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+
+			<DataTemplate x:Key="PreparedSpellCellTemplate" DataType="ls:VMCharacterAction">
+				<ContentControl x:Name="Container" IsEnabled="{Binding DataContext.CurrentPlayer.UIData.AllowInteraction, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" ToolTipService.Placement="Right" ToolTipService.ShowOnDisabled="True" ls:DragAndDropProperties.DropTargetOwner="{Binding Path=(ls:TooltipExtender.Owner), RelativeSource={RelativeSource Mode=Self}}">
+					<ContentControl.ToolTip>
+						<ls:LSTooltip Content="{Binding DataContext, RelativeSource={RelativeSource TemplatedParent}}" IsHitTestVisible="False"/>
+					</ContentControl.ToolTip>
+
+					<b:Interaction.Behaviors>
+						<ls:DragGenericBehavior StartDragCommand="{Binding DataContext.DragCharacterActionCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+						<ls:DropOnGenericBehavior DropCommand="{Binding DataContext.DropPrepareCharacterAction, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+					</b:Interaction.Behaviors>
+
+					<b:Interaction.Triggers>
+						<b:DataTrigger Binding="{Binding DataContext, ElementName=Container, Converter={StaticResource NullToBoolTrueConverter}}" Value="False">
+							<b:ChangePropertyAction TargetName="SlotButton" PropertyName="IsEnabled" Value="True"/>
+						</b:DataTrigger>
+					</b:Interaction.Triggers>
+
+					<Grid Width="{StaticResource SpellCellSize}" Height="{StaticResource SpellCellSize}">
+						<ls:LSButton x:Name="SlotButton" HorizontalAlignment="Center" VerticalAlignment="Center" Template="{StaticResource SpellCellTemplate}" ls:AttachedProperties.InheritedTag="PreparedSpell" Command="{Binding DataContext.ToggleCharacterAction, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}">
+							<Image Source="{StaticResource RemoveSpellIcon}" Stretch="None"/>
+
+							<b:Interaction.Triggers>
+								<b:EventTrigger EventName="Click">
+									<b:ChangePropertyAction TargetName="SlotButton" PropertyName="IsEnabled" Value="False"/>
+								</b:EventTrigger>
+							</b:Interaction.Triggers>
+						</ls:LSButton>
+
+						<TextBlock x:Name="SpellSlotLevel" Text="{Binding SpellSlotLevel, Converter={StaticResource DecimalToRomanConverter}}" Foreground="{StaticResource LS_tint100}" VerticalAlignment="Bottom" HorizontalAlignment="Right" IsHitTestVisible="False" Margin="0,0,12,0" FontSize="{StaticResource SmallishFontSize}" FontWeight="Bold" noesis:Text.Stroke="{StaticResource LS_tint00}" noesis:Text.StrokeThickness="5"/>
+					</Grid>
+				</ContentControl>
+
+				<DataTemplate.Triggers>
+					<DataTrigger Binding="{Binding DataContext, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource NullToBoolTrueConverter}}" Value="True">
+						<Setter TargetName="Container" Property="ToolTip" Value="{x:Null}"/>
+					</DataTrigger>
+				</DataTemplate.Triggers>
+			</DataTemplate>
+
+			<Style x:Key="SpellCellGridItemContainerStyle" TargetType="ContentPresenter">
+				<Setter Property="Width" Value="{StaticResource SpellCellSize}"/>
+				<Setter Property="Height" Value="{StaticResource SpellCellSize}"/>
+
+				<Style.Triggers>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding DataContext.ComesFromFeat, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
+							<Condition Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="HideFeats"/>
+						</MultiDataTrigger.Conditions>
+						<Setter Property="Visibility" Value="Collapsed"/>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding DataContext.ComesFromFeat, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
+							<Condition Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="HideFeatsAndAlwaysPrepared"/>
+						</MultiDataTrigger.Conditions>
+						<Setter Property="Visibility" Value="Collapsed"/>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding DataContext.ComesFromFeat, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
+							<Condition Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="HideFeatsAndResources"/>
+						</MultiDataTrigger.Conditions>
+						<Setter Property="Visibility" Value="Collapsed"/>
+					</MultiDataTrigger>
+
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding DataContext.SpellSlotLevel, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+							<Condition Binding="{Binding DataContext.Activated, RelativeSource={RelativeSource Mode=Self}}" Value="True"/>
+							<Condition Binding="{Binding DataContext.NeedsActivation, RelativeSource={RelativeSource Mode=Self}}" Value="False"/>
+							<Condition Binding="{Binding Path=(ls:AttachedProperties.InheritedTag), RelativeSource={RelativeSource Mode=Self}}" Value="HideFeatsAndAlwaysPrepared"/>
+						</MultiDataTrigger.Conditions>
+						<Setter Property="Visibility" Value="Collapsed"/>
+					</MultiDataTrigger>
+				</Style.Triggers>
+			</Style>
+
+			<Style x:Key="PassiveCellItemsControlStyle" TargetType="ItemsControl">
+				<Setter Property="Template" Value="{StaticResource SpellbookActionGroup}"/>
+				<Setter Property="AlternationCount" Value="{Binding ItemsSource.Count, RelativeSource={RelativeSource Mode=Self}}"/>
+				<Setter Property="ItemsPanel" Value="{StaticResource SpellbookItemsPanelTemplate}"/>
+				<Setter Property="ItemContainerStyle" Value="{StaticResource SpellCellGridItemContainerStyle}"/>
+				<Setter Property="ItemTemplate">
+					<Setter.Value>
+						<DataTemplate>
+							<ContentControl x:Name="Container" ToolTipService.Placement="Right" ToolTipService.ShowOnDisabled="True" Template="{StaticResource SpellCellTemplate}">
+								<ContentControl.ToolTip>
+									<ls:LSTooltip Content="{TemplateBinding DataContext}" IsHitTestVisible="False"/>
+								</ContentControl.ToolTip>
+								<b:Interaction.Behaviors>
+									<ls:DragGenericBehavior StartDragCommand="{Binding DataContext.DragPassiveCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+								</b:Interaction.Behaviors>
+
+								<b:Interaction.Triggers>
+									<b:EventTrigger EventName="MouseEnter">
+										<ls:LSPlaySound Sound="UI_Shared_Hover"/>
+									</b:EventTrigger>
+									<b:EventTrigger EventName="MouseDown">
+										<ls:LSPlaySound Sound="UI_Shared_Press"/>
+									</b:EventTrigger>
+								</b:Interaction.Triggers>
+
+								<ContentControl.Clip>
+									<EllipseGeometry Center="34,34" RadiusX="34" RadiusY="34" />
+								</ContentControl.Clip>
+							</ContentControl>
+						</DataTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+
+			<DataTemplate x:Key="ActionGroupItemTemplate">
+				<ls:LSButton x:Name="Container" Command="{Binding DataContext.ToggleCharacterAction, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center" ToolTipService.Placement="Right" ToolTipService.ShowOnDisabled="True" Template="{StaticResource SpellCellTemplate}">
+					<ls:LSButton.ToolTip>
+						<ls:LSTooltip Content="{TemplateBinding DataContext}" IsHitTestVisible="False"/>
+					</ls:LSButton.ToolTip>
+					<b:Interaction.Behaviors>
+						<ls:DragGenericBehavior StartDragCommand="{Binding DataContext.DragCharacterActionCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+					</b:Interaction.Behaviors>
+				</ls:LSButton>
+			</DataTemplate>
+
+			<Style x:Key="ActionCellItemsControlStyle" TargetType="ItemsControl">
+				<Setter Property="Template" Value="{StaticResource SpellbookActionGroup}"/>
+				<Setter Property="AlternationCount" Value="{Binding ItemsSource.Count, RelativeSource={RelativeSource Mode=Self}}"/>
+				<Setter Property="ItemsPanel" Value="{StaticResource SpellbookItemsPanelTemplate}"/>
+				<Setter Property="ItemContainerStyle" Value="{StaticResource SpellCellGridItemContainerStyle}"/>
+				<Setter Property="ItemTemplate" Value="{StaticResource ActionGroupItemTemplate}"/>
+			</Style>
+
+			<DataTemplate DataType="{x:Type ls:VMActionGroup}">
+				<Grid>
+					<Image x:Name="AlternateBg" Source="{StaticResource KnownSpellsBg}" Stretch="Fill" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Hidden" Margin="0,0,12,0"/>
+
+					<ItemsControl x:Name="ActionsControl" 
+												  Style="{StaticResource ActionCellItemsControlStyle}" 
+												  ItemsSource="{Binding Actions}" VerticalAlignment="Center"/>
+				</Grid>
+
+				<DataTemplate.Triggers>
+					<DataTrigger Binding="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource Self}, Converter={StaticResource ModuloConverter}, ConverterParameter='2'}" Value="1">
+						<Setter TargetName="AlternateBg" Property="Visibility" Value="Visible"/>
+					</DataTrigger>
+				</DataTemplate.Triggers>
+			</DataTemplate>
+
+			<ControlTemplate x:Key="SpellSearchBarTemplate" TargetType="ls:FilteringContainer">
+				<Grid>
+					<ls:LSNineSliceImage x:Name="SearchBarContainer" ImageSource="{StaticResource SearchBarBg_d}" Slices="36,34" Padding="20,10" Height="72" Margin="0,-6">
+						<Grid VerticalAlignment="Center">
+							<TextBlock x:Name="CategoryName" Visibility="Collapsed" Text="{Binding Source=hf4c636b5g41beg4369ga0aegfe58a3ab7cd3, Converter={StaticResource TranslatedStringConverter}}"/>
+							<TextBlock x:Name="AdditionalFilters" Visibility="Collapsed" Text=""/>
+
+							<Image Source="{StaticResource SearchIcon}" Stretch="None" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+							<ls:LSTextBox x:Name="PART_FilterSearchBox" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="60,0,0,0" Height="56" TextAlignment="Left" FontSize="{DynamicResource ScaledMediumFontSize}" TextWrapping="NoWrap" Focusable="True" SelectTextOnFocus="True">
+								<noesis:Text.Placeholder>
+									<MultiBinding StringFormat="{}{0}{1}{2}{3}">
+										<Binding Path="Text" ElementName="CategoryName"/>
+										<Binding Path="CurrentFilter" RelativeSource="{RelativeSource Mode=TemplatedParent}" FallbackValue=""/>
+										<Binding Path="CurrentFilter.Name" RelativeSource="{RelativeSource Mode=TemplatedParent}" FallbackValue=""/>
+										<Binding Path="Text" ElementName="AdditionalFilters"/>
+									</MultiBinding>
+								</noesis:Text.Placeholder>
+							</ls:LSTextBox>
+						</Grid>
+					</ls:LSNineSliceImage>
+
+					<Popup x:Name="StringSuggestionPopup" IsOpen="False" >
+						<ls:LSNineSliceImage x:Name="FilterCategories" Margin="0,-12,0,0"  HorizontalAlignment="Left" ImageSource="{StaticResource SearchSortingBg}" Slices="60" Padding="10,40">
+							<StackPanel>
+								<TextBlock Foreground="{StaticResource LS_accent25TxtColor}" FontSize="{StaticResource SmallishFontSize}" Text="{Binding Source='hc0ed9c5ag8a2cg4167g8242g5076d73d695f',Converter={StaticResource TranslatedStringConverter}}" Margin="20,0" VerticalAlignment="Top"/>
+
+								<ListBox x:Name="FilterListHolder" ItemsSource="{TemplateBinding SuggestedFiltersList}" SelectedItem="{Binding CurrentFilterInternal,RelativeSource={RelativeSource TemplatedParent}}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="20,0,0,0" VerticalAlignment="Top">
+									<ListBox.Resources>
+										<DataTemplate DataType="{x:Type ls:VMEnumFilter}">
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"/>
+													<ColumnDefinition Width="Auto"/>
+													<ColumnDefinition Width="*"/>
+												</Grid.ColumnDefinitions>
+												<Image Grid.Column="0" Grid.ColumnSpan="3" x:Name="BtnBorder" Stretch="None" Source="{StaticResource SearchSelector_d}"/>
+												<Image Grid.Column="0" Stretch="None" Source="{StaticResource SearchFilterIcon}" VerticalAlignment="Center" Margin="4,0,16,0"/>
+												<TextBlock Grid.Column="1" x:Name="BtnText" Text="{Binding Name}" Foreground="{StaticResource LS_baseTxtColor}" FontSize="{StaticResource MediumFontSize}" HorizontalAlignment="Left" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+												<TextBlock Grid.Column="2" x:Name="CategoryText" Foreground="{StaticResource LS_baseTxtColor}" FontSize="{StaticResource MediumFontSize}" HorizontalAlignment="Left" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,20,0"/>
+											</Grid>
+
+											<DataTemplate.Triggers>
+												<Trigger Property="IsMouseOver" Value="True">
+													<Setter TargetName="BtnBorder" Property="Source" Value="{StaticResource SearchSelector_h}"/>
+													<Setter TargetName="BtnText" Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
+													<Setter TargetName="CategoryText" Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
+												</Trigger>
+
+												<DataTrigger Value="True">
+													<DataTrigger.Binding>
+														<MultiBinding Converter="{StaticResource EqualConverter}">
+															<Binding Path="EnumName"/>
+															<Binding Source="ESpellSchool"/>
+														</MultiBinding>
+													</DataTrigger.Binding>
+													<Setter TargetName="CategoryText" Property="Text" Value="{Binding Source=he9daaf0fg24ecg49e2gaab5g36974104a8b6,Converter={StaticResource TranslatedStringConverter}, StringFormat=' ({0})'}"/>
+												</DataTrigger>
+
+												<DataTrigger Value="True">
+													<DataTrigger.Binding>
+														<MultiBinding Converter="{StaticResource EqualConverter}">
+															<Binding Path="EnumName"/>
+															<Binding Source="EDamageType"/>
+														</MultiBinding>
+													</DataTrigger.Binding>
+													<Setter TargetName="CategoryText" Property="Text" Value="{Binding Source=h476d8aabg45c5g4452ga4dbgf911f76351c7,Converter={StaticResource TranslatedStringConverter}, StringFormat=' ({0})'}"/>
+												</DataTrigger>
+											</DataTemplate.Triggers>
+										</DataTemplate>
+										<DataTemplate DataType="{x:Type ls:VMCharacterAction}">
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="Auto"/>
+													<ColumnDefinition Width="*"/>
+												</Grid.ColumnDefinitions>
+												<Image Grid.Column="0" Grid.ColumnSpan="2" x:Name="BtnBorder" Stretch="None" Source="{StaticResource SearchSelector_d}"/>
+												<Rectangle Grid.Column="0" Width="28" Height="28" Fill="{Binding Icon}" VerticalAlignment="Center" Margin="4,0,16,0"/>
+												<TextBlock Grid.Column="1" x:Name="BtnText" Text="{Binding Name}" Foreground="{StaticResource LS_baseTxtColor}" FontSize="{StaticResource MediumFontSize}" HorizontalAlignment="Left" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Width="400"/>
+											</Grid>
+
+											<DataTemplate.Triggers>
+												<Trigger Property="IsMouseOver" Value="True">
+													<Setter TargetName="BtnBorder" Property="Source" Value="{StaticResource SearchSelector_h}"/>
+													<Setter TargetName="BtnText" Property="Foreground" Value="{StaticResource LS_accent100TxtColor}"/>
+												</Trigger>
+											</DataTemplate.Triggers>
+										</DataTemplate>
+									</ListBox.Resources>
+
+									<ListBox.ItemsPanel>
+										<ItemsPanelTemplate>
+											<StackPanel Orientation="Vertical"/>
+										</ItemsPanelTemplate>
+									</ListBox.ItemsPanel>
+								</ListBox>
+							</StackPanel>
+						</ls:LSNineSliceImage>
+					</Popup>
+
+					<Popup x:Name="EnumPopup" IsOpen="{TemplateBinding IsPopupVisible}" >
+						<ls:LSNineSliceImage Margin="0,-12,0,0"  HorizontalAlignment="Stretch" ImageSource="{StaticResource SearchSortingBg}" Slices="60" Padding="10,40">
+							<StackPanel Margin="20,0,0,0">
+								<Control x:Name="SpellSchoolCategory" Template="{StaticResource SpellFilterCategoryTemplate}" DataContext="{Binding Path=(b:Interaction.Behaviors)[0].FilteredItems, RelativeSource={RelativeSource Mode=Self}}" ls:AttachedProperties.InheritedTag="he9daaf0fg24ecg49e2gaab5g36974104a8b6">
+									<b:Interaction.Behaviors>
+										<ls:CollectionFilterBehavior x:Name="SpellSchoolEnumFilter" ItemsSource="{Binding Path=GeneratedEnumFilters,RelativeSource={RelativeSource AncestorType={x:Type ls:FilteringContainer}}}" Predicate="{Binding DataContext.Data.SpellSchoolEnumPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+									</b:Interaction.Behaviors>
+								</Control>
+
+								<Control x:Name="DamageTypeCategory" Template="{StaticResource SpellFilterCategoryTemplate}" DataContext="{Binding Path=(b:Interaction.Behaviors)[0].FilteredItems, RelativeSource={RelativeSource Mode=Self}}" ls:AttachedProperties.InheritedTag="h476d8aabg45c5g4452ga4dbgf911f76351c7">
+									<b:Interaction.Behaviors>
+										<ls:CollectionFilterBehavior x:Name="DamageTypeEnumFilter" ItemsSource="{Binding Path=GeneratedEnumFilters,RelativeSource={RelativeSource AncestorType={x:Type ls:FilteringContainer}}}" Predicate="{Binding DataContext.Data.DamageTypeEnumPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+									</b:Interaction.Behaviors>
+								</Control>
+							</StackPanel>
+						</ls:LSNineSliceImage>
+					</Popup>
+
+					<b:Interaction.Triggers>
+						<b:EventTrigger EventName="Loaded">
+							<noesis:SetFocusAction TargetName="PART_FilterSearchBox" />
+							<b:ChangePropertyAction TargetName="PART_FilterSearchBox" PropertyName="Tag" Value="Loaded"/>
+						</b:EventTrigger>
+
+						<b:DataTrigger Binding="{Binding Path=IsVisible,ElementName=PART_FilterSearchBox}" Value="True">
+							<b:Interaction.Behaviors>
+								<b:ConditionBehavior>
+									<b:ConditionalExpression>
+										<b:ComparisonCondition LeftOperand="{Binding Path=Tag,ElementName=PART_FilterSearchBox}" Operator="LessThanOrEqual" RightOperand="Loaded"/>
+									</b:ConditionalExpression>
+								</b:ConditionBehavior>
+							</b:Interaction.Behaviors>
+							<noesis:SetFocusAction TargetName="PART_FilterSearchBox" />
+						</b:DataTrigger>
+					</b:Interaction.Triggers>
+				</Grid>
+
+				<ControlTemplate.Triggers>
+					<DataTrigger Binding="{Binding CurrentFilter, RelativeSource={RelativeSource Self}, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+						<Setter TargetName="CategoryName" Property="Text" Value=""/>
+					</DataTrigger>
+
+					<DataTrigger Binding="{Binding CurrentFilter.AdditionalBoolProperty, RelativeSource={RelativeSource Self}}" Value="True">
+						<Setter TargetName="AdditionalFilters" Property="Text" Value="{Binding Source='h038b1421g2efeg4283g9b88gcdd3b6e46f80',Converter={StaticResource TranslatedStringConverter}}"/>
+					</DataTrigger>
+
+					<DataTrigger Binding="{Binding IsFocused, ElementName=PART_FilterSearchBox}" Value="True">
+						<Setter TargetName="CategoryName" Property="Text" Value="{Binding Source='hdd323f92g1283g4e22g8aacg3d2dcea4b945',Converter={StaticResource TranslatedStringConverter}}"/>
+						<Setter TargetName="AdditionalFilters" Property="Text" Value=""/>
+						<Setter TargetName="SearchBarContainer" Property="ImageSource" Value="{StaticResource SearchBarBg_h}"/>
+					</DataTrigger>
+
+					<DataTrigger Binding="{Binding Text, ElementName='PART_FilterSearchBox', Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="False">
+						<Setter TargetName="EnumPopup" Property="IsOpen" Value="False"/>
+						<Setter TargetName="StringSuggestionPopup" Property="IsOpen" Value="True"/>
+					</DataTrigger>
+
+					<DataTrigger Binding="{Binding Path=IsPopupVisible, RelativeSource={RelativeSource Mode=Self}}" Value="False">
+						<Setter TargetName="EnumPopup" Property="IsOpen" Value="False"/>
+						<Setter TargetName="StringSuggestionPopup" Property="IsOpen" Value="False"/>
+					</DataTrigger>
+				</ControlTemplate.Triggers>
+			</ControlTemplate>
+
+		</ControlTemplate.Resources>
+
+		<Grid x:Name="MultiClassSpellbookContainer">
+
+			<b:Interaction.Behaviors>
+				<ls:CollectionSortBehavior x:Name="SpellbooksSortBehavior" ItemsSource="{Binding PlayerCharacterProperties.SpellBooks}" Comparer="{Binding PlayerCharacterProperties.SpellBookComparer}" />
+
+				<ls:CollectionFilterBehavior x:Name="PassivesFilter" ItemsSource="{Binding SelectedItem.Passives, ElementName=Tabs}" Predicate="{Binding PlayerCharacterProperties.TogglablePassivePredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="MetaMagicFilter" ItemsSource="{Binding SelectedItem.Passives, ElementName=Tabs}" Predicate="{Binding PlayerCharacterProperties.TogglableMetaMagicPassivePredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="CantripGroupFilter" ItemsSource="{Binding SelectedItem.ActionGroups, ElementName=Tabs}" Predicate="{Binding PlayerCharacterProperties.CantripGroupPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="SpellLevelsGroupFilter" ItemsSource="{Binding SelectedItem.ActionGroups, ElementName=Tabs}" Predicate="{Binding PlayerCharacterProperties.SpellLevelsGroupPredicate}" SortDirection="Descending"/>
+				<ls:CollectionFilterBehavior x:Name="CharacterActionGroupFilter" ItemsSource="{Binding SelectedItem.ActionGroups, ElementName=Tabs}" Predicate="{Binding PlayerCharacterProperties.CharacterActionsGroupPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="ClassActionGroupFilter" ItemsSource="{Binding SelectedItem.ActionGroups, ElementName=Tabs}" Predicate="{Binding PlayerCharacterProperties.ClassActionsGroupPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="CharacterFeatsFilter" ItemsSource="{Binding SelectedItem.Passives, ElementName=Tabs}" Predicate="{Binding Stats.CharacterFeaturesPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="ClassFeatsFilter" ItemsSource="{Binding SelectedItem.Passives, ElementName=Tabs}" Predicate="{Binding Stats.ClassFeaturesPredicate}"/>
+
+				<ls:CollectionFilterBehavior x:Name="NonFeatCantripGroupFilter" ItemsSource="{Binding FilteredItems, ElementName=CantripGroupFilter}" Predicate="{Binding PlayerCharacterProperties.NonFeatActionsGroupPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="NonNullAlwaysPreparedSpellsFilter" ItemsSource="{Binding SelectedItem.AlwaysPreparedActions, ElementName=Tabs}" Predicate="{Binding PlayerCharacterProperties.CharacterActionRemoveNullPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="NonAlwaysPreparedSpellLevelsGroupFilter" ItemsSource="{Binding FilteredItems, ElementName=SpellLevelsGroupFilter}" Predicate="{Binding PlayerCharacterProperties.NonAlwaysPreparedActionsGroupPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="NonFeatSpellLevelsGroupFilter" ItemsSource="{Binding FilteredItems, ElementName=SpellLevelsGroupFilter}" Predicate="{Binding PlayerCharacterProperties.NonFeatActionsGroupPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="NonFeatOrAlwaysPreparedSpellLevelsGroupFilter" ItemsSource="{Binding FilteredItems, ElementName=SpellLevelsGroupFilter}" Predicate="{Binding PlayerCharacterProperties.NonFeatOrAlwaysPreparedActionsGroupPredicate}"/>
+
+				<ls:CollectionFilterBehavior x:Name="TadpolePassivesFilter" ItemsSource="{Binding PlayerCharacterProperties.TadpoleSpellBook.Passives}" Predicate="{Binding PlayerCharacterProperties.TogglablePassivePredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="TadpoleFeatsFilter" ItemsSource="{Binding PlayerCharacterProperties.TadpoleSpellBook.Passives}" Predicate="{Binding Stats.TadpoleFeaturesPredicate}"/>
+				<ls:CollectionFilterBehavior x:Name="TadpoleActionsFilter" ItemsSource="{Binding PlayerCharacterProperties.TadpoleSpellBook.ActionGroups}" Predicate="{Binding PlayerCharacterProperties.AllActionsGroupPredicate}"/>
+			</b:Interaction.Behaviors>
+
+			<b:Interaction.Triggers>
+				<b:EventTrigger EventName="Unloaded">
+					<b:ChangePropertyAction TargetName="LearnSpellsButton" PropertyName="CommandParameter" Value="{x:Null}"/>
+				</b:EventTrigger>
+			</b:Interaction.Triggers>
+
+			<Image x:Name="Background" Source="{StaticResource SpellbookBg}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+			<!-- Spellbook -->
+			<Grid x:Name="ClassPanelRoot">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<!-- Tabs -->
+				<StackPanel Grid.Row="0" x:Name="TabsContainer" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,4,0,0">
+					<ls:LSButton x:Name="NavigationLeftButton" Template="{StaticResource IconButtonTemplate}" VerticalAlignment="Center"
+								 Visibility="{Binding PlayerCharacterProperties.SpellBooks.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter='5'}" SoundID="UI_Shared_Panel_Select">
+						<ls:LSButton.Resources>
+							<BitmapImage x:Key="ButtonNormal" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundSmall_d.png"/>
+							<BitmapImage x:Key="ButtonHighlight" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundSmall_h.png"/>
+							<BitmapImage x:Key="ButtonPressed" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundSmall_d.png"/>
+							<BitmapImage x:Key="ButtonDisabled" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundSmall_d.png"/>
+							<BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/Core;component/Assets/Buttons/ico_browseSmall_d.png"/>
+							<BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/Core;component/Assets/Buttons/ico_browseSmall_h.png"/>
+							<BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/Core;component/Assets/Buttons/ico_browseSmall_h.png"/>
+							<BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/Core;component/Assets/Buttons/ico_browseSmall_d.png"/>
+						</ls:LSButton.Resources>
+
+						<b:Interaction.Triggers>
+							<b:EventTrigger EventName="Loaded">
+								<b:Interaction.Behaviors>
+									<b:ConditionBehavior>
+										<b:ConditionalExpression>
+											<b:ComparisonCondition LeftOperand="{Binding ElementName=CharacterPanel,Path=Metadata}" Operator="Equal" RightOperand="ToggleInterrupts"/>
+										</b:ConditionalExpression>
+									</b:ConditionBehavior>
+								</b:Interaction.Behaviors>
+
+								<b:ChangePropertyAction TargetName="Tabs" PropertyName="SelectedIndex" Value="{Binding SortedItems.Count, ElementName=SpellbooksSortBehavior, Converter={StaticResource AddConverter}, ConverterParameter=-1}"/>
+							</b:EventTrigger>
+
+							<b:DataTrigger Binding="{Binding ElementName=CharacterPanel,Path=Metadata}" Value="ToggleInterrupts">
+								<b:ChangePropertyAction TargetName="Tabs" PropertyName="SelectedIndex" Value="{Binding SortedItems.Count, ElementName=SpellbooksSortBehavior, Converter={StaticResource AddConverter}, ConverterParameter=-1}"/>
+							</b:DataTrigger>
+
+							<b:DataTrigger Binding="{Binding ElementName=CharacterPanel,Path=Metadata}" Value="ToggleSpells">
+								<b:Interaction.Behaviors>
+									<b:ConditionBehavior>
+										<b:ConditionalExpression>
+											<b:ComparisonCondition LeftOperand="{Binding SelectedItem.SpellBookType, ElementName=Tabs}" Operator="Equal" RightOperand="TadPole"/>
+										</b:ConditionalExpression>
+									</b:ConditionBehavior>
+								</b:Interaction.Behaviors>
+								<b:ChangePropertyAction TargetName="Tabs" PropertyName="SelectedIndex" Value="0"/>
+							</b:DataTrigger>
+
+							<b:EventTrigger EventName="LSButtonPressed">
+								<b:Interaction.Behaviors>
+									<b:ConditionBehavior>
+										<b:ConditionalExpression>
+											<b:ComparisonCondition LeftOperand="{Binding Path=SelectedIndex, ElementName=Tabs}" Operator="GreaterThan" RightOperand="0"/>
+										</b:ConditionalExpression>
+									</b:ConditionBehavior>
+								</b:Interaction.Behaviors>
+								<b:ChangePropertyAction TargetName="Tabs" PropertyName="SelectedIndex" Value="{Binding SelectedIndex, ElementName=Tabs, Converter={StaticResource AddConverter}, ConverterParameter=-1}"/>
+							</b:EventTrigger>
+							<b:EventTrigger EventName="MouseEnter">
+								<ls:LSPlaySound Sound="UI_Shared_Hover"/>
+							</b:EventTrigger>
+						</b:Interaction.Triggers>
+					</ls:LSButton>
+
+					<ListBox x:Name="Tabs" ItemsSource="{Binding SortedItems, ElementName=SpellbooksSortBehavior}" HorizontalAlignment="Center" SelectedIndex="{StaticResource InitialTab}" VerticalAlignment="Bottom" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+						<ListBox.MaxWidth>
+							<MultiBinding Converter="{StaticResource AddMultipleConverter}">
+								<Binding Path="ActualWidth" ElementName="MultiClassSpellbookContainer"/>
+								<Binding Path="ActualWidth" ElementName="NavigationLeftButton" Converter="{StaticResource MultiplierConverter}" ConverterParameter="-1"/>
+								<Binding Path="ActualWidth" ElementName="NavigationRightButton" Converter="{StaticResource MultiplierConverter}" ConverterParameter="-1"/>
+							</MultiBinding>
+						</ListBox.MaxWidth>
+
+						<b:Interaction.Triggers>
+							<b:EventTrigger EventName="SelectionChanged">
+								<b:Interaction.Behaviors>
+									<b:ConditionBehavior>
+										<b:ConditionalExpression>
+											<b:ComparisonCondition LeftOperand="{Binding SelectedIndex, ElementName=Tabs}" Operator="Equal" RightOperand="-1" />
+										</b:ConditionalExpression>
+									</b:ConditionBehavior>
+								</b:Interaction.Behaviors>
+								<b:ChangePropertyAction TargetName="Tabs" PropertyName="SelectedIndex" Value="{StaticResource InitialTab}"/>
+							</b:EventTrigger>
+
+							<b:PropertyChangedTrigger Binding="{Binding Path=DataContext.CurrentPlayer.SelectedCharacter, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}">
+								<b:ChangePropertyAction TargetName="Tabs" PropertyName="SelectedIndex" Value="{StaticResource InitialTab}"/>
+							</b:PropertyChangedTrigger>
+						</b:Interaction.Triggers>
+
+						<b:Interaction.Behaviors>
+							<ls:AutoScrollBehavior ScrollIntoView="{Binding SelectedIndex, ElementName=Tabs}" BringSelectionIntoView="True"/>
+						</b:Interaction.Behaviors>
+
+						<ListBox.ItemContainerStyle>
+							<Style TargetType="ListBoxItem"  BasedOn="{StaticResource {x:Type ListBoxItem}}">
+								<Setter Property="IsEnabled" Value="{Binding IsSelected, RelativeSource={RelativeSource Mode=Self}, Converter={StaticResource InvertBoolConverter}}"/>
+							</Style>
+						</ListBox.ItemContainerStyle>
+						
+						<ListBox.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</ListBox.ItemsPanel>
+
+						<ListBox.ItemTemplate>
+							<DataTemplate DataType="{x:Type ls:VMSpellBook}">
+								<Border x:Name="TabRoot" Background="Transparent">
+									<ls:LSNineSliceImage x:Name="Container" ImageSource="{StaticResource Tab_d}" Slices="66,36,66, 52" IconWidth="16" Padding="66,10,66,0" Height="88" MinWidth="156">
+										<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+											<TextBlock x:Name="Label" 
+																   Text="{Binding Source='h2d773583g5f0dg4737g93d5g324f4bcfe2ac', Converter={StaticResource TranslatedStringConverter}}"                                                            
+																   HorizontalAlignment="Center" 
+																   Foreground="{StaticResource LS_accent100TxtColor}"
+																   FontSize="{DynamicResource ScaledMediumFontSize}"/>
+
+											<TextBlock x:Name="PreparableSpellsCount" Margin="8,0,0,0" 
+																   Foreground="{StaticResource LS_accent100TxtColor}"
+																   FontSize="{DynamicResource ScaledMediumFontSize}"
+																   Visibility="{Binding PreparedSpellsStat.Max, Converter={StaticResource CountToVisibilityConverter}}">
+												<TextBlock.Text>
+													<MultiBinding StringFormat="{}({0}/{1})">
+														<Binding Path="PreparedSpellsStat.Value"/>
+														<Binding Path="PreparedSpellsStat.Max"/>
+													</MultiBinding>
+												</TextBlock.Text>
+											</TextBlock>
+										</StackPanel>
+
+										<b:Interaction.Triggers>
+											<b:EventTrigger EventName="MouseLeftButtonUp">
+												<ls:LSPlaySound Sound="UI_Shared_Click"/>
+											</b:EventTrigger>
+											<b:EventTrigger EventName="MouseLeftButtonUp">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding SpellBookType}" Operator="NotEqual" RightOperand="TadPole"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:InvokeCommandAction Command="{Binding DataContext.CustomEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleSpells"/>
+											</b:EventTrigger>
+											<b:EventTrigger EventName="MouseLeftButtonUp">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding SpellBookType}" Operator="Equal" RightOperand="TadPole"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:InvokeCommandAction Command="{Binding DataContext.CustomEvent, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="ToggleInterrupts"/>
+											</b:EventTrigger>
+											<b:EventTrigger EventName="MouseLeftButtonDown">
+												<ls:LSPlaySound Sound="UI_Shared_Press"/>
+											</b:EventTrigger>
+											<b:EventTrigger EventName="MouseEnter">
+												<ls:LSPlaySound Sound="UI_Shared_Hover"/>
+											</b:EventTrigger>
+
+											<!-- Non-selected states -->
+											<b:EventTrigger EventName="MouseLeftButtonUp">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="False"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource Tab_h}"/>
+											</b:EventTrigger>
+
+											<b:EventTrigger EventName="MouseLeftButtonDown">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="False"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource Tab_p}"/>
+											</b:EventTrigger>
+
+											<b:EventTrigger EventName="MouseEnter">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="False"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource Tab_h}"/>
+											</b:EventTrigger>
+
+											<b:EventTrigger EventName="MouseLeave">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="False"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource Tab_d}"/>
+											</b:EventTrigger>
+
+											<!-- Selected states -->
+											<b:EventTrigger EventName="MouseLeftButtonUp">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="True"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource TabSelected_h}"/>
+											</b:EventTrigger>
+
+											<b:EventTrigger EventName="MouseLeftButtonDown">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="True"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource TabSelected_p}"/>
+											</b:EventTrigger>
+
+											<b:EventTrigger EventName="MouseEnter">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="True"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource TabSelected_h}"/>
+											</b:EventTrigger>
+
+											<b:EventTrigger EventName="MouseLeave">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="True"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource TabSelected_d}"/>
+											</b:EventTrigger>
+
+											<!-- State change -->
+											<b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="True"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource TabSelected_h}"/>
+											</b:DataTrigger>
+
+											<b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="True">
+												<b:Interaction.Behaviors>
+													<b:ConditionBehavior>
+														<b:ConditionalExpression>
+															<b:ComparisonCondition LeftOperand="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Operator="Equal" RightOperand="False"/>
+														</b:ConditionalExpression>
+													</b:ConditionBehavior>
+												</b:Interaction.Behaviors>
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource TabSelected_d}"/>
+											</b:DataTrigger>
+
+											<b:DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+												<b:ChangePropertyAction TargetName="Container" PropertyName="ImageSource" Value="{StaticResource Tab_d}"/>
+											</b:DataTrigger>
+										</b:Interaction.Triggers>
+									</ls:LSNineSliceImage>
+								</Border>
+
+								<DataTemplate.Triggers>
+									<DataTrigger Binding="{Binding SpellBookType}" Value="Base">
+										<Setter TargetName="Label" Property="Text" Value="{Binding Source=haf48b625gb2f0g449egb3aegfddfa1be81c2, Converter={StaticResource TranslatedStringConverter}}"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding SpellBookType}" Value="Tadpole">
+										<!-- In KBM, tadpole info is part of the Base tab, so we're reusing this tab to act as the reactions' one, which doesn't exist -->
+										<Setter TargetName="Label" Property="Text" Value="{Binding Source=h2fda2a98g24aeg4745ga96fg486c04590c4e, Converter={StaticResource TranslatedStringConverter}}"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding SpellBookType}" Value="Class">
+										<Setter TargetName="Label" Property="Text" Value="{Binding Class.ClassDisplayName}"/>
+									</DataTrigger>
+								</DataTemplate.Triggers>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+					<ls:LSButton x:Name="NavigationRightButton" Template="{StaticResource IconButtonTemplate}" VerticalAlignment="Center" RenderTransformOrigin="0.5, 0.5"
+											 Visibility="{Binding PlayerCharacterProperties.SpellBooks.Count, Converter={StaticResource CountToVisibilityConverter}, ConverterParameter='5'}"
+											 SoundID="UI_Shared_Panel_Select">
+						<ls:LSButton.Resources>
+							<BitmapImage x:Key="ButtonNormal" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundSmall_d.png"/>
+							<BitmapImage x:Key="ButtonHighlight" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundSmall_h.png"/>
+							<BitmapImage x:Key="ButtonPressed" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundSmall_d.png"/>
+							<BitmapImage x:Key="ButtonDisabled" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundSmall_d.png"/>
+							<BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/Core;component/Assets/Buttons/ico_browseSmall_d.png"/>
+							<BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/Core;component/Assets/Buttons/ico_browseSmall_h.png"/>
+							<BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/Core;component/Assets/Buttons/ico_browseSmall_h.png"/>
+							<BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/Core;component/Assets/Buttons/ico_browseSmall_d.png"/>
+						</ls:LSButton.Resources>
+
+						<ls:LSButton.RenderTransform>
+							<ScaleTransform ScaleX="-1"/>
+						</ls:LSButton.RenderTransform>
+
+						<b:Interaction.Triggers>
+							<b:EventTrigger EventName="LSButtonPressed">
+								<b:ChangePropertyAction TargetName="Tabs" PropertyName="SelectedIndex" Value="{Binding SelectedIndex, ElementName=Tabs, Converter={StaticResource AddConverter}, ConverterParameter=1}"/>
+							</b:EventTrigger>
+							<b:EventTrigger EventName="MouseEnter">
+								<ls:LSPlaySound Sound="UI_Shared_Hover"/>
+							</b:EventTrigger>
+						</b:Interaction.Triggers>
+					</ls:LSButton>
+				</StackPanel>
+
+				<!-- Reactions -->
+				<Control Grid.Row="1" x:Name="Reactions" Template="{StaticResource InterruptPanelTemplate}" Visibility="Collapsed" IsEnabled="{Binding DataContext.CurrentPlayer.UIData.AllowInteraction, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+
+				<!-- Panel -->
+				<Grid Grid.Row="1" x:Name="ClassPanel" Margin="0,10,0,0" MaxHeight="1290" >
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition x:Name="ClassPanelLeftColumn" Width="*"/>
+						<ColumnDefinition x:Name="ClassPanelCentralColumn" Width="1124"/>
+						<ColumnDefinition x:Name="ClassPanelRightColumn" Width="*"/>
+					</Grid.ColumnDefinitions>
+
+					<!-- Class image and info -->
+					<Grid x:Name="InfoPanel" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Margin="0,20,0,0">
+
+						<Image HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="None" Source="{StaticResource MainIconBg}"/>
+
+						<Image x:Name="PageIcon" HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="Uniform" Width="{StaticResource PageIconSize}" Visibility="Collapsed" Margin="0,-34,0,0"/>
+
+						<Rectangle x:Name="RaceIcon" HorizontalAlignment="Center" VerticalAlignment="Top" Fill="{StaticResource LS_tint100}" DataContext="{Binding Stats.Race}" Style="{DynamicResource RaceIconStyle}" Width="{StaticResource PageIconSize}" Height="{StaticResource PageIconSize}" Stretch="Uniform" Visibility="Collapsed" Margin="-100,-24,-100,0"/>
+
+						<TextBlock x:Name="LevelText" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="8,170,0,0">
+							<TextBlock.Text>
+								<MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+									<Binding Source="h5df00b79ga6acg4d9fgb8dag23340151fba7"/>
+									<Binding Path="SelectedItem.Class.Level.Value" ElementName="Tabs"/>
+									<Binding Source=""/>
+								</MultiBinding>
+							</TextBlock.Text>
+						</TextBlock>
+					</Grid>
+
+					<!-- Class panel -->
+					<Grid x:Name="ClassPanelContent" Grid.Column="1" VerticalAlignment="Top">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+
+						<!-- Top bar -->
+						<Grid x:Name="TopBar" Grid.Row="0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="{StaticResource TopBarHeightGridLength}"/>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+
+							<!-- Level -->
+							<ContentControl x:Name="BarLevelContainer" Grid.Column="0" Grid.Row="0" Style="{StaticResource CastInfoControlStyle}"
+											Visibility="Collapsed">
+								<TextBlock x:Name="BarLevelText" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Text, ElementName=LevelText}"/>
+							</ContentControl>
+
+							<!-- Subclass/Subrace -->
+							<ContentControl x:Name="SubClassContainer" Grid.Column="1" Grid.Row="0" Style="{StaticResource CastInfoControlStyle}"
+															Visibility="{Binding Text, ElementName=SubClassName, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}">
+								<TextBlock x:Name="SubClassName" Text="{Binding SelectedItem.Class.SubclassDisplayName, ElementName=Tabs}" 
+														   HorizontalAlignment="Center"/>
+							</ContentControl>
+
+							<!-- Class Resources -->
+							<ContentControl x:Name="ClassResourcesContainer" Grid.Column="2" Grid.Row="0" Style="{StaticResource CastInfoControlStyle}"
+															Visibility="{Binding ItemsSource.Count, ElementName=ClassResources, Converter={StaticResource CountToVisibilityConverter}}">
+
+								<ItemsControl x:Name="ClassResources" ItemsSource="{Binding SelectedItem.ActionResources, ElementName=Tabs}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<StackPanel Orientation="Horizontal"/>
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+
+									<ItemsControl.ItemTemplate>
+										<DataTemplate DataType="{x:Type ls:VMActionResource}">
+											<StackPanel Orientation="Horizontal" ToolTip="{StaticResource ManagedTooltip}">
+												<Image Stretch="Uniform" Style="{StaticResource SectionImageStyle}" VerticalAlignment="Center" Margin="0" MaxHeight="40"/>
+												<TextBlock VerticalAlignment="Center" ls:TextBlockFormatter.SourceText="{Binding MaxValue, StringFormat='{}{0} '}"/>
+											</StackPanel>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</ContentControl>
+
+							<!-- Caster stuff -->
+							<ContentControl x:Name="CastAbilityContainer" Grid.Column="3" Grid.Row="0" Style="{StaticResource CastInfoControlStyle}" Visibility="{Binding DataContext, ElementName=CastAbility, Converter={StaticResource NullToCollapsedConverter}}">
+								<StackPanel Orientation="Horizontal">
+									<StackPanel.ToolTip>
+										<ls:LSTooltip>
+											<StackPanel>
+												<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h3289692bg0388g4f68gad45g82b8fd0ffbf8, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipTitleStyle}"/>
+												<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h91535f32g4f47g4d5bgbf59ge05726ecb96e, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipDefaultTextStyle}"/>
+											</StackPanel>
+										</ls:LSTooltip>
+									</StackPanel.ToolTip>
+									<Image x:Name="CastAbilityIcon" Source="{StaticResource ProficientIcon}" Stretch="None" VerticalAlignment="Center" Margin="-12,0,0,0"/>
+									<Control x:Name="CastAbility" Template="{StaticResource AbilityShortDisplayName}" DataContext="{Binding SelectedItem.Class.SpellCastAbility, ElementName=Tabs}" VerticalAlignment="Center" Foreground="{StaticResource LS_tint100}" />
+								</StackPanel>
+							</ContentControl>
+
+							<ContentControl x:Name="SpellDCContainer" Grid.Column="4" Grid.Row="0" Style="{StaticResource CastInfoControlStyle}"
+															Visibility="{Binding Text, ElementName=SpellDC, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}">
+								<ContentControl.ToolTip>
+									<ls:LSTooltip Content="{Binding Path=SelectedItem.Class.SpellDifficultyCheck, ElementName=Tabs}"/>
+								</ContentControl.ToolTip>
+								<StackPanel Orientation="Horizontal">
+									<Image x:Name="SpellDCIcon" 
+														   Source="{StaticResource CastSavingIcon}" 
+														   Stretch="None" 
+														   VerticalAlignment="Center" 
+														   Margin="-8,0,0,0"/>
+									<TextBlock x:Name="SpellDC" 
+															   Text="{Binding SelectedItem.Class.SpellDifficultyCheck.Value, ElementName=Tabs}" 
+															   VerticalAlignment="Center"/>
+								</StackPanel>
+							</ContentControl>
+
+							<ContentControl x:Name="SpellAttackContainer" Grid.Column="5" Grid.Row="0" Style="{StaticResource CastInfoControlStyle}"
+															Visibility="{Binding Text, ElementName=SpellAttackBonus, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}">
+								<ContentControl.ToolTip>
+									<ls:LSTooltip Content="{Binding Path=(ls:TooltipExtender.Owner).Stats.SpellAttackBonus, RelativeSource={RelativeSource Mode=Self}}"/>
+								</ContentControl.ToolTip>
+								<StackPanel Orientation="Horizontal">
+									<Image x:Name="SpellAttackIcon"
+														   Source="{StaticResource CastRollIcon}" 
+														   Stretch="None" 
+														   VerticalAlignment="Center" 
+														   Margin="-10,0,0,0"/>
+									<TextBlock x:Name="SpellAttackBonus" 
+															   Text="{Binding SelectedItem.Class.SpellAttackBonus.Value, ElementName=Tabs, StringFormat={}{0:+#;-#;0}}" 
+															   VerticalAlignment="Center"/>
+								</StackPanel>
+							</ContentControl>
+
+							<!-- Search bar -->
+							<ls:FilteringContainer x:Name="FilteringContainerHolder" Grid.Column="0" Grid.ColumnSpan="6" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+																   FilterPredicate="{Binding DataContext.Data.SpellBookPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" 
+																   Template="{StaticResource SpellSearchBarTemplate}" 
+																   ItemsList="{Binding SelectedItem.UngroupedSpellsAndActions, ElementName=Tabs}" 
+																   DefaultViewItemsList="{Binding SelectedItem.UngroupedSpellsAndActions, ElementName=Tabs}" 
+																   MaxDisplayedFilters="6" 
+																   Visibility="{Binding Path=IsChecked, ElementName=SearchToggle, Converter={StaticResource BoolToVisibleConverter}}">
+								<b:Interaction.Behaviors>
+									<ls:CollectionFilterBehavior x:Name="ResultSpellsFilter" ItemsSource="{Binding Path=GeneratedItemsList, ElementName=FilteringContainerHolder}" Predicate="{Binding DataContext.Data.CharacterActionSpellsPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+									<ls:CollectionFilterBehavior x:Name="ResultNoSpellsFilter" ItemsSource="{Binding Path=GeneratedItemsList, ElementName=FilteringContainerHolder}" Predicate="{Binding DataContext.Data.CharacterActionNoSpellsPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+								</b:Interaction.Behaviors>
+
+								<ls:FilteringContainer.EnumFiltersList>
+									<ls:EnumFilterItem EnumId="ESpellSchool" Label="hec34e9b7g5b4ag4d58gb8f2gd1601a3f5b8b" AlwaysVisible="False" StartIndex="1" EndIndex="8"/>
+									<ls:EnumFilterItem EnumId="EDamageType" Label="hc3cd9b4eg4ea4g4438gbfbbg493c0abb6dd7" AlwaysVisible="False" StartIndex="1" EndIndex="13"/>
+								</ls:FilteringContainer.EnumFiltersList>
+							</ls:FilteringContainer>
+
+							<!-- Search inner button -->
+							<ls:LSToggleButton x:Name="InnerSearchToggle" Grid.Column="6" Grid.Row="0" 
+												   VerticalAlignment="Center" HorizontalAlignment="Left"
+												   Template="{StaticResource ToggleIconButtonTemplate}" 
+												   IsChecked="False" 
+												   Command="ls:FilteringContainer.ClearFilterCommand" CommandTarget="{Binding ElementName=FilteringContainerHolder}"
+												   Height="{StaticResource TopBarHeight}"
+												   Visibility="Collapsed">
+								<ls:LSToggleButton.Resources>
+									<ImageSource x:Key="ButtonUncheckedNormal">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_d.png</ImageSource>
+									<ImageSource x:Key="ButtonUncheckedHighlight">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_h.png</ImageSource>
+									<ImageSource x:Key="ButtonUncheckedPressed">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_p.png</ImageSource>
+									<ImageSource x:Key="ButtonUncheckedDisabled">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_disabled.png</ImageSource>
+									<ImageSource x:Key="ButtonCheckedNormal">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_d.png</ImageSource>
+									<ImageSource x:Key="ButtonCheckedHighlight">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_h.png</ImageSource>
+									<ImageSource x:Key="ButtonCheckedPressed">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_p.png</ImageSource>
+									<ImageSource x:Key="ButtonCheckedDisabled">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_disabled.png</ImageSource>
+									<ImageSource x:Key="IconUncheckedNormal">pack://application:,,,/Core;component/Assets/SpellBook/ico_magnifier_d.png</ImageSource>
+									<ImageSource x:Key="IconUncheckedHighlight">pack://application:,,,/Core;component/Assets/SpellBook/ico_magnifier_h.png</ImageSource>
+									<ImageSource x:Key="IconUncheckedPressed">pack://application:,,,/Core;component/Assets/SpellBook/ico_magnifier_h.png</ImageSource>
+									<ImageSource x:Key="IconUncheckedDisabled">pack://application:,,,/Core;component/Assets/SpellBook/ico_magnifier_d.png</ImageSource>
+									<ImageSource x:Key="IconCheckedNormal">pack://application:,,,/Core;component/Assets/Buttons/ico_cancel.png</ImageSource>
+									<ImageSource x:Key="IconCheckedHighlight">pack://application:,,,/Core;component/Assets/Buttons/ico_cancel_h.png</ImageSource>
+									<ImageSource x:Key="IconCheckedPressed">pack://application:,,,/Core;component/Assets/Buttons/ico_cancel_h.png</ImageSource>
+									<ImageSource x:Key="IconCheckedDisabled">pack://application:,,,/Core;component/Assets/Buttons/ico_cancel.png</ImageSource>
+									<System:Double x:Key="IconWidth">36</System:Double>
+									<System:Double x:Key="IconHeight">36</System:Double>
+								</ls:LSToggleButton.Resources>
+							</ls:LSToggleButton>
+						</Grid>
+
+						<!-- Class panel content -->
+						<ScrollViewer x:Name="WholePanelScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="50,0,-50,0" Padding="-50,0,50,0">
+							<Grid x:Name="WholePanelScrollViewerRoot">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
+								<StackPanel x:Name="ClassPanelFixedContent" Grid.Row="0" VerticalAlignment="Top">
+									<!-- Class section -->
+									<Rectangle x:Name="ClassSectionOpening" Fill="{StaticResource ClassBorderEdges}" Margin="6,0,0,0" Width="{Binding Fill.Viewbox.Width, RelativeSource={RelativeSource Self}}" Height="{Binding Fill.Viewbox.Height, RelativeSource={RelativeSource Self}}"/>
+
+									<StackPanel x:Name="ClassSection" Margin="{Binding Margin, ElementName=ClassSectionOpening}" Width="{Binding Width, ElementName=ClassSectionOpening}" Background="{StaticResource ClassBorderCenter}">
+
+										<!-- Cantrips and actions -->
+										<Grid x:Name="CantripsAndActions" Margin="0,-22,0,0">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="*"/>
+											</Grid.ColumnDefinitions>
+
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto"/>
+												<RowDefinition Height="Auto"/>
+											</Grid.RowDefinitions>
+
+											<!-- Cantrips -->
+											<ItemsControl x:Name="CantripList" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Stretch" 
+														  ItemsSource="{Binding FilteredItems, ElementName=CantripGroupFilter}" 
+														  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}" 
+														  ls:AttachedProperties.InheritedTag="HideFeats"/>
+
+											<!-- Class Actions -->
+											<ItemsControl x:Name="ClassActionsList" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" 
+														  ItemsSource="{Binding FilteredItems, ElementName=ClassActionGroupFilter}" 
+														  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}"/>
+										</Grid>
+
+										<!-- Tadpole Actions -->
+										<ItemsControl x:Name="TadpoleActionsList" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+														  ItemsSource="{Binding FilteredItems, ElementName=TadpoleActionsFilter}" 
+														  Visibility="Collapsed"
+														  ls:AttachedProperties.InheritedTag="TadpoleActions"/>
+
+										<!-- Metamagic -->
+										<ItemsControl x:Name="MetamagicList" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+														  Style="{StaticResource PassiveCellItemsControlStyle}"
+														  ItemsSource="{Binding FilteredItems, ElementName=MetaMagicFilter}" 
+														  ls:AttachedProperties.InheritedTag="MetaMagic" 
+														  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+										<!-- Spells -->
+										<Grid x:Name="SpellsTitle" Visibility="Collapsed" HorizontalAlignment="Stretch">
+											<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h062f5cf9gb2e5g4c0dgadc9g68898c250650',Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource ActionGroupTitleStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="120,22,0,0"/>
+
+											<ls:LSButton x:Name="LearnSpellsButton" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Collapsed" Margin="0,0,26,0" Command="{Binding DataContext.OpenLearnSpellsCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" MinWidth="150">
+												<ls:LSButton.Template>
+													<ControlTemplate TargetType="ls:LSButton">
+														<ControlTemplate.Resources>
+															<BitmapImage x:Key="Icon_d" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_learnSpells_d.png" />
+															<BitmapImage x:Key="Icon_h" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_learnSpells_h.png" />
+															<BitmapImage x:Key="Icon_p" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_learnSpells_p.png" />
+															<BitmapImage x:Key="Icon_disabled" UriSource="pack://application:,,,/Core;component/Assets/SpellBook/ico_learnSpells_disabled.png" />
+														</ControlTemplate.Resources>
+
+														<ls:LSNineSliceImage x:Name="SearchBarContainer" ImageSource="{StaticResource SearchBarBg_d}" Slices="36,34" Padding="20,10" Height="72">
+															<Image x:Name="Icon" Source="{StaticResource Icon_d}" Stretch="None" VerticalAlignment="Center"/>
+														</ls:LSNineSliceImage>
+
+														<ControlTemplate.Triggers>
+															<Trigger Property="IsMouseOver" Value="True">
+																<Setter TargetName="SearchBarContainer" Property="ImageSource" Value="{StaticResource SearchBarBg_h}"/>
+																<Setter TargetName="Icon" Property="Source" Value="{StaticResource Icon_h}"/>
+															</Trigger>
+															<Trigger Property="IsPressed" Value="True">
+																<Setter TargetName="SearchBarContainer" Property="ImageSource" Value="{StaticResource SearchBarBg_h}"/>
+																<Setter TargetName="Icon" Property="Source" Value="{StaticResource Icon_p}"/>
+																<Setter TargetName="Icon" Property="Margin" Value="0,4,0,-4"/>
+															</Trigger>
+															<Trigger Property="IsEnabled" Value="False">
+																<Setter TargetName="SearchBarContainer" Property="ImageSource" Value="{StaticResource SearchBarBg_d}"/>
+																<Setter TargetName="Icon" Property="Source" Value="{StaticResource Icon_disabled}"/>
+															</Trigger>
+														</ControlTemplate.Triggers>
+													</ControlTemplate>
+												</ls:LSButton.Template>
+												<ls:LSButton.CommandParameter>
+													<MultiBinding Converter="{StaticResource PassThroughConverter}">
+														<Binding Path="DataContext" ElementName="ClassPanelRoot"/>
+														<Binding ElementName="ClassPanelRoot"/>
+														<Binding Path="ActualWidth" ElementName="ClassPanelRoot" Converter="{StaticResource MultiplierConverter}" ConverterParameter="0.8"/>
+													</MultiBinding>
+												</ls:LSButton.CommandParameter>
+												<ls:LSButton.ToolTip>
+													<ls:LSTooltip DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource TemplatedParent}}">
+														<ls:LSTooltip.ContentTemplate>
+															<DataTemplate>
+																<StackPanel Orientation="Vertical" MaxWidth="{StaticResource MaxTooltipContentWidth}">
+																	<StackPanel.Resources>
+																		<Style TargetType="TextBlock">
+																			<Setter Property="TextWrapping" Value="Wrap"/>
+																			<Setter Property="FontSize" Value="{DynamicResource ScaledMediumFontSize}"/>
+																			<Setter Property="Foreground" Value="{StaticResource LS_baseTxtColor}"/>
+																		</Style>
+																	</StackPanel.Resources>
+
+																	<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h9784a948g9d80g41d8gbb18ga9c838b90edd',Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipTitleStyle}"/>
+
+																	<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h1be7e965gcf8dg4a81gb85dga1fbc01a9f08',Converter={StaticResource TranslatedStringConverter}}"/>
+																</StackPanel>
+															</DataTemplate>
+														</ls:LSTooltip.ContentTemplate>
+													</ls:LSTooltip>
+												</ls:LSButton.ToolTip>
+											</ls:LSButton>
+										</Grid>
+
+										<ItemsControl x:Name="AlwaysPreparedList" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+														  Style="{StaticResource ActionCellItemsControlStyle}"
+														  ItemsSource="{Binding FilteredItems, ElementName=NonNullAlwaysPreparedSpellsFilter}"
+														  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}"
+														  ls:AttachedProperties.InheritedTag="AlwaysPrepared" />
+
+										<ItemsControl x:Name="NonPreparableSpellsCategories" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+																  ItemsSource="{Binding FilteredItems, ElementName=SpellLevelsGroupFilter}" 
+																  AlternationCount="{Binding ItemsSource.Count, RelativeSource={RelativeSource Self}}"
+																  ls:AttachedProperties.InheritedTag="HideFeats"
+																  Visibility="Collapsed"/>
+
+										<TextBlock x:Name="NonPreparableReplaceableSpellsNote" Style="{StaticResource ActionGroupTitleStyle}" HorizontalAlignment="Center" Visibility="Collapsed" FontStyle="Italic" Margin="0,-10,0,0" TextWrapping="Wrap"/>
+									</StackPanel>
+
+									<Rectangle x:Name="ClassSectionClosure" Fill="{StaticResource ClassBorderEdges}" RenderTransformOrigin="0.5, 0.5" Visibility="{Binding Visibility, ElementName=PreparedSpellsSection, Converter={StaticResource InvertVisibilityConverter}}" Margin="{Binding Margin, ElementName=ClassSectionOpening}"
+											   Width="{Binding Fill.Viewbox.Width, RelativeSource={RelativeSource Self}}" Height="{Binding Fill.Viewbox.Height, RelativeSource={RelativeSource Self}}">
+										<Rectangle.RenderTransform>
+											<ScaleTransform ScaleY="-1"/>
+										</Rectangle.RenderTransform>
+									</Rectangle>
+
+									<!-- Prepared spells section -->
+									<Image x:Name="PreparedSpellsSectionOpening" Source="{StaticResource PreparedSpellsTop}" Stretch="None" Visibility="{Binding Visibility, ElementName=PreparedSpellsSection}" Margin="0,6,0,0"/>
+
+									<Border x:Name="PreparedSpellsSection" Visibility="Collapsed" Width="{Binding Source.Width, ElementName=PreparedSpellsSectionOpening}">
+										<Border.Background>
+											<ImageBrush ImageSource="{StaticResource PreparedSpellsCenter}" Stretch="Fill" TileMode="Tile" AlignmentY="Top" ViewportUnits="Absolute">
+												<ImageBrush.Viewport>
+													<MultiBinding Converter="{StaticResource CreateRectConverter}">
+														<Binding Source="0"/>
+														<Binding Source="0"/>
+														<Binding Path="ImageSource.Width" RelativeSource="{RelativeSource Self}"/>
+														<Binding Path="ImageSource.Height" RelativeSource="{RelativeSource Self}"/>
+													</MultiBinding>
+												</ImageBrush.Viewport>
+											</ImageBrush>
+										</Border.Background>
+
+										<ItemsControl x:Name="ManuallyPreparedList" VerticalAlignment="Top" HorizontalAlignment="Stretch" 
+														  Style="{StaticResource ActionCellItemsControlStyle}"
+														  ItemsSource="{Binding SelectedItem.ManuallyPreparedActions, ElementName=Tabs}" 
+														  ls:AttachedProperties.InheritedTag="Prepared"
+														  ItemTemplate="{StaticResource PreparedSpellCellTemplate}"/>
+									</Border>
+
+									<Image x:Name="PreparedSpellsSectionClosure" Source="{StaticResource PreparedSpellsBottom}" Stretch="None" Visibility="{Binding Visibility, ElementName=PreparedSpellsSection}"/>
+								</StackPanel>
+
+								<ls:LSScrollViewer x:Name="ClassPanelScrollableContent" Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="50,0,-50,0" Padding="-50,0,50,0">
+									<StackPanel x:Name="ScrollableContent">
+										<!-- Known spells section -->
+										<ls:LSNineSliceImage x:Name="KnownSpellSection" ImageSource="{StaticResource SpellsBorder}" Slices="22,10,22,42" IconWidth="70" Padding="6,2,6,40" Visibility="{Binding Path=ItemsSource.Count, ElementName=SpellsCategories, Converter={StaticResource CountToVisibilityConverter}}">
+											<StackPanel>
+												<TextBlock x:Name="InnerSpellsTitle" ls:TextBlockFormatter.SourceText="{Binding Source='h062f5cf9gb2e5g4c0dgadc9g68898c250650',Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource ActionGroupTitleStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="120,22,0,0" Visibility="Collapsed"/>
+
+												<ItemsControl x:Name="SpellsCategories" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+																	  ItemsSource="{Binding FilteredItems, ElementName=NonAlwaysPreparedSpellLevelsGroupFilter}" 
+																	  AlternationCount="{Binding ItemsSource.Count, RelativeSource={RelativeSource Self}}"
+																	  ls:AttachedProperties.InheritedTag="HideFeatsAndAlwaysPrepared"/>
+
+												<!-- Spells level up note -->
+												<TextBlock x:Name="ReplaceableSpellsNote" ls:TextBlockFormatter.SourceText="{Binding Source=h6cbb2d29g46c1g4b0agb271gcb95f4e4b3f0, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource ActionGroupTitleStyle}" HorizontalAlignment="Center" Visibility="Collapsed" FontStyle="Italic" Margin="0,-10,0,0"/>
+											</StackPanel>
+										</ls:LSNineSliceImage>
+
+										<!-- Feats -->
+										<ItemsControl x:Name="FeatsList" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+														  Style="{StaticResource PassiveCellItemsControlStyle}"
+														  ItemsSource="{Binding FilteredItems, ElementName=ClassFeatsFilter}" 
+														  ls:AttachedProperties.InheritedTag="ClassFeats" 
+														  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+										<ItemsControl x:Name="TadpoleFeatsList" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+														  Style="{StaticResource PassiveCellItemsControlStyle}"
+														  ItemsSource="{Binding FilteredItems, ElementName=TadpoleFeatsFilter}" 
+														  ls:AttachedProperties.InheritedTag="TadpoleFeats" 
+														  Visibility="Collapsed"/>
+
+										<!-- Initiations -->
+										<ItemsControl x:Name="InitiationsList" ItemsSource="{Binding PlayerCharacterProperties.Initiations}" 
+													  Visibility="Collapsed"
+													  AlternationCount="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}}"
+													  VerticalAlignment="Center" Margin="0,10,0,10">
+											<ItemsControl.ItemsPanel>
+												<ItemsPanelTemplate>
+													<WrapPanel Orientation="Horizontal"/>
+												</ItemsPanelTemplate>
+											</ItemsControl.ItemsPanel>
+
+											<ItemsControl.ItemContainerStyle>
+												<Style TargetType="ContentPresenter">
+													<Setter Property="Width" Value="{Binding ActualWidth, ElementName=ClassPanelContent, Converter={StaticResource MultiplierConverter}, ConverterParameter=0.5}"/>
+
+													<Style.Triggers>
+														<DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="PartyPanel">
+															<Setter Property="Width" Value="Auto"/>
+														</DataTrigger>
+													</Style.Triggers>
+												</Style>
+											</ItemsControl.ItemContainerStyle>
+
+											<ItemsControl.ItemTemplate>
+												<DataTemplate>
+													<StackPanel x:Name="InitiationRoot" Width="{Binding ActualWidth, ElementName=ClassPanelContent, Converter={StaticResource MultiplierConverter}, ConverterParameter=0.48}" HorizontalAlignment="Center">
+														<b:Interaction.Behaviors>
+															<ls:CollectionFilterBehavior x:Name="CantripGroupFilter" ItemsSource="{Binding ActionGroups}"
+																						 Predicate="{Binding DataContext.CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.CantripGroupPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+															<ls:CollectionFilterBehavior x:Name="SpellLevelsGroupFilter" ItemsSource="{Binding ActionGroups}"
+																						 Predicate="{Binding DataContext.CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.SpellLevelsGroupPredicate, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}"/>
+														</b:Interaction.Behaviors>
+
+														<TextBlock Text="{Binding ClassName}" Margin="6,0,0,0" Foreground="{StaticResource LS_accent100TxtColor}"/>
+														<TextBlock Text="{Binding Source=h721ec81ag27c5g4744g8904g807a2248b782, Converter={StaticResource TranslatedStringConverter}}" FontSize="{DynamicResource ScaledSmallFontSize}" Margin="6,0,0,0" Foreground="{StaticResource LS_baseTxtColor}"/>
+
+														<Grid x:Name="InitiationCastInfo" Margin="0,10">
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition Width="*"/>
+																<ColumnDefinition Width="*"/>
+																<ColumnDefinition Width="*"/>
+															</Grid.ColumnDefinitions>
+
+															<ContentControl x:Name="CastAbilityContainer" Grid.Column="0" Style="{StaticResource CastInfoControlStyle}"
+															Visibility="{Binding DataContext, ElementName=CastAbility, Converter={StaticResource NullToCollapsedConverter}}">
+																<ContentControl.ToolTip>
+																	<ls:LSTooltip>
+																		<StackPanel>
+																			<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h3289692bg0388g4f68gad45g82b8fd0ffbf8, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipTitleStyle}"/>
+																			<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h91535f32g4f47g4d5bgbf59ge05726ecb96e, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipDefaultTextStyle}"/>
+																		</StackPanel>
+																	</ls:LSTooltip>
+																</ContentControl.ToolTip>
+																<StackPanel Orientation="Horizontal">
+																	<Image x:Name="CastAbilityIcon" 
+																				   Source="{StaticResource ProficientIcon}" 
+																				   Stretch="None" 
+																				   VerticalAlignment="Center" 
+																				   Margin="-12,0,0,0"/>
+																	<Control x:Name="CastAbility" Template="{StaticResource AbilityShortDisplayName}" DataContext="{Binding Stats.SpellCastAbility}" VerticalAlignment="Center" Foreground="{StaticResource LS_tint100}" />
+																</StackPanel>
+															</ContentControl>
+
+															<ContentControl x:Name="SpellDCContainer" Grid.Column="1" Style="{StaticResource CastInfoControlStyle}"
+															Visibility="{Binding Text, ElementName=SpellDC, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}">
+																<ContentControl.ToolTip>
+																	<ls:LSTooltip Content="{Binding Path=(ls:TooltipExtender.Owner).Stats.SpellDifficultyCheck, RelativeSource={RelativeSource Mode=Self}}"/>
+																</ContentControl.ToolTip>
+																<StackPanel Orientation="Horizontal">
+																	<Image x:Name="SpellDCIcon" 
+																				   Source="{StaticResource CastSavingIcon}" 
+																				   Stretch="None" 
+																				   VerticalAlignment="Center" 
+																				   Margin="-8,0,0,0"/>
+																	<TextBlock x:Name="SpellDC" 
+																					   Text="{Binding SpellDifficultyCheck.Value}" 
+																					   VerticalAlignment="Center"/>
+																</StackPanel>
+															</ContentControl>
+
+															<ContentControl x:Name="SpellAttackContainer" Grid.Column="2" Style="{StaticResource CastInfoControlStyle}"
+															Visibility="{Binding Text, ElementName=SpellAttackBonus, Converter={StaticResource NullToCollapsedConverter}, ConverterParameter='EmptyString'}">
+																<ContentControl.ToolTip>
+																	<ls:LSTooltip Content="{Binding Path=(ls:TooltipExtender.Owner).Stats.SpellAttackBonus, RelativeSource={RelativeSource Mode=Self}}"/>
+																</ContentControl.ToolTip>
+																<StackPanel Orientation="Horizontal">
+																	<Image x:Name="SpellAttackIcon"
+																				   Source="{StaticResource CastRollIcon}" 
+																				   Stretch="None" 
+																				   VerticalAlignment="Center" 
+																				   Margin="-10,0,0,0"/>
+																	<TextBlock x:Name="SpellAttackBonus" 
+																					   Text="{Binding SpellAttackBonus.Value, StringFormat={}{0:+#;-#;0}}" 
+																					   VerticalAlignment="Center"/>
+																</StackPanel>
+															</ContentControl>
+														</Grid>
+
+														<Grid x:Name="CantripsAndSpells" HorizontalAlignment="Center" VerticalAlignment="Center">
+															<Image Source="{StaticResource SpellsBorderHalf}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+															<StackPanel Orientation="Horizontal">
+																<ItemsControl x:Name="CantripList" VerticalAlignment="Center" Margin="-12,-8,0,8"
+																					  ItemsSource="{Binding FilteredItems, ElementName=CantripGroupFilter}" 
+																					  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}" 
+																					  ls:AttachedProperties.InheritedTag="CompactView"
+																					  MaxWidth="264"/>
+
+																<ItemsControl x:Name="SpellsList" VerticalAlignment="Center" Margin="0,-8,0,8"
+																					  ItemsSource="{Binding FilteredItems, ElementName=SpellLevelsGroupFilter}" 
+																					  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}"
+																					  ls:AttachedProperties.InheritedTag="CompactView"
+																					  MaxWidth="200"/>
+
+																<Image x:Name="LongRestImage" Source="{StaticResource LongRestIcon}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Margin="0,12,0,-12"/>
+															</StackPanel>
+														</Grid>
+													</StackPanel>
+
+													<DataTemplate.Triggers>
+														<DataTrigger Binding="{Binding FilteredItems[0].Actions[0].CooldownType, ElementName=SpellLevelsGroupFilter}" Value="UntilRest">
+															<Setter TargetName="LongRestImage" Property="Visibility" Value="Visible"/>
+														</DataTrigger>
+
+														<DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="PartyPanel">
+															<Setter TargetName="InitiationRoot" Property="Width" Value="Auto"/>
+														</DataTrigger>
+													</DataTemplate.Triggers>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+
+										<!-- Actions -->
+										<ItemsControl x:Name="ActionsList" HorizontalAlignment="Stretch" 
+															  ItemsSource="{Binding FilteredItems, ElementName=CharacterActionGroupFilter}" 
+															  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+										<!-- Class passives -->
+										<ItemsControl x:Name="PassivesList" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+													  Style="{StaticResource PassiveCellItemsControlStyle}"
+													  ItemsSource="{Binding FilteredItems, ElementName=PassivesFilter}" 
+													  ls:AttachedProperties.InheritedTag="Passives" 
+													  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+										<ItemsControl x:Name="TadpolePassivesList" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+													  Style="{StaticResource PassiveCellItemsControlStyle}"
+													  ItemsSource="{Binding FilteredItems, ElementName=TadpolePassivesFilter}" 
+													  ls:AttachedProperties.InheritedTag="TadpolePassives" 
+													  Visibility="Collapsed"/>
+
+										<!-- Search results -->
+										<Rectangle x:Name="SearchResultsSectionOpening" Fill="{StaticResource ClassBorderEdges}" Visibility="Collapsed" Margin="6,0,0,0" Width="{Binding Fill.Viewbox.Width, RelativeSource={RelativeSource Self}}" Height="{Binding Fill.Viewbox.Height, RelativeSource={RelativeSource Self}}"/>
+
+										<Border x:Name="SearchResultsSection" Visibility="Collapsed" Margin="{Binding Margin, ElementName=SearchResultsSectionOpening}" Width="{Binding Width, ElementName=SearchResultsSectionOpening}" Background="{StaticResource ClassBorderCenter}">
+
+											<StackPanel x:Name="SearchResults">
+												<TextBlock x:Name="ResultsTitle" 
+															   ls:TextBlockFormatter.SourceText="{Binding Source=hd3ed8394g34a6g4e76g9a43gcaf52ddb2dd4, Converter={StaticResource TranslatedStringConverter}}" 
+															   Style="{StaticResource ActionGroupTitleStyle}" 
+															   HorizontalAlignment="Left" VerticalAlignment="Center"
+															   Visibility="{Binding Visibility, ElementName=Results}"
+															   Margin="120,22,0,0"/>
+
+												<ItemsControl x:Name="Results" VerticalAlignment="Top" HorizontalAlignment="Stretch" 
+																  Template="{StaticResource SpellbookActionGroup}" 
+																  ItemsSource="{Binding GeneratedItemsList, ElementName=FilteringContainerHolder}" 
+																  AlternationCount="{Binding ItemsSource.Count, RelativeSource={RelativeSource Self}}"
+																  ItemsPanel="{StaticResource SpellbookItemsPanelTemplate}" 
+																  ItemContainerStyle="{StaticResource SpellCellGridItemContainerStyle}" 
+																  ItemTemplate="{StaticResource ActionGroupItemTemplate}"
+																  Visibility="{Binding Path=ItemsSource.Count, RelativeSource={RelativeSource Self}, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+												<Control x:Name="NoItemsFoundOverlay" Template="{StaticResource NoResultsFoundTemplate}" Visibility="Collapsed" Margin="0,40,0,0"/>
+
+												<ls:LSButton x:Name="ClearFilter" HorizontalAlignment="Center" BoundEvent="UICancel" Command="ls:FilteringContainer.ClearFilterCommand" CommandTarget="{Binding ElementName=FilteringContainerHolder}" Margin="0,40,0,0">
+													<Button.Template>
+														<ControlTemplate TargetType="{x:Type ls:LSButton}">
+															<ControlTemplate.Resources>
+																<BitmapImage x:Key="ButtonBg" UriSource="pack://application:,,,/Core;component/Assets/Buttons/Btn_small_brown_d.png" />
+																<BitmapImage x:Key="ButtonPressedBg" UriSource="pack://application:,,,/Core;component/Assets/Buttons/Btn_small_brown_p.png" />
+																<BitmapImage x:Key="ButtonHoveredBg" UriSource="pack://application:,,,/Core;component/Assets/Buttons/Btn_small_brown_h.png" />
+															</ControlTemplate.Resources>
+															<Grid Background="Transparent">
+																<Image x:Name="bg" Source="{StaticResource ButtonBg}" Stretch="None"/>
+																<TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h9b2ac696gf0c7g4cddg968bg364c67af8757, Converter={StaticResource TranslatedStringConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+															</Grid>
+															<ControlTemplate.Triggers>
+																<Trigger Property="IsMouseOver" Value="True">
+																	<Setter Property="Source" Value="{StaticResource ButtonHoveredBg}" TargetName="bg"/>
+																</Trigger>
+																<Trigger Property="IsPressed" Value="True">
+																	<Setter Property="Source" Value="{StaticResource ButtonPressedBg}" TargetName="bg"/>
+																</Trigger>
+															</ControlTemplate.Triggers>
+														</ControlTemplate>
+													</Button.Template>
+												</ls:LSButton>
+											</StackPanel>
+										</Border>
+
+										<Rectangle x:Name="SearchResultsSectionClosure" Fill="{StaticResource ClassBorderEdges}" RenderTransformOrigin="0.5, 0.5" Visibility="Collapsed" Margin="{Binding Margin, ElementName=SearchResultsSectionOpening}"
+												   Width="{Binding Fill.Viewbox.Width, RelativeSource={RelativeSource Self}}" Height="{Binding Fill.Viewbox.Height, RelativeSource={RelativeSource Self}}">
+											<Rectangle.RenderTransform>
+												<ScaleTransform ScaleY="-1"/>
+											</Rectangle.RenderTransform>
+										</Rectangle>
+									</StackPanel>
+								</ls:LSScrollViewer>
+							</Grid>
+						</ScrollViewer>
+					</Grid>
+
+					<!-- Search button -->
+					<ls:LSToggleButton x:Name="SearchToggle" Grid.Column="2" 
+												   VerticalAlignment="Top" HorizontalAlignment="Left"
+												   Template="{StaticResource ToggleIconButtonTemplate}" 
+												   IsChecked="False" 
+												   Margin="0,0,30,0"
+												   Command="ls:FilteringContainer.ClearFilterCommand" CommandTarget="{Binding ElementName=FilteringContainerHolder}"
+												   Height="{StaticResource TopBarHeight}">
+						<ls:LSToggleButton.Resources>
+							<ImageSource x:Key="ButtonUncheckedNormal">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_d.png</ImageSource>
+							<ImageSource x:Key="ButtonUncheckedHighlight">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_h.png</ImageSource>
+							<ImageSource x:Key="ButtonUncheckedPressed">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_p.png</ImageSource>
+							<ImageSource x:Key="ButtonUncheckedDisabled">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_disabled.png</ImageSource>
+							<ImageSource x:Key="ButtonCheckedNormal">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_d.png</ImageSource>
+							<ImageSource x:Key="ButtonCheckedHighlight">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_h.png</ImageSource>
+							<ImageSource x:Key="ButtonCheckedPressed">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_p.png</ImageSource>
+							<ImageSource x:Key="ButtonCheckedDisabled">pack://application:,,,/Core;component/Assets/CharacterSheet/btn_round_medium_disabled.png</ImageSource>
+							<ImageSource x:Key="IconUncheckedNormal">pack://application:,,,/Core;component/Assets/SpellBook/ico_magnifier_d.png</ImageSource>
+							<ImageSource x:Key="IconUncheckedHighlight">pack://application:,,,/Core;component/Assets/SpellBook/ico_magnifier_h.png</ImageSource>
+							<ImageSource x:Key="IconUncheckedPressed">pack://application:,,,/Core;component/Assets/SpellBook/ico_magnifier_h.png</ImageSource>
+							<ImageSource x:Key="IconUncheckedDisabled">pack://application:,,,/Core;component/Assets/SpellBook/ico_magnifier_d.png</ImageSource>
+							<ImageSource x:Key="IconCheckedNormal">pack://application:,,,/Core;component/Assets/Buttons/ico_cancel.png</ImageSource>
+							<ImageSource x:Key="IconCheckedHighlight">pack://application:,,,/Core;component/Assets/Buttons/ico_cancel_h.png</ImageSource>
+							<ImageSource x:Key="IconCheckedPressed">pack://application:,,,/Core;component/Assets/Buttons/ico_cancel_h.png</ImageSource>
+							<ImageSource x:Key="IconCheckedDisabled">pack://application:,,,/Core;component/Assets/Buttons/ico_cancel.png</ImageSource>
+							<System:Double x:Key="IconWidth">36</System:Double>
+							<System:Double x:Key="IconHeight">36</System:Double>
+						</ls:LSToggleButton.Resources>
+					</ls:LSToggleButton>
+				</Grid>
+			</Grid>
+		</Grid>
+
+		<ControlTemplate.Triggers>
+			<DataTrigger Binding="{Binding SelectedItem.SpellBookType, ElementName=Tabs}" Value="Base">
+				<Setter TargetName="RaceIcon" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="LevelText" Property="Text">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+							<Binding Source="h5df00b79ga6acg4d9fgb8dag23340151fba7"/>
+							<Binding Path="Stats.Level.Value" />
+							<Binding Source=""/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+
+				<Setter TargetName="SubClassName" Property="Text" Value="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.Race.DisplayName, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"/>
+
+				<Setter TargetName="FeatsList" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=CharacterFeatsFilter}"/>
+				<Setter TargetName="FeatsList" Property="ls:AttachedProperties.InheritedTag" Value="CharacterFeats"/>
+
+				<Setter TargetName="InitiationsList" Property="Visibility" Value="{Binding Path=ItemsSource.Count, ElementName=InitiationsList, Converter={StaticResource CountToVisibilityConverter}}"/>
+				<Setter TargetName="TadpoleActionsList" Property="Visibility" Value="{Binding Path=ItemsSource.Count, ElementName=TadpoleActionsList, Converter={StaticResource CountToVisibilityConverter}}"/>
+				<Setter TargetName="TadpoleFeatsList" Property="Visibility" Value="{Binding Path=ItemsSource.Count, ElementName=TadpoleFeatsList, Converter={StaticResource CountToVisibilityConverter}}"/>
+				<Setter TargetName="TadpolePassivesList" Property="Visibility" Value="{Binding Path=ItemsSource.Count, ElementName=TadpolePassivesList, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+				<Setter TargetName="CantripList" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=NonFeatCantripGroupFilter}"/>
+				<Setter TargetName="SpellsCategories" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=NonFeatOrAlwaysPreparedSpellLevelsGroupFilter}"/>
+				<Setter TargetName="NonPreparableSpellsCategories" Property="ItemsSource" Value="{Binding FilteredItems, ElementName=NonFeatSpellLevelsGroupFilter}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding SelectedItem.Class, ElementName=Tabs, Converter={StaticResource NullToBoolTrueConverter}}" Value="False">
+				<Setter TargetName="PageIcon" Property="DataContext" Value="{Binding SelectedItem.Class, ElementName=Tabs}"/>
+				<Setter TargetName="PageIcon" Property="Style" Value="{DynamicResource ClassIconStyle}"/>
+				<Setter TargetName="PageIcon" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding SelectedItem.SpellBookType, ElementName=Tabs}" Value="Tadpole">
+				<!-- In KBM, tadpole info is part of the Base tab, so we're reusing this tab to act as the reactions' one, which doesn't exist -->
+				<Setter TargetName="Reactions" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ClassPanel" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding IsChecked, ElementName=SearchToggle}" Value="True">
+				<Setter TargetName="SubClassContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ClassResourcesContainer" Property="Visibility" Value="Collapsed"/>
+
+				<Setter TargetName="ClassSectionOpening" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ClassSection" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ClassSectionClosure" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="KnownSpellSection" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="FeatsList" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="TadpoleFeatsList" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="PassivesList" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="InitiationsList" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ActionsList" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="TadpoleActionsList" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding CurrentFilter, ElementName=FilteringContainerHolder, Converter={StaticResource NullToBoolFalseConverter}}" Value="True">
+				<Setter TargetName="SearchResultsSectionOpening" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="SearchResultsSection" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="SearchResultsSectionClosure" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding CurrentFilter, ElementName=FilteringContainerHolder, Converter={StaticResource NullToBoolTrueConverter}}" Value="False"/>
+					<Condition Binding="{Binding GeneratedItemsList.Count, ElementName=FilteringContainerHolder}" Value="0"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="NoItemsFoundOverlay" Property="Visibility" Value="Visible"/>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="CharacterPanel"/>
+					<Condition Binding="{Binding Visibility, ElementName=ClassActionsList}" Value="Visible"/>
+					<Condition Binding="{Binding Visibility, ElementName=CantripList}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CantripList" Property="Grid.ColumnSpan" Value="1"/>
+				<Setter TargetName="ClassActionsList" Property="Grid.ColumnSpan" Value="1"/>
+				<Setter TargetName="ClassActionsList" Property="Grid.Column" Value="1"/>
+				<Setter TargetName="ClassActionsList" Property="Grid.Row" Value="0"/>
+
+				<Setter TargetName="CantripList" Property="ls:AttachedProperties.InheritedTag" Value="HideFeatsAndResources"/>
+				<Setter TargetName="ClassActionsList" Property="ls:AttachedProperties.InheritedTag" Value="HideResources"/>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding SelectedItem.Class.CanLearnSpells, ElementName=Tabs}" Value="True">
+				<Setter TargetName="LearnSpellsButton" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="SpellsTitle" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding SelectedItem.Class.MustPrepareSpells, ElementName=Tabs, FallbackValue=False}" Value="False">
+				<Setter TargetName="KnownSpellSection" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="NonPreparableSpellsCategories" Property="Visibility" Value="{Binding Path=ItemsSource.Count, ElementName=NonPreparableSpellsCategories, Converter={StaticResource CountToVisibilityConverter}, FallbackValue=Collapsed}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Visibility, ElementName=AlwaysPreparedList}" Value="Visible">
+				<Setter TargetName="SpellsTitle" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Visibility, ElementName=PreparedSpellsSection}" Value="Visible">
+				<Setter TargetName="SpellsTitle" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Visibility, ElementName=NonPreparableSpellsCategories}" Value="Visible">
+				<Setter TargetName="SpellsTitle" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Visibility, ElementName=PreparedSpellsSection}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=KnownSpellSection}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="InnerSpellsTitle" Property="Visibility" Value="Visible"/>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding Visibility, ElementName=KnownSpellSection}" Value="Visible">
+				<Setter TargetName="ClassSectionClosure" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Visibility, ElementName=PreparedSpellsSectionClosure}" Value="Visible">
+				<Setter TargetName="SearchResultsSectionOpening" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Visibility, ElementName=CantripList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=ClassActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=TadpoleActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=MetamagicList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=SpellsTitle}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=AlwaysPreparedList}" Value="Collapsed"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ClassSectionOpening" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ClassSection" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ClassSectionClosure" Property="Visibility" Value="Collapsed"/>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=ItemsSource.Count, ElementName=SpellsCategories, Converter={StaticResource GreaterThanConverter},ConverterParameter=0}" Value="True"/>
+					<Condition Binding="{Binding Path=ItemsSource.Count, ElementName=ManuallyPreparedList, Converter={StaticResource GreaterThanConverter},ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="PreparedSpellsSection" Property="Visibility" Value="Visible"/>
+			</MultiDataTrigger>
+
+			<!-- In case cantrips and actions section is collapsed, we need to propagate the margin to make sure elements will be set in the proper position -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Visibility, ElementName=ClassActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=CantripList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=TadpoleActionsList}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="TadpoleActionsList" Property="Margin" Value="{Binding Margin, ElementName=CantripsAndActions}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Visibility, ElementName=ClassActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=CantripList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=TadpoleActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=MetamagicList}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="MetamagicList" Property="Margin" Value="{Binding Margin, ElementName=CantripsAndActions}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Visibility, ElementName=ClassActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=CantripList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=TadpoleActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=MetamagicList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=SpellsTitle}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="SpellsTitle" Property="Margin" Value="{Binding Margin, ElementName=CantripsAndActions}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Visibility, ElementName=ClassActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=CantripList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=TadpoleActionsList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=MetamagicList}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=SpellsTitle}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=AlwaysPreparedList}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="AlwaysPreparedList" Property="Margin" Value="{Binding Margin, ElementName=CantripsAndActions}"/>
+			</MultiDataTrigger>
+
+			<!-- Scrolling: If there're spells to prepare, scroll only from the prepared spells section -->
+			<DataTrigger Binding="{Binding SelectedItem.Class.MustPrepareSpells, ElementName=Tabs, FallbackValue=False}" Value="True">
+				<Setter TargetName="WholePanelScrollViewerRoot" Property="MaxHeight" Value="1200"/>
+			</DataTrigger>
+
+			<!-- Scrolling: If there's no spell to prepare, scroll the whole content instead -->
+			<DataTrigger Binding="{Binding SelectedItem.Class.MustPrepareSpells, ElementName=Tabs, FallbackValue=False}" Value="False">
+				<Setter TargetName="ClassPanelScrollableContent" Property="Grid.Row" Value="1"/>
+				<Setter TargetName="ClassPanelScrollableContent" Property="ScrollWheelEnabled" Value="False"/>
+			</DataTrigger>
+
+			<!-- Don't allow drag & drop for summons and followers -->
+			<DataTrigger Binding="{Binding CharacterType}" Value="Summon">
+				<Setter TargetName="ClassSection" Property="IsEnabled" Value="False"/>
+				<Setter TargetName="ScrollableContent" Property="IsEnabled" Value="False"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding CharacterType}" Value="Follower">
+				<Setter TargetName="ClassSection" Property="IsEnabled" Value="False"/>
+				<Setter TargetName="ScrollableContent" Property="IsEnabled" Value="False"/>
+			</DataTrigger>
+
+			<!-- Replaceable spells message -->
+			<DataTrigger Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Bard">
+				<Setter TargetName="ReplaceableSpellsNote" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Warlock">
+				<Setter TargetName="ReplaceableSpellsNote" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ReplaceableSpellsNote" Property="ls:TextBlockFormatter.SourceText" Value="{Binding Source=h4e8ccd4cgd056g41e3g95a5g29b78126e9a2, Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Ranger">
+				<Setter TargetName="ReplaceableSpellsNote" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Sorcerer">
+				<Setter TargetName="ReplaceableSpellsNote" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Visibility, ElementName=KnownSpellSection}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=ReplaceableSpellsNote}" Value="Visible"/>
+					<Condition Binding="{Binding Visibility, ElementName=NonPreparableSpellsCategories}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="NonPreparableReplaceableSpellsNote" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="NonPreparableReplaceableSpellsNote" Property="ls:TextBlockFormatter.SourceText" Value="{Binding (ls:TextBlockFormatter.SourceText), ElementName=ReplaceableSpellsNote}"/>
+			</MultiDataTrigger>
+
+			<!-- Non-caster classes -->
+			<DataTrigger Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Monk">
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Barbarian">
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Rogue"/>
+					<Condition Binding="{Binding SelectedItem.Class.SubclassIDString, ElementName=Tabs}" Value=""/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Rogue"/>
+					<Condition Binding="{Binding SelectedItem.Class.SubclassIDString, ElementName=Tabs}" Value="Thief"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Rogue"/>
+					<Condition Binding="{Binding SelectedItem.Class.SubclassIDString, ElementName=Tabs}" Value="Assassin"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Fighter"/>
+					<Condition Binding="{Binding SelectedItem.Class.SubclassIDString, ElementName=Tabs}" Value=""/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Fighter"/>
+					<Condition Binding="{Binding SelectedItem.Class.SubclassIDString, ElementName=Tabs}" Value="BattleMaster"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding SelectedItem.Class.IDString, ElementName=Tabs}" Value="Fighter"/>
+					<Condition Binding="{Binding SelectedItem.Class.SubclassIDString, ElementName=Tabs}" Value="Champion"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CastAbilityContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellDCContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SpellAttackContainer" Property="Visibility" Value="Collapsed"/>
+			</MultiDataTrigger>
+
+			<!-- Party Panel view -->
+			<DataTrigger Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="PartyPanel">
+				<Setter TargetName="MultiClassSpellbookContainer" Property="Margin" Value="0,0,0,0"/>
+
+				<Setter TargetName="NavigationLeftButton" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="NavigationRightButton" Property="Visibility" Value="Visible"/>
+
+				<Setter TargetName="TopBar" Property="Margin" Value="0,0,0,20"/>
+
+				<Setter TargetName="ClassPanelCentralColumn" Property="Width" Value="684"/>
+				<Setter TargetName="SubClassContainer" Property="Grid.ColumnSpan" Value="5"/>
+				<Setter TargetName="BarLevelContainer" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ClassResourcesContainer" Property="Grid.Row" Value="1"/>
+				<Setter TargetName="ClassResourcesContainer" Property="Grid.Column" Value="0"/>
+				<Setter TargetName="ClassResourcesContainer" Property="Grid.ColumnSpan" Value="3"/>
+				<Setter TargetName="CastAbilityContainer" Property="Grid.Row" Value="1"/>
+				<Setter TargetName="SpellDCContainer" Property="Grid.Row" Value="1"/>
+				<Setter TargetName="SpellAttackContainer" Property="Grid.Row" Value="1"/>
+
+				<Setter TargetName="InfoPanel" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="SearchToggle" Property="Visibility" Value="Collapsed"/>
+
+				<Setter TargetName="InnerSearchToggle" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="SearchToggle" Property="IsChecked" Value="{Binding IsChecked, ElementName=InnerSearchToggle}"/>
+
+				<Setter TargetName="InitiationsList" Property="HorizontalAlignment" Value="Center"/>
+
+				<Setter TargetName="Background" Property="Source" Value="{StaticResource SpellbookBg_Small}"/>
+				<Setter TargetName="Background" Property="Stretch" Value="Fill"/>
+				<Setter TargetName="Background" Property="Margin" Value="-8,-94,-8,-8"/>
+
+				<Setter TargetName="ClassPanel" Property="MaxHeight" Value="1476"/>
+
+				<Setter TargetName="ClassSectionOpening" Property="Fill" Value="{StaticResource ClassBorderEdges_Small}"/>
+				<Setter TargetName="ClassSectionOpening" Property="Margin" Value="-6 ,0,6,0"/>
+				<Setter TargetName="ClassSection" Property="Background" Value="{StaticResource ClassBorderCenter_Small}"/>
+				<Setter TargetName="ClassSectionClosure" Property="Fill" Value="{StaticResource ClassBorderEdges_Small}"/>
+
+				<Setter TargetName="PreparedSpellsSectionOpening" Property="Source" Value="{StaticResource PreparedSpellsTop_Small}"/>
+				<Setter TargetName="PreparedSpellsSection" Property="Background">
+					<Setter.Value>
+						<ImageBrush ImageSource="{StaticResource PreparedSpellsCenter_Small}" Stretch="Fill" TileMode="Tile" AlignmentY="Top" ViewportUnits="Absolute">
+							<ImageBrush.Viewport>
+								<MultiBinding Converter="{StaticResource CreateRectConverter}">
+									<Binding Source="0"/>
+									<Binding Source="0"/>
+									<Binding Path="ImageSource.Width" RelativeSource="{RelativeSource Self}"/>
+									<Binding Path="ImageSource.Height" RelativeSource="{RelativeSource Self}"/>
+								</MultiBinding>
+							</ImageBrush.Viewport>
+						</ImageBrush>
+					</Setter.Value>
+				</Setter>
+				<Setter TargetName="PreparedSpellsSectionClosure" Property="Source" Value="{StaticResource PreparedSpellsBottom_Small}"/>
+
+				<Setter TargetName="KnownSpellSection" Property="ImageSource" Value="{StaticResource SpellsBorder_Small}"/>
+				<Setter TargetName="KnownSpellSection" Property="Slices" Value="24,20,44,44"/>
+				<Setter TargetName="KnownSpellSection" Property="Width" Value="690"/>
+				<Setter TargetName="KnownSpellSection" Property="Margin" Value="-6,0,6,0"/>
+
+				<Setter TargetName="SearchResultsSectionOpening" Property="Fill" Value="{StaticResource ClassBorderEdges_Small}"/>
+				<Setter TargetName="SearchResultsSectionOpening" Property="Margin" Value="0"/>
+				<Setter TargetName="SearchResultsSection" Property="Background" Value="{x:Null}"/>
+				<Setter TargetName="SearchResultsSection" Property="Background" Value="{StaticResource ClassBorderCenter_Small}"/>
+				<Setter TargetName="SearchResultsSectionClosure" Property="Fill" Value="{StaticResource ClassBorderEdges_Small}"/>
+			</DataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="PartyPanel"/>
+					<Condition Binding="{Binding Visibility, ElementName=SubClassContainer}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=ClassResourcesContainer}" Value="Collapsed"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CastAbilityContainer" Property="Grid.Row" Value="0"/>
+				<Setter TargetName="SpellDCContainer" Property="Grid.Row" Value="0"/>
+				<Setter TargetName="SpellAttackContainer" Property="Grid.Row" Value="0"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding ParentState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" Value="PartyPanel"/>
+					<Condition Binding="{Binding Visibility, ElementName=SubClassContainer}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=CastAbilityContainer}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=SpellDCContainer}" Value="Collapsed"/>
+					<Condition Binding="{Binding Visibility, ElementName=SpellAttackContainer}" Value="Collapsed"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ClassResourcesContainer" Property="Grid.Row" Value="0"/>
+				<Setter TargetName="ClassResourcesContainer" Property="Grid.Column" Value="1"/>
+			</MultiDataTrigger>
+
+			<!-- JMoya: We still don't know if feats will make it or not, so design asked to hide them for now while they decide -->
+			<DataTrigger Binding="{Binding Source='True'}" Value="True">
+				<Setter TargetName="FeatsList" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="TadpoleFeatsList" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+</ResourceDictionary>

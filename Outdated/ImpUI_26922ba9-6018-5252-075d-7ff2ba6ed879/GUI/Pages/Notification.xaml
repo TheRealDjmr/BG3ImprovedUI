@@ -1,0 +1,113 @@
+﻿<ls:UIWidget x:Name="NotificationWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:ls="clr-namespace:ls;assembly=Code"
+             xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             ls:UIWidget.ContextName="Notifications" d:DataContext="{d:DesignInstance {x:Type ls:DCNotifications}, IsDesignTimeCreatable=True}"
+             d:DesignHeight="2160" d:DesignWidth="3840">
+
+    <ls:UIWidget.Template>
+        <ControlTemplate>
+            <Grid>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,400,0,0">
+                    <Control x:Name="Progress" HorizontalAlignment="Center" VerticalAlignment="Top" IsHitTestVisible="False" DataContext="{Binding CurrentPlayer.UIData.ActiveTask.Progress}" Template="{StaticResource LockPickNotificationTemplate}"/>
+                    <Control x:Name="Notifications" HorizontalAlignment="Center" VerticalAlignment="Top" DataContext="{Binding CurrentPlayer.UIData.Notification}" Style="{StaticResource Notification.TemplateSwitcher}"/>
+                </StackPanel>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,510">
+                    <Control x:Name="BottomNotifications" DataContext="{Binding CurrentPlayer.UIData.Notification}" Style="{StaticResource Notification.TemplateSwitcher}" Visibility="Collapsed"/>
+                    <Control x:Name="CampLongRestWarning" Template="{StaticResource FixedLongRestNotificationTemplate}" Visibility="Collapsed"/>
+                </StackPanel>
+                <Control x:Name="WorldTurnNotification" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,400">
+                    <Control.Template>
+                        <ControlTemplate>
+                            <ControlTemplate.Resources>
+                                <BitmapImage x:Key="CastBarBackground" UriSource="pack://application:,,,/Core;component/Assets/TargetInfo/target_bar_cast.png"/>
+                            </ControlTemplate.Resources>
+                            <Grid>
+                                <Image Source="{StaticResource CastBarBackground}" Stretch="None"/>
+                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Source=h4a900067gbe92g4e60gaf15g90a1b9dac93a, Converter={StaticResource TranslatedStringConverter}}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Control.Template>
+                </Control>
+                <ItemsControl x:Name="SideTutorials" Style="{StaticResource SideTutorialsStyle}"/>
+
+                <b:Interaction.Triggers>
+                    <b:DataTrigger Binding="{Binding CurrentPlayer.UIData.Notification.Type}" Value="StartTurnFTB">
+                        <b:Interaction.Behaviors>
+                            <b:ConditionBehavior>
+                                <b:ConditionalExpression>
+                                    <b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.SelectedCharacter.CharacterMode}" Operator="NotEqual" RightOperand="InFTB"/>
+                                </b:ConditionalExpression>
+                            </b:ConditionBehavior>
+                        </b:Interaction.Behaviors>
+                        <b:InvokeCommandAction Command="{Binding SkipNotificationCommand}"/>
+                    </b:DataTrigger>
+                </b:Interaction.Triggers>
+            </Grid>
+
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.ActiveTask.Progress.Progress}" Value="1">
+                    <Setter TargetName="Progress" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.Notification.Type}" Value="None">
+                    <Setter TargetName="Notifications" Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.Notification.Type}" Value="PassiveRoll">
+                    <Setter TargetName="Notifications" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="Notifications" Property="IsHitTestVisible" Value="False" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.Notification.Type}" Value="Warning">
+                    <Setter TargetName="Notifications" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="BottomNotifications" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.Notification.Type}" Value="FTBModeStarted">
+                    <Setter TargetName="Notifications" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="BottomNotifications" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.Notification.Type}" Value="StartTurnFTB">
+                    <Setter TargetName="Notifications" Property="Visibility" Value="Collapsed" />
+                    <Setter TargetName="BottomNotifications" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Data.LongRest.ArePlayersDreaming}" Value="True"/>
+                        <Condition Binding="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.ActiveDialogue}" Value="{x:Null}"/>
+                        <Condition Binding="{Binding CurrentPlayer.UIData.InPlayerPanels}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" TargetName="CampLongRestWarning" Value="Visible"/>
+                </MultiDataTrigger>
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Path=CurrentPlayer.SelectedCharacter.CharacterMode}" Value="InFTB"/>
+                        <Condition Binding="{Binding Path=CurrentPlayer.SelectedCharacter.IsCurrentTurn}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter TargetName="WorldTurnNotification" Property="Visibility" Value="Visible"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Path=CurrentPlayer.SelectedCharacter.CharacterMode}" Value="InFTB"/>
+                        <Condition Binding="{Binding Path=CurrentPlayer.SelectedCharacter.IsCurrentTurn}" Value="False"/>
+                        <Condition Binding="{Binding CurrentPlayer.UIData.Notification.Type}" Value="StartTurnFTB"/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter TargetName="BottomNotifications" Property="Visibility" Value="Collapsed"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </ls:UIWidget.Template>
+</ls:UIWidget>

@@ -1,0 +1,181 @@
+<ls:UIWidget x:Name="CharacterChangeAppearance"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ls="clr-namespace:ls;assembly=Code"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d"
+    d:DesignHeight="2160" d:DesignWidth="3840"
+    ls:UIWidget.ContextName="CharacterCreation"
+    ls:TooltipExtender.Owner="{Binding DummyCharacter}">
+
+    <ls:UIWidget.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Library/CCLib_k.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ls:UIWidget.Resources>
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding SetCharacterCreationStep}" CommandParameter="Appearance"/>
+            <b:InvokeCommandAction Command="{Binding SetCameraMode}" CommandParameter="CloseupB"/>
+            <b:InvokeCommandAction Command="{Binding Path=SetCameraOffsets}">
+                <b:InvokeCommandAction.CommandParameter>
+                    <MultiBinding Converter="{StaticResource PassThroughConverter}">
+                        <Binding>
+                            <Binding.Source>
+                                <System:Single>3.8</System:Single>
+                            </Binding.Source>
+                        </Binding>
+                        <Binding>
+                            <Binding.Source>
+                                <System:Single>4</System:Single>
+                            </Binding.Source>
+                        </Binding>
+                        <Binding>
+                            <Binding.Source>
+                                <System:Single>4.2</System:Single>
+                            </Binding.Source>
+                        </Binding>
+                    </MultiBinding>
+                </b:InvokeCommandAction.CommandParameter>
+            </b:InvokeCommandAction>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>    
+    
+    <ls:UIWidget.ContentTemplate>
+        <DataTemplate>
+
+            <Grid x:Name="widgetBase" IsEnabled="{Binding IsLocked, Converter={StaticResource InvertBoolConverter}}">
+
+                <Grid x:Name="appearanceRightSidePanels" HorizontalAlignment="Right">
+
+                    <Grid HorizontalAlignment="Right" Width="1372">
+                        <Image Source="pack://application:,,,/Core;component/Assets/CC/vignette_left.png" Stretch="Fill">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="-1" CenterX="686"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+
+                    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,58,0,0">
+
+                        <Grid Margin="-76,0">
+
+                            <Image x:Name="bg" Source="pack://application:,,,/Core;component/Assets/CC/appearanceOptionsPane.png" Stretch="None" />
+
+                            <Control x:Name="appearancePanel"/>
+
+                        </Grid>
+
+                        <ListBox x:Name="appearanceTabs" ItemContainerStyle="{StaticResource AppearanceTabsStyle}" HorizontalAlignment="Right" Margin="0,300,8,0">
+
+                            <b:Interaction.Triggers>
+                                <b:DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.IsVisible}" Value="False">
+                                    <b:ChangePropertyAction TargetName="appearanceTabs" PropertyName="SelectedItem" Value="{Binding ElementName=generalTab}"/>
+                                </b:DataTrigger>
+                            </b:Interaction.Triggers>
+
+                            <ListBox.Resources>
+                                <BitmapImage x:Key="tabIcon" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_race.png"/>
+                                <BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_race_h.png"/>
+                            </ListBox.Resources>
+
+                            <ListBoxItem x:Name="raceTab" Tag="race" Visibility="Collapsed"/>
+                            <ListBoxItem x:Name="subRaceTab" Tag="subrace" Visibility="Collapsed"/>
+
+                            <ListBoxItem x:Name="generalTab" Tag="general" IsSelected="True"/>
+							<!-- MOD START - All tabs visible based on content -->
+							<ListBoxItem x:Name="tattooAndPiercingTab" Tag="tattooandpiercing" Visibility="{Binding SelectablePiercings.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+							<ListBoxItem x:Name="eyesTab" Tag="eyes" Visibility="{Binding SelectedOrigin.IsLockedAppearance, Converter={StaticResource BoolToCollapsedConverter}}"/>
+							<ListBoxItem x:Name="makeupTab" Tag="makeup" Visibility="{Binding SelectableMakeup.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+							<!-- MOD END -->
+                            <ListBoxItem x:Name="hairTab" Tag="hair" Visibility="{Binding SelectableHair.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+                            <ListBoxItem x:Name="facialHairTab" Tag="facialhair" Visibility="{Binding SelectableBeards.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+                            <ListBoxItem x:Name="hornsTab" Tag="horns" Visibility="{Binding SelectableHorns.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+                            <ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="{Binding Path=HasAppearancePassive, Converter={StaticResource BoolToVisibleConverter}, FallbackValue=Collapsed}"/>
+                            <ListBoxItem x:Name="tailTab" Tag="tail" Visibility="{Binding Path=SelectableTail.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                        </ListBox>
+                    </StackPanel>
+
+                    <!-- Appearance Buttons on Appearance Page -->
+                    <Control x:Name="appearanceButtons" Template="{StaticResource AppearanceButtonsTemplateRandomOnly}" Margin="0,0,500,150" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                    
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="-1000,0,0,100">
+
+                    <Control Template="{StaticResource cameraModeControlsTemplate}"/>
+
+                    <ls:LSButton x:Name="confirmButton" Content="{Binding Source='h7a174735g0099g4ca9ga1f7ga53ad66b1aa4', Converter={StaticResource TranslatedStringConverter}, ConverterParameter='ToUpper'}" Style="{StaticResource CCNextButtonStyle}" IsEnabled="{Binding IsCharacterComplete}" Command="{Binding FinishHenchmenCreating}" Foreground="{StaticResource CCTextPrimary}" Margin="0,0,0,0"/>
+
+                    <Control Template="{StaticResource rotateDummyControlsTemplate}"/>
+
+                </StackPanel>
+
+                <ls:LSButton Template="{StaticResource FrameWithIconButtonTemplate}" Command="{Binding CancelHenchmenCreating}" SoundID="UI_HUD_CC_Accept" VerticalAlignment="Top" Margin="10,20,20,0" HorizontalAlignment="Right">
+                    <ls:LSButton.Resources>
+                        <BitmapImage x:Key="FrameNormal" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundBig_d.png"/>
+                        <BitmapImage x:Key="FrameHighlight" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundBig_h.png"/>
+                        <BitmapImage x:Key="FramePressed" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundBig_d.png"/>
+                        <BitmapImage x:Key="FrameDisabled" UriSource="pack://application:,,,/Core;component/Assets/CC/btn_roundBig_d.png"/>
+                        <BitmapImage x:Key="IconNormal" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_close_big_d.png"/>
+                        <BitmapImage x:Key="IconHighlight" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_close_big_h.png"/>
+                        <BitmapImage x:Key="IconPressed" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_close_big_d.png"/>
+                        <BitmapImage x:Key="IconDisabled" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_close_big_d.png"/>
+                    </ls:LSButton.Resources>
+                </ls:LSButton>
+
+            </Grid>
+
+            <DataTemplate.Triggers>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="general">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceGeneralPanel}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="tattooandpiercing">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceTattooAndPiercingPanel}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="eyes">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceEyesPanel}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="makeup">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceMakeupPanel}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="hair">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceHairPanel}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="facialhair">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceFacialHairPanel}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="horns">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceHornsPanel}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="draconic">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource draconicAppearancePanelTemplate}"/>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding ElementName=appearanceTabs, Path=SelectedItem.Tag}" Value="tail">
+                    <Setter TargetName="appearancePanel" Property="Template" Value="{StaticResource appearanceTailPanel}"/>
+                </DataTrigger>
+
+            </DataTemplate.Triggers>
+
+        </DataTemplate>
+    </ls:UIWidget.ContentTemplate>
+
+</ls:UIWidget>

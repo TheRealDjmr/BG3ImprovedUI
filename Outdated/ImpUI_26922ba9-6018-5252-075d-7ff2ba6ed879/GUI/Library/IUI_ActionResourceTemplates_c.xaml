@@ -1,0 +1,832 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+					xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+					xmlns:ls="clr-namespace:ls;assembly=Code"
+					xmlns:System="clr-namespace:System;assembly=mscorlib"
+					mc:Ignorable="d">
+
+	<System:String x:Key="DefaultActionResourceHighlight">Assets/ActionResources_c/Icons/Resources/Highlight/Default.png</System:String>
+	<ImageSource x:Key="DefaultActionResourceAvailable">pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot.png</ImageSource>
+	<System:String x:Key="DefaultActionResourceUsed">Assets/ActionResources_c/Icons/Resources/Used/Default.png</System:String>
+	<System:String x:Key="DefaultActionResourceMissing">Assets/ActionResources_c/Icons/Resources/Missing/Default.png</System:String>
+
+	<DataTemplate x:Key="ActionResources.ActionGroup.ActionPointResourcePoints">
+		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Image x:Name="image" Height="64" Width="44" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Image.Source>
+					<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource DefaultActionResourceAvailable}">
+						<Binding Source="Assets/ActionResources_c/Icons/Resources/"/>
+						<Binding Path="DataContext.TypeId" RelativeSource="{RelativeSource AncestorType=ls:LSActionPointResources}"/>
+					</MultiBinding>
+				</Image.Source>
+				<Image.RenderTransform>
+					<TransformGroup>
+						<SkewTransform/>
+						<ScaleTransform CenterX="22" CenterY="32"/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Image.RenderTransform>
+			</Image>
+			<Image x:Name="imageExplosion" Height="64" Width="44" Stretch="Uniform" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Image.Source>
+					<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" ConverterParameter="{StaticResource DefaultActionResourceHighlight}">
+						<Binding Source="Assets/ActionResources_c/Icons/Resources/Highlight/"/>
+						<Binding Path="DataContext.TypeId" RelativeSource="{RelativeSource AncestorType=ls:LSActionPointResources}"/>
+					</MultiBinding>
+				</Image.Source>
+				<Image.RenderTransform>
+					<TransformGroup>
+						<SkewTransform/>
+						<ScaleTransform CenterX="22" CenterY="32"/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Image.RenderTransform>
+			</Image>
+		</Grid>
+
+		<DataTemplate.Triggers>
+			<DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Highlight">
+				<Setter TargetName="image" Property="Source">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" ConverterParameter="{StaticResource DefaultActionResourceHighlight}">
+							<Binding Source="Assets/ActionResources_c/Icons/Resources/Highlight/"/>
+							<Binding Path="DataContext.TypeId" RelativeSource="{RelativeSource AncestorType=ls:LSActionPointResources}"/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Missing">
+				<Setter TargetName="image" Property="Source">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" ConverterParameter="{StaticResource DefaultActionResourceMissing}">
+							<Binding Source="Assets/ActionResources_c/Icons/Resources/Missing/"/>
+							<Binding Path="DataContext.TypeId" RelativeSource="{RelativeSource AncestorType=ls:LSActionPointResources}"/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Used">
+				<Setter TargetName="image" Property="Source">
+					<Setter.Value>
+						<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" ConverterParameter="{StaticResource DefaultActionResourceUsed}">
+							<Binding Source="Assets/ActionResources_c/Icons/Resources/Used/"/>
+							<Binding Path="DataContext.TypeId" RelativeSource="{RelativeSource AncestorType=ls:LSActionPointResources}"/>
+						</MultiBinding>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Used"/>
+					<Condition Binding="{Binding Path=IsActionPointSpent, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="True"/>
+					<Condition Binding="{Binding Path=Visibility, ElementName=imageExplosion}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.EnterActions>
+					<BeginStoryboard x:Name="explodeAnim">
+						<Storyboard RepeatBehavior="1x">
+							<DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleX)">
+								<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.6"/>
+								<DiscreteDoubleKeyFrame Value="1"/>
+							</DoubleAnimationUsingKeyFrames>
+							<DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.RenderTransform).(TransformGroup.Children)[1].(ScaleTransform.ScaleY)">
+								<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.6"/>
+								<DiscreteDoubleKeyFrame Value="1"/>
+							</DoubleAnimationUsingKeyFrames>
+							<DoubleAnimationUsingKeyFrames Storyboard.TargetName="imageExplosion" Storyboard.TargetProperty="(Image.Opacity)">
+								<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+							</DoubleAnimationUsingKeyFrames>
+						</Storyboard>
+					</BeginStoryboard>
+				</MultiDataTrigger.EnterActions>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=ActionPointState, RelativeSource={RelativeSource AncestorType=ls:LSActionPoint}}" Value="Highlight"/>
+					<Condition Binding="{Binding Path=DataContext.PreviewState, RelativeSource={RelativeSource AncestorType={x:Type ls:LSActionPointResources}}}" Value="Hover"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.EnterActions>
+					<BeginStoryboard x:Name="previewAnim" Storyboard="{StaticResource ActionResources.ActionGroup.ActionPoint.PreviewAnimation}" Storyboard.TargetName="image"/>
+				</MultiDataTrigger.EnterActions>
+				<MultiDataTrigger.ExitActions>
+					<StopStoryboard BeginStoryboardName="previewAnim"/>
+				</MultiDataTrigger.ExitActions>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding Path=DataContext.PreviewState, RelativeSource={RelativeSource AncestorType={x:Type ls:LSActionPointResources}}}" Value="Inactive">
+				<Setter Property="Opacity" Value="0.5"/>
+			</DataTrigger>
+
+		</DataTemplate.Triggers>
+	</DataTemplate>
+
+	<ControlTemplate x:Key="ActionResources.ActionGroup.DefaultActionPointGroupResourcePoints">
+		<ContentPresenter ContentTemplate="{DynamicResource ActionResources.ActionGroup.ActionPointResourcePoints}"/>
+	</ControlTemplate>
+
+	<Style x:Key="ActionResourcesTemplateSelectorResourcePoints" TargetType="ls:LSActionPointResources" BasedOn="{StaticResource {x:Type ls:LSActionPointResources}}">
+		<Setter Property="ActionPointTemplate" Value="{StaticResource ActionResources.ActionGroup.DefaultActionPointGroupResourcePoints}"/>
+		<Setter Property="Foreground" Value="{DynamicResource ActionResource.Default}" />
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding TypeId}" Value="SorceryPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SorceryPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="KiPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.KiActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LayOnHandsCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LayOnHandsChargeActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Rage">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RageActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BardicInspiration">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.InspirationActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ChannelDivinity">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DivinityActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ChannelOath">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.OathActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SuperiorityDie">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SuperiorityDieActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ArcaneRecoveryPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ArcaneRecoveryActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.DefaultActionPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.BonusActionPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ReactionActionPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="SpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.SpellSlot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WarlockSpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WarlockSpellSlot}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="RitualPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.RitualPointActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="NaturalRecoveryPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.NaturalRecoveryPointActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WildShape">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WildShapeActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="TidesOfChaos">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.TidesOfChaosActionGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="WarPriestActionPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.WarPriestActionPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="FungalInfestationCharge">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.FungalInfestationChargeGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="LuckPoint">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.LuckPointGroup}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ShadowSpellSlot">
+				<Setter Property="ActionPointTemplate" Value="{DynamicResource ActionResources.ActionGroup.ShadowSpellSlotGroup}"/>
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="ResourcesCollectionStyle" TargetType="ItemsControl">
+		<Setter Property="ItemsPanel">
+			<Setter.Value>
+				<ItemsPanelTemplate>
+					<StackPanel Orientation="Horizontal"/>
+				</ItemsPanelTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="ItemContainerStyle">
+			<Setter.Value>
+				<Style TargetType="ContentPresenter">
+					<Setter Property="Margin" Value="-4,0"/>
+				</Style>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="ItemTemplate">
+			<Setter.Value>
+				<DataTemplate DataType="ls:VMActionResourceCostPreview">
+					<Border x:Name="Container" ls:MoveFocus.Focusable="True" Focusable="True" ToolTipService.Placement="Top" ToolTip="{StaticResource ManagedTooltip}" HorizontalAlignment="Center" VerticalAlignment="Center" MinHeight="90" BorderThickness="2" >
+						<StackPanel Orientation="Horizontal">
+							<TextBlock x:Name="SpellSlotLabel" Effect="{StaticResource ShadowEffect}" Visibility="Collapsed" Style="{StaticResource ResourceBarLabelStyle}" />
+							<TextBlock x:Name="ResourceLabel" Effect="{StaticResource ShadowEffect}" Text="{Binding ActionResource.Name}" Style="{StaticResource ResourceBarLabelStyle}"/>
+							<Grid Margin="0,0,12,0">
+								<Rectangle HorizontalAlignment="Stretch" Height="72" Fill="#99151515" RadiusX="36" RadiusY="36" Opacity="0.4">
+								</Rectangle>
+								<Rectangle x:Name="ActionResourceBackground" HorizontalAlignment="Stretch" Height="72" Fill="#99CCCCFF" RadiusX="36" RadiusY="36" Opacity="0.3">
+								</Rectangle>
+								<Rectangle x:Name="ActionResourceBackgroundStroke" HorizontalAlignment="Stretch" Height="72" Fill="Transparent" RadiusX="36" RadiusY="36" Stroke="Transparent" StrokeThickness="4" Opacity="0.2" >
+								</Rectangle>
+								<Rectangle x:Name="ActionResourceBackgroundStrokeHighlight" HorizontalAlignment="Stretch" Height="72" Fill="Transparent" RadiusX="36" RadiusY="36" Stroke="{StaticResource LS_selectedTextPad}" StrokeThickness="4" Opacity="0" >
+								</Rectangle>
+								<StackPanel x:Name="ResourcePointsStack" Orientation="Horizontal" Margin="16,0,0,0">
+									<Image x:Name="LevelImage" Height="80" Width="80" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,0">
+										<Image.Source>
+											<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource TypeIdToSourceFallback}">
+												<Binding Source="Assets/ActionResources_c/Icons/"/>
+												<Binding Path="ActionResource.TypeId"/>
+											</MultiBinding>
+										</Image.Source>
+									</Image>
+									<ls:LSActionPointResources x:Name="ResourcePoints"
+													   Background="Transparent"
+													   HorizontalAlignment="Center"
+													   MaxActionPoints="{Binding MaxValue}"
+													   AvailableActionPoints="{Binding Value}"
+													   HighlightedActionPoints="{Binding DataContext.Cost, ElementName=Container}"
+													   Style="{StaticResource ActionResourcesTemplateSelectorResourcePoints}"
+													   DataContext="{Binding ActionResource}"
+													   MaxActionPointGroups="0"
+													   ActionPointGroupSize="-1"
+													   SmallActionPointSize="{DynamicResource ActionPointSize}"
+													   ActionPointSize="{DynamicResource ActionPointSize}"
+													   ActionPointInBetweenMargin="-56"
+													   MaxGroupActionPoints="99"
+													   Margin="-24,0,0,0"/>
+									<TextBlock x:Name="ResourceAmount" Style="{StaticResource ActionResourceAmountStyle}" TextAlignment="Left" MinWidth="40" Margin="3,-3,0,3" Text="{Binding ActionResource.Value}" Visibility="Collapsed"/>
+								</StackPanel>
+							</Grid>
+						</StackPanel>
+					</Border>
+					<DataTemplate.Triggers>
+						<DataTrigger Binding="{Binding ActionResource.Level}" Value="1">
+							<Setter TargetName="SpellSlotLabel" Property="Text" Value="{Binding Source='hbdeb8e2fg50e9g424fgbe6dg248268275452',Converter={StaticResource TranslatedStringConverter}}"/>
+							<Setter TargetName="SpellSlotLabel" Property="Visibility" Value="Visible"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.MaxValue}" Value="1">
+							<Setter TargetName="ResourcePointsStack" Property="Margin" Value="16,0,30,0"/>
+						</DataTrigger>
+
+						<!-- Hide Resource Bar Labels At Level 5-->
+						<DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.Level.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=4}" Value="True">
+							<Setter TargetName="SpellSlotLabel" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="ResourceLabel" Property="Visibility" Value="Collapsed"/>
+						</DataTrigger>
+						<!-- MOD START - Hide resources At 10+ resources-->
+						<DataTrigger Binding="{Binding ActionResource.MaxValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=9}" Value="True">
+							<Setter TargetName="ResourcePoints" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="ResourceAmount" Property="MinWidth" Value="80"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.MaxValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=99}" Value="True">
+							<Setter TargetName="ResourceAmount" Property="MinWidth" Value="120"/>
+						</DataTrigger>
+						<!-- MOD END -->
+
+
+						<DataTrigger Binding="{Binding DataContext.Cost, ElementName=Container, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+
+							<DataTrigger.EnterActions>
+								<BeginStoryboard x:Name="ResourceHoverAnim" Storyboard="{StaticResource ResourceSelectedAnimation}" Storyboard.TargetName="ResourceLabel"/>
+								<BeginStoryboard x:Name="ResourceHoverBGAnim" Storyboard="{StaticResource ResourceSelectedBGAnimation}" Storyboard.TargetName="ActionResourceBackgroundStroke"/>
+							</DataTrigger.EnterActions>
+							<DataTrigger.ExitActions>
+								<StopStoryboard BeginStoryboardName="ResourceHoverAnim"/>
+								<StopStoryboard BeginStoryboardName="ResourceHoverBGAnim"/>
+							</DataTrigger.ExitActions>
+						</DataTrigger>
+
+						<!-- <DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SpellSlot">
+							<Setter TargetName="ResourceLabel" Property="Visibility" Value="Collapsed"/>
+						</DataTrigger> -->
+
+						<!-- Hide Movement Label At Level 3 for split screen-->
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding DataContext.Layout, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Left"/>
+								<Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.Level.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=2}" Value="True"/>
+							</MultiDataTrigger.Conditions>
+							<MultiDataTrigger.Setters>
+								<Setter TargetName="ResourceLabel" Property="Visibility" Value="Collapsed"/>
+								<Setter TargetName="SpellSlotLabel" Property="Visibility" Value="Collapsed"/>
+							</MultiDataTrigger.Setters>
+						</MultiDataTrigger>
+
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding DataContext.Layout, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Right"/>
+								<Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.Level.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=2}" Value="True"/>
+							</MultiDataTrigger.Conditions>
+							<MultiDataTrigger.Setters>
+								<Setter TargetName="ResourceLabel" Property="Visibility" Value="Collapsed"/>
+								<Setter TargetName="SpellSlotLabel" Property="Visibility" Value="Collapsed"/>
+							</MultiDataTrigger.Setters>
+						</MultiDataTrigger>
+
+						<DataTrigger Binding="{Binding DataContext.Data.AspectRatio, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0.7}" Value="True">
+							<Setter TargetName="ResourceLabel" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="SpellSlotLabel" Property="Visibility" Value="Collapsed"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding Path=(ls:MoveFocus.IsFocused), ElementName=Container}" Value="True">
+							<Setter TargetName="Container" Property="BorderBrush" Value="{StaticResource LS_tint100}"/>
+							<Setter TargetName="ResourceLabel" Property="TextBlock.Foreground" Value="{StaticResource LS_selectedTextPad}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ActionPoint">
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="ResourcePoints" Property="ActionPointInBetweenMargin" Value="-32"/>
+							<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+							<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionPoint}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionPoint}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="BonusActionPoint">
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="ResourcePoints" Property="ActionPointInBetweenMargin" Value="-32"/>
+							<Setter TargetName="ResourcePointsStack" Property="Margin" Value="22,0,22,0"/>
+							<Setter TargetName="ResourceAmount" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource BonusActionPoint}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource BonusActionPoint}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SpellSlot">
+							<Setter TargetName="ResourceLabel" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="LevelImage" Property="Margin" Value="6,0,6,0"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.SpellSlot}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.SpellSlot}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SorceryPoint">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.SorceryPoint}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.SorceryPoint}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h2b304762g10e7g4f6cg96c4g1432137ef83e', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="KiPoint">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.KiPoint}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.KiPoint}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h65345978g6d61g4572g87e0ga850a81ca9bc', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="LayOnHandsCharge">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.LayOnHands}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.LayOnHands}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h4afff1a2g3fd3g42a0g9584g4e4956b3e46d', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="RitualPoint">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.RitualPoint}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.RitualPoint}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h5615f8c3gb113g45dagada6gaf1794083c92', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="NaturalRecoveryPoint">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.NaturalRecovery}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.NaturalRecovery}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h17002d15gd024g41f7ga17bg49b42c867b42', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="WildShape">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.WildShape}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.WildShape}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='hde7c0e66g9526g4e3bgb10cg1f7f82300b96', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="TidesOfChaos">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.TidesOfChaos}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.TidesOfChaos}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h1fbdf74dge1fdg4835g86d7gac64fc3a18b3', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ArcaneRecoveryPoint">
+							<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-6,0"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.ArcaneRecovery}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.ArcaneRecovery}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h7d59230fg2bf7g436dgb436g08e0b4e9234e', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="SuperiorityDie">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.SuperiorityDie}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.SuperiorityDie}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ChannelOath">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.ChannelOath}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.ChannelOath}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h2da99030g63cbg4d3egb77bg91a0985eee6d', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ChannelDivinity">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.ChannelDivinity}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.ChannelDivinity}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="BardicInspiration">
+							<Setter TargetName="LevelImage" Property="Margin" Value="-10,0,-10,0"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.InspirationPoint}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.InspirationPoint}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="Rage">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.RagePoint}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.RagePoint}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h509b8e00gacb9g4eafgb41dgc56656969a2b', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="WarPriestActionPoint">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.WarPriest}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.WarPriest}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='hcf90a672g10deg4b3egad4fg9094c6ac6224', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<!-- Add a plural to the name if there is more than one Extra Attack -->
+						<MultiDataTrigger>
+							<MultiDataTrigger.Conditions>
+								<Condition Binding="{Binding ActionResource.TypeId}" Value="WarPriestActionPoint"/>
+								<Condition Binding="{Binding ActionResource.MaxValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+							</MultiDataTrigger.Conditions>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h25d1fb0cg356dg49e4gb43bg597ee721f740', Converter={StaticResource TranslatedStringConverter}}"/>
+						</MultiDataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="FungalInfestationCharge">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.FungalInfestation}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.FungalInfestation}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='h8de4539cgd476g4fb8gacf6g2b527fae71b5', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="LuckPoint">
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.FungalInfestation}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.FungalInfestation}"/>
+							<Setter TargetName="ResourceLabel" Property="Text" Value="{Binding Source='heb90a9a3ga125g4a66gbcbcga3bb72dfe17a', Converter={StaticResource TranslatedStringConverter}}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="ShadowSpellSlot">
+							<Setter TargetName="ResourceLabel" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="LevelImage" Property="Margin" Value="6,0,6,0"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource ActionResource.ShadowSpellSlot}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource ActionResource.ShadowSpellSlot}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.TypeId}" Value="WarlockSpellSlot">
+							<Setter TargetName="ResourceLabel" Property="Visibility" Value="Collapsed"/>
+							<Setter TargetName="LevelImage" Property="Margin" Value="6,0,6,0"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource Sorcerer.Metamagic}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="{StaticResource Sorcerer.Metamagic}"/>
+						</DataTrigger>
+
+						<DataTrigger Binding="{Binding ActionResource.Level}" Value="1">
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_1.png"/>
+							<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+							<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.Level}" Value="2">
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_2.png"/>
+							<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+							<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.Level}" Value="3">
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_3.png"/>
+							<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+							<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.Level}" Value="4">
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_4.png"/>
+							<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+							<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.Level}" Value="5">
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_5.png"/>
+							<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+							<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.Level}" Value="6">
+							<Setter TargetName="LevelImage" Property="Visibility" Value="Visible"/>
+							<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_6.png"/>
+							<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+							<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+						</DataTrigger>
+
+						<!-- Unavailable Resources State-->
+						<DataTrigger Binding="{Binding ActionResource.Value}" Value="0">
+							<Setter TargetName="ResourceLabel" Property="TextBlock.Foreground" Value="{StaticResource LS_accent00TxtColor}"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource  ActionResource.MovementBG}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#444444"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Opacity" Value="0.8"/>
+							<Setter TargetName="ActionResourceBackground" Property="Opacity" Value="1"/>
+							<Setter TargetName="ResourceAmount" Property="TextBlock.Foreground" Value="{StaticResource LS_accent00TxtColor}"/>
+						</DataTrigger>
+						<DataTrigger Binding="{Binding ActionResource.Value}" Value="0">
+							<Setter TargetName="ResourceLabel" Property="TextBlock.Foreground" Value="{StaticResource LS_accent00TxtColor}"/>
+							<Setter TargetName="ActionResourceBackground" Property="Fill" Value="{StaticResource  ActionResource.MovementBG}"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Stroke" Value="#444444"/>
+							<Setter TargetName="ActionResourceBackgroundStroke" Property="Opacity" Value="0.8"/>
+							<Setter TargetName="ActionResourceBackground" Property="Opacity" Value="1"/>
+							<Setter TargetName="ResourceAmount" Property="TextBlock.Foreground" Value="{StaticResource LS_accent00TxtColor}"/>
+						</DataTrigger>
+					</DataTemplate.Triggers>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<ControlTemplate x:Key="ActionResourcesTemplate">
+		<Grid x:Name="ResourceContainer" HorizontalAlignment="Stretch">
+			<b:Interaction.Behaviors>
+				<ls:CollectionFilterBehavior x:Name="BasicFilter" ItemsSource="{Binding }" Predicate="{Binding DataContext.Data.ActionResourceBasicPredicate, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"/>
+				<ls:CollectionFilterBehavior x:Name="SpecialFilter" ItemsSource="{Binding }" Predicate="{Binding DataContext.Data.ActionResourceSpecialPredicate, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"/>
+				<ls:CollectionFilterBehavior x:Name="SpellSlotFilter" ItemsSource="{Binding }" Predicate="{Binding DataContext.Data.ActionResourceSpellSlotPredicate, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}"/>
+			</b:Interaction.Behaviors>
+
+			<ls:AlignableWrapPanel x:Name="resourceBarWrapPanel" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" MinWidth="700">
+				<ItemsControl Name="BasicResources"
+									   ItemsSource="{Binding Path=(b:Interaction.Behaviors)[0].FilteredItems, ElementName=ResourceContainer, Mode=OneWay}"
+									   Style="{StaticResource ResourcesCollectionStyle}" AlternationCount="{Binding Path=(b:Interaction.Behaviors)[0].FilteredItems.Count, ElementName=ResourceContainer}"
+									   ls:AttachedProperties.InheritedNumber="1" Margin="0,-6,0,-6">
+					<ItemsControl.Resources>
+						<System:Double x:Key="ActionPointSize">80</System:Double>
+					</ItemsControl.Resources>
+				</ItemsControl>
+				<ContentControl Name="MovementResources">
+					<StackPanel Orientation="Horizontal" Margin="0,0,12,0">
+						<TextBlock x:Name="MovementLabel" Text="{Binding Source='ha9fe36bfg692ag4f8bg8d9eg379bbbf04c87',Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource ResourceBarLabelStyle}"/>
+						<Grid>
+							<Rectangle x:Name="MovementResourceBackground" HorizontalAlignment="Stretch" Height="72" Fill="{StaticResource ActionResource.MovementBG}" RadiusX="36" RadiusY="36" Opacity="1"/>
+							<Rectangle x:Name="MovementResourceBackgroundStroke" HorizontalAlignment="Stretch" Height="72" Fill="Transparent" RadiusX="36" RadiusY="36" Stroke="{StaticResource ActionResource.Movement}" StrokeThickness="4" Opacity="0.2" />
+							<StackPanel Orientation="Horizontal" >
+								<Image x:Name="MovementIcon" HorizontalAlignment="Center" Margin="14,0,10,0" Source="{StaticResource movementAvailable}" />
+								<TextBlock x:Name="MovementAmount" MinWidth="102" TextAlignment="Left" Text="{Binding DataContext.CurrentPlayer.UIData.MovementResourceCostPreview.ValueAfterUse, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource UnitConverter}, ConverterParameter='Distance preservezeros N1'}" Style="{StaticResource ActionResourceAmountStyle}" />
+							</StackPanel>
+						</Grid>
+					</StackPanel>
+				</ContentControl>
+				<ItemsControl Name="SpellSlotResources" ItemsSource="{Binding Path=(b:Interaction.Behaviors)[2].FilteredItems, ElementName=ResourceContainer, Mode=OneWay}" Style="{StaticResource ResourcesCollectionStyle}" AlternationCount="{Binding Path=(b:Interaction.Behaviors)[2].FilteredItems.Count, ElementName=ResourceContainer}" ls:AttachedProperties.InheritedNumber="-1">
+					<ItemsControl.Resources>
+						<System:Double x:Key="ActionPointSize">80</System:Double>
+					</ItemsControl.Resources>
+				</ItemsControl>
+				<ItemsControl Name="SpecialResources" ItemsSource="{Binding Path=(b:Interaction.Behaviors)[1].FilteredItems, ElementName=ResourceContainer, Mode=OneWay}" Style="{StaticResource ResourcesCollectionStyle}" AlternationCount="{Binding Path=(b:Interaction.Behaviors)[1].FilteredItems.Count, ElementName=ResourceContainer}" ls:AttachedProperties.InheritedNumber="-1">
+					<ItemsControl.Resources>
+						<System:Double x:Key="ActionPointSize">80</System:Double>
+					</ItemsControl.Resources>
+				</ItemsControl>
+			</ls:AlignableWrapPanel>
+		</Grid>
+		<ControlTemplate.Triggers>
+			<DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.MovementResource.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter='9.9'}" Value="True" >
+				<Setter TargetName="MovementAmount" Property="MinWidth" Value="120" />
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.MovementResource.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource LessThanConverter}, ConverterParameter='9.9'}" Value="True" >
+				<Setter TargetName="MovementAmount" Property="MinWidth" Value="102" />
+			</DataTrigger>
+
+			<!-- Hide Movement Label At Level 5-->
+			<DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.Level.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=4}" Value="True">
+				<Setter TargetName="MovementLabel" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<!-- Hide Movement Label At Level 3 for split screen-->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding DataContext.Layout, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Left"/>
+					<Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.Level.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=2}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="MovementLabel" Property="Visibility" Value="Collapsed"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding DataContext.Layout, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Right"/>
+					<Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.Level.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=2}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="MovementLabel" Property="Visibility" Value="Collapsed"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+
+			<DataTrigger Binding="{Binding DataContext.Data.AspectRatio, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0.7}" Value="True">
+				<Setter TargetName="MovementLabel" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding ActualHeight, ElementName=resourceBarWrapPanel, Converter={StaticResource GreaterThanConverter}, ConverterParameter=140}" Value="True">
+				<Setter TargetName="BasicResources" Property="Margin" Value="0,-6,0,-6"/>
+				<Setter TargetName="MovementResources" Property="Margin" Value="0,-6,0,-6"/>
+				<Setter TargetName="SpellSlotResources" Property="Margin" Value="0,-6,0,-6"/>
+				<Setter TargetName="SpecialResources" Property="Margin" Value="0,-6,0,-6"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.Stats.MovementResource.Value, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="0">
+				<Setter TargetName="MovementLabel" Property="TextBlock.Foreground" Value="{StaticResource LS_accent00TxtColor}"/>
+				<Setter TargetName="MovementResourceBackground" Property="Fill" Value="{StaticResource  ActionResource.MovementBG}"/>
+				<Setter TargetName="MovementResourceBackgroundStroke" Property="Stroke" Value="#444444"/>
+				<Setter TargetName="MovementResourceBackgroundStroke" Property="Opacity" Value="0.8"/>
+				<Setter TargetName="MovementAmount" Property="TextBlock.Foreground" Value="{StaticResource LS_accent00TxtColor}"/>
+				<Setter TargetName="MovementIcon" Property="Source" Value="{StaticResource movementUsed}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=(b:Interaction.Behaviors)[2].FilteredItems.Count, ElementName=ResourceContainer}" Value="0">
+				<Setter TargetName="SpecialResources" Property="Margin" Value="0"/>
+			</DataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=(b:Interaction.Behaviors)[1].FilteredItems.Count, ElementName=ResourceContainer}" Value="0"/>
+					<Condition Binding="{Binding Path=(b:Interaction.Behaviors)[2].FilteredItems.Count, ElementName=ResourceContainer}" Value="0"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="BasicResources" Property="Margin" Value="0"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding DataContext.CurrentPlayer.SelectedCharacter.InTurnBasedMode, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="False"/>
+					<Condition Binding="{Binding DataContext.CurrentPlayer.UIData.ActiveTask.RootCastSpell, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue=False}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="BasicResources" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="MovementResources" Property="Visibility" Value="Collapsed"/>
+			</MultiDataTrigger>
+
+			<!-- We need to detect the first and the last elements in the container, so we're checking it here by checking Count properties and passing it deeper through this inherited property -->
+			<!-- Values: -1 (none) / 0 (only first) / 1 (first and last) / 2 (only last) -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=(b:Interaction.Behaviors)[1].FilteredItems.Count, ElementName=ResourceContainer, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+					<Condition Binding="{Binding Path=(b:Interaction.Behaviors)[2].FilteredItems.Count, ElementName=ResourceContainer, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="SpecialResources" Property="ls:AttachedProperties.InheritedNumber" Value="1"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=(b:Interaction.Behaviors)[1].FilteredItems.Count, ElementName=ResourceContainer, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="False"/>
+					<Condition Binding="{Binding Path=(b:Interaction.Behaviors)[2].FilteredItems.Count, ElementName=ResourceContainer, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="SpellSlotResources" Property="ls:AttachedProperties.InheritedNumber" Value="1"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=(b:Interaction.Behaviors)[1].FilteredItems.Count, ElementName=ResourceContainer, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+					<Condition Binding="{Binding Path=(b:Interaction.Behaviors)[2].FilteredItems.Count, ElementName=ResourceContainer, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="SpecialResources" Property="ls:AttachedProperties.InheritedNumber" Value="0"/>
+					<Setter TargetName="SpellSlotResources" Property="ls:AttachedProperties.InheritedNumber" Value="2"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<!-- ACTION RESOURCE ICONS - CONTROLLER UI ACTION RADIAL COST SECTION -->
+	<!-- This is the "Cost" section of the Action Radials screen when hovering over an action/spell, NOT the bottom resource bar above -->
+	<DataTemplate x:Key="ActionCostSummaryList" DataType="ls:VMActionResource">
+		<StackPanel x:Name="ActionCostSummary"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,6,0,8">
+			<TextBlock x:Name="AddSign" Text="+" VerticalAlignment="Center" Margin="12,0,12,0"/>
+			<Image x:Name="LevelImage" HorizontalAlignment="Center" Height="80" Width="80" Stretch="Uniform">
+				<Image.Source>
+					<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource TypeIdToSourceFallback}">
+						<Binding Source="Assets/ActionResources_c/Icons/"/>
+						<Binding Path="TypeId"/>
+					</MultiBinding>
+				</Image.Source>
+			</Image>
+			<Rectangle x:Name="ResourceImage" Width="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=25}" Height="64" VerticalAlignment="Center">
+				<Rectangle.Fill>
+					<ImageBrush TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,25,64" ViewboxUnits="Absolute" Viewbox="8,0,25,64">
+						<ImageBrush.ImageSource>
+							<MultiBinding Converter="{StaticResource IconIdToSourceConverter}" FallbackValue="{StaticResource DefaultActionResourceAvailable}">
+								<Binding Source="Assets/ActionResources_c/Icons/Resources/"/>
+								<Binding Path="TypeId"/>
+							</MultiBinding>
+						</ImageBrush.ImageSource>
+					</ImageBrush>
+				</Rectangle.Fill>
+			</Rectangle>
+			<TextBlock x:Name="ResourceName" Text="{Binding Name}" Margin="8,0" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="{DynamicResource ScaledSmallishFontSize}" Foreground="{StaticResource LS_tint100}" Style="{StaticResource HUD.DefaultTextStyle}"/>
+			<TextBlock x:Name="ResourceValue" Visibility="Collapsed"/>
+		</StackPanel>
+
+		<DataTemplate.Triggers>
+
+			<Trigger Property="ItemsControl.AlternationIndex" Value="0">
+				<Setter TargetName="AddSign" Property="Visibility" Value="Collapsed"/>
+			</Trigger>
+
+			<!-- If it's going to cost 5 points or more, just show value -->
+			<DataTrigger Binding="{Binding MaxValue, Converter={StaticResource GreaterThanConverter}, ConverterParameter=4}" Value="True">
+				<Setter TargetName="ResourceImage" Property="Width" Value="0"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ActionPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceImage" Property="Width" Value="48"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/ImpUI;component/Assets/ActionResources_c/Icons/Resources/ActionPoint.png"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="BonusActionPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceImage" Property="Width" Value="48"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/ImpUI;component/Assets/ActionResources_c/Icons/Resources/BonusActionPoint.png"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="Movement">
+				<Setter TargetName="LevelImage" Property="Margin" Value="8,0,8,0"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="56"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="56"/>
+				<Setter TargetName="ResourceImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceName" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceValue" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ResourceValue" Property="ls:TextBlockFormatter.SourceText" Value="{Binding MaxValue, Converter={StaticResource UnitConverter}, ConverterParameter='Distance Short', StringFormat='{}{0} '}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding TypeId}" Value="ReactionActionPoint">
+				<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ResourceImage" Property="Width" Value="{Binding MaxValue, Converter={StaticResource MultiplierConverter}, ConverterParameter=60}"/>
+				<Setter TargetName="ResourceImage" Property="Fill">
+					<Setter.Value>
+						<ImageBrush ImageSource="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_mini_spellSlot_reaction.png"
+							TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,60,80" ViewboxUnits="Absolute" Viewbox="0,0,60,80"/>
+					</Setter.Value>
+				</Setter>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Level}" Value="1">
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_1.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="2">
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_2.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="3">
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_3.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="4">
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_4.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="5">
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_5.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Level}" Value="6">
+				<Setter TargetName="LevelImage" Property="Source" Value="pack://application:,,,/Core;component/Assets/ActionResources_c/Icons/c_ico_spellLevel_6.png"/>
+				<Setter TargetName="LevelImage" Property="Height" Value="Auto"/>
+				<Setter TargetName="LevelImage" Property="Width" Value="Auto"/>
+			</DataTrigger>
+
+			<!-- Ritual -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="SpellSlot"/>
+					<Condition Binding="{Binding Path=DataContext.Spell.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+					<Condition Binding="{Binding Path=DataContext.Spell.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="ResourceImage" Property="Fill">
+						<Setter.Value>
+							<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_d.png" Stretch="Uniform"/>
+						</Setter.Value>
+					</Setter>
+					<Setter TargetName="ResourceImage" Property="Width" Value="64"/>
+					<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+					<Setter TargetName="ResourceName" Property="Text" Value="{Binding Source='hc3fa3d4agb98bg4cceg80a4g4ae437a80850', Converter={StaticResource TranslatedStringConverter}}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding TypeId}" Value="WarlockSpellSlot"/>
+					<Condition Binding="{Binding Path=DataContext.Spell.RitualCost, Converter={StaticResource NullToBoolFalseConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="True" />
+					<Condition Binding="{Binding Path=DataContext.Spell.IsRitualDisabled, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="False" />
+				</MultiDataTrigger.Conditions>
+				<MultiDataTrigger.Setters>
+					<Setter TargetName="ResourceImage" Property="Fill">
+						<Setter.Value>
+							<ImageBrush ImageSource="pack://application:,,,/GustavNoesisGUI;component/Assets/ActionResources_c/Icons/c_ico_classRes_rituals_d.png" Stretch="Uniform"/>
+						</Setter.Value>
+					</Setter>
+					<Setter TargetName="ResourceImage" Property="Width" Value="64"/>
+					<Setter TargetName="LevelImage" Property="Visibility" Value="Collapsed"/>
+					<Setter TargetName="ResourceName" Property="Text" Value="{Binding Source='hc3fa3d4agb98bg4cceg80a4g4ae437a80850', Converter={StaticResource TranslatedStringConverter}}"/>
+				</MultiDataTrigger.Setters>
+			</MultiDataTrigger>
+		</DataTemplate.Triggers>
+	</DataTemplate>
+</ResourceDictionary>

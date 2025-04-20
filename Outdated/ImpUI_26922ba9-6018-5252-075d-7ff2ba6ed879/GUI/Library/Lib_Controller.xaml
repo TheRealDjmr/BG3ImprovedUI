@@ -1,0 +1,945 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:ls="clr-namespace:ls;assembly=Code"
+					xmlns:System="clr-namespace:System;assembly=mscorlib"
+					xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+					xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					mc:Ignorable="d">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="IUI_ActionResources.xaml"/>
+		<ResourceDictionary Source="IUI_ActionResourceTemplates_c.xaml"/>
+		<ResourceDictionary Source="RedeclaredTooltips.xaml"/>
+		<!--<ResourceDictionary Source="PreloadedActionRadials_c.xaml"/>-->
+	</ResourceDictionary.MergedDictionaries>
+
+	<!-- From PreloadedActionRadials_c.xaml -->
+	<ControlTemplate  x:Key="ActionRadialWidgetTemplate">
+		<Grid x:Name="fadeInRadials" >
+			<b:Interaction.Triggers>
+				<b:DataTrigger Binding="{Binding Layout}" Value="Common">
+					<b:Interaction.Behaviors>
+						<b:ConditionBehavior>
+							<b:ConditionalExpression>
+								<b:ComparisonCondition LeftOperand="{Binding Data.IsFullScreenSharedInitiativeEnabled}" Operator="Equal" RightOperand="False"/>
+								<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.SelectedCharacter.IsCurrentTurn}" Operator="Equal" RightOperand="False"/>
+								<b:ComparisonCondition LeftOperand="{Binding Data.LocalPlayers.Count}" Operator="Equal" RightOperand="2"/>
+							</b:ConditionalExpression>
+						</b:ConditionBehavior>
+					</b:Interaction.Behaviors>
+					<b:InvokeCommandAction Command="{Binding CustomEvent}" CommandParameter="CloseRadials"/>
+				</b:DataTrigger>
+				<b:DataTrigger Binding="{Binding Layout}" Value="Common">
+					<b:Interaction.Behaviors>
+						<b:ConditionBehavior>
+							<b:ConditionalExpression>
+								<b:ComparisonCondition LeftOperand="{Binding Data.IsFullScreenSharedInitiativeEnabled}" Operator="Equal" RightOperand="True"/>
+								<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.SelectedCharacter.IsOwnerActiveInSplitscreenFullscreenTurn}" Operator="Equal" RightOperand="False"/>
+								<b:ComparisonCondition LeftOperand="{Binding Data.LocalPlayers.Count}" Operator="Equal" RightOperand="2"/>
+							</b:ConditionalExpression>
+						</b:ConditionBehavior>
+					</b:Interaction.Behaviors>
+					<b:InvokeCommandAction Command="{Binding CustomEvent}" CommandParameter="CloseRadials"/>
+				</b:DataTrigger>
+
+			</b:Interaction.Triggers>
+			
+
+			<Control x:Name="MetaMagicDisplay" Template="{StaticResource MetaMagicDisplayTemplate }" Visibility="Collapsed"/>
+			<Control x:Name="singleBarHolder" Visibility="Collapsed">
+				<Control.Template>
+					<ControlTemplate TargetType="Control">
+						<Grid ClipToBounds="True">
+							<Image x:Name="singleBarBG" Stretch="None" Margin="0,36,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0.5"  Source="{StaticResource RadialBg}" RenderTransformOrigin="0.5 0.5">
+								<Image.RenderTransform>
+									<ScaleTransform ScaleX="0.85" ScaleY="0.85"/>
+								</Image.RenderTransform>
+							</Image>
+						  
+							<ls:PagedList ItemsSource="{Binding SingleHotBar.SlotList}" GroupAmount="12" PageStyle="{StaticResource SingleBarPageViewStyle}" VerticalAlignment="Center" MinPageAmount="1"/>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.IsShapeShifted}" Value="True">
+								<Setter TargetName="singleBarBG" Property="Visibility" Value="Collapsed"/>
+							</DataTrigger>
+							<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.CharacterType}" Value="Summon">
+								<Setter TargetName="singleBarBG" Property="Visibility" Value="Collapsed"/>
+							</DataTrigger>
+							<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.CharacterType}" Value="Follower">
+								<Setter TargetName="singleBarBG" Property="Visibility" Value="Collapsed"/>
+							</DataTrigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Control.Template>
+			</Control>
+
+			<Grid x:Name="MainHotbarListHolder">
+				<Grid.OpacityMask>
+					<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+						<LinearGradientBrush.GradientStops>
+							<GradientStop Offset="0" Color="Transparent"/>
+							<GradientStop Offset="0.1" Color="Black"/>
+							<GradientStop Offset="0.9" Color="Black"/>
+							<GradientStop Offset="1" Color="Transparent"/>
+						</LinearGradientBrush.GradientStops>
+					</LinearGradientBrush>
+				</Grid.OpacityMask>
+				<Image x:Name="nameBackground" Width="560" Height="280" Stretch="Fill" Source="{StaticResource IconShadeBG}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,280,0,0" Opacity="0.4" />
+				<!-- Swap Slots -->
+				<Grid VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding InSwapSlotState, Converter={StaticResource BoolToVisibleConverter}}">
+					<Ellipse Fill="{StaticResource LS_PopUpBackgroundColor}" Width="600" Height="600"/>
+					<Control x:Name="icon" Template="{StaticResource SlotIconTemplate}" DataContext="{Binding CurrentActiveSlot}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, -50, 0, 50">
+						<Control.RenderTransform>
+							<ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+						</Control.RenderTransform>
+					</Control>
+				</Grid>
+				<!-- Action Radials -->
+				<ListBox x:Name="HotBarList" VerticalAlignment="Center" Height="1560" ItemsSource="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.ControllerHotBars}" IsEnabled="{Binding AssigningSlot, Converter={StaticResource InvertBoolConverter}}" ScrollViewer.PanningMode="HorizontalOnly" ScrollViewer.VerticalScrollBarVisibility="Disabled" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel"
+						 ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False">
+					<ListBox.ItemContainerStyle>
+						<Style TargetType="{x:Type ListBoxItem}">
+							<Setter Property="Template" Value="{StaticResource RadialHotBarListItemContainer}" >
+							</Setter>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding HotBarType}" Value="PassivesHotBar">
+									<Setter Property="Template" Value="{x:Null}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding HotBarType}" Value="FixedSideBar">
+									<Setter Property="Template" Value="{x:Null}"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</ListBox.ItemContainerStyle>
+					<ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal"/>
+						</ItemsPanelTemplate>
+					</ListBox.ItemsPanel>
+					<ListBox.Template>
+						<ControlTemplate TargetType="{x:Type ListBox}">
+							<Grid >
+								<ls:LSScrollViewer x:Name="HotbarListScrollviewer" Focusable="False" ScrollToElement="{Binding FocusedElement, ElementName=ActionRadials}" >
+									<ItemsPresenter x:Name="ItemsPresenterThing"  Margin="3860,0,3860,0"/>
+									<b:Interaction.Triggers>
+										<b:EventTrigger EventName="TargetPositionChanged">
+											<b:ChangePropertyAction PropertyName="HorizontalScrollOffset" TargetName="HotbarListScrollviewer" Value="{Binding Path=TargetPosition, ElementName=HotbarListScrollviewer}"/>
+										</b:EventTrigger>
+									</b:Interaction.Triggers>
+								</ls:LSScrollViewer>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Grid x:Name="leftHintHolder" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,420,680">
+										<ContentPresenter x:Name="leftHint" Tag=" " ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UITabPrev, Converter={StaticResource FindInputEventConverter}}"/>
+										<Image Stretch="None" Source="{StaticResource CarouselArrow}" Opacity="1" Margin="0,320,-120,0" >
+											<Image.RenderTransform>
+												<RotateTransform Angle="180"/>
+											</Image.RenderTransform>
+										</Image>
+									</Grid>
+									<Grid x:Name="rightHintHolder" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="420,0,0,680" >
+										<ContentPresenter x:Name="rightHint" Tag=" "  ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UITabNext, Converter={StaticResource FindInputEventConverter}}"/>
+										<Image Stretch="None" Source="{StaticResource CarouselArrow}" Opacity="1" Margin="0,180,0,0"/>
+									</Grid>
+								</Grid>
+							</Grid>
+							<ControlTemplate.Triggers>
+								<Trigger Property="ls:MoveFocus.IsKeyboardFocusWithin" Value="False">
+									<Setter TargetName="leftHint" Property="Visibility" Value="Collapsed"/>
+									<Setter TargetName="rightHint" Property="Visibility" Value="Collapsed"/>
+								</Trigger>
+								<DataTrigger Binding="{Binding DataContext.Layout, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" Value="Common">
+									<Setter TargetName="leftHintHolder" Property="Margin" Value="0,0,520,680"/>
+									<Setter TargetName="rightHintHolder" Property="Margin" Value="520,0,0,680"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding LeftFocusElement, ElementName=ActionRadials, Converter={StaticResource NullToBoolTrueConverter}}" Value="True">
+									<Setter TargetName="leftHintHolder" Property="Opacity" Value="0.6"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding RightFocusElement, ElementName=ActionRadials, Converter={StaticResource NullToBoolTrueConverter}}" Value="True">
+									<Setter TargetName="rightHintHolder" Property="Opacity" Value="0.6"/>
+								</DataTrigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</ListBox.Template>
+				</ListBox>
+			</Grid>
+			<StackPanel x:Name="ActionButton" DataContext="{Binding Path=Tag, ElementName=ActionRadials}" Visibility="Collapsed" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,820">
+
+
+				<Control x:Name="FakeTooltipForPinnedTooltip" DataContext="{x:Null}">
+					<Control.Template>
+						<ControlTemplate>
+							<Border x:Name="tooltipHolder" ToolTipService.IsEnabled="{Binding ., Converter={StaticResource NullToBoolFalseConverter}}" ToolTipService.Placement="Top" Tag="{Binding .}">
+								<Border.ToolTip>
+									<ls:LSTooltip x:Name="hbTooltip" Opacity="0" Content="{Binding ElementName=tooltipHolder,Path=Tag}" ls:TooltipExtender.Context="Hotbar"/>
+								</Border.ToolTip>
+								<b:Interaction.Triggers>
+									<b:EventTrigger EventName="DataContextChanged">
+										<b:InvokeCommandAction Command="{Binding ShowTooltipOnUIElementCommand, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}}" CommandParameter="{Binding ., RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+									</b:EventTrigger>
+								</b:Interaction.Triggers>
+							</Border>
+							<ControlTemplate.Triggers>
+								<DataTrigger Binding="{Binding SlotType}" Value="Item">
+									<Setter TargetName="tooltipHolder" Property="Tag" Value="{Binding GameObject}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Passive">
+									<Setter TargetName="tooltipHolder" Property="Tag" Value="{Binding Passive}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Spell">
+									<Setter TargetName="tooltipHolder" Property="Tag" Value="{Binding Spell}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding SlotType}" Value="Action">
+									<Setter TargetName="tooltipHolder" Property="Tag" Value="{Binding Spell}"/>
+								</DataTrigger>
+								<DataTrigger Binding="{Binding ., Converter={StaticResource TypeConverter}}" Value="ls.VMCharacterAction">
+									<Setter TargetName="tooltipHolder" Property="Tag" Value="{Binding .}"/>
+								</DataTrigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Control.Template>
+					<b:Interaction.Triggers>
+						<b:EventTrigger SourceName="ActionButton" EventName="DataContextChanged">
+							<b:ChangePropertyAction TargetName="FakeTooltipForPinnedTooltip" Value="{x:Null}" PropertyName="DataContext" />
+						</b:EventTrigger>
+						<b:TimerTrigger SourceName="ActionButton" EventName="DataContextChanged" TotalTicks="1" MillisecondsPerTick="60">
+							<b:ChangePropertyAction TargetName="FakeTooltipForPinnedTooltip" Value="{Binding ElementName=ActionButton,Path=DataContext}" PropertyName="DataContext" />
+						</b:TimerTrigger>
+					</b:Interaction.Triggers>
+				</Control>
+				<ls:LSButton x:Name="ActionButtonIcon" DataContext="{Binding DataContext.CurrentPlayer.UIData.InputEvents, RelativeSource={RelativeSource AncestorType={x:Type ls:UIWidget}}, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIAccept'}" Style="{StaticResource ControllerButtonIconOnly}" Width="{StaticResource ScaledControllerHintSize}" Height="{StaticResource ScaledControllerHintSize}" EatInput="False" VerticalAlignment="Center" Visibility="Hidden" SoundID="UI_HUD_Controller_RadialMenu_SlotSelect"/>
+				<!-- Not Available Messages -->
+				<TextBlock x:Name="RadialActionErrorMessage" Text="{Binding Source='hc4df7df6gdc7dg48fdgac0fg0a299ddf74f6', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource RadialErrorTextStyle}" Visibility="Collapsed" Foreground="{StaticResource LS_accent75TxtColor}" />
+
+				<!-- Error Messages -->
+				<StackPanel x:Name="AdditionalErrors" VerticalAlignment="Top" HorizontalAlignment="Center">
+					<b:Interaction.Behaviors>
+						<ls:CapabilityListSelectorBehavior x:Name="CapabilityListSelectorBehavior" CapabilitiesCollection="{Binding DataContext.CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.ModifiedCapabilities, ElementName=ActionRadials}"/>
+					</b:Interaction.Behaviors>
+
+					<!-- WARNINGS -->
+					<Border x:Name="SpellWarnings" Visibility="Collapsed" HorizontalAlignment="Center">
+						<ItemsControl x:Name="Warnings" ItemsSource="{Binding DataContext.FocusedSlotTooltipData.UnavailableReasons, ElementName=ActionRadials}" Visibility="{Binding ItemsSource.Count, Converter={StaticResource CountToVisibilityConverter}, RelativeSource={RelativeSource Mode=Self}}" Margin="0,12,0,12">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<DockPanel HorizontalAlignment="Center" Visibility="{Binding Line, Converter={StaticResource StringToVisibilityConverter}}" Margin="0,-4,0,0">
+										<Image Source="{StaticResource IconWarning}" DockPanel.Dock="Top" Stretch="None" Style="{StaticResource leftAlignedTooltipWarningIcon}">
+											<Image.Effect>
+												<DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="12" />
+											</Image.Effect>
+										</Image>
+										<TextBlock ls:TextBlockFormatter.SourceText="{Binding Line}" Style="{StaticResource RadialErrorTextStyle}"/>
+									</DockPanel>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</Border>
+
+					<ContentPresenter x:Name="CapabilitiesErrors" Content="{Binding ElementName=CapabilityListSelectorBehavior , Path=FirstVisibleElement}">
+						<ContentPresenter.ContentTemplate>
+							<DataTemplate DataType="{x:Type ls:VMCapabilityModifier}">
+								<DockPanel x:Name="CapabilityErrorHolder" HorizontalAlignment="Center" Margin="0,-4,0,0" Visibility="Collapsed">
+									<Image Source="{StaticResource IconWarning}" DockPanel.Dock="Top" Stretch="None" Style="{StaticResource leftAlignedTooltipWarningIcon}">
+										<Image.Effect>
+											<DropShadowEffect Color="Black" ShadowDepth="0" BlurRadius="12" />
+										</Image.Effect>
+									</Image>
+									<TextBlock x:Name="CapabilityError" Style="{StaticResource RadialErrorTextStyle}" >
+									<Run x:Name="Message"/><Run x:Name="Cause"/>
+									</TextBlock>
+								</DockPanel>
+								<DataTemplate.Triggers>
+									<DataTrigger Binding="{Binding Cause, Converter={StaticResource NullToBoolFalseConverter}}" Value="True">
+										<Setter TargetName="Cause" Property="Text">
+											<Setter.Value>
+												<MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+													<Binding Source="hb19f530dgfeb2g4d13g8d64ga8216f364f67"/>
+													<Binding Path="Cause"/>
+												</MultiBinding>
+											</Setter.Value>
+										</Setter>
+									</DataTrigger>
+
+									<DataTrigger  Binding="{Binding Type}" Value="LostControl">
+										<Setter TargetName="CapabilityErrorHolder" Property="Visibility" Value="Visible" />
+									</DataTrigger>
+
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding Type}" Value="LostControl"/>
+											<Condition Binding="{Binding Value}" Value="Incapacitated"/>
+										</MultiDataTrigger.Conditions>
+										<Setter TargetName="Message" Property="Text" Value="{Binding Source='h651a24ddgb955g43b5g8a7bgff54a162cab1', Converter={StaticResource TranslatedStringConverter}}"/>
+									</MultiDataTrigger>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding Type}" Value="LostControl"/>
+											<Condition Binding="{Binding Value}" Value="KnockedDown"/>
+										</MultiDataTrigger.Conditions>
+										<Setter TargetName="Message" Property="Text" Value="{Binding Source='hfba6780fgc9e9g4271g8b98g46884bf56443', Converter={StaticResource TranslatedStringConverter}}"/>
+									</MultiDataTrigger>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding Type}" Value="LostControl"/>
+											<Condition Binding="{Binding Value}" Value="Downed"/>
+										</MultiDataTrigger.Conditions>
+										<Setter TargetName="Message" Property="Text" Value="{Binding Source='h371b7c23g65beg45f4g8680gbcd03907e57f', Converter={StaticResource TranslatedStringConverter}}"/>
+									</MultiDataTrigger>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding Type}" Value="LostControl"/>
+											<Condition Binding="{Binding Value}" Value="Dying"/>
+										</MultiDataTrigger.Conditions>
+										<Setter TargetName="Message" Property="Text" Value="{Binding Source='h2e807311g8c4bg4141g85f3gcc88ee095888', Converter={StaticResource TranslatedStringConverter}}"/>
+									</MultiDataTrigger>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding Type}" Value="LostControl"/>
+											<Condition Binding="{Binding Value}" Value="StoryFrozen"/>
+										</MultiDataTrigger.Conditions>
+										<Setter TargetName="Message" Property="Text" Value="{Binding Source='hbd5803f1g480cg4eb4g820fg242124c08ea9', Converter={StaticResource TranslatedStringConverter}}"/>
+									</MultiDataTrigger>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding Type}" Value="LostControl"/>
+											<Condition Binding="{Binding Value}" Value="LostControl"/>
+										</MultiDataTrigger.Conditions>
+										<Setter TargetName="Cause" Property="Text" Value="{Binding Cause}"/>
+									</MultiDataTrigger>
+
+								</DataTemplate.Triggers>
+							</DataTemplate>
+						</ContentPresenter.ContentTemplate>
+					</ContentPresenter>
+
+				</StackPanel>
+
+
+				<Control x:Name="MetamagicLabel" Margin="-10,0,8,0" Template="{StaticResource MetamagicLabelTemplate}" FontSize="{StaticResource ScaledMediumFontSize}" VerticalAlignment="Center" FontStyle="Italic" FontWeight="DemiBold" />
+				<TextBlock x:Name="ActionButtonDescription" Width="480" TextAlignment="Center" HorizontalAlignment="Center" FontSize="{StaticResource ScaledIntermediateFontSize}" TextWrapping="Wrap" Foreground="{StaticResource LS_tint100}" Style="{StaticResource HUD.TitleTextStyle}" FontWeight="DemiBold" />
+				<TextBlock x:Name="UpcastInfo" Text="{Binding Spell.SlotLevel, Converter={StaticResource DecimalToRomanConverter}}" TextAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource LS_accent100TxtColor}" FontSize="{StaticResource ScaledIntermediateFontSize}" FontWeight="DemiBold" Style="{StaticResource HUD.DefaultTextStyle}" />
+
+			</StackPanel>
+
+			<!-- Radial type -->
+			<TextBlock x:Name="RadialTypeText" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-140,0,140" Style="{StaticResource HUD.DefaultTextStyle}"/>
+
+			<ContentPresenter x:Name="SwapSlotHint" ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" Tag="{Binding Source='h18e19f89g10e2g4546gadfdg6657ad7f56b8', Converter={StaticResource TranslatedStringConverter}}" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 100, 0, -100"/>
+
+			<!-- Name, short description and action details -->
+			<ls:LSNineSliceImage x:Name="ActionDetailsPanel" Margin="0,1340,0,0" Style="{StaticResource ActionDetailsBG9Slice}" DataContext="{Binding Path=Tag, ElementName=ActionRadials}" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="320,12,320,12" >
+
+				<Grid x:Name="ActionDescriptionSection" VerticalAlignment="Center" MinHeight="240" Margin="0,22,0,0" >
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<!-- Inspect Prompt -->
+					<ContentControl x:Name="uiHintContainer" HorizontalAlignment="Center" Template="{StaticResource InspectHintStyle}"  Margin="-1000,-110,0,0" />
+
+					<!-- Action Details -->
+					<TextBlock Grid.Row="0" x:Name="ActionButtonTooltipDescription" TextAlignment="Center" HorizontalAlignment="Center" FontSize="{StaticResource ScaledIntermediateFontSize}" Foreground="{StaticResource LS_tint100}" Style="{StaticResource HUD.TitleTextStyle}" FontWeight="DemiBold" Margin="0,-12,0,0"/>
+					<Control x:Name="ActionDetails" Grid.Row="1"  Margin="0,8,0,8" Template="{StaticResource ActionDetailsTemplate}" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed"/>
+
+					<!-- Action Descriptions -->
+					<Grid Grid.Row="2" VerticalAlignment="Stretch" Margin="0,-8,0,22">
+
+						<TextBlock x:Name="ItemShortDescription" Style="{StaticResource HUD.DefaultTextStyle}" MaxWidth="1400" FontSize="{StaticResource ScaledSmallishFontSize}" FontWeight="DemiBold" Foreground="{StaticResource LS_baseTxtColor}" TextAlignment="Center" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="56" VerticalAlignment="Center">
+								<b:Interaction.Behaviors>
+									<ls:CtxTransStringRunGeneratorBehavior Source="{Binding GameObject.ShortDescription}" ParamRunStyle="{StaticResource TooltipUnitParamRun}" />
+								</b:Interaction.Behaviors>
+						</TextBlock>
+
+						<TextBlock x:Name="ItemDescription" Style="{StaticResource HUD.DefaultTextStyle}" MaxWidth="1400" FontSize="{StaticResource ScaledSmallishFontSize}" FontWeight="DemiBold" Foreground="{StaticResource LS_baseTxtColor}" TextAlignment="Center" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="56" VerticalAlignment="Center" Visibility="{Binding GameObject.ShortDescription, Converter={StaticResource NullToVisibleConverter}, FallbackValue='Collapsed'}" ls:TextBlockFormatter.SourceText="{Binding GameObject.Description}" />
+
+						<TextBlock x:Name="ActionDescriptionSpell" Style="{StaticResource HUD.DefaultTextStyle}" MaxWidth="1400" FontSize="{StaticResource ScaledSmallishFontSize}" FontWeight="DemiBold" Foreground="{StaticResource LS_baseTxtColor}" TextAlignment="Center" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" VerticalAlignment="Center" LineHeight="56" Visibility="{Binding Spell, Converter={StaticResource NullToCollapsedConverter}}">
+								<b:Interaction.Behaviors>
+									<ls:CtxTransStringRunGeneratorBehavior Source="{Binding Spell.ShortDescription}" ParamRunStyle="{StaticResource TooltipUnitParamRun}" />
+								</b:Interaction.Behaviors>
+						</TextBlock>
+						<TextBlock x:Name="PassiveDescriptionSpell" Style="{StaticResource HUD.DefaultTextStyle}" MaxWidth="1400" FontSize="{StaticResource ScaledSmallishFontSize}" FontWeight="DemiBold" Foreground="{StaticResource LS_baseTxtColor}" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" LineStackingStrategy="BlockLineHeight" LineHeight="56" Visibility="{Binding Passive, Converter={StaticResource NullToCollapsedConverter}}">
+								<b:Interaction.Behaviors>
+									<ls:CtxTransStringRunGeneratorBehavior Source="{Binding Passive.Description}" ParamRunStyle="{StaticResource TooltipUnitParamRun}" />
+								</b:Interaction.Behaviors>
+						</TextBlock>
+					</Grid>
+
+					<!-- Concentration -->
+					<StackPanel Grid.Row="3" Orientation="Horizontal" Visibility="{Binding Spell.IsConcentrationSpell, Converter={StaticResource BoolToVisibleConverter}, FallbackValue=Collapsed}" HorizontalAlignment="Center" Margin="0,-12,0,16">
+						<Image Source="{StaticResource IconConcentration}" Margin="0,0,8,0"/>
+						<TextBlock Text="{Binding Source='hdda88715g0f4fg49c1ga22dga11b80dcf8b9', Converter={StaticResource TranslatedStringConverter}}"  Style="{StaticResource HUD.DefaultTextStyle}" FontSize="{StaticResource ScaledSmallishFontSize}" FontWeight="DemiBold" Foreground="{StaticResource LS_accent75TxtColor}"/>
+					</StackPanel>
+
+					<!-- Shortcuts -->
+					<TextBlock x:Name="ShortcutText" Grid.Row="4" Style="{StaticResource HUD.DefaultTextStyle}" FontSize="{StaticResource ScaledSmallishFontSize}" FontWeight="DemiBold" Foreground="{StaticResource LS_accent75TxtColor}" Visibility="Collapsed" Margin="0,-38,0,16" VerticalAlignment="Center"  HorizontalAlignment="Center">
+							<b:Interaction.Behaviors>
+								<ls:CtxTransStringRunGeneratorBehavior x:Name="ShortcutTextBehavior" PlayerId="{Binding DataContext.CurrentPlayer.PlayerId, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ls:UIWidget}}}" NamedParamContentStyle="{StaticResource ParamContentControllerStyle}">
+									<ls:CtxTransStringRunGeneratorBehavior.LocaSource>
+										<MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+											<Binding Source="hcddbfb84g910cg44a1g8695ge48859c74f58"/>
+											<Binding Path="Text" ElementName="ActionButtonTooltipDescription"/> 
+											<Binding Path="(ls:AttachedProperties.InheritedTag)" ElementName="ShortcutText"/>
+										</MultiBinding>
+									</ls:CtxTransStringRunGeneratorBehavior.LocaSource>
+								</ls:CtxTransStringRunGeneratorBehavior>
+							</b:Interaction.Behaviors>
+					</TextBlock>
+
+					<!-- Action Cost -->
+					<Border x:Name="ActionCostSection" HorizontalAlignment="Stretch" Grid.Row="5" VerticalAlignment="Bottom" Visibility="Collapsed" Margin="0,-4,0,0">
+						<Border.Background>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+								<GradientStop Color="{StaticResource Trade.BackgroundTransparentColor}" Offset="0"/>
+								<GradientStop Color="#9C000000" Offset="0.5"/>
+								<GradientStop Color="{StaticResource Trade.BackgroundTransparentColor}" Offset="1"/>
+							</LinearGradientBrush>
+						</Border.Background>
+
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+							<TextBlock x:Name="CostLabel" FontSize="{DynamicResource ScaledSmallishFontSize}" Margin="0,0,12,0" VerticalAlignment="Center" FontWeight="DemiBold" FontStyle="Italic" Foreground="{StaticResource LS_accent75TxtColor}" Style="{StaticResource HUD.DefaultTextStyle}">
+							<Run Text="{Binding Source='h8189a676g99feg436fgb9e6g7500c6690fb6', Converter={StaticResource TranslatedStringConverter}}" />
+							<Run Text="{Binding Source='hb897c56egaa6fg460bg8676g8ebfa0340954', Converter={StaticResource TranslatedStringConverter}}" />
+							</TextBlock>
+
+							<!-- MOD START - DynamicResource -->
+							<ItemsControl x:Name="ActionCostSummary" ItemsSource="{Binding DataContext.FocusedSlotTooltipData.CostSummary, ElementName=ActionRadials}" AlternationCount="{Binding ItemsSource.Count, RelativeSource={RelativeSource Mode=Self}}" HorizontalAlignment="Center" ItemTemplate="{DynamicResource ActionCostSummaryList}"
+							  Visibility="{Binding InSwapSlotState, Converter={StaticResource BoolToCollapsedConverter}}">
+							<!-- MOD END -->
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<StackPanel Orientation="Horizontal" />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+
+							</ItemsControl>
+						</StackPanel>
+					</Border>
+				</Grid>
+			</ls:LSNineSliceImage>
+
+			<!-- Select item in the world prompt-->
+			<ls:LSButton x:Name="ToWorldButton" Margin="0,1300,0,0" Tag="{Binding Source='hf6830bd6g4b21g4a7aga963g30da537e64b7', Converter={StaticResource TranslatedStringConverter}}"  ContentTemplate="{StaticResource ControllerButtonHint}" BoundEvent="UIDelete" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIDelete, Converter={StaticResource FindInputEventConverter}}" HorizontalAlignment="Center" Visibility="Collapsed" Command="{Binding CustomEvent}" CommandParameter="CloseRadials"/>
+
+			<!-- Slot assigning pop-up-->
+			<Control x:Name="SlotAssignHolder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource SlotAssignHolderStyle}" />
+
+			<!-- Weapon Set Change & Dual Wield Notification -->
+
+			<ls:LSNineSliceImage x:Name="ControlNotifcations" Opacity="0" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,486" Panel.ZIndex="100" Style="{StaticResource NotificationBG9Slice}" >
+				<TextBlock x:Name="NotifcationText" Text="{Binding Source='hfaac6c41gc244g45d5g952agb45eb21ee282',Converter={StaticResource TranslatedStringConverter}}" Foreground="{StaticResource LS_PrimaryColor}" FontSize="{StaticResource ScaledDefaultFontSize}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="36,20" />
+
+				<b:Interaction.Triggers>
+					<b:PropertyChangedTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.HasRangedSetActive}">
+						<b:Interaction.Behaviors>
+							<b:ConditionBehavior>
+								<b:ConditionalExpression>
+									<b:ComparisonCondition LeftOperand="{Binding ElementName=ToggleWeaponSet, Path=IsPressed}" Operator="Equal" RightOperand="True"/>
+									<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.HasRangedSetActive}" Operator="Equal" RightOperand="True"/>
+								</b:ConditionalExpression>
+							</b:ConditionBehavior>
+						</b:Interaction.Behaviors>
+						<b:ChangePropertyAction TargetName="NotifcationText" PropertyName="Text" Value="{Binding Source='h6e99c201gc607g4da9gba50gb83f93d8a6e6',Converter={StaticResource TranslatedStringConverter}}" />
+						<b:ControlStoryboardAction Storyboard="{StaticResource FadeInNotification}"/>
+					</b:PropertyChangedTrigger>
+
+					<b:PropertyChangedTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.HasRangedSetActive}">
+						<b:Interaction.Behaviors>
+							<b:ConditionBehavior>
+								<b:ConditionalExpression>
+									<b:ComparisonCondition LeftOperand="{Binding ElementName=ToggleWeaponSet, Path=IsPressed}" Operator="Equal" RightOperand="True"/>
+									<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.HasMeleeSetActive}" Operator="Equal" RightOperand="True"/>
+								</b:ConditionalExpression>
+							</b:ConditionBehavior>
+						</b:Interaction.Behaviors>
+						<b:ChangePropertyAction TargetName="NotifcationText" PropertyName="Text" Value="{Binding Source='hfaac6c41gc244g45d5g952agb45eb21ee282',Converter={StaticResource TranslatedStringConverter}}" />
+						<b:ControlStoryboardAction Storyboard="{StaticResource FadeInNotification}"/>
+					</b:PropertyChangedTrigger>
+
+					<b:PropertyChangedTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.IsDualWieldingToggledOn}">
+						<b:Interaction.Behaviors>
+							<b:ConditionBehavior>
+								<b:ConditionalExpression>
+									<b:ComparisonCondition LeftOperand="{Binding ElementName=ToggleDualWield, Path=IsPressed}" Operator="Equal" RightOperand="True"/>
+									<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.IsDualWieldingToggledOn}" Operator="Equal" RightOperand="True"/>
+								</b:ConditionalExpression>
+							</b:ConditionBehavior>
+						</b:Interaction.Behaviors>
+						<b:ChangePropertyAction TargetName="NotifcationText" PropertyName="Text" Value="{Binding Source='hee8cf049gc819g4cd4g8b3ag7a0acc1f2f1b',Converter={StaticResource TranslatedStringConverter}}" />
+						<b:ControlStoryboardAction Storyboard="{StaticResource FadeInNotification}"/>
+					</b:PropertyChangedTrigger>
+
+					<b:PropertyChangedTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.IsDualWieldingToggledOn}">
+						<b:Interaction.Behaviors>
+							<b:ConditionBehavior>
+								<b:ConditionalExpression>
+									<b:ComparisonCondition LeftOperand="{Binding ElementName=ToggleDualWield, Path=IsPressed}" Operator="Equal" RightOperand="True"/>
+									<b:ComparisonCondition LeftOperand="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.IsDualWieldingToggledOn}" Operator="Equal" RightOperand="False"/>
+								</b:ConditionalExpression>
+							</b:ConditionBehavior>
+						</b:Interaction.Behaviors>
+						<b:ChangePropertyAction TargetName="NotifcationText" PropertyName="Text" Value="{Binding Source='h69107c78gd9efg4fd2ga137g427cc0280604',Converter={StaticResource TranslatedStringConverter}}" />
+						<b:ControlStoryboardAction Storyboard="{StaticResource FadeInNotification}"/>
+					</b:PropertyChangedTrigger>
+
+					<b:PropertyChangedTrigger Binding="{Binding AssigningSlot}">
+						<ls:SetMoveFocusAction TargetName="ActionRadials" DeferFocusAction="True" FocusElement="{Binding ElementName=HotBarList, Path=Tag}"/>
+					</b:PropertyChangedTrigger>
+				</b:Interaction.Triggers>
+			</ls:LSNineSliceImage>
+
+			<!-- button hints -->
+			<ls:AlignableWrapPanel x:Name="ButtonHintsContainer" Style="{StaticResource ButtonHint.Container.CenterWrap}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" IsEnabled="{Binding AssigningSlot, Converter={StaticResource InvertBoolConverter}}" Width="1000" FlowDirection="RightToLeft" Margin="26,0,26,56">
+
+				<ls:LSButton x:Name="SelectButtonVisual"
+								 Tag="{Binding Source='h04f38549g65b8g4b72g834eg87ee8863fdc5', Converter={StaticResource TranslatedStringConverter}}"
+								 ContentTemplate="{StaticResource ControllerButtonHint}"
+								 Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UIAccept, Converter={StaticResource FindInputEventConverter}}" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Visibility="Collapsed" Width="1000"/>
+
+				<ls:LSButton x:Name="ShowContextMenu" Command="{Binding ShowContextMenu}" CommandParameter="{Binding FocusedElement, ElementName=ActionRadials}" BoundEvent="ContextMenu" Tag="{Binding Source='h921d24b9g4a44g441agbbbag176eef91b713', Converter={StaticResource TranslatedStringConverter}}"
+								 ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=ContextMenu, Converter={StaticResource FindInputEventConverter}}" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="1000"/>
+
+				<ls:LSButton x:Name="CancelConcentrationButton" Style="{StaticResource ControllerHoldButtonStyle}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UIEndTurn'}"
+								 Command="{Binding ReleaseConcentrationCommand}"
+								 CommandParameter="{Binding CurrentPlayer.SelectedCharacter}"
+								 Tag="{Binding Source='h1018e7a5gdb9ag4b51g9898gc30c5b0ab518', Converter={StaticResource TranslatedStringConverter}}" VerticalAlignment="Center" EatInput="False" Visibility="{Binding CurrentPlayer.SelectedCharacter.ConcentrationSpell, Converter={StaticResource NullToCollapsedConverter}}" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="10,0,20,0" Width="1000"/>
+
+				<!-- Toggle Melee Weapon Set -->
+				<ls:LSButton x:Name="ToggleWeaponSet" Style="{StaticResource ControllerHoldButtonStyle}" Content="{Binding CurrentPlayer.UIData.InputEvents, Converter={StaticResource FindInputEventConverter}, ConverterParameter='UISelectionLeft'}"
+								 Command="{Binding SwitchWeaponSetCommand}"
+								 Tag="{Binding Source='h7f2d9806g87bdg42a3g934ag9d051a036638', Converter={StaticResource TranslatedStringConverter}}" HorizontalContentAlignment="Left" VerticalAlignment="Center" EatInput="False" HorizontalAlignment="Left" Margin="10,0,20,0" Width="1000"/>
+
+				<!-- Toggle Dual Wield -->
+				<ls:LSButton x:Name="ToggleDualWield"
+							 BoundEvent="UISelectionRight"
+							 Style="{StaticResource ControllerHoldButtonStyle}" Command="{Binding ToggleDualWieldingCommand}"
+							 Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UISelectionRight, Converter={StaticResource FindInputEventConverter}}"
+							 Tag="{Binding Source='hfd571216g8e69g4699g8396gb764f90db389', Converter={StaticResource TranslatedStringConverter}}" HorizontalContentAlignment="Left" VerticalAlignment="Center" EatInput="False" HorizontalAlignment="Left" Margin="10,0,20,0" Width="1000"/>
+
+				<ls:LSButton x:Name="UseSlotBinding" Command="{Binding UseSlotCommand}" CommandParameter="{Binding Tag, ElementName=ActionRadials}" Height="0" BoundEvent="UIAccept" HorizontalAlignment="Left" />
+
+				<ls:LSButton x:Name="CancelButton" BoundEvent="UICancel" Command="{Binding ClearSingleHotbarCommand}" Tag="{Binding Source='h01d5c470g61bfg498cgb17eg7be425444fa5', Converter={StaticResource TranslatedStringConverter}}"
+								 ContentTemplate="{StaticResource ControllerButtonHint}" Content="{Binding CurrentPlayer.UIData.InputEvents, ConverterParameter=UICancel, Converter={StaticResource FindInputEventConverter}}" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="1000">
+					<b:Interaction.Triggers>
+						<b:EventTrigger EventName="LSButtonReleased">
+							<b:InvokeCommandAction Command="{Binding ActionCancelCommand}"/>
+							<ls:SetMoveFocusAction TargetName="ActionRadials" FocusElement="{Binding ElementName=HotBarList, Path=Tag}"/>
+						</b:EventTrigger>
+					</b:Interaction.Triggers>
+				</ls:LSButton>
+
+				<ls:LSInputBinding x:Name="PinTooltipBinding" Style="{StaticResource PinTooltipBindingStyle}" BoundEvent="UIShowInfo"/>
+
+				<ls:LSInputBinding x:Name="ShortcutMenuBinding" Command="{Binding CustomEvent}" BoundEvent="PanelSelect" CommandParameter="ToggleShortcutMenu"/>
+			</ls:AlignableWrapPanel>
+		</Grid>
+	   
+		<ControlTemplate.Triggers>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Tag.SlotType, ElementName=ActionRadials}" Value="Character"/>
+					<Condition Binding="{Binding Tag.GameObject.Name, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}, ConverterParameter='EmptyString'}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ActionButton" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionDetailsPanel" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionButtonDescription" Property="Text" Value="{Binding Tag.GameObject.Name, ElementName=ActionRadials}"/>
+				<Setter TargetName="ActionButtonTooltipDescription" Property="Text" Value="{Binding Tag.GameObject.Name, ElementName=ActionRadials}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Tag.SlotType, ElementName=ActionRadials}" Value="Item"/>
+					<Condition Binding="{Binding Tag.GameObject.Name, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}, ConverterParameter='EmptyString'}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ActionButton" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionDetailsPanel" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionButtonDescription" Property="Text" Value="{Binding Tag.GameObject.Name, ElementName=ActionRadials}"/>
+				<Setter TargetName="ActionButtonTooltipDescription" Property="Text" Value="{Binding Tag.GameObject.Name, ElementName=ActionRadials}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Tag.SlotType, ElementName=ActionRadials}" Value="Passive"/>
+					<Condition Binding="{Binding Tag.Passive.Name, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}, ConverterParameter='EmptyString'}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ActionButton" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionDetailsPanel" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionButtonDescription" Property="Text" Value="{Binding Tag.Passive.Name, ElementName=ActionRadials}"/>
+				<Setter TargetName="ActionButtonTooltipDescription" Property="Text" Value="{Binding Tag.Passive.Name, ElementName=ActionRadials}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Tag.SlotType, ElementName=ActionRadials}" Value="Action"/>
+					<Condition Binding="{Binding Tag.Spell.Name, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}, ConverterParameter='EmptyString'}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ActionButton" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionDetailsPanel" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionButtonDescription" Property="Text" Value="{Binding Tag.Spell.Name, ElementName=ActionRadials}"/>
+				<Setter TargetName="ActionButtonTooltipDescription" Property="Text" Value="{Binding Tag.Spell.Name, ElementName=ActionRadials}"/>
+			</MultiDataTrigger>
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Tag.SlotType, ElementName=ActionRadials}" Value="Spell"/>
+					<Condition Binding="{Binding Tag.Spell.Name, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}, ConverterParameter='EmptyString'}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ActionButton" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionDetailsPanel" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ActionButtonDescription" Property="Text" Value="{Binding Tag.Spell.Name, ElementName=ActionRadials}"/>
+				<Setter TargetName="ActionButtonTooltipDescription" Property="Text" Value="{Binding Tag.Spell.Name, ElementName=ActionRadials}"/>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.IsDualWieldingAllowed}" Value="False">
+				<Setter TargetName="ToggleDualWield" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.HasRangedAttack}" Value="False">
+				<Setter TargetName="ToggleWeaponSet" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Path=Tag.SlotType, ElementName=ActionRadials, FallbackValue='Empty'}" Value="Empty">
+				<Setter TargetName="PinTooltipBinding" Property="IsEnabled" Value="False"/>
+				<Setter TargetName="UseSlotBinding" Property="IsEnabled" Value="False"/>
+			</DataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=Tag.SlotType, ElementName=ActionRadials, FallbackValue='Empty'}" Value="Passive"/>
+					<Condition Binding="{Binding Path=Tag.IsActive, ElementName=ActionRadials}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="UpcastInfo" Property="Text" Value="{Binding Source='h3c3302abg1c02g464bg9ab9gd08b0b067ff7',Converter={StaticResource TranslatedStringConverter}}"/>
+				<Setter TargetName="UpcastInfo" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="UpcastInfo" Property="Foreground" Value="{StaticResource LS_disabledPadTxtColor}"/>
+				<Setter TargetName="UpcastInfo" Property="FontStyle" Value="Italic"/>
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Path=Tag.SlotType, ElementName=ActionRadials, FallbackValue='Empty'}" Value="Passive"/>
+					<Condition Binding="{Binding Path=Tag.IsActive, ElementName=ActionRadials}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="UpcastInfo" Property="Text" Value="{Binding Source='h7f57c6ebgf4eag4c09g8380gc00371385c82',Converter={StaticResource TranslatedStringConverter}}"/>
+				<Setter TargetName="UpcastInfo" Property="Foreground" Value="{StaticResource LS_specialTxtColor}"/>
+				<Setter TargetName="UpcastInfo" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="UpcastInfo" Property="FontStyle" Value="Italic"/>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding Path=Tag, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}}" Value="True">
+				<Setter TargetName="ShowContextMenu" Property="Tag" Value="{Binding Source='he3f4fe5cga90ag4438g8f5bg79c19473e30a',Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Path=Tag, ElementName=ActionRadials, Converter={StaticResource TypeConverter}}" Value="ls.PageView">
+				<Setter TargetName="ShowContextMenu" Property="Tag" Value="{Binding Source='h921d24b9g4a44g441agbbbag176eef91b713',Converter={StaticResource TranslatedStringConverter}}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.PlayerCharacterProperties.MetamagicActive}" Value="True">
+				<Setter TargetName="MetaMagicDisplay" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding SingleHotBar.SlotList.Count, Converter={StaticResource GreaterThanConverter},ConverterParameter=0}" Value="True">
+				<Setter TargetName="singleBarHolder" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="MainHotbarListHolder" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IsShowingAContainerWithVariants}" Value="True">
+				<Setter TargetName="RadialTypeText" Property="Text" Value="{Binding Source='h79b6dc4egf450g4037gad34g8bfd57289b9a', Converter={StaticResource TranslatedStringConverter}}"/>
+				<Setter TargetName="RadialTypeText" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding IsSelectingUpcastedSpell}" Value="True">
+				<Setter TargetName="RadialTypeText" Property="Text" Value="{Binding Source='hcc0de24fgee83g49cdgb15fg2fa9b96203c9', Converter={StaticResource TranslatedStringConverter}}"/>
+				<Setter TargetName="RadialTypeText" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding AssigningSlot}" Value="True">
+				<Setter TargetName="ActionDescriptionSection" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ActionDetailsPanel" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ButtonHintsContainer" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ActionButton" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Path=Tag.GameObject, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue={x:Null}}" Value="True">
+				<Setter TargetName="ActionDetails" Property="DataContext" Value="{Binding Tag.GameObject, ElementName=ActionRadials}"/>
+				<Setter TargetName="SpellWarnings" Property="DataContext" Value="{Binding Tag.GameObject, ElementName=ActionRadials}"/>
+				<Setter TargetName="ActionDetails" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="SpellWarnings" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="MetamagicLabel" Property="DataContext" Value="{Binding Tag.GameObject, ElementName=ActionRadials}"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=Tag.Spell, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}, FallbackValue={x:Null}}" Value="True">
+				<Setter TargetName="ActionDetails" Property="DataContext" Value="{Binding Tag.Spell, ElementName=ActionRadials}"/>
+				<Setter TargetName="SpellWarnings" Property="DataContext" Value="{Binding Tag.Spell, ElementName=ActionRadials}"/>
+				<Setter TargetName="ActionDetails" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="SpellWarnings" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="MetamagicLabel" Property="DataContext" Value="{Binding Tag.Spell, ElementName=ActionRadials}"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Tag.Spell.CostSummary.Count, ElementName=ActionRadials, Converter={StaticResource GreaterThanConverter}, ConverterParameter='0', FallbackValue=False}" Value="True">
+				<Setter TargetName="ActionCostSection" Property="Visibility" Value="Visible" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Tag.GameObject.CostSummary.Count, ElementName=ActionRadials, Converter={StaticResource GreaterThanConverter}, ConverterParameter='0', FallbackValue=False}" Value="True">
+				<Setter TargetName="ActionCostSection" Property="Visibility" Value="Visible" />
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Path=Tag.CanUse, ElementName=ActionRadials}" Value="False">
+				<Setter TargetName="ActionButtonIcon" Property="Opacity" Value="0.75"/>
+				<Setter TargetName="ActionButtonDescription" Property="Opacity" Value="0.75"/>
+				<Setter TargetName="ActionButtonTooltipDescription" Property="Opacity" Value="0.75"/>
+				<Setter TargetName="UseSlotBinding" Property="IsEnabled" Value="{Binding Tag.Spell.IsContainer, ElementName=ActionRadials, FallbackValue=False}"/>
+				<Setter TargetName="RadialActionErrorMessage" Property="Visibility" Value="Visible" />
+			</DataTrigger>
+
+			<!-- Spell modifiers -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Tag.Spell.SpellModifier, ElementName=ActionRadials, Converter={StaticResource NullToBoolFalseConverter}}" Value="True"/>
+					<Condition Binding="{Binding CurrentSingleHotbarFilter, Converter={StaticResource NullToBoolTrueConverter}, ConverterParameter='EmptyString'}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<!-- Ignore CanUse, since this is a fake container -->
+				<Setter TargetName="ActionButtonIcon" Property="Opacity" Value="1"/>
+				<Setter TargetName="ActionButtonDescription" Property="Opacity" Value="1"/>
+				<Setter TargetName="ActionButtonTooltipDescription" Property="Opacity" Value="1"/>
+				<Setter TargetName="UseSlotBinding" Property="IsEnabled" Value="True"/>
+				<Setter TargetName="RadialActionErrorMessage" Property="Visibility" Value="Collapsed" />
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding Path=ActualHeight, ElementName=SpellWarnings, Converter={StaticResource GreaterThanConverter}, ConverterParameter=50}" Value="True">
+				<Setter TargetName="RadialActionErrorMessage" Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Path=ActualHeight, ElementName=CapabilitiesErrors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=50}" Value="True">
+				<Setter TargetName="RadialActionErrorMessage" Property="Visibility" Value="Collapsed" />
+				<Setter TargetName="SpellWarnings" Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding SingleHotBar.SlotList.Count}" Value="0"/>
+					<Condition Binding="{Binding IsShowingItemsToThrow}" Value="False"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="CancelButton" Property="Command" Value="{Binding CustomEvent}"/>
+				<Setter TargetName="CancelButton" Property="CommandParameter" Value="CloseWidget"/>
+				<Setter TargetName="CancelButton" Property="Tag" Value="{Binding Source='h411fb88eg5261g437aga291g2fb260e633c6', Converter={StaticResource TranslatedStringConverter}}"/>
+			</MultiDataTrigger>
+
+			<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.IsShapeShifted}" Value="True">
+				<Setter TargetName="CancelButton" Property="Command" Value="{Binding CustomEvent}"/>
+				<Setter TargetName="CancelButton" Property="CommandParameter" Value="CloseWidget"/>
+				<Setter TargetName="CancelButton" Property="Tag" Value="{Binding Source='h411fb88eg5261g437aga291g2fb260e633c6', Converter={StaticResource TranslatedStringConverter}}"/>
+				<Setter TargetName="ShowContextMenu" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.CharacterType}" Value="Summon">
+				<Setter TargetName="CancelButton" Property="Command" Value="{Binding CustomEvent}"/>
+				<Setter TargetName="CancelButton" Property="CommandParameter" Value="CloseWidget"/>
+				<Setter TargetName="CancelButton" Property="Tag" Value="{Binding Source='h411fb88eg5261g437aga291g2fb260e633c6', Converter={StaticResource TranslatedStringConverter}}"/>
+
+				<Setter TargetName="ShowContextMenu" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding CurrentPlayer.SelectedCharacter.CharacterType}" Value="Follower">
+				<Setter TargetName="CancelButton" Property="Command" Value="{Binding CustomEvent}"/>
+				<Setter TargetName="CancelButton" Property="CommandParameter" Value="CloseWidget"/>
+				<Setter TargetName="CancelButton" Property="Tag" Value="{Binding Source='h411fb88eg5261g437aga291g2fb260e633c6', Converter={StaticResource TranslatedStringConverter}}"/>
+				<Setter TargetName="ShowContextMenu" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding InSwapSlotState}" Value="True">
+				<Setter TargetName="CancelButton" Property="Command" Value="{Binding UseSlotCommand}"/>
+				<Setter TargetName="CancelButton" Property="CommandParameter" Value="{x:Null}"/>
+				<Setter TargetName="CancelButton" Property="Tag" Value="{Binding Source='h01d5c470g61bfg498cgb17eg7be425444fa5', Converter={StaticResource TranslatedStringConverter}}"/>
+				<Setter TargetName="UseSlotBinding" Property="Command" Value="{x:Null}"/>
+				<Setter TargetName="UseSlotBinding" Property="EatInput" Value="False"/>
+				<Setter TargetName="ActionButton" Property="Visibility" Value="Hidden"/>
+				<Setter TargetName="SwapSlotHint" Property="Visibility" Value="Visible"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding IsShowingItemsToThrow}" Value="True">
+				<Setter TargetName="RadialTypeText" Property="Text" Value="{Binding Source='he2954eb6g6074g4b0ag90e9g8f14cc2ee21c', Converter={StaticResource TranslatedStringConverter}}"/>
+				<Setter TargetName="RadialTypeText" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ToWorldButton" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="singleBarHolder" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="MainHotbarListHolder" Property="Visibility" Value="Collapsed"/>
+				<Setter TargetName="ShowContextMenu" Property="Visibility" Value="Collapsed" />
+				<Setter TargetName="CancelConcentrationButton" Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding IsVisible, ElementName=ActionDetailsPanel}" Value="True">
+				<Setter TargetName="ToWorldButton" Property="Visibility" Value="Collapsed"/>
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Layout}" Value="Left">
+				<Setter TargetName="ButtonHintsContainer" Property="Style" Value="{StaticResource ButtonHint.Container.CenterWrap}"/>
+				<Setter TargetName="ButtonHintsContainer" Property="Margin" Value="200,1540,200,0" />
+				<Setter TargetName="ButtonHintsContainer" Property="Width" Value="Auto" />
+				<Setter TargetName="ButtonHintsContainer" Property="Height" Value="500" />
+				<Setter TargetName="ButtonHintsContainer" Property="HorizontalAlignment" Value="Center" />
+				<Setter TargetName="ButtonHintsContainer" Property="FlowDirection" Value="LeftToRight" />
+				<Setter TargetName="ButtonHintsContainer" Property="HorizontalContentAlignment" Value="Center" />
+				<Setter TargetName="ButtonHintsContainer" Property="VerticalAlignment" Value="Center" />
+				
+				<Setter TargetName="SelectButtonVisual" Property="Width" Value="Auto" />
+				<Setter TargetName="ShowContextMenu" Property="Width" Value="Auto" />
+				<Setter TargetName="ShowContextMenu" Property="HorizontalAlignment" Value="Center" />
+				<Setter TargetName="ShowContextMenu" Property="HorizontalContentAlignment" Value="Center" />
+				<Setter TargetName="CancelConcentrationButton" Property="Width" Value="Auto" />
+				<Setter TargetName="ToggleWeaponSet" Property="Width" Value="Auto" />
+				<Setter TargetName="ToggleDualWield" Property="Width" Value="Auto" />
+				<Setter TargetName="ControlNotifcations" Property="Margin" Value="0,0,0,190" />
+				<Setter TargetName="ToggleWeaponSet" Property="Margin" Value="0,0,20,0" />
+				<Setter TargetName="ToggleDualWield" Property="Margin" Value="0,0,0,0" />
+				<Setter TargetName="CancelConcentrationButton" Property="Margin" Value="0,0,0,0" />
+				<Setter TargetName="CancelButton" Property="Margin" Value="0,200,0,0" />
+				<Setter TargetName="CancelButton" Property="ContentTemplate" Value="{x:Null}" />
+				<Setter TargetName="CancelButton" Property="Content" Value="{x:Null}" />
+			</DataTrigger>
+
+			<DataTrigger Binding="{Binding Layout}" Value="Right">
+				<Setter TargetName="ButtonHintsContainer" Property="Style" Value="{StaticResource ButtonHint.Container.CenterWrap}"/>
+				<Setter TargetName="ButtonHintsContainer" Property="Margin" Value="200,1540,200,0" />
+				<Setter TargetName="ButtonHintsContainer" Property="Width" Value="Auto" />
+				<Setter TargetName="ButtonHintsContainer" Property="Height" Value="500" />
+				<Setter TargetName="ButtonHintsContainer" Property="HorizontalAlignment" Value="Center" />
+				<Setter TargetName="ButtonHintsContainer" Property="FlowDirection" Value="LeftToRight" />
+				<Setter TargetName="ButtonHintsContainer" Property="HorizontalContentAlignment" Value="Center" />
+				<Setter TargetName="ButtonHintsContainer" Property="VerticalAlignment" Value="Center" />
+
+				<Setter TargetName="SelectButtonVisual" Property="Width" Value="Auto" />
+				<Setter TargetName="ShowContextMenu" Property="Width" Value="Auto" />
+				<Setter TargetName="CancelConcentrationButton" Property="Width" Value="Auto" />
+				<Setter TargetName="ToggleWeaponSet" Property="Width" Value="Auto" />
+				<Setter TargetName="ToggleDualWield" Property="Width" Value="Auto" />
+
+				<Setter TargetName="ControlNotifcations" Property="Margin" Value="0,0,0,190" />
+				<Setter TargetName="ToggleWeaponSet" Property="Margin" Value="0,0,20,0" />
+				<Setter TargetName="ToggleDualWield" Property="Margin" Value="0,0,0,0" />
+				<Setter TargetName="CancelConcentrationButton" Property="Margin" Value="0,0,0,0" />
+				<Setter TargetName="CancelButton" Property="Margin" Value="0,200,0,0" />
+				<Setter TargetName="CancelButton" Property="ContentTemplate" Value="{x:Null}" />
+				<Setter TargetName="CancelButton" Property="Content" Value="{x:Null}" />
+				<Setter TargetName="uiHintContainer" Property="Margin" Value="1000,-110,0,0" />
+				<Setter TargetName="ActionDetailsPanel" Property="Padding" Value="240,12,240,12" />
+			</DataTrigger>
+
+			<!-- Position the button prompts to the left for player 2 merged split screen -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Layout}" Value="Common" />
+					<Condition Binding="{Binding CurrentPlayer.PlayerId}" Value="2"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ButtonHintsContainer" Property="Style" Value="{ StaticResource ButtonHint.Container.CenterWrap}"/>
+				<Setter TargetName="ButtonHintsContainer" Property="HorizontalAlignment" Value="Left"/>
+				<Setter TargetName="ButtonHintsContainer" Property="HorizontalContentAlignment" Value="Left"/>
+				<Setter TargetName="ButtonHintsContainer" Property="Width" Value="1000"/>
+				<Setter TargetName="ButtonHintsContainer" Property="FlowDirection" Value="LeftToRight" />
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Layout}" Value="Left"/>
+					<Condition Binding="{Binding Visibility, ElementName=ActionDetailsPanel}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ToggleWeaponSet" Property="Visibility" Value="Hidden" />
+				<Setter TargetName="ToggleWeaponSet" Property="IsEnabled" Value="False" />
+				<Setter TargetName="ToggleDualWield" Property="Visibility" Value="Hidden" />
+				<Setter TargetName="ToggleDualWield" Property="IsEnabled" Value="False" />
+				<Setter TargetName="CancelConcentrationButton" Property="Visibility" Value="Hidden" />
+				<Setter TargetName="CancelConcentrationButton" Property="IsEnabled" Value="False" />
+				<Setter TargetName="ActionDetailsPanel" Property="Padding" Value="240,12,240,12" />
+				<Setter TargetName="ShowContextMenu" Property="Opacity" Value="0" />
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Layout}" Value="Right"/>
+					<Condition Binding="{Binding Visibility, ElementName=ActionDetailsPanel}" Value="Visible"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ToggleWeaponSet" Property="Visibility" Value="Hidden" />
+				<Setter TargetName="ToggleWeaponSet" Property="IsEnabled" Value="False" />
+				<Setter TargetName="ToggleDualWield" Property="Visibility" Value="Hidden" />
+				<Setter TargetName="ToggleDualWield" Property="IsEnabled" Value="False" />
+				<Setter TargetName="CancelConcentrationButton" Property="Visibility" Value="Hidden" />
+				<Setter TargetName="CancelConcentrationButton" Property="IsEnabled" Value="False" />
+				<Setter TargetName="ShowContextMenu" Property="Opacity" Value="0" />
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Layout}" Value="Common"/>
+					<Condition Binding="{Binding Data.AspectRatio, Converter={StaticResource LessThanConverter}, ConverterParameter=0.75}" Value="True"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="SelectButtonVisual" Property="Visibility" Value="Visible" />
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+					<Condition Binding="{Binding Data.IsCameraSplit}" Value="False"/>
+					<Condition Binding="{Binding CurrentPlayer.PlayerId}" Value="1"/>
+					<Condition Binding="{Binding Data.LocalPlayers[1].UIData.ActiveState}" Value="PlayerPortraitsActive"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ButtonHintsContainer" Property="Opacity" Value="0" />
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+					<Condition Binding="{Binding Data.IsCameraSplit}" Value="False"/>
+					<Condition Binding="{Binding CurrentPlayer.PlayerId}" Value="2"/>
+					<Condition Binding="{Binding Data.LocalPlayers[0].UIData.ActiveState}" Value="PlayerPortraitsActive"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ButtonHintsContainer" Property="Opacity" Value="0" />
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+					<Condition Binding="{Binding Data.IsCameraSplit}" Value="False"/>
+					<Condition Binding="{Binding CurrentPlayer.PlayerId}" Value="1"/>
+					<Condition Binding="{Binding Data.LocalPlayers[1].UIData.ActiveState}" Value="ShortcutMenu"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ButtonHintsContainer" Property="Opacity" Value="0" />
+			</MultiDataTrigger>
+
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding Data.LocalPlayers.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=1}" Value="True"/>
+					<Condition Binding="{Binding Data.IsCameraSplit}" Value="False"/>
+					<Condition Binding="{Binding CurrentPlayer.PlayerId}" Value="2"/>
+					<Condition Binding="{Binding Data.LocalPlayers[0].UIData.ActiveState}" Value="ShortcutMenu"/>
+				</MultiDataTrigger.Conditions>
+				<Setter TargetName="ButtonHintsContainer" Property="Opacity" Value="0" />
+			</MultiDataTrigger>
+
+			<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+				<BeginStoryboard x:Name="WidgetFadeInAnim">
+					<Storyboard FillBehavior="Stop">
+						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"  Storyboard.TargetName="fadeInRadials">
+							<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+							<EasingDoubleKeyFrame KeyTime="0:0:0.12" Value="1"/>
+						</DoubleAnimationUsingKeyFrames>
+					</Storyboard>
+				</BeginStoryboard>
+			</EventTrigger>
+			<EventTrigger RoutedEvent="FrameworkElement.Unloaded">
+				<StopStoryboard BeginStoryboardName="WidgetFadeInAnim"/>
+			</EventTrigger>
+
+
+
+			<!-- Shortcuts -->
+			<DataTrigger Binding="{Binding Tag.Spell.ActionId, ElementName=ActionRadials}" Value="Jump">
+				<Setter TargetName="ShortcutText" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ShortcutText" Property="ls:AttachedProperties.InheritedTag" Value="[IE_Jump]"/>
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Tag.Spell.ActionId, ElementName=ActionRadials}" Value="Hide">
+				<Setter TargetName="ShortcutText" Property="Visibility" Value="Visible"/>
+				<Setter TargetName="ShortcutText" Property="ls:AttachedProperties.InheritedTag" Value="[IE_ToggleSneak]"/>
+				<Setter TargetName="ShortcutText" Property="Tag" Value="h643ff96cg564dg4b8cg892bga492460d06b0"/>
+			</DataTrigger>
+
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+</ResourceDictionary>
