@@ -224,6 +224,13 @@
         <ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
+        <!-- MOD START - Filter racial passives -->
+        <ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="RacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+        <!-- MOD END -->
+
         <ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
@@ -378,6 +385,9 @@
                                             <ListBoxItem x:Name="subClassTab" Tag="subclass" Visibility="Collapsed"/>
 
                                             <ListBoxItem x:Name="raceTab" Tag="race" Visibility="Collapsed"/>
+                                            <!-- MOD START -->
+                                            <ListBoxItem x:Name="subRaceTab" Tag="subrace" Visibility="Collapsed">
+                                            <!-- MOD END -->
 
                                             <ListBoxItem x:Name="deityTab" Tag="deity" Visibility="{Binding SelectableDeities.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 
@@ -640,6 +650,7 @@
                             </DataTrigger>
                             <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRacePassiveSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                                 <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="subRaceTab" Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                             <!-- MOD END -->
 
@@ -650,6 +661,7 @@
                             <!-- MOD START - Racial subrace spells in level up -->
                             <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                                 <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="subRaceTab" Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                             <!-- MOD END -->
 
@@ -658,6 +670,7 @@
                             </DataTrigger>
                             <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                                 <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="subRaceTab" Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding ProgressionData.RaceProgression.Other.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                                 <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
@@ -1370,7 +1383,6 @@ ConverterParameter=0}" Value="True"/>
                                                 <!-- MOD END -->
 
                                                 <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
-
                                                 <!-- MOD START - Racial subrace spells in level up -->
                                                 <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
                                                 <!-- MOD END -->
