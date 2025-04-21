@@ -12,13 +12,14 @@
     d:DesignHeight="2160" d:DesignWidth="3840"
     ls:UIWidget.ContextName="CharacterCreation">
 
-    <ls:UIWidget.Resources>
+    <!-- <ls:UIWidget.Resources>
         <ResourceDictionary>
-            <!-- <ResourceDictionary.MergedDictionaries>
+
+            <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Library/CCLib_k.xaml"/>
-            </ResourceDictionary.MergedDictionaries> -->
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </ls:UIWidget.Resources>
+    </ls:UIWidget.Resources> -->
 
     <b:Interaction.Behaviors>
 
@@ -214,7 +215,7 @@
                                 <Setter.Value>
                                     <ControlTemplate>
 
-                                        <StackPanel>
+                                        <StackPanel x:Name="racePanel">
                                             <Image Style="{StaticResource PanelHeaderIconStyle}"/>
                                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h6020727bge0e3g4de7gaf3ag469c3b32b3d2, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
@@ -222,7 +223,7 @@
                                             <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                                                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+                                                    <ListBox x:Name="raceListBox" ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
                                                         <ListBox.Resources>
                                                             <Style x:Key="CustomIconStyle" BasedOn="{StaticResource RaceIconStyle}" TargetType="Rectangle"/>
                                                         </ListBox.Resources>
@@ -274,7 +275,7 @@
                                             <ls:LSScrollViewer Grid.Row="2" Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
                                                 <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
 
-                                                    <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+                                                    <ListBox x:Name="subraceListBox" ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
                                                         <ListBox.Resources>
                                                             <Style x:Key="CustomIconStyle" BasedOn="{StaticResource RaceIconStyle}" TargetType="Rectangle"/>
                                                         </ListBox.Resources>
@@ -328,13 +329,13 @@
                             <Setter TargetName="gameplayPanel" Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
-                                        <StackPanel>
+                                        <StackPanel x:Name="backgroundPanel">
                                             <Image Source="{StaticResource IconClass}" Stretch="None" Margin="0,64,0,0"/>
                                             <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h1d2631e2g78fdg4de2gadceg1a724c2f7d9b, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource PanelHeaderText}"/>
 
                                             <!-- MOD NOTE - Two scroll viewers to support multiple background selection -->
                                             <ls:LSScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}" MaxHeight="770" Height="Auto" VerticalScrollBarVisibility="Auto">
-                                                <ListBox ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
+                                                <ListBox x:Name="backgroundListBox" ItemTemplate="{StaticResource CustomIconTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}" ItemContainerStyle="{StaticResource CCIconTextListBoxItemStyle}" Style="{StaticResource gameplayIconGridStyle}">
                                                     <ListBox.Resources>
                                                         <Style x:Key="CustomIconStyle" BasedOn="{StaticResource BackgroundIconStyle}" TargetType="Rectangle"/>
                                                     </ListBox.Resources>
