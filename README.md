@@ -5,10 +5,34 @@
 
 29/10/24 - I've been struggling to write this but something is better than nothing. I'm not going to continue modding for the time being. Feel free to reach out if you want to work on ImpUI or any other UI mods. I just can't maintain mods on top of everything.
 
-#### Description
+### Description
 This mod is aimed at making changes to the overall user interface to improve usability as well as opening options to more potential mods.
 
-#### Patch 7 Features
+### Patch 8 Restored
+#### Patch 8 Restored Features
+- Character Creation Stats menus 
+- Character Creation Level Up menus
+- Character Creation Respec menus
+- Character Creation icons for backgrounds
+
+#### Recommendation after Patch 8
+In general, all these steps can also be applied if a future patch or hotfix comes out; these are reflexes to have
+
+- PC: Don't use multiple mod managers to manage your mods, choose one and stick with it
+- PC: If you are using an external mod manager such as BG3MM, do not skip any updates to your mod manager or you risk having broken load orders and broken `modsettings.lsx` files
+- PC: Vortex mod manager is not recommanded
+- PC: Start fresh and delete `%AppData%\..\Local\Larian Studios\Baldur's Gate 3\PlayerProfiles\Public\modsettings.lsx`
+- PC: Delete the contents from folder `%AppData%\..\Local\Larian Studios\Baldur's Gate 3\LevelCache`
+- PC: Delete all your mods from folder `%AppData%\..\Local\Larian Studios\Baldur's Gate 3\Mods`
+- PC: Delete all your mods from folder `%AppData%\..\Local\Larian Studios\Baldur's Gate 3\Local Mods`
+- PC: Don't forget to enable & deploy your new mod list, it should create a new `modsettings.lsx`
+- All Platforms: When a new update drop for Baldur's Gate 3, it's cleaner to re-download the game from scratch (because sometimes, when the game is updated, it keeps old update files from old version of the game and this makes the game unstable)
+- All Platforms: It seems that ImpUI for Patch 8 works better at the bottom of the load order for some people
+- All Platforms: Do not use old saves from before patch 8, more specifically modded saves, start with a fresh new playthrough once you have reinstalled ImpUI and your mods for Patch 8
+- All Platforms: Do not use UI mods that have not been updated for Patch 8 in addition to ImpUI
+- All Platforms: Do not update your mods in the middle of a playthrough
+
+### Patch 7 Features
 #### Player Features
 - Character Creation Layout tweaks: Redesigned Origin layout (the first screen you see when entering CC).
 - Character Creation Layout tweaks: Adds full Facial Hair Colour selection.
@@ -29,7 +53,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Support for 4 different icon types - Keyboard icon, Keyboard CC/lvlup, Controller front icon, Controller resource icon. (BETA)
 - Amended action resource functionality to make inserting custom action resources easier. QOL such as 10+ resources automatically convert to a number instead of resources.
 
-#### Patch 6 Features only!
+### Patch 6 Features only!
 #### Player Features
 - Prevents annoying story error message box appearing when using mods
 <p float="left" align="middle">
@@ -65,18 +89,10 @@ This mod is aimed at making changes to the overall user interface to improve usa
 - Supports modded background icons (instead of a square block). (Credit: NellsRelo)
 - Supports modded deity icons (instead of a square block). (Credit: Lostsoul)
 
-#### Showcase - new video soon
-
-#### Installing (Patch 7)
-Place ImpUI.pak under "%LocalAppData%\Larian Studios\Baldur's Gate 3\Mods" - enable via the in-game mod manager
-
-#### Supported Mods (Patch 7)
-Warning - We are still working out the kinks for modding the UI in the new Patch 7 process to prevent conflicts between mods. Expect there to be issues when running multiple UI mods in tandem.
-
-#### Discord
+### Discord
 Feel free to join the [Larian Discord](https://discord.com/invite/larianstudios) server and discuss in the BG3 Modding Channels
 
-#### Attribution
+### Attribution
 - [Baldur's Gate 3](https://store.steampowered.com/app/1086940/Baldurs_Gate_3/), a game by [Larian Studios](http://larian.com/)
 - Initial readme file generously donated by Zerd; check out their project here, [DnD Rebalancing](https://github.com/ZerdBG3/DnD-Rebalancing/)  
 
