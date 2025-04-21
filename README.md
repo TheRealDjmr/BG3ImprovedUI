@@ -27,7 +27,7 @@ In general, all these steps can also be applied if a future patch or hotfix come
 - PC: Delete all your mods from folder `%AppData%\..\Local\Larian Studios\Baldur's Gate 3\Local Mods`
 - PC: Don't forget to enable & deploy your new mod list, it should create a new `modsettings.lsx`
 - All Platforms: When a new update drop for Baldur's Gate 3, it's cleaner to re-download the game from scratch (because sometimes, when the game is updated, it keeps old update files from old version of the game and this makes the game unstable)
-- All Platforms: It seems that ImpUI for Patch 8 works better at the bottom of the load order for some people
+- All Platforms: It seems that ImpUI for Patch 8 works better for some people at the bottom of the load order, but it is not recommanded, ImpUI should be one of the first mod in your load order
 - All Platforms: Do not use old saves from before patch 8, more specifically modded saves, start with a fresh new playthrough once you have reinstalled ImpUI and your mods for Patch 8
 - All Platforms: Do not use UI mods that have not been updated for Patch 8 in addition to ImpUI
 - All Platforms: Do not update your mods in the middle of a playthrough
