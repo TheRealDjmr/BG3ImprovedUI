@@ -6,19 +6,61 @@
 
         <!--STATE: CharacterCreation -->
         <ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
-            <!-- <ls:State.Widgets>
+            <ls:State.Widgets>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
-                <ls:StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="CharacterCreation_patch8.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
-            </ls:State.Widgets> -->
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPinnedTooltips">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PinnedTooltips"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "GE.OnDialogueShow">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Dialogue"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "PreloadDialogue">
+                    <ls:StateEvent.Actions>
+                        <ls:PreloadState Name="Dialogue"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "OpenCharacterCreation">
+                </ls:StateEvent>
+            </ls:State.Events>
         </ls:State>
 
         <!--STATE: CharacterLevelUp -->
         <ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
-                <ls:StateWidget Filename="CharacterLevelUp8.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="CharacterLevelUp_patch8.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
             </ls:State.Widgets>
 
@@ -63,7 +105,7 @@
             <ls:State.Widgets>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
-                <ls:StateWidget Filename="CharacterRespec8.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="CharacterRespec_patch8.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
             </ls:State.Widgets>
 

@@ -3,21 +3,64 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ls:StateMachine.States>
+
         <!--STATE: CharacterCreation -->
         <ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
-            <!-- <ls:State.Widgets>
+            <ls:State.Widgets>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
-                <ls:StateWidget Filename="CharacterCreation_c.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="CharacterCreation_c_patch8.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
-            </ls:State.Widgets> -->
+            </ls:State.Widgets>
+
+            <ls:State.Events>
+                <ls:StateEvent Name = "CloseWidget">
+                    <ls:StateEvent.Actions>
+                        <ls:RemoveState/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "ToggleGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "IE.ToggleInGameMenu">
+                    <ls:StateEvent.Actions>
+                        <ls:PushState Name="Paused"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenMessageBox">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="MessageBox"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "OpenPinnedTooltips">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="PinnedTooltips"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "GE.OnDialogueShow">
+                    <ls:StateEvent.Actions>
+                        <ls:AddSubstate Name="Dialogue"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+                <ls:StateEvent Name = "PreloadDialogue">
+                    <ls:StateEvent.Actions>
+                        <ls:PreloadState Name="Dialogue"/>
+                    </ls:StateEvent.Actions>
+                </ls:StateEvent>
+
+                <ls:StateEvent Name = "OpenCharacterCreation">
+                </ls:StateEvent>
+            </ls:State.Events>
         </ls:State>
 
         <!--STATE: CharacterLevelUp -->
         <ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" ForceSplitscreen="True" Layout = "Player" Owner = "Player">
             <ls:State.Widgets>
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
-                <ls:StateWidget Filename="CharacterLevelUp8_c.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="CharacterLevelUp_c_patch8.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
             </ls:State.Widgets>
 
@@ -38,7 +81,6 @@
                         <ls:AddSubstate Name="PinnedTooltips"/>
                     </ls:StateEvent.Actions>
                 </ls:StateEvent>
-                <!--HandlesEvent="False" let's the CloseWidget event to keep going up the state tree. Be *VERY* careful when using it, it's a last resort-->
                 <ls:StateEvent Name = "CloseWidget" HandlesEvent="False">
                     <ls:StateEvent.Actions>
                         <ls:RemoveState/>
@@ -52,7 +94,7 @@
             <ls:State.Widgets>
                 <ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
                 <ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
-                <ls:StateWidget Filename="CharacterRespec8_c.xaml" Layer="HUD"/>
+                <ls:StateWidget Filename="CharacterRespec_c_patch8.xaml" Layer="HUD"/>
                 <ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
             </ls:State.Widgets>
 
