@@ -15,6 +15,10 @@
     <ls:UIWidget.Resources>
         <ResourceDictionary>
 
+            <!-- <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Library/CCLib_c.xaml"/>
+            </ResourceDictionary.MergedDictionaries> -->
+
             <ControlTemplate x:Key="skillsSelectionTemplate">
                 <DockPanel Height="{StaticResource gameplayPanelHeight}">
                     <b:Interaction.Triggers>
@@ -243,6 +247,13 @@
         <ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
+        <!-- MOD START - Racial passive selection -->
+        <ls:CollectionFilterBehavior x:Name="RacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRacePassiveFeatures" ItemsSource="{Binding RacePassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="RacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+        <!-- MOD END -->
+
         <ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>
 
@@ -313,12 +324,22 @@
                                             </Style>
                                         </ListBox.ItemContainerStyle>
 
+                                        <!-- MOD START - Race tab at respec -->
+                                        <ListBoxItem x:Name="raceTab" Tag="race"/>
+                                        <ListBoxItem x:Name="subRaceTab" Tag="subrace" IsEnabled="{Binding SelectableSubRaces.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}"/>
+                                        <!-- MOD END -->
+
                                         <ListBoxItem x:Name="classTab" Tag="class" IsSelected="True"/>
                                         <ListBoxItem x:Name="subClassTab" Tag="subclass" Visibility="{Binding SelectableSubClasses.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
 
                                         <ListBoxItem x:Name="deityTab" Tag="deity" Visibility="{Binding SelectableDeities.Count, Converter={StaticResource CountToVisibilityConverter}}"/>
                                         <ListBoxItem x:Name="draconicTab" Tag="draconic" Visibility="Collapsed"/>
                                         <ListBoxItem x:Name="draconicDragonbornTab" Tag="draconicDragonborn" Visibility="Collapsed"/>
+
+                                        <!-- MOD START - Background tab at respec -->
+                                        <ListBoxItem x:Name="backgroundTab" Tag="background"/>
+                                        <!-- MOD END -->
+
                                         <ListBoxItem x:Name="abilityTab" Tag="ability"/>
                                         <ListBoxItem x:Name="skillsTab" Tag="skills" Visibility="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
                                         <ListBoxItem x:Name="expertiseTab" Tag="expertise" Visibility="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource CountToVisibilityConverter}}"/>
@@ -468,6 +489,132 @@
                         <!--
                         Gameplay Panel Content 
                         -->
+                        <!-- MOD START - Racial passives on respec -->
+                        <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="race">
+                            <Setter TargetName="gameplayPanel" Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <DockPanel>
+                                            <b:Interaction.Triggers>
+                                                <b:EventTrigger EventName="Loaded">
+                                                    <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
+                                                </b:EventTrigger>
+                                            </b:Interaction.Triggers>
+
+                                            <Control Template="{StaticResource setGameplayCameraOffsets}"/>
+
+                                            <StackPanel x:Name="raceCarouselAndDescription" Orientation="Horizontal" DockPanel.Dock="Top">
+
+                                                <ListBox x:Name="raceCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableRaces}" SelectedItem="{Binding SelectedRace}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Rectangle x:Name="raceIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource RaceIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}" Opacity="1"/>
+                                                            <DataTemplate.Triggers>
+                                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+                                                                    <Setter TargetName="raceIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                                                    <Setter TargetName="raceIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                                                    <Setter TargetName="raceIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+                                                                    <Setter TargetName="raceIcon" Property="Opacity" Value="0.8"/>
+                                                                </DataTrigger>
+                                                            </DataTemplate.Triggers>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+
+                                                <ContentControl Template="{StaticResource PanelSideDescription}" VerticalAlignment="Top" Margin="-50,90,0,0">
+                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding InfoRaceDescription}" Style="{StaticResource CarouselSideDescriptionText}"/>
+                                                </ContentControl>
+
+                                            </StackPanel>
+
+                                            <Control Template="{StaticResource featuresGainedSubHeader}" HorizontalAlignment="Left" DockPanel.Dock="Top"/>
+
+                                            <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+                                                <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                                    <!-- MOD NOTE - Racial passive selection -->
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=RacePassiveSelectors}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                                    <Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.RaceProgression}" HorizontalAlignment="Center"/>
+
+                                                </StackPanel>
+
+                                            </ScrollViewer>
+
+                                        </DockPanel>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="subrace">
+                            <Setter TargetName="gameplayPanel" Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <DockPanel>
+                                            <b:Interaction.Triggers>
+                                                <b:EventTrigger EventName="Loaded">
+                                                    <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
+                                                </b:EventTrigger>
+                                            </b:Interaction.Triggers>
+
+                                            <Control Template="{StaticResource setGameplayCameraOffsets}"/>
+
+                                            <StackPanel x:Name="subraceCarouselAndDescription" Orientation="Horizontal" DockPanel.Dock="Top">
+
+                                                <ListBox x:Name="subraceCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableSubRaces}" SelectedItem="{Binding SelectedSubRace}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Rectangle x:Name="raceIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource RaceIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
+                                                            <DataTemplate.Triggers>
+                                                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+                                                                    <Setter TargetName="raceIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                                                    <Setter TargetName="raceIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                                                    <Setter TargetName="raceIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+                                                                    <Setter TargetName="raceIcon" Property="Opacity" Value="0.8"/>
+                                                                </DataTrigger>
+                                                            </DataTemplate.Triggers>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+
+                                                <ContentControl Template="{StaticResource PanelSideDescription}" VerticalAlignment="Top" Margin="-50,90,0,0">
+                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.Race.Description}" Style="{StaticResource CarouselSideDescriptionText}"/>
+                                                </ContentControl>
+
+                                            </StackPanel>
+
+                                            <Control Template="{StaticResource featuresGainedSubHeader}" HorizontalAlignment="Left" DockPanel.Dock="Top"/>
+
+                                            <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+                                                <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource progressionSpellSelectors}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                                    <!-- MOD NOTE - Racial passive selection -->
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveFeatures}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveFeatures, Converter={StaticResource CountToVisibilityConverter}}"/>
+                                                    <ItemsControl ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveSelectors}" ItemTemplate="{StaticResource progressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}"/>
+
+                                                    <Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.SubRaceProgression}" HorizontalAlignment="Center"/>
+
+                                                </StackPanel>
+                                            </ScrollViewer>
+
+                                        </DockPanel>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <!-- MOD END -->
+
                         <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="class">
                             <Setter TargetName="gameplayPanel" Property="Template">
                                 <Setter.Value>
@@ -603,6 +750,56 @@
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>
+
+                        <!-- MOD START - Background in respec -->
+                        <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="background">
+                            <Setter TargetName="gameplayPanel" Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <StackPanel>
+                                            <b:Interaction.Triggers>
+                                                <b:EventTrigger EventName="Loaded">
+                                                    <ls:SetMoveFocusAction TargetName="CharacterCreation_c"/>
+                                                </b:EventTrigger>
+                                            </b:Interaction.Triggers>
+
+                                            <Control Template="{StaticResource setGameplayCameraOffsets}"/>
+
+                                            <ListBox x:Name="backgroundCarousel" Template="{StaticResource AnimatedIconCarouselTemplate}" ItemsSource="{Binding SelectableBackgrounds}" SelectedItem="{Binding SelectedBackground}">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Rectangle x:Name="backgroundIcon" Fill="{StaticResource CCIconSelectedPad}" Style="{StaticResource BackgroundIconStyle}" Width="{StaticResource SelectedCarouselIconSize}" Height="{StaticResource SelectedCarouselIconSize}"/>
+                                                        <DataTemplate.Triggers>
+                                                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}}" Value="False">
+                                                                <Setter TargetName="backgroundIcon" Property="Width" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                                                <Setter TargetName="backgroundIcon" Property="Height" Value="{StaticResource UnselectedCarouselIconSize}"/>
+                                                                <Setter TargetName="backgroundIcon" Property="Fill" Value="{StaticResource CCIconDefault}"/>
+                                                                <Setter TargetName="backgroundIcon" Property="Opacity" Value="0.8"/>
+                                                            </DataTrigger>
+                                                        </DataTemplate.Triggers>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+
+                                            <ScrollViewer Style="{StaticResource gameplayPanelScrollViewerStyle}">
+                                                <StackPanel Style="{StaticResource gameplayScrolledStackPanelStyle}">
+
+                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding DummyCharacter.Stats.BackgroundDescription}" Style="{StaticResource PanelDescriptionText}" Margin="0,30,0,0"/>
+
+                                                    <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source='h230f60c6g161fg481bgbe52g42bc264618dd', Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource FeatureListHeaderText}"/>
+
+                                                    <Control Template="{StaticResource progressionFeaturesList}" DataContext="{Binding ProgressionData.BackgroundProgression}" HorizontalAlignment="Center"/>
+
+                                                </StackPanel>
+                                            </ScrollViewer>
+
+                                        </StackPanel>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <!-- MOD END -->
 
                         <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="ability">
                             <Setter TargetName="gameplayPanel" Property="Template">

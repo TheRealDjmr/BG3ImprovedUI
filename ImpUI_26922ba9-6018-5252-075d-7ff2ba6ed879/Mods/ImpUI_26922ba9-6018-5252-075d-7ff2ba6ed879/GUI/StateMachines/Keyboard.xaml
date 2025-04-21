@@ -3,6 +3,35 @@
 				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<ls:StateMachine.States>
+		<!--STATE: CharacterCreation -->
+		<ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="Notification.xaml" Layer="Default"/> - Has to be included in the mod, even though we're making no changes
+				<ls:StateWidget Filename="CharacterCreation.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!--STATE: CharacterLevelUp -->
+		<ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
+				<ls:StateWidget Filename="CharacterLevelUp.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!--STATE: CharacterRespec -->
+		<ls:State Name = "CharacterRespec" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="Notification.xaml" Layer="Default"/>
+				<ls:StateWidget Filename="CharacterRespec.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+		
 		<!--STATE: PlayerHUD -->
 		<!-- MOD START - Split into different substates for better mod support -->
 		<ls:State Name = "PlayerHUD" Layout = "Player" Owner = "Player" ModType="Override">

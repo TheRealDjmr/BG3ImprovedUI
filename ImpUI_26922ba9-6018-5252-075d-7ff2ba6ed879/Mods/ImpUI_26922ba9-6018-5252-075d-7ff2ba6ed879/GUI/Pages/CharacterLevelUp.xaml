@@ -16,6 +16,10 @@
     <ls:UIWidget.Resources>
         <ResourceDictionary>
 
+            <!-- <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Library/CCLib_k.xaml"/>
+            </ResourceDictionary.MergedDictionaries> -->
+
             <DataTemplate x:Key="HPTooltipTooltip">
                 <TextBlock ls:TextBlockFormatter.SourceText="{Binding Source=h5702bcfbg5b6bg4c6cga370gbabede69cf41, Converter={StaticResource TranslatedStringConverter}}" Style="{StaticResource TooltipBaseTextStyle}"/>
             </DataTemplate>
@@ -448,6 +452,23 @@
                     <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                         <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
                     </DataTrigger>
+                    <!-- MOD START - Race tab should also be enabled on LevelUp if there are (sub)race selections available -->
+                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=RaceEquipments, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRaceEquipments, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=RacePassiveSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRacePassiveSelectors, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <!-- MOD END -->
                     <DataTrigger Binding="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                         <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
                     </DataTrigger>
@@ -468,6 +489,8 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding ProgressionData.RaceProgression.Skills.Count, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                         <Setter TargetName="raceTab" Property="Visibility" Value="Visible"/>
+                        <!-- MOD START - edit skills when given by proficiency and expertise -->
+                        <Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
                     </DataTrigger>
 
                     <!-- Subclass has a selection -->
@@ -484,6 +507,14 @@
                     <DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
                         <Setter TargetName="abilityTab" Property="Visibility" Value="Visible"/>
                     </DataTrigger>
+
+                    <!-- Only show a separate Ability Tab when starting a new multiclass -->
+                    <!--
+                    <DataTrigger Binding="{Binding SelectedMultiClass.Level, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="abilityTab" Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                    -->
+                    <!-- MOD END -->
 
                     <!--
                 Gameplay Panel Content
@@ -1022,6 +1053,19 @@ ConverterParameter=0}" Value="True"/>
                                         <DataTrigger Binding="{Binding ActualHeight, ElementName=featureSpells}" Value="0">
                                             <Setter TargetName="featureSpells" Property="Visibility" Value="Hidden"/>
                                         </DataTrigger>
+
+                                        <!-- MOD START - edit skills when given by proficiency and expertise -->
+                                        <DataTrigger Binding="{Binding AllSkills.RaceProficientSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                                            <Setter TargetName="featureSkills" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding AllSkills.ClassProficientSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                                            <Setter TargetName="featureSkills" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding AllSkills.ExpertiseSkills.MaxSelectedSkillCount, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                                            <Setter TargetName="featureSkills" Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <!-- MOD END -->
+
                                         <DataTrigger Binding="{Binding ActualHeight, ElementName=subClassFeatureSpells}" Value="0">
                                             <Setter TargetName="subClassFeatureSpells" Property="Visibility" Value="Hidden"/>
                                         </DataTrigger>
@@ -1056,7 +1100,21 @@ ConverterParameter=0}" Value="True"/>
 
                                         <ItemsControl x:Name="raceFeatureSpells" ItemsSource="{Binding FilteredItems, ElementName=RaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceProgressions, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
 
+                                        <!-- MOD START - Race tab shows preview of spell choice on level up if available (race granted) -->
+                                        <ItemsControl x:Name="raceSpellSelectors" ItemsSource="{Binding FilteredItems, ElementName=RaceSpellSelectors}" ItemTemplate="{StaticResource LevelUpSpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
+                                        <!-- MOD END -->
+
                                         <ItemsControl x:Name="subRaceFeatureSpells" ItemsSource="{Binding FilteredItems, ElementName=SubRaceProgressions}" ItemTemplate="{StaticResource ProgressionSpellsTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceProgressions, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
+
+                                        <!-- MOD START - Race tab shows preview of spell choice on level up if available (subrace granted) -->
+                                        <ItemsControl x:Name="subRaceSpellSelectors" ItemsSource="{Binding FilteredItems, ElementName=SubRaceSpellSelectors}" ItemTemplate="{StaticResource LevelUpSpellSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRaceSpellSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
+                                        <!-- MOD END -->
+
+                                        <!-- MOD START - Race tab shows preview of racial passive if available -->
+                                        <ItemsControl x:Name="racePassiveSelectors" ItemsSource="{Binding FilteredItems, ElementName=RacePassiveSelectors}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=RacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
+
+                                        <ItemsControl x:Name="subRacePassiveSelectors" ItemsSource="{Binding FilteredItems, ElementName=SubRacePassiveSelectors}" ItemTemplate="{StaticResource LevelUpPassiveSelectorPreviewTemplate}" Visibility="{Binding FilteredItems.Count, ElementName=SubRacePassiveSelectors, Converter={StaticResource CountToVisibilityConverter}}" Margin="0,0,0,20"/>
+                                        <!-- MOD END -->
 
                                         <ContentControl Template="{DynamicResource LevelUpShowFeaturesTemplate}" DataContext="{Binding ProgressionData.RaceProgression.Other}" Content="{Binding Source='hd0d992ebg43f8g429bgbf11g0cbf54d84d4e', Converter={StaticResource TranslatedStringConverter}}" Visibility="{Binding Count, Converter={StaticResource CountToVisibilityConverter}}" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
@@ -1385,6 +1443,13 @@ ConverterParameter=0}" Value="True"/>
         <ls:CollectionFilterBehavior x:Name="SubRaceSpellSelectors" ItemsSource="{Binding RaceProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="ClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassSpellSelectors" ItemsSource="{Binding ClassProgressionDetails.SpellSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
+
+        <!-- MOD START - Filter racial passives and racial equipment -->
+        <ls:CollectionFilterBehavior x:Name="RacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.NotSubPassiveSelectors}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRacePassiveSelectors" ItemsSource="{Binding RaceProgressionDetails.SubPassiveSelectors}"/>
+        <ls:CollectionFilterBehavior x:Name="RaceEquipments" ItemsSource="{Binding RaceProgressionDetails.NotSubEquipmentSelectors}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
+        <ls:CollectionFilterBehavior x:Name="SubRaceEquipments" ItemsSource="{Binding RaceProgressionDetails.SubEquipmentSelectors}" Predicate="{Binding IsSubProgressionPredicate}"/>
+        <!-- MOD END -->
 
         <ls:CollectionFilterBehavior x:Name="ClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsNotSubProgressionPredicate}"/>
         <ls:CollectionFilterBehavior x:Name="SubClassPassiveFeatures" ItemsSource="{Binding PassiveFeatures}" Predicate="{Binding IsSubProgressionPredicate}"/>

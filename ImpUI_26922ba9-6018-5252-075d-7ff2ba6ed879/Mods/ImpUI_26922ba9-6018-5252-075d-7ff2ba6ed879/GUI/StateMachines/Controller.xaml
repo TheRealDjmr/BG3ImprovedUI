@@ -3,6 +3,35 @@
 				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<ls:StateMachine.States>
+		<!--STATE: CharacterCreation -->
+		<ls:State Name = "CharacterCreation" HideStatesBelow = "True" DisableStatesBelow = "True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/> - Has to be included in the mod, even though we're making no changes
+				<ls:StateWidget Filename="CharacterCreation_c.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!--STATE: CharacterLevelUp -->
+		<ls:State Name = "CharacterLevelUp" HideStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" ForceSplitscreen="True" Layout = "Player" Owner = "Player">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
+				<ls:StateWidget Filename="CharacterLevelUp_c.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
+		<!--STATE: CharacterRespec -->
+		<ls:State Name = "CharacterRespec" HideStatesBelow = "True" DisableStatesBelow = "True" IsModal="True" IsModalCameraControlAllowed="True" Layout = "Player" Owner = "Player" ForceSplitscreen="True">
+			<!--<ls:State.Widgets>
+				<ls:StateWidget Filename="AlwaysOnTopOverlay.xaml" Layer="MessageBox"/>
+				<ls:StateWidget Filename="Notification_c.xaml" Layer="Notifications"/>
+				<ls:StateWidget Filename="CharacterRespec_c.xaml" Layer="HUD"/>
+				<ls:StateWidget Filename="ScreenFade.xaml" Layer="ScreenFade" BlockedLoading="True"/>
+			</ls:State.Widgets>-->
+		</ls:State>
+
 		<!-- MOD START - Split into different substates for better mod support -->
 		<!--STATE: PlayerHUD-->
 		<ls:State Name = "PlayerHUD" Layout = "Adaptive" Owner = "Player" ModType="Override">

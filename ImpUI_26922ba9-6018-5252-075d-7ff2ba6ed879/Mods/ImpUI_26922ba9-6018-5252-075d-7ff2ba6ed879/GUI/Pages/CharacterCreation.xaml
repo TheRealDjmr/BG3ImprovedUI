@@ -16,6 +16,10 @@
     <ls:UIWidget.Resources>
         <ResourceDictionary>
 
+            <!-- <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Library/CCLib_k.xaml"/>
+            </ResourceDictionary.MergedDictionaries> -->
+
             <!-- Message box to ensure user wants to activate tutorials -->
             <ls:LSMessageBoxData x:Key="MessageBoxTutorialsCheck"
                                  Text="{Binding Source='h86f06e64g4588g4798gb828gf6e0268122af', Converter={StaticResource TranslatedStringConverter}}"
@@ -266,6 +270,15 @@
                                         <BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_origin_h.png"/>
                                     </ListBoxItem.Resources>
                                 </ListBoxItem>
+                            
+                                <!-- MOD START - Add feat selection into CC -->
+                                <ListBoxItem x:Name="featTab" Tag="feat" Visibility="{Binding CanSelectFeat, Converter={StaticResource BoolToVisibleConverter} }">
+                                <ListBoxItem.Resources>
+                                    <BitmapImage x:Key="tabIcon" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_origin.png"/>
+                                    <BitmapImage x:Key="tabIconHover" UriSource="pack://application:,,,/Core;component/Assets/CC/ico_origin_h.png"/>
+                                </ListBoxItem.Resources>
+                                </ListBoxItem> 
+                                <!-- MOD END -->
 
                                 <ListBoxItem x:Name="abilityTab" Tag="ability">
                                     <ListBoxItem.Resources>
@@ -599,6 +612,12 @@
                         <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="deity">
                             <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource deityTabPanelTemplate}"/>
                         </DataTrigger>
+
+                        <!-- MOD START - Add feat selection into CC -->
+                        <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="feat">
+                            <Setter TargetName="gameplayPanel" Property="Template" Value="{StaticResource featsPanel}"/>
+                        </DataTrigger>
+                        <!-- MOD END -->
 
                         <DataTrigger Binding="{Binding ElementName=gameplayTabs, Path=SelectedItem.Tag}" Value="background">
 
