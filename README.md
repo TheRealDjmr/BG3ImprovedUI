@@ -10,7 +10,7 @@ This mod is aimed at making changes to the overall user interface to improve usa
 
 ### Patch 8 Restored
 #### Patch 8 Restored Features
-- Character Creation Stats menus 
+- Character Creation menus 
 - Character Creation Level Up menus
 - Character Creation Respec menus
 - Character Creation icons for backgrounds
