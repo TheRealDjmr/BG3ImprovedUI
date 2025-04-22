@@ -1,0 +1,45 @@
+<ls:UIWidget x:Name="AlwaysOnTopOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:ls="clr-namespace:ls;assembly=Code"
+             xmlns:noesis="clr-namespace:NoesisGUIExtensions;assembly=Noesis.GUI.Extensions"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             d:DesignHeight="2160" d:DesignWidth="3840"
+             d:DataContext="{d:DesignInstance {x:Type ls:Widget}, IsDesignTimeCreatable=True}">
+
+    <ls:UIWidget.Template>
+        <ControlTemplate>
+            <Grid IsHitTestVisible="False">
+                <!-- Save / Cross-save in progress -->
+                <StackPanel x:Name="SavingPanel" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="False" Visibility="Collapsed" Margin="{StaticResource SavingElementMargin}">
+                    <Control Template="{StaticResource BusyElement}"/>
+                    <ls:LSNineSliceImage VerticalAlignment="Center" HorizontalAlignment="Left" Slices="24, 12" Padding="24,0" Margin="-24,0,0,0" ImageSource="pack://application:,,,/Core;component/Assets/Shared/spinnerTextBG.png">
+                        <TextBlock x:Name="SavingText" FontSize="{StaticResource ScaledLargeFontSize}" Foreground="{StaticResource LS_extraspecialTxtColor}"/>
+                    </ls:LSNineSliceImage>
+                </StackPanel>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.PendingCloudSaveFiles, Converter={StaticResource GreaterThanConverter}, ConverterParameter=0}" Value="True">
+                    <Setter TargetName="SavingText" Property="Text">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource ParameterizedTranslatedStringConverter}">
+                                <Binding Source="h5469055egd3e6g422bga6d5gc1ee14a2c165"/>
+                                <Binding Path="CurrentPlayer.UIData.PendingCloudSaveFiles"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="SavingPanel" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentPlayer.UIData.PlatformSaveInProgress}" Value="True">
+                    <Setter TargetName="SavingText" Property="Text" Value="{Binding Source='hc75cb765g7f08g4fc5g819agbb37c467518d',Converter={StaticResource TranslatedStringConverter}}"/>
+                    <Setter TargetName="SavingText" Property="Foreground" Value="{StaticResource LS_specialTxtColor}"/>
+                    <Setter TargetName="SavingPanel" Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </ls:UIWidget.Template>
+</ls:UIWidget>
